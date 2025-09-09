@@ -196,6 +196,10 @@ async def main():
             or n.startswith("qwen/")
         )
 
+    def is_bedrock_model(name: str) -> bool:
+        n = (name or "").lower()
+        return "amazon" in n
+
     extra = {"user": os.getenv("EVAL_USER", "eval-runner")}
     llm = None
 
@@ -205,6 +209,28 @@ async def main():
             raise EnvironmentError("GOOGLE_API_KEY is required for Google models")
         # Google service handles its own adapter and can upgrade OpenAI context under the hood
         llm = GoogleLLMService(api_key=api_key, model=model_name)
+        llm.register_function(None, function_catchall)
+    elif is_bedrock_model(model_name):
+        try:
+            # Import lazily to avoid requiring AWS deps for non-Bedrock runs
+            from pipecat.services.aws.llm import AWSBedrockLLMService  # type: ignore
+        except Exception as e:  # pragma: no cover - surfaced at runtime only
+            raise RuntimeError(
+                "Amazon Bedrock support requires installing 'pipecat-ai[aws]'."
+            ) from e
+        aws_access_key_id = os.getenv("AWS_ACCESS_KEY_ID")
+        aws_secret_access_key = os.getenv("AWS_SECRET_ACCESS_KEY")
+        aws_region = os.getenv("AWS_REGION")
+        if not (aws_access_key_id and aws_secret_access_key and aws_region):
+            raise EnvironmentError(
+                "AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, and AWS_REGION are required for Amazon Bedrock models"
+            )
+        llm = AWSBedrockLLMService(
+            aws_access_key_id=aws_access_key_id,
+            aws_secret_access_key=aws_secret_access_key,
+            aws_region=aws_region,
+            model=model_name,
+        )
         llm.register_function(None, function_catchall)
     elif is_openrouter_model(model_name):
         api_key = os.getenv("OPENROUTER_API_KEY")

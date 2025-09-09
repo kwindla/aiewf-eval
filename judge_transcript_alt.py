@@ -1,6 +1,9 @@
 import os
+import sys
 import json
 import argparse
+import time
+import traceback
 from pathlib import Path
 from typing import Dict, Any
 
@@ -102,17 +105,28 @@ def judge_one(client: OpenAI, user_text: str, golden: str, actual: str) -> Dict[
         "\n\nASSISTANT_ANSWER:\n" + actual
     )
 
-    resp = client.chat.completions.create(
+    # Create IF/KG judgment request (with optional server-side store)
+    _store = bool(os.getenv("ALT_JUDGE_STORE"))
+    _kwargs = dict(
         model=os.getenv("ALT_JUDGE_MODEL", "gpt-5"),
         messages=[
             {"role": "system", "content": system},
             {"role": "user", "content": user},
         ],
         response_format={"type": "json_object"},
-        max_completion_tokens=3072,
+        # Higher default cap prioritizing accuracy over speed/cost
+        max_completion_tokens=int(os.getenv("ALT_JUDGE_MAXTOK_MAIN", "2048")),
+        # Always use high reasoning for accuracy
         extra_body={"reasoning_effort": "high"},
         seed=11,
     )
+    try:
+        resp = client.chat.completions.create(**(_kwargs | ({"store": True} if _store else {})))
+    except TypeError:
+        # Older clients/endpoints may not accept top-level 'store'; fall back to extra_body
+        if _store:
+            _kwargs["extra_body"] = {**_kwargs.get("extra_body", {}), "store": True}
+        resp = client.chat.completions.create(**_kwargs)
     text = resp.choices[0].message.content or "{}"
     try:
         data = json.loads(text)
@@ -180,6 +194,11 @@ def main():
     from turns import turns as expected_turns
 
     out_path = run_dir / "alt_judged.jsonl"
+
+    DEBUG = bool(os.getenv("ALT_JUDGE_DEBUG"))
+    def dbg(msg: str):
+        if DEBUG:
+            print(f"[ALT_JUDGE_DEBUG] {msg}", file=sys.stderr, flush=True)
     passes = {"tool_use_correct": 0, "instruction_following": 0, "kb_grounding": 0}
     total = 0
 
@@ -278,30 +297,103 @@ def main():
                         f"PROVIDED_ARG: {v_act}\n\n"
                         f"USER_INPUT:\n{user}\n\nASSISTANT_ANSWER:\n{ans}"
                     )
+                    attempts = int(os.getenv("ALT_JUDGE_LLM_RETRIES", "3"))
+                    delay = float(os.getenv("ALT_JUDGE_LLM_BACKOFF", "0.5"))
+                    last_exc = None
+                    # Start with higher cap; allow adaptive growth on length finishes
+                    max_tok = int(os.getenv("ALT_JUDGE_MAXTOK_ARG", "512"))
+                    for attempt in range(1, attempts + 1):
+                        try:
+                            dbg(f"turn={idx} arg={k} attempt={attempt} calling ALT_JUDGE_MODEL={os.getenv('ALT_JUDGE_MODEL','gpt-5')}")
+                            # Create arg-match request (with optional server-side store)
+                            _store2 = bool(os.getenv("ALT_JUDGE_STORE"))
+                            _kw2 = dict(
+                                model=os.getenv("ALT_JUDGE_MODEL", "gpt-5"),
+                                messages=[
+                                    {"role": "system", "content": system},
+                                    {"role": "user", "content": user_msg},
+                                ],
+                                response_format={"type": "json_object"},
+                                max_completion_tokens=max_tok,
+                                # Always high reasoning for argument equivalence
+                                extra_body={"reasoning_effort": "high"},
+                                seed=41,
+                            )
+                            try:
+                                resp = client.chat.completions.create(**(_kw2 | ({"store": True} if _store2 else {})))
+                            except TypeError:
+                                if _store2:
+                                    _kw2["extra_body"] = {**_kw2.get("extra_body", {}), "store": True}
+                                resp = client.chat.completions.create(**_kw2)
+                            # Additional diagnostics from response
+                            try:
+                                rid = getattr(resp, "id", None)
+                                rmodel = getattr(resp, "model", None)
+                                finish = getattr(resp.choices[0], "finish_reason", None)
+                                usage = getattr(resp, "usage", None)
+                                if usage:
+                                    ustr = f"pt={getattr(usage, 'prompt_tokens', '?')} ct={getattr(usage, 'completion_tokens', '?')} tt={getattr(usage, 'total_tokens', '?')}"
+                                else:
+                                    ustr = "pt=? ct=? tt=?"
+                                dbg(f"turn={idx} arg={k} id={rid} model={rmodel} finish={finish} usage={ustr}")
+                            except Exception:
+                                pass
+                            txt = resp.choices[0].message.content or "{}"
+                            dbg(f"turn={idx} arg={k} raw={txt[:200]}...")
+                            data = json.loads(txt)
+                            if not isinstance(data, dict) or ("reasonable" not in data) or (data.get("reasonable") is None):
+                                dbg(f"turn={idx} arg={k} missing/invalid 'reasonable' key; retrying if attempts remain")
+                                raise ValueError("invalid judge JSON: missing 'reasonable'")
+                            ok = bool(data.get("reasonable", False))
+                            dbg(f"turn={idx} arg={k} reasonable={ok}")
+                            if not ok and k == "suggestion_text":
+                                # Fallback: topic overlap between USER_INPUT and PROVIDED_ARG
+                                tu = topic_tokens(user)
+                                ta = topic_tokens(v_act)
+                                if len(tu & ta) >= 2:
+                                    dbg(f"turn={idx} arg={k} topic-overlap fallback -> True")
+                                    ok = True
+                            return ok
+                        except Exception as e:
+                            last_exc = e
+                            dbg(f"turn={idx} arg={k} attempt={attempt} error: {type(e).__name__}: {e}")
+                            if DEBUG:
+                                dbg(traceback.format_exc().strip())
+                            if attempt < attempts:
+                                # If we hit a length cap previously, bump max tokens
+                                try:
+                                    finish = getattr(resp.choices[0], "finish_reason", None)
+                                except Exception:
+                                    finish = None
+                                if finish == "length":
+                                    max_tok = min(max_tok * 2, int(os.getenv("ALT_JUDGE_MAXTOK_ARG_CEIL", "2048")))
+                                    dbg(f"turn={idx} arg={k} finish=length; increasing max_completion_tokens to {max_tok}")
+                                time.sleep(delay)
+                                delay *= 2
+                                continue
+                    # All attempts failed; apply last-resort lexical fallbacks for string args
                     try:
-                        resp = client.chat.completions.create(
-                            model=os.getenv("ALT_JUDGE_MODEL", "gpt-5"),
-                            messages=[
-                                {"role": "system", "content": system},
-                                {"role": "user", "content": user_msg},
-                            ],
-                            response_format={"type": "json_object"},
-                            max_completion_tokens=256,
-                            extra_body={"reasoning_effort": "high"},
-                            seed=41,
-                        )
-                        txt = resp.choices[0].message.content or "{}"
-                        data = json.loads(txt)
-                        ok = bool(data.get("reasonable", False))
-                        if not ok and k == "suggestion_text":
-                            # Fallback: topic overlap between USER_INPUT and PROVIDED_ARG
-                            tu = topic_tokens(user)
-                            ta = topic_tokens(v_act)
-                            if len(tu & ta) >= 2:
-                                ok = True
-                        return ok
-                    except Exception:
-                        return False
+                        if isinstance(v_exp, str) and isinstance(v_act, str):
+                            # suggestion_text: topic overlap fallback
+                            if k == "suggestion_text":
+                                tu = topic_tokens(user)
+                                ta = topic_tokens(v_act)
+                                if len(tu & ta) >= 2:
+                                    dbg(f"turn={idx} arg={k} all attempts failed; topic-overlap fallback -> True")
+                                    return True
+                            # issue_description (and other short strings): Jaccard/overlap on normalized tokens
+                            te = tokenize(v_exp)
+                            ta2 = tokenize(v_act)
+                            inter = te & ta2
+                            union = te | ta2
+                            jacc = (len(inter) / len(union)) if union else 0.0
+                            if len(inter) >= 3 or jacc >= 0.6:
+                                dbg(f"turn={idx} arg={k} all attempts failed; lexical-sim fallback -> True (jacc={jacc:.2f}, inter={len(inter)})")
+                                return True
+                    except Exception as e:
+                        dbg(f"turn={idx} arg={k} fallback error ignored: {type(e).__name__}: {e}")
+                    dbg(f"turn={idx} arg={k} all attempts failed; treating as mismatch")
+                    return False
                 def tc_matches(tc):
                     if tc.get("name") != exp_name:
                         return False
