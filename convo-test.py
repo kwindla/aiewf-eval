@@ -50,6 +50,7 @@ from pipecat.utils.time import time_now_iso8601
 from scripts.tts_stopped_assistant_transcript import (
     TTSStoppedAssistantTranscriptProcessor,
 )
+from scripts.tool_call_recorder import ToolCallRecorder
 
 load_dotenv()
 
@@ -260,6 +261,9 @@ async def main():
         # Configure server-side turn detection to automatically create a response
         # when speech stops. This prevents the pipeline from hanging waiting for
         # a manual response.create after audio has been appended.
+        #
+        # This is working but not with the full-length system instruction. We also need to
+        # add tools to the session properties.
         session_props = rt_events.SessionProperties(
             # Ask for audio output so we get TTS frames + transcripts
             output_modalities=["audio"],
@@ -271,9 +275,8 @@ async def main():
                 # Explicit audio output format keeps expectations consistent
                 output=rt_events.AudioOutput(format=rt_events.PCMAudioFormat()),
             ),
-            # Do not send full system instructions here; Realtime API enforces
-            # a strict token cap on session.instructions. We instead rely on
-            # lightweight defaults and the conversation itself.
+            instructions=system_instruction,
+            # tools=some_tools_structure
         )
         llm = OpenAIRealtimeLLMService(
             api_key=api_key,
@@ -364,10 +367,9 @@ async def main():
 
         # Extract assistant text added since last user message
         msgs = context.get_messages()
-        ltmp = msgs[1:last_msg_idx]
-        logger.info(f"!!!Context: {ltmp}")
-        # Skip the system message for logging purposes
-        start_i = max(1, last_msg_idx)
+        logger.info(f"!!!Context (up-to-last): {msgs[:last_msg_idx]}")
+        # Start from the index right after the last user message we queued
+        start_i = last_msg_idx
         new_msgs = msgs[start_i:]
         assistant_chunks: List[str] = []
         for m in new_msgs:
@@ -436,6 +438,12 @@ async def main():
     assistant_shim = TTSStoppedAssistantTranscriptProcessor()
 
     paced_input = None
+
+    # Recorder accessor for ToolCallRecorder
+    def current_recorder():
+        global recorder
+        return recorder
+
     if is_openai_realtime_model(model_name):
         # Create a paced input transport set to match the first audio file's sample rate (default 24000 Hz)
         default_sr = 24000
@@ -459,6 +467,7 @@ async def main():
                 paced_input,  # paced audio input at realtime pace
                 context_aggregator.user(),  # User text context
                 llm,  # LLM
+                ToolCallRecorder(current_recorder),
                 transcript.user(),
                 assistant_shim,  # flushes only on TTSStoppedFrame
             ]
@@ -468,6 +477,7 @@ async def main():
             [
                 context_aggregator.user(),
                 llm,
+                ToolCallRecorder(current_recorder),
                 context_aggregator.assistant(),
                 next_turn,
             ]
