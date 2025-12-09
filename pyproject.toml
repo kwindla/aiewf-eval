@@ -4,7 +4,7 @@ version = "0.1.0"
 description = "Eval runner for AI Engineer World's Fair conversations"
 requires-python = ">=3.12"
 dependencies = [
-  "pipecat-ai[google,openai,aws]==0.0.94",
+  "pipecat-ai[google,openai,aws,azure]==0.0.97",
   "google-genai==1.51.0",
   "python-dotenv",
   "loguru",

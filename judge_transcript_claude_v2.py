@@ -35,7 +35,7 @@ except ImportError:
 # ============================================================================
 
 JUDGE_VERSION = "claude-agent-sdk-v2-simple"
-JUDGE_MODEL = "claude-sonnet-4-20250514"
+JUDGE_MODEL = "claude-opus-4-5"
 
 # System prompt for Claude as judge
 JUDGE_SYSTEM_PROMPT = """# Role

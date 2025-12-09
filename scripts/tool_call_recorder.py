@@ -59,6 +59,9 @@ class ToolCallRecorder(FrameProcessor):
                             frame.function_name,
                             frame.arguments or {},
                         )
+                        logger.info(
+                            f"[TOOL_RECORDER] FunctionCallInProgressFrame name={frame.function_name} args={frame.arguments} tool_call_id={getattr(frame,'tool_call_id',None)}"
+                        )
                         # Update last recorded call
                         self._last_recorded_call = current_call
                 except Exception as e:
@@ -76,8 +79,10 @@ class ToolCallRecorder(FrameProcessor):
                             "properties": getattr(frame, "properties", None),
                         },
                     )
+                    logger.info(
+                        f"[TOOL_RECORDER] FunctionCallResultFrame name={frame.function_name} tool_call_id={frame.tool_call_id} result_keys={list((frame.result or {}).keys())}"
+                    )
                 except Exception as e:
                     logger.debug(f"ToolCallRecorder: failed to record result: {e}")
 
         await self.push_frame(frame, direction)
-

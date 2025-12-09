@@ -44,7 +44,7 @@ class PacedInputTransport(BaseInputTransport):
     - No VAD, no mixing; relies on BaseInputTransport to forward frames.
     """
 
-    def __init__(self, params: TransportParams, *, chunk_ms: int = 20, pre_roll_ms: int = 0):
+    def __init__(self, params: TransportParams, *, chunk_ms: int = 20, pre_roll_ms: int = 0, continuous_silence: bool = False):
         super().__init__(params)
         self._chunk_ms = chunk_ms
         self._pre_roll_ms = max(0, int(pre_roll_ms))
@@ -54,6 +54,7 @@ class PacedInputTransport(BaseInputTransport):
         self._ready = threading.Event()
         self._num_channels = params.audio_in_channels or 1
         self._did_preroll = False
+        self._continuous_silence = continuous_silence  # Send silence when no audio queued
 
     # Public API
     def enqueue_wav_file(self, path: str):
@@ -78,6 +79,7 @@ class PacedInputTransport(BaseInputTransport):
             f"{self}: enqueue_wav_file path={path} frames={data.shape[0]} sr={sr} ch={self._num_channels}"
         )
         self.enqueue_bytes(data.tobytes(), num_channels=self._num_channels, sample_rate=sr)
+        logger.debug(f"{self}: enqueue_wav_file queued bytes={len(data.tobytes())} queue_size={self._buf_queue.qsize()}")
 
     def enqueue_bytes(self, audio: bytes, *, num_channels: int, sample_rate: int):
         if sample_rate != (self.sample_rate or sample_rate):
@@ -140,11 +142,34 @@ class PacedInputTransport(BaseInputTransport):
                 if sleep_for > 0:
                     time.sleep(min(sleep_for, 0.05))
             self._did_preroll = True
+        # Main loop: send audio or silence
+        silence_chunk_bytes = int(sr * (self._chunk_ms / 1000.0)) * self._num_channels * bytes_per_sample
+        silence_chunk = bytes(silence_chunk_bytes)
+        last_chunk_time = time.monotonic()
+
+        # Verify silence is actually zeros
+        if silence_chunk_bytes > 0:
+            logger.debug(
+                f"{self}: Generated silence chunk: {silence_chunk_bytes} bytes, "
+                f"first 10 bytes: {list(silence_chunk[:10])}"
+            )
+
         while not self._stop.is_set():
             try:
-                audio_bytes, num_channels = self._buf_queue.get(timeout=0.1)
+                audio_bytes, num_channels = self._buf_queue.get(timeout=0.02)
+                has_audio = True
             except queue.Empty:
-                continue
+                # Log occasionally if we're only sending silence
+                # to debug stalls (every ~2s)
+                if int(time.monotonic() * 10) % 200 == 0:
+                    logger.debug(f"{self}: _feeder_loop no audio in queue; sending silence")
+                has_audio = False
+                # If continuous_silence mode, send silence chunk
+                if self._continuous_silence:
+                    audio_bytes = silence_chunk
+                    num_channels = self._num_channels
+                else:
+                    continue
 
             # Chunking setup
             samples_per_chunk = int(sr * (self._chunk_ms / 1000.0))
@@ -154,9 +179,19 @@ class PacedInputTransport(BaseInputTransport):
             start_t = time.monotonic()
             chunk_idx = 0
 
-            logger.debug(
-                f"{self}: feeder sending {total} bytes sr={sr} ch={num_channels} chunk_ms={self._chunk_ms}"
-            )
+            if has_audio:
+                # Log actual audio with sample of first bytes to verify no WAV header
+                logger.info(
+                    f"{self}: 🎤 SENDING REAL AUDIO: {total} bytes, sr={sr}, ch={num_channels}, "
+                    f"first 20 bytes: {list(audio_bytes[:20])}"
+                )
+            else:
+                # Log silence sending (only log once per silence period to avoid spam)
+                if chunk_idx == 0:
+                    logger.debug(
+                        f"{self}: 🔇 Sending silence chunk ({silence_chunk_bytes} bytes)"
+                    )
+
             while offset < total and not self._stop.is_set():
                 end = min(offset + chunk_bytes, total)
                 chunk = audio_bytes[offset:end]
@@ -173,14 +208,15 @@ class PacedInputTransport(BaseInputTransport):
                 if sleep_for > 0:
                     time.sleep(min(sleep_for, 0.05))
 
-            self._buf_queue.task_done()
-
-            # Explicitly signal end of user speech so the realtime service commits
-            try:
-                stopped = UserStoppedSpeakingFrame()
-                loop = self.get_event_loop()
-                loop.call_soon_threadsafe(
-                    lambda f=stopped: self.create_task(self.push_frame(f))
+            # Only mark task as done if we actually got audio from the queue
+            if has_audio:
+                self._buf_queue.task_done()
+                logger.info(
+                    f"{self}: ✅ FINISHED SENDING AUDIO ({total} bytes in {chunk_idx} chunks), "
+                    f"resuming silence"
                 )
-            except Exception:
-                pass
+
+            # NOTE: We no longer send UserStoppedSpeakingFrame here.
+            # For realtime/live models with server-side VAD, we rely on the server
+            # to detect end of speech. We send continuous audio (including silence)
+            # so the connection never appears idle.
