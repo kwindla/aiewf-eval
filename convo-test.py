@@ -27,6 +27,7 @@ from pipecat.frames.frames import (
 from pipecat.metrics.metrics import (
     LLMUsageMetricsData,
     LLMTokenUsage,
+    TTFBMetricsData,
 )
 from pipecat.processors.frame_processor import FrameProcessor, FrameDirection
 from pipecat.services.openai.llm import OpenAILLMService
@@ -34,11 +35,14 @@ from pipecat.services.google.llm import GoogleLLMService
 from pipecat.services.gemini_multimodal_live.gemini import (
     GeminiLiveLLMService,
 )
+from pipecat.services.google.gemini_live.llm import (
+    InputParams as GeminiLiveInputParams,
+    GeminiVADParams,
+)
+from google.genai import types as genai_types
 from pipecat.services.openai.base_llm import BaseOpenAILLMService
-from pipecat.services.llm_service import FunctionCallParams
 import pipecat.services.openai.realtime.events as rt_events
 from pipecat.services.openai.realtime.llm import OpenAIRealtimeLLMService
-from pipecat.processors.aggregators.llm_response import LLMAssistantAggregatorParams
 from pipecat.processors.aggregators.llm_context import LLMContext
 from pipecat.frames.frames import LLMContextAssistantTimestampFrame
 from pipecat.processors.aggregators.llm_response_universal import LLMContextAggregatorPair
@@ -70,6 +74,7 @@ def now_iso() -> str:
     # Use timezone-aware UTC to avoid deprecation warnings
     try:
         from datetime import UTC
+
         return datetime.now(UTC).isoformat(timespec="milliseconds").replace("+00:00", "Z")
     except Exception:
         # Fallback for older Python versions
@@ -93,6 +98,7 @@ class RunRecorder:
         self.turn_calls: List[Dict[str, Any]] = []
         self.turn_results: List[Dict[str, Any]] = []
         self.turn_index: int = 0
+        self.turn_ttfb_ms: Optional[int] = None
 
         # simple turn counter; judging happens post-run
         self.total_turns_scored = 0
@@ -103,6 +109,12 @@ class RunRecorder:
         self.turn_usage = {}
         self.turn_calls = []
         self.turn_results = []
+        self.turn_ttfb_ms = None
+
+    def record_ttfb(self, ttfb_seconds: float):
+        # Store TTFB in milliseconds (only keep first TTFB per turn)
+        if self.turn_ttfb_ms is None:
+            self.turn_ttfb_ms = int(ttfb_seconds * 1000)
 
     def record_usage_metrics(self, m: LLMTokenUsage, model: Optional[str] = None):
         # store last seen usage; fine for turn-local
@@ -136,6 +148,7 @@ class RunRecorder:
             "tool_calls": self.turn_calls,
             "tool_results": self.turn_results,
             "tokens": self.turn_usage or None,
+            "ttfb_ms": self.turn_ttfb_ms,
             "latency_ms": latency_ms,
         }
         self.fp.write(json.dumps(rec, ensure_ascii=False) + "\n")
@@ -254,11 +267,20 @@ async def main():
             raise EnvironmentError("GOOGLE_API_KEY is required for Gemini Live models")
         # Gemini Live expects fully-qualified model ids like "models/<id>"
         m = model_name if model_name.startswith("models/") else f"models/{model_name}"
+        # Disable thinking by setting budget to 0, and configure VAD to match gpt-realtime
+        gemini_live_params = GeminiLiveInputParams(
+            thinking=genai_types.ThinkingConfig(thinking_budget=0),
+            vad=GeminiVADParams(
+                prefix_padding_ms=300,  # Audio to include before VAD detects speech
+                silence_duration_ms=1500,  # Silence duration to detect speech stop
+            ),
+        )
         llm = GeminiLiveLLMService(
             api_key=api_key,
             model=m,
             system_instruction=system_instruction,
             tools=ToolsSchemaForTest,
+            params=gemini_live_params,
         )
         llm.register_function(None, function_catchall)
     elif is_google_model(model_name):
@@ -287,10 +309,10 @@ async def main():
             tools=ToolsSchemaForTest,
             turn_detection={
                 "type": "server_vad",  # Use server-side Voice Activity Detection
-                "threshold": 0.5,      # Activation threshold (0.0-1.0), higher requires louder audio
-                "prefix_padding_ms": 300, # Audio to include before VAD detects speech
-                "silence_duration_ms": 1500 # Silence duration to detect speech stop; lower values lead to quicker responses
-            }
+                "threshold": 0.5,  # Activation threshold (0.0-1.0), higher requires louder audio
+                "prefix_padding_ms": 300,  # Audio to include before VAD detects speech
+                "silence_duration_ms": 1500,  # Silence duration to detect speech stop; lower values lead to quicker responses
+            },
         )
         llm = OpenAIRealtimeLLMService(
             api_key=api_key,
@@ -340,7 +362,7 @@ async def main():
             if model_name == "gpt-5.1":
                 logger.info("Setting reasoning_effort to none for gpt-5.1")
                 extra["reasoning_effort"] = "none"
-            else:   
+            else:
                 logger.info("Setting reasoning_effort to minimal for gpt-5")
                 extra["reasoning_effort"] = "minimal"
         params = BaseOpenAILLMService.InputParams(extra=extra)
@@ -370,6 +392,8 @@ async def main():
         for md in frame.data:
             if isinstance(md, LLMUsageMetricsData):
                 recorder.record_usage_metrics(md.value, getattr(md, "model", None))
+            elif isinstance(md, TTFBMetricsData):
+                recorder.record_ttfb(md.value)
 
     done = False
 
@@ -493,15 +517,24 @@ async def main():
             audio_in_channels=1,
             audio_in_passthrough=True,
         )
-        paced_input = PacedInputTransport(input_params, pre_roll_ms=100, continuous_silence=True)
+        paced_input = PacedInputTransport(
+            input_params,
+            pre_roll_ms=100,
+            continuous_silence=True,
+        )
 
         class LLMFrameLogger(FrameProcessor):
-            """Logs every frame emitted by the LLM stage."""
+            """Logs every frame emitted by the LLM stage and captures TTFB metrics."""
 
             async def process_frame(self, frame: Frame, direction: FrameDirection):
                 await super().process_frame(frame, direction)
                 if not isinstance(frame, InputAudioRawFrame):
                     logger.info(f"[LLM→] {frame.__class__.__name__} ({direction})")
+                # Capture TTFB from MetricsFrame for realtime/live models
+                if isinstance(frame, MetricsFrame):
+                    for md in frame.data:
+                        if isinstance(md, TTFBMetricsData):
+                            recorder.record_ttfb(md.value)
                 await self.push_frame(frame, direction)
 
         class PreLLMFrameLogger(FrameProcessor):
@@ -513,7 +546,7 @@ async def main():
                     logger.info(f"[PreLLM→] {frame.__class__.__name__} ({direction})")
                 await self.push_frame(frame, direction)
 
-        pre_llm_logger = PreLLMFrameLogger();
+        pre_llm_logger = PreLLMFrameLogger()
         llm_logger = LLMFrameLogger()
 
         pipeline = Pipeline(
@@ -536,7 +569,7 @@ async def main():
                 llm,
                 ToolCallRecorder(current_recorder),
                 context_aggregator.assistant(),
-                next_turn, # Need to look at whether the OpenAIAssistantTimestampFrame is the right thing.
+                next_turn,
             ]
         )
 

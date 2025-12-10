@@ -75,6 +75,7 @@ class PacedInputTransport(BaseInputTransport):
                 f"Channel mismatch for {path}: have {data.shape[1]}, expected {self._num_channels}. Using file value."
             )
             self._num_channels = data.shape[1]
+
         logger.debug(
             f"{self}: enqueue_wav_file path={path} frames={data.shape[0]} sr={sr} ch={self._num_channels}"
         )
