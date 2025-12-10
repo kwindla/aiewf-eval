@@ -20,6 +20,7 @@ from pipecat.frames.frames import (
     CancelFrame,
     LLMFullResponseEndFrame,
     TranscriptionMessage,
+    InputAudioRawFrame,
     LLMRunFrame,
     LLMMessagesAppendFrame,
 )
@@ -44,6 +45,8 @@ from pipecat.processors.aggregators.openai_llm_context import (
 from pipecat.processors.aggregators.llm_response import (
     OpenAILLMContextAssistantTimestampFrame,
 )
+from pipecat.processors.aggregators.llm_context import LLMContext
+from pipecat.processors.aggregators.llm_response_universal import LLMContextAggregatorPair
 
 
 from system_instruction_short import system_instruction
@@ -295,19 +298,12 @@ async def main():
         #
         # This is working but not with the full-length system instruction. We also need to
         # add tools to the session properties.
+        # Use default session properties - let the API use its default server_vad
+        # Note: Explicitly setting audio.input.turn_detection seems to break VAD
+        # in some cases, while the defaults work. See debugging notes below.
         session_props = rt_events.SessionProperties(
-            # Ask for audio output so we get TTS frames + transcripts
-            output_modalities=["audio"],
-            audio=rt_events.AudioConfiguration(
-                input=rt_events.AudioInput(
-                    # Disable server-side turn detection; we'll explicitly signal stops
-                    turn_detection=False
-                ),
-                # Explicit audio output format keeps expectations consistent
-                output=rt_events.AudioOutput(format=rt_events.PCMAudioFormat()),
-            ),
             instructions=system_instruction,
-            # tools=some_tools_structure
+            tools=ToolsSchemaForTest,
         )
         llm = OpenAIRealtimeLLMService(
             api_key=api_key,
@@ -520,15 +516,38 @@ async def main():
             audio_in_channels=1,
             audio_in_passthrough=True,
         )
-        paced_input = PacedInputTransport(input_params, pre_roll_ms=100)
+        paced_input = PacedInputTransport(input_params, pre_roll_ms=100, continuous_silence=True)
+
+        class LLMFrameLogger(FrameProcessor):
+            """Logs every frame emitted by the LLM stage."""
+
+            async def process_frame(self, frame: Frame, direction: FrameDirection):
+                await super().process_frame(frame, direction)
+                if not isinstance(frame, InputAudioRawFrame):
+                    logger.info(f"[LLM→] {frame.__class__.__name__} ({direction})")
+                await self.push_frame(frame, direction)
+
+        class PreLLMFrameLogger(FrameProcessor):
+            """Logs every frame emitted by the LLM stage."""
+
+            async def process_frame(self, frame: Frame, direction: FrameDirection):
+                await super().process_frame(frame, direction)
+                if not isinstance(frame, InputAudioRawFrame):
+                    logger.info(f"[PreLLM→] {frame.__class__.__name__} ({direction})")
+                await self.push_frame(frame, direction)
+
+        pre_llm_logger = PreLLMFrameLogger();
+        llm_logger = LLMFrameLogger()
 
         pipeline = Pipeline(
             [
                 paced_input,  # paced audio input at realtime pace
                 context_aggregator.user(),  # User text context
-                llm,  # LLM
-                ToolCallRecorder(current_recorder),
                 transcript.user(),
+                pre_llm_logger,
+                llm,  # LLM
+                llm_logger,  # debug: log all frames from LLM
+                ToolCallRecorder(current_recorder),
                 assistant_shim,  # flushes only on TTSStoppedFrame
             ]
         )
@@ -539,7 +558,7 @@ async def main():
                 llm,
                 ToolCallRecorder(current_recorder),
                 context_aggregator.assistant(),
-                next_turn,
+                next_turn, # Need to look at whether the OpenAIAssistantTimestampFrame is the right thing.
             ]
         )
 

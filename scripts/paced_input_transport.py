@@ -187,10 +187,10 @@ class PacedInputTransport(BaseInputTransport):
                 )
             else:
                 # Log silence sending (only log once per silence period to avoid spam)
-                if chunk_idx == 0:
-                    logger.debug(
-                        f"{self}: 🔇 Sending silence chunk ({silence_chunk_bytes} bytes)"
-                    )
+                # if chunk_idx == 0:
+                #     logger.debug(
+                #         f"{self}: 🔇 Sending silence chunk ({silence_chunk_bytes} bytes)"
+                #     )
 
             while offset < total and not self._stop.is_set():
                 end = min(offset + chunk_bytes, total)
