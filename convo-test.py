@@ -33,6 +33,7 @@ from pipecat.metrics.metrics import (
 from pipecat.processors.frame_processor import FrameProcessor, FrameDirection
 from pipecat.services.openai.llm import OpenAILLMService
 from pipecat.services.google.llm import GoogleLLMService
+from pipecat.services.anthropic.llm import AnthropicLLMService
 from pipecat.services.google.gemini_live.llm import (
     GeminiLiveLLMService,
     InputParams as GeminiLiveInputParams,
@@ -323,6 +324,10 @@ async def main():
         n = (name or "").lower()
         return "gpt-realtime" in n
 
+    def is_anthropic_model(name: str) -> bool:
+        n = (name or "").lower()
+        return n.startswith("claude")
+
     extra = {"user": os.getenv("EVAL_USER", "eval-runner")}
     llm = None
 
@@ -425,6 +430,11 @@ async def main():
             model=model_name,
             params=params,
         )
+    elif is_anthropic_model(model_name):
+        api_key = os.getenv("ANTHROPIC_API_KEY")
+        if not api_key:
+            raise EnvironmentError("ANTHROPIC_API_KEY is required for Anthropic/Claude models")
+        llm = AnthropicLLMService(api_key=api_key, model=model_name)
     else:
         # Default to OpenAI-compatible endpoint using OPENAI_API_KEY
         if model_name.startswith("gpt-5"):
