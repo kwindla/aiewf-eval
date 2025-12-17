@@ -129,6 +129,7 @@ class BasePipeline(ABC):
         # Build kwargs with API keys based on service class name
         kwargs: Dict[str, Any] = {"model": model}
         class_name = service_class.__name__
+        model_lower = model.lower()
 
         if "Anthropic" in class_name:
             api_key = os.getenv("ANTHROPIC_API_KEY")
@@ -140,11 +141,41 @@ class BasePipeline(ABC):
             if not api_key:
                 raise EnvironmentError("OPENAI_API_KEY environment variable is required")
             kwargs["api_key"] = api_key
+
+            # Configure gpt-5 series models: set reasoning effort and priority tier
+            if model_lower.startswith("gpt-5"):
+                from pipecat.services.openai.llm import OpenAILLMService
+                # gpt-5.1 and gpt-5.2 use "none", other gpt-5 models use "minimal"
+                if model_lower.startswith("gpt-5.1") or model_lower.startswith("gpt-5.2"):
+                    reasoning_effort = "none"
+                else:
+                    reasoning_effort = "minimal"
+                kwargs["params"] = OpenAILLMService.InputParams(
+                    service_tier="priority",
+                    extra={"reasoning_effort": reasoning_effort},
+                )
+                logger.info(f"Configured {model} with reasoning_effort={reasoning_effort}, service_tier=priority")
+
         elif "Google" in class_name or "Gemini" in class_name:
             api_key = os.getenv("GOOGLE_API_KEY")
             if not api_key:
                 raise EnvironmentError("GOOGLE_API_KEY environment variable is required")
             kwargs["api_key"] = api_key
+
+            # Configure gemini-3 series models: use minimal thinking
+            if "gemini-3" in model_lower:
+                from google.genai import types
+                from pipecat.services.google.llm import GoogleLLMService
+                kwargs["params"] = GoogleLLMService.InputParams(
+                    extra={
+                        "thinking_config": types.ThinkingConfig(
+                            thinking_level="MINIMAL",
+                            include_thoughts=True,
+                        )
+                    }
+                )
+                logger.info(f"Configured {model} with thinking_level=MINIMAL")
+
         elif "Bedrock" in class_name:
             # AWS Bedrock uses AWS credentials from environment
             access_key = os.getenv("AWS_ACCESS_KEY_ID")

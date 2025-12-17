@@ -6,7 +6,7 @@ requires-python = ">=3.12"
 dependencies = [
   "click>=8.3",
   "pipecat-ai[anthropic,aws,aws-nova-sonic,azure,google,openai]==0.0.97",
-  "google-genai==1.55.0",
+  "google-genai>=1.56.0",
   "python-dotenv",
   "loguru",
   "sounddevice>=0.4.6",
