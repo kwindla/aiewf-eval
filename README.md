@@ -98,6 +98,9 @@ export AWS_REGION=us-east-1
 
 # For OpenRouter
 export OPENROUTER_API_KEY=...
+
+# For Ultravox Realtime
+export ULTRAVOX_API_KEY=...
 ```
 
 You can also create a `.env` file in the project root with these variables.
@@ -118,6 +121,7 @@ uv run multi-turn-eval run aiwf_medium_context --model gemini-2.5-flash --servic
 # Realtime audio models (pipeline auto-detected from model name)
 uv run multi-turn-eval run aiwf_medium_context --model gpt-realtime --service openai-realtime
 uv run multi-turn-eval run aiwf_medium_context --model gemini-2.5-flash-native-audio-preview-12-2025 --service gemini-live
+uv run multi-turn-eval run aiwf_medium_context --model ultravox-v0.7 --service ultravox-realtime
 
 # Nova Sonic (no --service needed, pipeline creates its own LLM)
 uv run multi-turn-eval run aiwf_medium_context --model amazon.nova-2-sonic-v1:0 --pipeline nova-sonic
@@ -174,6 +178,7 @@ For convenience, common service classes have short aliases:
 | `google` | `pipecat.services.google.llm.GoogleLLMService` |
 | `gemini-live` | `multi_turn_eval.pipelines.realtime.GeminiLiveLLMServiceWithReconnection` |
 | `bedrock` | `pipecat.services.aws.llm.AWSBedrockLLMService` |
+| `ultravox-realtime` | `pipecat.services.ultravox.llm.UltravoxRealtimeLLMService` |
 
 You can also use fully-qualified class names:
 
@@ -204,7 +209,7 @@ Both benchmarks share the same 30 turns, tools, and audio files. Only the knowle
 | Pipeline | Use Case | Auto-Detection Pattern |
 |----------|----------|------------------------|
 | `text` | Synchronous text LLMs | Default for all models |
-| `realtime` | OpenAI Realtime, Gemini Live | `*realtime*`, `*native-audio*`, `*live*` |
+| `realtime` | OpenAI Realtime, Gemini Live, Ultravox Realtime | `*realtime*`, `*native-audio*`, `*live*`, `*ultravox*` |
 | `nova-sonic` | AWS Nova Sonic | `*nova-sonic*`, `*nova_sonic*` |
 
 ## Output Structure

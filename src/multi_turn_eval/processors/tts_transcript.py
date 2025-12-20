@@ -1,14 +1,19 @@
 from typing import List
 import time
-from loguru import logger
+from typing import List
 
+from loguru import logger
 from pipecat.frames.frames import (
     Frame,
-    TTSTextFrame,
-    TTSStoppedFrame,
-    LLMTextFrame,
     LLMFullResponseEndFrame,
+    LLMTextFrame,
     TranscriptionMessage,
+    TTSStoppedFrame,
+    TTSTextFrame,
+)
+from pipecat.processors.aggregators.llm_response_universal import (
+    TextPartForConcatenation,
+    concatenate_aggregated_text,
 )
 from pipecat.processors.frame_processor import FrameDirection, FrameProcessor
 from pipecat.processors.transcript_processor import (
