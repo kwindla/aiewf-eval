@@ -38,7 +38,7 @@ from pipecat.processors.aggregators.llm_context import LLMContext
 from pipecat.processors.aggregators.llm_response_universal import (
     LLMContextAggregatorPair,
 )
-from pipecat.processors.audio.audio_buffer_processor import AudioBufferProcessor
+from multi_turn_eval.processors.audio_buffer import WallClockAlignedAudioBufferProcessor
 from pipecat.processors.frame_processor import FrameDirection, FrameProcessor
 from pipecat.processors.transcript_processor import TranscriptProcessor
 from pipecat.services.google.gemini_live.llm import GeminiLiveLLMService
@@ -315,15 +315,24 @@ class RealtimePipeline(BasePipeline):
             if not api_key:
                 raise EnvironmentError("OPENAI_API_KEY environment variable is required")
 
+            # Configure audio input with VAD settings
+            # turn_detection must be inside audio.input, not at SessionProperties top level
+            # COMMENTED OUT FOR TESTING - comparing with/without custom VAD settings
+            # audio_config = rt_events.AudioConfiguration(
+            #     input=rt_events.AudioInput(
+            #         turn_detection=rt_events.TurnDetection(
+            #             type="server_vad",
+            #             threshold=0.5,
+            #             prefix_padding_ms=300,
+            #             silence_duration_ms=1500,
+            #         )
+            #     )
+            # )
+
             session_props = rt_events.SessionProperties(
                 instructions=system_instruction,
                 tools=tools,
-                turn_detection={
-                    "type": "server_vad",
-                    "threshold": 0.5,
-                    "prefix_padding_ms": 300,
-                    "silence_duration_ms": 1500,
-                },
+                # audio=audio_config,  # Using default VAD settings
             )
             return service_class(
                 api_key=api_key,
@@ -478,8 +487,11 @@ class RealtimePipeline(BasePipeline):
         self.assistant_shim = TTSStoppedAssistantTranscriptProcessor()
 
         # Create audio buffer processor for recording both user and bot audio
-        logger.info(f"[AudioRecording] Creating AudioBufferProcessor with sample_rate={default_sr}, num_channels=2")
-        self.audio_buffer = AudioBufferProcessor(
+        # WallClockAlignedAudioBufferProcessor ensures both tracks are aligned to wall-clock time:
+        # - User track gets leading silence from recording_start to first user audio
+        # - Bot track gets leading silence via NullAudioOutputTransport
+        logger.info(f"[AudioRecording] Creating WallClockAlignedAudioBufferProcessor with sample_rate={default_sr}, num_channels=2")
+        self.audio_buffer = WallClockAlignedAudioBufferProcessor(
             sample_rate=default_sr,
             num_channels=2,  # Stereo: user on left channel, bot on right channel
         )
@@ -534,6 +546,10 @@ class RealtimePipeline(BasePipeline):
                     f"[AudioRecording] Saved conversation audio: {output_path} "
                     f"({duration_secs:.1f}s, {file_size_mb:.2f}MB)"
                 )
+
+                # Log silence insertion statistics from output transport
+                if self.output_transport is not None and hasattr(self.output_transport, 'log_recording_summary'):
+                    self.output_transport.log_recording_summary()
             except Exception as e:
                 logger.exception(f"[AudioRecording] Failed to save audio: {e}")
 
@@ -611,6 +627,15 @@ class RealtimePipeline(BasePipeline):
         # Start audio recording
         logger.info("[AudioRecording] Starting audio recording")
         await self.audio_buffer.start_recording()
+
+        # Synchronize output transport's silence insertion timing with recording start
+        # This ensures bot audio gaps are filled with silence aligned to wall-clock time
+        # Pass the recording sample rate (from AudioBufferProcessor) so silence is created
+        # at the correct rate, even if output audio frames are at a different rate
+        if self.output_transport is not None:
+            self.output_transport.reset_recording_baseline(
+                recording_sample_rate=self.audio_buffer._init_sample_rate
+            )
 
         # For Gemini Live, push context frame to initialize the LLM with system
         # instruction and tools. This triggers ONE reconnect at startup.

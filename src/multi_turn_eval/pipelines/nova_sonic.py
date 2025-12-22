@@ -794,6 +794,7 @@ class NovaSonicPipeline:
         recorder,
         model: str,
         service_class=None,
+        service_name=None,
         turn_indices=None,
     ) -> None:
         """Run the complete benchmark.
@@ -802,6 +803,7 @@ class NovaSonicPipeline:
             recorder: TranscriptRecorder for saving results.
             model: Model name/identifier.
             service_class: Ignored for Nova Sonic (we create our own LLM).
+            service_name: Ignored for Nova Sonic (we create our own LLM).
             turn_indices: Optional list of turn indices to run (for debugging).
         """
         import os

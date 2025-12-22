@@ -5,7 +5,7 @@ description = "Multi-turn LLM evaluation framework"
 requires-python = ">=3.12"
 dependencies = [
   "click>=8.3",
-  "pipecat-ai[anthropic,aws,aws-nova-sonic,azure,cerebras,google,groq,openai]==0.0.98",
+  "pipecat-ai[anthropic,aws,aws-nova-sonic,azure,cerebras,google,groq,openai,silero]==0.0.98",
   "google-genai>=1.56.0",
   "python-dotenv",
   "loguru",
@@ -13,6 +13,8 @@ dependencies = [
   "soundfile>=0.12.1",
   "numpy>=1.26",
   "claude-agent-sdk>=0.1.8",
+  "torch>=2.9.1",
+  "torchaudio>=2.9.1",
 ]
 
 [project.scripts]
