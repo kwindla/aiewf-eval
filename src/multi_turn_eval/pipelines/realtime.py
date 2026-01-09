@@ -30,6 +30,8 @@ from pipecat.frames.frames import (
     MetricsFrame,
     OutputAudioRawFrame,
     TranscriptionMessage,
+    VADUserStartedSpeakingFrame,
+    VADUserStoppedSpeakingFrame,
 )
 from pipecat.metrics.metrics import TTFBMetricsData
 from pipecat.pipeline.pipeline import Pipeline
@@ -45,8 +47,42 @@ from pipecat.services.google.gemini_live.llm import GeminiLiveLLMService
 from pipecat.services.openai.realtime import events as rt_events
 from pipecat.services.ultravox.llm import OneShotInputParams
 from pipecat.transports.base_transport import TransportParams
+from pipecat.audio.vad.silero import SileroVADAnalyzer
+from pipecat.audio.vad.vad_analyzer import VADParams
 
 from multi_turn_eval.pipelines.base import BasePipeline
+
+
+class ResamplingSileroVAD(SileroVADAnalyzer):
+    """SileroVADAnalyzer that resamples audio from input rate to 16kHz.
+
+    Silero VAD only supports 16kHz or 8kHz. This subclass resamples incoming
+    audio (e.g., 24kHz) to 16kHz before VAD processing.
+    """
+
+    def __init__(self, **kwargs):
+        super().__init__(sample_rate=16000, **kwargs)
+        self._input_sample_rate: int = 16000
+
+    def set_sample_rate(self, sample_rate: int):
+        # Store the input sample rate for resampling, but tell parent we're using 16kHz
+        self._input_sample_rate = sample_rate
+        super().set_sample_rate(16000)
+
+    async def analyze_audio(self, buffer: bytes):
+        # Resample before buffering/analysis if input rate differs from 16kHz
+        if self._input_sample_rate != 16000:
+            audio_int16 = np.frombuffer(buffer, np.int16).astype(np.float32)
+            # Simple linear interpolation resampling
+            ratio = 16000 / self._input_sample_rate
+            new_length = int(len(audio_int16) * ratio)
+            if new_length > 0:
+                indices = np.linspace(0, len(audio_int16) - 1, new_length)
+                resampled = np.interp(indices, np.arange(len(audio_int16)), audio_int16)
+                buffer = resampled.astype(np.int16).tobytes()
+        return await super().analyze_audio(buffer)
+
+
 from multi_turn_eval.processors.tool_call_recorder import ToolCallRecorder
 from multi_turn_eval.processors.tts_transcript import (
     TTSStoppedAssistantTranscriptProcessor,
@@ -203,14 +239,43 @@ class GeminiLiveLLMServiceWithReconnection(GeminiLiveLLMService):
 class LLMFrameLogger(FrameProcessor):
     """Logs every frame emitted by the LLM stage and captures TTFB metrics."""
 
-    def __init__(self, recorder_accessor):
+    def __init__(self, recorder_accessor, vad_params: Optional[VADParams] = None):
         super().__init__()
         self._recorder_accessor = recorder_accessor
+        self._vad_params = vad_params
+        self._recording_start_time: Optional[float] = None
+
+    def set_recording_start_time(self, t: float):
+        """Set the recording start time for relative timestamp logging."""
+        self._recording_start_time = t
 
     async def process_frame(self, frame: Frame, direction: FrameDirection):
         await super().process_frame(frame, direction)
-        if not isinstance(frame, InputAudioRawFrame):
+
+        # Log VAD frames with timing offset information
+        if isinstance(frame, VADUserStartedSpeakingFrame):
+            now = time.time()
+            offset = self._vad_params.start_secs if self._vad_params else 0.2
+            actual_start = now - offset
+            rel_time = (now - self._recording_start_time) * 1000 if self._recording_start_time else 0
+            actual_rel = (actual_start - self._recording_start_time) * 1000 if self._recording_start_time else 0
+            logger.info(
+                f"[VAD] UserStartedSpeaking at T+{rel_time:.0f}ms "
+                f"(actual start: T+{actual_rel:.0f}ms, offset={offset*1000:.0f}ms)"
+            )
+        elif isinstance(frame, VADUserStoppedSpeakingFrame):
+            now = time.time()
+            offset = self._vad_params.stop_secs if self._vad_params else 0.8
+            actual_end = now - offset
+            rel_time = (now - self._recording_start_time) * 1000 if self._recording_start_time else 0
+            actual_rel = (actual_end - self._recording_start_time) * 1000 if self._recording_start_time else 0
+            logger.info(
+                f"[VAD] UserStoppedSpeaking at T+{rel_time:.0f}ms "
+                f"(actual end: T+{actual_rel:.0f}ms, offset={offset*1000:.0f}ms)"
+            )
+        elif not isinstance(frame, InputAudioRawFrame):
             logger.debug(f"[LLM→] {frame.__class__.__name__} ({direction})")
+
         # Capture TTFB from MetricsFrame for realtime/live models
         if isinstance(frame, MetricsFrame):
             for md in frame.data:
@@ -239,7 +304,7 @@ class RealtimePipeline(BasePipeline):
         self.paced_input = None
         self.transcript = None
         self.assistant_shim = None
-        self.audio_buffer: Optional[AudioBufferProcessor] = None
+        self.audio_buffer: Optional[WallClockAlignedAudioBufferProcessor] = None
         self.turn_gate: Optional[TurnGate] = None
         self.output_transport: Optional[NullAudioOutputTransport] = None
         self.current_turn_audio_path: Optional[str] = None
@@ -248,6 +313,8 @@ class RealtimePipeline(BasePipeline):
         # Track when current user audio will finish playing (monotonic time)
         # This prevents queuing the next turn before current audio finishes
         self._current_audio_end_time: float = 0
+        # Event to signal when pipeline is ready (StartFrame has reached end)
+        self._pipeline_ready_event: asyncio.Event = asyncio.Event()
 
     def _is_gemini_live(self) -> bool:
         """Check if current model is Gemini Live."""
@@ -488,12 +555,28 @@ class RealtimePipeline(BasePipeline):
             except Exception as e:
                 logger.warning(f"Could not read sample rate from {t0_audio}: {e}")
 
-        # Create paced input transport
+        # Create local VAD analyzer for user speech detection
+        # This emits VADUserStartedSpeakingFrame/VADUserStoppedSpeakingFrame
+        # which we can compare against WAV-based VAD for timing analysis
+        vad_params = VADParams(
+            start_secs=0.2,  # Emit VADUserStartedSpeaking 0.2s after speech starts
+            stop_secs=0.8,   # Emit VADUserStoppedSpeaking 0.8s after speech ends
+        )
+        # Silero VAD only supports 16kHz or 8kHz - use our resampling subclass
+        # to handle 24kHz audio from OpenAI/Ultravox
+        user_vad = ResamplingSileroVAD(params=vad_params)
+        logger.info(
+            f"[VAD] User VAD config: start_secs={vad_params.start_secs}, "
+            f"stop_secs={vad_params.stop_secs}"
+        )
+
+        # Create paced input transport with VAD
         input_params = TransportParams(
             audio_in_enabled=True,
             audio_in_sample_rate=default_sr,
             audio_in_channels=1,
             audio_in_passthrough=True,
+            vad_analyzer=user_vad,
         )
         self.paced_input = PacedInputTransport(
             input_params,
@@ -506,10 +589,10 @@ class RealtimePipeline(BasePipeline):
         self.assistant_shim = TTSStoppedAssistantTranscriptProcessor()
 
         # Create audio buffer processor for recording both user and bot audio
-        # WallClockAlignedAudioBufferProcessor ensures both tracks are aligned to wall-clock time:
-        # - User track gets leading silence from recording_start to first user audio
-        # - Bot track gets leading silence via NullAudioOutputTransport
-        logger.info(f"[AudioRecording] Creating WallClockAlignedAudioBufferProcessor with sample_rate={default_sr}, num_channels=2")
+        # NullAudioOutputTransport is the "source of truth" for wall-clock aligned recording.
+        # It inserts silence for any gaps > 10ms in BOTH user and bot audio tracks.
+        # AudioBufferProcessor just accumulates the continuous streams from output_transport.
+        logger.info(f"[AudioRecording] Creating AudioBufferProcessor with sample_rate={default_sr}, num_channels=2")
         self.audio_buffer = WallClockAlignedAudioBufferProcessor(
             sample_rate=default_sr,
             num_channels=2,  # Stereo: user on left channel, bot on right channel
@@ -613,7 +696,7 @@ class RealtimePipeline(BasePipeline):
             )
         )
 
-        llm_logger = LLMFrameLogger(recorder_accessor)
+        self.llm_logger = LLMFrameLogger(recorder_accessor, vad_params=vad_params)
 
         pipeline = Pipeline(
             [
@@ -621,13 +704,13 @@ class RealtimePipeline(BasePipeline):
                 self.context_aggregator.user(),
                 self.transcript.user(),
                 self.llm,
-                llm_logger,
+                self.llm_logger,
                 ToolCallRecorder(recorder_accessor, duplicate_ids_accessor),
                 self.assistant_shim,
                 self.turn_gate,  # Wait for BotStoppedSpeakingFrame before advancing turn
                 self.context_aggregator.assistant(),
-                self.output_transport,  # Paces OutputAudioRawFrame via write_audio_frame()
-                self.audio_buffer,  # Record audio AFTER output_transport pacing
+                self.output_transport,  # Paces bot audio & inserts silence for both tracks
+                self.audio_buffer,  # Record continuous wall-clock aligned audio
             ]
         )
 
@@ -641,21 +724,23 @@ class RealtimePipeline(BasePipeline):
             ),
         )
 
+        # Register event handler to detect when pipeline is ready
+        # This fires when StartFrame reaches the end of the pipeline,
+        # meaning all services (including OpenAI WebSocket) are connected
+        @self.task.event_handler("on_pipeline_started")
+        async def on_pipeline_started(task, frame):
+            logger.info("[Pipeline] StartFrame reached end - pipeline is ready, initializing recording")
+            await self._initialize_recording_and_start_audio()
+
     async def _queue_first_turn(self) -> None:
-        """Queue audio for the first turn."""
-        # Start audio recording
-        logger.info("[AudioRecording] Starting audio recording")
-        await self.audio_buffer.start_recording()
+        """Queue context frame for Gemini Live (if needed).
 
-        # Synchronize output transport's silence insertion timing with recording start
-        # This ensures bot audio gaps are filled with silence aligned to wall-clock time
-        # Pass the recording sample rate (from AudioBufferProcessor) so silence is created
-        # at the correct rate, even if output audio frames are at a different rate
-        if self.output_transport is not None:
-            self.output_transport.reset_recording_baseline(
-                recording_sample_rate=self.audio_buffer._init_sample_rate
-            )
-
+        Recording initialization and first audio queuing now happens in
+        _initialize_recording_and_start_audio(), which is called by the
+        on_pipeline_started event handler. This ensures we wait for the
+        LLM service (e.g., OpenAI WebSocket) to be fully connected before
+        starting audio, eliminating the ~650ms buffering delay.
+        """
         # For Gemini Live, push context frame to initialize the LLM with system
         # instruction and tools. This triggers ONE reconnect at startup.
         # For OpenAI Realtime and Ultravox Realtime, DO NOT send a context frame -
@@ -663,9 +748,49 @@ class RealtimePipeline(BasePipeline):
         if self._is_gemini_live():
             await self.task.queue_frames([LLMContextFrame(self.context)])
 
-        # Give the pipeline a moment to start
-        await asyncio.sleep(1.0)
+        # Recording initialization and audio queuing is now triggered by
+        # on_pipeline_started event handler (see _build_task)
 
+    async def _initialize_recording_and_start_audio(self) -> None:
+        """Initialize recording baselines and queue first turn audio.
+
+        Called by on_pipeline_started event handler AFTER StartFrame has
+        reached the end of the pipeline. This ensures the LLM service
+        (e.g., OpenAI WebSocket) is fully connected before we start
+        sending audio, eliminating buffering delays.
+        """
+        # Initialize recording baselines on all components AT THE SAME TIME
+        # This ensures perfect wall-clock alignment between:
+        # 1. NullAudioOutputTransport (silence insertion for user + bot)
+        # 2. PacedInputTransport (user audio frame timing)
+        # 3. AudioBufferProcessor (recording)
+        #
+        # CRITICAL: We're called AFTER pipeline is ready (StartFrame reached end)
+        # so frames will flow immediately without buffering.
+
+        # Step 1: Set NullAudioOutputTransport's recording baseline
+        if self.output_transport is not None:
+            self.output_transport.reset_recording_baseline(
+                recording_sample_rate=self.audio_buffer._init_sample_rate
+            )
+            logger.info("[AudioRecording] NullAudioOutputTransport recording baseline set")
+
+        # Step 2: Set PacedInputTransport's recording baseline (must use same T=0)
+        # This unblocks the feeder thread to start sending frames IMMEDIATELY
+        if self.paced_input is not None:
+            self.paced_input.set_recording_baseline()
+            logger.info("[AudioRecording] PacedInputTransport recording baseline set")
+
+        # Step 3: Start audio recording on the AudioBufferProcessor
+        logger.info("[AudioRecording] Starting audio recording")
+        await self.audio_buffer.start_recording()
+
+        # Set recording start time on the LLM logger for relative timestamp logging
+        # Use NullAudioOutputTransport's recording start time as the source of truth
+        if hasattr(self, 'llm_logger') and self.llm_logger is not None and self.output_transport is not None:
+            self.llm_logger.set_recording_start_time(self.output_transport._recording_start_time)
+
+        # Queue first turn audio
         turn = self._get_current_turn()
         audio_path = self._get_audio_path_for_turn(self.turn_idx)
         self.current_turn_audio_path = audio_path

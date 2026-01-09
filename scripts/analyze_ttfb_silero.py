@@ -132,6 +132,8 @@ def detect_segments_silero(
     channel: str,
     min_silence_duration_ms: float = 2000.0,
     min_speech_duration_ms: float = 900.0,
+    threshold: float = 0.7,
+    speech_pad_ms: int = 0,
 ) -> list[AudioSegment]:
     """Detect speech segments using Silero VAD.
 
@@ -143,6 +145,8 @@ def detect_segments_silero(
         channel: "user" or "bot"
         min_silence_duration_ms: Merge segments closer than this
         min_speech_duration_ms: Minimum speech duration to detect (filters short bursts)
+        threshold: Voice detection confidence threshold (default 0.7 to match pipecat)
+        speech_pad_ms: Padding to add to segment boundaries (default 0 for raw boundaries)
 
     Returns:
         List of AudioSegment objects
@@ -159,12 +163,16 @@ def detect_segments_silero(
             audio_16k = audio_16k / 32768.0
 
     # Get speech timestamps from Silero
+    # Use threshold=0.7 to match pipecat's VADParams.confidence default
+    # Use speech_pad_ms=0 for raw segment boundaries (no padding)
     timestamps = get_speech_timestamps(
         torch.from_numpy(audio_16k),
         model,
         sampling_rate=16000,
         min_silence_duration_ms=int(min_silence_duration_ms),
         min_speech_duration_ms=int(min_speech_duration_ms),
+        threshold=threshold,
+        speech_pad_ms=speech_pad_ms,
     )
 
     # Convert to AudioSegment objects (in original sample rate timing)
@@ -196,10 +204,13 @@ def pair_turns(
         if we skipped an initial bot greeting.
     """
     # Check if we need to skip an initial bot greeting
-    # Skip first bot segment if it starts before the first user segment ends
+    # Skip first bot segment only if it starts BEFORE the first user segment starts.
+    # This indicates a true initial greeting (bot speaks before user).
+    # We do NOT skip if bot merely overlaps with the end of user speech, as that's
+    # normal turn-taking behavior (the response, not a greeting).
     skipped_initial_bot = False
     if user_segments and bot_segments:
-        if bot_segments[0].start_ms < user_segments[0].end_ms:
+        if bot_segments[0].start_ms < user_segments[0].start_ms:
             bot_segments = bot_segments[1:]
             skipped_initial_bot = True
 

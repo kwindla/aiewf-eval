@@ -74,6 +74,11 @@ class PacedInputTransport(BaseInputTransport):
         if not wait_for_ready:
             self._llm_ready.set()  # If not waiting, consider LLM ready immediately
 
+        # Recording synchronization: feeder waits for this before sending any frames
+        # This ensures user audio is perfectly aligned with recording wall-clock time
+        self._recording_baseline_event = threading.Event()
+        self._recording_baseline_monotonic: float = 0.0  # time.monotonic() when recording started
+
     # Public API
     def enqueue_wav_file(self, path: str):
         data, sr = sf.read(path, dtype="int16", always_2d=True)
@@ -117,6 +122,23 @@ class PacedInputTransport(BaseInputTransport):
         if not self._llm_ready.is_set():
             logger.info(f"{self}: LLM signaled ready, starting audio transmission")
             self._llm_ready.set()
+
+    def set_recording_baseline(self):
+        """Set the recording baseline time for wall-clock synchronized audio.
+
+        Call this when audio recording starts. The feeder will synchronize its
+        timing baseline to this moment, ensuring user audio frames are aligned
+        with wall-clock time in the recording.
+
+        IMPORTANT: Call this BEFORE start_recording() on AudioBufferProcessor,
+        and AFTER reset_recording_baseline() on NullAudioOutputTransport. All
+        three components must use the same T=0 baseline.
+        """
+        self._recording_baseline_monotonic = time.monotonic()
+        self._recording_baseline_event.set()
+        logger.info(
+            f"{self}: Recording baseline set at monotonic={self._recording_baseline_monotonic:.3f}"
+        )
 
     def pause(self):
         """Pause audio transmission by clearing the ready signal.
@@ -192,7 +214,17 @@ class PacedInputTransport(BaseInputTransport):
         sr = self.sample_rate or (self._params.audio_in_sample_rate or 16000)
         bytes_per_sample = 2  # int16
 
+        # Wait for recording baseline before sending ANY frames (including pre-roll)
+        # This ensures user audio is perfectly aligned with recording wall-clock time
+        logger.info(f"{self}: Waiting for recording baseline before sending audio...")
+        self._recording_baseline_event.wait()
+        logger.info(
+            f"{self}: Recording baseline received, starting audio at "
+            f"monotonic={self._recording_baseline_monotonic:.3f}"
+        )
+
         # Optional pre-roll of silence to let downstream settle
+        # Pre-roll is sent at real-time pace starting from recording baseline
         if self._pre_roll_ms > 0 and not self._did_preroll:
             samples_per_chunk = int(sr * (self._chunk_ms / 1000.0))
             chunk_bytes = samples_per_chunk * self._num_channels * bytes_per_sample
@@ -200,28 +232,36 @@ class PacedInputTransport(BaseInputTransport):
             logger.debug(
                 f"{self}: feeder preroll start sr={sr} chunk_bytes={chunk_bytes} chunks={num_chunks}"
             )
-            start_t = time.monotonic()
+            # Use recording baseline as start time for pre-roll
+            start_t = self._recording_baseline_monotonic
             for i in range(num_chunks):
                 silence = bytes(chunk_bytes)
                 frame = InputAudioRawFrame(
                     audio=silence, sample_rate=sr, num_channels=self._num_channels
                 )
+                # Add timing diagnostic for pre-roll frames
+                frame._paced_input_send_time = time.monotonic()
+                if i == 0:
+                    logger.info(f"{self}: First pre-roll frame created at monotonic={frame._paced_input_send_time:.3f}")
                 loop = self.get_event_loop()
                 loop.call_soon_threadsafe(lambda f=frame: self.create_task(self.push_audio_frame(f)))
-                # Pace to real time
+                # Pace to real time from recording baseline
                 next_time = start_t + ((i + 1) * self._chunk_ms) / 1000.0
                 sleep_for = next_time - time.monotonic()
                 if sleep_for > 0:
                     time.sleep(min(sleep_for, 0.05))
             self._did_preroll = True
+
         # Main loop: send audio or silence
         silence_chunk_bytes = int(sr * (self._chunk_ms / 1000.0)) * self._num_channels * bytes_per_sample
         silence_chunk = bytes(silence_chunk_bytes)
         chunk_interval_sec = self._chunk_ms / 1000.0
 
         # Global timing: track when the next chunk should be sent
-        # This ensures accurate timing across outer loop iterations
-        next_chunk_time = time.monotonic()
+        # Use recording baseline as T=0 for perfect wall-clock alignment
+        # Account for any pre-roll that was already sent
+        preroll_duration = (self._pre_roll_ms / 1000.0) if self._did_preroll else 0
+        next_chunk_time = self._recording_baseline_monotonic + preroll_duration
 
         # Verify silence is actually zeros
         if silence_chunk_bytes > 0:
@@ -281,6 +321,10 @@ class PacedInputTransport(BaseInputTransport):
                     time.sleep(min(sleep_for, 0.05))
 
                 frame = InputAudioRawFrame(audio=chunk, sample_rate=sr, num_channels=num_channels)
+                # Add timing diagnostic for first few frames
+                if offset <= chunk_bytes * 3:
+                    frame._paced_input_send_time = time.monotonic()
+                    logger.debug(f"{self}: Frame created at monotonic={frame._paced_input_send_time:.3f}")
                 loop = self.get_event_loop()
                 loop.call_soon_threadsafe(lambda f=frame: self.create_task(self.push_audio_frame(f)))
 
