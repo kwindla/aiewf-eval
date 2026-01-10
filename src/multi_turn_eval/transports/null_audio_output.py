@@ -25,7 +25,14 @@ import time
 
 import numpy as np
 from loguru import logger
-from pipecat.frames.frames import Frame, InputAudioRawFrame, InterruptionFrame, OutputAudioRawFrame, StartFrame
+from pipecat.frames.frames import (
+    Frame,
+    InputAudioRawFrame,
+    InterruptionFrame,
+    OutputAudioRawFrame,
+    StartFrame,
+    VADUserStoppedSpeakingFrame,
+)
 from pipecat.processors.frame_processor import FrameDirection
 from pipecat.transports.base_output import BaseOutputTransport
 from pipecat.transports.base_transport import TransportParams
@@ -37,6 +44,13 @@ MAX_GAP_SECS = 0.010
 # RMS threshold for detecting speech onset in bot audio (dB)
 # -30dB is closer to actual speech levels, avoiding pre-speech silent padding
 BOT_SPEECH_RMS_THRESHOLD_DB = -30.0
+
+# Audio tag configuration for bot turn boundary markers
+# Tags are 2kHz sine bursts mixed into the first frame of each bot turn
+# (User tags removed - they triggered on small timing gaps, not real turn boundaries)
+AUDIO_TAG_FREQUENCY_HZ = 2000  # 2kHz sine wave - above typical speech fundamentals
+AUDIO_TAG_DURATION_MS = 15    # 15ms duration - long enough to detect, short enough to not interfere
+AUDIO_TAG_AMPLITUDE_DB = -12  # -12dB relative to full scale - clear but avoids clipping
 
 
 class NullAudioOutputTransport(BaseOutputTransport):
@@ -104,6 +118,11 @@ class NullAudioOutputTransport(BaseOutputTransport):
         # Bot speech onset detection (RMS-based)
         self._bot_audio_start_time: float = 0.0  # When first bot audio byte arrived for current turn
         self._bot_first_speech_logged: bool = False  # Whether we've logged speech onset for current turn
+        self._bot_skip_rms_samples: int = 0  # Samples to skip for RMS check (tag window)
+
+        # Turn-based audio tagging (triggered by VADUserStoppedSpeakingFrame)
+        # Tag is injected on first bot audio frame after user turn ends
+        self._tag_next_bot_audio: bool = False  # Only tag after VAD event
 
         # User audio (InputAudioRawFrame) tracking
         self._user_actual_samples: int = 0  # Actual samples pushed downstream
@@ -139,6 +158,8 @@ class NullAudioOutputTransport(BaseOutputTransport):
         # Reset bot speech onset tracking
         self._bot_audio_start_time = 0.0
         self._bot_first_speech_logged = False
+        self._bot_skip_rms_samples = 0
+        self._tag_next_bot_audio = False  # Only tag after VAD event
 
         # Reset user audio tracking
         self._user_actual_samples = 0
@@ -217,6 +238,11 @@ class NullAudioOutputTransport(BaseOutputTransport):
             frame: The frame to process.
             direction: The direction of frame flow in the pipeline.
         """
+        # Detect user turn end to trigger tagging on next bot audio
+        if isinstance(frame, VADUserStoppedSpeakingFrame):
+            self._tag_next_bot_audio = True
+            logger.info("[NullAudioOutput] User turn ended - will tag next bot audio frame")
+
         # Handle bot audio (OutputAudioRawFrame) - insert silence for gaps
         if (
             isinstance(frame, OutputAudioRawFrame)
@@ -265,9 +291,8 @@ class NullAudioOutputTransport(BaseOutputTransport):
         if self._bot_sample_rate == 0:
             self._bot_sample_rate = frame.sample_rate
             self._bot_num_channels = frame.num_channels
-            # Initialize speech onset tracking for first turn
-            self._bot_audio_start_time = current_time
-            self._bot_first_speech_logged = False
+            # Skip RMS detection until first tag is inserted (no speech onset tracking before VAD)
+            self._bot_first_speech_logged = True
             logger.info(
                 f"[NullAudioOutput] Bot audio initialized: sample_rate={self._bot_sample_rate}, "
                 f"recording_sample_rate={self._recording_sample_rate}, "
@@ -307,17 +332,45 @@ class NullAudioOutputTransport(BaseOutputTransport):
                 f"expected={expected_samples}, actual_before={expected_samples - gap_samples}"
             )
 
-            # Reset speech onset tracking for new turn (gap indicates turn boundary)
-            # Record when bot audio started for this new turn
+        # Mix audio tag into the first bot frame after user turn ends
+        # This is triggered by VADUserStoppedSpeakingFrame, not by audio gaps
+        # (Ultravox sends chunked audio with gaps, so gap-based tagging creates spurious tags)
+        if self._tag_next_bot_audio:
+            # Reset speech onset tracking for new turn
+            # This must be done here (not on gap detection) to align with VAD-triggered turns
             self._bot_audio_start_time = current_time
             self._bot_first_speech_logged = False
+
+            tag = self._generate_audio_tag(frame.sample_rate)
+            tagged_audio = self._mix_tag_into_frame(frame.audio, tag)
+            frame = OutputAudioRawFrame(
+                audio=tagged_audio,
+                sample_rate=frame.sample_rate,
+                num_channels=frame.num_channels,
+            )
+            sample_pos_ms = (self._bot_actual_samples / self._recording_sample_rate) * 1000
+            logger.info(
+                f"[NullAudioOutput] Bot turn tag: sample_pos={sample_pos_ms:.0f}ms, "
+                f"freq={AUDIO_TAG_FREQUENCY_HZ}Hz, duration={AUDIO_TAG_DURATION_MS}ms"
+            )
+            # Skip RMS check for tag duration to avoid false speech onset detection
+            # The tag is at -12dB which would exceed the -30dB speech threshold
+            tag_samples_at_recording_rate = int(AUDIO_TAG_DURATION_MS * self._recording_sample_rate / 1000)
+            self._bot_skip_rms_samples = tag_samples_at_recording_rate
+            self._tag_next_bot_audio = False  # Only tag once per turn
 
         # Now process the actual frame through normal BaseOutputTransport path
         # This handles pacing and BotStarted/StoppedSpeakingFrame logic
         await super().process_frame(frame, direction)
 
-        # Check for speech onset using RMS threshold
-        if not self._bot_first_speech_logged:
+        # Check for speech onset using RMS threshold (skip tag window)
+        frame_samples = len(frame.audio) // (frame.num_channels * 2)
+        frame_samples_at_recording_rate = round(frame_samples * self._recording_sample_rate / frame.sample_rate)
+
+        if self._bot_skip_rms_samples > 0:
+            # Still in tag window, decrement skip counter
+            self._bot_skip_rms_samples -= frame_samples_at_recording_rate
+        elif not self._bot_first_speech_logged:
             rms_db = self._calculate_rms_db(frame.audio)
             if rms_db > BOT_SPEECH_RMS_THRESHOLD_DB:
                 # Log both wall-clock elapsed time AND actual sample position
@@ -569,3 +622,61 @@ class NullAudioOutputTransport(BaseOutputTransport):
             return -100.0
         # dB relative to full scale (32768 for 16-bit audio)
         return 20 * np.log10(rms / 32768)
+
+    def _generate_audio_tag(self, sample_rate: int) -> np.ndarray:
+        """Generate a 2kHz sine burst for marking turn boundaries.
+
+        Creates a short audio tag that can be mixed into the first frame of each
+        turn to mark when the audio stream began. The tag uses:
+        - 2kHz frequency: Above typical speech fundamentals, easy to detect with FFT
+        - 15ms duration: Long enough to detect reliably, short enough not to interfere
+        - -12dB amplitude: Clear but leaves headroom to avoid clipping when mixed
+        - Fade in/out: 2ms fades to prevent clicks
+
+        Args:
+            sample_rate: The sample rate of the audio frame to be tagged.
+
+        Returns:
+            Audio samples as int16 array (to be mixed with first frame).
+        """
+        duration_secs = AUDIO_TAG_DURATION_MS / 1000
+        num_samples = int(sample_rate * duration_secs)
+        t = np.arange(num_samples) / sample_rate
+
+        # Generate sine wave at -12dB (amplitude ≈ 8200 out of 32768)
+        amplitude = 32768 * (10 ** (AUDIO_TAG_AMPLITUDE_DB / 20))
+        sine_wave = amplitude * np.sin(2 * np.pi * AUDIO_TAG_FREQUENCY_HZ * t)
+
+        # Apply short fade-in/fade-out to avoid clicks (2ms each)
+        fade_samples = int(sample_rate * 0.002)
+        if fade_samples > 0 and num_samples > 2 * fade_samples:
+            fade_in = np.linspace(0, 1, fade_samples)
+            fade_out = np.linspace(1, 0, fade_samples)
+            sine_wave[:fade_samples] *= fade_in
+            sine_wave[-fade_samples:] *= fade_out
+
+        return sine_wave.astype(np.int16)
+
+    def _mix_tag_into_frame(self, frame_audio: bytes, tag: np.ndarray) -> bytes:
+        """Mix audio tag into the beginning of a frame.
+
+        Adds the tag samples to the beginning of the frame audio, with clipping
+        protection to prevent overflow. If the frame is shorter than the tag,
+        the tag is truncated to fit.
+
+        Args:
+            frame_audio: Original frame audio bytes (int16 PCM).
+            tag: Audio tag samples (int16 array).
+
+        Returns:
+            Mixed audio bytes with tag at the beginning.
+        """
+        frame = np.frombuffer(frame_audio, dtype=np.int16).copy()
+        tag_len = min(len(tag), len(frame))
+
+        if tag_len > 0:
+            # Mix by adding, clip to int16 range to prevent overflow
+            mixed = frame[:tag_len].astype(np.int32) + tag[:tag_len].astype(np.int32)
+            frame[:tag_len] = np.clip(mixed, -32768, 32767).astype(np.int16)
+
+        return frame.tobytes()

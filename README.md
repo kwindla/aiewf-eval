@@ -380,6 +380,86 @@ Tool call turns typically have higher TTFB since the model must process the tool
 - **Segment mismatch**: If the number of user and bot segments don't match, the script pairs as many as possible and reports the mismatch.
 - **Negative TTFB**: Indicates overlapping speech (bot started before user finished). This may indicate audio sync issues or interruptions.
 
+## Comprehensive Turn Metrics Analysis
+
+For detailed per-turn timing analysis of speech-to-speech models, use the comprehensive metrics script:
+
+```bash
+# Analyze a run with summary statistics
+uv run python scripts/analyze_turn_metrics.py runs/aiwf_medium_context/<timestamp>_<model>
+
+# Show per-turn breakdown table
+uv run python scripts/analyze_turn_metrics.py runs/aiwf_medium_context/<timestamp>_<model> -v
+
+# Output as JSON (for programmatic use)
+uv run python scripts/analyze_turn_metrics.py runs/aiwf_medium_context/<timestamp>_<model> --json
+```
+
+### Metrics Explained
+
+The script consolidates timing data from multiple sources and calculates the following metrics:
+
+| Metric | Description | Calculation |
+|--------|-------------|-------------|
+| **Server TTFB** | Time from request to first byte from model | Read from `transcript.jsonl` (reported by Pipecat) |
+| **Pipeline TTFB** | Time from user speech end to bot audio tag | `bot_tag_log_ms - user_end_ms` (Silero VAD) |
+| **WAV V2V** | Voice-to-voice latency measured from audio | `bot_silero_start_ms - user_end_ms` (Silero VAD) |
+| **Silent Pad (RMS)** | Silent padding before speech (RMS detection) | `bot_rms_onset_ms - bot_tag_log_ms` |
+| **Silent Pad (VAD)** | Silent padding before speech (Silero VAD) | `bot_silero_start_ms - bot_tag_wav_ms` |
+| **Tag Alignment** | Drift between log position and WAV detection | `bot_tag_log_ms - bot_tag_wav_ms` |
+
+**Key metric relationships:**
+- **WAV V2V = Pipeline TTFB + Silent Pad (VAD)** - The total voice-to-voice latency includes both the time waiting for audio to arrive and any initial silence in the audio stream
+- **Pipeline TTFB** measures when audio starts arriving at the pipeline
+- **Silent Pad** measures how much silence is at the beginning of the audio (most models send 40-120ms of silence before speech)
+
+### Alignment Sanity Check
+
+The script verifies that log-based timestamps match actual audio positions by detecting audio tags (2kHz tones) embedded in the WAV file:
+
+- **Bot tags**: Inserted when bot audio arrives at the pipeline
+- **Alignment OK**: Log and WAV positions match within ±20ms tolerance
+- **Issues detected**: Missing tags, extra tags, or drift outside tolerance
+
+### Output Files
+
+When run with `--json`, the script outputs structured data that can be saved:
+
+```bash
+# Save metrics to JSON file
+uv run python scripts/analyze_turn_metrics.py runs/aiwf_medium_context/<timestamp>_<model> --json > turn_metrics.json
+```
+
+### Claude Code Prompt for Batch Benchmarking
+
+Use this prompt with Claude Code to run comprehensive benchmarks across multiple speech-to-speech models:
+
+```
+Run a full 30-turn test with all four speech-to-speech models: ultravox-v0.7,
+gpt-realtime, grok-realtime, gemini-2.5-flash-native-audio-preview-12-2025.
+
+For each model:
+1. Run the 30-turn benchmark
+2. Analyze using scripts/analyze_turn_metrics.py and save turn_metrics.json
+3. Judge the model performance using the Claude judge
+
+After completing all models, create a summary comparison table with these columns:
+- Model
+- Tool Use (X/30)
+- Instruction (X/30)
+- KB Ground (X/30)
+- Turn Ok (X/30)
+- Pass Rate
+- Non-Tool V2V Median
+- Non-Tool V2V Max
+- Tool V2V Mean
+- Silence Pad Mean
+
+Separate metrics for tool-call turns vs non-tool-call turns in the analysis.
+```
+
+This will run all four models (which takes approximately 15-20 minutes each), analyze their timing metrics, judge their responses, and produce a comparison table.
+
 ## License
 
 MIT

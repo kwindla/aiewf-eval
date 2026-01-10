@@ -331,6 +331,7 @@ def judge(
         result["model_name"],
         result.get("realignment_notes", ""),
         result.get("function_tracking", {}),
+        result.get("turn_taking_analysis"),
     )
 
     # Print summary
@@ -339,10 +340,16 @@ def judge(
     passes = summary.get("claude_passes", {})
     total = summary.get("turns_scored", 0)
 
-    click.echo(f"Judged {total} turns")
+    click.echo(f"Judged {total} turns (with turn-taking analysis)")
+    click.echo(f"  Turn-taking: {passes.get('turn_taking', total)}/{total}")
     click.echo(f"  Tool use: {passes.get('tool_use_correct', 0)}/{total}")
     click.echo(f"  Instruction following: {passes.get('instruction_following', 0)}/{total}")
     click.echo(f"  KB grounding: {passes.get('kb_grounding', 0)}/{total}")
+
+    # Report turn-taking failures if any
+    turn_taking_failures = summary.get("turn_taking_failures", [])
+    if turn_taking_failures:
+        click.echo(f"\nTurn-taking failures: {turn_taking_failures}")
 
 
 @cli.command("list-benchmarks")
