@@ -336,14 +336,15 @@ def run_silero_vad(
 def match_tags_by_proximity(
     log_tags: list[dict],
     wav_tags: list[int],
-    max_distance_ms: int = 100,
+    max_distance_ms: int = 150,
 ) -> tuple[list[tuple[int, int, float]], list[int]]:
     """Match log tags to WAV tags by proximity, filtering false positives.
 
     Args:
         log_tags: List of dicts with 'sample_pos_ms' from logs
         wav_tags: List of positions in ms from WAV detection
-        max_distance_ms: Maximum distance to consider a match
+        max_distance_ms: Maximum distance to consider a match (150ms accounts for
+            MediaSender buffering and resampling delays)
 
     Returns:
         Tuple of (matches, unmatched_wav_indices) where matches is list of
@@ -466,6 +467,27 @@ def analyze_run(run_dir: Path) -> tuple[list[TurnMetrics], AlignmentStats, dict]
     print("Running Silero VAD...", file=sys.stderr)
     model, get_speech_timestamps = load_silero_vad()
     user_segments, bot_segments = run_silero_vad(wav_path, model, get_speech_timestamps)
+
+    # Detect initial greeting: bot speaking before first user speech ends
+    # If a greeting occurred, the first bot tag/segment is the greeting (not a turn response)
+    greeting_detected = False
+    greeting_segment = None
+    greeting_tag_log = None
+    greeting_rms_onset = None
+    if bot_segments and user_segments:
+        first_bot_start = bot_segments[0]["start_ms"]
+        first_user_end = user_segments[0]["end_ms"]
+        if first_bot_start < first_user_end:
+            greeting_detected = True
+            greeting_segment = bot_segments[0]
+            print(f"Greeting detected: bot started at {first_bot_start:.0f}ms, before user ended at {first_user_end:.0f}ms", file=sys.stderr)
+            # Remove greeting from bot_tags_log and rms_onsets so turn indices align with transcript
+            if bot_tags_log:
+                greeting_tag_log = bot_tags_log[0]
+                bot_tags_log = bot_tags_log[1:]
+            if rms_onsets:
+                greeting_rms_onset = rms_onsets[0]
+                rms_onsets = rms_onsets[1:]
 
     # Detect user/bot audio overlaps
     print("Detecting audio overlaps...", file=sys.stderr)
@@ -601,8 +623,13 @@ def analyze_run(run_dir: Path) -> tuple[list[TurnMetrics], AlignmentStats, dict]
             })
 
     # Detect unprompted bot responses - bot segments that started without recent user speech
+    # Note: Skip the greeting segment (first bot segment if greeting detected) as it's expected to be unprompted
     unprompted_bot_segments = []
     for bot_seg in bot_segments:
+        # Skip greeting segment from unprompted detection
+        if greeting_detected and greeting_segment and bot_seg["start_ms"] == greeting_segment["start_ms"]:
+            continue
+
         # Find the user segment that ends closest before this bot segment starts
         best_user_end = None
         for user_seg in user_segments:
@@ -626,6 +653,13 @@ def analyze_run(run_dir: Path) -> tuple[list[TurnMetrics], AlignmentStats, dict]
         "num_turns": n_turns,
         "user_segments": len(user_segments),
         "bot_segments": len(bot_segments),
+        "greeting_detected": greeting_detected,
+        "greeting": {
+            "start_ms": greeting_segment["start_ms"] if greeting_segment else None,
+            "end_ms": greeting_segment["end_ms"] if greeting_segment else None,
+            "duration_ms": greeting_segment["end_ms"] - greeting_segment["start_ms"] if greeting_segment else None,
+            "tag_log_ms": greeting_tag_log["sample_pos_ms"] if greeting_tag_log else None,
+        } if greeting_detected else None,
         "overlaps": overlaps,
         "unmatched_bot_segments": unmatched_bot_segments,
         "unprompted_bot_segments": unprompted_bot_segments,
@@ -650,6 +684,13 @@ def print_results(turns: list[TurnMetrics], alignment: AlignmentStats, summary: 
     print("=" * 90)
     print(f"Run: {summary['run_dir']}")
     print(f"Turns: {summary['num_turns']}, User segments: {summary['user_segments']}, Bot segments: {summary['bot_segments']}")
+
+    # Greeting info
+    if summary.get("greeting_detected"):
+        greeting = summary["greeting"]
+        print(f"Initial greeting: {greeting['start_ms']:.0f}ms - {greeting['end_ms']:.0f}ms ({greeting['duration_ms']:.0f}ms)")
+    else:
+        print("Initial greeting: None detected")
 
     # Alignment check
     print()

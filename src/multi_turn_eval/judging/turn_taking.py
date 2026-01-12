@@ -13,11 +13,13 @@ Turn-taking failures are detected when:
 7. Empty response: model returned control tokens only, no actual speech
 8. No response: model never responded at all (no TTS within 15s timeout)
 9. Reconnection: session timeout forced reconnect mid-turn
+10. Greeting timeout: bot started greeting but never completed (30s timeout)
 
 Global issues (not per-turn):
 - Audio overlaps detected across all segments
 - Unmatched bot segments (orphan responses not associated with any turn)
 - Unprompted bot responses (bot speaking without recent user speech)
+- Greeting timeout (affects turn 0 timing)
 """
 
 import json
@@ -29,7 +31,7 @@ from typing import Optional
 
 
 # Thresholds for detecting turn-taking failures
-ALIGNMENT_TOLERANCE_MS = 100  # ±100ms
+ALIGNMENT_TOLERANCE_MS = 150  # ±150ms (accounts for MediaSender buffering delays)
 MAX_SILENT_PAD_MS = 5000  # 5 seconds
 
 
@@ -182,6 +184,34 @@ def detect_turn_taking_issues(turn_data: dict, overlaps: list[dict] = None) -> l
     return issues
 
 
+def detect_greeting_timeout(run_dir: Path) -> bool:
+    """Check if a greeting timeout occurred by parsing run.log.
+
+    A greeting timeout occurs when the bot started speaking its initial
+    greeting but never completed within the timeout period (30s).
+
+    Args:
+        run_dir: Path to the run directory containing run.log
+
+    Returns:
+        True if a greeting timeout was detected, False otherwise.
+    """
+    log_path = run_dir / "run.log"
+    if not log_path.exists():
+        return False
+
+    try:
+        with log_path.open("r", encoding="utf-8", errors="replace") as f:
+            for line in f:
+                # Look for the specific TURN_FAILURE log message for greeting timeout
+                if "[TURN_FAILURE] Greeting did not complete" in line:
+                    return True
+    except Exception as e:
+        print(f"Error reading run.log for greeting timeout: {e}", file=sys.stderr)
+
+    return False
+
+
 def analyze_turn_taking(run_dir: Path) -> TurnTakingAnalysis:
     """Analyze turn-taking from audio timing metrics.
 
@@ -234,6 +264,12 @@ def analyze_turn_taking(run_dir: Path) -> TurnTakingAnalysis:
         result.global_issues.append(f"unprompted_bot_responses: {len(unprompted_segs)} segments without user trigger")
         result.overall_ok = False
 
+    # Check for greeting timeout (affects turn 0)
+    greeting_timeout = detect_greeting_timeout(run_dir)
+    if greeting_timeout:
+        result.global_issues.append("greeting_timeout: bot started greeting but never completed (30s timeout)")
+        result.overall_ok = False
+
     # Analyze each turn
     turns_data = metrics.get("turns", [])
     for turn_data in turns_data:
@@ -242,6 +278,11 @@ def analyze_turn_taking(run_dir: Path) -> TurnTakingAnalysis:
             continue
 
         issues = detect_turn_taking_issues(turn_data, overlaps=overlaps)
+
+        # Add greeting_timeout issue to turn 0 if it occurred
+        if turn_idx == 0 and greeting_timeout:
+            issues.append("greeting_timeout")
+
         turn_result = TurnTakingResult(
             turn_index=turn_idx,
             turn_taking_ok=len(issues) == 0,

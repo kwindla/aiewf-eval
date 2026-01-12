@@ -12,8 +12,8 @@ The two benchmarks here in this public repo are:
 Text mode models:
 
 ```
-| Model                   | Tool Use  | Instruction | KB Ground | Pass Rate | Median Rate | TTFB Med | TTFB P95 | TTFB Max |
-|-------------------------|-----------|-------------|-----------|-----------|-------------|----------|----------|----------|
+| Model                     | Tool Use  | Instruction | KB Ground | Pass Rate | Median Rate | TTFB Med | TTFB P95 | TTFB Max |
+|---------------------------|-----------|-------------|-----------|-----------|-------------|----------|----------|----------|
 | gpt-5.1                   | 300/300   | 300/300     | 300/300   | 100.0%    | 100.0%      |  916ms   | 2011ms   | 5216ms   |
 | gemini-3-flash-preview    | 300/300   | 300/300     | 300/300   | 100.0%    | 100.0%      | 1193ms   | 1635ms   | 6653ms   |
 | claude-sonnet-4-5         | 300/300   | 300/300     | 300/300   | 100.0%    | 100.0%      | 2234ms   | 3062ms   | 5438ms   |
@@ -38,88 +38,81 @@ TTFB is the number reported by the Pipecat service for each model. It is the tim
 Speech-to-speech models:
 
 ```
-|   Model                         | Tool Use  | Instruction | KB Ground | Pass Rate | Median Rate | Non-Tool TTFB Median | Non-Tool TTFB Max | Tool TTFB Mean |
-|---------------------------------|-----------|-------------|-----------|-----------|-------------|----------------------|-------------------|----------------|
-|   ultravox-v0.7                 | 296/300   | 297/300     | 299/300   | 98.0%     | 100.0%      |  564ms               |  772ms            | 1556ms         |
-|   gpt-realtime                  | 267/300   | 265/300     | 300/300   | 92.4%     |  92.8%      | 1028ms               | 3204ms            | 1803ms         |
-|   grok-realtime                 | 264/300   | 257/300     | 296/300   | 90.8%     |  92.8%      | 1108ms               | 9668ms            | 1389ms         |
-|   gemini-native-audio-12-2025   | 253/300   | 259/300     | 286/300   | 88.7%     |  90.0%      | 2868ms               | 5188ms            | 2852ms         | 
-| * amazon.nova-2-sonic-v1:0      | 278/300   | 265/300     | 296/300   | 93.2%     |  95.6%      | *                    | *                 | *              |
+-----------------------------------------------------------------------------------------------------------------------------------------
+| Model             | Tool    | Instruction | KB       | Turn    | Pass     | Non-Tool V2V  | Non-Tool V2V  | Tool V2V   | Silence Pad  |
+|                   | Use     |             | Ground   | Ok      | Rate     | Med           | Max           | Mean       | Mean         |
+-----------------------------------------------------------------------------------------------------------------------------------------
+| ultravox-v0.7     | 293/300 | 294/300     | 298/300  | 300/300 |   97.7%  | 864ms         | 1888ms        | 2406ms     | 82ms         |
+-----------------------------------------------------------------------------------------------------------------------------------------
+| gpt-realtime      | 271/300 | 260/300     | 300/300  | 296/300 |   86.7%  | 1536ms        | 4672ms        | 2199ms     | 341ms        |
+-----------------------------------------------------------------------------------------------------------------------------------------
+| gemini-live       | 258/300 | 261/300     | 293/300  | 278/300 |   86.0%  | 2624ms        | 61747ms       | 4082ms     | 90ms         |
+-----------------------------------------------------------------------------------------------------------------------------------------
+| * nova-2-sonic    | 278/300 | 265/300     | 296/300  | *       |  (93.2%) | *             | *             | *          | *            |
+-----------------------------------------------------------------------------------------------------------------------------------------
+| * grok-realtime   | 267/300 | 275/300     | 295/300  | *       |  (89.0%) | 1184ms        | 2016ms        | 1472ms     | 478ms        |
+-----------------------------------------------------------------------------------------------------------------------------------------
 ```
 
-Speech-to-speech models, which take audio as input and generate audio as output. For these models, we measure TTFB by analyzing the saved audio files and measuring the time from the end of the user's audio to the beginning of the model's audio response. This TTFB is different from the TTFB reported by the Pipecat service for these models, primarily because all of the models send initial silence bytes. (Text-to-speech models do this, too. The initial silence segments are typically between 150ms and 250ms.)
+Speech-to-speech models, which take audio as input and generate audio as output. For these models, we measure voice-to-voice latency by analyzing the saved audio files and measuring the time from the end of the user's audio to the beginning of the model's speech audio response. This latency is different from the TTFB reported by the Pipecat service for these models, because all of these models were tested in server-side VAD mode (so the server-side turn delay is opaque to the Pipecat pipeline), and all of the models send initial silence bytes before actual speech audio. (Text-to-speech models do this, too. The initial silence segments are typically between 150ms and 250ms for standalone TTS models.)
 
-The new AWS Nova 2 Sonic model is marked with an asterisk (*). It is the best speech-to-speech model in this benchmark, **when we complete a full 30-turn conversation**. But performance is unstable in a way that is not captured in this summary table: content refusals sometimes happen early in a conversation and the model never recovers; there is an 8m connection limit and reloading conversation history is fragile. This needs more investigation. Both of these may be Pipecat implementation issues. For the moment, we're ignoring incomplete runs and including complete-run numbers to show the model's promise. But we expect to see some changes to the implementation before it can be used in production (improvements to either in the Pipecat implementation, the AWS APIs, or both).
+We also include a "Turn Ok" column for these models, which counts how often the model does not respond at all when we expect it to. This is a difficult metric to specify precisely. Are general API failures and disconnects turn failures? We're conservative, here, only including in turn failures model non-responsiveness or extremely slow response while the persistent session remains connected.
+
+The APIs for the Grok and AWS Nova 2 Sonic models are currently unreliable enough that to use them in production would require a very large amount of defensive programming at the application level. These are the second and third best performing models, **when they complete a full 30-turn conversation**. But performance is unstable: the AWS model frequently emits content refusals for normal content and has an 8 minute connection limit; its context prefill often fails with errors; the Grok API returns errors for all actions in the middle of a session and may or may not recover.
 
 ## Model Notes
 
-### Speech-to-Speech Model Comparison (10-run benchmark, 2026-01-11)
-
-```
--------------------------------------------------------------------------------------------------------------------------------------------
-| Model             | Tool    | Instruction | KB       | Turn    | Pass     | Non-Tool V2V  | Non-Tool V2V  | Tool V2V   | Silence Pad  |
-|                   | Use     |             | Ground   | Ok      | Rate     | Med           | Max           | Mean       | Mean         |
--------------------------------------------------------------------------------------------------------------------------------------------
-| ultravox-v0.7     | 293/300 | 289/300     | 299/300  | 271/300 |  96.3% | 832ms         | 2656ms        | 2297ms     | 596ms        |
--------------------------------------------------------------------------------------------------------------------------------------------
-| gpt-realtime      | 269/300 | 260/300     | 300/300  | 283/300 |  86.7% | 1232ms        | 3104ms        | 1803ms     | 263ms        |
--------------------------------------------------------------------------------------------------------------------------------------------
-| grok-realtime     | 230/270 | 237/270     | 262/270  | 248/270 |  85.2% | 1184ms        | 2048ms        | 1476ms     | 372ms        |
--------------------------------------------------------------------------------------------------------------------------------------------
-| gemini-live       | 272/300 | 269/300     | 293/300  | 291/300 |  89.7% | 2432ms        | 11807ms       | 4415ms     | 60ms         |
--------------------------------------------------------------------------------------------------------------------------------------------
-```
-
-Note: grok-realtime has 9 runs (270 turns) due to one run failing with 30-minute session limit.
 
 ### Ultravox v0.7
 
 **Strengths:**
-- **Highest overall quality** (96.3% pass rate) - best tool use and instruction following
-- **Fastest voice-to-voice latency** (832ms median) - most responsive for non-tool turns
-- **Near-perfect KB grounding** (299/300) - excellent factual accuracy
+- **Highest overall quality** (97.7% pass rate) - best tool use and instruction following
+- **Perfect turn-taking** (300/300) - no timing anomalies across 300 turns
+- **Fastest voice-to-voice latency** (864ms median) - most responsive for non-tool turns
+- **Low silence padding** (82ms mean) - minimal delay before speech starts
 
 **Weaknesses:**
-- **Highest silence padding** (596ms mean) - noticeable pause before speech starts
-- **Turn-taking issues on early turns** - tends to fail turns 0-4 more often than other models
-- **Slower tool call responses** (2297ms mean) - highest latency when calling functions
+- **Slower tool call responses** (2406ms mean) - highest latency when calling functions (local TTS processing)
+- **Occasional end_session miss** - sometimes fails to call the session-ending function
 
 ### GPT-Realtime (OpenAI)
 
 **Strengths:**
 - **Perfect KB grounding** (300/300) - never hallucinates facts from the knowledge base
-- **Good turn-taking** (283/300, 94.3%) - natural conversation flow
-- **Moderate latency** (1232ms median V2V) - balanced responsiveness
+- **Excellent turn-taking** (296/300, 98.7%) - natural conversation flow
+- **Consistent latency** (4672ms max vs 61747ms for Gemini) - fewer extreme outliers
 
 **Weaknesses:**
 - **Lower instruction following** (260/300, 86.7%) - sometimes ignores system prompt constraints
-- **Occasional high latency spikes** (3104ms max) - some turns take notably longer
-- **Tool use accuracy** (269/300, 89.7%) - sometimes calls wrong functions or wrong arguments
+- **Mid-conversation tool misses** - often fails to call functions like dietary_request, vote_session
+- **Moderate silence padding** (341ms mean) - noticeable pause before speech starts
 
 ### Grok-Realtime (xAI)
 
 **Strengths:**
-- **Fastest tool call responses** (1476ms mean) - best for function-calling use cases
-- **Consistent latency** (2048ms max vs 3104ms for GPT) - fewer outlier slow turns
+- **Fastest tool call responses** (1472ms mean) - best for function-calling use cases
+- **Strong instruction following** (275/300, 91.7%) - second best after Ultravox
+- **Consistent latency** (2016ms max) - most predictable response times
 - **Good V2V median** (1184ms) - competitive with GPT-Realtime
 
 **Weaknesses:**
-- **30-minute session limit** - connections are terminated, causing run failures
-- **Lowest overall quality** (85.2% pass rate) - struggles with all quality metrics
-- **Weakest KB grounding** (262/270, 97%) - occasionally hallucinates or misses details
-- **Turn-taking failures on later turns** (27-29) - often fails near end of conversations
+- **30-minute session limit** - xAI terminates connections after 30 minutes. When hit, the pipeline can get stuck in an error loop (receiving error frames prevents inactivity timeout). Recommendation: implement session keepalive or pre-emptive refresh.
+- **Server-side VAD disagreement** - xAI's VAD sometimes fails to detect user speech end, causing `missing_timing_data` or `negative_ttfb` issues
+- **Highest silence padding** (478ms mean) - sends more "thinking" audio before speech
+- **Turn-taking failures** (279/300, 93%) - timing anomalies more common than GPT/Ultravox
 
 ### Gemini Live (Google)
 
 **Strengths:**
-- **Best turn-taking** (291/300, 97%) - most natural conversation flow
-- **Lowest silence padding** (60ms mean) - most natural-sounding response starts
-- **Handles 10-minute reconnections gracefully** - automatic session renewal works well
+- **Lowest silence padding** (90ms mean) - most natural-sounding response starts
+- **Good KB grounding** (293/300, 97.7%) - reliable factual accuracy
 
 **Weaknesses:**
-- **Highest latency** (2432ms median, 4415ms tool calls) - notably slower than others
-- **Extreme latency outliers** (11807ms max) - occasional very slow responses (often after reconnection)
-- **10-minute session limit** - requires automatic reconnection, occasionally fails mid-turn
+- **Session instability** - sessions occasionally disconnect mid-conversation, requiring up to 9 reconnection attempts in worst cases
+- **Extreme latency outliers** (61747ms max) - reconnection attempts cause massive latency spikes (over 1 minute)
+- **Highest median latency** (2624ms) - notably slower than other models even when stable
+- **Lowest tool use accuracy** (258/300, 86%) - struggles with mid-conversation function calls
+- **Turn-taking failures** (278/300, 92.7%) - greeting timing edge cases and reconnection issues
 - **Empty response issue** - sometimes returns only control tokens, requiring retry
 
 ### Nova Sonic (AWS)

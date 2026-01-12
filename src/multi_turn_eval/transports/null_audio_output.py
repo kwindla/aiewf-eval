@@ -170,6 +170,17 @@ class NullAudioOutputTransport(BaseOutputTransport):
 
         logger.info(f"[NullAudioOutput] Recording baseline reset (recording_sample_rate={recording_sample_rate})")
 
+    def enable_greeting_tag(self):
+        """Enable tagging for the initial greeting audio.
+
+        Call this after reset_recording_baseline() to ensure the first bot audio
+        (the greeting) gets an audio tag. Normally tags are triggered by
+        VADUserStoppedSpeakingFrame, but the greeting happens before any user
+        speech, so we need to explicitly enable tagging for it.
+        """
+        self._tag_next_bot_audio = True
+        logger.info("[NullAudioOutput] Greeting tag enabled - will tag first bot audio frame")
+
     async def start(self, frame: StartFrame):
         """Start the transport and initialize the MediaSender.
 

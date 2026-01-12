@@ -116,6 +116,7 @@ class TurnGate(FrameProcessor):
         on_turn_ready: Callable[[str], Any],
         audio_drain_delay: float = 0.5,
         no_response_timeout: float = 15.0,
+        on_greeting_done: Optional[Callable[[], None]] = None,
         **kwargs,
     ):
         """Initialize the turn gate.
@@ -129,6 +130,9 @@ class TurnGate(FrameProcessor):
                               when BOT_VAD_STOP_SECS is increased to 2s.
             no_response_timeout: Seconds to wait after UserStoppedSpeakingFrame before
                                 declaring no response if no TTSStartedFrame arrived.
+            on_greeting_done: Optional callback to invoke when the initial greeting
+                             completes (first BotStoppedSpeakingFrame). Used to signal
+                             that user audio can start playing.
         """
         super().__init__(**kwargs)
         self._on_turn_ready = on_turn_ready
@@ -142,6 +146,20 @@ class TurnGate(FrameProcessor):
         self._tts_started = False
         self._no_response_check_task: Optional[asyncio.Task] = None
         self._on_empty_response: Optional[Callable[[str], None]] = None
+
+        # Initial greeting detection
+        self._on_greeting_done = on_greeting_done
+        self._on_greeting_started: Optional[Callable[[], None]] = None
+        self._greeting_signaled = False
+        self._greeting_started_signaled = False
+
+    def set_greeting_started_callback(self, callback: Callable[[], None]):
+        """Set callback for when initial greeting starts (first BotStartedSpeakingFrame).
+
+        Args:
+            callback: Called when bot starts speaking for the first time.
+        """
+        self._on_greeting_started = callback
 
     def set_empty_response_callback(self, callback: Callable[[str], None]):
         """Set callback for when empty/no response is detected.
@@ -238,6 +256,14 @@ class TurnGate(FrameProcessor):
         # If bot starts speaking, cancel pending checks and turn end
         if isinstance(frame, BotStartedSpeakingFrame):
             self._bot_speaking = True
+
+            # Signal greeting started on first BotStartedSpeakingFrame
+            # This allows the pipeline to know the bot is greeting
+            if not self._greeting_started_signaled and self._on_greeting_started:
+                self._greeting_started_signaled = True
+                logger.info("[TurnGate] Initial greeting started, signaling greeting started")
+                self._on_greeting_started()
+
             # Cancel no-response check - bot is speaking
             if self._no_response_check_task and not self._no_response_check_task.done():
                 self._no_response_check_task.cancel()
@@ -251,6 +277,13 @@ class TurnGate(FrameProcessor):
         if isinstance(frame, BotStoppedSpeakingFrame):
             logger.info("[TurnGate] BotStoppedSpeakingFrame received")
             self._bot_speaking = False
+
+            # Signal greeting done on first BotStoppedSpeakingFrame
+            # This allows user audio to start playing after the initial greeting
+            if not self._greeting_signaled and self._on_greeting_done:
+                self._greeting_signaled = True
+                logger.info("[TurnGate] Initial greeting complete, signaling greeting done")
+                self._on_greeting_done()
 
             # If we have a pending transcript, schedule turn end after delay
             if self._pending_transcript is not None:
@@ -415,6 +448,10 @@ class RealtimePipeline(BasePipeline):
         self._current_audio_end_time: float = 0
         # Event to signal when pipeline is ready (StartFrame has reached end)
         self._pipeline_ready_event: asyncio.Event = asyncio.Event()
+        # Event to signal when initial greeting starts (first BotStartedSpeakingFrame)
+        self._greeting_started: asyncio.Event = asyncio.Event()
+        # Event to signal when initial greeting is complete (first BotStoppedSpeakingFrame)
+        self._greeting_done: asyncio.Event = asyncio.Event()
         # Empty response retry tracking
         self._turn_retry_count: int = 0
         self._max_turn_retries: int = 3
@@ -443,6 +480,13 @@ class RealtimePipeline(BasePipeline):
             return False
         m = self.model_name.lower()
         return "ultravox" in m
+
+    def _is_grok_realtime(self) -> bool:
+        """Check if current model is Grok/xAI Realtime."""
+        if not self.model_name:
+            return False
+        m = self.model_name.lower()
+        return "grok" in m and "realtime" in m
 
     def _get_audio_duration(self, audio_path: str) -> float:
         """Get duration of an audio file in seconds.
@@ -550,10 +594,9 @@ class RealtimePipeline(BasePipeline):
                 one_shot_selected_tools=tools,
             )
         elif "GeminiLive" in class_name:
-            # Gemini Live: Disable auto-response on context initialization
-            # By default, Gemini sends turn_complete=True when context is set,
-            # triggering an immediate bot greeting. We disable this to match
-            # other speech-to-speech models that wait for user input first.
+            # Gemini Live: Enable auto-response on context initialization
+            # When context is set with a user message like "Greet the user briefly",
+            # Gemini will automatically produce a greeting response.
             api_key = os.getenv("GOOGLE_API_KEY")
             if not api_key:
                 raise EnvironmentError("GOOGLE_API_KEY environment variable is required")
@@ -563,7 +606,7 @@ class RealtimePipeline(BasePipeline):
                 model=model,
                 system_instruction=system_instruction,
                 tools=tools,
-                inference_on_context_initialization=False,
+                inference_on_context_initialization=True,
                 on_reconnecting=self._on_gemini_reconnecting,
                 on_reconnected=self._on_gemini_reconnected,
             )
@@ -572,7 +615,11 @@ class RealtimePipeline(BasePipeline):
             return super()._create_llm(service_class, model)
 
     def _setup_context(self) -> None:
-        """Create LLMContext with system prompt and tools."""
+        """Create LLMContext with system prompt and tools.
+
+        For OpenAI Realtime and Grok Realtime, we also add an initial user
+        message to trigger the greeting when LLMRunFrame is queued.
+        """
         system_instruction = getattr(self.benchmark, "system_instruction", "")
         tools = getattr(self.benchmark, "tools_schema", None)
 
@@ -580,6 +627,13 @@ class RealtimePipeline(BasePipeline):
         # an LLMContextFrame. The pipecat service extracts the system message
         # and applies it via session properties (OpenAI) or context (Gemini).
         messages = [{"role": "system", "content": system_instruction}]
+
+        # Add initial greeting trigger for models that need it:
+        # - OpenAI Realtime and Grok Realtime: need user message + LLMRunFrame
+        # - Gemini Live: needs user message with inference_on_context_initialization=True
+        # - Ultravox: auto-greets, no trigger needed
+        if self._is_openai_realtime() or self._is_grok_realtime() or self._is_gemini_live():
+            messages.append({"role": "user", "content": "Greet the user briefly."})
 
         self.context = LLMContext(messages, tools=tools)
         self.context_aggregator = LLMContextAggregatorPair(self.context)
@@ -839,7 +893,12 @@ class RealtimePipeline(BasePipeline):
                     self.turn_gate.set_pending_transcript(msg.content)
 
         # Create TurnGate to coordinate transcript with audio playback completion
-        self.turn_gate = TurnGate(on_turn_ready=self._on_turn_end)
+        # Pass greeting callbacks to signal when initial bot greeting starts/completes
+        self.turn_gate = TurnGate(
+            on_turn_ready=self._on_turn_end,
+            on_greeting_done=lambda: self._greeting_done.set(),
+        )
+        self.turn_gate.set_greeting_started_callback(lambda: self._greeting_started.set())
         # Set up empty response callback for Gemini Live models
         if self._is_gemini_live():
             self.turn_gate.set_empty_response_callback(self._on_empty_response)
@@ -936,6 +995,10 @@ class RealtimePipeline(BasePipeline):
             self.output_transport.reset_recording_baseline(
                 recording_sample_rate=self.audio_buffer._init_sample_rate
             )
+            # Enable tagging for the initial greeting audio.
+            # Normally tags are triggered by VADUserStoppedSpeakingFrame, but the
+            # greeting happens before any user speech, so we enable it explicitly.
+            self.output_transport.enable_greeting_tag()
             logger.info("[AudioRecording] NullAudioOutputTransport recording baseline set")
 
         # Step 2: Set PacedInputTransport's recording baseline (must use same T=0)
@@ -952,6 +1015,50 @@ class RealtimePipeline(BasePipeline):
         # Use NullAudioOutputTransport's recording start time as the source of truth
         if hasattr(self, 'llm_logger') and self.llm_logger is not None and self.output_transport is not None:
             self.llm_logger.set_recording_start_time(self.output_transport._recording_start_time)
+
+        # Trigger initial greeting for models that need explicit ResponseCreateEvent.
+        # - Ultravox: auto-greets when websocket connects (no trigger needed)
+        # - OpenAI/Grok Realtime: need LLMRunFrame to trigger _create_response()
+        # - Gemini Live: auto-greets via inference_on_context_initialization=True (no trigger needed)
+        if self._is_openai_realtime() or self._is_grok_realtime():
+            logger.info("[Pipeline] Triggering initial greeting via LLMRunFrame for OpenAI/Grok Realtime")
+            await self.task.queue_frames([LLMRunFrame()])
+
+        # Wait for initial greeting to complete before playing user audio
+        # Some models (like Ultravox) produce an automatic greeting when the session starts.
+        # We need to wait for this greeting to finish (BotStoppedSpeakingFrame) before
+        # sending user audio, otherwise the greeting gets interrupted.
+        #
+        # Two-phase wait:
+        # 1. Wait up to 8s for bot to START speaking (BotStartedSpeakingFrame)
+        # 2. If bot started, wait up to 30s for bot to STOP speaking (BotStoppedSpeakingFrame)
+        # 3. If no bot speech within 8s, proceed immediately (model doesn't greet)
+        greeting_start_timeout = 8.0  # seconds to wait for bot to start speaking
+        greeting_complete_timeout = 30.0  # seconds to wait for bot to stop speaking
+
+        logger.info(f"[Pipeline] Waiting up to {greeting_start_timeout}s for initial greeting to start...")
+        greeting_occurred = False
+        try:
+            await asyncio.wait_for(self._greeting_started.wait(), timeout=greeting_start_timeout)
+            logger.info(f"[Pipeline] Bot started greeting, waiting up to {greeting_complete_timeout}s for completion...")
+            try:
+                await asyncio.wait_for(self._greeting_done.wait(), timeout=greeting_complete_timeout)
+                logger.info("[Pipeline] Initial greeting complete, proceeding with user audio")
+                greeting_occurred = True
+            except asyncio.TimeoutError:
+                logger.error(
+                    f"[TURN_FAILURE] Greeting did not complete within {greeting_complete_timeout}s timeout. "
+                    "Bot started speaking but never stopped. This may indicate a hung connection or model issue."
+                )
+                greeting_occurred = True
+        except asyncio.TimeoutError:
+            logger.info("[Pipeline] No greeting started within timeout, model doesn't greet - proceeding with user audio")
+
+        # If a greeting occurred, clear any pending state in TurnGate
+        # The greeting transcript should not be recorded as turn 0's response
+        if greeting_occurred:
+            logger.info("[Pipeline] Clearing TurnGate state after greeting")
+            self.turn_gate.clear_pending()
 
         # Queue first turn audio
         turn = self._get_current_turn()
