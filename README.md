@@ -11,55 +11,63 @@ The two benchmarks here in this public repo are:
 
 Text mode models:
 
-```
-| Model                   | Tool Use  | Instruction | KB Ground | Pass Rate | Median Rate | TTFB Med | TTFB P95 | TTFB Max |
-|-------------------------|-----------|-------------|-----------|-----------|-------------|----------|----------|----------|
+| Model                     | Tool Use  | Instruction | KB Ground | Pass Rate | Median Rate | TTFB Med | TTFB P95 | TTFB Max |
+|---------------------------|-----------|-------------|-----------|-----------|-------------|----------|----------|----------|
 | gpt-5.1                   | 300/300   | 300/300     | 300/300   | 100.0%    | 100.0%      |  916ms   | 2011ms   | 5216ms   |
 | gemini-3-flash-preview    | 300/300   | 300/300     | 300/300   | 100.0%    | 100.0%      | 1193ms   | 1635ms   | 6653ms   |
 | claude-sonnet-4-5         | 300/300   | 300/300     | 300/300   | 100.0%    | 100.0%      | 2234ms   | 3062ms   | 5438ms   |
 | gpt-4.1                   | 283/300   | 273/300     | 298/300   | 94.9%     | 97.8%       | 683ms    | 1052ms   | 3860ms   |
-| gemini-2.5-flash          | 275/300   | 268/300     | 300/300   | 93.7%     | 94.4%       |  594ms   | 1349ms   | 2104ms   |
+| gemini-2.5-flash †        | 275/300   | 268/300     | 300/300   | 93.7%     | 94.4%       |  594ms   | 1349ms   | 2104ms   |
+| nova-2-pro-preview        | 288/300   | 278/300     | 289/300   | 92.7%     | 93.3%       |  686ms   |  750ms   | 1459ms   |
 | gpt-5-mini                | 271/300   | 272/300     | 289/300   | 92.4%     | 95.6%       | 6339ms   | 17845ms  | 27028ms  |
 | gpt-4o-mini               | 271/300   | 262/300     | 293/300   | 91.8%     | 92.2%       |  760ms   | 1322ms   | 3256ms   |
-| gpt-4o                    | 278/300   | 249/300     | 294/300   | 91.2%     | 95.6%       |  625ms   | 1222ms   | 13378ms  |
+| gpt-4o †                  | 278/300   | 249/300     | 294/300   | 91.2%     | 95.6%       |  625ms   | 1222ms   | 13378ms  |
 | nemotron-3-nano-30b-a3b * | 282/300   | 280/300     | 293/300   | 91.0%     | 93.3%       |  171ms   |  199ms   |  255ms   |
 | gpt-oss-120b (groq)       | 272/300   | 270/300     | 298/300   | 89.3%     | 90.0%       |   98ms   |  226ms   | 2117ms   |
 | gpt-5.2                   | 224/300   | 228/300     | 250/300   | 78.0%     | 92.2%       |  819ms   | 1483ms   | 1825ms   |
 | claude-haiku-4-5          | 221/300   | 172/300     | 299/300   | 76.9%     | 75.6%       |  732ms   | 1334ms   | 4654ms   |
 
-* [ Nemotron 3 Nano running in-cluster on NVIDIA Blackwell hardware ]
-```
 
-Each conversation in this benchmark is 30 turns. The scores above are aggregated across 10 runs for each model. **Pass Rate** means the percentage of total turns across all runs that the judge model scored as successful. Each run is also scored independently. **Median Rate** is the median individual run pass rate. Think of pass rate as the model's average performance, and the median rate as a way to measure the model's consistency. The older gemini-native-audio-release, for example, often gave very good performance (89.4% median rate), but was prone to poor runs (81.2% pass rate). The newer release is much more consistent (the overall pass rate is much closer to the median rate).
+> - [ † ] - gpt-4o and gemini-2.5-flash are used for most production voice agents because they currently offer the best balance of overall intelligence and low TTFB.
+> - [ * ] - Nemotron 3 Nano running in-cluster on NVIDIA Blackwell hardware
 
-TTFB is the number reported by the Pipecat service for each model. It is the time from the request to generate inference to the first byte of the response. An optimized speech-to-speech pipeline with typical network latencies should be able to achieve a total voice-to-voice latency of approximately LLM TTFB + 500ms.
+Each conversation in this benchmark is 30 turns. The scores above are aggregated across 10 runs for each model. **Pass Rate** means the percentage of total turns across all runs that the judge model scored as successful. Each run is also scored independently. **Median Rate** is the median individual run pass rate. Think of pass rate as the model's average performance, and the median rate as a way to measure the model's consistency. See gpt-5.2, for example, which has a pass rate of 78.0% but a median rate of 92.2%, indicating that while it performs well on average, it can have very poor runs that drag down the median conversation score.
+
+TTFB is the number reported by the Pipecat service for each model. It is the time from the request to generate inference to the first byte of the response. An optimized speech-to-speech pipeline with typical network latencies should be able to achieve a total voice-to-voice latency of approximately LLM TTFB + 500ms. In general, a model with a TTFB above ~700ms is too slow for most voice agent use cases.
 
 Speech-to-speech models:
 
-```
-|   Model                         | Tool Use  | Instruction | KB Ground | Pass Rate | Median Rate | Non-Tool TTFB Median | Non-Tool TTFB Max | Tool TTFB Mean |
-|---------------------------------|-----------|-------------|-----------|-----------|-------------|----------------------|-------------------|----------------|
-|   ultravox-v0.7                 | 296/300   | 297/300     | 299/300   | 98.0%     | 100.0%      |  564ms               |  772ms            | 1556ms         |
-|   gpt-realtime                  | 267/300   | 265/300     | 300/300   | 92.4%     |  92.8%      | 1028ms               | 3204ms            | 1803ms         |
-|   grok-realtime                 | 264/300   | 257/300     | 296/300   | 90.8%     |  92.8%      | 1108ms               | 9668ms            | 1389ms         |
-|   gemini-native-audio-12-2025   | 253/300   | 259/300     | 286/300   | 88.7%     |  90.0%      | 2868ms               | 5188ms            | 2852ms         | 
-| * amazon.nova-2-sonic-v1:0      | 278/300   | 265/300     | 296/300   | 93.2%     |  95.6%      | *                    | *                 | *              |
-```
+| Model             | Tool Use    | Instruction | KB Ground      | Turn Ok    | Pass Rate    | Non-Tool V2V Med  | Non-Tool V2V Max  | Tool V2V Mean   | Silence Pad Mean |
+|-------------------|-------------|-------------|----------|------------|--------------|-------------------|-------------------|--------------|----------------|
+| ultravox-v0.7     | 293/300 | 294/300     | 298/300  | 300/300 |   97.7%  | 864ms         |  1888ms       | 2406ms     | 82ms         |
+| gpt-realtime      | 271/300 | 260/300     | 300/300  | 296/300 |   86.7%  | 1536ms        |  4672ms       | 2199ms     | 341ms        |
+| gemini-live       | 258/300 | 261/300     | 293/300  | 278/300 |   86.0%  | 2624ms        | 30000ms       | 4082ms     | 90ms         |
+| nova-2-sonic      | 259/300 | 219/300     | 247/300  | *       |   *      | 1280ms        |  3232ms       | 1689ms     | 79ms         |
+| grok-realtime     | 267/300 | 275/300     | 295/300  | *       |   *      | 1184ms        |  2016ms       | 1472ms     | 478ms        |
 
-Speech-to-speech models, which take audio as input and generate audio as output. For these models, we measure TTFB by analyzing the saved audio files and measuring the time from the end of the user's audio to the beginning of the model's audio response. This TTFB is different from the TTFB reported by the Pipecat service for these models, primarily because all of the models send initial silence bytes. (Text-to-speech models do this, too. The initial silence segments are typically between 150ms and 250ms.)
+For speech-to-speech models, we measure voice-to-voice latency by analyzing the conversation recording. We measure the overall time from the end of the user's speech to the beginning of the model's speech response. This latency is different from the TTFB reported by the Pipecat service for these models, because all of these models were tested in server-side VAD mode (the server-side turn delay is opaque to the Pipecat pipeline), and all of the models send initial silence bytes before actual speech audio. (Text-to-speech models do this, too. The initial silence segments are typically between 150ms and 250ms for standalone TTS models.)
 
-The new AWS Nova 2 Sonic model is marked with an asterisk (*). It is the best speech-to-speech model in this benchmark, **when we complete a full 30-turn conversation**. But performance is unstable in a way that is not captured in this summary table: content refusals sometimes happen early in a conversation and the model never recovers; there is an 8m connection limit and reloading conversation history is fragile. This needs more investigation. Both of these may be Pipecat implementation issues. For the moment, we're ignoring incomplete runs and including complete-run numbers to show the model's promise. But we expect to see some changes to the implementation before it can be used in production (improvements to either in the Pipecat implementation, the AWS APIs, or both).
+We also include a "Turn Ok" column for these models, which counts how often the model does not respond at all when we expect it or responds with control characters, API refusals, or generic errors.
 
+The APIs for the Grok and AWS Nova 2 Sonic models are currently not production ready. The AWS model frequently emits content refusals for normal content and has an 8 minute connection limit; its context prefill often fails with errors; the Grok API often enters into an unrecoverable state during a session.
 
-## Features
+### Sample Recordings
 
-- **Multi-turn conversation evaluation** with configurable benchmarks
-- **Three pipeline types**:
-  - **Text** - For synchronous text LLMs (OpenAI, Anthropic, Google, Bedrock)
-  - **Realtime** - For speech-to-speech models (OpenAI Realtime, Gemini Live)
-  - **Nova Sonic** - For AWS Nova Sonic with automatic reconnection
-- **Claude-based judging** with detailed per-turn analysis
-- **Automatic metrics collection** (TTFB, token usage, latency)
+Listen to full 30-turn benchmark conversations from each speech-to-speech model:
+
+| Model         | Recording                                      | Duration |
+|---------------|------------------------------------------------|----------|
+| Ultravox v0.7 | [ultravox-v0.7.mp3](samples/ultravox-v0.7.mp3) | 18:18    |
+| GPT Realtime  | [gpt-realtime.mp3](samples/gpt-realtime.mp3)   | 11:29    |
+| Grok Realtime | [grok-realtime.mp3](samples/grok-realtime.mp3) | 9:33     |
+| Gemini Live   | [gemini-live.mp3](samples/gemini-live.mp3)     | 12:27    |
+| Nova 2 Sonic  | [nova-2-sonic.mp3](samples/nova-2-sonic.mp3)   | 22:13    |
+
+In the recordings, the left channel is the user's speech and the right channel is the model's speech. You'll hear a small audio tag (a short beep) at the start of each model speech segment. The benchmarking code adds this audio tag to make it easier to double-check track alignment and to provide a visual indicator of segment start for manually inspecting the recordings.
+
+![Visually inspecting silence padding by looking at the audio waveform](samples/silence-padding-measurement.png)
+
+*Visually inspecting silence padding by looking at the audio waveform. Here we're using the [Descript](https://descript.com/) editor.*
 
 ## Quick Start
 
@@ -70,7 +78,7 @@ uv sync
 # List available benchmarks
 uv run multi-turn-eval list-benchmarks
 
-# Run a benchmark with Claude
+# Run a benchmark. Results will be saved to runs/aiwf_medium_context/<timestamp>_<model_name>
 uv run multi-turn-eval run aiwf_medium_context --model claude-sonnet-4-5 --service anthropic
 
 # Judge the results
@@ -92,25 +100,27 @@ uv sync
 Set the appropriate API keys for the services you want to use:
 
 ```bash
-# For Claude (Anthropic) - also required for judging
+# Required for judging (Claude evaluates all benchmark results)
 export ANTHROPIC_API_KEY=sk-ant-...
 
-# For OpenAI models (GPT-4o, gpt-realtime, etc.)
-export OPENAI_API_KEY=sk-...
+# Text-mode model services
+export OPENAI_API_KEY=sk-...          # OpenAI (GPT-4o, GPT-4o-mini, etc.)
+export GOOGLE_API_KEY=...             # Google (Gemini models)
+export OPENROUTER_API_KEY=...         # OpenRouter (access to multiple providers)
+export GROQ_API_KEY=...               # Groq
+export CEREBRAS_API_KEY=...           # Cerebras
 
-# For Google/Gemini models
-export GOOGLE_API_KEY=...
+# Speech-to-speech model services
+export OPENAI_API_KEY=sk-...          # OpenAI Realtime (gpt-realtime)
+export GOOGLE_API_KEY=...             # Gemini Live (gemini-native-audio)
+export ULTRAVOX_API_KEY=...           # Ultravox (ultravox-v0.7)
+export XAI_API_KEY=...                # xAI Grok Realtime (grok-realtime)
 
-# For AWS Bedrock / Nova Sonic
+# AWS Nova models (text and speech-to-speech)
 export AWS_ACCESS_KEY_ID=...
 export AWS_SECRET_ACCESS_KEY=...
-export AWS_REGION=us-east-1
-
-# For OpenRouter
-export OPENROUTER_API_KEY=...
-
-# For Ultravox Realtime
-export ULTRAVOX_API_KEY=...
+export AWS_SESSION_TOKEN=...          # Optional: for temporary credentials
+export AWS_REGION=us-east-1           # Optional: defaults to us-east-1
 ```
 
 You can also create a `.env` file in the project root with these variables.
@@ -165,6 +175,40 @@ Judge outputs (saved to the run directory):
 - `claude_summary.json` - Score metrics
 - `claude_analysis.md` - Human-readable report with failures
 - `claude_judged.jsonl` - Per-turn judgments with reasoning
+
+#### Judging Speech-to-Speech Runs
+
+For speech-to-speech model runs (OpenAI Realtime, Gemini Live, Ultravox, etc.), the judge automatically performs **turn-taking analysis** when a `conversation.wav` file is present. This adds a 4th evaluation dimension:
+
+| Dimension | Description |
+|-----------|-------------|
+| `turn_taking` | Audio timing correctness (pre-computed from WAV analysis) |
+| `tool_use_correct` | Function calls match expected |
+| `instruction_following` | Response follows system prompt |
+| `kb_grounding` | Facts match knowledge base |
+
+Turn-taking failures are detected when:
+- **Missing timing data**: No user speech detected before bot response
+- **Negative TTFB**: Bot started speaking before user finished
+- **Empty response**: Model returned only control tokens (e.g., `<ctrl46>`)
+- **No response**: Model never responded (15s timeout)
+- **Alignment drift**: Audio tag positions drift >150ms from expected
+- **Audio overlap**: User and bot speaking simultaneously
+
+When turn-taking failures occur, the judge is more lenient on `instruction_following` since garbled audio may cause transcription issues.
+
+```bash
+# Judge a speech-to-speech run (turn-taking analysis runs automatically)
+uv run multi-turn-eval judge runs/aiwf_medium_context/20260111T123456_gpt-realtime_abc123
+
+# Skip turn-taking analysis
+uv run multi-turn-eval judge runs/aiwf_medium_context/20260111T123456_gpt-realtime_abc123 --skip-turn-taking
+```
+
+Additional outputs for speech-to-speech runs:
+- `claude_summary.json` includes `turn_taking_failures` list and `turn_taking_affected_instruction` count
+- `claude_analysis.md` includes Turn-Taking Analysis section with per-turn issues
+- `claude_judged.jsonl` includes `turn_taking_issues` array for failed turns
 
 ### Listing Options
 
@@ -309,75 +353,85 @@ The Claude judge evaluates each turn on three dimensions:
 2. **instruction_following** - Did the assistant answer the question or advance the task?
 3. **kb_grounding** - Is the response factually consistent with the knowledge base?
 
-## TTFB Analysis
+## Comprehensive Turn Metrics Analysis
 
-For speech-to-speech models, you can analyze Time-to-First-Byte (TTFB) from the recorded audio using Silero VAD (neural network-based voice activity detection):
+For detailed per-turn timing analysis of speech-to-speech models, use the comprehensive metrics script:
 
 ```bash
-# Analyze TTFB for a realtime run
-uv run python scripts/analyze_ttfb_silero.py runs/aiwf_medium_context/<timestamp>_<model>
+# Analyze a run with summary statistics
+uv run python scripts/analyze_turn_metrics.py runs/aiwf_medium_context/<timestamp>_<model>
 
-# Show per-turn breakdown with tool call indicators
-uv run python scripts/analyze_ttfb_silero.py runs/aiwf_medium_context/<timestamp>_<model> -v
+# Show per-turn breakdown table
+uv run python scripts/analyze_turn_metrics.py runs/aiwf_medium_context/<timestamp>_<model> -v
 
-# Output as JSON
-uv run python scripts/analyze_ttfb_silero.py runs/aiwf_medium_context/<timestamp>_<model> --json
-
-# Adjust silence gap threshold (default 2000ms)
-uv run python scripts/analyze_ttfb_silero.py runs/aiwf_medium_context/<timestamp>_<model> --min-silence-ms 1500
+# Output as JSON (for programmatic use)
+uv run python scripts/analyze_turn_metrics.py runs/aiwf_medium_context/<timestamp>_<model> --json
 ```
 
-### How It Works
+### Metrics Explained
 
-The script:
-- Uses Silero VAD for accurate speech boundary detection
-- Analyzes the stereo `conversation.wav` (user on left channel, bot on right)
-- Segments each track independently, then pairs by index
-- Calculates TTFB as the gap between user speech end and bot speech start
-- Reads `transcript.jsonl` to identify which turns involved tool calls
-- Automatically skips initial bot greetings (for models like Gemini that speak first)
+The script consolidates timing data from multiple sources and calculates the following metrics:
 
-### Output
+| Metric | Description | Calculation |
+|--------|-------------|-------------|
+| **Server TTFB** | Time from request to first byte from model | Read from `transcript.jsonl` (reported by Pipecat) |
+| **Pipeline TTFB** | Time from user speech end to bot audio tag | `bot_tag_log_ms - user_end_ms` (Silero VAD) |
+| **WAV V2V** | Voice-to-voice latency measured from audio | `bot_silero_start_ms - user_end_ms` (Silero VAD) |
+| **Silent Pad (RMS)** | Silent padding before speech (RMS detection) | `bot_rms_onset_ms - bot_tag_log_ms` |
+| **Silent Pad (VAD)** | Silent padding before speech (Silero VAD) | `bot_silero_start_ms - bot_tag_wav_ms` |
+| **Tag Alignment** | Drift between log position and WAV detection | `bot_tag_log_ms - bot_tag_wav_ms` |
 
-The analysis provides separate statistics for:
+**Key metric relationships:**
+- **WAV V2V = Pipeline TTFB + Silent Pad (VAD)** - The total voice-to-voice latency includes both the time waiting for audio to arrive and any initial silence in the audio stream
+- **Pipeline TTFB** measures when audio starts arriving at the pipeline
+- **Silent Pad** measures how much silence is at the beginning of the audio (most models send 40-120ms of silence before speech)
 
-1. **Overall** - All turns combined
-2. **Non-Tool Call Turns** - Turns where the model responded without calling a function
-3. **Tool Call Turns** - Turns where the model called one or more tools before responding
+### Alignment Sanity Check
 
-Example output:
-```
-======================================================================
-OVERALL STATISTICS (All Turns)
-======================================================================
-  Count:            30 turns
-  Mean:           1227ms
-  Median:         1124ms
-  ...
+The script verifies that log-based timestamps match actual audio positions by detecting audio tags (2kHz tones) embedded in the WAV file:
 
-----------------------------------------------------------------------
-NON-TOOL CALL TURNS
-----------------------------------------------------------------------
-  Count:            27 turns
-  Mean:           1090ms
-  Median:          868ms
-  ...
+- **Bot tags**: Inserted when bot audio arrives at the pipeline
+- **Alignment OK**: Log and WAV positions match within ±20ms tolerance
+- **Issues detected**: Missing tags, extra tags, or drift outside tolerance
 
-----------------------------------------------------------------------
-TOOL CALL TURNS (turns: [11, 12, 29])
-----------------------------------------------------------------------
-  Count:             3 turns
-  Mean:           1295ms
-  ...
+### Output Files
+
+When run with `--json`, the script outputs structured data that can be saved:
+
+```bash
+# Save metrics to JSON file
+uv run python scripts/analyze_turn_metrics.py runs/aiwf_medium_context/<timestamp>_<model> --json > turn_metrics.json
 ```
 
-Tool call turns typically have higher TTFB since the model must process the tool call and response before generating audio.
+### Claude Code Prompt for Batch Benchmarking
 
-### Notes
+Use this prompt with Claude Code to run comprehensive benchmarks across multiple speech-to-speech models:
 
-- **Initial bot greeting**: Some models (e.g., Gemini native audio) emit an initial greeting before the user speaks. The script automatically detects and skips this by checking if the first bot segment starts before the first user segment ends.
-- **Segment mismatch**: If the number of user and bot segments don't match, the script pairs as many as possible and reports the mismatch.
-- **Negative TTFB**: Indicates overlapping speech (bot started before user finished). This may indicate audio sync issues or interruptions.
+```
+Run a full 30-turn test with all four speech-to-speech models: ultravox-v0.7,
+gpt-realtime, grok-realtime, gemini-2.5-flash-native-audio-preview-12-2025.
+
+For each model:
+1. Run the 30-turn benchmark
+2. Analyze using scripts/analyze_turn_metrics.py and save turn_metrics.json
+3. Judge the model performance using the Claude judge
+
+After completing all models, create a summary comparison table with these columns:
+- Model
+- Tool Use (X/30)
+- Instruction (X/30)
+- KB Ground (X/30)
+- Turn Ok (X/30)
+- Pass Rate
+- Non-Tool V2V Median
+- Non-Tool V2V Max
+- Tool V2V Mean
+- Silence Pad Mean
+
+Separate metrics for tool-call turns vs non-tool-call turns in the analysis.
+```
+
+This will run all four models (which takes approximately 15-20 minutes each), analyze their timing metrics, judge their responses, and produce a comparison table.
 
 ## License
 

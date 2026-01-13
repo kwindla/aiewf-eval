@@ -38,7 +38,7 @@ except ImportError:
 # Configuration
 # ============================================================================
 
-JUDGE_VERSION = "claude-agent-sdk-v3-realign"
+JUDGE_VERSION = "claude-agent-sdk-v4-turn-taking"
 JUDGE_MODEL = "claude-opus-4-5"
 
 # System prompt for the two-phase judge
@@ -60,9 +60,15 @@ After the initial pass, look for "turn misalignment" patterns:
 
 # Evaluation Dimensions
 
-For each turn, evaluate three dimensions:
+For each turn, evaluate FOUR dimensions:
 
-1. **tool_use_correct** (bool):
+1. **turn_taking** (bool):
+   - This dimension is PRE-COMPUTED based on audio timing analysis
+   - If marked as a turn-taking failure in the input, set to FALSE
+   - If not marked, set to TRUE
+   - Turn-taking failures indicate audio timing issues (interruptions, overlaps, missing audio)
+
+2. **tool_use_correct** (bool):
    - TRUE if the assistant correctly called the expected function with semantically equivalent arguments
    - TRUE if no function call was expected and none was made
    - TRUE if a function call was expected but was already made in an earlier turn (realignment case)
@@ -71,14 +77,15 @@ For each turn, evaluate three dimensions:
    - For argument matching, use semantic equivalence (not verbatim)
    - Session IDs must match exactly
 
-2. **instruction_following** (bool):
+3. **instruction_following** (bool):
    - TRUE if assistant directly answers the question OR advances the task
    - TRUE if assistant properly deflects out-of-scope questions
    - TRUE if the turn is part of a realigned workflow that still accomplishes the goal
    - FALSE if assistant's words contradict its actions (says "Does that work?" but doesn't wait)
    - FALSE if assistant neither answers nor advances the workflow
+   - **IMPORTANT**: If a turn has turn_taking=FALSE, be lenient on instruction_following since garbled audio may cause transcription issues
 
-3. **kb_grounding** (bool):
+4. **kb_grounding** (bool):
    - TRUE unless assistant states an explicit factual error
    - TRUE if assistant provides additional correct information
    - FALSE only for clear factual contradictions (wrong dates, times, locations, speakers)
@@ -112,11 +119,13 @@ Output a JSON object with this structure:
     ...
   },
   "final_judgments": [
-    {"turn": 0, "reasoning": "...", "tool_use_correct": true, "instruction_following": true, "kb_grounding": true},
+    {"turn": 0, "reasoning": "...", "turn_taking": true, "tool_use_correct": true, "instruction_following": true, "kb_grounding": true},
     ...
   ]
 }
 ```
+
+Note: The `turn_taking` field should match what was provided in the input (pre-computed from audio timing analysis).
 
 Output ONLY this JSON object, no markdown code blocks, no explanations outside the JSON.
 """
@@ -149,11 +158,36 @@ def format_turns_for_claude(
     records: List[Dict[str, Any]],
     expected_turns: List[Dict[str, Any]],
     only_turns: Optional[set[int]] = None,
+    turn_taking_data: Optional[Dict[int, Dict[str, Any]]] = None,
 ) -> str:
-    """Format conversation turns with full context for realignment analysis."""
+    """Format conversation turns with full context for realignment analysis.
+
+    Args:
+        records: List of transcript records
+        expected_turns: List of expected turn data
+        only_turns: Optional set of turn indices to include
+        turn_taking_data: Optional dict mapping turn index to turn-taking analysis
+    """
     lines = []
 
-    # First, provide a summary of all expected function calls
+    # First, provide turn-taking failure summary if any
+    if turn_taking_data:
+        failed_turns = [idx for idx, data in turn_taking_data.items() if not data.get("turn_taking", True)]
+        if failed_turns:
+            lines.append("# Turn-Taking Failures (Pre-computed from Audio Analysis)")
+            lines.append("")
+            lines.append("The following turns have audio timing issues that may affect transcription quality:")
+            for idx in sorted(failed_turns):
+                issues = turn_taking_data[idx].get("issues", [])
+                lines.append(f"- Turn {idx}: {', '.join(issues) if issues else 'timing issue'}")
+            lines.append("")
+            lines.append("For these turns, set `turn_taking: false` in your output.")
+            lines.append("Be lenient on `instruction_following` for turns with turn_taking failures.")
+            lines.append("")
+            lines.append("---")
+            lines.append("")
+
+    # Provide a summary of all expected function calls
     lines.append("# Expected Function Calls Summary")
     lines.append("")
     for i, exp in enumerate(expected_turns):
@@ -181,6 +215,19 @@ def format_turns_for_claude(
         expected = expected_turns[turn_idx]
 
         lines.append(f"## Turn {turn_idx}")
+
+        # Add turn-taking status if available
+        if turn_taking_data and turn_idx in turn_taking_data:
+            tt_data = turn_taking_data[turn_idx]
+            tt_ok = tt_data.get("turn_taking", True)
+            if not tt_ok:
+                issues = tt_data.get("issues", [])
+                lines.append(f"**Turn-Taking**: FAILURE ({', '.join(issues)})")
+            else:
+                lines.append("**Turn-Taking**: OK")
+        else:
+            lines.append("**Turn-Taking**: OK (no audio analysis)")
+
         lines.append(f"**User**: {rec['user_text']}")
         lines.append(f"**Assistant**: {rec['assistant_text']}")
         lines.append("")
@@ -222,6 +269,7 @@ async def judge_with_claude(
     only_turns: Optional[set[int]] = None,
     debug: bool = False,
     expected_turns: Optional[List[Dict[str, Any]]] = None,
+    skip_turn_taking: bool = False,
 ) -> Dict[str, Any]:
     """Main judging function using two-phase realignment approach.
 
@@ -230,9 +278,10 @@ async def judge_with_claude(
         only_turns: Optional set of turn indices to judge
         debug: Enable debug logging
         expected_turns: Optional list of expected turns. If not provided, imports from turns module.
+        skip_turn_taking: If True, skip turn-taking analysis (for runs without WAV files)
 
     Returns:
-        Dict with judgments, realignment_notes, function_tracking, summary, and model_name.
+        Dict with judgments, realignment_notes, function_tracking, turn_taking_analysis, summary, and model_name.
     """
 
     # Load data
@@ -254,8 +303,33 @@ async def judge_with_claude(
     if debug:
         print(f"Judging {len(records)} turns with realignment analysis...", file=sys.stderr)
 
-    # Format turns
-    formatted_turns = format_turns_for_claude(records, expected_turns, only_turns)
+    # Run turn-taking analysis if WAV file exists
+    turn_taking_data: Optional[Dict[int, Dict[str, Any]]] = None
+    turn_taking_analysis = None
+    if not skip_turn_taking:
+        wav_path = run_dir / "conversation.wav"
+        if wav_path.exists():
+            if debug:
+                print("Running turn-taking analysis...", file=sys.stderr)
+            try:
+                from .turn_taking import analyze_turn_taking
+                turn_taking_analysis = analyze_turn_taking(run_dir)
+                if turn_taking_analysis.error:
+                    if debug:
+                        print(f"Turn-taking analysis error: {turn_taking_analysis.error}", file=sys.stderr)
+                else:
+                    turn_taking_data = {
+                        idx: result.to_dict()
+                        for idx, result in turn_taking_analysis.per_turn.items()
+                    }
+                    if debug and turn_taking_analysis.failed_turns:
+                        print(f"Turn-taking failures: {turn_taking_analysis.failed_turns}", file=sys.stderr)
+            except Exception as e:
+                if debug:
+                    print(f"Turn-taking analysis failed: {e}", file=sys.stderr)
+
+    # Format turns (with turn-taking data if available)
+    formatted_turns = format_turns_for_claude(records, expected_turns, only_turns, turn_taking_data)
 
     # Create prompt
     prompt = f"""{formatted_turns}
@@ -328,14 +402,28 @@ Remember:
     for j in final_judgments:
         turn_num = j.get('turn')
         if turn_num is not None:
+            # Get turn_taking from Claude's response, defaulting to True if not provided
+            turn_taking = j.get('turn_taking', True)
+
+            # If we have turn_taking_data, use that as the source of truth
+            if turn_taking_data and turn_num in turn_taking_data:
+                turn_taking = turn_taking_data[turn_num].get('turn_taking', True)
+
             judgments[turn_num] = {
                 "scores": {
+                    "turn_taking": turn_taking,
                     "tool_use_correct": j.get('tool_use_correct', False),
                     "instruction_following": j.get('instruction_following', False),
                     "kb_grounding": j.get('kb_grounding', False),
                 },
                 "reasoning": j.get('reasoning', ''),
             }
+
+            # Add turn-taking issues if available
+            if turn_taking_data and turn_num in turn_taking_data:
+                issues = turn_taking_data[turn_num].get('issues', [])
+                if issues:
+                    judgments[turn_num]["turn_taking_issues"] = issues
 
     # Validate all turns were judged
     expected_turn_numbers = {r["turn"] for r in records}
@@ -352,6 +440,7 @@ Remember:
         "judgments": judgments,
         "realignment_notes": realignment_notes,
         "function_tracking": function_tracking,
+        "turn_taking_analysis": turn_taking_analysis.to_dict() if turn_taking_analysis else None,
         "summary": f"Evaluated {len(judgments)} turns with realignment.",
         "model_name": model_name,
     }
@@ -369,6 +458,7 @@ def write_outputs(
     model_name: str,
     realignment_notes: str = "",
     function_tracking: Optional[Dict[str, Any]] = None,
+    turn_taking_analysis: Optional[Dict[str, Any]] = None,
 ) -> None:
     """Write all output files.
 
@@ -380,6 +470,7 @@ def write_outputs(
         model_name: Name of the model being judged
         realignment_notes: Optional notes about turn realignment (v3 feature)
         function_tracking: Optional dict tracking function call timing (v3 feature)
+        turn_taking_analysis: Optional turn-taking analysis result (v4 feature)
     """
     if function_tracking is None:
         function_tracking = {}
@@ -389,14 +480,21 @@ def write_outputs(
         for rec in records:
             turn = rec["turn"]
             judgment = judgments[turn]
-            f.write(json.dumps({
+            output_rec = {
                 **rec,
                 "scores": judgment["scores"],
                 "claude_reasoning": judgment["reasoning"],
-            }, ensure_ascii=False) + "\n")
+            }
+            # Include turn-taking issues if present
+            if "turn_taking_issues" in judgment:
+                output_rec["turn_taking_issues"] = judgment["turn_taking_issues"]
+            f.write(json.dumps(output_rec, ensure_ascii=False) + "\n")
 
     # 2. claude_summary.json
     passes = {
+        "turn_taking": sum(
+            1 for j in judgments.values() if j["scores"].get("turn_taking", True)
+        ),
         "tool_use_correct": sum(
             1 for j in judgments.values() if j["scores"]["tool_use_correct"]
         ),
@@ -408,6 +506,13 @@ def write_outputs(
         ),
     }
 
+    # Count turns with turn-taking failures that also failed instruction_following
+    # (these may be excusable)
+    turn_taking_affected_instruction = sum(
+        1 for j in judgments.values()
+        if not j["scores"].get("turn_taking", True) and not j["scores"]["instruction_following"]
+    )
+
     summary_data = {
         "model_name": model_name,
         "claude_passes": passes,
@@ -417,6 +522,8 @@ def write_outputs(
         "judged_at": datetime.utcnow().isoformat(timespec="seconds") + "Z",
         "realignment_applied": bool(function_tracking),
         "function_tracking": function_tracking,
+        "turn_taking_failures": turn_taking_analysis.get("failed_turns", []) if turn_taking_analysis else [],
+        "turn_taking_affected_instruction": turn_taking_affected_instruction,
     }
 
     (run_dir / "claude_summary.json").write_text(
@@ -427,7 +534,7 @@ def write_outputs(
     # 3. claude_analysis.md
     total = len(judgments)
     lines = [
-        f"# Claude Agent SDK Evaluation (v3 with Realignment)",
+        f"# Claude Agent SDK Evaluation (v4 with Turn-Taking)",
         f"",
         f"**Model**: {model_name}",
         f"**Turns**: {total}",
@@ -437,11 +544,31 @@ def write_outputs(
         f"",
         f"## Summary Metrics",
         f"",
+        f"- **Turn-Taking**: {passes['turn_taking']}/{total} ({passes['turn_taking']/total*100:.1f}%)",
         f"- **Tool Use Correct**: {passes['tool_use_correct']}/{total} ({passes['tool_use_correct']/total*100:.1f}%)",
         f"- **Instruction Following**: {passes['instruction_following']}/{total} ({passes['instruction_following']/total*100:.1f}%)",
         f"- **KB Grounding**: {passes['kb_grounding']}/{total} ({passes['kb_grounding']/total*100:.1f}%)",
         f"",
     ]
+
+    # Add turn-taking analysis summary
+    if turn_taking_analysis and turn_taking_analysis.get("failed_turns"):
+        failed_turns = turn_taking_analysis["failed_turns"]
+        lines.extend([
+            f"## Turn-Taking Analysis",
+            f"",
+            f"**{len(failed_turns)} turns** had audio timing issues:",
+            f"",
+        ])
+        per_turn = turn_taking_analysis.get("per_turn", {})
+        for turn_idx in failed_turns:
+            turn_data = per_turn.get(str(turn_idx), per_turn.get(turn_idx, {}))
+            issues = turn_data.get("issues", [])
+            lines.append(f"- Turn {turn_idx}: {', '.join(issues) if issues else 'timing issue'}")
+        lines.append("")
+        if turn_taking_affected_instruction > 0:
+            lines.append(f"*{turn_taking_affected_instruction} instruction_following failures may be caused by turn-taking issues.*")
+            lines.append("")
 
     # Add realignment notes if any
     if realignment_notes:
@@ -489,6 +616,9 @@ def write_outputs(
             lines.append(f"**Assistant**: {rec['assistant_text'][:300]}{'...' if len(rec['assistant_text']) > 300 else ''}")
             lines.append(f"")
             lines.append(f"**Failed Dimensions**: {', '.join(failed_dimensions)}")
+            # Add turn-taking issues if relevant
+            if "turn_taking" in failed_dimensions and "turn_taking_issues" in judgment:
+                lines.append(f"**Turn-Taking Issues**: {', '.join(judgment['turn_taking_issues'])}")
             lines.append(f"")
             lines.append(f"**Claude's Reasoning**: {judgment['reasoning']}")
             lines.append(f"")
@@ -508,7 +638,7 @@ def write_outputs(
 
 def main():
     parser = argparse.ArgumentParser(
-        description="Judge conversation transcripts using Claude Agent SDK (v3 with realignment)"
+        description="Judge conversation transcripts using Claude Agent SDK (v4 with turn-taking)"
     )
     parser.add_argument(
         "run_dir",
@@ -576,20 +706,27 @@ def main():
         result["model_name"],
         result.get("realignment_notes", ""),
         result.get("function_tracking", {}),
+        result.get("turn_taking_analysis"),
     )
 
     # Print summary
     total = len(result["judgments"])
     passes = {
+        "turn_taking": sum(1 for j in result["judgments"].values() if j["scores"].get("turn_taking", True)),
         "tool_use": sum(1 for j in result["judgments"].values() if j["scores"]["tool_use_correct"]),
         "instruction": sum(1 for j in result["judgments"].values() if j["scores"]["instruction_following"]),
         "kb": sum(1 for j in result["judgments"].values() if j["scores"]["kb_grounding"]),
     }
 
-    print(f"Judged {total} turns (with realignment)")
+    print(f"Judged {total} turns (with turn-taking analysis)")
+    print(f"  Turn-taking: {passes['turn_taking']}/{total}")
     print(f"  Tool use: {passes['tool_use']}/{total}")
     print(f"  Instruction following: {passes['instruction']}/{total}")
     print(f"  KB grounding: {passes['kb']}/{total}")
+
+    turn_taking_analysis = result.get("turn_taking_analysis")
+    if turn_taking_analysis and turn_taking_analysis.get("failed_turns"):
+        print(f"\nTurn-taking failures: {turn_taking_analysis['failed_turns']}")
 
     if result.get("realignment_notes"):
         print(f"\nRealignment applied: {result['realignment_notes'][:200]}...")

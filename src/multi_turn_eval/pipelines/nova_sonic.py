@@ -10,7 +10,10 @@ from typing import Any, Callable, Optional
 import numpy as np
 from loguru import logger
 
+from pipecat.audio.vad.silero import SileroVADAnalyzer
+from pipecat.audio.vad.vad_analyzer import VADParams
 from pipecat.frames.frames import (
+    BotStartedSpeakingFrame,
     BotStoppedSpeakingFrame,
     DataFrame,
     Frame,
@@ -21,12 +24,44 @@ from pipecat.frames.frames import (
     TTSAudioRawFrame,
     TTSTextFrame,
 )
-from pipecat.processors.audio.audio_buffer_processor import AudioBufferProcessor
+from multi_turn_eval.processors.audio_buffer import WallClockAlignedAudioBufferProcessor
 from pipecat.processors.frame_processor import FrameDirection, FrameProcessor
 from pipecat.services.aws.nova_sonic.llm import AWSNovaSonicLLMService
 from pipecat.transports.base_transport import TransportParams
 
 from multi_turn_eval.transports.null_audio_output import NullAudioOutputTransport
+
+
+class ResamplingSileroVAD(SileroVADAnalyzer):
+    """SileroVADAnalyzer that resamples audio from input rate to 16kHz.
+
+    Silero VAD only supports 16kHz or 8kHz. This subclass resamples incoming
+    audio (e.g., 24kHz) to 16kHz before VAD processing. For Nova Sonic's
+    16kHz input, no resampling is needed, but this provides consistency
+    with the realtime pipeline.
+    """
+
+    def __init__(self, **kwargs):
+        super().__init__(sample_rate=16000, **kwargs)
+        self._input_sample_rate: int = 16000
+
+    def set_sample_rate(self, sample_rate: int):
+        # Store the input sample rate for resampling, but tell parent we're using 16kHz
+        self._input_sample_rate = sample_rate
+        super().set_sample_rate(16000)
+
+    async def analyze_audio(self, buffer: bytes):
+        # Resample before buffering/analysis if input rate differs from 16kHz
+        if self._input_sample_rate != 16000:
+            audio_int16 = np.frombuffer(buffer, np.int16).astype(np.float32)
+            # Simple linear interpolation resampling
+            ratio = 16000 / self._input_sample_rate
+            new_length = int(len(audio_int16) * ratio)
+            if new_length > 0:
+                indices = np.linspace(0, len(audio_int16) - 1, new_length)
+                resampled = np.interp(indices, np.arange(len(audio_int16)), audio_int16)
+                buffer = resampled.astype(np.int16).tobytes()
+        return await super().analyze_audio(buffer)
 
 
 @dataclass
@@ -536,6 +571,8 @@ class NovaSonicTurnGate(FrameProcessor):
         audio_drain_delay: float = 0.5,
         response_timeout_sec: float = 60.0,
         metrics_callback: Optional[Callable[[MetricsFrame], None]] = None,
+        on_greeting_started: Optional[Callable[[], None]] = None,
+        on_greeting_done: Optional[Callable[[], None]] = None,
         **kwargs,
     ):
         """Initialize the turn gate.
@@ -547,12 +584,20 @@ class NovaSonicTurnGate(FrameProcessor):
                               triggering turn end. Default 0.5s.
             response_timeout_sec: Maximum time to wait for any response (fallback).
             metrics_callback: Optional callback for metrics frames.
+            on_greeting_started: Optional callback when initial greeting starts.
+            on_greeting_done: Optional callback when initial greeting completes.
         """
         super().__init__(**kwargs)
         self._on_turn_ready = on_turn_ready
         self._audio_drain_delay = audio_drain_delay
         self._response_timeout = response_timeout_sec
         self._metrics_callback = metrics_callback
+
+        # Greeting detection
+        self._on_greeting_started = on_greeting_started
+        self._on_greeting_done = on_greeting_done
+        self._greeting_started_signaled = False
+        self._greeting_done_signaled = False
 
         # State tracking
         self._response_text = ""
@@ -640,6 +685,14 @@ class NovaSonicTurnGate(FrameProcessor):
         if isinstance(frame, MetricsFrame) and self._metrics_callback:
             self._metrics_callback(frame)
 
+        # Greeting detection: signal greeting started on first BotStartedSpeakingFrame
+        # This must happen before signal_trigger_sent() is called (before first turn)
+        if isinstance(frame, BotStartedSpeakingFrame):
+            if not self._greeting_started_signaled and self._on_greeting_started:
+                self._greeting_started_signaled = True
+                logger.info("[NovaSonicTurnGate] Initial greeting started")
+                self._on_greeting_started()
+
         # Track response lifecycle
         if isinstance(frame, LLMFullResponseStartFrame):
             self._response_active = True
@@ -669,6 +722,13 @@ class NovaSonicTurnGate(FrameProcessor):
                 f"[NovaSonicTurnGate] BotStoppedSpeakingFrame received "
                 f"(text={len(self._response_text)} chars, audio_frames={self._audio_frame_count})"
             )
+
+            # Greeting detection: signal greeting done on first BotStoppedSpeakingFrame
+            # This must happen before signal_trigger_sent() is called (before first turn)
+            if not self._greeting_done_signaled and self._on_greeting_done:
+                self._greeting_done_signaled = True
+                logger.info("[NovaSonicTurnGate] Initial greeting complete")
+                self._on_greeting_done()
 
             # Guard against concurrent turn completions
             if self._processing_turn_end:
@@ -832,13 +892,19 @@ class NovaSonicPipeline:
         system_instruction = getattr(self.benchmark, "system_instruction", "")
         tools = getattr(self.benchmark, "tools_schema", None)
 
-        # Nova Sonic requires the trigger instruction appended to system instruction
+        # For the old Nova Sonic model, we'd need to append AWAIT_TRIGGER_ASSISTANT_RESPONSE_INSTRUCTION.
+        # For Nova 2 Sonic, this is not needed - LLMRunFrame triggers response directly.
         from pipecat.services.aws.nova_sonic.llm import AWSNovaSonicLLMService
 
-        nova_sonic_system_instruction = (
-            f"{system_instruction} "
-            f"{AWSNovaSonicLLMService.AWAIT_TRIGGER_ASSISTANT_RESPONSE_INSTRUCTION}"
-        )
+        # Check if we're using the old model (needs trigger instruction)
+        is_old_model = "nova-sonic-v1" in model and "nova-2-sonic" not in model
+        if is_old_model:
+            nova_sonic_system_instruction = (
+                f"{system_instruction} "
+                f"{AWSNovaSonicLLMService.AWAIT_TRIGGER_ASSISTANT_RESPONSE_INSTRUCTION}"
+            )
+        else:
+            nova_sonic_system_instruction = system_instruction
         logger.info(f"Using full system instruction ({len(nova_sonic_system_instruction)} chars)")
 
         # Create Nova Sonic LLM service
@@ -879,9 +945,14 @@ class NovaSonicPipeline:
 
         self.llm.register_function(None, function_catchall)
 
-        # Create context - Nova Sonic only accepts SPEECH input, so no user message
+        # Create context with greeting trigger message
+        # Nova 2 Sonic needs the context to end with a user message to trigger a response.
+        # We add a simple greeting trigger that will cause the bot to greet when LLMRunFrame
+        # is queued. This message will be transcribed and added to conversation history.
+        greeting_trigger = "Hello!"
         messages = [
             {"role": "system", "content": system_instruction},
+            {"role": "user", "content": greeting_trigger},
         ]
         self.context = LLMContext(messages, tools=tools)
         self.context_aggregator = LLMContextAggregatorPair(self.context)
@@ -906,7 +977,11 @@ class NovaSonicPipeline:
             self.recorder.write_turn(
                 user_text=self._get_current_turn().get("input", ""),
                 assistant_text=assistant_text,
+                reconnection_count=self._turn_reconnection_count,
             )
+
+            # Reset reconnection counter after recording
+            self._turn_reconnection_count = 0
 
             # Reset reconnect counter on successful turn completion
             self.llm.reset_reconnect_counter()
@@ -927,12 +1002,32 @@ class NovaSonicPipeline:
                 self.done = True
                 await self.task.cancel()
 
+        # Greeting events - used to wait for initial greeting before sending user audio
+        self._greeting_started: asyncio.Event = asyncio.Event()
+        self._greeting_done: asyncio.Event = asyncio.Event()
+
         # Create simplified turn gate (replaces complex NovaSonicTurnEndDetector)
         self.turn_gate = NovaSonicTurnGate(
             on_turn_ready=end_of_turn,
             audio_drain_delay=0.5,
             response_timeout_sec=60.0,
             metrics_callback=handle_metrics,
+            on_greeting_started=lambda: self._greeting_started.set(),
+            on_greeting_done=lambda: self._greeting_done.set(),
+        )
+
+        # Create local VAD analyzer for user speech detection (measurement only)
+        # This emits VADUserStartedSpeakingFrame/VADUserStoppedSpeakingFrame
+        # which trigger audio tags in NullAudioOutputTransport for timing analysis.
+        # Server-side VAD handles actual turn triggering.
+        vad_params = VADParams(
+            start_secs=0.2,  # Emit VADUserStartedSpeaking 0.2s after speech starts
+            stop_secs=0.8,   # Emit VADUserStoppedSpeaking 0.8s after speech ends
+        )
+        user_vad = ResamplingSileroVAD(params=vad_params)
+        logger.info(
+            f"[NovaSonic] User VAD config: start_secs={vad_params.start_secs}, "
+            f"stop_secs={vad_params.stop_secs}"
         )
 
         # Create paced input transport (Nova Sonic requires 16kHz)
@@ -941,6 +1036,7 @@ class NovaSonicPipeline:
             audio_in_sample_rate=16000,
             audio_in_channels=1,
             audio_in_passthrough=True,
+            vad_analyzer=user_vad,
         )
         self.paced_input = PacedInputTransport(
             input_params,
@@ -966,8 +1062,11 @@ class NovaSonicPipeline:
 
         # Create audio buffer processor for recording
         # Use 24kHz to match Nova Sonic output (user audio will be upsampled from 16kHz)
-        logger.info("[NovaSonic] Creating AudioBufferProcessor with sample_rate=24000, num_channels=2")
-        self.audio_buffer = AudioBufferProcessor(
+        # NullAudioOutputTransport is the "source of truth" for wall-clock aligned recording.
+        # It inserts silence for any gaps > 10ms in BOTH user and bot audio tracks.
+        # WallClockAlignedAudioBufferProcessor just accumulates the continuous streams.
+        logger.info("[NovaSonic] Creating WallClockAlignedAudioBufferProcessor with sample_rate=24000, num_channels=2")
+        self.audio_buffer = WallClockAlignedAudioBufferProcessor(
             sample_rate=24000,
             num_channels=2,  # Stereo: user on left channel, bot on right channel
         )
@@ -1028,24 +1127,33 @@ class NovaSonicPipeline:
         # Track interrupted turn state for reconnection handling
         self._interrupted_turn_text = ""
         self._was_responding_at_disconnect = False
+        self._turn_reconnection_count = 0
 
         # Set up reconnection callbacks
         def on_reconnecting():
             logger.info("Reconnection starting: pausing audio input and resetting turn gate")
             self.paced_input.pause()
 
-            # Capture accumulated text and response state BEFORE reset
-            # We need this to handle interrupted turns after reconnection
-            self._interrupted_turn_text = self.turn_gate._response_text or ""
-            self._was_responding_at_disconnect = self.turn_gate._response_active
+            # Capture accumulated text BEFORE reset - capture if ANY text accumulated,
+            # not just when response_active is True (fixes text loss during early reconnection)
+            accumulated_text = self.turn_gate._response_text or ""
+            self._was_responding_at_disconnect = (
+                self.turn_gate._response_active
+                or self.turn_gate._waiting_for_response
+                or len(accumulated_text) > 0
+            )
+            self._interrupted_turn_text = accumulated_text
 
-            if self._was_responding_at_disconnect:
+            if accumulated_text:
                 logger.warning(
-                    f"Turn {self.turn_idx} interrupted mid-response. "
-                    f"Captured {len(self._interrupted_turn_text)} chars before reset."
+                    f"Turn {self.turn_idx} interrupted. "
+                    f"Captured {len(accumulated_text)} chars before reset. "
+                    f"response_active={self.turn_gate._response_active}, "
+                    f"waiting={self.turn_gate._waiting_for_response}"
                 )
 
             self.turn_gate.reset_for_reconnection()
+            self._turn_reconnection_count += 1
 
         def on_reconnected():
             logger.info("Reconnection complete: waiting 2s before resuming audio")
@@ -1153,7 +1261,7 @@ class NovaSonicPipeline:
 
         self.task = PipelineTask(
             pipeline,
-            idle_timeout_secs=60,  # Longer timeout for Nova Sonic's delayed responses
+            idle_timeout_secs=120,  # Longer timeout for Nova Sonic's delayed responses and reconnection
             idle_timeout_frames=(TTSAudioRawFrame, TTSTextFrame, InputAudioRawFrame, MetricsFrame),
             params=PipelineParams(
                 enable_metrics=True,
@@ -1182,8 +1290,23 @@ class NovaSonicPipeline:
         logger.info("[NovaSonic] Starting audio recording")
         await self.audio_buffer.start_recording()
 
-        # Queue LLMRunFrame to establish connection
-        logger.info("Queuing LLMRunFrame to establish connection...")
+        # Set recording baselines to unblock the paced_input feeder thread
+        # This must happen after start_recording() to ensure all components
+        # use the same T=0 baseline for wall-clock synchronized audio
+        self.output_transport.reset_recording_baseline(
+            recording_sample_rate=self.audio_buffer._init_sample_rate
+        )
+        self.paced_input.set_recording_baseline()
+        logger.info("[NovaSonic] Recording baselines set")
+
+        # Enable tagging for the initial greeting audio.
+        # Normally tags are triggered by VADUserStoppedSpeakingFrame, but the
+        # greeting happens before any user speech, so we enable it explicitly.
+        self.output_transport.enable_greeting_tag()
+
+        # Queue LLMRunFrame to trigger initial greeting
+        # The context has a "Hello!" user message that triggers Nova Sonic to greet
+        logger.info("Queuing LLMRunFrame to trigger initial greeting...")
         await self.task.queue_frames([LLMRunFrame()])
 
         # Wait for connection to establish
@@ -1192,6 +1315,35 @@ class NovaSonicPipeline:
         # Signal LLM ready to receive audio
         logger.info("Signaling LLM ready for audio...")
         self.paced_input.signal_ready()
+
+        # Wait for initial greeting to complete before playing user audio
+        # This ensures the greeting isn't interrupted by user audio
+        greeting_start_timeout = 8.0  # seconds to wait for bot to start speaking
+        greeting_complete_timeout = 30.0  # seconds to wait for bot to stop speaking
+
+        logger.info(f"[NovaSonic] Waiting up to {greeting_start_timeout}s for initial greeting to start...")
+        greeting_occurred = False
+        try:
+            await asyncio.wait_for(self._greeting_started.wait(), timeout=greeting_start_timeout)
+            logger.info(f"[NovaSonic] Bot started greeting, waiting up to {greeting_complete_timeout}s for completion...")
+            try:
+                await asyncio.wait_for(self._greeting_done.wait(), timeout=greeting_complete_timeout)
+                logger.info("[NovaSonic] Initial greeting complete, proceeding with user audio")
+                greeting_occurred = True
+            except asyncio.TimeoutError:
+                logger.error(
+                    f"[NovaSonic] Greeting did not complete within {greeting_complete_timeout}s timeout. "
+                    "Bot started speaking but never stopped."
+                )
+                greeting_occurred = True
+        except asyncio.TimeoutError:
+            logger.warning("[NovaSonic] No greeting started within timeout, model doesn't greet - proceeding with user audio")
+
+        # If a greeting occurred, clear the turn gate state
+        # The greeting should not be recorded as part of turn 0's response
+        if greeting_occurred:
+            logger.info("[NovaSonic] Clearing TurnGate state after greeting")
+            self.turn_gate.clear_pending()
 
         # Queue user's question as AUDIO
         turn = self._get_current_turn()
@@ -1246,10 +1398,6 @@ class NovaSonicPipeline:
 
         if audio_path:
             try:
-                # Wait before starting next turn to let Nova Sonic settle
-                logger.info("Waiting 5s before starting next turn...")
-                await asyncio.sleep(5.0)
-
                 # Calculate audio duration
                 data, sr = sf.read(audio_path, dtype="int16")
                 audio_duration_sec = len(data) / sr

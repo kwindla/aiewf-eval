@@ -13,20 +13,44 @@
 # LLMs generate audio faster than real-time, so we must pace frame consumption to match
 # actual playback duration.
 #
-# AUDIO RECORDING FIX: This transport also inserts silence frames to fill gaps between
-# OutputAudioRawFrames. This ensures the downstream AudioBufferProcessor receives a
-# continuous stream of frames aligned to wall-clock time, eliminating timing drift in
-# recorded audio.
+# AUDIO RECORDING FIX: This transport is the "source of truth" for silence insertion
+# for BOTH user and bot audio streams. It tracks wall-clock time from recording start
+# and inserts silence frames to fill any gaps > 10ms. This ensures the downstream
+# AudioBufferProcessor receives continuous streams aligned to wall-clock time for both
+# tracks, enabling accurate audio-based TTFB measurements.
 #
 
 import asyncio
 import time
 
+import numpy as np
 from loguru import logger
-from pipecat.frames.frames import Frame, InterruptionFrame, OutputAudioRawFrame, StartFrame
+from pipecat.frames.frames import (
+    Frame,
+    InputAudioRawFrame,
+    InterruptionFrame,
+    OutputAudioRawFrame,
+    StartFrame,
+    VADUserStoppedSpeakingFrame,
+)
 from pipecat.processors.frame_processor import FrameDirection
 from pipecat.transports.base_output import BaseOutputTransport
 from pipecat.transports.base_transport import TransportParams
+
+# Maximum gap (in seconds) before silence is inserted
+# 10ms = 240 samples at 24kHz
+MAX_GAP_SECS = 0.010
+
+# RMS threshold for detecting speech onset in bot audio (dB)
+# -30dB is closer to actual speech levels, avoiding pre-speech silent padding
+BOT_SPEECH_RMS_THRESHOLD_DB = -30.0
+
+# Audio tag configuration for bot turn boundary markers
+# Tags are 2kHz sine bursts mixed into the first frame of each bot turn
+# (User tags removed - they triggered on small timing gaps, not real turn boundaries)
+AUDIO_TAG_FREQUENCY_HZ = 2000  # 2kHz sine wave - above typical speech fundamentals
+AUDIO_TAG_DURATION_MS = 15    # 15ms duration - long enough to detect, short enough to not interfere
+AUDIO_TAG_AMPLITUDE_DB = -12  # -12dB relative to full scale - clear but avoids clipping
 
 
 class NullAudioOutputTransport(BaseOutputTransport):
@@ -44,10 +68,17 @@ class NullAudioOutputTransport(BaseOutputTransport):
     - Without timing simulation, BotStoppedSpeakingFrame fires too early
     - This would cause turn advancement before audio "finishes playing"
 
+    DUAL-TRACK SILENCE INSERTION: This transport is the "source of truth" for
+    wall-clock aligned audio recording. It tracks both user (InputAudioRawFrame)
+    and bot (OutputAudioRawFrame) audio streams separately, inserting silence for
+    any gaps > 10ms. This ensures the downstream AudioBufferProcessor receives
+    continuous streams for both tracks aligned to the same T0 baseline.
+
     This is useful for:
     - Test/evaluation pipelines where you don't need audio playback
     - Speech-to-speech model testing where you only need transcripts
     - Pipelines that need speaking state tracking without audio output hardware
+    - Audio-based TTFB analysis requiring wall-clock aligned recordings
 
     The key mechanism inherited from BaseOutputTransport:
     - MediaSender tracks TTSAudioRawFrame timing
@@ -72,15 +103,34 @@ class NullAudioOutputTransport(BaseOutputTransport):
         self._frame_count = 0
         self._playback_start_time = 0.0
 
-        # Sample-accurate tracking for silence frame insertion
-        # These ensure recorded audio aligns with wall-clock time
+        # Recording baseline - shared by both user and bot tracks
         self._recording_start_time: float = 0.0
-        self._recording_sample_rate: int = 0  # Sample rate for recording (may differ from output)
-        self._actual_output_samples: int = 0  # Actual samples pushed downstream (measured, not predicted)
-        self._output_sample_rate: int = 0  # Output frame sample rate (for logging only)
-        self._output_num_channels: int = 1
-        self._silence_frames_inserted: int = 0
-        self._silence_samples_inserted: int = 0
+        self._recording_sample_rate: int = 0  # Sample rate for recording
+
+        # Bot audio (OutputAudioRawFrame) tracking
+        self._bot_actual_samples: int = 0  # Actual samples pushed downstream
+        self._bot_sample_rate: int = 0  # Bot frame sample rate (for logging)
+        self._bot_num_channels: int = 1
+        self._bot_silence_frames_inserted: int = 0
+        self._bot_silence_samples_inserted: int = 0
+        self._bot_frame_count: int = 0
+
+        # Bot speech onset detection (RMS-based)
+        self._bot_audio_start_time: float = 0.0  # When first bot audio byte arrived for current turn
+        self._bot_first_speech_logged: bool = False  # Whether we've logged speech onset for current turn
+        self._bot_skip_rms_samples: int = 0  # Samples to skip for RMS check (tag window)
+
+        # Turn-based audio tagging (triggered by VADUserStoppedSpeakingFrame)
+        # Tag is injected on first bot audio frame after user turn ends
+        self._tag_next_bot_audio: bool = False  # Only tag after VAD event
+
+        # User audio (InputAudioRawFrame) tracking
+        self._user_actual_samples: int = 0  # Actual samples pushed downstream
+        self._user_sample_rate: int = 0  # User frame sample rate (for logging)
+        self._user_num_channels: int = 1
+        self._user_silence_frames_inserted: int = 0
+        self._user_silence_samples_inserted: int = 0
+        self._user_frame_count: int = 0
 
     def reset_recording_baseline(self, recording_sample_rate: int):
         """Reset the recording baseline for sample-accurate silence insertion.
@@ -90,17 +140,46 @@ class NullAudioOutputTransport(BaseOutputTransport):
 
         Args:
             recording_sample_rate: The sample rate used by AudioBufferProcessor for
-                recording. This may differ from the output audio frame sample rate
+                recording. This may differ from the audio frame sample rates
                 (e.g., Ultravox outputs 48kHz but we record at 24kHz). Silence frames
                 must be created at the recording sample rate to maintain correct timing.
         """
-        self._recording_start_time = time.monotonic()
+        # Use time.time() to match AudioBufferProcessor's clock source
+        self._recording_start_time = time.time()
         self._recording_sample_rate = recording_sample_rate
-        self._actual_output_samples = 0
-        self._silence_frames_inserted = 0
-        self._silence_samples_inserted = 0
-        self._silence_tracking_frame_count = 0
+
+        # Reset bot audio tracking
+        self._bot_actual_samples = 0
+        self._bot_sample_rate = 0
+        self._bot_silence_frames_inserted = 0
+        self._bot_silence_samples_inserted = 0
+        self._bot_frame_count = 0
+
+        # Reset bot speech onset tracking
+        self._bot_audio_start_time = 0.0
+        self._bot_first_speech_logged = False
+        self._bot_skip_rms_samples = 0
+        self._tag_next_bot_audio = False  # Only tag after VAD event
+
+        # Reset user audio tracking
+        self._user_actual_samples = 0
+        self._user_sample_rate = 0
+        self._user_silence_frames_inserted = 0
+        self._user_silence_samples_inserted = 0
+        self._user_frame_count = 0
+
         logger.info(f"[NullAudioOutput] Recording baseline reset (recording_sample_rate={recording_sample_rate})")
+
+    def enable_greeting_tag(self):
+        """Enable tagging for the initial greeting audio.
+
+        Call this after reset_recording_baseline() to ensure the first bot audio
+        (the greeting) gets an audio tag. Normally tags are triggered by
+        VADUserStoppedSpeakingFrame, but the greeting happens before any user
+        speech, so we need to explicitly enable tagging for it.
+        """
+        self._tag_next_bot_audio = True
+        logger.info("[NullAudioOutput] Greeting tag enabled - will tag first bot audio frame")
 
     async def start(self, frame: StartFrame):
         """Start the transport and initialize the MediaSender.
@@ -114,9 +193,10 @@ class NullAudioOutputTransport(BaseOutputTransport):
         await self.set_transport_ready(frame)
 
     async def push_frame(self, frame: Frame, direction: FrameDirection = FrameDirection.DOWNSTREAM):
-        """Push frame downstream, tracking actual output samples.
+        """Push frame downstream, tracking actual output samples for both tracks.
 
-        This override counts the actual samples being pushed to AudioBufferProcessor,
+        This override counts the actual samples being pushed to AudioBufferProcessor
+        for both user (InputAudioRawFrame) and bot (OutputAudioRawFrame) audio,
         rather than predicting them based on input frame sizes. This eliminates drift
         caused by SOXR resampler filter delays and state resets.
 
@@ -130,44 +210,66 @@ class NullAudioOutputTransport(BaseOutputTransport):
             frame: The frame to push.
             direction: The direction of frame flow (default DOWNSTREAM).
         """
-        # Track actual output samples for accurate silence calculation
-        if (
-            isinstance(frame, OutputAudioRawFrame)
-            and direction == FrameDirection.DOWNSTREAM
-            and self._recording_start_time > 0
-        ):
-            raw_samples = len(frame.audio) // (frame.num_channels * 2)
-            if frame.sample_rate == self._recording_sample_rate:
-                actual_samples = raw_samples
-            else:
-                # Convert to recording sample rate
-                actual_samples = round(raw_samples * self._recording_sample_rate / frame.sample_rate)
-            self._actual_output_samples += actual_samples
+        if direction == FrameDirection.DOWNSTREAM and self._recording_start_time > 0:
+            # Track bot audio samples
+            if isinstance(frame, OutputAudioRawFrame):
+                raw_samples = len(frame.audio) // (frame.num_channels * 2)
+                if frame.sample_rate == self._recording_sample_rate:
+                    actual_samples = raw_samples
+                else:
+                    # Convert to recording sample rate
+                    actual_samples = round(raw_samples * self._recording_sample_rate / frame.sample_rate)
+                self._bot_actual_samples += actual_samples
+
+            # Track user audio samples
+            elif isinstance(frame, InputAudioRawFrame):
+                raw_samples = len(frame.audio) // (frame.num_channels * 2)
+                if frame.sample_rate == self._recording_sample_rate:
+                    actual_samples = raw_samples
+                else:
+                    # Convert to recording sample rate
+                    actual_samples = round(raw_samples * self._recording_sample_rate / frame.sample_rate)
+                self._user_actual_samples += actual_samples
 
         await super().push_frame(frame, direction)
 
     async def process_frame(self, frame: Frame, direction: FrameDirection):
         """Process frames, inserting silence for gaps and handling interruptions.
 
-        For OutputAudioRawFrame flowing downstream, this method:
+        For both InputAudioRawFrame (user) and OutputAudioRawFrame (bot) flowing
+        downstream, this method:
         1. Calculates the expected sample position based on wall-clock time
-        2. If we're behind (gap in audio), inserts a silence frame first
+        2. If we're behind (gap in audio > 10ms), inserts a silence frame first
         3. Then processes the actual frame through the normal path
 
         This ensures the downstream AudioBufferProcessor receives continuous
-        frames aligned to wall-clock time.
+        frames aligned to wall-clock time for BOTH tracks.
 
         Args:
             frame: The frame to process.
             direction: The direction of frame flow in the pipeline.
         """
-        # Handle OutputAudioRawFrame specially to insert silence for gaps
+        # Detect user turn end to trigger tagging on next bot audio
+        if isinstance(frame, VADUserStoppedSpeakingFrame):
+            self._tag_next_bot_audio = True
+            logger.info("[NullAudioOutput] User turn ended - will tag next bot audio frame")
+
+        # Handle bot audio (OutputAudioRawFrame) - insert silence for gaps
         if (
             isinstance(frame, OutputAudioRawFrame)
             and direction == FrameDirection.DOWNSTREAM
             and self._recording_start_time > 0  # Only if recording is active
         ):
-            await self._emit_with_silence_fill(frame, direction)
+            await self._emit_bot_with_silence_fill(frame, direction)
+            return
+
+        # Handle user audio (InputAudioRawFrame) - insert silence for gaps
+        if (
+            isinstance(frame, InputAudioRawFrame)
+            and direction == FrameDirection.DOWNSTREAM
+            and self._recording_start_time > 0  # Only if recording is active
+        ):
+            await self._emit_user_with_silence_fill(frame, direction)
             return
 
         await super().process_frame(frame, direction)
@@ -175,98 +277,221 @@ class NullAudioOutputTransport(BaseOutputTransport):
         # Reset playback timing on interruption (matches WebsocketServerOutputTransport behavior)
         if isinstance(frame, InterruptionFrame):
             self._next_send_time = 0.0
-            # Note: Do NOT reset recording baseline (_recording_start_time, _actual_output_samples)
+            # Note: Do NOT reset recording baseline (_recording_start_time, sample counters)
             # Recording is continuous - the AudioBufferProcessor buffer accumulates throughout
             # the session. Resetting counters mid-recording would break wall-clock alignment
             # and cause bot audio to overlap with user audio in the recorded file.
             # Only playback pacing timing needs to reset on interruption.
             logger.debug("[NullAudioOutput] Playback timing reset due to interruption")
 
-    async def _emit_with_silence_fill(self, frame: OutputAudioRawFrame, direction: FrameDirection):
-        """Insert silence frame if needed, then emit the actual frame.
+    async def _emit_bot_with_silence_fill(self, frame: OutputAudioRawFrame, direction: FrameDirection):
+        """Insert silence frame if needed for bot audio, then emit the actual frame.
 
         This method calculates the expected sample position based on elapsed
-        wall-clock time since recording started. If we're behind (there's a gap),
-        it creates and pushes a silence frame to fill the gap before processing
-        the actual audio frame.
+        wall-clock time since recording started. If we're behind by more than
+        MAX_GAP_SECS (10ms), it creates and pushes a silence frame to fill the
+        gap before processing the actual audio frame.
 
         Args:
             frame: The OutputAudioRawFrame to process.
             direction: The direction of frame flow (should be DOWNSTREAM).
         """
-        current_time = time.monotonic()
+        current_time = time.time()
 
-        # Initialize sample rate and channels from first frame
-        if self._output_sample_rate == 0:
-            self._output_sample_rate = frame.sample_rate
-            self._output_num_channels = frame.num_channels
+        # Initialize sample rate and channels from first bot frame
+        if self._bot_sample_rate == 0:
+            self._bot_sample_rate = frame.sample_rate
+            self._bot_num_channels = frame.num_channels
+            # Skip RMS detection until first tag is inserted (no speech onset tracking before VAD)
+            self._bot_first_speech_logged = True
             logger.info(
-                f"[NullAudioOutput] Initialized: output_sample_rate={self._output_sample_rate}, "
+                f"[NullAudioOutput] Bot audio initialized: sample_rate={self._bot_sample_rate}, "
                 f"recording_sample_rate={self._recording_sample_rate}, "
-                f"num_channels={self._output_num_channels}, "
-                f"rate_ratio={self._recording_sample_rate / self._output_sample_rate:.3f}"
+                f"num_channels={self._bot_num_channels}"
             )
 
         # Calculate expected sample position based on wall-clock time
-        # Use recording sample rate (not output frame rate) for correct timing
         elapsed_secs = current_time - self._recording_start_time
         expected_samples = round(elapsed_secs * self._recording_sample_rate)
 
         # Calculate gap using ACTUAL output samples (measured by push_frame override)
-        # This eliminates drift caused by SOXR resampler filter delays
-        gap_samples = expected_samples - self._actual_output_samples
+        gap_samples = expected_samples - self._bot_actual_samples
+        gap_secs = gap_samples / self._recording_sample_rate if self._recording_sample_rate > 0 else 0
 
-        if gap_samples > 0:
+        # Only insert silence for gaps > MAX_GAP_SECS (10ms)
+        if gap_secs > MAX_GAP_SECS:
             # Create silence frame to fill the gap at the recording sample rate
-            # Each sample is 2 bytes (16-bit audio) per channel
-            silence_bytes = bytes(gap_samples * self._output_num_channels * 2)
+            silence_bytes = bytes(gap_samples * self._bot_num_channels * 2)
             silence_frame = OutputAudioRawFrame(
                 audio=silence_bytes,
                 sample_rate=self._recording_sample_rate,
-                num_channels=self._output_num_channels,
+                num_channels=self._bot_num_channels,
             )
 
             # Push silence frame downstream - push_frame override counts these samples
             await self.push_frame(silence_frame, direction)
 
-            # Track silence statistics (sample count is tracked by push_frame)
-            self._silence_frames_inserted += 1
-            self._silence_samples_inserted += gap_samples
+            # Track silence statistics
+            self._bot_silence_frames_inserted += 1
+            self._bot_silence_samples_inserted += gap_samples
 
             # Log all silence insertions (helpful for debugging turn boundaries)
-            gap_ms = (gap_samples / self._recording_sample_rate) * 1000
+            gap_ms = gap_secs * 1000
             logger.info(
-                f"[NullAudioOutput] Inserted {gap_ms:.0f}ms silence "
+                f"[NullAudioOutput] Bot: Inserted {gap_ms:.0f}ms silence "
                 f"({gap_samples} samples): elapsed={elapsed_secs:.2f}s, "
                 f"expected={expected_samples}, actual_before={expected_samples - gap_samples}"
             )
-        else:
-            # Log when we skip silence insertion (gap is negative or zero)
-            if gap_samples < -1000:  # Only log significant negative gaps
-                gap_ms = (gap_samples / self._recording_sample_rate) * 1000
-                logger.debug(
-                    f"[NullAudioOutput] No silence needed: gap={gap_ms:.0f}ms, "
-                    f"elapsed={elapsed_secs:.2f}s, expected={expected_samples}, "
-                    f"actual={self._actual_output_samples}"
-                )
+
+        # Mix audio tag into the first bot frame after user turn ends
+        # This is triggered by VADUserStoppedSpeakingFrame, not by audio gaps
+        # (Ultravox sends chunked audio with gaps, so gap-based tagging creates spurious tags)
+        if self._tag_next_bot_audio:
+            # Reset speech onset tracking for new turn
+            # This must be done here (not on gap detection) to align with VAD-triggered turns
+            self._bot_audio_start_time = current_time
+            self._bot_first_speech_logged = False
+
+            tag = self._generate_audio_tag(frame.sample_rate)
+            tagged_audio = self._mix_tag_into_frame(frame.audio, tag)
+            frame = OutputAudioRawFrame(
+                audio=tagged_audio,
+                sample_rate=frame.sample_rate,
+                num_channels=frame.num_channels,
+            )
+            sample_pos_ms = (self._bot_actual_samples / self._recording_sample_rate) * 1000
+            logger.info(
+                f"[NullAudioOutput] Bot turn tag: sample_pos={sample_pos_ms:.0f}ms, "
+                f"freq={AUDIO_TAG_FREQUENCY_HZ}Hz, duration={AUDIO_TAG_DURATION_MS}ms"
+            )
+            # Skip RMS check for tag duration to avoid false speech onset detection
+            # The tag is at -12dB which would exceed the -30dB speech threshold
+            tag_samples_at_recording_rate = int(AUDIO_TAG_DURATION_MS * self._recording_sample_rate / 1000)
+            self._bot_skip_rms_samples = tag_samples_at_recording_rate
+            self._tag_next_bot_audio = False  # Only tag once per turn
 
         # Now process the actual frame through normal BaseOutputTransport path
         # This handles pacing and BotStarted/StoppedSpeakingFrame logic
-        # MediaSender will resample, chunk, and push frames - our push_frame override
-        # counts the ACTUAL output samples from SOXR, eliminating prediction drift
+        await super().process_frame(frame, direction)
+
+        # Check for speech onset using RMS threshold (skip tag window)
+        frame_samples = len(frame.audio) // (frame.num_channels * 2)
+        frame_samples_at_recording_rate = round(frame_samples * self._recording_sample_rate / frame.sample_rate)
+
+        if self._bot_skip_rms_samples > 0:
+            # Still in tag window, decrement skip counter
+            self._bot_skip_rms_samples -= frame_samples_at_recording_rate
+        elif not self._bot_first_speech_logged:
+            rms_db = self._calculate_rms_db(frame.audio)
+            if rms_db > BOT_SPEECH_RMS_THRESHOLD_DB:
+                # Log both wall-clock elapsed time AND actual sample position
+                # These may differ due to MediaSender buffering/processing
+                speech_onset_time = time.time()
+                silent_padding_ms = (speech_onset_time - self._bot_audio_start_time) * 1000
+                elapsed_ms = (speech_onset_time - self._recording_start_time) * 1000
+                # Actual sample position is what's been pushed to recorder
+                sample_position_ms = (self._bot_actual_samples / self._recording_sample_rate) * 1000
+                logger.info(
+                    f"[NullAudioOutput] Bot speech onset: T+{elapsed_ms:.0f}ms "
+                    f"(sample_pos={sample_position_ms:.0f}ms, silent_padding={silent_padding_ms:.0f}ms, rms={rms_db:.1f}dB)"
+                )
+                self._bot_first_speech_logged = True
+
+        # Periodic logging to track sample counting progression (every 500 frames)
+        self._bot_frame_count += 1
+        if self._bot_frame_count % 500 == 0:
+            current_time = time.time()
+            elapsed = current_time - self._recording_start_time
+            expected = round(elapsed * self._recording_sample_rate)
+            diff_samples = self._bot_actual_samples - expected
+            diff_ms = (diff_samples / self._recording_sample_rate) * 1000
+            logger.info(
+                f"[NullAudioOutput] Bot frame {self._bot_frame_count}: "
+                f"elapsed={elapsed:.2f}s, actual_samples={self._bot_actual_samples}, "
+                f"expected={expected}, diff={diff_ms:+.0f}ms"
+            )
+
+    async def _emit_user_with_silence_fill(self, frame: InputAudioRawFrame, direction: FrameDirection):
+        """Insert silence frame if needed for user audio, then emit the actual frame.
+
+        This method calculates the expected sample position based on elapsed
+        wall-clock time since recording started. If we're behind by more than
+        MAX_GAP_SECS (10ms), it creates and pushes a silence frame to fill the
+        gap before processing the actual audio frame.
+
+        Args:
+            frame: The InputAudioRawFrame to process.
+            direction: The direction of frame flow (should be DOWNSTREAM).
+        """
+        current_time = time.time()
+
+        # Initialize sample rate and channels from first user frame
+        if self._user_sample_rate == 0:
+            self._user_sample_rate = frame.sample_rate
+            self._user_num_channels = frame.num_channels
+            logger.info(
+                f"[NullAudioOutput] User audio initialized: sample_rate={self._user_sample_rate}, "
+                f"recording_sample_rate={self._recording_sample_rate}, "
+                f"num_channels={self._user_num_channels}"
+            )
+
+        # Log timing diagnostic if frame has send time attached
+        if hasattr(frame, '_paced_input_send_time'):
+            import time as time_module
+            arrival_time = time_module.monotonic()
+            traversal_ms = (arrival_time - frame._paced_input_send_time) * 1000
+            logger.info(
+                f"[NullAudioOutput] Frame traversal time: {traversal_ms:.1f}ms "
+                f"(sent={frame._paced_input_send_time:.3f}, arrived={arrival_time:.3f})"
+            )
+
+        # Calculate expected sample position based on wall-clock time
+        elapsed_secs = current_time - self._recording_start_time
+        expected_samples = round(elapsed_secs * self._recording_sample_rate)
+
+        # Calculate gap using ACTUAL output samples (measured by push_frame override)
+        gap_samples = expected_samples - self._user_actual_samples
+        gap_secs = gap_samples / self._recording_sample_rate if self._recording_sample_rate > 0 else 0
+
+        # Only insert silence for gaps > MAX_GAP_SECS (10ms)
+        if gap_secs > MAX_GAP_SECS:
+            # Create silence frame to fill the gap at the recording sample rate
+            silence_bytes = bytes(gap_samples * self._user_num_channels * 2)
+            silence_frame = InputAudioRawFrame(
+                audio=silence_bytes,
+                sample_rate=self._recording_sample_rate,
+                num_channels=self._user_num_channels,
+            )
+
+            # Push silence frame downstream - push_frame override counts these samples
+            await self.push_frame(silence_frame, direction)
+
+            # Track silence statistics
+            self._user_silence_frames_inserted += 1
+            self._user_silence_samples_inserted += gap_samples
+
+            # Log all silence insertions (helpful for debugging turn boundaries)
+            gap_ms = gap_secs * 1000
+            logger.info(
+                f"[NullAudioOutput] User: Inserted {gap_ms:.0f}ms silence "
+                f"({gap_samples} samples): elapsed={elapsed_secs:.2f}s, "
+                f"expected={expected_samples}, actual_before={expected_samples - gap_samples}"
+            )
+
+        # Pass frame through to downstream processors
         await super().process_frame(frame, direction)
 
         # Periodic logging to track sample counting progression (every 500 frames)
-        self._silence_tracking_frame_count += 1
-        if self._silence_tracking_frame_count % 500 == 0:
-            current_time = time.monotonic()
+        self._user_frame_count += 1
+        if self._user_frame_count % 500 == 0:
+            current_time = time.time()
             elapsed = current_time - self._recording_start_time
             expected = round(elapsed * self._recording_sample_rate)
-            diff_samples = self._actual_output_samples - expected
+            diff_samples = self._user_actual_samples - expected
             diff_ms = (diff_samples / self._recording_sample_rate) * 1000
             logger.info(
-                f"[NullAudioOutput] SilenceTracking frame {self._silence_tracking_frame_count}: "
-                f"elapsed={elapsed:.2f}s, actual_samples={self._actual_output_samples}, "
+                f"[NullAudioOutput] User frame {self._user_frame_count}: "
+                f"elapsed={elapsed:.2f}s, actual_samples={self._user_actual_samples}, "
                 f"expected={expected}, diff={diff_ms:+.0f}ms"
             )
 
@@ -362,16 +587,107 @@ class NullAudioOutputTransport(BaseOutputTransport):
     def log_recording_summary(self):
         """Log a summary of silence insertion during recording.
 
-        Call this when recording ends to see statistics about gap filling.
+        Call this when recording ends to see statistics about gap filling
+        for both user and bot audio tracks.
         """
-        if self._recording_start_time > 0 and self._actual_output_samples > 0:
-            elapsed = time.monotonic() - self._recording_start_time
-            silence_secs = self._silence_samples_inserted / self._recording_sample_rate if self._recording_sample_rate > 0 else 0
-            total_secs = self._actual_output_samples / self._recording_sample_rate if self._recording_sample_rate > 0 else 0
+        if self._recording_start_time > 0:
+            elapsed = time.time() - self._recording_start_time
+            sr = self._recording_sample_rate if self._recording_sample_rate > 0 else 1
+
+            # Bot audio summary
+            bot_silence_secs = self._bot_silence_samples_inserted / sr
+            bot_total_secs = self._bot_actual_samples / sr
             logger.info(
-                f"[NullAudioOutput] Recording summary: "
-                f"actual_samples={self._actual_output_samples} ({total_secs:.1f}s), "
-                f"silence_inserted={self._silence_samples_inserted} ({silence_secs:.1f}s), "
-                f"silence_frames={self._silence_frames_inserted}, "
-                f"wall_elapsed={elapsed:.1f}s"
+                f"[NullAudioOutput] Bot recording summary: "
+                f"actual_samples={self._bot_actual_samples} ({bot_total_secs:.1f}s), "
+                f"silence_inserted={self._bot_silence_samples_inserted} ({bot_silence_secs:.1f}s), "
+                f"silence_frames={self._bot_silence_frames_inserted}"
             )
+
+            # User audio summary
+            user_silence_secs = self._user_silence_samples_inserted / sr
+            user_total_secs = self._user_actual_samples / sr
+            logger.info(
+                f"[NullAudioOutput] User recording summary: "
+                f"actual_samples={self._user_actual_samples} ({user_total_secs:.1f}s), "
+                f"silence_inserted={self._user_silence_samples_inserted} ({user_silence_secs:.1f}s), "
+                f"silence_frames={self._user_silence_frames_inserted}"
+            )
+
+            logger.info(f"[NullAudioOutput] Recording wall-clock elapsed: {elapsed:.1f}s")
+
+    def _calculate_rms_db(self, audio_bytes: bytes) -> float:
+        """Calculate RMS level in dB for an audio frame.
+
+        Args:
+            audio_bytes: Raw PCM audio data as bytes (16-bit signed integers).
+
+        Returns:
+            RMS level in dB (0 dB = full scale). Returns -100.0 for silence/empty frames.
+        """
+        audio = np.frombuffer(audio_bytes, dtype=np.int16)
+        if len(audio) == 0:
+            return -100.0
+        rms = np.sqrt(np.mean(audio.astype(np.float64) ** 2))
+        if rms < 1:
+            return -100.0
+        # dB relative to full scale (32768 for 16-bit audio)
+        return 20 * np.log10(rms / 32768)
+
+    def _generate_audio_tag(self, sample_rate: int) -> np.ndarray:
+        """Generate a 2kHz sine burst for marking turn boundaries.
+
+        Creates a short audio tag that can be mixed into the first frame of each
+        turn to mark when the audio stream began. The tag uses:
+        - 2kHz frequency: Above typical speech fundamentals, easy to detect with FFT
+        - 15ms duration: Long enough to detect reliably, short enough not to interfere
+        - -12dB amplitude: Clear but leaves headroom to avoid clipping when mixed
+        - Fade in/out: 2ms fades to prevent clicks
+
+        Args:
+            sample_rate: The sample rate of the audio frame to be tagged.
+
+        Returns:
+            Audio samples as int16 array (to be mixed with first frame).
+        """
+        duration_secs = AUDIO_TAG_DURATION_MS / 1000
+        num_samples = int(sample_rate * duration_secs)
+        t = np.arange(num_samples) / sample_rate
+
+        # Generate sine wave at -12dB (amplitude ≈ 8200 out of 32768)
+        amplitude = 32768 * (10 ** (AUDIO_TAG_AMPLITUDE_DB / 20))
+        sine_wave = amplitude * np.sin(2 * np.pi * AUDIO_TAG_FREQUENCY_HZ * t)
+
+        # Apply short fade-in/fade-out to avoid clicks (2ms each)
+        fade_samples = int(sample_rate * 0.002)
+        if fade_samples > 0 and num_samples > 2 * fade_samples:
+            fade_in = np.linspace(0, 1, fade_samples)
+            fade_out = np.linspace(1, 0, fade_samples)
+            sine_wave[:fade_samples] *= fade_in
+            sine_wave[-fade_samples:] *= fade_out
+
+        return sine_wave.astype(np.int16)
+
+    def _mix_tag_into_frame(self, frame_audio: bytes, tag: np.ndarray) -> bytes:
+        """Mix audio tag into the beginning of a frame.
+
+        Adds the tag samples to the beginning of the frame audio, with clipping
+        protection to prevent overflow. If the frame is shorter than the tag,
+        the tag is truncated to fit.
+
+        Args:
+            frame_audio: Original frame audio bytes (int16 PCM).
+            tag: Audio tag samples (int16 array).
+
+        Returns:
+            Mixed audio bytes with tag at the beginning.
+        """
+        frame = np.frombuffer(frame_audio, dtype=np.int16).copy()
+        tag_len = min(len(tag), len(frame))
+
+        if tag_len > 0:
+            # Mix by adding, clip to int16 range to prevent overflow
+            mixed = frame[:tag_len].astype(np.int32) + tag[:tag_len].astype(np.int32)
+            frame[:tag_len] = np.clip(mixed, -32768, 32767).astype(np.int16)
+
+        return frame.tobytes()

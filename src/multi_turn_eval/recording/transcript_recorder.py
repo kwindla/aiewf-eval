@@ -141,12 +141,15 @@ class TranscriptRecorder:
         """
         self.turn_results.append({"name": name, "response": response})
 
-    def write_turn(self, *, user_text: str, assistant_text: str):
+    def write_turn(
+        self, *, user_text: str, assistant_text: str, reconnection_count: int = 0
+    ):
         """Write the completed turn to the transcript file.
 
         Args:
             user_text: The user's input text for this turn.
             assistant_text: The assistant's response text for this turn.
+            reconnection_count: Number of reconnections during this turn (0 = no reconnection).
         """
         latency_ms = None
         if self.turn_start_monotonic is not None:
@@ -163,6 +166,7 @@ class TranscriptRecorder:
             "tokens": self.turn_usage or None,
             "ttfb_ms": self.turn_ttfb_ms,
             "latency_ms": latency_ms,
+            "reconnection_count": reconnection_count,
         }
         self.fp.write(json.dumps(rec, ensure_ascii=False) + "\n")
         self.fp.flush()
