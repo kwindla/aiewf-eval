@@ -297,7 +297,7 @@ def run_silero_vad(
     model,
     get_speech_timestamps,
     min_silence_ms: int = 2000,
-    min_speech_ms: int = 750,
+    min_speech_ms: int = 700,
 ) -> tuple[list[dict], list[dict]]:
     """Run Silero VAD on both channels, return (user_segments, bot_segments)."""
     with wave.open(str(wav_path), "rb") as wf:
