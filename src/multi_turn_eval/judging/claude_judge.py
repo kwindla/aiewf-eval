@@ -45,6 +45,10 @@ JUDGE_MODEL = "claude-opus-4-5"
 JUDGE_SYSTEM_PROMPT = """# Role
 You are an expert evaluator for conversational AI systems. You will judge a multi-turn conversation between a user and an AI assistant for the AI Engineer World's Fair 2025.
 
+# CRITICAL: Evaluate ALL Turns
+
+**You MUST output a judgment for EVERY turn provided in the input.** Do not stop early or skip turns. Even if the conversation seems to have gone off-track, continue evaluating all remaining turns. The final_judgments array must contain exactly one entry for each turn in the input.
+
 # Two-Phase Evaluation Process
 
 You will evaluate in TWO phases:
@@ -55,6 +59,7 @@ For each turn, evaluate against the golden expectation and note any discrepancie
 ## PHASE 2: Realignment Analysis
 After the initial pass, look for "turn misalignment" patterns:
 - **Early function calls**: A function was called earlier than expected (e.g., at turn N instead of N+1)
+- **Late function calls**: A function was called later than expected (e.g., at turn N+1 instead of N)
 - **Cascading effects**: If a function was called early, subsequent turns expecting that call should NOT be penalized
 - **Semantic equivalence**: Even if timing differs, did the conversation accomplish the same goals?
 
@@ -72,8 +77,10 @@ For each turn, evaluate FOUR dimensions:
    - TRUE if the assistant correctly called the expected function with semantically equivalent arguments
    - TRUE if no function call was expected and none was made
    - TRUE if a function call was expected but was already made in an earlier turn (realignment case)
+   - TRUE if a late function call is made at this turn (the call eventually happened, credit this turn)
    - FALSE if a function call was expected, not made, and NOT already made earlier
    - FALSE if the assistant's words imply waiting for confirmation but it acts without waiting
+   - FALSE if the assistant asks for unnecessary confirmation instead of making the expected function call
    - For argument matching, use semantic equivalence (not verbatim)
    - Session IDs must match exactly
 
@@ -83,6 +90,7 @@ For each turn, evaluate FOUR dimensions:
    - TRUE if the turn is part of a realigned workflow that still accomplishes the goal
    - FALSE if assistant's words contradict its actions (says "Does that work?" but doesn't wait)
    - FALSE if assistant neither answers nor advances the workflow
+   - FALSE if the assistant asks for unnecessary confirmation when it already has all needed information
    - **IMPORTANT**: If a turn has turn_taking=FALSE, be lenient on instruction_following since garbled audio may cause transcription issues
 
 4. **kb_grounding** (bool):
@@ -103,6 +111,23 @@ When you detect an early function call:
 1. Note which function was called and at which turn
 2. In subsequent turns, if that same function was "expected", mark tool_use_correct as TRUE (already satisfied)
 3. Add a note in reasoning explaining the realignment
+
+# Critical: Handling Late Function Calls
+
+When you detect a late function call (assistant asked for unnecessary confirmation instead of acting):
+1. Penalize the turn where the function SHOULD have been called (tool_use_correct=FALSE, instruction_following=FALSE)
+2. Credit the turn where the function was ACTUALLY called (tool_use_correct=TRUE)
+3. Continue evaluating ALL subsequent turns normally
+4. Add a note in function_call_tracking with status "late"
+
+Example: If vote_for_session was expected at turn 24 but called at turn 25:
+- Turn 24: tool_use_correct=FALSE (didn't call when it should have), instruction_following=FALSE (asked unnecessary confirmation)
+- Turn 25: tool_use_correct=TRUE (function was called correctly)
+- Turns 26-29: Evaluate normally, do NOT skip these turns
+
+# Critical: Empty Assistant Text with Tool Calls
+
+A turn with empty assistant_text but a valid tool call is still a valid turn. The assistant may have called the function without generating speech. Evaluate the tool call normally.
 
 # Output Format
 
@@ -338,12 +363,17 @@ Please perform your two-phase evaluation:
 1. First, analyze each turn against its golden expectation
 2. Then, identify any turn misalignments (early/late function calls)
 3. Apply realignment adjustments to avoid double-penalizing
-4. Output the final JSON with all judgments
+4. Output the final JSON with judgments for ALL {len(records)} turns
+
+CRITICAL: Your final_judgments array MUST contain exactly {len(records)} entries (turns 0-{len(records)-1}).
 
 Remember:
 - If a function is called early (before expected turn), subsequent turns should not be penalized for the "missing" call
+- If a function is called late (after expected turn), penalize the turn that should have called it, credit the turn that did call it, then continue evaluating all remaining turns
 - If the assistant says "Does that work?" but doesn't wait for confirmation, that's an instruction_following failure
+- If the assistant asks for unnecessary confirmation when it has all needed info, that's a tool_use_correct AND instruction_following failure
 - Be generous with kb_grounding unless there's a clear factual error
+- Empty assistant_text with a valid tool call is still a valid turn - evaluate the tool call
 """
 
     # Configure options - use extended thinking for complex reasoning
