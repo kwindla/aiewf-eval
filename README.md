@@ -18,6 +18,7 @@ Text mode models:
 | claude-sonnet-4-5         | 300/300   | 300/300     | 300/300   | 100.0%    | 100.0%      | 2234ms   | 3062ms   | 5438ms   |
 | gpt-4.1 †                 | 283/300   | 273/300     | 298/300   | 94.9%     | 97.8%       | 683ms    | 1052ms   | 3860ms   |
 | gemini-2.5-flash †        | 275/300   | 268/300     | 300/300   | 93.7%     | 94.4%       |  594ms   | 1349ms   | 2104ms   |
+| kimi-k2-instruct-0905 ‡   | 28/30     | 29/30       | 30/30     | 93.3%     | 93.3%       | 286ms    | 1774ms   | 2465ms   |
 | nova-2-pro-preview        | 288/300   | 278/300     | 289/300   | 92.7%     | 93.3%       |  686ms   |  750ms   | 1459ms   |
 | gpt-5-mini                | 271/300   | 272/300     | 289/300   | 92.4%     | 95.6%       | 6339ms   | 17845ms  | 27028ms  |
 | gpt-4o-mini               | 271/300   | 262/300     | 293/300   | 91.8%     | 92.2%       |  760ms   | 1322ms   | 3256ms   |
@@ -30,10 +31,12 @@ Text mode models:
 
 > - [ † ] - gpt-4.1 and gemini-2.5-flash are used for most production voice agents because they currently offer the best balance of overall intelligence and low TTFB.
 > - [ * ] - Nemotron 3 Nano running in-cluster on NVIDIA Blackwell hardware
+> - [ ‡ ] - Single-run result from `runs/aiwf_medium_context/20260217T124339_moonshotai_kimi-k2-instruct-0905_d7392630` (not yet a 10-run aggregate). Claude summary for this run: Tool Use 28/30, Instruction 29/30, KB Grounding 30/30, Turn-Taking 30/30.
 
-Each conversation in this benchmark is 30 turns. The scores above are aggregated across 10 runs for each model. **Pass Rate** means the percentage of total turns across all runs that the judge model scored as successful. Each run is also scored independently. **Median Rate** is the median individual run pass rate. Think of pass rate as the model's average performance, and the median rate as a way to measure the model's consistency. See gpt-5.2, for example, which has a pass rate of 78.0% but a median rate of 92.2%, indicating that while it performs well on average, it can have very poor runs that drag down the median conversation score.
+Each conversation in this benchmark is 30 turns. Unless marked otherwise (for example `‡`), the scores above are aggregated across 10 runs for each model. **Pass Rate** means the percentage of total turns across all runs that the judge model scored as successful. Each run is also scored independently. **Median Rate** is the median individual run pass rate. Think of pass rate as the model's average performance, and the median rate as a way to measure the model's consistency. See gpt-5.2, for example, which has a pass rate of 78.0% but a median rate of 92.2%, indicating that while it performs well on average, it can have very poor runs that drag down the median conversation score.
 
 TTFB is the number reported by the Pipecat service for each model. It is the time from the request to generate inference to the first byte of the response. An optimized speech-to-speech pipeline with typical network latencies should be able to achieve a total voice-to-voice latency of approximately LLM TTFB + 500ms. In general, a model with a TTFB above ~700ms is too slow for most voice agent use cases.
+For the same `kimi-k2-instruct-0905` run above, end-to-end per-turn latency (`latency_ms` in `transcript.jsonl`) was: median 899ms, p95 3954ms, max 5249ms.
 
 Speech-to-speech models:
 
@@ -97,6 +100,8 @@ cd multi-turn-eval
 uv sync
 ```
 
+On Intel macOS (`x86_64`), `torch`/`torchaudio` wheels for the latest versions are not published. The project skips those dependencies on that platform so `uv sync` can complete normally.
+
 ## Environment Variables
 
 Set the appropriate API keys for the services you want to use:
@@ -156,7 +161,12 @@ uv run multi-turn-eval run aiwf_medium_context --model gpt-4o --service openai -
 
 # Verbose logging
 uv run multi-turn-eval run aiwf_medium_context --model gpt-4o --service openai --verbose
+
+# Run multiple full 30-turn evaluations sequentially (e.g., 10 runs => 300 turns aggregate)
+uv run multi-turn-eval run aiwf_medium_context --model moonshotai/kimi-k2-instruct-0905 --service openrouter --runs 10
 ```
+
+Each run now also writes `native_summary.json` in the run directory (computed directly from `transcript.jsonl`, no judge required). When `--runs` is greater than 1, a single parent run directory is created with per-iteration outputs under `iterations/run_XX/`, plus `native_aggregate.json` in the parent directory.
 
 ### Judging Runs
 
@@ -165,6 +175,13 @@ After a benchmark run completes, judge the results using Claude:
 ```bash
 # Judge a specific run
 uv run multi-turn-eval judge runs/aiwf_medium_context/20251213T123456_claude-sonnet-4-5
+
+# If the run was executed with --runs > 1, judge the parent run directory.
+# The CLI judges each iterations/run_XX/ folder and writes an aggregate claude_summary.json at the parent.
+uv run multi-turn-eval judge runs/aiwf_medium_context/20251213T123456_claude-sonnet-4-5
+
+# Judge only specific iterations from a parent run (and still write aggregate summary at parent)
+uv run multi-turn-eval judge runs/aiwf_medium_context/20251213T123456_claude-sonnet-4-5 --only-runs 1,3,9
 
 # Judge with specific turns
 uv run multi-turn-eval judge runs/aiwf_medium_context/20251213T123456_claude-sonnet-4-5 --only-turns 0,1,2

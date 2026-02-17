@@ -13,8 +13,8 @@ dependencies = [
   "soundfile>=0.12.1",
   "numpy>=1.26",
   "claude-agent-sdk>=0.1.8",
-  "torch>=2.9.1",
-  "torchaudio>=2.9.1",
+  "torch>=2.9.1; sys_platform != \"darwin\" or platform_machine != \"x86_64\"",
+  "torchaudio>=2.9.1; sys_platform != \"darwin\" or platform_machine != \"x86_64\"",
 ]
 
 [project.scripts]
