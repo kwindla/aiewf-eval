@@ -8,6 +8,7 @@ from pipecat.frames.frames import (
     FunctionCallResultFrame,
 )
 from pipecat.processors.frame_processor import FrameDirection, FrameProcessor
+from multi_turn_eval.frames import ToolResultTurnCompleteFrame
 
 
 class ToolCallRecorder(FrameProcessor):
@@ -94,6 +95,16 @@ class ToolCallRecorder(FrameProcessor):
         elif isinstance(frame, FunctionCallResultFrame):
             tool_call_id = frame.tool_call_id
             is_duplicate = tool_call_id in self._get_duplicate_ids() if tool_call_id else False
+            properties = getattr(frame, "properties", None)
+            run_llm = None
+            if properties is not None:
+                run_llm = getattr(properties, "run_llm", None)
+                properties = {
+                    "run_llm": run_llm,
+                    "has_on_context_updated": bool(
+                        getattr(properties, "on_context_updated", None)
+                    ),
+                }
 
             rec = self._rec()
             if rec is not None:
@@ -104,7 +115,7 @@ class ToolCallRecorder(FrameProcessor):
                         {
                             "tool_call_id": tool_call_id,
                             "result": frame.result,
-                            "properties": getattr(frame, "properties", None),
+                            "properties": properties,
                             "is_duplicate": is_duplicate,
                         },
                     )
@@ -120,6 +131,19 @@ class ToolCallRecorder(FrameProcessor):
             # Only push non-duplicates downstream to prevent context pollution
             if not is_duplicate:
                 await self.push_frame(frame, direction)
+                # When tool results do not auto-run the LLM, emit an explicit
+                # turn-complete signal so downstream turn logic can advance on
+                # tool-only assistant responses.
+                if run_llm is False and rec is not None:
+                    await self.push_frame(
+                        ToolResultTurnCompleteFrame(
+                            turn_index=rec.turn_index,
+                            turn_start_monotonic=rec.turn_start_monotonic,
+                            function_name=frame.function_name,
+                            tool_call_id=tool_call_id,
+                        ),
+                        direction,
+                    )
             else:
                 logger.debug(
                     f"ToolCallRecorder: NOT pushing duplicate FunctionCallResultFrame "

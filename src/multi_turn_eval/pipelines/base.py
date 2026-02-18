@@ -6,12 +6,15 @@ Each pipeline type (text, realtime, nova-sonic) handles its own specifics.
 
 import asyncio
 import os
+import re
 from abc import ABC, abstractmethod
+from difflib import SequenceMatcher
 from typing import Any, Dict, List, Optional
 
 from loguru import logger
 
 from pipecat.frames.frames import MetricsFrame
+from pipecat.frames.frames import FunctionCallResultProperties
 from pipecat.metrics.metrics import LLMUsageMetricsData, TTFBMetricsData
 from pipecat.pipeline.runner import PipelineRunner
 from pipecat.pipeline.task import PipelineTask
@@ -20,6 +23,13 @@ from pipecat.processors.frame_processor import FrameProcessor
 from pipecat.services.llm_service import FunctionCallParams
 
 from multi_turn_eval.recording.transcript_recorder import TranscriptRecorder
+
+
+def _env_bool(name: str, default: bool) -> bool:
+    value = os.getenv(name)
+    if value is None:
+        return default
+    return value.strip().lower() in {"1", "true", "yes", "on"}
 
 
 class BasePipeline(ABC):
@@ -37,6 +47,10 @@ class BasePipeline(ABC):
 
     # Set to False for pipelines that create their own LLM (e.g., Nova Sonic)
     requires_service = True
+    # Set to True in subclasses that support synthetic recovery turns.
+    supports_recovery = False
+    # Whether tool results should trigger immediate LLM inference by default.
+    default_tool_result_run_llm = True
 
     def __init__(self, benchmark):
         """Initialize the pipeline.
@@ -59,6 +73,16 @@ class BasePipeline(ABC):
         self._seen_tool_calls: set = set()
         # Track tool_call_ids that are duplicates (for filtering in ToolCallRecorder)
         self._duplicate_tool_call_ids: set = set()
+        # True while evaluating the synthetic "Please go ahead." turn.
+        self._in_recovery_turn: bool = False
+        # Global runtime switches for controlled A/B testing.
+        self._enable_recovery_nudges: bool = _env_bool("MTE_ENABLE_RECOVERY", True)
+        self._enable_tool_call_dedupe: bool = _env_bool("MTE_DEDUPE_TOOL_CALLS", True)
+        # Whether a tool result should trigger immediate follow-up LLM inference.
+        self._tool_result_run_llm: bool = _env_bool(
+            "MTE_TOOL_RESULT_RUN_LLM",
+            self.default_tool_result_run_llm,
+        )
 
     @property
     def effective_turns(self) -> List[dict]:
@@ -88,6 +112,10 @@ class BasePipeline(ABC):
         self.model_name = model
         self.service_name = service_name  # Store for use in _create_llm overrides
         self._turn_indices = turn_indices
+
+        logger.info(f"Recovery nudges enabled={self._enable_recovery_nudges}")
+        logger.info(f"Tool call dedupe enabled={self._enable_tool_call_dedupe}")
+        logger.info(f"Tool result run_llm enabled={self._tool_result_run_llm}")
 
         # Create LLM service
         self.llm = self._create_llm(service_class, model)
@@ -154,6 +182,14 @@ class BasePipeline(ABC):
             if not api_key:
                 raise EnvironmentError("ANTHROPIC_API_KEY environment variable is required")
             kwargs["api_key"] = api_key
+            from pipecat.services.anthropic.llm import AnthropicLLMService
+            enable_prompt_caching = _env_bool("MTE_ANTHROPIC_PROMPT_CACHING", True)
+            kwargs["params"] = AnthropicLLMService.InputParams(
+                enable_prompt_caching=enable_prompt_caching,
+            )
+            logger.info(
+                f"Configured {model} with enable_prompt_caching={enable_prompt_caching}"
+            )
         elif "Groq" in class_name:
             api_key = os.getenv("GROQ_API_KEY")
             if not api_key:
@@ -231,16 +267,65 @@ class BasePipeline(ABC):
         if self.done:
             return
 
-        # Get the actual turn index for recording
-        actual_turn_idx = self._get_actual_turn_index(self.turn_idx)
+        is_recovery_turn = self._in_recovery_turn
+        logger.debug(
+            "on_turn_end start: "
+            f"turn_idx={self.turn_idx} "
+            f"recovery={is_recovery_turn} "
+            f"tool_calls={len(self.recorder.turn_calls) if self.recorder else 'n/a'} "
+            f"tool_results={len(self.recorder.turn_results) if self.recorder else 'n/a'}"
+        )
 
         # Record turn (common)
         self.recorder.write_turn(
             user_text=self.effective_turns[self.turn_idx].get("input", ""),
             assistant_text=assistant_text,
+            recovery_turn=is_recovery_turn,
         )
 
-        # Advance (common)
+        # Recovery attempt complete: always advance to next scripted turn.
+        if is_recovery_turn:
+            self._in_recovery_turn = False
+            self.turn_idx += 1
+
+            # Reset tool call tracking for the new turn
+            self._seen_tool_calls.clear()
+            self._duplicate_tool_call_ids.clear()
+
+            if self.turn_idx < len(self.effective_turns):
+                # Start next turn
+                actual_next_idx = self._get_actual_turn_index(self.turn_idx)
+                self.recorder.start_turn(actual_next_idx)
+                await self._queue_next_turn()
+            else:
+                # All turns complete
+                logger.info("Conversation complete")
+                self.done = True
+                self.recorder.write_summary()
+                await self.task.cancel()
+            return
+
+        # Normal scripted turn: optionally inject one recovery attempt.
+        should_recover = self._should_recover()
+        logger.debug(
+            "on_turn_end decision: "
+            f"turn_idx={self.turn_idx} should_recover={should_recover}"
+        )
+        if should_recover:
+            self._in_recovery_turn = True
+
+            # Recovery is a new turn attempt; clear duplicate tracking first.
+            self._seen_tool_calls.clear()
+            self._duplicate_tool_call_ids.clear()
+
+            # Re-start recorder state at the same actual turn index.
+            actual_turn_idx = self._get_actual_turn_index(self.turn_idx)
+            self.recorder.start_turn(actual_turn_idx)
+
+            await self._queue_recovery_turn()
+            return
+
+        # Normal advancement (common)
         self.turn_idx += 1
 
         # Reset tool call tracking for the new turn
@@ -279,25 +364,36 @@ class BasePipeline(ABC):
         # Create a key for duplicate detection (function_name + args)
         call_key = (params.function_name, str(params.arguments or {}))
 
-        # Check for duplicate tool call
-        if call_key in self._seen_tool_calls:
-            tool_call_id = getattr(params, 'tool_call_id', None)
-            logger.warning(
-                f"Skipping duplicate tool call: {params.function_name} "
-                f"(tool_call_id={tool_call_id})"
-            )
-            # Track this tool_call_id as a duplicate so ToolCallRecorder can filter it
-            if tool_call_id:
-                self._duplicate_tool_call_ids.add(tool_call_id)
-            # Return a result to satisfy the API, but mark it as skipped
-            await params.result_callback({"status": "duplicate_skipped"})
-            return
+        # Optional duplicate suppression to avoid context pollution.
+        if self._enable_tool_call_dedupe:
+            if call_key in self._seen_tool_calls:
+                tool_call_id = getattr(params, 'tool_call_id', None)
+                logger.warning(
+                    f"Skipping duplicate tool call: {params.function_name} "
+                    f"(tool_call_id={tool_call_id})"
+                )
+                # Track this tool_call_id as a duplicate so ToolCallRecorder can filter it
+                if tool_call_id:
+                    self._duplicate_tool_call_ids.add(tool_call_id)
+                # Return a result to satisfy the API, but mark it as skipped
+                await params.result_callback(
+                    {"status": "duplicate_skipped"},
+                    properties=FunctionCallResultProperties(
+                        run_llm=self._tool_result_run_llm
+                    ),
+                )
+                return
 
         # Track this call
         self._seen_tool_calls.add(call_key)
 
         result = {"status": "success"}
-        await params.result_callback(result)
+        await params.result_callback(
+            result,
+            properties=FunctionCallResultProperties(
+                run_llm=self._tool_result_run_llm
+            ),
+        )
 
         # end_session tool: gracefully terminate
         if params.function_name == "end_session":
@@ -310,10 +406,146 @@ class BasePipeline(ABC):
                 self.recorder.write_turn(
                     user_text=self.effective_turns[self.turn_idx].get("input", ""),
                     assistant_text="",
+                    recovery_turn=self._in_recovery_turn,
                 )
             self.recorder.write_summary()
             # Cancel the pipeline task to exit cleanly
             await self.task.cancel()
+
+    def _has_required_call(self) -> bool:
+        """Check whether current turn's required function call is present."""
+        if self.recorder is None or self.turn_idx >= len(self.effective_turns):
+            return True
+
+        turn = self.effective_turns[self.turn_idx]
+        required = turn.get("required_function_call")
+        if not required:
+            return True
+
+        expected_name = required["name"]
+        expected_args = required.get("args", {}) or {}
+
+        # Ignore duplicate calls when checking whether requirement was met.
+        actual_calls = [c for c in self.recorder.turn_calls if not c.get("is_duplicate")]
+        for call in actual_calls:
+            if call.get("name") != expected_name:
+                continue
+            if self._args_semantically_match(expected_args, call.get("args") or {}):
+                return True
+        return False
+
+    @staticmethod
+    def _normalize_text(s: str) -> str:
+        """Normalize short argument text for lightweight semantic matching."""
+        t = (s or "").lower().strip()
+        t = t.replace("opentelemetry", "open telemetry")
+        t = t.replace("can't", "cannot").replace("cant", "cannot")
+        t = t.replace("can not", "cannot")
+        t = t.replace("unable to", "cannot")
+        t = re.sub(r"[^a-z0-9\s]", "", t)
+        t = re.sub(r"\s+", " ", t)
+        return t
+
+    @classmethod
+    def _string_semantically_matches(cls, expected: str, actual: str) -> bool:
+        exp_norm = cls._normalize_text(expected)
+        act_norm = cls._normalize_text(actual)
+        if exp_norm == act_norm:
+            return True
+        if exp_norm and act_norm:
+            # Accept direct containment so concise expected text can match
+            # richer user-authored tool arguments.
+            if exp_norm in act_norm or act_norm in exp_norm:
+                return True
+
+        stopwords = {
+            "a",
+            "an",
+            "the",
+            "in",
+            "on",
+            "at",
+            "to",
+            "for",
+            "of",
+            "with",
+            "about",
+            "is",
+            "are",
+            "was",
+            "were",
+            "my",
+            "your",
+            "our",
+        }
+        exp_tokens = [t for t in exp_norm.split() if t and t not in stopwords]
+        act_tokens = [t for t in act_norm.split() if t and t not in stopwords]
+        if exp_tokens and act_tokens:
+            exp_set = set(exp_tokens)
+            act_set = set(act_tokens)
+            intersection = len(exp_set & act_set)
+            union = len(exp_set | act_set)
+            min_len = min(len(exp_set), len(act_set))
+            exp_len = len(exp_set)
+            act_len = len(act_set)
+            if union > 0 and min_len > 0:
+                jaccard = intersection / union
+                # Treat expected text as the anchor; a verbose actual should
+                # still match when it fully contains expected semantics.
+                expected_containment = intersection / exp_len if exp_len else 0.0
+                actual_containment = intersection / act_len if act_len else 0.0
+                if expected_containment >= 0.8:
+                    return True
+                if jaccard >= 0.6 and expected_containment >= 0.7:
+                    return True
+                if expected_containment >= 0.6 and actual_containment >= 0.6:
+                    return True
+
+        return SequenceMatcher(None, exp_norm, act_norm).ratio() >= 0.82
+
+    @classmethod
+    def _args_semantically_match(cls, expected: Any, actual: Any) -> bool:
+        """Recursive semantic equivalence for required tool args."""
+        if isinstance(expected, dict):
+            if not isinstance(actual, dict):
+                return False
+            for key, exp_val in expected.items():
+                if key not in actual:
+                    return False
+                if not cls._args_semantically_match(exp_val, actual[key]):
+                    return False
+            return True
+
+        if isinstance(expected, list):
+            if not isinstance(actual, list) or len(expected) != len(actual):
+                return False
+            return all(cls._args_semantically_match(e, a) for e, a in zip(expected, actual))
+
+        if isinstance(expected, str):
+            if not isinstance(actual, str):
+                return False
+            return cls._string_semantically_matches(expected, actual)
+
+        return expected == actual
+
+    def _should_recover(self) -> bool:
+        """Return True if we should inject a synthetic recovery turn."""
+        if not self._enable_recovery_nudges:
+            return False
+        if not self.supports_recovery or self._in_recovery_turn:
+            return False
+        if self.turn_idx >= len(self.effective_turns):
+            return False
+        turn = self.effective_turns[self.turn_idx]
+        required = turn.get("required_function_call")
+        return bool(required) and not self._has_required_call()
+
+    async def _queue_recovery_turn(self) -> None:
+        """Queue a synthetic recovery turn.
+
+        Subclasses that opt into recovery (supports_recovery=True) must override.
+        """
+        raise NotImplementedError
 
     # ---- Abstract methods (pipeline-specific) ----
 

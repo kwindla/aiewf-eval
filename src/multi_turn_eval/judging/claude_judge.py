@@ -228,6 +228,9 @@ def format_turns_for_claude(
     lines.append("")
 
     for rec in records:
+        if rec.get("recovery_turn"):
+            continue
+
         turn_idx = rec["turn"]
 
         # Skip turns not in the filter set
@@ -323,10 +326,20 @@ async def judge_with_claude(
     if not records:
         raise ValueError("No turns to judge")
 
-    model_name = records[0].get("model_name", "unknown")
+    # Recovery turns are transcript artifacts and should not be scored.
+    scored_records = [r for r in records if not r.get("recovery_turn")]
+    if not scored_records:
+        raise ValueError("No non-recovery turns to judge")
+
+    model_name = scored_records[0].get("model_name", records[0].get("model_name", "unknown"))
 
     if debug:
-        print(f"Judging {len(records)} turns with realignment analysis...", file=sys.stderr)
+        print(
+            f"Judging {len(scored_records)} scripted turns "
+            f"(skipped {len(records) - len(scored_records)} recovery turns) "
+            f"with realignment analysis...",
+            file=sys.stderr,
+        )
 
     # Run turn-taking analysis if WAV file exists
     turn_taking_data: Optional[Dict[int, Dict[str, Any]]] = None
@@ -354,7 +367,12 @@ async def judge_with_claude(
                     print(f"Turn-taking analysis failed: {e}", file=sys.stderr)
 
     # Format turns (with turn-taking data if available)
-    formatted_turns = format_turns_for_claude(records, expected_turns, only_turns, turn_taking_data)
+    formatted_turns = format_turns_for_claude(
+        scored_records,
+        expected_turns,
+        only_turns,
+        turn_taking_data,
+    )
 
     # Create prompt
     prompt = f"""{formatted_turns}
@@ -363,9 +381,9 @@ Please perform your two-phase evaluation:
 1. First, analyze each turn against its golden expectation
 2. Then, identify any turn misalignments (early/late function calls)
 3. Apply realignment adjustments to avoid double-penalizing
-4. Output the final JSON with judgments for ALL {len(records)} turns
+4. Output the final JSON with judgments for ALL {len(scored_records)} turns
 
-CRITICAL: Your final_judgments array MUST contain exactly {len(records)} entries (turns 0-{len(records)-1}).
+CRITICAL: Your final_judgments array MUST contain exactly {len(scored_records)} entries.
 
 Remember:
 - If a function is called early (before expected turn), subsequent turns should not be penalized for the "missing" call
@@ -456,7 +474,7 @@ Remember:
                     judgments[turn_num]["turn_taking_issues"] = issues
 
     # Validate all turns were judged
-    expected_turn_numbers = {r["turn"] for r in records}
+    expected_turn_numbers = {r["turn"] for r in scored_records}
     judged_turn_numbers = set(judgments.keys())
     missing = expected_turn_numbers - judged_turn_numbers
 
@@ -505,9 +523,13 @@ def write_outputs(
     if function_tracking is None:
         function_tracking = {}
 
+    # Recovery turns are transcript artifacts; keep judged output scoped to scripted turns.
+    scored_records = [r for r in records if not r.get("recovery_turn")]
+    recovery_records = [r for r in records if r.get("recovery_turn")]
+
     # 1. claude_judged.jsonl
     with (run_dir / "claude_judged.jsonl").open("w", encoding="utf-8") as f:
-        for rec in records:
+        for rec in scored_records:
             turn = rec["turn"]
             judgment = judgments[turn]
             output_rec = {
@@ -547,6 +569,7 @@ def write_outputs(
         "model_name": model_name,
         "claude_passes": passes,
         "turns_scored": len(judgments),
+        "recovery_turns_recorded": len(recovery_records),
         "judge_version": JUDGE_VERSION,
         "judge_model": JUDGE_MODEL,
         "judged_at": datetime.utcnow().isoformat(timespec="seconds") + "Z",
@@ -630,7 +653,7 @@ def write_outputs(
 
     # Add failure details
     has_failures = False
-    for rec in records:
+    for rec in scored_records:
         turn = rec["turn"]
         judgment = judgments[turn]
         scores = judgment["scores"]
