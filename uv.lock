@@ -1320,6 +1320,7 @@ name = "multi-turn-eval"
 version = "0.1.0"
 source = { editable = "." }
 dependencies = [
+    { name = "anthropic" },
     { name = "claude-agent-sdk" },
     { name = "click" },
     { name = "google-genai" },
@@ -1335,6 +1336,7 @@ dependencies = [
 
 [package.metadata]
 requires-dist = [
+    { name = "anthropic", specifier = ">=0.49.0" },
     { name = "claude-agent-sdk", specifier = ">=0.1.8" },
     { name = "click", specifier = ">=8.3" },
     { name = "google-genai", specifier = ">=1.56.0" },
