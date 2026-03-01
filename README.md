@@ -39,8 +39,8 @@ Speech-to-speech models:
 | gpt-realtime-1.5  | 93.3% | 282/300 | 280/300    | 300/300   | 299/300 | 1152ms           | 2304ms           | 2251ms        | 96ms             |
 | gpt-realtime      | 86.7%     | 271/300  | 260/300     | 300/300   | 296/300 | 1536ms           | 4672ms           | 2199ms        | 341ms            |
 | gemini-live       | 86.0%     | 258/300  | 261/300     | 293/300   | 278/300 | 2624ms           | 30000ms          | 4082ms        | 90ms             |
-| nova-2-sonic      | *         | 278/300  | 265/300     | 296/300   | *       | 1280ms           | 3232ms           | 1689ms        | 79ms             |
-| grok-realtime     | *         | 267/300  | 275/300     | 295/300   | *       | 1184ms           | 2016ms           | 1472ms        | 478ms            |
+| nova-2-sonic      | 84.0%         | 278/300  | 265/300     | 296/300   | 260/300       | 1280ms           | 3232ms           | 1689ms        | 79ms             |
+
 
 For speech-to-speech models, we measure voice-to-voice latency by analyzing the conversation recording. We measure the overall time from the end of the user's speech to the beginning of the model's speech response. This latency is different from the TTFB reported by the Pipecat service for these models, because all of these models were tested in server-side VAD mode (the server-side turn delay is opaque to the Pipecat pipeline), and all of the models send initial silence bytes before actual speech audio. (Text-to-speech models do this, too. The initial silence segments are typically between 150ms and 250ms for standalone TTS models.)
 
