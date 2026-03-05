@@ -123,6 +123,7 @@ class TranscriptRecorder:
             "total_tokens": m.total_tokens,
             "cache_read_input_tokens": m.cache_read_input_tokens,
             "cache_creation_input_tokens": m.cache_creation_input_tokens,
+            "thinking_tokens": getattr(m, "reasoning_tokens", None),
         }
         if model:
             self.model_name = model

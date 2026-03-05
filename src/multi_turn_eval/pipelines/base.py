@@ -281,19 +281,65 @@ class BasePipeline(ABC):
                 raise EnvironmentError("OPENAI_API_KEY environment variable is required")
             kwargs["api_key"] = api_key
 
+            # Route selected OpenAI text models to Responses API without changing
+            # benchmark pipelines.
+            if service_name_lower == "openai" and (
+                model_lower.startswith("gpt-4.1") or model_lower.startswith("gpt-5.4")
+            ):
+                from multi_turn_eval.services.openai_responses import OpenAIResponsesLLMService
+
+                service_class = OpenAIResponsesLLMService
+                class_name = service_class.__name__
+                logger.info(f"Configured {model} to use {class_name}")
+
             # Configure gpt-5 series models: set reasoning effort and priority tier
             if model_lower.startswith("gpt-5"):
                 from pipecat.services.openai.llm import OpenAILLMService
-                # gpt-5.1 and gpt-5.2 use "none", other gpt-5 models use "minimal"
-                if model_lower.startswith("gpt-5.1") or model_lower.startswith("gpt-5.2"):
-                    reasoning_effort = "none"
+                # gpt-5.1 and gpt-5.2 use "none"; most other gpt-5 models use "minimal".
+                #
+                # gpt-5.4 rejects reasoning_effort with tools on
+                # /v1/chat/completions; use Responses API with reasoning.effort when
+                # routed, otherwise omit reasoning_effort for chat.completions.
+                if model_lower.startswith("gpt-5.4"):
+                    if class_name == "OpenAIResponsesLLMService":
+                        reasoning_effort = os.getenv(
+                            "MTE_OPENAI_RESPONSES_REASONING_EFFORT", "low"
+                        ).strip().lower()
+                        # gpt-5.4 model docs expose these effort levels.
+                        allowed_efforts = {"none", "low", "medium", "high", "xhigh"}
+                        if reasoning_effort not in allowed_efforts:
+                            logger.warning(
+                                "Invalid MTE_OPENAI_RESPONSES_REASONING_EFFORT='{}'; defaulting to low".format(
+                                    reasoning_effort
+                                )
+                            )
+                            reasoning_effort = "low"
+                        kwargs["params"] = OpenAILLMService.InputParams(
+                            service_tier="priority",
+                            extra={"reasoning": {"effort": reasoning_effort}},
+                        )
+                        logger.info(
+                            f"Configured {model} with reasoning.effort={reasoning_effort}, service_tier=priority (Responses API)"
+                        )
+                    else:
+                        kwargs["params"] = OpenAILLMService.InputParams(
+                            service_tier="priority",
+                        )
+                        logger.info(
+                            f"Configured {model} with service_tier=priority (reasoning_effort omitted for chat.completions tools compatibility)"
+                        )
                 else:
-                    reasoning_effort = "minimal"
-                kwargs["params"] = OpenAILLMService.InputParams(
-                    service_tier="priority",
-                    extra={"reasoning_effort": reasoning_effort},
-                )
-                logger.info(f"Configured {model} with reasoning_effort={reasoning_effort}, service_tier=priority")
+                    if model_lower.startswith("gpt-5.1") or model_lower.startswith("gpt-5.2"):
+                        reasoning_effort = "none"
+                    else:
+                        reasoning_effort = "minimal"
+                    kwargs["params"] = OpenAILLMService.InputParams(
+                        service_tier="priority",
+                        extra={"reasoning_effort": reasoning_effort},
+                    )
+                    logger.info(
+                        f"Configured {model} with reasoning_effort={reasoning_effort}, service_tier=priority"
+                    )
 
         elif "Google" in class_name or "Gemini" in class_name:
             api_key = os.getenv("GOOGLE_API_KEY")

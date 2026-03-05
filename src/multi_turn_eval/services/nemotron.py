@@ -1,6 +1,7 @@
 """Nemotron service wrapper built on OpenAI-compatible chat completions."""
 
 import asyncio
+import json
 import os
 import uuid
 from types import SimpleNamespace
@@ -9,7 +10,13 @@ from typing import Any, Optional
 from loguru import logger
 from openai import NOT_GIVEN, APITimeoutError
 from pipecat.adapters.services.open_ai_adapter import OpenAILLMInvocationParams
+from pipecat.frames.frames import LLMTextFrame
+from pipecat.metrics.metrics import LLMTokenUsage
+from pipecat.processors.aggregators.llm_context import LLMContext
+from pipecat.processors.aggregators.openai_llm_context import OpenAILLMContext
+from pipecat.services.llm_service import FunctionCallFromLLM
 from pipecat.services.openai.llm import OpenAILLMService
+from pipecat.utils.tracing.service_decorators import traced_llm
 
 
 def _env_bool(name: str, default: bool) -> bool:
@@ -157,6 +164,121 @@ class NemotronLLMService(OpenAILLMService):
             response = await self._client.chat.completions.create(**params)
 
         return _AsyncListIterator(self._completion_to_pseudo_chunks(response))
+
+    @traced_llm
+    async def _process_context(self, context: OpenAILLMContext | LLMContext):
+        """Process context with content/tool TTFT semantics for Nemotron.
+
+        Unlike the base OpenAI service (which stops TTFB on first non-empty
+        `choices` chunk), this variant stops on the first user-visible output
+        delta (`content`/transcript) or first tool-call delta. Reasoning-only
+        chunks do not count toward TTFT.
+        """
+        functions_list = []
+        arguments_list = []
+        tool_id_list = []
+        func_idx = 0
+        function_name = ""
+        arguments = ""
+        tool_call_id = ""
+        ttfb_stopped = False
+
+        await self.start_ttfb_metrics()
+
+        chunk_stream = await (
+            self._stream_chat_completions_specific_context(context)
+            if isinstance(context, OpenAILLMContext)
+            else self._stream_chat_completions_universal_context(context)
+        )
+
+        async for chunk in chunk_stream:
+            if chunk.usage:
+                cached_tokens = (
+                    chunk.usage.prompt_tokens_details.cached_tokens
+                    if chunk.usage.prompt_tokens_details
+                    else None
+                )
+                reasoning_tokens = (
+                    chunk.usage.completion_tokens_details.reasoning_tokens
+                    if chunk.usage.completion_tokens_details
+                    else None
+                )
+                tokens = LLMTokenUsage(
+                    prompt_tokens=chunk.usage.prompt_tokens,
+                    completion_tokens=chunk.usage.completion_tokens,
+                    total_tokens=chunk.usage.total_tokens,
+                    cache_read_input_tokens=cached_tokens,
+                    reasoning_tokens=reasoning_tokens,
+                )
+                await self.start_llm_usage_metrics(tokens)
+
+            if chunk.model and self.get_full_model_name() != chunk.model:
+                self.set_full_model_name(chunk.model)
+
+            if chunk.choices is None or len(chunk.choices) == 0:
+                continue
+
+            if not chunk.choices[0].delta:
+                continue
+
+            delta = chunk.choices[0].delta
+
+            content = getattr(delta, "content", None)
+            audio = getattr(delta, "audio", None)
+            transcript = (
+                audio.get("transcript")
+                if audio is not None and hasattr(audio, "get")
+                else None
+            )
+            has_content = bool(content)
+            has_transcript = bool(transcript)
+            has_tool_call = bool(getattr(delta, "tool_calls", None))
+
+            if not ttfb_stopped and (has_content or has_transcript or has_tool_call):
+                await self.stop_ttfb_metrics()
+                ttfb_stopped = True
+
+            if has_tool_call:
+                tool_call = delta.tool_calls[0]
+                if tool_call.index != func_idx:
+                    functions_list.append(function_name)
+                    arguments_list.append(arguments)
+                    tool_id_list.append(tool_call_id)
+                    function_name = ""
+                    arguments = ""
+                    tool_call_id = ""
+                    func_idx += 1
+                if tool_call.function and tool_call.function.name:
+                    function_name += tool_call.function.name
+                    tool_call_id = tool_call.id
+                if tool_call.function and tool_call.function.arguments:
+                    arguments += tool_call.function.arguments
+            elif has_content:
+                await self.push_frame(LLMTextFrame(content))
+            elif has_transcript:
+                await self.push_frame(LLMTextFrame(transcript))
+
+        if function_name and arguments:
+            functions_list.append(function_name)
+            arguments_list.append(arguments)
+            tool_id_list.append(tool_call_id)
+
+            function_calls = []
+
+            for function_name, arguments, tool_id in zip(
+                functions_list, arguments_list, tool_id_list
+            ):
+                arguments = json.loads(arguments)
+                function_calls.append(
+                    FunctionCallFromLLM(
+                        context=context,
+                        tool_call_id=tool_id,
+                        function_name=function_name,
+                        arguments=arguments,
+                    )
+                )
+
+            await self.run_function_calls(function_calls)
 
     def _completion_to_pseudo_chunks(self, response: Any) -> list[Any]:
         """Convert non-stream completion response to stream-like chunk objects."""
