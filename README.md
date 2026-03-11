@@ -47,6 +47,8 @@ TTFT is the latency reported by the Pipecat service for each model from request 
 
 Models labeled "(thinking)" or "(512)" were run with reasoning/chain-of-thought, or thinking token budgets enabled. 
 
+Thank you to [Modal](https://modal.com/) for providing compute resources for this benchmark. And to [Charles Frye](https://x.com/charles_irl/) for advice about models and inference tuning.
+
 Speech-to-speech models:
 
 | Model             | Pass Rate | Tool Use | Instruction | KB Ground | Turn Ok | Non-Tool V2V Med | Non-Tool V2V Max | Tool V2V Mean | Silence Pad Mean |
