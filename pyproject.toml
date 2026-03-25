@@ -5,7 +5,7 @@ description = "Multi-turn LLM evaluation framework"
 requires-python = ">=3.12"
 dependencies = [
   "click>=8.3",
-  "pipecat-ai[anthropic,aws,aws-nova-sonic,azure,cerebras,google,groq,openai,silero]==0.0.101",
+  "pipecat-ai[anthropic,aws,aws-nova-sonic,azure,cerebras,google,groq,openai,silero]",
   "google-genai>=1.56.0",
   "python-dotenv",
   "loguru",
@@ -37,9 +37,4 @@ packages = ["src/multi_turn_eval", "scripts", "benchmarks"]
 only-include = ["src", "scripts", "benchmarks", "turns.py", "tools_schema.py", "system_instruction.py", "system_instruction_short.py"]
 
 [tool.uv.sources]
-# Use github branch of pipecat instead of PyPI (commented out to use PyPI versions)
-# pipecat-ai = { git = "https://github.com/pipecat-ai/pipecat.git", rev = "main" }
-
-# [tool.uv.sources]
-# Use local checkout of pipecat instead of PyPI (commented out to use PyPI versions)
-# "pipecat-ai" = { path = "vendor/pipecat" }
+pipecat-ai = { path = "/home/chad/Code/pipecat", editable = true }

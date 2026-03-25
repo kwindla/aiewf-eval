@@ -123,6 +123,7 @@ class NullAudioOutputTransport(BaseOutputTransport):
         # Turn-based audio tagging (triggered by VADUserStoppedSpeakingFrame)
         # Tag is injected on first bot audio frame after user turn ends
         self._tag_next_bot_audio: bool = False  # Only tag after VAD event
+        self._tag_audio_buffer: bytearray = bytearray()  # Accumulates tiny frames until tag fits
 
         # User audio (InputAudioRawFrame) tracking
         self._user_actual_samples: int = 0  # Actual samples pushed downstream
@@ -343,9 +344,15 @@ class NullAudioOutputTransport(BaseOutputTransport):
                 f"expected={expected_samples}, actual_before={expected_samples - gap_samples}"
             )
 
-        # Mix audio tag into the first bot frame after user turn ends
+        # Mix audio tag into the first bot audio after user turn ends.
         # This is triggered by VADUserStoppedSpeakingFrame, not by audio gaps
-        # (Ultravox sends chunked audio with gaps, so gap-based tagging creates spurious tags)
+        # (Ultravox sends chunked audio with gaps, so gap-based tagging creates
+        # spurious tags).
+        #
+        # Some models (Gemini 3.x) send tiny initial frames (1-2 samples) that
+        # are shorter than the tag.  We buffer frames until we have enough audio
+        # to mix the full tag, then emit everything at once.  This keeps the tag
+        # overlapping with speech (no time shift in measurements).
         if self._tag_next_bot_audio:
             # Reset speech onset tracking for new turn
             # This must be done here (not on gap detection) to align with VAD-triggered turns
@@ -353,12 +360,25 @@ class NullAudioOutputTransport(BaseOutputTransport):
             self._bot_first_speech_logged = False
 
             tag = self._generate_audio_tag(frame.sample_rate)
-            tagged_audio = self._mix_tag_into_frame(frame.audio, tag)
+            tag_samples_needed = len(tag)
+
+            # Accumulate this frame into the tag buffer
+            self._tag_audio_buffer.extend(frame.audio)
+
+            buffered_samples = len(self._tag_audio_buffer) // (frame.num_channels * 2)
+            if buffered_samples < tag_samples_needed:
+                # Not enough audio yet — wait for more frames
+                return
+
+            # We have enough audio. Mix the tag into the buffered audio and emit.
+            tagged_audio = self._mix_tag_into_frame(bytes(self._tag_audio_buffer), tag)
             frame = OutputAudioRawFrame(
                 audio=tagged_audio,
                 sample_rate=frame.sample_rate,
                 num_channels=frame.num_channels,
             )
+            self._tag_audio_buffer = bytearray()
+
             sample_pos_ms = (self._bot_actual_samples / self._recording_sample_rate) * 1000
             logger.info(
                 f"[NullAudioOutput] Bot turn tag: sample_pos={sample_pos_ms:.0f}ms, "
@@ -440,10 +460,10 @@ class NullAudioOutputTransport(BaseOutputTransport):
             import time as time_module
             arrival_time = time_module.monotonic()
             traversal_ms = (arrival_time - frame._paced_input_send_time) * 1000
-            logger.info(
-                f"[NullAudioOutput] Frame traversal time: {traversal_ms:.1f}ms "
-                f"(sent={frame._paced_input_send_time:.3f}, arrived={arrival_time:.3f})"
-            )
+            # logger.info(
+            #     f"[NullAudioOutput] Frame traversal time: {traversal_ms:.1f}ms "
+            #     f"(sent={frame._paced_input_send_time:.3f}, arrived={arrival_time:.3f})"
+            # )
 
         # Calculate expected sample position based on wall-clock time
         elapsed_secs = current_time - self._recording_start_time
