@@ -455,16 +455,6 @@ class NullAudioOutputTransport(BaseOutputTransport):
                 f"num_channels={self._user_num_channels}"
             )
 
-        # Log timing diagnostic if frame has send time attached
-        if hasattr(frame, '_paced_input_send_time'):
-            import time as time_module
-            arrival_time = time_module.monotonic()
-            traversal_ms = (arrival_time - frame._paced_input_send_time) * 1000
-            # logger.info(
-            #     f"[NullAudioOutput] Frame traversal time: {traversal_ms:.1f}ms "
-            #     f"(sent={frame._paced_input_send_time:.3f}, arrived={arrival_time:.3f})"
-            # )
-
         # Calculate expected sample position based on wall-clock time
         elapsed_secs = current_time - self._recording_start_time
         expected_samples = round(elapsed_secs * self._recording_sample_rate)

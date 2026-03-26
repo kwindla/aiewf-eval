@@ -38,3 +38,5 @@ only-include = ["src", "scripts", "benchmarks", "turns.py", "tools_schema.py", "
 
 [tool.uv.sources]
 pipecat-ai = { path = "/home/chad/Code/pipecat", editable = true }
+# Use github branch of pipecat instead of PyPI (commented out to use PyPI versions)
+# pipecat-ai = { git = "https://github.com/pipecat-ai/pipecat.git", rev = "main" }

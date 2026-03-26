@@ -11,7 +11,6 @@ Pipeline:
 """
 
 import asyncio
-import json
 import os
 import re
 import time
@@ -357,89 +356,6 @@ class GeminiLiveLLMServiceWithReconnection(GeminiLiveLLMService):
         """Check if currently in the middle of a reconnection."""
         return self._reconnecting
 
-    async def _connect(self, session_resumption_handle: Optional[str] = None):
-        """Connect with explicit logging for output audio transcription."""
-        logger.info(
-            "Gemini Live connection requesting response_modalities=['AUDIO'] and output_audio_transcription={}"
-        )
-        await super()._connect(session_resumption_handle=session_resumption_handle)
-
-    @staticmethod
-    def _normalize_for_compare(value: Any) -> str:
-        """Produce a stable string form for config equality checks."""
-        if value is None:
-            return ""
-        try:
-            return json.dumps(value, sort_keys=True, default=str)
-        except TypeError:
-            return repr(value)
-
-    def _context_requires_reconnect(self) -> bool:
-        """Return True when context settings differ from init-time settings."""
-        if not self._context:
-            return False
-
-        adapter = self.get_llm_adapter()
-        params = adapter.get_llm_invocation_params(self._context)
-        context_instruction = params["system_instruction"] or ""
-        context_tools = params["tools"]
-        init_instruction = self._system_instruction_from_init or ""
-        init_tools = adapter.from_standard_tools(self._tools_from_init)
-
-        if not context_instruction and not context_tools:
-            return False
-
-        instructions_match = context_instruction == init_instruction
-        tools_match = self._normalize_for_compare(context_tools) == self._normalize_for_compare(
-            init_tools
-        )
-        return not (instructions_match and tools_match)
-
-    async def _handle_context(self, context: LLMContext):
-        """Avoid reconnecting Beyond Live sessions for duplicate context config."""
-        if self._context:
-            await super()._handle_context(context)
-            return
-
-        self._context = context
-
-        adapter = self.get_llm_adapter()
-        params = adapter.get_llm_invocation_params(self._context)
-        system_instruction = params["system_instruction"]
-        tools = params["tools"]
-        if system_instruction and self._system_instruction_from_init:
-            logger.warning(
-                "System instruction provided both at init time and in context; using context-provided value."
-            )
-        if tools and self._tools_from_init:
-            logger.warning(
-                "Tools provided both at init time and in context; using context-provided value."
-            )
-        if system_instruction or tools:
-            if self._context_requires_reconnect():
-                await self._reconnect()
-            else:
-                logger.info(
-                    "Skipping Gemini reconnect because context settings match init-time configuration"
-                )
-
-        await self._process_completed_function_calls(send_new_results=False)
-
-        messages = params["messages"]
-        if not messages and self._inference_on_context_initialization:
-            if self._system_instruction_from_init:
-                logger.debug(
-                    "No messages found in initial context; seeding with system instruction to trigger bot response."
-                )
-                self._context.add_message(
-                    {"role": "system", "content": self._system_instruction_from_init}
-                )
-            else:
-                logger.warning(
-                    "No messages found in initial context; cannot trigger initial bot response without messages or system instruction."
-                )
-        await self._create_initial_response()
-
     async def _reconnect(self):
         """Override to call callbacks before/after reconnection.
 
@@ -465,12 +381,7 @@ class GeminiLiveLLMServiceWithReconnection(GeminiLiveLLMService):
 
         # Call parent reconnect implementation
         try:
-            if getattr(self, "_is_beyond_live", False):
-                logger.info("Beyond Live reconnect: skipping session resumption handle")
-                await self._disconnect()
-                await self._connect(session_resumption_handle=None)
-            else:
-                await super()._reconnect()
+            await super()._reconnect()
         finally:
             self._reconnecting = False
 
@@ -578,7 +489,7 @@ class RealtimePipeline(BasePipeline):
             return False
         m = self.model_name.lower()
         return (m.startswith("gemini") or m.startswith("models/gemini")) and (
-            "live" in m or "native-audio" in m or "audio-eap" in m
+            "live" in m or "native-audio" in m
         )
 
     def _is_openai_realtime(self) -> bool:
