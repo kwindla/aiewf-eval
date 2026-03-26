@@ -48,6 +48,7 @@ from pipecat.processors.aggregators.llm_response_universal import (
 from multi_turn_eval.processors.audio_buffer import WallClockAlignedAudioBufferProcessor
 from pipecat.processors.frame_processor import FrameDirection, FrameProcessor
 from pipecat.processors.transcript_processor import TranscriptProcessor
+from google.genai import types as genai_types
 from pipecat.services.google.gemini_live.llm import GeminiLiveLLMService
 from pipecat.services.openai.realtime import events as rt_events
 from pipecat.services.ultravox.llm import OneShotInputParams
@@ -722,6 +723,11 @@ class RealtimePipeline(BasePipeline):
                 inference_on_context_initialization=True,
                 on_reconnecting=self._on_gemini_reconnecting,
                 on_reconnected=self._on_gemini_reconnected,
+                settings=GeminiLiveLLMServiceWithReconnection.Settings(
+                    thinking=genai_types.ThinkingConfig(
+                        thinking_level=genai_types.ThinkingLevel.MINIMAL,
+                    ),
+                ),
             )
         else:
             # For other services, use base class implementation

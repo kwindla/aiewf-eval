@@ -104,6 +104,7 @@ class BasePipeline(ABC):
         service_class: Optional[type] = None,
         service_name: Optional[str] = None,
         turn_indices: Optional[List[int]] = None,
+        thinking: Optional[str] = None,
     ) -> None:
         """Run the complete benchmark. Pipeline handles everything internally.
 
@@ -113,10 +114,12 @@ class BasePipeline(ABC):
             service_class: LLM service class (required unless pipeline sets requires_service=False).
             service_name: Service name/alias (e.g., "openai", "openrouter").
             turn_indices: Optional list of turn indices to run (for debugging).
+            thinking: Thinking level (disabled, minimal, low, medium, high, default).
         """
         self.recorder = recorder
         self.model_name = model
         self.service_name = service_name  # Store for use in _create_llm overrides
+        self.thinking = thinking
         self._turn_indices = turn_indices
 
         logger.info(f"Recovery nudges enabled={self._enable_recovery_nudges}")
@@ -403,7 +406,10 @@ class BasePipeline(ABC):
             # so benchmark sweeps can compare disabled vs minimal reasoning.
             if "gemini-3" in model_lower:
                 from pipecat.services.google.llm import GoogleLLMService
-                thinking_mode = os.getenv("MTE_GOOGLE_THINKING_MODE", "minimal").strip().lower()
+                thinking_mode = (
+                    self.thinking
+                    or os.getenv("MTE_GOOGLE_THINKING_MODE", "minimal")
+                ).strip().lower()
 
                 if thinking_mode in {"disabled", "disable", "off", "none", "budget0", "0"}:
                     kwargs["params"] = GoogleLLMService.InputParams(
