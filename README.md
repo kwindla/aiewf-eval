@@ -124,6 +124,8 @@ export ANTHROPIC_API_KEY=sk-ant-...
 export OPENAI_API_KEY=sk-...          # OpenAI (GPT-4o, GPT-4o-mini, etc.)
 export GOOGLE_API_KEY=...             # Google (Gemini models)
 export OPENROUTER_API_KEY=...         # OpenRouter (access to multiple providers)
+export MISTRAL_API_KEY=...            # Mistral API (e.g. mistral-small-2603)
+export MISTRAL_BASE_URL=...           # Optional: defaults to https://api.mistral.ai/v1
 export GROQ_API_KEY=...               # Groq
 export CEREBRAS_API_KEY=...           # Cerebras
 
@@ -154,6 +156,7 @@ uv run multi-turn-eval run <benchmark> --model <model> --service <service>
 uv run multi-turn-eval run aiwf_medium_context --model claude-sonnet-4-5 --service anthropic
 uv run multi-turn-eval run aiwf_medium_context --model gpt-4o --service openai
 uv run multi-turn-eval run aiwf_medium_context --model gemini-2.5-flash --service google
+uv run multi-turn-eval run aiwf_medium_context --model mistral-small-2603 --service mistral
 
 # Realtime audio models 
 uv run multi-turn-eval run aiwf_medium_context --model gpt-realtime --service openai-realtime
@@ -248,6 +251,7 @@ For convenience, common service classes have short aliases:
 |-------|---------------|
 | `openai` | `pipecat.services.openai.llm.OpenAILLMService` |
 | `openai-realtime` | `pipecat.services.openai.realtime.llm.OpenAIRealtimeLLMService` |
+| `mistral` | `pipecat.services.openai.llm.OpenAILLMService` |
 | `anthropic` | `pipecat.services.anthropic.llm.AnthropicLLMService` |
 | `google` | `pipecat.services.google.llm.GoogleLLMService` |
 | `gemini-live` | `multi_turn_eval.pipelines.realtime.GeminiLiveLLMServiceWithReconnection` |

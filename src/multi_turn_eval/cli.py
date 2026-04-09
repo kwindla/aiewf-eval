@@ -32,6 +32,7 @@ SERVICE_ALIASES = {
     "openai": "pipecat.services.openai.llm.OpenAILLMService",
     "openai-realtime": "pipecat.services.openai.realtime.llm.OpenAIRealtimeLLMService",
     "openrouter": "pipecat.services.openai.llm.OpenAILLMService",  # OpenRouter uses OpenAI-compatible API
+    "mistral": "pipecat.services.openai.llm.OpenAILLMService",  # Mistral uses an OpenAI-compatible chat API
     "modal": "pipecat.services.openai.llm.OpenAILLMService",  # Modal uses OpenAI-compatible API
     "nemotron": "multi_turn_eval.services.nemotron.NemotronLLMService",
     "anthropic": "multi_turn_eval.services.anthropic_logged.LoggedAnthropicLLMService",
@@ -206,7 +207,11 @@ async def _run(
     only_turns: Optional[str],
     verbose: bool,
 ):
-    """Async implementation of the run command."""
+    """Async implementation of the run command.
+
+    Returns:
+        Path to the created run directory.
+    """
     # Load benchmark
     BenchmarkConfig = load_benchmark(benchmark_name)
     benchmark = BenchmarkConfig()
@@ -256,6 +261,7 @@ async def _run(
         )
         click.echo(f"Completed benchmark run")
         click.echo(f"  Transcript: {run_dir / 'transcript.jsonl'}")
+        return run_dir
     except Exception as e:
         logger.exception(f"Pipeline failed: {e}")
         raise click.ClickException(str(e))
@@ -319,6 +325,7 @@ def judge(
                 only_turns=turn_indices_set,
                 debug=debug,
                 expected_turns=expected_turns,
+                judge_model=judge_model,
             )
         )
     except Exception as e:
@@ -334,6 +341,7 @@ def judge(
         result.get("realignment_notes", ""),
         result.get("function_tracking", {}),
         result.get("turn_taking_analysis"),
+        result.get("judge_model", judge_model),
     )
 
     # Print summary
