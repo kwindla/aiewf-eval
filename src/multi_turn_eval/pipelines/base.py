@@ -167,7 +167,7 @@ class BasePipeline(ABC):
         backends reject empty assistant content outright.
         """
         service_name = (self.service_name or "").lower()
-        if service_name not in {"openai", "openrouter", "nemotron", "modal"}:
+        if service_name not in {"openai", "openrouter", "mistral", "nemotron", "modal"}:
             return
         if self.context is None:
             return
@@ -278,6 +278,17 @@ class BasePipeline(ABC):
             kwargs["api_key"] = api_key
             kwargs["base_url"] = "https://openrouter.ai/api/v1"
             logger.info(f"Using OpenRouter with base_url={kwargs['base_url']}")
+            return service_class(**kwargs)
+
+        # Handle Mistral (uses an OpenAI-compatible chat API with its own base URL)
+        if service_name_lower == "mistral":
+            api_key = os.getenv("MISTRAL_API_KEY")
+            if not api_key:
+                raise EnvironmentError("MISTRAL_API_KEY environment variable is required")
+            base_url = os.getenv("MISTRAL_BASE_URL", "https://api.mistral.ai/v1")
+            kwargs["api_key"] = api_key
+            kwargs["base_url"] = base_url
+            logger.info(f"Using Mistral with base_url={base_url}")
             return service_class(**kwargs)
 
         # Handle Modal (uses OpenAI-compatible API with custom endpoint)

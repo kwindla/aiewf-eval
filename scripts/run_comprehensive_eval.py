@@ -11,7 +11,6 @@ import asyncio
 import json
 import statistics
 import sys
-import time
 from datetime import datetime
 from pathlib import Path
 
@@ -49,6 +48,22 @@ def parse_args():
     parser.add_argument(
         "--verbose", "-v", action="store_true", help="Enable verbose logging"
     )
+    parser.add_argument(
+        "--sequential",
+        action="store_true",
+        help="Run attempts one at a time until the requested number of complete judged runs is collected",
+    )
+    parser.add_argument(
+        "--max-attempts",
+        type=int,
+        help="Maximum total attempts when using --sequential (default: 3x --runs)",
+    )
+    parser.add_argument(
+        "--delay-between-attempts-seconds",
+        type=float,
+        default=15.0,
+        help="Delay between sequential attempts in seconds (default: 15)",
+    )
     return parser.parse_args()
 
 
@@ -63,10 +78,9 @@ async def run_single_eval(
     from multi_turn_eval.cli import _run
 
     logger.info(f"Starting evaluation run for {model}")
-    start_time = time.time()
 
     try:
-        await _run(
+        run_dir = await _run(
             benchmark_name=benchmark,
             model=model,
             service=service,
@@ -77,22 +91,6 @@ async def run_single_eval(
     except Exception as e:
         logger.error(f"Evaluation run failed: {e}")
         raise
-
-    # Find the most recently created run directory
-    runs_dir = Path("runs") / benchmark
-    if not runs_dir.exists():
-        raise RuntimeError(f"Runs directory not found: {runs_dir}")
-
-    # Get the newest directory created after start_time
-    run_dirs = [
-        d
-        for d in runs_dir.iterdir()
-        if d.is_dir() and d.stat().st_mtime >= start_time - 1
-    ]
-    if not run_dirs:
-        raise RuntimeError("Could not find newly created run directory")
-
-    run_dir = max(run_dirs, key=lambda d: d.stat().st_mtime)
     logger.info(f"Evaluation completed: {run_dir}")
     return run_dir
 
@@ -124,6 +122,7 @@ async def judge_run(
         only_turns=None,
         debug=False,
         expected_turns=expected_turns,
+        judge_model=judge_model,
     )
 
     # Write outputs
@@ -133,6 +132,10 @@ async def judge_run(
         result["judgments"],
         result["summary"],
         result["model_name"],
+        result.get("realignment_notes", ""),
+        result.get("function_tracking", {}),
+        result.get("turn_taking_analysis"),
+        result.get("judge_model", judge_model),
     )
 
     # Load and return summary
@@ -195,7 +198,9 @@ def load_turn_pass_from_judged(run_dir: Path) -> tuple[int, int]:
     return passed, total
 
 
-def aggregate_results(run_dirs: list[Path], model: str) -> dict:
+def aggregate_results(
+    run_dirs: list[Path], model: str, expected_turns_per_run: int | None = None
+) -> dict:
     """Aggregate results from multiple runs."""
     run_entries = []
     all_ttfb = []
@@ -210,6 +215,14 @@ def aggregate_results(run_dirs: list[Path], model: str) -> dict:
         summary = load_run_summary(run_dir)
         turns_scored = summary.get("turns_scored", 0)
         passes = summary.get("claude_passes", {})
+
+        if expected_turns_per_run is not None and turns_scored != expected_turns_per_run:
+            logger.warning(
+                "Skipping incomplete run {} (turns_scored={} expected={})".format(
+                    run_dir, turns_scored, expected_turns_per_run
+                )
+            )
+            continue
 
         # Prefer turn-pass from summary, fall back to judged file, then min() approximation.
         turn_pass_count = 0
@@ -393,6 +406,7 @@ def print_results_table(results: dict, total_attempted: int = None):
 
 async def main():
     args = parse_args()
+    from multi_turn_eval.cli import load_benchmark
 
     print(f"\n{'=' * 100}")
     print(f"Running Comprehensive Evaluation")
@@ -402,61 +416,147 @@ async def main():
     print(f"Benchmark:   {args.benchmark}")
     print(f"Runs:        {args.runs}")
     print(f"Judge Model: {args.judge_model}")
-    print(f"{'=' * 100}\n")
-
-    # Run all evaluations in parallel
-    print(f"\n{'=' * 100}")
-    print(f"Running {args.runs} evaluations in parallel...")
-    print(f"{'=' * 100}\n")
-
-    eval_tasks = [
-        run_single_eval(
-            benchmark=args.benchmark,
-            model=args.model,
-            service=args.service,
-            pipeline=args.pipeline,
-            verbose=args.verbose,
+    if args.sequential:
+        print("Mode:        sequential")
+        print(
+            "Max Attempts: {}".format(args.max_attempts or (args.runs * 3))
         )
-        for _ in range(args.runs)
-    ]
-
-    # Gather results, allowing failures
-    eval_results = await asyncio.gather(*eval_tasks, return_exceptions=True)
-
-    # Filter successful runs
-    run_dirs = []
-    for i, result in enumerate(eval_results):
-        if isinstance(result, Exception):
-            logger.error(f"Run {i + 1} failed: {result}")
-            print(f"\n⚠️  Run {i + 1} failed, continuing with remaining runs...\n")
-        else:
-            run_dirs.append(result)
-
-    if not run_dirs:
-        print("\n❌ All runs failed. Exiting.")
-        sys.exit(1)
-
-    print(f"\n{'=' * 100}")
-    print(f"Completed {len(run_dirs)}/{args.runs} evaluation runs")
+        print(
+            "Delay:       {}s".format(
+                int(args.delay_between_attempts_seconds)
+                if args.delay_between_attempts_seconds.is_integer()
+                else args.delay_between_attempts_seconds
+            )
+        )
+    else:
+        print("Mode:        parallel")
     print(f"{'=' * 100}\n")
 
-    # Judge all runs in parallel
-    print(f"\n{'=' * 100}")
-    print(f"Judging {len(run_dirs)} results in parallel...")
-    print(f"{'=' * 100}\n")
+    BenchmarkConfig = load_benchmark(args.benchmark)
+    benchmark_obj = BenchmarkConfig()
+    expected_turns = len(benchmark_obj.turns)
 
-    judge_tasks = [
-        judge_run(run_dir, args.benchmark, args.judge_model) for run_dir in run_dirs
-    ]
+    if args.sequential:
+        max_attempts = args.max_attempts or (args.runs * 3)
+        run_dirs = []
+        attempts = 0
 
-    # Gather judging results, allowing failures
-    judge_results = await asyncio.gather(*judge_tasks, return_exceptions=True)
+        print(f"\n{'=' * 100}")
+        print(
+            f"Collecting {args.runs} complete judged runs sequentially (target: {expected_turns} turns each)"
+        )
+        print(f"{'=' * 100}\n")
 
-    # Log any judging failures
-    for i, result in enumerate(judge_results):
-        if isinstance(result, Exception):
-            logger.error(f"Failed to judge {run_dirs[i]}: {result}")
-            print(f"\n⚠️  Judging failed for run {i + 1}, skipping...\n")
+        while len(run_dirs) < args.runs and attempts < max_attempts:
+            attempts += 1
+            print(
+                f"Attempt {attempts}/{max_attempts}: collected {len(run_dirs)}/{args.runs} complete runs"
+            )
+
+            run_dir = None
+            usable = False
+
+            try:
+                run_dir = await run_single_eval(
+                    benchmark=args.benchmark,
+                    model=args.model,
+                    service=args.service,
+                    pipeline=args.pipeline,
+                    verbose=args.verbose,
+                )
+                summary = await judge_run(run_dir, args.benchmark, args.judge_model)
+                turns_scored = int(summary.get("turns_scored", 0) or 0)
+                if turns_scored == expected_turns:
+                    run_dirs.append(run_dir)
+                    usable = True
+                    print(
+                        f"✅ Accepted {run_dir.name} ({len(run_dirs)}/{args.runs} complete runs)"
+                    )
+                else:
+                    logger.warning(
+                        "Skipping incomplete run {} (turns_scored={} expected={})".format(
+                            run_dir, turns_scored, expected_turns
+                        )
+                    )
+                    print(
+                        f"⚠️  Skipping incomplete run {run_dir.name}: judged {turns_scored}/{expected_turns} turns"
+                    )
+            except Exception as e:
+                logger.error(f"Attempt {attempts} failed: {e}")
+                print(f"⚠️  Attempt {attempts} failed: {e}")
+
+            if len(run_dirs) < args.runs and attempts < max_attempts:
+                delay = args.delay_between_attempts_seconds
+                if delay > 0:
+                    if usable:
+                        print(f"Cooling down for {delay:g}s before the next attempt...\n")
+                    else:
+                        print(f"Retrying after {delay:g}s...\n")
+                    await asyncio.sleep(delay)
+
+        if not run_dirs:
+            print("\n❌ No complete judged runs were collected. Exiting.")
+            sys.exit(1)
+
+        print(f"\n{'=' * 100}")
+        print(
+            f"Collected {len(run_dirs)}/{args.runs} complete judged runs in {attempts} attempts"
+        )
+        print(f"{'=' * 100}\n")
+    else:
+        # Run all evaluations in parallel
+        print(f"\n{'=' * 100}")
+        print(f"Running {args.runs} evaluations in parallel...")
+        print(f"{'=' * 100}\n")
+
+        eval_tasks = [
+            run_single_eval(
+                benchmark=args.benchmark,
+                model=args.model,
+                service=args.service,
+                pipeline=args.pipeline,
+                verbose=args.verbose,
+            )
+            for _ in range(args.runs)
+        ]
+
+        # Gather results, allowing failures
+        eval_results = await asyncio.gather(*eval_tasks, return_exceptions=True)
+
+        # Filter successful runs
+        run_dirs = []
+        for i, result in enumerate(eval_results):
+            if isinstance(result, Exception):
+                logger.error(f"Run {i + 1} failed: {result}")
+                print(f"\n⚠️  Run {i + 1} failed, continuing with remaining runs...\n")
+            else:
+                run_dirs.append(result)
+
+        if not run_dirs:
+            print("\n❌ All runs failed. Exiting.")
+            sys.exit(1)
+
+        print(f"\n{'=' * 100}")
+        print(f"Completed {len(run_dirs)}/{args.runs} evaluation runs")
+        print(f"{'=' * 100}\n")
+
+        # Judge all runs in parallel
+        print(f"\n{'=' * 100}")
+        print(f"Judging {len(run_dirs)} results in parallel...")
+        print(f"{'=' * 100}\n")
+
+        judge_tasks = [
+            judge_run(run_dir, args.benchmark, args.judge_model) for run_dir in run_dirs
+        ]
+
+        # Gather judging results, allowing failures
+        judge_results = await asyncio.gather(*judge_tasks, return_exceptions=True)
+
+        # Log any judging failures
+        for i, result in enumerate(judge_results):
+            if isinstance(result, Exception):
+                logger.error(f"Failed to judge {run_dirs[i]}: {result}")
+                print(f"\n⚠️  Judging failed for run {i + 1}, skipping...\n")
 
     # Aggregate and display results
     print(f"\n{'=' * 100}")
@@ -464,7 +564,11 @@ async def main():
     print(f"{'=' * 100}\n")
 
     try:
-        results = aggregate_results(run_dirs, args.model)
+        results = aggregate_results(
+            run_dirs,
+            args.model,
+            expected_turns_per_run=expected_turns,
+        )
         print_results_table(results, total_attempted=args.runs)
 
         # Save aggregate results

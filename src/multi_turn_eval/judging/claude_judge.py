@@ -298,6 +298,7 @@ async def judge_with_claude(
     debug: bool = False,
     expected_turns: Optional[List[Dict[str, Any]]] = None,
     skip_turn_taking: bool = False,
+    judge_model: str = JUDGE_MODEL,
 ) -> Dict[str, Any]:
     """Main judging function using two-phase realignment approach.
 
@@ -397,7 +398,7 @@ Remember:
     # Configure options - use extended thinking for complex reasoning
     options = ClaudeAgentOptions(
         system_prompt=JUDGE_SYSTEM_PROMPT,
-        model=JUDGE_MODEL,
+        model=judge_model,
         permission_mode="bypassPermissions",
     )
 
@@ -491,6 +492,7 @@ Remember:
         "turn_taking_analysis": turn_taking_analysis.to_dict() if turn_taking_analysis else None,
         "summary": f"Evaluated {len(judgments)} turns with realignment.",
         "model_name": model_name,
+        "judge_model": judge_model,
     }
 
 
@@ -507,6 +509,7 @@ def write_outputs(
     realignment_notes: str = "",
     function_tracking: Optional[Dict[str, Any]] = None,
     turn_taking_analysis: Optional[Dict[str, Any]] = None,
+    judge_model: str = JUDGE_MODEL,
 ) -> None:
     """Write all output files.
 
@@ -585,7 +588,7 @@ def write_outputs(
         },
         "recovery_turns_recorded": len(recovery_records),
         "judge_version": JUDGE_VERSION,
-        "judge_model": JUDGE_MODEL,
+        "judge_model": judge_model,
         "judged_at": datetime.utcnow().isoformat(timespec="seconds") + "Z",
         "realignment_applied": bool(function_tracking),
         "function_tracking": function_tracking,
@@ -605,7 +608,7 @@ def write_outputs(
         f"",
         f"**Model**: {model_name}",
         f"**Turns**: {total}",
-        f"**Judge**: {JUDGE_MODEL}",
+        f"**Judge**: {judge_model}",
         f"**Judge Version**: {JUDGE_VERSION}",
         f"**Judged**: {summary_data['judged_at']}",
         f"",
@@ -722,6 +725,11 @@ def main():
         action="store_true",
         help="Enable debug logging"
     )
+    parser.add_argument(
+        "--judge-model",
+        default=JUDGE_MODEL,
+        help="Claude model to use for judging"
+    )
 
     args = parser.parse_args()
 
@@ -757,7 +765,14 @@ def main():
 
     # Run judgment
     try:
-        result = asyncio.run(judge_with_claude(run_dir, only_turns, args.debug))
+        result = asyncio.run(
+            judge_with_claude(
+                run_dir,
+                only_turns,
+                args.debug,
+                judge_model=args.judge_model,
+            )
+        )
     except Exception as e:
         print(f"ERROR: Judgment failed: {e}", file=sys.stderr)
         if args.debug:
@@ -775,6 +790,7 @@ def main():
         result.get("realignment_notes", ""),
         result.get("function_tracking", {}),
         result.get("turn_taking_analysis"),
+        result.get("judge_model", args.judge_model),
     )
 
     # Print summary
