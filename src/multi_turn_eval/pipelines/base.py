@@ -280,6 +280,31 @@ class BasePipeline(ABC):
             logger.info(f"Using OpenRouter with base_url={kwargs['base_url']}")
             return service_class(**kwargs)
 
+        # Handle Lilac (uses OpenAI-compatible API at api.getlilac.com)
+        if service_name_lower == "lilac":
+            api_key = os.getenv("LILAC_SDK_KEY")
+            if not api_key:
+                raise EnvironmentError("LILAC_SDK_KEY environment variable is required")
+            base_url = os.getenv("LILAC_BASE_URL", "https://api.getlilac.com/v1")
+            kwargs["api_key"] = api_key
+            kwargs["base_url"] = base_url
+
+            from pipecat.services.openai.llm import OpenAILLMService
+            enable_thinking = _env_bool("MTE_LILAC_THINKING", False)
+            chat_template_kwargs: Dict[str, Any] = {"enable_thinking": enable_thinking}
+            # Gemma-4 requires both `thinking` and `enable_thinking`; GLM honors
+            # `enable_thinking` and ignores the extra key.
+            if "gemma" in model_lower:
+                chat_template_kwargs["thinking"] = enable_thinking
+            extra: Dict[str, Any] = {
+                "extra_body": {"chat_template_kwargs": chat_template_kwargs}
+            }
+            kwargs["params"] = OpenAILLMService.InputParams(extra=extra)
+            logger.info(
+                f"Using Lilac with base_url={base_url}, model={model}, thinking={enable_thinking}"
+            )
+            return service_class(**kwargs)
+
         # Handle Modal (uses OpenAI-compatible API with custom endpoint)
         if service_name_lower == "modal":
             api_key = os.getenv("MODAL_API_KEY")
