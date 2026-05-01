@@ -7,6 +7,8 @@ The two benchmarks here in this public repo are:
 - `aiwf_long_context` - older long-context benchmark described [here](https://post-training.aitinkerers.org/p/your-conversation-is-out-of-distribution)
 - `aiwf_medium_context` - newer medium-context benchmark
 
+Thank you to [Modal](https://modal.com/) for providing compute resources for this benchmark. And to [Charles Frye](https://x.com/charles_irl/) for advice about models and inference tuning.
+
 ## aiwf_medium_context results summary for selected models
 
 Text mode models:
@@ -24,11 +26,14 @@ Text mode models:
 | **nemotron-3-super-120b (512)** | **97.0%** | **291/300** | **297/300** | **291/300** | **299/300** | **687ms** | **1210ms** | **2254ms** |
 | gemini-3.1-flash-lite-preview | 96.7% | 290/300 | 295/300 | 291/300 | 299/300 | 1016ms | 1515ms | 3405ms |
 | **gpt-4.1** | **96.3%** | **289/300** | **289/300** | **290/300** | **300/300** | **536ms** | **1771ms** | **5056ms** |
+| zai-org/glm-5.1 | 95.7% | 287/300 | 288/300 | 292/300 | 300/300 | 845ms | 14520ms | 43878ms |
 | qwen3.5-4b (thinking) | 95.0% | 285/300 | 288/300 | 288/300 | 297/300 | 778ms | 907ms | 1441ms |
+| google/gemma-4-31b-it | 95.0% | 285/300 | 285/300 | 285/300 | 300/300 | 358ms | 1111ms | 2129ms |
 | **gpt-4o** | **94.7%** | **284/300** | **291/300** | **285/300** | **299/300** | **546ms** | **1369ms** | **4897ms** |
 | qwen3.5-27b | 94.3% | 283/300 | 283/300 | 283/300 | 300/300 | 1494ms | 1666ms | 75111ms |
-| qwen3.5-9b (thinking) | 94.2% | 226/240 | 228/240 | 228/240 | 238/240 | 897ms | 1006ms | 1356ms |
-| **gpt-5.4 ** | **93.0%** | **279/300** | **280/300** | **280/300** | **299/300** | **646ms** | **971ms** | **4429ms** |
+| qwen3.5-9b (thinking) | 94.7% | 284/300 | 287/300 | 286/300 | 298/300 | 904ms | 1006ms | 1356ms |
+| **gpt-5.4** | **93.0%** | **279/300** | **280/300** | **280/300** | **299/300** | **646ms** | **971ms** | **4429ms** |
+| gpt-5.4-mini (medium) | 91.1% | 185/203 | 185/203 | 186/203 | 202/203 | 808ms | 2120ms | 2786ms |
 | nemotron-3-nano-30b (512) | 90.6% | 252/278 | 264/278 | 261/278 | 267/278 | 940ms | 1912ms | 2821ms |
 | **nova-2-pro-preview** | **90.3%** | **271/300** | **280/300** | **278/300** | **293/300** | **690ms** | **1616ms** | **3840ms** |
 | **gemini-2.5-flash** | **89.7%** | **269/300** | **274/300** | **269/300** | **300/300** | **597ms** | **1137ms** | **2313ms** |
@@ -36,37 +41,52 @@ Text mode models:
 | **gpt-5.2** | **89.3%** | **268/300** | **270/300** | **268/300** | **298/300** | **624ms** | **1171ms** | **2509ms** |
 | qwen3.5-4b | 88.7% | 266/300 | 269/300 | 267/300 | 298/300 | 773ms | 921ms | 50986ms |
 | **gpt-oss-120b (groq)** | **86.3%** | **259/300** | **272/300** | **261/300** | **298/300** | **98ms** | **217ms** | **2117ms** |
-| gpt-4.1-mini | 85.3% | 244/286 | 244/286 | 244/286 | 286/286 | 851ms | 2189ms | 5945ms |
+| gpt-4.1-mini | 85.3% | 244/286 | 244/286 | 244/286 | 286/286 | 851ms | 2135ms | 5945ms |
 | glm-4.7-flash | 84.7% | 254/300 | 268/300 | 265/300 | 288/300 | 940ms | 1079ms | 2524ms |
 | **gpt-5-mini** | **83.7%** | **251/300** | **258/300** | **251/300** | **297/300** | **682ms** | **1132ms** | **1904ms** |
+| gpt-5.4-mini (none) | 83.1% | 123/148 | 124/148 | 123/148 | 148/148 | 459ms | 731ms | 2369ms |
 | **gpt-4o-mini** | **82.7%** | **248/300** | **269/300** | **259/300** | **293/300** | **553ms** | **1947ms** | **6497ms** |
 
 Each conversation in this benchmark is 30 turns. The scores above are aggregated across 10 runs for each model unless otherwise noted. **Turn Pass** is the number of turns where all three judged dimensions pass on the same turn (`tool_use_correct && instruction_following && kb_grounding`). **Pass Rate** is `Turn Pass / total_turns`.
 
 TTFT is the latency reported by the Pipecat service for each model from request to first token/byte of model output. An optimized speech-to-speech pipeline with typical network latencies should be able to achieve a total voice-to-voice latency of approximately LLM TTFT + 500ms. In general, a model with TTFT above ~700ms is too slow for most voice agent use cases.
 
-Models labeled "(thinking)" or "(512)" were run with reasoning/chain-of-thought, or thinking token budgets enabled. 
+Models labeled "(thinking)" or "(512)" were run with reasoning/chain-of-thought, or thinking token budgets enabled. Models labeled with a reasoning effort like "(low)", "(medium)", or "(none)" were run at that effort level on the OpenAI Responses API.
 
-Thank you to [Modal](https://modal.com/) for providing compute resources for this benchmark. And to [Charles Frye](https://x.com/charles_irl/) for advice about models and inference tuning.
+Both `gpt-4.1-mini` and `gpt-5.4-mini` sometimes exit early via a premature `end_session` or a malformed tool call, so denominators are below 300.
+
+There's a curious regression between `glm-5` (99.7%) and `glm-5.1` (95.7%): the newer model misses `end_session` on every single one of 10 runs at the closing turn, where the user says "I just wanted to say the conference was great. I don't have anything else." `glm-5.1` produces a perfectly graceful goodbye in text but doesn't invoke the tool. The older `glm-5` caught this turn correctly almost every time, and public benchmarks suggest `glm-5.1` should generally be the stronger model. This is the kind of subtle behavior change that a small system-prompt nudge would likely fix — but it's a good example of how model-version updates can quietly shift behavior in ways that don't show up in headline benchmarks.
 
 Speech-to-speech models:
 
 | Model             | Pass Rate | Tool Use | Instruction | KB Ground | Turn Ok | Non-Tool V2V Med | Non-Tool V2V Max | Tool V2V Mean | Silence Pad Mean |
 |-------------------|-----------|----------|-------------|-----------|---------|------------------|------------------|---------------|------------------|
-| ultravox-v0.7     | 97.7%     | 293/300  | 294/300     | 298/300   | 300/300 | 864ms            | 1888ms           | 2406ms        | 82ms             |
-| gpt-realtime-1.5  | 93.3% | 282/300 | 280/300    | 300/300   | 299/300 | 1152ms           | 2304ms           | 2251ms        | 96ms             |
+| **ultravox-v0.7**     | 97.7%     | 293/300  | 294/300     | 298/300   | 300/300 | 864ms            | 1888ms           | 2406ms        | 82ms             |
+| grok-voice-think-fast-1.0 | 95.3% | 288/300 | 289/300 | 299/300 | 296/300 | 2336ms       | 4800ms           | 2753ms        | 239ms            |
+| **gpt-realtime-1.5**  | 93.3% | 282/300 | 280/300    | 300/300   | 299/300 | 1152ms           | 2304ms           | 2251ms        | 96ms             |
+| gemini-3.1-flash-live-preview (minimal thinking) | 91.7% | 276/300 | 277/300 | 300/300 | 300/300 | 1632ms | 5664ms | 3172ms | 100ms |
 | gpt-realtime      | 86.7%     | 271/300  | 260/300     | 300/300   | 296/300 | 1536ms           | 4672ms           | 2199ms        | 341ms            |
 | gemini-live       | 86.0%     | 258/300  | 261/300     | 293/300   | 278/300 | 2624ms           | 30000ms          | 4082ms        | 90ms             |
 | nova-2-sonic      | *         | 278/300  | 265/300     | 296/300   | *       | 1280ms           | 3232ms           | 1689ms        | 79ms             |
-| grok-realtime     | *         | 267/300  | 275/300     | 295/300   | *       | 1184ms           | 2016ms           | 1472ms        | 478ms            |
 
-For speech-to-speech models, we measure voice-to-voice latency by analyzing the conversation recording. We measure the overall time from the end of the user's speech to the beginning of the model's speech response. This latency is different from the TTFB reported by the Pipecat service for these models, because all of these models were tested in server-side VAD mode (the server-side turn delay is opaque to the Pipecat pipeline), and all of the models send initial silence bytes before actual speech audio. (Text-to-speech models do this, too. The initial silence segments are typically between 150ms and 250ms for standalone TTS models.)
+For speech-to-speech models, we measure voice-to-voice latency by analyzing the conversation recording. We measure the overall time from the end of the user's speech to the beginning of the model's speech response.
+
+For voice agent use cases, voice-to-voice latency needs to be under 1,500ms.
+
+The voice-to-voice latency measured here is different from the TTFB reported by the Pipecat service for these models, because all of these models were tested in server-side VAD mode (the server-side turn delay is opaque to the Pipecat pipeline), and all of the models send initial silence bytes before actual speech audio. (Text-to-speech models do this, too. The initial silence segments are typically between 150ms and 250ms for standalone TTS models.)
 
 We also include a "Turn Ok" column for these models, which counts how often the model does not respond at all when we expect it or responds with control characters, API refusals, or generic errors.
 
-The API for Grok is currently not production ready. Grok often enters into an unrecoverable state during a session.
-
 The Nova 2 Sonic model performs very well on instruction following and tool calling but has a high rate of safety refusals for normal content. It also has a connection limit of 8 minutes. Fixes for both of these issues are in flight from AWS.
+
+gemini-3.1-flash-live-preview is a reasoning model. We show the results with minimal thinking enabled, above. Here are the results all thinking levels. Even minimal is too slow for voice agent use cases, today. With additional reasoning, the model's benchmark results improve, but latency increases. Note the tool use and instruction following regression from medium to high. This is something we see regularly in multi-turn testing of thinking models. The model is not always "smartest" at the highest thinking setting.
+
+| Thinking | Pass Rate | Tool Use | Instruction | KB Ground | Turn Ok | Non-Tool V2V Med | Non-Tool V2V Max | Tool V2V Mean | Silence Pad Mean |
+|----------|-----------|----------|-------------|-----------|---------|------------------|------------------|---------------|------------------|
+| high     | 91.0%     | 281/300  | 273/300     | 300/300   | 297/300 | 2368ms           | 15872ms          | 3665ms        | 119ms            |
+| medium   | 96.0%     | 291/300  | 288/300     | 300/300   | 296/300 | 2400ms           | 10208ms          | 3903ms        | 113ms            |
+| low      | 90.3%     | 282/300  | 271/300     | 299/300   | 297/300 | 2176ms           | 4672ms           | 3602ms        | 97ms             |
+| minimal  | 91.7%     | 276/300  | 277/300     | 300/300   | 300/300 | 1632ms           | 5664ms           | 3172ms        | 100ms            |
 
 ### Sample Recordings
 
@@ -75,9 +95,9 @@ Listen to full 30-turn benchmark conversations from each speech-to-speech model:
 | Model         | Recording                                      |
 |---------------|------------------------------------------------|
 | Ultravox v0.7 | [ultravox-v0.7.mp3](samples/ultravox-v0.7.mp3) |
-| GPT Realtime  | [gpt-realtime.mp3](samples/gpt-realtime.mp3)   |
-| Grok Realtime | [grok-realtime.mp3](samples/grok-realtime.mp3) |
-| Gemini Live   | [gemini-live.mp3](samples/gemini-live.mp3)     |
+| GPT Realtime 1.5 | [gpt-realtime.mp3](samples/gpt-realtime.mp3)   |
+| Grok Voice (think-fast 1.0) | [grok-realtime.mp3](samples/grok-realtime.mp3) |
+| Gemini 3.1 Flash Live (minimal thinking) | [gemini-live.mp3](samples/gemini-live.mp3)     |
 | Nova 2 Sonic  | [nova-2-sonic.mp3](samples/nova-2-sonic.mp3)   |
 
 In the recordings, the left channel is the user's speech and the right channel is the model's speech. You'll hear a small audio tag (a short beep) at the start of each model speech segment. The benchmarking code adds this audio tag to make it easier to double-check track alignment and to provide a visual indicator of segment start for manually inspecting the recordings.
@@ -164,7 +184,7 @@ uv run multi-turn-eval run aiwf_medium_context --model ultravox-v0.7 --service u
 uv run multi-turn-eval run aiwf_medium_context --model amazon.nova-2-sonic-v1:0 --pipeline nova-sonic
 
 # Grok (xAI) Realtime
-uv run multi-turn-eval run aiwf_medium_context --model grok-realtime
+uv run multi-turn-eval run aiwf_medium_context --model grok-voice-think-fast-1.0 --pipeline grok-realtime
 
 # Debug with limited turns
 uv run multi-turn-eval run aiwf_medium_context --model gpt-4o --service openai --only-turns 0,1,2
