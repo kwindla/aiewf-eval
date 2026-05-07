@@ -575,11 +575,36 @@ class RealtimePipeline(BasePipeline):
             #     )
             # )
 
+            audio_config = None
+            transcription_model = os.getenv("MTE_OPENAI_REALTIME_TRANSCRIPTION_MODEL")
+            if transcription_model:
+                audio_config = rt_events.AudioConfiguration(
+                    input=rt_events.AudioInput(
+                        transcription=rt_events.InputAudioTranscription(
+                            model=transcription_model.strip(),
+                        ),
+                    ),
+                )
+
             session_props = rt_events.SessionProperties(
                 instructions=system_instruction,
                 tools=tools,
-                # audio=audio_config,  # Using default VAD settings
+                audio=audio_config,
             )
+
+            reasoning_effort = os.getenv("MTE_OPENAI_REALTIME_REASONING_EFFORT")
+            if reasoning_effort:
+                from multi_turn_eval.services.openai_realtime_reasoning import (
+                    OpenAIRealtimeReasoningLLMService,
+                )
+                return OpenAIRealtimeReasoningLLMService(
+                    api_key=api_key,
+                    model=model,
+                    system_instruction=system_instruction,
+                    session_properties=session_props,
+                    reasoning_effort=reasoning_effort.strip().lower(),
+                )
+
             return service_class(
                 api_key=api_key,
                 model=model,
