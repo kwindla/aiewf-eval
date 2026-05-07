@@ -62,7 +62,7 @@ Speech-to-speech models:
 | Model             | Pass Rate | Tool Use | Instruction | KB Ground | Turn Ok | Non-Tool V2V Med | Non-Tool V2V Max | Tool V2V Mean | Silence Pad Mean |
 |-------------------|-----------|----------|-------------|-----------|---------|------------------|------------------|---------------|------------------|
 | **ultravox-v0.7**     | 97.7%     | 293/300  | 294/300     | 298/300   | 300/300 | 864ms            | 1888ms           | 2406ms        | 82ms             |
-| **gpt-realtime-2 (low)** | 96.0% | 868/900 | 864/900 | 899/900 | 900/900 | 1728ms | 4032ms | 2005ms | 67ms |
+| gpt-realtime-2 (low) | 96.0% | 868/900 | 864/900 | 899/900 | 900/900 | 1728ms | 4032ms | 2005ms | 67ms |
 | grok-voice-think-fast-1.0 | 95.3% | 288/300 | 289/300 | 299/300 | 296/300 | 2336ms       | 4800ms           | 2753ms        | 239ms            |
 | **gpt-realtime-1.5**  | 93.3% | 282/300 | 280/300    | 300/300   | 299/300 | 1152ms           | 2304ms           | 2251ms        | 96ms             |
 | gemini-3.1-flash-live-preview (minimal thinking) | 91.7% | 276/300 | 277/300 | 300/300 | 300/300 | 1632ms | 5664ms | 3172ms | 100ms |
