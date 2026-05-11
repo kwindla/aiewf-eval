@@ -35,6 +35,7 @@ SERVICE_ALIASES = {
     "modal": "pipecat.services.openai.llm.OpenAILLMService",  # Modal uses OpenAI-compatible API
     "lilac": "pipecat.services.openai.llm.OpenAILLMService",  # Lilac uses OpenAI-compatible API
     "nemotron": "multi_turn_eval.services.nemotron.NemotronLLMService",
+    "nemotron-audio-in": "multi_turn_eval.services.nemotron_audio_in.NemotronAudioInLLMService",
     "anthropic": "multi_turn_eval.services.anthropic_logged.LoggedAnthropicLLMService",
     "google": "pipecat.services.google.llm.GoogleLLMService",
     "gemini-live": "multi_turn_eval.pipelines.realtime.GeminiLiveLLMServiceWithReconnection",
@@ -51,6 +52,7 @@ SERVICE_ALIASES = {
 
 PIPELINE_CLASSES = {
     "text": "multi_turn_eval.pipelines.text.TextPipeline",
+    "audio-in": "multi_turn_eval.pipelines.audio_in.AudioInPipeline",
     "realtime": "multi_turn_eval.pipelines.realtime.RealtimePipeline",
     "grok-realtime": "multi_turn_eval.pipelines.grok_realtime.GrokRealtimePipeline",
     "nova-sonic": "multi_turn_eval.pipelines.nova_sonic.NovaSonicPipeline",
@@ -105,9 +107,14 @@ def get_pipeline_class(pipeline_type: str) -> type:
     return getattr(module, cls_name)
 
 
-def infer_pipeline(model: str) -> str:
+def infer_pipeline(model: str, service: str | None = None) -> str:
     """Infer default pipeline from model name pattern."""
     m = model.lower()
+    s = (service or "").lower()
+    if s == "nemotron-audio-in":
+        return "audio-in"
+    if "nemotron_3_nano_omni" in m and s != "nemotron":
+        return "audio-in"
     # Grok realtime uses dedicated pipeline for xAI-specific protocol handling
     if m.startswith("grok") and "realtime" in m:
         return "grok-realtime"
@@ -167,7 +174,10 @@ def setup_logging(run_dir: Path, verbose: bool = False):
 
 @click.group()
 def cli():
-    """Multi-turn LLM evaluation framework."""
+    """Multi-turn LLM evaluation framework.
+
+    Pipeline types: text, audio-in, realtime, nova-sonic.
+    """
     pass
 
 
@@ -177,7 +187,7 @@ def cli():
 @click.option("--service", help="Service class name or alias (e.g., openai, anthropic)")
 @click.option(
     "--pipeline",
-    help="Pipeline type (text, realtime, nova-sonic). Auto-detected if not specified.",
+    help="Pipeline type (text, audio-in, realtime, nova-sonic). Auto-detected if not specified.",
 )
 @click.option("--only-turns", help="Comma-separated turn indices to run (e.g., 0,1,2)")
 @click.option("--verbose", "-v", is_flag=True, help="Enable verbose logging")
@@ -214,7 +224,7 @@ async def _run(
 
     # Infer pipeline if not specified
     if not pipeline_type:
-        pipeline_type = infer_pipeline(model)
+        pipeline_type = infer_pipeline(model, service)
         click.echo(f"Auto-detected pipeline: {pipeline_type}")
 
     pipeline_cls = get_pipeline_class(pipeline_type)

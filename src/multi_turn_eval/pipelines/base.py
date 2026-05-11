@@ -167,7 +167,7 @@ class BasePipeline(ABC):
         backends reject empty assistant content outright.
         """
         service_name = (self.service_name or "").lower()
-        if service_name not in {"openai", "openrouter", "nemotron", "modal"}:
+        if service_name not in {"openai", "openrouter", "nemotron", "nemotron-audio-in", "modal"}:
             return
         if self.context is None:
             return
