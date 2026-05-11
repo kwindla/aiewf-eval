@@ -104,7 +104,7 @@ Key existing-code references:
   In `src/multi_turn_eval/services/nemotron_audio_in.py`: import `pipecat.adapters.services.open_ai_adapter.OpenAILLMAdapter` and instantiate `self._tools_adapter = OpenAILLMAdapter()` in the constructor. Before payload build, call `tools_payload = self._tools_adapter.from_standard_tools(context.tools)`; include `tools` in payload only when the result is non-empty and is not `NOT_GIVEN`; pass through `tool_choice` from `context.tool_choice` only when set and not `NOT_GIVEN`. Port `_merge_tool_call_delta` and `_finalize_tool_calls` from `../nemotron-nano-omni/src/nemotron_voice/services/nvidia/nemotron_omni.py:902,933`. SSE handling: accumulate `delta.tool_calls` per index; on stream end, finalize, parse JSON `function.arguments`, synthesize `call_N` IDs for any missing IDs. Build `FunctionCallFromLLM` objects and call `await self.run_function_calls(...)` so Pipecat + `ToolCallRecorder` handle execution. Do NOT copy upstream `run_bash` or the bash policy layer. Verify outgoing JSON omits sentinel values (no `NOT_GIVEN` in payload).
   Key files: `src/multi_turn_eval/services/nemotron_audio_in.py`
 
-- [ ] **7. Smoke test 3 (manual, validates step 6)**
+- [x] **7. Smoke test 3 (manual, validates step 6)**
   Manual verification. The benchmark's tool-requiring turns at `benchmarks/_shared/turns.py:92,96` depend on prior context (turn 11's `submit_session_suggestion` needs the name supplied in turn 10). Single-turn smokes against turn 11 will likely fail for context reasons, not tool-call reasons. Run a contiguous range: `--only-turns 9,10,11,12`, with `MTE_NEMOTRON_AUDIO_IN_CONVERSATION_CACHE=0` and `MTE_NEMOTRON_AUDIO_IN_TRACE_DIR=$(mktemp -d)`. Confirm via trace/logs/transcript: request includes `tools` (converted to OpenAI-compatible function definitions), tool-call deltas merge to a complete call on turn 11, `run_function_calls()` produces `FunctionCallsStartedFrame` plus downstream `FunctionCallInProgressFrame` / `FunctionCallResultFrame`, `ToolCallRecorder` records the call with `submit_session_suggestion`, turn 12 sends full context, no `conversation_require_cache` on any request. If anything fails, pause before step 8.
   Key files: (validation only)
 
@@ -129,8 +129,8 @@ Key existing-code references:
 | 3 | CLI wiring + sanitizer allowlist | done | 9767c18 | All dispatch + alias checks pass |
 | 4 | Tracing with audio-payload redaction | done | cceaff2 | Redaction + lazy dir + 3 phases verified |
 | 5 | Smoke tests 1 and 2 (manual) | done | 9f09573 | Both pass: cache-off, no tools, full context turn 2 |
-| 6 | Tool-schema conversion + streaming tool-call parsing | done | — | 5 tools converted, merge+finalize verified |
-| 7 | Smoke test 3 (manual, contiguous range 9-12) | pending | — | Validation only |
+| 6 | Tool-schema conversion + streaming tool-call parsing | done | 8e9c9ac | 5 tools converted, merge+finalize verified |
+| 7 | Smoke test 3 (manual, contiguous range 9-12) | done | — | submit_session_suggestion fired; cache off |
 | 8 | Conversation cache: full-context mode | pending | — | Includes Smoke 4 + re-run Smokes 2,3 |
 | 9 | Suffix-only mode + tool-call disable guard | pending | — | Includes Smoke 5 + re-run Smoke 3 |
 | 10 | Unit tests (pipeline + service) | pending | — | |
