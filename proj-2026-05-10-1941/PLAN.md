@@ -100,7 +100,7 @@ Key existing-code references:
   Manual verification — do not delegate to Codex. Set `MTE_NEMOTRON_AUDIO_IN_TRACE_DIR=$(mktemp -d)` and run the Smoke 1 and Smoke 2 commands from `docs/nemotron-audio-in-implementation-plan.md`. Confirm via trace JSON: requests reach `http://192.168.7.228:8000/v1/chat/completions`, audio data URL present (redacted form), no callable tools are exposed (`tools` omitted, or `tool_choice: "none"` if any tool surface is touched), no `conversation_id`, text streams back, transcript records both sides, second turn sends full context. If smoke fails, file findings and pause before step 6.
   Key files: (validation only — no code changes)
 
-- [ ] **6. Tool-schema conversion + streaming tool-call parsing**
+- [x] **6. Tool-schema conversion + streaming tool-call parsing**
   In `src/multi_turn_eval/services/nemotron_audio_in.py`: import `pipecat.adapters.services.open_ai_adapter.OpenAILLMAdapter` and instantiate `self._tools_adapter = OpenAILLMAdapter()` in the constructor. Before payload build, call `tools_payload = self._tools_adapter.from_standard_tools(context.tools)`; include `tools` in payload only when the result is non-empty and is not `NOT_GIVEN`; pass through `tool_choice` from `context.tool_choice` only when set and not `NOT_GIVEN`. Port `_merge_tool_call_delta` and `_finalize_tool_calls` from `../nemotron-nano-omni/src/nemotron_voice/services/nvidia/nemotron_omni.py:902,933`. SSE handling: accumulate `delta.tool_calls` per index; on stream end, finalize, parse JSON `function.arguments`, synthesize `call_N` IDs for any missing IDs. Build `FunctionCallFromLLM` objects and call `await self.run_function_calls(...)` so Pipecat + `ToolCallRecorder` handle execution. Do NOT copy upstream `run_bash` or the bash policy layer. Verify outgoing JSON omits sentinel values (no `NOT_GIVEN` in payload).
   Key files: `src/multi_turn_eval/services/nemotron_audio_in.py`
 
@@ -128,8 +128,8 @@ Key existing-code references:
 | 2 | Pipeline subclass with audio loading helper | done | 6906ede | All verification checks pass |
 | 3 | CLI wiring + sanitizer allowlist | done | 9767c18 | All dispatch + alias checks pass |
 | 4 | Tracing with audio-payload redaction | done | cceaff2 | Redaction + lazy dir + 3 phases verified |
-| 5 | Smoke tests 1 and 2 (manual) | done | — | Both pass: cache-off, no tools, full context turn 2 |
-| 6 | Tool-schema conversion + streaming tool-call parsing | pending | — | |
+| 5 | Smoke tests 1 and 2 (manual) | done | 9f09573 | Both pass: cache-off, no tools, full context turn 2 |
+| 6 | Tool-schema conversion + streaming tool-call parsing | done | — | 5 tools converted, merge+finalize verified |
 | 7 | Smoke test 3 (manual, contiguous range 9-12) | pending | — | Validation only |
 | 8 | Conversation cache: full-context mode | pending | — | Includes Smoke 4 + re-run Smokes 2,3 |
 | 9 | Suffix-only mode + tool-call disable guard | pending | — | Includes Smoke 5 + re-run Smoke 3 |

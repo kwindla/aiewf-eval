@@ -13,6 +13,8 @@ from typing import Any
 
 import aiohttp
 from loguru import logger
+from openai import NOT_GIVEN
+from pipecat.adapters.services.open_ai_adapter import OpenAILLMAdapter
 from pipecat.frames.frames import (
     CancelFrame,
     EndFrame,
@@ -28,7 +30,7 @@ from pipecat.frames.frames import (
 from pipecat.metrics.metrics import LLMTokenUsage
 from pipecat.processors.aggregators.llm_context import LLMContext, LLMSpecificMessage
 from pipecat.processors.frame_processor import FrameDirection
-from pipecat.services.llm_service import LLMService
+from pipecat.services.llm_service import FunctionCallFromLLM, LLMService
 
 
 class ConversationCacheMissError(RuntimeError):
@@ -56,6 +58,7 @@ class NemotronAudioInLLMService(LLMService):
     ):
         super().__init__(**kwargs)
         self.set_model_name(model)
+        self._tools_adapter = OpenAILLMAdapter()
 
         self._api_key = api_key
         self._base_url = base_url.rstrip("/")
@@ -137,9 +140,9 @@ class NemotronAudioInLLMService(LLMService):
             return
 
         await self._cancel_generation_task()
-        payload = self._build_payload_from_messages(converted_messages)
+        payload = self._build_payload_from_messages(converted_messages, context=context)
         self._generation_task = self.create_task(
-            self._run_completion_payload(payload),
+            self._run_completion_payload(payload, context=context),
             name="nemotron_audio_in_completion",
         )
 
@@ -159,7 +162,12 @@ class NemotronAudioInLLMService(LLMService):
             await self._session.close()
         self._session = None
 
-    def _build_payload_from_messages(self, messages: list[dict[str, Any]]) -> dict[str, Any]:
+    def _build_payload_from_messages(
+        self,
+        messages: list[dict[str, Any]],
+        *,
+        context: LLMContext | None = None,
+    ) -> dict[str, Any]:
         payload: dict[str, Any] = {
             "model": self.model_name,
             "messages": copy.deepcopy(messages),
@@ -177,6 +185,17 @@ class NemotronAudioInLLMService(LLMService):
             payload["top_k"] = self._top_k
         if self._chat_template_kwargs is not None:
             payload["chat_template_kwargs"] = copy.deepcopy(self._chat_template_kwargs)
+
+        if context is not None:
+            tools = context.tools
+            if tools is not None and tools is not NOT_GIVEN:
+                tools_payload = self._tools_adapter.from_standard_tools(tools)
+                if tools_payload and tools_payload is not NOT_GIVEN:
+                    payload["tools"] = tools_payload
+
+            tool_choice = context.tool_choice
+            if tool_choice is not None and tool_choice is not NOT_GIVEN:
+                payload["tool_choice"] = tool_choice
 
         return payload
 
@@ -323,7 +342,12 @@ class NemotronAudioInLLMService(LLMService):
         except Exception as exc:
             logger.warning(f"{self}: failed to write trace file for {trace_id}: {exc}")
 
-    async def _run_completion_payload(self, payload: dict[str, Any]):
+    async def _run_completion_payload(
+        self,
+        payload: dict[str, Any],
+        *,
+        context: LLMContext,
+    ):
         self._top_level_request_seq += 1
         top_level_request_seq = self._top_level_request_seq
         attempt_num = 1
@@ -359,7 +383,13 @@ class NemotronAudioInLLMService(LLMService):
                         "request_body": payload,
                     },
                 )
-            await self._stream_completion(session, payload, headers, trace_id=trace_id)
+            await self._stream_completion(
+                session,
+                payload,
+                headers,
+                trace_id=trace_id,
+                context=context,
+            )
         except asyncio.CancelledError:
             logger.debug(f"{self}: completion cancelled")
             raise
@@ -379,10 +409,12 @@ class NemotronAudioInLLMService(LLMService):
         headers: dict[str, str],
         *,
         trace_id: str,
+        context: LLMContext,
     ):
         ttfb_stopped = False
         output_text_parts: list[str] | None = [] if self._trace_dir is not None else None
         last_usage: dict[str, Any] | None = None
+        tool_calls_by_index: dict[int, dict[str, Any]] = {}
         async with session.post(
             self._chat_completions_url,
             json=payload,
@@ -438,6 +470,8 @@ class NemotronAudioInLLMService(LLMService):
                     if tool_call_deltas and not ttfb_stopped:
                         await self.stop_ttfb_metrics()
                         ttfb_stopped = True
+                    if isinstance(tool_call_deltas, list):
+                        self._merge_tool_call_delta(tool_calls_by_index, tool_call_deltas)
 
                     text = delta.get("content") or ""
                     if not text:
@@ -448,6 +482,33 @@ class NemotronAudioInLLMService(LLMService):
                     if output_text_parts is not None:
                         output_text_parts.append(text)
                     await self._push_llm_text(text)
+
+        tool_calls = self._finalize_tool_calls(tool_calls_by_index)
+        if tool_calls:
+            function_calls: list[FunctionCallFromLLM] = []
+            for idx, tool_call in enumerate(tool_calls):
+                function = tool_call.get("function") or {}
+                function_name = function.get("name") or ""
+                arguments_text = function.get("arguments") or "{}"
+                try:
+                    arguments = json.loads(arguments_text)
+                except Exception:
+                    logger.warning(
+                        f"{self}: failed to parse function arguments as JSON for "
+                        f"{function_name!r}; using empty arguments"
+                    )
+                    arguments = {}
+
+                function_calls.append(
+                    FunctionCallFromLLM(
+                        context=context,
+                        tool_call_id=tool_call.get("id") or f"call_{idx}",
+                        function_name=function_name,
+                        arguments=arguments,
+                    )
+                )
+
+            await self.run_function_calls(function_calls)
 
         if self._trace_dir is not None:
             output_text = "".join(output_text_parts or [])
@@ -460,6 +521,56 @@ class NemotronAudioInLLMService(LLMService):
                     "usage": last_usage,
                 },
             )
+
+    @staticmethod
+    def _merge_tool_call_delta(
+        tool_calls_by_index: dict[int, dict[str, Any]],
+        delta_tool_calls: list[dict[str, Any]],
+    ) -> None:
+        for tool_call_delta in delta_tool_calls:
+            if not isinstance(tool_call_delta, dict):
+                continue
+
+            index = tool_call_delta.get("index")
+            if index is None:
+                index = len(tool_calls_by_index)
+
+            entry = tool_calls_by_index.setdefault(
+                index,
+                {
+                    "id": None,
+                    "type": "function",
+                    "function": {"name": "", "arguments": ""},
+                },
+            )
+            if tool_call_delta.get("id"):
+                entry["id"] = tool_call_delta["id"]
+            if tool_call_delta.get("type"):
+                entry["type"] = tool_call_delta["type"]
+
+            function_delta = tool_call_delta.get("function") or {}
+            function = entry.setdefault("function", {"name": "", "arguments": ""})
+            if function_delta.get("name"):
+                function["name"] = f"{function.get('name') or ''}{function_delta['name']}"
+            if function_delta.get("arguments"):
+                function["arguments"] = (
+                    f"{function.get('arguments') or ''}{function_delta['arguments']}"
+                )
+
+    @staticmethod
+    def _finalize_tool_calls(
+        tool_calls_by_index: dict[int, dict[str, Any]],
+    ) -> list[dict[str, Any]]:
+        tool_calls: list[dict[str, Any]] = []
+        for index in sorted(tool_calls_by_index):
+            tool_call = copy.deepcopy(tool_calls_by_index[index])
+            tool_call["id"] = tool_call.get("id") or f"call_{index}"
+            tool_call["type"] = tool_call.get("type") or "function"
+            function = tool_call.setdefault("function", {})
+            function["name"] = function.get("name") or ""
+            function["arguments"] = function.get("arguments") or "{}"
+            tool_calls.append(tool_call)
+        return tool_calls
 
     async def _iter_sse_events(self, response: aiohttp.ClientResponse):
         buffer = ""
