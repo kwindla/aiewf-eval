@@ -131,6 +131,6 @@ Key existing-code references:
 | 5 | Smoke tests 1 and 2 (manual) | done | 9f09573 | Both pass: cache-off, no tools, full context turn 2 |
 | 6 | Tool-schema conversion + streaming tool-call parsing | done | 8e9c9ac | 5 tools converted, merge+finalize verified |
 | 7 | Smoke test 3 (manual, contiguous range 9-12) | done | 67f8701 | submit_session_suggestion fired; cache off |
-| 8 | Conversation cache: full-context mode | done | — | Code committed; Smoke 4 + re-runs pending |
+| 8 | Conversation cache: full-context mode | done | 7eded45 | Smoke 4 + re-runs of 2 and 3 pass |
 | 9 | Suffix-only mode + tool-call disable guard | pending | — | Includes Smoke 5 + re-run Smoke 3 |
 | 10 | Unit tests (pipeline + service) | pending | — | |
