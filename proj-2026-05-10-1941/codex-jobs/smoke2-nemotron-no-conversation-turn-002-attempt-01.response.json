@@ -1,0 +1,12 @@
+{
+  "output_text_preview": "\nYes, there are two Gemini workshops on June 3:\n\n- **Building Voice Agents with Gemini and Pipecat** by Shrestha Basu Mallick (Developer Advocate, Gemini API) at 10:40 AM in Salons 2-6: Workshops.\n- **AI Engineering with the Google Gemini 2.5 Model Family** by Philipp Schmid (AI Developer Experience) at 1:00 PM in SOMA: Workshops.\n\nWould you like more details about either session?",
+  "phase": "response",
+  "status": 200,
+  "timestamp": 1778474443.3172987,
+  "trace_id": "nemotron-no-conversation-turn-002-attempt-01",
+  "usage": {
+    "completion_tokens": 107,
+    "prompt_tokens": 12935,
+    "total_tokens": 13042
+  }
+}

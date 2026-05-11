@@ -96,7 +96,7 @@ Key existing-code references:
   Pulled earlier in the sequence so smoke tests have observable trace JSON to validate against. Add `_write_trace_file`, `_trace_json_value`, and `_trace_request_id` to the service, mirroring `../nemotron-nano-omni/src/nemotron_voice/services/nvidia/nemotron_omni.py:568-625`. Behind `MTE_NEMOTRON_AUDIO_IN_TRACE_DIR`. Audio data URLs (`data:audio/...,...`) get replaced with `{"url": "<data-audio-base64 sha256=... chars=...>"}` by default. Record per-request: trace ID (`nemotron-<conv-or-no-conversation>-turn-NNN-attempt-MM`), conversation ID, suffix-only flag, cache-required flag, role summary, audio part count, response status/error. The fields written should include the actual outgoing JSON body (with audio redaction) so smoke tests can inspect payload presence/absence of `tools`, `conversation_id`, `conversation_require_cache`, and the full message list.
   Key files: `src/multi_turn_eval/services/nemotron_audio_in.py`
 
-- [ ] **5. Smoke tests 1 and 2 (manual, validates steps 1-4)**
+- [x] **5. Smoke tests 1 and 2 (manual, validates steps 1-4)**
   Manual verification — do not delegate to Codex. Set `MTE_NEMOTRON_AUDIO_IN_TRACE_DIR=$(mktemp -d)` and run the Smoke 1 and Smoke 2 commands from `docs/nemotron-audio-in-implementation-plan.md`. Confirm via trace JSON: requests reach `http://192.168.7.228:8000/v1/chat/completions`, audio data URL present (redacted form), no callable tools are exposed (`tools` omitted, or `tool_choice: "none"` if any tool surface is touched), no `conversation_id`, text streams back, transcript records both sides, second turn sends full context. If smoke fails, file findings and pause before step 6.
   Key files: (validation only — no code changes)
 
@@ -127,8 +127,8 @@ Key existing-code references:
 | 1 | Service skeleton: transport, message conversion, full-context streaming | done | c266c66 | Import + payload checks pass |
 | 2 | Pipeline subclass with audio loading helper | done | 6906ede | All verification checks pass |
 | 3 | CLI wiring + sanitizer allowlist | done | 9767c18 | All dispatch + alias checks pass |
-| 4 | Tracing with audio-payload redaction | done | — | Redaction + lazy dir + 3 phases verified |
-| 5 | Smoke tests 1 and 2 (manual) | pending | — | Validation only |
+| 4 | Tracing with audio-payload redaction | done | cceaff2 | Redaction + lazy dir + 3 phases verified |
+| 5 | Smoke tests 1 and 2 (manual) | done | — | Both pass: cache-off, no tools, full context turn 2 |
 | 6 | Tool-schema conversion + streaming tool-call parsing | pending | — | |
 | 7 | Smoke test 3 (manual, contiguous range 9-12) | pending | — | Validation only |
 | 8 | Conversation cache: full-context mode | pending | — | Includes Smoke 4 + re-run Smokes 2,3 |

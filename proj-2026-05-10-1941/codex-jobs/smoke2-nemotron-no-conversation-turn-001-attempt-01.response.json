@@ -1,0 +1,12 @@
+{
+  "output_text_preview": "\nI'm the voice assistant for the AI Engineer World's Fair 2025, and I can only answer questions about the event. The workshops are on June 3, 2025, from 9:00 AM to 5:00 PM. Would you like me to share the workshop schedule or help you find a specific session?",
+  "phase": "response",
+  "status": 200,
+  "timestamp": 1778474436.2513618,
+  "trace_id": "nemotron-no-conversation-turn-001-attempt-01",
+  "usage": {
+    "completion_tokens": 76,
+    "prompt_tokens": 12798,
+    "total_tokens": 12874
+  }
+}

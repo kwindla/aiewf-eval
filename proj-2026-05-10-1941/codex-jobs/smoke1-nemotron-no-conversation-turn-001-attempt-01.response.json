@@ -1,0 +1,12 @@
+{
+  "output_text_preview": "\nWorkshops are scheduled for June 3, 2025, from 9:00 AM to 5:00 PM. The day includes hands-on workshops across 5 tracks, with sessions like \"Building Voice Agents with Gemini and Pipecat\" and \"AI Engineering with the Google Gemini 2.5 Model Family.\" The full schedule is available in the event details. Would you like help finding specific sessions?",
+  "phase": "response",
+  "status": 200,
+  "timestamp": 1778474404.5069077,
+  "trace_id": "nemotron-no-conversation-turn-001-attempt-01",
+  "usage": {
+    "completion_tokens": 90,
+    "prompt_tokens": 12798,
+    "total_tokens": 12888
+  }
+}
