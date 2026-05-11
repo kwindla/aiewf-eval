@@ -30,6 +30,14 @@ resample-turn-audio = "scripts.resample_turn_audio:main"
 requires = ["hatchling>=1.20"]
 build-backend = "hatchling.build"
 
+[dependency-groups]
+dev = [
+  "pytest>=8.0",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
 [tool.hatch.build.targets.wheel]
 # Include both the new package structure and legacy scripts
 packages = ["src/multi_turn_eval", "scripts", "benchmarks"]
