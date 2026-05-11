@@ -133,4 +133,4 @@ Key existing-code references:
 | 7 | Smoke test 3 (manual, contiguous range 9-12) | done | 67f8701 | submit_session_suggestion fired; cache off |
 | 8 | Conversation cache: full-context mode | done | 7eded45 | Smoke 4 + re-runs of 2 and 3 pass |
 | 9 | Suffix-only mode + tool-call disable guard | done | dadd074 | Smoke 5 + suffix-on Smoke 3 pass; disable guard works |
-| 10 | Unit tests (pipeline + service) | done | — | 30/30 pass; pytest dev dep added |
+| 10 | Unit tests (pipeline + service) | done | 133b69b | 30/30 pass; pytest dev dep added |
