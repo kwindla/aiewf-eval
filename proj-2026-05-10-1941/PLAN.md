@@ -112,7 +112,7 @@ Key existing-code references:
   Wire `MTE_NEMOTRON_AUDIO_IN_CONVERSATION_CACHE` plumbing through `AudioInPipeline._create_llm` (already partially wired in step 2; this step makes it functional). When enabled and `suffix_only_conversation` is False: generate `_conversation_id = uuid.uuid4().hex` in `__init__` (or on first inference if simpler), include `conversation_id` in every payload, never send `conversation_require_cache`. On successful response set `_conversation_cache_committed = True`. Run Smoke 4 (manual) after Codex completes this step: same conversation ID across two requests, no `conversation_require_cache` in either, full context in both. Then re-run Smoke 2 and Smoke 3 with cache off to confirm no regressions in the cache-off paths (per the source plan's Implementation Sequence step 10, which mandates re-running smokes 2 and 3). Pause if any smoke fails.
   Key files: `src/multi_turn_eval/services/nemotron_audio_in.py`, `src/multi_turn_eval/pipelines/audio_in.py`
 
-- [ ] **9. Suffix-only mode + tool-call disable guard**
+- [x] **9. Suffix-only mode + tool-call disable guard**
   Wire `MTE_NEMOTRON_AUDIO_IN_SUFFIX_ONLY` (only honored when cache is on). State machine per plan's Conversation Cache State / Behavior with both on: first turn sends full context with `conversation_id` and no `conversation_require_cache`; on success set `_conversation_cache_committed = True`; later plain turns send only the latest user message and set `conversation_require_cache = True`; on HTTP 409 with `error.type == "ConversationCacheMissError"` raise local `ConversationCacheMissError`, retry once with full context and no `conversation_require_cache`, then set `_conversation_cache_committed = False`; after any turn that contained locally-handled tool calls (results not sent back to vLLM), force `_conversation_cache_committed = False` for the next turn. The latest-user-message helper extracts the last user message from the converted context (no service-side canonical state). Run Smoke 5 (manual) after Codex completes: turn 0 full context, turn 1 single-message suffix with `conversation_require_cache: true`, same conversation ID; then re-run Smoke 3 (contiguous range `9,10,11,12`) with suffix-only on and confirm the post-tool-call turn (turn 12) falls back to full context.
   Key files: `src/multi_turn_eval/services/nemotron_audio_in.py`
 
@@ -132,5 +132,5 @@ Key existing-code references:
 | 6 | Tool-schema conversion + streaming tool-call parsing | done | 8e9c9ac | 5 tools converted, merge+finalize verified |
 | 7 | Smoke test 3 (manual, contiguous range 9-12) | done | 67f8701 | submit_session_suggestion fired; cache off |
 | 8 | Conversation cache: full-context mode | done | 7eded45 | Smoke 4 + re-runs of 2 and 3 pass |
-| 9 | Suffix-only mode + tool-call disable guard | pending | — | Includes Smoke 5 + re-run Smoke 3 |
+| 9 | Suffix-only mode + tool-call disable guard | done | — | Code committed; Smoke 5 + suffix-on Smoke 3 pending |
 | 10 | Unit tests (pipeline + service) | pending | — | |

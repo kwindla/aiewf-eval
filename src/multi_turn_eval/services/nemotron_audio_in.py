@@ -79,6 +79,7 @@ class NemotronAudioInLLMService(LLMService):
         self._conversation_id: str | None = None
         self._suffix_only_conversation = bool(suffix_only_conversation)
         self._conversation_cache_committed = False
+        self._tool_calls_handled_this_request = False
 
         trace_dir = os.getenv("MTE_NEMOTRON_AUDIO_IN_TRACE_DIR")
         self._trace_dir: Path | None = Path(trace_dir) if trace_dir else None
@@ -141,9 +142,34 @@ class NemotronAudioInLLMService(LLMService):
             return
 
         await self._cancel_generation_task()
-        payload = self._build_payload_from_messages(converted_messages, context=context)
+        if self._should_send_suffix_only():
+            latest_user = self._latest_user_message(converted_messages)
+            if latest_user is None:
+                logger.warning(
+                    f"{self}: suffix-only requested but no user message; "
+                    "falling back to full context"
+                )
+                messages_to_send = converted_messages
+                require_cache = False
+            else:
+                messages_to_send = [latest_user]
+                require_cache = True
+        else:
+            messages_to_send = converted_messages
+            require_cache = False
+
+        payload = self._build_payload_from_messages(
+            messages_to_send,
+            context=context,
+            require_cache=require_cache,
+        )
         self._generation_task = self.create_task(
-            self._run_completion_payload(payload, context=context),
+            self._run_completion_payload(
+                payload,
+                context=context,
+                require_cache_requested=require_cache,
+                converted_messages=converted_messages,
+            ),
             name="nemotron_audio_in_completion",
         )
 
@@ -168,6 +194,7 @@ class NemotronAudioInLLMService(LLMService):
         messages: list[dict[str, Any]],
         *,
         context: LLMContext | None = None,
+        require_cache: bool = False,
     ) -> dict[str, Any]:
         payload: dict[str, Any] = {
             "model": self.model_name,
@@ -200,8 +227,27 @@ class NemotronAudioInLLMService(LLMService):
 
         if self._conversation_id is not None:
             payload["conversation_id"] = self._conversation_id
+        if require_cache:
+            payload["conversation_require_cache"] = True
 
         return payload
+
+    def _should_send_suffix_only(self) -> bool:
+        return (
+            self._conversation_cache_enabled
+            and self._suffix_only_conversation
+            and self._conversation_cache_committed
+            and self._conversation_id is not None
+        )
+
+    def _latest_user_message(
+        self,
+        messages: list[dict[str, Any]],
+    ) -> dict[str, Any] | None:
+        for message in reversed(messages):
+            if message.get("role") == "user":
+                return copy.deepcopy(message)
+        return None
 
     def _convert_context_message(self, message: Any) -> dict[str, Any] | None:
         if isinstance(message, LLMSpecificMessage):
@@ -346,15 +392,47 @@ class NemotronAudioInLLMService(LLMService):
         except Exception as exc:
             logger.warning(f"{self}: failed to write trace file for {trace_id}: {exc}")
 
+    def _write_request_trace(
+        self,
+        *,
+        trace_id: str,
+        payload: dict[str, Any],
+        suffix_only: bool,
+    ) -> None:
+        if self._trace_dir is None:
+            return
+
+        messages = payload.get("messages")
+        if not isinstance(messages, list):
+            messages = []
+        self._write_trace_file(
+            trace_id=trace_id,
+            phase="request",
+            payload={
+                "conversation_id": self._conversation_id,
+                "suffix_only": suffix_only,
+                "cache_required": bool(payload.get("conversation_require_cache", False)),
+                "role_summary": ",".join(
+                    str(message.get("role") or "?") for message in messages
+                ),
+                "audio_part_count": self._count_audio_parts(messages),
+                "request_body": payload,
+            },
+        )
+
     async def _run_completion_payload(
         self,
         payload: dict[str, Any],
         *,
         context: LLMContext,
+        require_cache_requested: bool = False,
+        converted_messages: list[dict[str, Any]] | None = None,
     ):
         self._top_level_request_seq += 1
         top_level_request_seq = self._top_level_request_seq
         attempt_num = 1
+        recovered_from_cache_miss = False
+        self._tool_calls_handled_this_request = False
 
         if self._conversation_cache_enabled and self._conversation_id is None:
             self._conversation_id = uuid.uuid4().hex
@@ -373,35 +451,57 @@ class NemotronAudioInLLMService(LLMService):
                 headers["Authorization"] = f"Bearer {self._api_key}"
 
             session = await self._ensure_session()
-            if self._trace_dir is not None:
-                messages = payload.get("messages")
-                if not isinstance(messages, list):
-                    messages = []
-                self._write_trace_file(
-                    trace_id=trace_id,
-                    phase="request",
-                    payload={
-                        "conversation_id": self._conversation_id,
-                        "suffix_only": False,
-                        "cache_required": bool(
-                            payload.get("conversation_require_cache", False)
-                        ),
-                        "role_summary": ",".join(
-                            str(message.get("role") or "?") for message in messages
-                        ),
-                        "audio_part_count": self._count_audio_parts(messages),
-                        "request_body": payload,
-                    },
-                )
-            await self._stream_completion(
-                session,
-                payload,
-                headers,
+            self._write_request_trace(
                 trace_id=trace_id,
-                context=context,
+                payload=payload,
+                suffix_only=require_cache_requested,
             )
+            try:
+                await self._stream_completion(
+                    session,
+                    payload,
+                    headers,
+                    trace_id=trace_id,
+                    context=context,
+                )
+            except ConversationCacheMissError:
+                if not require_cache_requested or not converted_messages:
+                    raise
+
+                logger.warning(
+                    f"{self}: conversation cache miss for {self._conversation_id}; "
+                    "retrying with full context"
+                )
+                attempt_num = 2
+                trace_id = self._trace_request_id(top_level_request_seq, attempt_num)
+                retry_payload = self._build_payload_from_messages(
+                    converted_messages,
+                    context=context,
+                    require_cache=False,
+                )
+                if self._conversation_id is not None:
+                    retry_payload["conversation_id"] = self._conversation_id
+                self._write_request_trace(
+                    trace_id=trace_id,
+                    payload=retry_payload,
+                    suffix_only=False,
+                )
+                await self._stream_completion(
+                    session,
+                    retry_payload,
+                    headers,
+                    trace_id=trace_id,
+                    context=context,
+                )
+                recovered_from_cache_miss = True
+
             if self._conversation_cache_enabled:
                 self._conversation_cache_committed = True
+                if self._suffix_only_conversation and (
+                    recovered_from_cache_miss
+                    or self._tool_calls_handled_this_request
+                ):
+                    self._conversation_cache_committed = False
         except asyncio.CancelledError:
             logger.debug(f"{self}: completion cancelled")
             raise
@@ -439,6 +539,8 @@ class NemotronAudioInLLMService(LLMService):
                     phase="client-error",
                     payload={"status": response.status, "response_text": error_text},
                 )
+                if self._is_conversation_cache_miss(response.status, error_text):
+                    raise ConversationCacheMissError(error_text)
                 raise RuntimeError(f"vLLM request failed with {response.status}: {error_text}")
 
             async for event in self._iter_sse_events(response):
@@ -521,6 +623,7 @@ class NemotronAudioInLLMService(LLMService):
                 )
 
             await self.run_function_calls(function_calls)
+            self._tool_calls_handled_this_request = True
 
         if self._trace_dir is not None:
             output_text = "".join(output_text_parts or [])
@@ -533,6 +636,19 @@ class NemotronAudioInLLMService(LLMService):
                     "usage": last_usage,
                 },
             )
+
+    @staticmethod
+    def _is_conversation_cache_miss(status: int, error_text: str) -> bool:
+        if status != 409:
+            return False
+        try:
+            data = json.loads(error_text)
+        except json.JSONDecodeError:
+            return False
+        error = data.get("error")
+        if not isinstance(error, dict):
+            return False
+        return error.get("type") == "ConversationCacheMissError"
 
     @staticmethod
     def _merge_tool_call_delta(
