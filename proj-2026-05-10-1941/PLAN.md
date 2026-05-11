@@ -108,7 +108,7 @@ Key existing-code references:
   Manual verification. The benchmark's tool-requiring turns at `benchmarks/_shared/turns.py:92,96` depend on prior context (turn 11's `submit_session_suggestion` needs the name supplied in turn 10). Single-turn smokes against turn 11 will likely fail for context reasons, not tool-call reasons. Run a contiguous range: `--only-turns 9,10,11,12`, with `MTE_NEMOTRON_AUDIO_IN_CONVERSATION_CACHE=0` and `MTE_NEMOTRON_AUDIO_IN_TRACE_DIR=$(mktemp -d)`. Confirm via trace/logs/transcript: request includes `tools` (converted to OpenAI-compatible function definitions), tool-call deltas merge to a complete call on turn 11, `run_function_calls()` produces `FunctionCallsStartedFrame` plus downstream `FunctionCallInProgressFrame` / `FunctionCallResultFrame`, `ToolCallRecorder` records the call with `submit_session_suggestion`, turn 12 sends full context, no `conversation_require_cache` on any request. If anything fails, pause before step 8.
   Key files: (validation only)
 
-- [ ] **8. Conversation cache: full-context mode**
+- [x] **8. Conversation cache: full-context mode**
   Wire `MTE_NEMOTRON_AUDIO_IN_CONVERSATION_CACHE` plumbing through `AudioInPipeline._create_llm` (already partially wired in step 2; this step makes it functional). When enabled and `suffix_only_conversation` is False: generate `_conversation_id = uuid.uuid4().hex` in `__init__` (or on first inference if simpler), include `conversation_id` in every payload, never send `conversation_require_cache`. On successful response set `_conversation_cache_committed = True`. Run Smoke 4 (manual) after Codex completes this step: same conversation ID across two requests, no `conversation_require_cache` in either, full context in both. Then re-run Smoke 2 and Smoke 3 with cache off to confirm no regressions in the cache-off paths (per the source plan's Implementation Sequence step 10, which mandates re-running smokes 2 and 3). Pause if any smoke fails.
   Key files: `src/multi_turn_eval/services/nemotron_audio_in.py`, `src/multi_turn_eval/pipelines/audio_in.py`
 
@@ -130,7 +130,7 @@ Key existing-code references:
 | 4 | Tracing with audio-payload redaction | done | cceaff2 | Redaction + lazy dir + 3 phases verified |
 | 5 | Smoke tests 1 and 2 (manual) | done | 9f09573 | Both pass: cache-off, no tools, full context turn 2 |
 | 6 | Tool-schema conversion + streaming tool-call parsing | done | 8e9c9ac | 5 tools converted, merge+finalize verified |
-| 7 | Smoke test 3 (manual, contiguous range 9-12) | done | — | submit_session_suggestion fired; cache off |
-| 8 | Conversation cache: full-context mode | pending | — | Includes Smoke 4 + re-run Smokes 2,3 |
+| 7 | Smoke test 3 (manual, contiguous range 9-12) | done | 67f8701 | submit_session_suggestion fired; cache off |
+| 8 | Conversation cache: full-context mode | done | — | Code committed; Smoke 4 + re-runs pending |
 | 9 | Suffix-only mode + tool-call disable guard | pending | — | Includes Smoke 5 + re-run Smoke 3 |
 | 10 | Unit tests (pipeline + service) | pending | — | |

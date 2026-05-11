@@ -8,6 +8,7 @@ import hashlib
 import json
 import os
 import time
+import uuid
 from pathlib import Path
 from typing import Any
 
@@ -197,6 +198,9 @@ class NemotronAudioInLLMService(LLMService):
             if tool_choice is not None and tool_choice is not NOT_GIVEN:
                 payload["tool_choice"] = tool_choice
 
+        if self._conversation_id is not None:
+            payload["conversation_id"] = self._conversation_id
+
         return payload
 
     def _convert_context_message(self, message: Any) -> dict[str, Any] | None:
@@ -351,6 +355,12 @@ class NemotronAudioInLLMService(LLMService):
         self._top_level_request_seq += 1
         top_level_request_seq = self._top_level_request_seq
         attempt_num = 1
+
+        if self._conversation_cache_enabled and self._conversation_id is None:
+            self._conversation_id = uuid.uuid4().hex
+        if self._conversation_id is not None:
+            payload["conversation_id"] = self._conversation_id
+
         trace_id = self._trace_request_id(top_level_request_seq, attempt_num)
 
         try:
@@ -390,6 +400,8 @@ class NemotronAudioInLLMService(LLMService):
                 trace_id=trace_id,
                 context=context,
             )
+            if self._conversation_cache_enabled:
+                self._conversation_cache_committed = True
         except asyncio.CancelledError:
             logger.debug(f"{self}: completion cancelled")
             raise
