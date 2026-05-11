@@ -132,5 +132,5 @@ Key existing-code references:
 | 6 | Tool-schema conversion + streaming tool-call parsing | done | 8e9c9ac | 5 tools converted, merge+finalize verified |
 | 7 | Smoke test 3 (manual, contiguous range 9-12) | done | 67f8701 | submit_session_suggestion fired; cache off |
 | 8 | Conversation cache: full-context mode | done | 7eded45 | Smoke 4 + re-runs of 2 and 3 pass |
-| 9 | Suffix-only mode + tool-call disable guard | done | — | Code committed; Smoke 5 + suffix-on Smoke 3 pending |
+| 9 | Suffix-only mode + tool-call disable guard | done | dadd074 | Smoke 5 + suffix-on Smoke 3 pass; disable guard works |
 | 10 | Unit tests (pipeline + service) | pending | — | |

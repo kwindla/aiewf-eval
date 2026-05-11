@@ -1,0 +1,152 @@
+{
+  "audio_part_count": 1,
+  "cache_required": true,
+  "conversation_id": "5054927fa8b04caba9ae56860c4eb688",
+  "phase": "request",
+  "request_body": {
+    "chat_template_kwargs": {
+      "enable_thinking": false
+    },
+    "conversation_id": "5054927fa8b04caba9ae56860c4eb688",
+    "conversation_require_cache": true,
+    "max_tokens": 1024,
+    "messages": [
+      {
+        "content": [
+          {
+            "text": "Listen to the audio and respond to the spoken instruction.",
+            "type": "text"
+          },
+          {
+            "audio_url": {
+              "url": "<data-audio-base64 sha256=fcd46f1e55c15edce12f0a64e686a99231398300ef559fcb98a53c2d59074312 chars=182644>"
+            },
+            "type": "audio_url"
+          }
+        ],
+        "role": "user"
+      }
+    ],
+    "model": "nemotron_3_nano_omni",
+    "stream": true,
+    "stream_options": {
+      "include_usage": true
+    },
+    "temperature": 0.2,
+    "tools": [
+      {
+        "function": {
+          "description": "End the current session.",
+          "name": "end_session",
+          "parameters": {
+            "properties": {},
+            "required": [],
+            "type": "object"
+          }
+        },
+        "type": "function"
+      },
+      {
+        "function": {
+          "description": "Submit a dietary request.",
+          "name": "submit_dietary_request",
+          "parameters": {
+            "properties": {
+              "dietary_preference": {
+                "description": "The dietary preference (e.g., vegetarian, gluten-free).",
+                "type": "string"
+              },
+              "name": {
+                "description": "The name of the person making the request.",
+                "type": "string"
+              }
+            },
+            "required": [
+              "name",
+              "dietary_preference"
+            ],
+            "type": "object"
+          }
+        },
+        "type": "function"
+      },
+      {
+        "function": {
+          "description": "Submit a suggestion for a new session.",
+          "name": "submit_session_suggestion",
+          "parameters": {
+            "properties": {
+              "name": {
+                "description": "The name of the person making the suggestion.",
+                "type": "string"
+              },
+              "suggestion_text": {
+                "description": "The text of the session suggestion.",
+                "type": "string"
+              }
+            },
+            "required": [
+              "name",
+              "suggestion_text"
+            ],
+            "type": "object"
+          }
+        },
+        "type": "function"
+      },
+      {
+        "function": {
+          "description": "Vote for an existing session.",
+          "name": "vote_for_session",
+          "parameters": {
+            "properties": {
+              "name": {
+                "description": "The name of the person voting.",
+                "type": "string"
+              },
+              "session_id": {
+                "description": "The Session ID of the session being voted for.",
+                "type": "string"
+              }
+            },
+            "required": [
+              "name",
+              "session_id"
+            ],
+            "type": "object"
+          }
+        },
+        "type": "function"
+      },
+      {
+        "function": {
+          "description": "Request technical support.",
+          "name": "request_tech_support",
+          "parameters": {
+            "properties": {
+              "issue_description": {
+                "description": "A description of the technical issue.",
+                "type": "string"
+              },
+              "name": {
+                "description": "The name of the person requesting support.",
+                "type": "string"
+              }
+            },
+            "required": [
+              "name",
+              "issue_description"
+            ],
+            "type": "object"
+          }
+        },
+        "type": "function"
+      }
+    ],
+    "top_k": 1
+  },
+  "role_summary": "user",
+  "suffix_only": true,
+  "timestamp": 1778475871.8050532,
+  "trace_id": "nemotron-5054927fa8b04caba9ae56860c4eb688-turn-002-attempt-01"
+}
