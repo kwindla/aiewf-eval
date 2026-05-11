@@ -4,7 +4,11 @@ from __future__ import annotations
 
 import asyncio
 import copy
+import hashlib
 import json
+import os
+import time
+from pathlib import Path
 from typing import Any
 
 import aiohttp
@@ -71,6 +75,10 @@ class NemotronAudioInLLMService(LLMService):
         self._conversation_id: str | None = None
         self._suffix_only_conversation = bool(suffix_only_conversation)
         self._conversation_cache_committed = False
+
+        trace_dir = os.getenv("MTE_NEMOTRON_AUDIO_IN_TRACE_DIR")
+        self._trace_dir: Path | None = Path(trace_dir) if trace_dir else None
+        self._top_level_request_seq = 0
 
         self._session: aiohttp.ClientSession | None = None
         self._generation_task: asyncio.Task | None = None
@@ -242,7 +250,85 @@ class NemotronAudioInLLMService(LLMService):
         logger.debug(f"{self}: skipping unsupported context content part: {item!r}")
         return None
 
+    def _count_audio_parts(self, messages: list[dict[str, Any]]) -> int:
+        count = 0
+        for message in messages:
+            content = message.get("content")
+            if not isinstance(content, list):
+                continue
+            count += sum(1 for item in content if item.get("type") == "audio_url")
+        return count
+
+    def _trace_request_id(self, top_level_request_seq: int, attempt_num: int) -> str:
+        conv = self._conversation_id or "no-conversation"
+        return f"nemotron-{conv}-turn-{top_level_request_seq:03d}-attempt-{attempt_num:02d}"
+
+    def _trace_json_value(self, value: Any) -> Any:
+        if isinstance(value, dict):
+            if (
+                set(value.keys()) == {"url"}
+                and isinstance(value["url"], str)
+                and value["url"].startswith("data:audio/")
+            ):
+                url = value["url"]
+                _, _, encoded = url.partition(",")
+                digest = hashlib.sha256(encoded.encode("ascii")).hexdigest()
+                return {
+                    "url": f"<data-audio-base64 sha256={digest} chars={len(encoded)}>",
+                }
+            return {
+                str(key): self._trace_json_value(item)
+                for key, item in value.items()
+            }
+        if isinstance(value, list):
+            return [self._trace_json_value(item) for item in value]
+        return value
+
+    def _write_trace_file(
+        self,
+        *,
+        trace_id: str,
+        phase: str,
+        payload: dict[str, Any],
+    ) -> None:
+        if self._trace_dir is None:
+            return
+
+        try:
+            self._trace_dir.mkdir(parents=True, exist_ok=True)
+        except Exception as exc:
+            logger.warning(
+                f"{self}: failed to create trace directory {self._trace_dir}: {exc}"
+            )
+            return
+
+        try:
+            trace_path = self._trace_dir / f"{trace_id}.{phase}.json"
+            trace_payload = {
+                "trace_id": trace_id,
+                "phase": phase,
+                "timestamp": time.time(),
+                **payload,
+            }
+            trace_path.write_text(
+                json.dumps(
+                    self._trace_json_value(trace_payload),
+                    indent=2,
+                    ensure_ascii=True,
+                    sort_keys=True,
+                )
+                + "\n",
+                encoding="utf-8",
+            )
+        except Exception as exc:
+            logger.warning(f"{self}: failed to write trace file for {trace_id}: {exc}")
+
     async def _run_completion_payload(self, payload: dict[str, Any]):
+        self._top_level_request_seq += 1
+        top_level_request_seq = self._top_level_request_seq
+        attempt_num = 1
+        trace_id = self._trace_request_id(top_level_request_seq, attempt_num)
+
         try:
             await self.push_frame(LLMFullResponseStartFrame())
             await self.start_processing_metrics()
@@ -253,7 +339,27 @@ class NemotronAudioInLLMService(LLMService):
                 headers["Authorization"] = f"Bearer {self._api_key}"
 
             session = await self._ensure_session()
-            await self._stream_completion(session, payload, headers)
+            if self._trace_dir is not None:
+                messages = payload.get("messages")
+                if not isinstance(messages, list):
+                    messages = []
+                self._write_trace_file(
+                    trace_id=trace_id,
+                    phase="request",
+                    payload={
+                        "conversation_id": self._conversation_id,
+                        "suffix_only": False,
+                        "cache_required": bool(
+                            payload.get("conversation_require_cache", False)
+                        ),
+                        "role_summary": ",".join(
+                            str(message.get("role") or "?") for message in messages
+                        ),
+                        "audio_part_count": self._count_audio_parts(messages),
+                        "request_body": payload,
+                    },
+                )
+            await self._stream_completion(session, payload, headers, trace_id=trace_id)
         except asyncio.CancelledError:
             logger.debug(f"{self}: completion cancelled")
             raise
@@ -271,8 +377,12 @@ class NemotronAudioInLLMService(LLMService):
         session: aiohttp.ClientSession,
         payload: dict[str, Any],
         headers: dict[str, str],
+        *,
+        trace_id: str,
     ):
         ttfb_stopped = False
+        output_text_parts: list[str] | None = [] if self._trace_dir is not None else None
+        last_usage: dict[str, Any] | None = None
         async with session.post(
             self._chat_completions_url,
             json=payload,
@@ -280,6 +390,11 @@ class NemotronAudioInLLMService(LLMService):
         ) as response:
             if response.status != 200:
                 error_text = await response.text()
+                self._write_trace_file(
+                    trace_id=trace_id,
+                    phase="client-error",
+                    payload={"status": response.status, "response_text": error_text},
+                )
                 raise RuntimeError(f"vLLM request failed with {response.status}: {error_text}")
 
             async for event in self._iter_sse_events(response):
@@ -298,6 +413,8 @@ class NemotronAudioInLLMService(LLMService):
 
                 usage = chunk.get("usage")
                 if isinstance(usage, dict):
+                    if self._trace_dir is not None:
+                        last_usage = copy.deepcopy(usage)
                     await self.start_llm_usage_metrics(
                         LLMTokenUsage(
                             prompt_tokens=usage.get("prompt_tokens") or 0,
@@ -328,7 +445,21 @@ class NemotronAudioInLLMService(LLMService):
                     if not ttfb_stopped:
                         await self.stop_ttfb_metrics()
                         ttfb_stopped = True
+                    if output_text_parts is not None:
+                        output_text_parts.append(text)
                     await self._push_llm_text(text)
+
+        if self._trace_dir is not None:
+            output_text = "".join(output_text_parts or [])
+            self._write_trace_file(
+                trace_id=trace_id,
+                phase="response",
+                payload={
+                    "status": 200,
+                    "output_text_preview": output_text[:500],
+                    "usage": last_usage,
+                },
+            )
 
     async def _iter_sse_events(self, response: aiohttp.ClientResponse):
         buffer = ""
