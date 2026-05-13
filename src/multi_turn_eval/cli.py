@@ -35,7 +35,7 @@ SERVICE_ALIASES = {
     "modal": "pipecat.services.openai.llm.OpenAILLMService",  # Modal uses OpenAI-compatible API
     "lilac": "pipecat.services.openai.llm.OpenAILLMService",  # Lilac uses OpenAI-compatible API
     "nemotron": "multi_turn_eval.services.nemotron.NemotronLLMService",
-    "nemotron-audio-in": "multi_turn_eval.services.nemotron_audio_in.NemotronAudioInLLMService",
+    "nemotron-audio-in": "multi_turn_eval.vendor.nemotron_omni.NemotronOmniAudioLLMService",
     "anthropic": "multi_turn_eval.services.anthropic_logged.LoggedAnthropicLLMService",
     "google": "pipecat.services.google.llm.GoogleLLMService",
     "gemini-live": "multi_turn_eval.pipelines.realtime.GeminiLiveLLMServiceWithReconnection",

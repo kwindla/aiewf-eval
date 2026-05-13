@@ -1,9 +1,16 @@
-"""Audio-input pipeline for Nemotron audio-in/text-out services."""
+"""Audio-input pipeline for Nemotron audio-in/text-out services.
+
+The LLM service is vendored from `../nemotron-nano-omni` — see
+`multi_turn_eval/vendor/README.md` for source / refresh procedure. This
+pipeline owns audio-file loading and the four `TextPipeline` overrides; the
+cache state machine lives entirely in the vendored service.
+"""
 
 from __future__ import annotations
 
 import base64
 import os
+import uuid
 from pathlib import Path
 from typing import Any, Optional
 
@@ -16,7 +23,13 @@ from pipecat.processors.aggregators.llm_response_universal import (
 from pipecat.processors.frame_processor import FrameProcessor
 
 from multi_turn_eval.pipelines.text import TextPipeline
-from multi_turn_eval.services.nemotron_audio_in import NemotronAudioInLLMService
+from multi_turn_eval.vendor.nemotron_omni import (
+    NEMOTRON_OMNI_INSTRUCT_DEFAULT_MAX_TOKENS,
+    NEMOTRON_OMNI_INSTRUCT_DEFAULT_TEMPERATURE,
+    NEMOTRON_OMNI_INSTRUCT_DEFAULT_TOP_K,
+    NemotronAssistantAggregator,
+    NemotronOmniAudioLLMService,
+)
 
 
 def _env_bool(name: str, default: bool) -> bool:
@@ -38,7 +51,14 @@ def _audio_prompt() -> str | None:
 
 
 class AudioInPipeline(TextPipeline):
-    """Pipeline that sends benchmark user turns as WAV audio content parts."""
+    """Pipeline that sends benchmark user turns as WAV audio content parts.
+
+    Built on top of the vendored Nemotron Omni service. The conversation cache
+    is owned by the service: when ``MTE_NEMOTRON_AUDIO_IN_CONVERSATION_CACHE=1``
+    we generate a per-run ``conversation_id`` and let the upstream contract
+    drive suffix-only attach automatically (there is no longer a separate
+    ``suffix_only`` knob in the new API).
+    """
 
     def _build_audio_user_message(self, turn_index: int) -> dict[str, Any]:
         actual_index = self._get_actual_turn_index(turn_index)
@@ -111,23 +131,72 @@ class AudioInPipeline(TextPipeline):
         )
         await self.task.queue_frames([LLMRunFrame()])
 
+    def _build_assistant_aggregator(self) -> FrameProcessor:
+        """Use the upstream NemotronAssistantAggregator so the local context
+        matches what vLLM commits across cache-on / cache-off paths.
+        """
+        return NemotronAssistantAggregator(
+            self.context,
+            interrupted_tool_pass_signal=None,
+            conversation_commit_boundary_tracker=self.llm.conversation_commit_boundary_tracker,
+        )
+
     def _create_llm(
         self, service_class: Optional[type], model: str
     ) -> FrameProcessor:
         if service_class is not None and not issubclass(
-            service_class, NemotronAudioInLLMService
+            service_class, NemotronOmniAudioLLMService
         ):
-            alias = self.service_name or getattr(service_class, "__name__", repr(service_class))
+            alias = self.service_name or getattr(
+                service_class, "__name__", repr(service_class)
+            )
             raise ValueError(
                 "AudioInPipeline requires service alias 'nemotron-audio-in'; "
                 f"got {alias!r}"
             )
 
-        llm_class = service_class or NemotronAudioInLLMService
+        llm_class = service_class or NemotronOmniAudioLLMService
+
+        # Deprecation warning for the now-defunct suffix-only knob.
+        if os.getenv("MTE_NEMOTRON_AUDIO_IN_SUFFIX_ONLY") is not None:
+            logger.warning(
+                "MTE_NEMOTRON_AUDIO_IN_SUFFIX_ONLY is no longer honored — the "
+                "upstream contract makes suffix-only implicit whenever "
+                "conversation_id is set. Use MTE_NEMOTRON_AUDIO_IN_CONVERSATION_CACHE "
+                "to toggle the cache."
+            )
+
+        conv_cache = _env_bool("MTE_NEMOTRON_AUDIO_IN_CONVERSATION_CACHE", False)
+        conversation_id = f"mte-{uuid.uuid4().hex}" if conv_cache else None
+
         enable_thinking = _env_bool("MTE_NEMOTRON_AUDIO_IN_THINKING", False)
 
-        return llm_class(
+        settings = NemotronOmniAudioLLMService.Settings(
             model=model,
+            system_instruction=getattr(self.benchmark, "system_instruction", "") or None,
+            temperature=float(
+                os.getenv(
+                    "MTE_NEMOTRON_AUDIO_IN_TEMPERATURE",
+                    str(NEMOTRON_OMNI_INSTRUCT_DEFAULT_TEMPERATURE),
+                )
+            ),
+            max_tokens=int(
+                os.getenv(
+                    "MTE_NEMOTRON_AUDIO_IN_MAX_TOKENS",
+                    str(NEMOTRON_OMNI_INSTRUCT_DEFAULT_MAX_TOKENS),
+                )
+            ),
+            top_p=None,
+            top_k=int(
+                os.getenv(
+                    "MTE_NEMOTRON_AUDIO_IN_TOP_K",
+                    str(NEMOTRON_OMNI_INSTRUCT_DEFAULT_TOP_K),
+                )
+            ),
+            chat_template_kwargs={"enable_thinking": enable_thinking},
+        )
+
+        return llm_class(
             api_key=os.getenv("NEMOTRON_AUDIO_IN_API_KEY")
             or os.getenv("OPENAI_API_KEY")
             or None,
@@ -135,18 +204,10 @@ class AudioInPipeline(TextPipeline):
                 "MTE_NEMOTRON_AUDIO_IN_BASE_URL",
                 "http://192.168.7.228:8000/v1",
             ),
-            temperature=float(os.getenv("MTE_NEMOTRON_AUDIO_IN_TEMPERATURE", "0.2")),
-            max_tokens=int(os.getenv("MTE_NEMOTRON_AUDIO_IN_MAX_TOKENS", "1024")),
-            top_p=None,
-            top_k=int(os.getenv("MTE_NEMOTRON_AUDIO_IN_TOP_K", "1")),
-            chat_template_kwargs={"enable_thinking": enable_thinking},
+            conversation_id=conversation_id,
             request_timeout_secs=float(
                 os.getenv("MTE_NEMOTRON_AUDIO_IN_TIMEOUT_SECS", "180")
             ),
-            conversation_cache_enabled=_env_bool(
-                "MTE_NEMOTRON_AUDIO_IN_CONVERSATION_CACHE", False
-            ),
-            suffix_only_conversation=_env_bool(
-                "MTE_NEMOTRON_AUDIO_IN_SUFFIX_ONLY", False
-            ),
+            enable_bash_tool=False,
+            settings=settings,
         )

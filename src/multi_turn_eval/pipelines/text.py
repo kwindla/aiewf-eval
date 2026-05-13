@@ -313,6 +313,15 @@ class TextPipeline(BasePipeline):
         """Register the function handler for all tools."""
         self.llm.register_function(None, self._function_catchall)
 
+    def _build_assistant_aggregator(self) -> FrameProcessor:
+        """Return the assistant aggregator to use in the pipeline.
+
+        Subclasses may override to substitute a custom aggregator (e.g.
+        AudioInPipeline uses NemotronAssistantAggregator). The default is
+        the vanilla assistant aggregator from LLMContextAggregatorPair.
+        """
+        return self.context_aggregator.assistant()
+
     def _build_task(self) -> None:
         """Build the pipeline with context aggregators and turn detector."""
 
@@ -399,7 +408,7 @@ class TextPipeline(BasePipeline):
                 self.context_aggregator.user(),
                 self.llm,
                 ToolCallRecorder(recorder_accessor, duplicate_ids_accessor),
-                self.context_aggregator.assistant(),
+                self._build_assistant_aggregator(),
                 next_turn,
             ]
         )
