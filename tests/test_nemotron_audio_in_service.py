@@ -1,4 +1,5 @@
 import hashlib
+import inspect
 import json
 
 import pytest
@@ -18,6 +19,16 @@ def _service(**kwargs):
 
 def _user_message(content="hello"):
     return {"role": "user", "content": content}
+
+
+def _payload_from_context(service, context_messages, context=None):
+    canonical = service._canonical_messages_from_context(context_messages)
+    assert canonical is not None
+    payload, full_messages = service._build_payload_from_messages(
+        canonical,
+        context=context,
+    )
+    return payload, full_messages
 
 
 def test_input_audio_converts_to_audio_url():
@@ -49,11 +60,11 @@ def test_audio_url_passes_through():
 
 def test_chat_template_kwargs_emitted():
     default_service = _service()
-    default_payload = default_service._build_payload_from_messages([_user_message()])
+    default_payload, _ = _payload_from_context(default_service, [_user_message()])
     assert default_payload["chat_template_kwargs"] == {"enable_thinking": False}
 
     thinking_service = _service(chat_template_kwargs={"enable_thinking": True})
-    thinking_payload = thinking_service._build_payload_from_messages([_user_message()])
+    thinking_payload, _ = _payload_from_context(thinking_service, [_user_message()])
     assert thinking_payload["chat_template_kwargs"] == {"enable_thinking": True}
 
 
@@ -66,8 +77,9 @@ def test_set_model_name():
 
 
 def test_cache_off_payload_omits_cache_fields():
-    payload = _service()._build_payload_from_messages([_user_message()])
+    payload, _ = _payload_from_context(_service(), [_user_message()])
 
+    assert payload["messages"] == [_user_message()]
     assert "conversation_id" not in payload
     assert "conversation_require_cache" not in payload
 
@@ -76,7 +88,7 @@ def test_cache_on_full_context_includes_id_no_require():
     service = _service(conversation_cache_enabled=True)
     service._conversation_id = "abc"
 
-    payload = service._build_payload_from_messages([_user_message()])
+    payload, _ = _payload_from_context(service, [_user_message()])
 
     assert payload["conversation_id"] == "abc"
     assert "conversation_require_cache" not in payload
@@ -85,11 +97,9 @@ def test_cache_on_full_context_includes_id_no_require():
 def test_suffix_only_payload_has_one_user_message_and_require_cache():
     service = _service(conversation_cache_enabled=True, suffix_only_conversation=True)
     service._conversation_id = "abc"
+    service._conversation_cache_committed = True
 
-    payload = service._build_payload_from_messages(
-        [_user_message("latest")],
-        require_cache=True,
-    )
+    payload, _ = _payload_from_context(service, [_user_message("latest")])
 
     assert payload["messages"] == [_user_message("latest")]
     assert payload["conversation_require_cache"] is True
@@ -161,7 +171,8 @@ def test_is_conversation_cache_miss():
 
 def test_tools_schema_conversion():
     context = LLMContext([_user_message()], tools=ToolsSchemaForTest)
-    payload = _service()._build_payload_from_messages(
+    payload, _ = _payload_from_context(
+        _service(),
         context.get_messages(),
         context=context,
     )
@@ -175,9 +186,10 @@ def test_tools_schema_conversion():
 
 
 def test_not_given_omitted_from_payload():
-    context = LLMContext()
+    context = LLMContext([_user_message()])
 
-    payload = _service()._build_payload_from_messages(
+    payload, _ = _payload_from_context(
+        _service(),
         context.get_messages(),
         context=context,
     )
@@ -314,15 +326,62 @@ def test_count_audio_parts():
 
 def test_no_conversation_logical_checkpoint_token_count_ever():
     messages = [_user_message()]
-    cache_off = _service()._build_payload_from_messages(messages)
+    cache_off, _ = _payload_from_context(_service(), messages)
 
     cache_on_service = _service(conversation_cache_enabled=True)
     cache_on_service._conversation_id = "abc"
-    cache_on_full = cache_on_service._build_payload_from_messages(messages)
-    suffix_only = cache_on_service._build_payload_from_messages(
-        [_user_message("latest")],
-        require_cache=True,
-    )
+    cache_on_full, _ = _payload_from_context(cache_on_service, messages)
+
+    suffix_service = _service(conversation_cache_enabled=True, suffix_only_conversation=True)
+    suffix_service._conversation_id = "abc"
+    suffix_service._conversation_cache_committed = True
+    suffix_only, _ = _payload_from_context(suffix_service, [_user_message("latest")])
 
     for payload in (cache_off, cache_on_full, suffix_only):
         assert "conversation_logical_checkpoint_token_count" not in payload
+
+
+def test_tool_round_carries_results_into_next_suffix():
+    service = _service(conversation_cache_enabled=True, suffix_only_conversation=True)
+    tool_result = {"role": "tool", "tool_call_id": "call_0", "content": "{}"}
+    service._pending_tool_result_messages = [tool_result]
+    service._conversation_cache_committed = True
+    service._conversation_id = "x"
+    service._canonical_messages = [
+        {"role": "system", "content": "s"},
+        {"role": "user", "content": "u1"},
+        {
+            "role": "assistant",
+            "content": None,
+            "tool_calls": [
+                {
+                    "id": "call_0",
+                    "type": "function",
+                    "function": {"name": "f", "arguments": "{}"},
+                }
+            ],
+        },
+    ]
+
+    canonical = service._canonical_messages_from_context(
+        [{"role": "system", "content": "s"}, {"role": "user", "content": "u2"}]
+    )
+    assert canonical is not None
+    payload, full_messages = service._build_payload_from_messages(
+        canonical,
+        context=LLMContext(),
+    )
+
+    assert full_messages == [
+        *service._canonical_messages,
+        tool_result,
+        {"role": "user", "content": "u2"},
+    ]
+    assert payload["messages"] == [tool_result, {"role": "user", "content": "u2"}]
+    assert payload["conversation_require_cache"] is True
+
+
+def test_disable_guard_removed():
+    source = inspect.getsource(NemotronAudioInLLMService)
+
+    assert "_tool_calls_handled_this_request" not in source

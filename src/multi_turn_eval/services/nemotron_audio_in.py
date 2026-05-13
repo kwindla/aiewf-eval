@@ -79,7 +79,11 @@ class NemotronAudioInLLMService(LLMService):
         self._conversation_id: str | None = None
         self._suffix_only_conversation = bool(suffix_only_conversation)
         self._conversation_cache_committed = False
-        self._tool_calls_handled_this_request = False
+        self._canonical_messages: list[dict[str, Any]] = []
+        self._system_message: dict[str, Any] | None = None
+        self._pending_tool_result_messages: list[dict[str, Any]] = []
+        self._new_tool_results: list[dict[str, Any]] = []
+        self._new_tool_round_assistant_message: dict[str, Any] | None = None
 
         trace_dir = os.getenv("MTE_NEMOTRON_AUDIO_IN_TRACE_DIR")
         self._trace_dir: Path | None = Path(trace_dir) if trace_dir else None
@@ -128,47 +132,26 @@ class NemotronAudioInLLMService(LLMService):
             await self.push_frame(frame, direction)
 
     async def _handle_context_frame(self, context: LLMContext):
-        context_messages = copy.deepcopy(
-            context.get_messages(llm_specific_filter=self.__class__.__name__)
-        )
-        converted_messages: list[dict[str, Any]] = []
-        for message in context_messages:
-            converted = self._convert_context_message(message)
-            if converted is not None:
-                converted_messages.append(converted)
-
-        if not converted_messages:
+        messages = copy.deepcopy(context.get_messages(llm_specific_filter=self.__class__.__name__))
+        if not messages:
             logger.debug(f"{self}: ignoring empty LLM context")
             return
 
-        await self._cancel_generation_task()
-        if self._should_send_suffix_only():
-            latest_user = self._latest_user_message(converted_messages)
-            if latest_user is None:
-                logger.warning(
-                    f"{self}: suffix-only requested but no user message; "
-                    "falling back to full context"
-                )
-                messages_to_send = converted_messages
-                require_cache = False
-            else:
-                messages_to_send = [latest_user]
-                require_cache = True
-        else:
-            messages_to_send = converted_messages
-            require_cache = False
+        canonical_messages = self._canonical_messages_from_context(messages)
+        if canonical_messages is None:
+            logger.debug(f"{self}: ignoring LLM context without a latest user message")
+            return
 
-        payload = self._build_payload_from_messages(
-            messages_to_send,
+        await self._cancel_generation_task()
+        payload, full_messages = self._build_payload_from_messages(
+            canonical_messages,
             context=context,
-            require_cache=require_cache,
         )
         self._generation_task = self.create_task(
             self._run_completion_payload(
                 payload,
                 context=context,
-                require_cache_requested=require_cache,
-                converted_messages=converted_messages,
+                full_messages=full_messages,
             ),
             name="nemotron_audio_in_completion",
         )
@@ -191,14 +174,14 @@ class NemotronAudioInLLMService(LLMService):
 
     def _build_payload_from_messages(
         self,
-        messages: list[dict[str, Any]],
+        full_messages: list[dict[str, Any]],
         *,
         context: LLMContext | None = None,
-        require_cache: bool = False,
-    ) -> dict[str, Any]:
+    ) -> tuple[dict[str, Any], list[dict[str, Any]]]:
+        payload_messages, requires_cache = self._conversation_payload_messages(full_messages)
         payload: dict[str, Any] = {
             "model": self.model_name,
-            "messages": copy.deepcopy(messages),
+            "messages": payload_messages,
             "stream": True,
             "stream_options": {"include_usage": True},
         }
@@ -227,10 +210,35 @@ class NemotronAudioInLLMService(LLMService):
 
         if self._conversation_id is not None:
             payload["conversation_id"] = self._conversation_id
-        if require_cache:
+        if requires_cache:
             payload["conversation_require_cache"] = True
 
-        return payload
+        return payload, copy.deepcopy(full_messages)
+
+    def _conversation_payload_messages(
+        self,
+        full_messages: list[dict[str, Any]],
+    ) -> tuple[list[dict[str, Any]], bool]:
+        if (
+            not self._conversation_id
+            or not self._suffix_only_conversation
+            or not self._conversation_cache_committed
+        ):
+            return copy.deepcopy(full_messages), False
+
+        latest_user = self._latest_user_message(full_messages)
+        if latest_user is None:
+            logger.warning(
+                f"{self}: suffix-only conversation mode found no user message; "
+                "sending full context"
+            )
+            return copy.deepcopy(full_messages), False
+
+        suffix_messages = [
+            *copy.deepcopy(self._pending_tool_result_messages),
+            latest_user,
+        ]
+        return suffix_messages, True
 
     def _should_send_suffix_only(self) -> bool:
         return (
@@ -248,6 +256,61 @@ class NemotronAudioInLLMService(LLMService):
             if message.get("role") == "user":
                 return copy.deepcopy(message)
         return None
+
+    def _canonical_messages_from_context(
+        self,
+        context_messages: list[Any],
+    ) -> list[dict[str, Any]] | None:
+        latest_user_message: dict[str, Any] | None = None
+        for message in context_messages:
+            converted = self._convert_context_message(message)
+            if converted is None:
+                continue
+            if converted.get("role") == "system":
+                self._system_message = copy.deepcopy(converted)
+            elif converted.get("role") == "user":
+                latest_user_message = converted
+
+        if latest_user_message is None:
+            return None
+
+        if self._canonical_messages:
+            canonical_messages = self._with_system_message(self._canonical_messages)
+        else:
+            canonical_messages = self._with_system_message([])
+
+        canonical_messages.extend(copy.deepcopy(self._pending_tool_result_messages))
+        canonical_messages.append(copy.deepcopy(latest_user_message))
+        return canonical_messages
+
+    def _commit_canonical_messages(
+        self,
+        full_messages: list[dict[str, Any]],
+        *,
+        final_assistant_text: str,
+    ) -> None:
+        committed_messages = copy.deepcopy(full_messages)
+        if self._new_tool_round_assistant_message is not None:
+            committed_messages.append(copy.deepcopy(self._new_tool_round_assistant_message))
+        elif final_assistant_text:
+            committed_messages.append(
+                {"role": "assistant", "content": final_assistant_text}
+            )
+        self._canonical_messages = committed_messages
+
+    def _with_system_message(
+        self,
+        messages: list[dict[str, Any]],
+    ) -> list[dict[str, Any]]:
+        normalized_messages = copy.deepcopy(messages)
+        if self._system_message is None:
+            return normalized_messages
+
+        system_message = copy.deepcopy(self._system_message)
+        if normalized_messages and normalized_messages[0].get("role") == "system":
+            normalized_messages[0] = system_message
+            return normalized_messages
+        return [system_message, *normalized_messages]
 
     def _convert_context_message(self, message: Any) -> dict[str, Any] | None:
         if isinstance(message, LLMSpecificMessage):
@@ -425,14 +488,15 @@ class NemotronAudioInLLMService(LLMService):
         payload: dict[str, Any],
         *,
         context: LLMContext,
-        require_cache_requested: bool = False,
-        converted_messages: list[dict[str, Any]] | None = None,
+        full_messages: list[dict[str, Any]],
     ):
         self._top_level_request_seq += 1
         top_level_request_seq = self._top_level_request_seq
         attempt_num = 1
         recovered_from_cache_miss = False
-        self._tool_calls_handled_this_request = False
+        final_assistant_text = ""
+        self._new_tool_results = []
+        self._new_tool_round_assistant_message = None
 
         if self._conversation_cache_enabled and self._conversation_id is None:
             self._conversation_id = uuid.uuid4().hex
@@ -454,10 +518,10 @@ class NemotronAudioInLLMService(LLMService):
             self._write_request_trace(
                 trace_id=trace_id,
                 payload=payload,
-                suffix_only=require_cache_requested,
+                suffix_only=bool(payload.get("conversation_require_cache")),
             )
             try:
-                await self._stream_completion(
+                final_assistant_text = await self._stream_completion(
                     session,
                     payload,
                     headers,
@@ -465,7 +529,7 @@ class NemotronAudioInLLMService(LLMService):
                     context=context,
                 )
             except ConversationCacheMissError:
-                if not require_cache_requested or not converted_messages:
+                if not payload.get("conversation_require_cache"):
                     raise
 
                 logger.warning(
@@ -474,19 +538,13 @@ class NemotronAudioInLLMService(LLMService):
                 )
                 attempt_num = 2
                 trace_id = self._trace_request_id(top_level_request_seq, attempt_num)
-                retry_payload = self._build_payload_from_messages(
-                    converted_messages,
-                    context=context,
-                    require_cache=False,
-                )
-                if self._conversation_id is not None:
-                    retry_payload["conversation_id"] = self._conversation_id
+                retry_payload = self._full_context_retry_payload(payload, full_messages)
                 self._write_request_trace(
                     trace_id=trace_id,
                     payload=retry_payload,
                     suffix_only=False,
                 )
-                await self._stream_completion(
+                final_assistant_text = await self._stream_completion(
                     session,
                     retry_payload,
                     headers,
@@ -495,13 +553,15 @@ class NemotronAudioInLLMService(LLMService):
                 )
                 recovered_from_cache_miss = True
 
+            self._commit_canonical_messages(
+                full_messages,
+                final_assistant_text=final_assistant_text,
+            )
+            self._pending_tool_result_messages = []
+            if self._new_tool_results:
+                self._pending_tool_result_messages = copy.deepcopy(self._new_tool_results)
             if self._conversation_cache_enabled:
-                self._conversation_cache_committed = True
-                if self._suffix_only_conversation and (
-                    recovered_from_cache_miss
-                    or self._tool_calls_handled_this_request
-                ):
-                    self._conversation_cache_committed = False
+                self._conversation_cache_committed = not recovered_from_cache_miss
         except asyncio.CancelledError:
             logger.debug(f"{self}: completion cancelled")
             raise
@@ -509,6 +569,8 @@ class NemotronAudioInLLMService(LLMService):
             logger.error(f"{self}: completion failed: {exc}")
             await self.push_frame(ErrorFrame(error=str(exc)))
         finally:
+            self._new_tool_results = []
+            self._new_tool_round_assistant_message = None
             await self.stop_processing_metrics()
             await self.push_frame(LLMFullResponseEndFrame())
             if self._generation_task is asyncio.current_task():
@@ -522,9 +584,9 @@ class NemotronAudioInLLMService(LLMService):
         *,
         trace_id: str,
         context: LLMContext,
-    ):
+    ) -> str:
         ttfb_stopped = False
-        output_text_parts: list[str] | None = [] if self._trace_dir is not None else None
+        output_text_parts: list[str] = []
         last_usage: dict[str, Any] | None = None
         tool_calls_by_index: dict[int, dict[str, Any]] = {}
         async with session.post(
@@ -593,10 +655,10 @@ class NemotronAudioInLLMService(LLMService):
                     if not ttfb_stopped:
                         await self.stop_ttfb_metrics()
                         ttfb_stopped = True
-                    if output_text_parts is not None:
-                        output_text_parts.append(text)
+                    output_text_parts.append(text)
                     await self._push_llm_text(text)
 
+        output_text = "".join(output_text_parts)
         tool_calls = self._finalize_tool_calls(tool_calls_by_index)
         if tool_calls:
             function_calls: list[FunctionCallFromLLM] = []
@@ -623,10 +685,21 @@ class NemotronAudioInLLMService(LLMService):
                 )
 
             await self.run_function_calls(function_calls)
-            self._tool_calls_handled_this_request = True
+            self._new_tool_round_assistant_message = {
+                "role": "assistant",
+                "content": output_text or None,
+                "tool_calls": copy.deepcopy(tool_calls),
+            }
+            self._new_tool_results = [
+                {
+                    "role": "tool",
+                    "tool_call_id": function_call.tool_call_id,
+                    "content": json.dumps({"status": "success"}),
+                }
+                for function_call in function_calls
+            ]
 
         if self._trace_dir is not None:
-            output_text = "".join(output_text_parts or [])
             self._write_trace_file(
                 trace_id=trace_id,
                 phase="response",
@@ -636,6 +709,7 @@ class NemotronAudioInLLMService(LLMService):
                     "usage": last_usage,
                 },
             )
+        return output_text
 
     @staticmethod
     def _is_conversation_cache_miss(status: int, error_text: str) -> bool:
@@ -649,6 +723,16 @@ class NemotronAudioInLLMService(LLMService):
         if not isinstance(error, dict):
             return False
         return error.get("type") == "ConversationCacheMissError"
+
+    def _full_context_retry_payload(
+        self,
+        payload: dict[str, Any],
+        full_messages: list[dict[str, Any]],
+    ) -> dict[str, Any]:
+        retry_payload = copy.deepcopy(payload)
+        retry_payload["messages"] = copy.deepcopy(full_messages)
+        retry_payload.pop("conversation_require_cache", None)
+        return retry_payload
 
     @staticmethod
     def _merge_tool_call_delta(
