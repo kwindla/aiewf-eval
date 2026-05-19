@@ -34,6 +34,7 @@ SERVICE_ALIASES = {
     "openrouter": "pipecat.services.openai.llm.OpenAILLMService",  # OpenRouter uses OpenAI-compatible API
     "modal": "pipecat.services.openai.llm.OpenAILLMService",  # Modal uses OpenAI-compatible API
     "lilac": "pipecat.services.openai.llm.OpenAILLMService",  # Lilac uses OpenAI-compatible API
+    "vllm-openai": "pipecat.services.openai.llm.OpenAILLMService",  # Local/remote vLLM OpenAI-compatible endpoint
     "nemotron": "multi_turn_eval.services.nemotron.NemotronLLMService",
     "nemotron-audio-in": "multi_turn_eval.vendor.nemotron_omni.NemotronOmniAudioLLMService",
     "anthropic": "multi_turn_eval.services.anthropic_logged.LoggedAnthropicLLMService",

@@ -329,6 +329,55 @@ class BasePipeline(ABC):
             )
             return service_class(**kwargs)
 
+        # Handle vllm-openai (OpenAI-compatible chat-completions endpoint exposed
+        # by a vLLM server — no auth, base URL via VLLM_BASE_URL). Sampling
+        # defaults follow Unsloth's empirical recommendation for tool calling
+        # (T=0.6, top_p=0.95) since NVIDIA's instruct recommendation (T=0.2,
+        # top_k=1) deterministically collapses to end_session on this
+        # benchmark's first turn. Override any field by setting the
+        # corresponding env var to "" (unset) or a numeric value.
+        if service_name_lower == "vllm-openai":
+            base_url = os.getenv("VLLM_BASE_URL", "http://127.0.0.1:8000/v1")
+            api_key = os.getenv("VLLM_API_KEY", "EMPTY")
+            kwargs["api_key"] = api_key
+            kwargs["base_url"] = base_url
+
+            from pipecat.services.openai.llm import OpenAILLMService
+
+            def _opt_float(name: str, default: str) -> float | None:
+                raw = os.getenv(name, default).strip()
+                return float(raw) if raw else None
+
+            def _opt_int(name: str, default: str) -> int | None:
+                raw = os.getenv(name, default).strip()
+                return int(raw) if raw else None
+
+            enable_thinking = _env_bool("MTE_VLLM_THINKING", False)
+            temperature = _opt_float("MTE_VLLM_TEMPERATURE", "0.6")
+            top_p = _opt_float("MTE_VLLM_TOP_P", "0.95")
+            top_k = _opt_int("MTE_VLLM_TOP_K", "")  # unset by default
+            max_tokens = _opt_int("MTE_VLLM_MAX_TOKENS", "1024")
+
+            params_kwargs: Dict[str, Any] = {}
+            if temperature is not None:
+                params_kwargs["temperature"] = temperature
+            if top_p is not None:
+                params_kwargs["top_p"] = top_p
+            if top_k is not None:
+                params_kwargs["top_k"] = top_k
+            if max_tokens is not None:
+                params_kwargs["max_tokens"] = max_tokens
+            params_kwargs["extra"] = {
+                "extra_body": {"chat_template_kwargs": {"enable_thinking": enable_thinking}}
+            }
+            kwargs["params"] = OpenAILLMService.InputParams(**params_kwargs)
+            logger.info(
+                f"Using vllm-openai with base_url={base_url}, model={model}, "
+                f"thinking={enable_thinking}, T={temperature}, top_p={top_p}, "
+                f"top_k={top_k}, max_tokens={max_tokens}"
+            )
+            return service_class(**kwargs)
+
         if "Anthropic" in class_name:
             api_key = os.getenv("ANTHROPIC_API_KEY")
             if not api_key:
