@@ -6,7 +6,7 @@ requires-python = ">=3.12"
 dependencies = [
   "click>=8.3",
   "pipecat-ai[anthropic,aws,aws-nova-sonic,azure,cerebras,google,groq,openai,silero]==1.1.0",
-  "google-genai>=1.56.0",
+  "google-genai>=2.3.0,<2.4.0",
   "python-dotenv",
   "loguru",
   "sounddevice>=0.4.6",
@@ -44,6 +44,11 @@ packages = ["src/multi_turn_eval", "scripts", "benchmarks"]
 
 [tool.hatch.build.targets.sdist]
 only-include = ["src", "scripts", "benchmarks", "turns.py", "tools_schema.py", "system_instruction.py", "system_instruction_short.py"]
+
+[tool.uv]
+# Override pipecat-ai's google-genai<2 cap so we can pick up gemini-3.5-flash
+# fixes from the 2.x SDK. Re-evaluate after each pipecat upgrade.
+override-dependencies = ["google-genai>=2.3.0,<2.4.0"]
 
 [tool.uv.sources]
 # Use github branch of pipecat instead of PyPI (commented out to use PyPI versions)

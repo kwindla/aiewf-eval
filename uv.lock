@@ -7,6 +7,9 @@ resolution-markers = [
     "python_full_version < '3.13'",
 ]
 
+[manifest]
+overrides = [{ name = "google-genai", specifier = ">=2.3.0,<2.4.0" }]
+
 [[package]]
 name = "aioboto3"
 version = "15.5.0"
@@ -809,7 +812,7 @@ wheels = [
 
 [[package]]
 name = "google-genai"
-version = "1.75.0"
+version = "2.3.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "anyio" },
@@ -823,9 +826,9 @@ dependencies = [
     { name = "typing-extensions" },
     { name = "websockets" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/9d/59/3ed61240ef20b3ae6ed54e82c6f8b6d1f194947bc6679679dd6cdb037594/google_genai-1.75.0.tar.gz", hash = "sha256:56bac3991b311c93f980c0a2abcd287b672146905df1fbd71c92ed633d5a07cf", size = 539039, upload-time = "2026-05-04T22:48:54.857Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/02/8e/dfa4b34dd4c0baffccf6466fc68d6d35011662d43e7d79accb902320db74/google_genai-2.3.0.tar.gz", hash = "sha256:e877c750a4ccacdd9928fc3aa8ca8820ce85cade0ca51bd83feceacf5959b579", size = 546930, upload-time = "2026-05-15T06:22:36.264Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/2d/b6/552d40e96da22921eb1fead7c14b00b5b5473a20e45959488660fab35ee2/google_genai-1.75.0-py3-none-any.whl", hash = "sha256:8dc4c096e7d6288c3087f6893f582fe52468932464781edb8193bd92b9fefb2c", size = 793726, upload-time = "2026-05-04T22:48:53.033Z" },
+    { url = "https://files.pythonhosted.org/packages/b4/6e/aa6b30b09f58b946750fc4089c5248fbd3576f746e0e818d88633559dc84/google_genai-2.3.0-py3-none-any.whl", hash = "sha256:89d3c71c9f5f5b931b405b88a5837aea2bd4d27ed90323b9599f5760bbb91d92", size = 805484, upload-time = "2026-05-15T06:22:34.247Z" },
 ]
 
 [[package]]
@@ -1404,7 +1407,7 @@ requires-dist = [
     { name = "anthropic", specifier = ">=0.49.0" },
     { name = "claude-agent-sdk", specifier = ">=0.1.73" },
     { name = "click", specifier = ">=8.3" },
-    { name = "google-genai", specifier = ">=1.56.0" },
+    { name = "google-genai", specifier = ">=2.3.0,<2.4.0" },
     { name = "loguru" },
     { name = "numpy", specifier = ">=1.26" },
     { name = "openai", specifier = ">=2.34.0" },
