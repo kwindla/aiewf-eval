@@ -401,6 +401,37 @@ class BasePipeline(ABC):
             if not api_key:
                 raise EnvironmentError("CEREBRAS_API_KEY environment variable is required")
             kwargs["api_key"] = api_key
+
+            # Cerebras reasoning models (e.g. moonshotai-kimi-k2.6) default to
+            # Thinking mode. Set MTE_CEREBRAS_REASONING_EFFORT=none for Instant
+            # mode (thinking disabled). Sampling defaults follow Cerebras's Kimi
+            # K2.6 guide: Thinking T=1.0/top_p=0.95, Instant T=0.6/top_p=0.95.
+            # Override sampling via MTE_CEREBRAS_TEMPERATURE / MTE_CEREBRAS_TOP_P.
+            #
+            # NOTE: must use settings= (canonical), not params= (deprecated):
+            # CerebrasLLMService always builds its own settings and passes it to
+            # the parent, so a deprecated `params=` is silently ignored.
+            reasoning_effort = os.getenv("MTE_CEREBRAS_REASONING_EFFORT", "").strip().lower()
+            instant = reasoning_effort == "none"
+
+            def _cerebras_float(name: str, default: float) -> float:
+                raw = os.getenv(name, "").strip()
+                return float(raw) if raw else default
+
+            temperature = _cerebras_float("MTE_CEREBRAS_TEMPERATURE", 0.6 if instant else 1.0)
+            top_p = _cerebras_float("MTE_CEREBRAS_TOP_P", 0.95)
+
+            settings_kwargs: Dict[str, Any] = {"temperature": temperature, "top_p": top_p}
+            if reasoning_effort:
+                # Top-level chat param; CerebrasLLMService merges `extra` into the
+                # request, so this lands as reasoning_effort=... on the API call.
+                settings_kwargs["extra"] = {"reasoning_effort": reasoning_effort}
+            kwargs["settings"] = service_class.Settings(**settings_kwargs)
+            logger.info(
+                f"Configured {model} (cerebras) with "
+                f"reasoning_effort={reasoning_effort or '(default/thinking)'}, "
+                f"T={temperature}, top_p={top_p}"
+            )
         elif "OpenAI" in class_name or service_name_lower == "nemotron":
             api_key = os.getenv("OPENAI_API_KEY")
             if not api_key:
