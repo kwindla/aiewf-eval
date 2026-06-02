@@ -367,14 +367,22 @@ class BasePipeline(ABC):
                 params_kwargs["top_k"] = top_k
             if max_tokens is not None:
                 params_kwargs["max_tokens"] = max_tokens
-            params_kwargs["extra"] = {
-                "extra_body": {"chat_template_kwargs": {"enable_thinking": enable_thinking}}
+            extra_body: Dict[str, Any] = {
+                "chat_template_kwargs": {"enable_thinking": enable_thinking}
             }
+            # Optional thinking-budget cap (vLLM ThinkingBudgetLogitsProcessor).
+            thinking_budget = _opt_int("MTE_VLLM_THINKING_BUDGET", "")
+            if thinking_budget is not None and enable_thinking:
+                extra_body["vllm_xargs"] = {
+                    "thinking_budget": thinking_budget,
+                    "thinking_budget_grace_period": _opt_int("MTE_VLLM_GRACE", "30") or 30,
+                }
+            params_kwargs["extra"] = {"extra_body": extra_body}
             kwargs["params"] = OpenAILLMService.InputParams(**params_kwargs)
             logger.info(
                 f"Using vllm-openai with base_url={base_url}, model={model}, "
-                f"thinking={enable_thinking}, T={temperature}, top_p={top_p}, "
-                f"top_k={top_k}, max_tokens={max_tokens}"
+                f"thinking={enable_thinking}, thinking_budget={thinking_budget}, "
+                f"T={temperature}, top_p={top_p}, top_k={top_k}, max_tokens={max_tokens}"
             )
             return service_class(**kwargs)
 

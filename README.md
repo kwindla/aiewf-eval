@@ -16,8 +16,6 @@ Text mode models:
 | Model | Pass Rate | Turn Pass | Tool Use | Instruction | KB Ground | TTFT Med | TTFT P95 | TTFT Max |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|
 | claude-sonnet-4-6 | 100.0% | 300/300 | 300/300 | 300/300 | 300/300 | 850ms | 4126ms | 9396ms |
-| gemini-3-flash-preview | 100.0% | 300/300 | 300/300 | 300/300 | 300/300 | 1107ms | 1599ms | 2781ms |
-| glm-5 | 99.7% | 299/300 | 299/300 | 299/300 | 300/300 | 840ms | 865ms | 2015ms |
 | qwen3.5-27b (thinking) | 99.0% | 297/300 | 298/300 | 298/300 | 299/300 | 1443ms | 1666ms | 2199ms |
 | gemini-3.5-flash (minimal) | 99.0% | 297/300 | 298/300 | 297/300 | 300/300 | 960ms | 1588ms | 3132ms |
 | glm-5 (thinking) | 98.7% | 296/300 | 297/300 | 298/300 | 299/300 | 841ms | 873ms | 6712ms |
