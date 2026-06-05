@@ -370,18 +370,29 @@ class BasePipeline(ABC):
             extra_body: Dict[str, Any] = {
                 "chat_template_kwargs": {"enable_thinking": enable_thinking}
             }
-            # Optional thinking-budget cap (vLLM ThinkingBudgetLogitsProcessor).
+            # Optional thinking-budget cap. Two mechanisms:
+            #  - default: custom `ThinkingBudgetLogitsProcessor` via vllm_xargs (has a
+            #    grace period; BLOCKED by vLLM under speculative decoding / MTP).
+            #  - MTE_VLLM_NATIVE_BUDGET=1: vLLM's NATIVE `thinking_token_budget`
+            #    SamplingParams field (top-level request field, spec-decode-aware → works
+            #    WITH MTP). Hard cap, no grace period. Requires the server to run a
+            #    reasoning parser (we pass --reasoning-parser nemotron_v3).
             thinking_budget = _opt_int("MTE_VLLM_THINKING_BUDGET", "")
+            native_budget = _env_bool("MTE_VLLM_NATIVE_BUDGET", False)
             if thinking_budget is not None and enable_thinking:
-                extra_body["vllm_xargs"] = {
-                    "thinking_budget": thinking_budget,
-                    "thinking_budget_grace_period": _opt_int("MTE_VLLM_GRACE", "30") or 30,
-                }
+                if native_budget:
+                    extra_body["thinking_token_budget"] = thinking_budget
+                else:
+                    extra_body["vllm_xargs"] = {
+                        "thinking_budget": thinking_budget,
+                        "thinking_budget_grace_period": _opt_int("MTE_VLLM_GRACE", "30") or 30,
+                    }
             params_kwargs["extra"] = {"extra_body": extra_body}
             kwargs["params"] = OpenAILLMService.InputParams(**params_kwargs)
             logger.info(
                 f"Using vllm-openai with base_url={base_url}, model={model}, "
-                f"thinking={enable_thinking}, thinking_budget={thinking_budget}, "
+                f"thinking={enable_thinking}, thinking_budget={thinking_budget}"
+                f"{' (NATIVE thinking_token_budget)' if native_budget else ''}, "
                 f"T={temperature}, top_p={top_p}, top_k={top_k}, max_tokens={max_tokens}"
             )
             return service_class(**kwargs)
