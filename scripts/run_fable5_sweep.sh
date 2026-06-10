@@ -12,7 +12,7 @@
 #   uv run python scripts/benchmark_summary.py $(cat docs/ten-run-allowlists/claude-fable-5-low-2026-06-09.txt)
 #   uv run python scripts/benchmark_summary.py $(cat docs/ten-run-allowlists/claude-fable-5-default-2026-06-09.txt)
 set -u
-cd /home/khkramer/src/aiewf-eval
+cd /home/khkramer/src/aiewf-eval || exit 1
 
 ALLOW_DIR=docs/ten-run-allowlists
 LOW_LIST="${ALLOW_DIR}/claude-fable-5-low-2026-06-09.txt"
