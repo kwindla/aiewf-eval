@@ -31,6 +31,7 @@ from pipecat.frames.frames import (
     InterruptionFrame,
     OutputAudioRawFrame,
     StartFrame,
+    UserStoppedSpeakingFrame,
     VADUserStoppedSpeakingFrame,
 )
 from pipecat.processors.frame_processor import FrameDirection
@@ -249,8 +250,10 @@ class NullAudioOutputTransport(BaseOutputTransport):
             frame: The frame to process.
             direction: The direction of frame flow in the pipeline.
         """
-        # Detect user turn end to trigger tagging on next bot audio
-        if isinstance(frame, VADUserStoppedSpeakingFrame):
+        # Detect user turn end to trigger tagging on next bot audio.
+        # pipecat 1.x's turn system pushes UserStoppedSpeakingFrame (the VAD
+        # variant pre-1.x; both accepted — they are siblings, not subclasses).
+        if isinstance(frame, (UserStoppedSpeakingFrame, VADUserStoppedSpeakingFrame)):
             self._tag_next_bot_audio = True
             logger.info("[NullAudioOutput] User turn ended - will tag next bot audio frame")
 

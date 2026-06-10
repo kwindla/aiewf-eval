@@ -6,21 +6,24 @@ from pipecat.frames.frames import (
     Frame,
     LLMFullResponseEndFrame,
     LLMTextFrame,
-    TranscriptionMessage,
     TTSStoppedFrame,
     TTSTextFrame,
 )
-from pipecat.processors.aggregators.llm_response_universal import (
+from pipecat.processors.frame_processor import FrameDirection, FrameProcessor
+from pipecat.utils.string import (
     TextPartForConcatenation,
     concatenate_aggregated_text,
 )
-from pipecat.processors.frame_processor import FrameDirection, FrameProcessor
-from pipecat.processors.transcript_processor import (
+from pipecat.utils.time import time_now_iso8601
+
+# Vendored: pipecat 1.x removed the transcript-processor subsystem these shims
+# are built on. See multi_turn_eval/vendor/transcript_processor.py.
+from multi_turn_eval.vendor.transcript_processor import (
     AssistantTranscriptProcessor,
+    TranscriptionMessage,
     TranscriptionUpdateFrame,
     TranscriptProcessor,
 )
-from pipecat.utils.time import time_now_iso8601
 
 
 class TTSStoppedAssistantTranscriptProcessor(AssistantTranscriptProcessor):

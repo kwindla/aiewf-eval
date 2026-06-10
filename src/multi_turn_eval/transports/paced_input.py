@@ -8,8 +8,6 @@ import soundfile as sf
 from loguru import logger
 
 from pipecat.frames.frames import (
-    EmulateUserStartedSpeakingFrame,
-    EmulateUserStoppedSpeakingFrame,
     Frame,
     InputAudioRawFrame,
     StartFrame,
@@ -182,23 +180,10 @@ class PacedInputTransport(BaseInputTransport):
         if self._feeder and self._feeder.is_alive():
             self._feeder.join(timeout=1.0)
 
-    async def process_frame(self, frame: Frame, direction: FrameDirection):
-        """Process frames, filtering out emulated VAD frames.
-
-        This transport is designed for synthetic/pre-recorded audio playback to
-        services with server-side VAD (Gemini Live, OpenAI Realtime). There is no
-        client-side VAD, so the user aggregator's "emulated VAD" logic incorrectly
-        assumes VAD failed to detect speech when it sees transcriptions without
-        preceding UserStartedSpeakingFrame.
-
-        We filter EmulateUser*SpeakingFrame to prevent spurious InterruptionFrames
-        that would disrupt the LLM's response generation.
-        """
-        if isinstance(frame, (EmulateUserStartedSpeakingFrame, EmulateUserStoppedSpeakingFrame)):
-            logger.debug(f"Filtering emulated VAD frame: {type(frame).__name__}")
-            return  # Don't forward to parent's handler
-
-        await super().process_frame(frame, direction)
+    # Note: older pipecat emitted EmulateUser*SpeakingFrame when transcriptions
+    # arrived without client-side VAD, and this transport overrode process_frame
+    # to filter them out (they caused spurious InterruptionFrames). pipecat 1.x
+    # removed those frames entirely, so the filter override is gone.
 
     # Internal
     def _feeder_loop(self):

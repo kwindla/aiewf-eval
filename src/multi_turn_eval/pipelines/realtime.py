@@ -31,9 +31,10 @@ from pipecat.frames.frames import (
     LLMRunFrame,
     MetricsFrame,
     OutputAudioRawFrame,
-    TranscriptionMessage,
     TTSStartedFrame,
     TTSStoppedFrame,
+    UserStartedSpeakingFrame,
+    UserStoppedSpeakingFrame,
     VADUserStartedSpeakingFrame,
     VADUserStoppedSpeakingFrame,
 )
@@ -46,7 +47,11 @@ from pipecat.processors.aggregators.llm_response_universal import (
 )
 from multi_turn_eval.processors.audio_buffer import WallClockAlignedAudioBufferProcessor
 from pipecat.processors.frame_processor import FrameDirection, FrameProcessor
-from pipecat.processors.transcript_processor import TranscriptProcessor
+# Vendored: pipecat 1.x removed the transcript-processor subsystem.
+from multi_turn_eval.vendor.transcript_processor import (
+    TranscriptionMessage,
+    TranscriptProcessor,
+)
 from pipecat.services.google.gemini_live.llm import GeminiLiveLLMService
 from pipecat.services.openai.realtime import events as rt_events
 from pipecat.services.ultravox.llm import OneShotInputParams
@@ -224,8 +229,9 @@ class TurnGate(FrameProcessor):
         """Watch for TTS and Bot speaking frames to manage turn advancement."""
         await super().process_frame(frame, direction)
 
-        # Start no-response timeout when user stops speaking
-        if isinstance(frame, VADUserStoppedSpeakingFrame):
+        # Start no-response timeout when user stops speaking (pipecat 1.x
+        # pushes UserStoppedSpeakingFrame; pre-1.x pushed the VAD variant)
+        if isinstance(frame, (UserStoppedSpeakingFrame, VADUserStoppedSpeakingFrame)):
             # Cancel any existing no-response check and start a new one
             if self._no_response_check_task and not self._no_response_check_task.done():
                 self._no_response_check_task.cancel()
@@ -396,8 +402,9 @@ class LLMFrameLogger(FrameProcessor):
     async def process_frame(self, frame: Frame, direction: FrameDirection):
         await super().process_frame(frame, direction)
 
-        # Log VAD frames with timing offset information
-        if isinstance(frame, VADUserStartedSpeakingFrame):
+        # Log VAD frames with timing offset information (both 1.x plain and
+        # pre-1.x VAD variants)
+        if isinstance(frame, (UserStartedSpeakingFrame, VADUserStartedSpeakingFrame)):
             now = time.time()
             offset = self._vad_params.start_secs if self._vad_params else 0.2
             actual_start = now - offset
@@ -407,7 +414,7 @@ class LLMFrameLogger(FrameProcessor):
                 f"[VAD] UserStartedSpeaking at T+{rel_time:.0f}ms "
                 f"(actual start: T+{actual_rel:.0f}ms, offset={offset*1000:.0f}ms)"
             )
-        elif isinstance(frame, VADUserStoppedSpeakingFrame):
+        elif isinstance(frame, (UserStoppedSpeakingFrame, VADUserStoppedSpeakingFrame)):
             now = time.time()
             offset = self._vad_params.stop_secs if self._vad_params else 0.8
             actual_end = now - offset
