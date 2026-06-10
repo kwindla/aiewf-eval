@@ -468,7 +468,14 @@ def analyze_run_transcript_only(run_dir: Path) -> tuple[list[TurnMetrics], dict]
             m.retry_reasons = [r["type"] for r in retry_events[i]]
         turns.append(m)
 
-    summary: dict = {"mode": "transcript_only", "n_turns": n_turns}
+    # n_turns spans 0..max(turn index); turns_recorded counts actual
+    # transcript entries (they differ when a transcript has gaps — gap turns
+    # appear in the per-turn list with all-None metrics).
+    summary: dict = {
+        "mode": "transcript_only",
+        "n_turns": n_turns,
+        "turns_recorded": len(transcript),
+    }
     for metric_name in ["server_ttfb_ms", "raw_ttfb_ms"]:
         values = [getattr(t, metric_name) for t in turns if getattr(t, metric_name) is not None]
         if values:
@@ -848,8 +855,16 @@ It also verifies log/WAV alignment using audio tags.
                         "turn": t.turn_index,
                         "server_ttfb_ms": t.server_ttfb_ms,
                         "raw_ttfb_ms": t.raw_ttfb_ms,
+                        # Audio-only metrics: always None in transcript-only
+                        # mode, present for schema parity with the audio path.
+                        "pipeline_ttfb_ms": None,
+                        "wav_v2v_ms": None,
+                        "silent_pad_rms_ms": None,
+                        "silent_pad_silero_ms": None,
+                        "tag_alignment_ms": None,
                         "has_tool_call": t.has_tool_call,
                         "retry_count": t.retry_count,
+                        "retry_reasons": t.retry_reasons,
                         "reconnection_count": t.reconnection_count,
                     }
                     for t in turns
@@ -857,7 +872,10 @@ It also verifies log/WAV alignment using audio tags.
             }, indent=2))
         else:
             print(f"Transcript-only analysis (no conversation.wav): {args.run_dir}")
-            print(f"Turns: {summary.get('n_turns', 0)}")
+            recorded = summary.get('turns_recorded', 0)
+            span = summary.get('n_turns', 0)
+            gap_note = f" (turn indices span {span}; transcript has gaps)" if recorded != span else ""
+            print(f"Turns: {recorded}{gap_note}")
             if args.verbose:
                 print(f"{'Turn':>4} | {'Srv TTFB':>9} | {'Raw TTFB':>9} | Tool")
                 for t in turns:

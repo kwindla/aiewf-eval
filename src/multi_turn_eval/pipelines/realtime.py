@@ -44,6 +44,7 @@ from pipecat.pipeline.task import PipelineParams, PipelineTask
 from pipecat.processors.aggregators.llm_context import LLMContext
 from pipecat.processors.aggregators.llm_response_universal import (
     LLMContextAggregatorPair,
+    LLMUserAggregatorParams,
 )
 from multi_turn_eval.processors.audio_buffer import WallClockAlignedAudioBufferProcessor
 from pipecat.processors.frame_processor import FrameDirection, FrameProcessor
@@ -679,7 +680,25 @@ class RealtimePipeline(BasePipeline):
             messages.append({"role": "user", "content": "Greet the user briefly."})
 
         self.context = LLMContext(messages, tools=tools)
-        self.context_aggregator = LLMContextAggregatorPair(self.context)
+        # pipecat 1.x: the local VAD analyzer rides on the user aggregator
+        # (TransportParams lost its vad_analyzer field — passing it there is
+        # silently dropped, leaving services without server-side VAD events
+        # (Gemini Live, Ultravox) with no user-turn boundaries at all).
+        self._user_vad_params = VADParams(
+            start_secs=0.2,  # Emit VADUserStartedSpeaking 0.2s after speech starts
+            stop_secs=0.8,   # Emit VADUserStoppedSpeaking 0.8s after speech ends
+        )
+        # Silero VAD only supports 16kHz or 8kHz - use our resampling subclass
+        # to handle 24kHz audio from OpenAI/Ultravox
+        self._user_vad = ResamplingSileroVAD(params=self._user_vad_params)
+        logger.info(
+            f"[VAD] User VAD config: start_secs={self._user_vad_params.start_secs}, "
+            f"stop_secs={self._user_vad_params.stop_secs}"
+        )
+        self.context_aggregator = LLMContextAggregatorPair(
+            self.context,
+            user_params=LLMUserAggregatorParams(vad_analyzer=self._user_vad),
+        )
 
     def _setup_llm(self) -> None:
         """Configure LLM and set up reconnection callbacks for Gemini Live."""
@@ -812,28 +831,13 @@ class RealtimePipeline(BasePipeline):
             except Exception as e:
                 logger.warning(f"Could not read sample rate from {t0_audio}: {e}")
 
-        # Create local VAD analyzer for user speech detection
-        # This emits VADUserStartedSpeakingFrame/VADUserStoppedSpeakingFrame
-        # which we can compare against WAV-based VAD for timing analysis
-        vad_params = VADParams(
-            start_secs=0.2,  # Emit VADUserStartedSpeaking 0.2s after speech starts
-            stop_secs=0.8,   # Emit VADUserStoppedSpeaking 0.8s after speech ends
-        )
-        # Silero VAD only supports 16kHz or 8kHz - use our resampling subclass
-        # to handle 24kHz audio from OpenAI/Ultravox
-        user_vad = ResamplingSileroVAD(params=vad_params)
-        logger.info(
-            f"[VAD] User VAD config: start_secs={vad_params.start_secs}, "
-            f"stop_secs={vad_params.stop_secs}"
-        )
-
-        # Create paced input transport with VAD
+        # Local VAD now lives on the user aggregator (see _setup_context);
+        # pipecat 1.x TransportParams has no vad_analyzer field.
         input_params = TransportParams(
             audio_in_enabled=True,
             audio_in_sample_rate=default_sr,
             audio_in_channels=1,
             audio_in_passthrough=True,
-            vad_analyzer=user_vad,
         )
         self.paced_input = PacedInputTransport(
             input_params,
@@ -961,7 +965,7 @@ class RealtimePipeline(BasePipeline):
             )
         )
 
-        self.llm_logger = LLMFrameLogger(recorder_accessor, vad_params=vad_params)
+        self.llm_logger = LLMFrameLogger(recorder_accessor, vad_params=self._user_vad_params)
 
         pipeline = Pipeline(
             [

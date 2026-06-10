@@ -20,6 +20,7 @@ Usage:
 
 import argparse
 import json
+import math
 import statistics
 import subprocess
 import sys
@@ -217,8 +218,11 @@ def format_ms(values: list, stat: str = "median") -> str:
     elif stat == "mean":
         return f"{int(statistics.mean(values))}ms"
     elif stat == "p95":
+        # Nearest-rank percentile: ceil(0.95*n)-1 indexes the value at or above
+        # which 95% of samples fall (int(n*0.95)-1 floors to a lower order
+        # statistic and underreports the tail for small n).
         ordered = sorted(values)
-        return f"{int(ordered[max(0, int(len(ordered) * 0.95) - 1)])}ms"
+        return f"{int(ordered[max(0, math.ceil(len(ordered) * 0.95) - 1)])}ms"
     return "N/A"
 
 

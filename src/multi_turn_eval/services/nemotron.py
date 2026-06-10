@@ -94,7 +94,8 @@ class NemotronLLMService(OpenAILLMService):
         self._thinking_budget = _env_int(self.THINKING_BUDGET_ENV)
         enable_thinking = not self._thinking_off
 
-        extra = self._settings.get("extra") or {}
+        # pipecat 1.x: _settings is the OpenAILLMSettings dataclass, not a dict.
+        extra = self._settings.extra or {}
         if not isinstance(extra, dict):
             extra = {}
         extra_body = extra.get("extra_body")
@@ -127,7 +128,7 @@ class NemotronLLMService(OpenAILLMService):
 
         if extra_body:
             extra["extra_body"] = extra_body
-            self._settings["extra"] = extra
+            self._settings.extra = extra
 
         logger.info(
             f"Configured {model} with temperature={params.temperature}, "
@@ -136,16 +137,25 @@ class NemotronLLMService(OpenAILLMService):
             f"thinking_budget={self._thinking_budget}"
         )
 
-    async def get_chat_completions(self, params_from_context: OpenAILLMInvocationParams):
+    async def get_chat_completions(self, context: LLMContext):
         """Get completions; optionally force non-streaming mode for compatibility.
 
         Some OpenAI-compatible endpoints emit mostly reasoning deltas in streaming mode,
         which can starve text-only turn handling. When NON_STREAM_ENV is enabled, use
         non-streaming completions and adapt them into pseudo stream chunks.
+
+        pipecat 1.x passes the LLMContext here; the non-streaming branch mirrors
+        upstream get_chat_completions' context -> invocation-params conversion.
         """
         if not self._non_streaming:
-            return await super().get_chat_completions(params_from_context)
+            return await super().get_chat_completions(context)
 
+        adapter = self.get_llm_adapter()
+        params_from_context = adapter.get_llm_invocation_params(
+            context,
+            system_instruction=self._settings.system_instruction,
+            convert_developer_to_user=not self.supports_developer_role,
+        )
         params = self.build_chat_completion_params(params_from_context)
         params["stream"] = False
         params.pop("stream_options", None)
@@ -184,8 +194,10 @@ class NemotronLLMService(OpenAILLMService):
 
         await self.start_ttfb_metrics()
 
-        # pipecat 1.x removed OpenAILLMContext; all contexts are universal now.
-        chunk_stream = await self._stream_chat_completions_universal_context(context)
+        # pipecat 1.x removed OpenAILLMContext (all contexts are universal) and
+        # the private _stream_chat_completions_* helpers; get_chat_completions
+        # is the supported entry point and takes the LLMContext directly.
+        chunk_stream = await self.get_chat_completions(context)
 
         async for chunk in chunk_stream:
             if chunk.usage:

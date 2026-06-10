@@ -124,6 +124,10 @@ class NullAudioOutputTransport(BaseOutputTransport):
         # Turn-based audio tagging (triggered by VADUserStoppedSpeakingFrame)
         # Tag is injected on first bot audio frame after user turn ends
         self._tag_next_bot_audio: bool = False  # Only tag after VAD event
+        # Wall-clock time of the last bot audio frame, used to suppress
+        # duplicate user-stop events (pipecat 1.x: a server-VAD plain stop and
+        # a late local-VAD stop can both arrive for one user turn).
+        self._last_bot_audio_mono: float = 0.0
 
         # User audio (InputAudioRawFrame) tracking
         self._user_actual_samples: int = 0  # Actual samples pushed downstream
@@ -253,9 +257,24 @@ class NullAudioOutputTransport(BaseOutputTransport):
         # Detect user turn end to trigger tagging on next bot audio.
         # pipecat 1.x's turn system pushes UserStoppedSpeakingFrame (the VAD
         # variant pre-1.x; both accepted — they are siblings, not subclasses).
+        # Both a server-VAD plain stop and a late local-VAD stop can arrive for
+        # ONE user turn; if the first arm was already consumed and bot audio is
+        # actively streaming, re-arming would inject a second tag mid-response,
+        # so suppress the duplicate. (Turns are strictly sequential in this
+        # benchmark: a genuine user stop never overlaps an in-flight response.)
         if isinstance(frame, (UserStoppedSpeakingFrame, VADUserStoppedSpeakingFrame)):
-            self._tag_next_bot_audio = True
-            logger.info("[NullAudioOutput] User turn ended - will tag next bot audio frame")
+            bot_streaming = (
+                not self._tag_next_bot_audio
+                and self._last_bot_audio_mono > 0
+                and time.monotonic() - self._last_bot_audio_mono < 0.5
+            )
+            if bot_streaming:
+                logger.debug(
+                    "[NullAudioOutput] Ignoring duplicate user-stop while bot audio streams"
+                )
+            else:
+                self._tag_next_bot_audio = True
+                logger.info("[NullAudioOutput] User turn ended - will tag next bot audio frame")
 
         # Handle bot audio (OutputAudioRawFrame) - insert silence for gaps
         if (
@@ -295,11 +314,15 @@ class NullAudioOutputTransport(BaseOutputTransport):
         MAX_GAP_SECS (10ms), it creates and pushes a silence frame to fill the
         gap before processing the actual audio frame.
 
+        Also records the wall-clock time of bot audio, used to suppress
+        duplicate user-stop arming events while a response is streaming.
+
         Args:
             frame: The OutputAudioRawFrame to process.
             direction: The direction of frame flow (should be DOWNSTREAM).
         """
         current_time = time.time()
+        self._last_bot_audio_mono = time.monotonic()
 
         # Initialize sample rate and channels from first bot frame
         if self._bot_sample_rate == 0:
