@@ -56,6 +56,7 @@ class TranscriptRecorder:
         self.turn_results: List[Dict[str, Any]] = []
         self.turn_index: int = 0
         self.turn_ttfb_ms: Optional[int] = None
+        self.turn_raw_ttfb_ms: Optional[int] = None
 
         # simple turn counter; judging happens post-run
         self.total_turns_scored = 0
@@ -72,6 +73,7 @@ class TranscriptRecorder:
         self.turn_calls = []
         self.turn_results = []
         self.turn_ttfb_ms = None
+        self.turn_raw_ttfb_ms = None
 
     def record_ttfb(self, ttfb_seconds: float):
         """Record time to first byte for the current turn.
@@ -109,6 +111,20 @@ class TranscriptRecorder:
         if self.turn_ttfb_ms is not None:
             logger.debug(f"TranscriptRecorder: Resetting TTFB (was {self.turn_ttfb_ms})")
         self.turn_ttfb_ms = None
+        self.turn_raw_ttfb_ms = None
+
+    def record_raw_ttfb(self, ttfb_seconds: float):
+        """Record raw TTFB — time to first stream chunk of any kind.
+
+        Mirrors ``record_ttfb`` semantics (first positive sample wins). Emitted
+        by ``LoggedCerebrasLLMService`` / ``LoggedGoogleLLMService`` on the
+        first stream chunk-with-choices, before content-vs-reasoning gating.
+        """
+        ttfb_ms = int(ttfb_seconds * 1000)
+        if self.turn_raw_ttfb_ms is None:
+            self.turn_raw_ttfb_ms = ttfb_ms
+        elif self.turn_raw_ttfb_ms == 0 and ttfb_ms > 0:
+            self.turn_raw_ttfb_ms = ttfb_ms
 
     def record_usage_metrics(self, m: LLMTokenUsage, model: Optional[str] = None):
         """Record token usage metrics for the current turn.
@@ -182,6 +198,7 @@ class TranscriptRecorder:
             "tool_results": self.turn_results,
             "tokens": self.turn_usage or None,
             "ttfb_ms": self.turn_ttfb_ms,
+            "raw_ttfb_ms": self.turn_raw_ttfb_ms,
             "latency_ms": latency_ms,
             "reconnection_count": reconnection_count,
         }

@@ -14,17 +14,19 @@ cleanup), so behavior is otherwise identical. Mirrors the same fix already used
 by ``NemotronOmniAudioLLMService``.
 """
 
+import json
+import time
 from contextlib import asynccontextmanager
 
 from loguru import logger
-from pipecat.frames.frames import LLMTextFrame
+from pipecat.frames.frames import LLMTextFrame, MetricsFrame
 from pipecat.metrics.metrics import LLMTokenUsage
 from pipecat.processors.aggregators.llm_context import LLMContext
 from pipecat.services.cerebras.llm import CerebrasLLMService
 from pipecat.services.llm_service import FunctionCallFromLLM
 from pipecat.utils.tracing.service_decorators import traced_llm
 
-import json
+from multi_turn_eval.metrics import RawTTFBMetricsData
 
 
 class LoggedCerebrasLLMService(CerebrasLLMService):
@@ -45,8 +47,13 @@ class LoggedCerebrasLLMService(CerebrasLLMService):
         arguments = ""
         tool_call_id = ""
         ttfb_stopped = False
+        raw_ttfb_emitted = False
 
         await self.start_ttfb_metrics()
+        # Capture our own start time so we can compute raw TTFB (first chunk of
+        # any kind, including reasoning). The pipecat TTFB metric we stop later
+        # is content-aware; this one is the raw network+prefill+1-token floor.
+        raw_t0 = time.monotonic()
 
         chunk_stream = await self.get_chat_completions(context)
 
@@ -91,6 +98,18 @@ class LoggedCerebrasLLMService(CerebrasLLMService):
 
                 if chunk.choices is None or len(chunk.choices) == 0:
                     continue
+
+                # Raw TTFB: fires on the first chunk-with-choices, before we
+                # peek at delta type. Mirrors what the base pipecat service
+                # would record as TTFB.
+                if not raw_ttfb_emitted:
+                    raw_ms = time.monotonic() - raw_t0
+                    await self.push_frame(
+                        MetricsFrame(
+                            data=[RawTTFBMetricsData(processor=self.name, value=raw_ms)]
+                        )
+                    )
+                    raw_ttfb_emitted = True
 
                 if not chunk.choices[0].delta:
                     continue

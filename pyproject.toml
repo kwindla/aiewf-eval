@@ -15,7 +15,9 @@ dependencies = [
   "claude-agent-sdk>=0.1.73",
   "torch>=2.9.1",
   "torchaudio>=2.9.1",
-  "anthropic>=0.49.0",
+  # Pinned above pipecat's anthropic>=0.49.0 floor for claude-fable-5 support
+  # (adaptive thinking, output_config.effort). Re-evaluate after pipecat upgrades.
+  "anthropic==0.108.0",
   "openai>=2.34.0",
 ]
 

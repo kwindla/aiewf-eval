@@ -17,6 +17,8 @@ Text mode models:
 |---|---:|---:|---:|---:|---:|---:|---:|---:|
 | **nemotron-3-ultra (128)** | **100.0%** | **300/300** | **300/300** | **300/300** | **300/300** | **541ms** | **712ms** | **1302ms** |
 | claude-sonnet-4-6 | 100.0% | 300/300 | 300/300 | 300/300 | 300/300 | 850ms | 4126ms | 9396ms |
+| claude-fable-5 (low) | 100.0% | 300/300 | 300/300 | 300/300 | 300/300 | 3535ms | 5148ms | 8815ms |
+| claude-fable-5 (default) | 100.0% | 300/300 | 300/300 | 300/300 | 300/300 | 3956ms | 6496ms | 13602ms |
 | qwen3.5-27b (thinking) | 99.0% | 297/300 | 298/300 | 298/300 | 299/300 | 1443ms | 1666ms | 2199ms |
 | gemini-3.5-flash (minimal) | 99.0% | 297/300 | 298/300 | 297/300 | 300/300 | 960ms | 1588ms | 3132ms |
 | glm-5 (thinking) | 98.7% | 296/300 | 297/300 | 298/300 | 299/300 | 841ms | 873ms | 6712ms |
@@ -55,6 +57,8 @@ Each conversation in this benchmark is 30 turns. The scores above are aggregated
 TTFT is the latency reported by the Pipecat service for each model from request to first token/byte of model output. An optimized speech-to-speech pipeline with typical network latencies should be able to achieve a total voice-to-voice latency of approximately LLM TTFT + 500ms. In general, a model with TTFT above ~700ms is too slow for most voice agent use cases.
 
 Models labeled "(thinking)" or "(512)" were run with reasoning/chain-of-thought, or thinking token budgets enabled. Models labeled with a reasoning effort like "(low)", "(medium)", or "(none)" were run at that effort level on the OpenAI Responses API.
+
+`claude-fable-5` cannot run without thinking: adaptive thinking is always on for this model and `thinking: {"type": "disabled"}` is rejected by the API. The "(default)" row is the out-of-the-box configuration (adaptive thinking at the default effort, `high`); the "(low)" row sets `output_config: {"effort": "low"}`. Both rows request `thinking.display: "summarized"` and measure TTFT to the first non-thinking token, the same convention used for other reasoning models in this table. We planned a low/medium/high/xhigh effort sweep but stopped after `low`: with a TTFT P50 above 3.5s, no higher effort level can pass the ~1500ms bar for voice use. A follow-up "voice-optimized" probe (effort low, `thinking.display: "omitted"`, plus a system-prompt instruction suppressing deliberation) cut median thinking delay to 14ms and still measured 2980ms median TTFT at 100% pass rate — the latency is serving-side prefill, not reasoning. See `docs/claude-fable-5-sweep-2026-06-09.md`.
 
 Both `gpt-4.1-mini` and `gpt-5.4-mini` sometimes exit early via a premature `end_session` or a malformed tool call, so denominators are below 300.
 
@@ -338,6 +342,7 @@ runs/
 | `ultravox-v0.7` | realtime | ultravox-realtime |
 | `claude-sonnet-4-5` | text | anthropic |
 | `claude-haiku-4-5` | text | anthropic |
+| `claude-fable-5` | text | anthropic (set `MTE_ANTHROPIC_EFFORT` for effort levels) |
 | `amazon.nova-2-sonic-v1_0` | nova-sonic | (built-in) |
 
 ## Project Structure

@@ -38,7 +38,7 @@ SERVICE_ALIASES = {
     "nemotron": "multi_turn_eval.services.nemotron.NemotronLLMService",
     "nemotron-audio-in": "multi_turn_eval.vendor.nemotron_omni.NemotronOmniAudioLLMService",
     "anthropic": "multi_turn_eval.services.anthropic_logged.LoggedAnthropicLLMService",
-    "google": "pipecat.services.google.llm.GoogleLLMService",
+    "google": "multi_turn_eval.services.google_logged.LoggedGoogleLLMService",
     "gemini-live": "multi_turn_eval.pipelines.realtime.GeminiLiveLLMServiceWithReconnection",
     "bedrock": "pipecat.services.aws.llm.AWSBedrockLLMService",
     "groq": "pipecat.services.groq.llm.GroqLLMService",

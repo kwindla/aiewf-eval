@@ -1,13 +1,44 @@
-"""Anthropic service wrapper with optional exact payload logging."""
+"""Anthropic service wrapper with payload logging and content-aware TTFB.
+
+The upstream ``AnthropicLLMService`` calls ``stop_ttfb_metrics()`` immediately
+after the message stream is *created* — before any stream events arrive, let
+alone the first user-visible token. For no-thinking runs that is roughly the
+first-token time, but with adaptive thinking enabled (claude-fable-5 effort
+sweeps) the model can think for seconds after the stream opens, so the upstream
+metric would report a near-constant TTFB regardless of effort level.
+
+``LoggedCerebrasLLMService`` / ``LoggedGoogleLLMService`` fix the analogous
+problem by mirroring upstream's ``_process_context``. Anthropic's is large, so
+we instead hook the narrower ``_create_message_stream`` seam this subclass
+already overrides for payload logging:
+
+- upstream's premature ``stop_ttfb_metrics()`` call is swallowed while a gate
+  flag is set;
+- the returned stream is wrapped in a generator that stops TTFB on the first
+  user-visible event (text delta, tool_use block start, or tool-args JSON
+  delta — thinking/signature deltas do not count) and emits
+  ``RawTTFBMetricsData`` on the first event of any kind.
+
+This preserves the project convention (see ``multi_turn_eval.metrics``):
+
+- ``ttfb_ms``     — time to first non-thinking token (voice-agent latency)
+- ``raw_ttfb_ms`` — time to first stream event of any kind
+"""
 
 from __future__ import annotations
 
 import json
 import os
-from typing import Any
+import time
+from typing import Any, AsyncIterator
 
 from loguru import logger
+from pipecat.adapters.services.anthropic_adapter import AnthropicLLMAdapter
+from pipecat.frames.frames import MetricsFrame
+from pipecat.processors.aggregators.llm_context import LLMSpecificMessage
 from pipecat.services.anthropic.llm import AnthropicLLMService
+
+from multi_turn_eval.metrics import RawTTFBMetricsData
 
 
 def _env_bool(name: str, default: bool) -> bool:
@@ -50,8 +81,104 @@ def _extract_last_user_text(messages: list[dict[str, Any]]) -> str:
     return ""
 
 
+def _is_visible_event(event: Any) -> bool:
+    """True for stream events that carry user-visible output.
+
+    Text deltas, tool_use block starts, and tool-args JSON deltas count.
+    Thinking blocks, thinking/signature deltas, message_start/delta, and pings
+    do not. Attribute checks mirror upstream's own event dispatch (Anthropic
+    delta models only define their own fields, so ``hasattr`` is reliable).
+    """
+    etype = getattr(event, "type", None)
+    if etype == "content_block_start":
+        block = getattr(event, "content_block", None)
+        return getattr(block, "type", None) == "tool_use"
+    if etype == "content_block_delta":
+        delta = getattr(event, "delta", None)
+        return hasattr(delta, "text") or hasattr(delta, "partial_json")
+    return False
+
+
+class PatchedAnthropicLLMAdapter(AnthropicLLMAdapter):
+    """Adapter that round-trips thought messages whose thinking text is empty.
+
+    With ``thinking.display: "omitted"`` (claude-fable-5's default), thinking
+    blocks stream with an empty ``thinking`` field plus a signature. Upstream's
+    ``_from_anthropic_specific_message`` only rebuilds a thought message into a
+    thinking block when BOTH text and signature are truthy, so an empty-text
+    thought falls through to a role-less dict and the next request crashes
+    (KeyError 'role'). The Anthropic docs explicitly support replaying empty
+    thinking blocks: "pass each thinking block back to the API exactly as
+    received, including blocks whose thinking field is empty."
+    """
+
+    def _from_universal_context_messages(self, universal_context_messages, **kwargs):
+        # Signature-less thoughts (stream interrupted before the
+        # signature_delta arrived) carry nothing replayable. Drop them before
+        # conversion: converted 1:1 they would surface as phantom "(empty)"
+        # assistant turns via upstream's empty-content fix whenever they don't
+        # sit adjacent to another assistant message (Codex review finding).
+        filtered = [
+            m
+            for m in universal_context_messages
+            if not self._is_signatureless_thought(m)
+        ]
+        return super()._from_universal_context_messages(filtered, **kwargs)
+
+    @staticmethod
+    def _is_signatureless_thought(message) -> bool:
+        return (
+            isinstance(message, LLMSpecificMessage)
+            and isinstance(message.message, dict)
+            and message.message.get("type") == "thought"
+            and not message.message.get("signature")
+        )
+
+    def _from_anthropic_specific_message(self, message):
+        msg = message.message
+        if isinstance(msg, dict) and msg.get("type") == "thought":
+            signature = msg.get("signature")
+            if signature:
+                return {
+                    "role": "assistant",
+                    "content": [
+                        {
+                            "type": "thinking",
+                            "thinking": msg.get("text") or "",
+                            "signature": signature,
+                        }
+                    ],
+                }
+            # Belt and suspenders: signature-less thoughts are filtered out in
+            # _from_universal_context_messages above and shouldn't reach here.
+            # An empty assistant message merges into an adjacent assistant
+            # turn; upstream's empty-content fix covers the standalone edge.
+            return {"role": "assistant", "content": []}
+        return super()._from_anthropic_specific_message(message)
+
+
 class LoggedAnthropicLLMService(AnthropicLLMService):
-    """Anthropic service with optional logging of exact request payloads."""
+    """Anthropic service with payload logging and content-aware TTFB."""
+
+    adapter_class = PatchedAnthropicLLMAdapter
+
+    def __init__(self, *args: Any, **kwargs: Any) -> None:
+        super().__init__(*args, **kwargs)
+        # While True, stop_ttfb_metrics() calls are swallowed; the stream
+        # wrapper clears the flag and stops TTFB on first visible content.
+        self._mte_gate_ttfb = False
+
+    async def start_ttfb_metrics(self, *, start_time: float | None = None) -> None:
+        # New measurement cycle: clear any stale gate, e.g. if the prior turn
+        # was cancelled between stream creation and wrapper entry, where the
+        # generator's finally never ran (Codex review finding).
+        self._mte_gate_ttfb = False
+        await super().start_ttfb_metrics(start_time=start_time)
+
+    async def stop_ttfb_metrics(self, *, end_time: float | None = None) -> None:
+        if self._mte_gate_ttfb:
+            return
+        await super().stop_ttfb_metrics(end_time=end_time)
 
     async def _create_message_stream(self, api_call, params):  # type: ignore[override]
         if _env_bool("MTE_LOG_ANTHROPIC_PAYLOADS", False):
@@ -66,5 +193,40 @@ class LoggedAnthropicLLMService(AnthropicLLMService):
                 f"last_user_text={last_user!r}) | "
                 f"{json.dumps(safe_params, ensure_ascii=False)}"
             )
-        return await super()._create_message_stream(api_call, params)
 
+        raw_t0 = time.monotonic()
+        response = await super()._create_message_stream(api_call, params)
+        if not params.get("stream"):
+            return response
+
+        # Gate the premature stop_ttfb_metrics() upstream makes right after
+        # this method returns; the wrapper below stops TTFB on real content.
+        self._mte_gate_ttfb = True
+        return self._gate_ttfb_stream(response, raw_t0)
+
+    async def _gate_ttfb_stream(self, response, raw_t0: float) -> AsyncIterator[Any]:
+        # No try/finally gate reset here: an abandoned generator's finally runs
+        # at async finalization time (GC/aclose), which after a cancellation
+        # can land mid-way through the NEXT turn and clear a gate that turn
+        # just set — accepting its premature TTFB stop. start_ttfb_metrics()
+        # resets the gate at the start of each measurement cycle instead; a
+        # stream that errors before any visible event simply leaves the turn
+        # without a ttfb_ms (intentional — missing beats wrong).
+        raw_emitted = False
+        async for event in response:
+            if not raw_emitted:
+                raw_emitted = True
+                await self.push_frame(
+                    MetricsFrame(
+                        data=[
+                            RawTTFBMetricsData(
+                                processor=self.name,
+                                value=time.monotonic() - raw_t0,
+                            )
+                        ]
+                    )
+                )
+            if self._mte_gate_ttfb and _is_visible_event(event):
+                self._mte_gate_ttfb = False
+                await self.stop_ttfb_metrics()
+            yield event

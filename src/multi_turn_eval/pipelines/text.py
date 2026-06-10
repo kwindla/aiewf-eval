@@ -290,10 +290,29 @@ class TextPipeline(BasePipeline):
         self.context_aggregator = None
         self.last_msg_idx = 0
 
+    # Latency steering for always-thinking models (claude-fable-*): thinking
+    # can't be disabled via the API, but its triggering is promptable per the
+    # Anthropic adaptive-thinking docs. Env-gated (off by default) so steered
+    # runs are explicitly labeled and the published unsteered rows stay
+    # reproducible.
+    VOICE_STEERING_INSTRUCTION = (
+        "This is a conversational voice application. Fast responses are "
+        "important to the user experience. We need to prioritize low latency. "
+        "Always answer directly without deliberating."
+    )
+
     def _setup_context(self) -> None:
         """Create LLMContext with system prompt, tools, and first user message."""
         # Get system instruction from benchmark
         system_instruction = getattr(self.benchmark, "system_instruction", "")
+
+        if _env_bool("MTE_ANTHROPIC_VOICE_STEERING", False) and "fable" in (
+            self.model_name or ""
+        ).lower():
+            system_instruction = (
+                system_instruction.rstrip() + "\n\n" + self.VOICE_STEERING_INSTRUCTION
+            )
+            logger.info("Voice steering instruction appended to system prompt")
 
         # Initial messages: system + first user turn
         first_turn = self._get_current_turn()
