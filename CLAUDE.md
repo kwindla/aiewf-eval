@@ -52,6 +52,13 @@ pipecat upgrades. `LoggedAnthropicLLMService` gates `stop_ttfb_metrics()` and wr
 from `_create_message_stream` so TTFB measures first *visible* token (thinking blocks excluded);
 if pipecat's `AnthropicLLMService._process_context` changes its TTFB call sites, re-check the gate.
 
+pipecat 1.x removed the transcript-processor subsystem; the realtime pipeline uses the vendored
+copy in `src/multi_turn_eval/vendor/transcript_processor.py`. pipecat 1.x's turn system also
+pushes `UserStarted/StoppedSpeakingFrame` where pre-1.x pushed `VADUser*SpeakingFrame` (siblings,
+not subclasses) — turn-keyed gates (audio tagging, no-response retry, [VAD] timing logs) accept
+both. After any pipecat upgrade, smoke a full realtime run and check for "Bot turn tag" lines in
+run.log; their absence silently kills V2V analysis.
+
 ## Anthropic Reasoning Runs (claude-fable-5)
 
 - **claude-fable-5 thinks unconditionally**: adaptive thinking is on even with the `thinking`
