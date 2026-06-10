@@ -13,7 +13,6 @@ from pipecat.adapters.services.open_ai_adapter import OpenAILLMInvocationParams
 from pipecat.frames.frames import LLMTextFrame
 from pipecat.metrics.metrics import LLMTokenUsage
 from pipecat.processors.aggregators.llm_context import LLMContext
-from pipecat.processors.aggregators.openai_llm_context import OpenAILLMContext
 from pipecat.services.llm_service import FunctionCallFromLLM
 from pipecat.services.openai.llm import OpenAILLMService
 from pipecat.utils.tracing.service_decorators import traced_llm
@@ -166,7 +165,7 @@ class NemotronLLMService(OpenAILLMService):
         return _AsyncListIterator(self._completion_to_pseudo_chunks(response))
 
     @traced_llm
-    async def _process_context(self, context: OpenAILLMContext | LLMContext):
+    async def _process_context(self, context: LLMContext):
         """Process context with content/tool TTFT semantics for Nemotron.
 
         Unlike the base OpenAI service (which stops TTFB on first non-empty
@@ -185,11 +184,8 @@ class NemotronLLMService(OpenAILLMService):
 
         await self.start_ttfb_metrics()
 
-        chunk_stream = await (
-            self._stream_chat_completions_specific_context(context)
-            if isinstance(context, OpenAILLMContext)
-            else self._stream_chat_completions_universal_context(context)
-        )
+        # pipecat 1.x removed OpenAILLMContext; all contexts are universal now.
+        chunk_stream = await self._stream_chat_completions_universal_context(context)
 
         async for chunk in chunk_stream:
             if chunk.usage:

@@ -44,7 +44,11 @@ uv run python scripts/analyze_turn_metrics.py <run_dir> -v
 Our `WallClockAlignedAudioBufferProcessor` (in `src/multi_turn_eval/processors/audio_buffer.py`)
 overrides silence insertion methods in pipecat's `AudioBufferProcessor`. If pipecat is upgraded,
 check for new silence/sync methods that need overriding to prevent double-counting with
-`NullAudioOutputTransport`.
+`NullAudioOutputTransport`. (History: `_compute_silence` ≤0.0.98, `_sync_buffer_to_position`
+≥0.0.99, `_fill_buffer_silence_gap` ≥1.3.0 — all three are no-op overridden.)
+
+Current pipecat: 1.3.0. The 1.3.0 `PipelineTask`/`PipelineRunner` → `PipelineWorker`/`WorkerRunner`
+renames are deprecation shims for now; migrate our pipelines before the shims are removed.
 
 The `anthropic` package is pinned in `pyproject.toml` above pipecat's `>=0.49` floor for
 claude-fable-5 support (adaptive thinking, `output_config.effort`). Re-evaluate the pin after
