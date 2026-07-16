@@ -26,6 +26,7 @@ Text mode models:
 | **kimi-k2.6 Cerebras (thinking)** | **98.0%** | **294/300** | **296/300** | **294/300** | **300/300** | **452ms** | **1350ms** | **3483ms** |
 | **claude-haiku-4-5** | **98.0%** | **294/300** | **298/300** | **294/300** | **300/300** | **637ms** | **1615ms** | **3152ms** |
 | gpt-5.1 | 98.0% | 294/300 | 294/300 | 294/300 | 300/300 | 739ms | 1492ms | 4244ms |
+| gpt-5.6-terra (medium) | 97.8% | 262/268 | 263/268 | 262/268 | 268/268 | 927ms | 2149ms | 4167ms |
 | gpt-5.4 (low) | 97.0% | 291/300 | 291/300 | 291/300 | 300/300 | 782ms | 1706ms | 2698ms |
 | **nemotron-3-super-120b (512)** | **97.0%** | **291/300** | **297/300** | **291/300** | **299/300** | **687ms** | **1210ms** | **2254ms** |
 | gemini-3.1-flash-lite-preview | 96.7% | 290/300 | 295/300 | 291/300 | 299/300 | 1016ms | 1515ms | 3405ms |
@@ -34,10 +35,12 @@ Text mode models:
 | qwen3.5-4b (thinking) | 95.0% | 285/300 | 288/300 | 288/300 | 297/300 | 778ms | 907ms | 1441ms |
 | google/gemma-4-31b-it | 95.0% | 285/300 | 285/300 | 285/300 | 300/300 | 358ms | 1111ms | 2129ms |
 | **gpt-4o** | **94.7%** | **284/300** | **291/300** | **285/300** | **299/300** | **546ms** | **1369ms** | **4897ms** |
+| inkling (none) | 94.7% | 284/300 | 285/300 | 284/300 | 300/300 | 917ms | 1686ms | 3453ms |
 | qwen3.5-27b | 94.3% | 283/300 | 283/300 | 283/300 | 300/300 | 1494ms | 1666ms | 75111ms |
 | qwen3.5-9b (thinking) | 94.7% | 284/300 | 287/300 | 286/300 | 298/300 | 904ms | 1006ms | 1356ms |
 | **kimi-k2.6 Cerebras (instant)** | **94.0%** | **282/300** | **282/300** | **285/300** | **300/300** | **256ms** | **480ms** | **1639ms** |
 | **gpt-5.4** | **93.0%** | **279/300** | **280/300** | **280/300** | **299/300** | **646ms** | **971ms** | **4429ms** |
+| claude-sonnet-5 | 93.0% | 279/300 | 279/300 | 279/300 | 300/300 | 1204ms | 2465ms | 6955ms |
 | gpt-5.4-mini (medium) | 91.1% | 185/203 | 185/203 | 186/203 | 202/203 | 808ms | 2120ms | 2786ms |
 | nemotron-3-nano-30b (512) | 90.6% | 252/278 | 264/278 | 261/278 | 267/278 | 940ms | 1912ms | 2821ms |
 | **nova-2-pro-preview** | **90.3%** | **271/300** | **280/300** | **278/300** | **293/300** | **690ms** | **1616ms** | **3840ms** |
@@ -45,6 +48,7 @@ Text mode models:
 | qwen3.5-9b | 89.3% | 268/300 | 276/300 | 271/300 | 297/300 | 908ms | 1007ms | 24304ms |
 | **gpt-5.2** | **89.3%** | **268/300** | **270/300** | **268/300** | **298/300** | **624ms** | **1171ms** | **2509ms** |
 | qwen3.5-4b | 88.7% | 266/300 | 269/300 | 267/300 | 298/300 | 773ms | 921ms | 50986ms |
+| gpt-5.6-luna (none) | 88.3% | 265/300 | 265/300 | 265/300 | 300/300 | 671ms | 2304ms | 12017ms |
 | **gpt-oss-120b (groq)** | **86.3%** | **259/300** | **272/300** | **261/300** | **298/300** | **98ms** | **217ms** | **2117ms** |
 | gpt-4.1-mini | 85.3% | 244/286 | 244/286 | 244/286 | 286/286 | 851ms | 2135ms | 5945ms |
 | glm-4.7-flash | 84.7% | 254/300 | 268/300 | 265/300 | 288/300 | 940ms | 1079ms | 2524ms |
@@ -59,6 +63,12 @@ TTFT is the latency reported by the Pipecat service for each model from request 
 Models labeled "(thinking)" or "(512)" were run with reasoning/chain-of-thought, or thinking token budgets enabled. Models labeled with a reasoning effort like "(low)", "(medium)", or "(none)" were run at that effort level on the OpenAI Responses API.
 
 `claude-fable-5` cannot run without thinking: adaptive thinking is always on for this model and `thinking: {"type": "disabled"}` is rejected by the API. The "(default)" row is the out-of-the-box configuration (adaptive thinking at the default effort, `high`); the "(low)" row sets `output_config: {"effort": "low"}`. Both rows request `thinking.display: "summarized"` and measure TTFT to the first non-thinking token, the same convention used for other reasoning models in this table. We planned a low/medium/high/xhigh effort sweep but stopped after `low`: with a TTFT P50 above 3.5s, no higher effort level can pass the ~1500ms bar for voice use. A follow-up "voice-optimized" probe (effort low, `thinking.display: "omitted"`, plus a system-prompt instruction suppressing deliberation) cut median thinking delay to 14ms and still measured 2980ms median TTFT at 100% pass rate — the latency is serving-side prefill, not reasoning. See `docs/claude-fable-5-sweep-2026-06-09.md`.
+
+`claude-sonnet-5` is run with thinking disabled (`thinking: {"type": "disabled"}`). Unlike `claude-sonnet-4-6`, Sonnet 5 runs adaptive thinking by default when the `thinking` parameter is omitted, so an explicit disable is required to measure the no-thinking (voice) configuration. A paired 10-run `output_config: {"effort": "low"}` adaptive comparison scored the same pass rate within noise (92.0%) at ~600ms higher median TTFT (1802ms) and ~1.7s higher P95 (4202ms), so low-effort thinking buys no accuracy on this benchmark and is omitted from the voice row. The remaining ~7% is a stochastic over-confirmation failure (the model re-asks for a user name it already collected instead of calling the tool); KB grounding and turn-taking are perfect. See `docs/ten-run-aggregates/claude-sonnet-5-disabled-2026-07-01.txt` and `docs/ten-run-aggregates/claude-sonnet-5-low-2026-07-01.txt`.
+
+`gpt-5.6-terra` and `gpt-5.6-luna` are two of the three GPT-5.6 versions (the third, `sol`, is the flagship). Like `gpt-5.4`, GPT-5.6 requires the OpenAI Responses API when tools and a reasoning effort are combined — `reasoning_effort` with function tools returns a 400 on `/v1/chat/completions`. The parenthesized label is the `reasoning_effort` level; GPT-5.6 accuracy on this benchmark climbs monotonically with effort (terra none/low/medium = 92.0/96.3/97.8%; luna = 88.3/93.3/94.3%), so `low` and `medium` are both reasonable rows. `terra (medium)` is over 9 runs (268 turns; one run was dropped to a transient OpenAI overload). `luna (none)` runs with reasoning off; its 12s TTFT Max is an OpenAI-overload artifact from the capture window, not representative (P50 671ms).
+
+`inkling` is Thinking Machines' 975B-parameter (41B active) open-weights model, run on BaseTen's serverless Model API; `(none)` sets `reasoning_effort: none`. Unlike GPT-5.6, Inkling's accuracy peaks at `low` (96.3%) and does not improve with more reasoning — higher effort only adds latency (median TTFT climbs to ~2.0s at `medium` and ~2.5s at `max`, with the P95 tail reaching ~6s). See `docs/inkling-notes.md` and `docs/inkling-baseten-integration.md`.
 
 Both `gpt-4.1-mini` and `gpt-5.4-mini` sometimes exit early via a premature `end_session` or a malformed tool call, so denominators are below 300.
 
@@ -341,6 +351,7 @@ runs/
 | `gemini-2.5-flash-native-audio-preview-12-2025` | realtime | gemini-live |
 | `ultravox-v0.7` | realtime | ultravox-realtime |
 | `claude-sonnet-4-5` | text | anthropic |
+| `claude-sonnet-5` | text | anthropic (set `MTE_ANTHROPIC_THINKING=disabled` for the no-thinking voice config; Sonnet 5 defaults to adaptive thinking) |
 | `claude-haiku-4-5` | text | anthropic |
 | `claude-fable-5` | text | anthropic (set `MTE_ANTHROPIC_EFFORT` for effort levels) |
 | `amazon.nova-2-sonic-v1_0` | nova-sonic | (built-in) |
