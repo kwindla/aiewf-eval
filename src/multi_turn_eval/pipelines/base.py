@@ -637,7 +637,9 @@ class BasePipeline(ABC):
             # Route selected OpenAI text models to Responses API without changing
             # benchmark pipelines.
             if service_name_lower == "openai" and (
-                model_lower.startswith("gpt-4.1") or model_lower.startswith("gpt-5.4")
+                model_lower.startswith("gpt-4.1")
+                or model_lower.startswith("gpt-5.4")
+                or model_lower.startswith("gpt-5.6")
             ):
                 from multi_turn_eval.services.openai_responses import OpenAIResponsesLLMService
 
@@ -653,13 +655,17 @@ class BasePipeline(ABC):
                 # gpt-5.4 rejects reasoning_effort with tools on
                 # /v1/chat/completions; use Responses API with reasoning.effort when
                 # routed, otherwise omit reasoning_effort for chat.completions.
-                if model_lower.startswith("gpt-5.4"):
+                if model_lower.startswith("gpt-5.4") or model_lower.startswith("gpt-5.6"):
                     if class_name == "OpenAIResponsesLLMService":
                         reasoning_effort = os.getenv(
                             "MTE_OPENAI_RESPONSES_REASONING_EFFORT", "low"
                         ).strip().lower()
-                        # gpt-5.4 model docs expose these effort levels.
+                        # gpt-5.4 exposes none/low/medium/high/xhigh; gpt-5.6 (sol/
+                        # terra/luna) adds "max". Both reject reasoning_effort with
+                        # tools on /v1/chat/completions, so both route here (Responses).
                         allowed_efforts = {"none", "low", "medium", "high", "xhigh"}
+                        if model_lower.startswith("gpt-5.6"):
+                            allowed_efforts = allowed_efforts | {"max"}
                         if reasoning_effort not in allowed_efforts:
                             logger.warning(
                                 "Invalid MTE_OPENAI_RESPONSES_REASONING_EFFORT='{}'; defaulting to low".format(
