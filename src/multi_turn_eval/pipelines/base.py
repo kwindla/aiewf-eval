@@ -419,12 +419,39 @@ class BasePipeline(ABC):
             # the messages.create() kwargs (anthropic>=0.108 accepts both
             # thinking=adaptive and output_config as first-class parameters).
             effort = os.getenv("MTE_ANTHROPIC_EFFORT", "").strip().lower()
+            # MTE_ANTHROPIC_THINKING explicitly selects the thinking config for
+            # NON-fable models, where the omitted-param default differs by
+            # generation: claude-sonnet-5 runs ADAPTIVE thinking when `thinking`
+            # is omitted, whereas claude-sonnet-4-6 / claude-haiku-4-5 run
+            # thinking OFF when omitted. To reproduce the no-thinking config on
+            # sonnet-5 we must send {"type": "disabled"} explicitly.
+            #   - unset      -> legacy behavior (omit the param). Preserves the
+            #                   published sonnet-4-6 / haiku rows byte-for-byte.
+            #   - "disabled" -> send {"type": "disabled"} (sonnet-5 voice row).
+            #   - "adaptive" -> force the adaptive branch below without needing
+            #                   an effort level (sonnet-5 capability row).
+            thinking_mode = os.getenv("MTE_ANTHROPIC_THINKING", "").strip().lower()
+            if thinking_mode and thinking_mode not in {"disabled", "adaptive"}:
+                raise ValueError(
+                    f"Invalid MTE_ANTHROPIC_THINKING='{thinking_mode}'; "
+                    f"expected 'disabled' or 'adaptive'"
+                )
             # claude-fable-5 thinks unconditionally: adaptive thinking is on
             # even when the `thinking` param is omitted, and an explicit
             # {"type": "disabled"} returns a 400. So there is no "no-thinking"
             # configuration — the omitted-param default is adaptive thinking
             # at the default effort (high, per Anthropic docs).
             always_thinking = "fable" in model_lower
+            if thinking_mode == "disabled" and always_thinking:
+                raise ValueError(
+                    "MTE_ANTHROPIC_THINKING=disabled is invalid for always-thinking "
+                    f"model {model} (claude-fable-* returns 400 on an explicit disable)"
+                )
+            if thinking_mode == "disabled" and effort:
+                raise ValueError(
+                    "MTE_ANTHROPIC_THINKING=disabled conflicts with "
+                    f"MTE_ANTHROPIC_EFFORT={effort} (effort implies adaptive thinking)"
+                )
             extra: Dict[str, Any] = {}
             params_kwargs: Dict[str, Any] = {
                 "enable_prompt_caching": enable_prompt_caching,
@@ -434,6 +461,11 @@ class BasePipeline(ABC):
             max_tokens_env = os.getenv("MTE_ANTHROPIC_MAX_TOKENS", "").strip()
             if max_tokens_env:
                 params_kwargs["max_tokens"] = int(max_tokens_env)
+            if thinking_mode == "disabled":
+                # Explicit no-thinking. Accepted on sonnet-5 / sonnet-4-6;
+                # reproduces the omitted-param behavior of the older rows so the
+                # sonnet-5 voice row is apples-to-apples with sonnet-4-6.
+                extra["thinking"] = {"type": "disabled"}
             if effort:
                 allowed_efforts = {"low", "medium", "high", "xhigh", "max"}
                 if effort not in allowed_efforts:
@@ -452,7 +484,7 @@ class BasePipeline(ABC):
                         "will be sent. Unset the env var if this is unintended."
                     )
                 extra["output_config"] = {"effort": effort}
-            if effort or always_thinking:
+            if effort or always_thinking or thinking_mode == "adaptive":
                 # display=summarized (default) keeps thinking text non-empty,
                 # which pipecat 1.1.0's stock adapter requires to rebuild
                 # context thought messages. display=omitted skips streaming
