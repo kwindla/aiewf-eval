@@ -168,7 +168,7 @@ class BasePipeline(ABC):
         backends reject empty assistant content outright.
         """
         service_name = (self.service_name or "").lower()
-        if service_name not in {"openai", "openrouter", "nemotron", "nemotron-audio-in", "modal"}:
+        if service_name not in {"openai", "openrouter", "nemotron", "nemotron-audio-in", "modal", "baseten"}:
             return
         if self.context is None:
             return
@@ -303,6 +303,55 @@ class BasePipeline(ABC):
             kwargs["params"] = OpenAILLMService.InputParams(extra=extra)
             logger.info(
                 f"Using Lilac with base_url={base_url}, model={model}, thinking={enable_thinking}"
+            )
+            return service_class(**kwargs)
+
+        # Handle BaseTen (OpenAI-compatible Model API). Serves reasoning models
+        # like thinkingmachines/inkling that return chain-of-thought in a
+        # separate `reasoning_content` field; VLLMOpenAILLMService (the aliased
+        # class) times TTFT to the first non-thought token, not the first
+        # reasoning delta.
+        if service_name_lower == "baseten":
+            api_key = os.getenv("BASETEN_API_KEY")
+            if not api_key:
+                raise EnvironmentError("BASETEN_API_KEY environment variable is required")
+            base_url = os.getenv("BASETEN_BASE_URL", "https://inference.baseten.co/v1")
+            kwargs["api_key"] = api_key
+            kwargs["base_url"] = base_url
+
+            from pipecat.services.openai.llm import OpenAILLMService
+
+            # Inkling reasoning depth. `reasoning_effort` is an OpenAI-standard
+            # top-level field BaseTen honors; levels are
+            # none|minimal|low|medium|high|xhigh|max. `none` folds the
+            # chain-of-thought into `content` (a verbose visible answer), so the
+            # default is `low` — light thinking with a clean answer and reasoning
+            # kept in the separate reasoning_content field.
+            effort = os.getenv("MTE_BASETEN_REASONING_EFFORT", "low").strip().lower()
+            allowed_efforts = {
+                "none", "minimal", "low", "medium", "high", "xhigh", "max",
+            }
+            if effort and effort not in allowed_efforts:
+                raise ValueError(
+                    f"Invalid MTE_BASETEN_REASONING_EFFORT='{effort}'; "
+                    f"expected one of {sorted(allowed_efforts)}"
+                )
+            # Reasoning tokens count against max_tokens; keep generous headroom so
+            # a long chain-of-thought can't truncate the answer.
+            max_tokens = int(os.getenv("MTE_BASETEN_MAX_TOKENS", "8192"))
+            # Thinking Machines' reference example runs Inkling at temperature=1.
+            temperature = float(os.getenv("MTE_BASETEN_TEMPERATURE", "1.0"))
+            params_kwargs: Dict[str, Any] = {
+                "max_tokens": max_tokens,
+                "temperature": temperature,
+            }
+            if effort:
+                params_kwargs["extra"] = {"extra_body": {"reasoning_effort": effort}}
+            kwargs["params"] = OpenAILLMService.InputParams(**params_kwargs)
+            logger.info(
+                f"Using BaseTen with base_url={base_url}, model={model}, "
+                f"reasoning_effort={effort or '(model default)'}, "
+                f"max_tokens={max_tokens}, temperature={temperature}"
             )
             return service_class(**kwargs)
 

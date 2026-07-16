@@ -33,6 +33,7 @@ SERVICE_ALIASES = {
     "openai-realtime": "pipecat.services.openai.realtime.llm.OpenAIRealtimeLLMService",
     "openrouter": "pipecat.services.openai.llm.OpenAILLMService",  # OpenRouter uses OpenAI-compatible API
     "modal": "pipecat.services.openai.llm.OpenAILLMService",  # Modal uses OpenAI-compatible API
+    "baseten": "multi_turn_eval.services.baseten_logged.LoggedBaseTenLLMService",  # BaseTen Model API (OpenAI-compatible); records both raw-TTFB (first reasoning token) and TTFAT (first answer token) for reasoning_content models (e.g. thinkingmachines/inkling)
     "lilac": "pipecat.services.openai.llm.OpenAILLMService",  # Lilac uses OpenAI-compatible API
     "vllm-openai": "multi_turn_eval.services.vllm_openai.VLLMOpenAILLMService",  # vLLM OpenAI-compatible endpoint; TTFT = first non-thought token
     "nemotron": "multi_turn_eval.services.nemotron.NemotronLLMService",
