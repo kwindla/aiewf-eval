@@ -16,6 +16,8 @@ from pipecat.services.llm_service import FunctionCallFromLLM
 from pipecat.services.openai.llm import OpenAILLMService
 from pipecat.utils.tracing.service_decorators import traced_llm
 
+from multi_turn_eval.services.filler import apply_filler_to_last_user
+
 
 class OpenAIResponsesLLMService(OpenAILLMService):
     """OpenAI service implementation backed by the Responses API."""
@@ -192,6 +194,7 @@ class OpenAIResponsesLLMService(OpenAILLMService):
         params_from_context = self._context_to_openai_params(context)
 
         messages = params_from_context.get("messages") or []
+        messages = apply_filler_to_last_user(messages)
         tools = params_from_context.get("tools", NOT_GIVEN)
         tool_choice = params_from_context.get("tool_choice", NOT_GIVEN)
 

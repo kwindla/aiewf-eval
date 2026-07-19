@@ -168,7 +168,7 @@ class BasePipeline(ABC):
         backends reject empty assistant content outright.
         """
         service_name = (self.service_name or "").lower()
-        if service_name not in {"openai", "openrouter", "nemotron", "nemotron-audio-in", "modal", "baseten"}:
+        if service_name not in {"openai", "openrouter", "nemotron", "nemotron-audio-in", "modal", "baseten", "together"}:
             return
         if self.context is None:
             return
@@ -278,7 +278,30 @@ class BasePipeline(ABC):
                 raise EnvironmentError("OPENROUTER_API_KEY environment variable is required")
             kwargs["api_key"] = api_key
             kwargs["base_url"] = "https://openrouter.ai/api/v1"
-            logger.info(f"Using OpenRouter with base_url={kwargs['base_url']}")
+
+            from pipecat.services.openai.llm import OpenAILLMService
+
+            # OpenRouter's unified reasoning control. MTE_OPENROUTER_REASONING_OFF=1
+            # disables thinking for hybrid models (Qwen3, ...) so they answer
+            # directly — the thinking-off leg of the filler experiment. Non-hybrid
+            # chat models (e.g. deepseek-chat-v3.1) ignore it harmlessly.
+            reasoning_off = _env_bool("MTE_OPENROUTER_REASONING_OFF", False)
+            params_kwargs: Dict[str, Any] = {}
+            mt = os.getenv("MTE_OPENROUTER_MAX_TOKENS")
+            if mt:
+                params_kwargs["max_tokens"] = int(mt)
+            tp = os.getenv("MTE_OPENROUTER_TEMPERATURE")
+            if tp:
+                params_kwargs["temperature"] = float(tp)
+            if reasoning_off:
+                params_kwargs["extra"] = {"extra_body": {"reasoning": {"enabled": False}}}
+            if params_kwargs:
+                kwargs["params"] = OpenAILLMService.InputParams(**params_kwargs)
+            logger.info(
+                f"Using OpenRouter with base_url={kwargs['base_url']}, "
+                f"reasoning_off={reasoning_off}, "
+                f"max_tokens={mt or '(default)'}"
+            )
             return service_class(**kwargs)
 
         # Handle Lilac (uses OpenAI-compatible API at api.getlilac.com)
@@ -289,6 +312,12 @@ class BasePipeline(ABC):
             base_url = os.getenv("LILAC_BASE_URL", "https://api.getlilac.com/v1")
             kwargs["api_key"] = api_key
             kwargs["base_url"] = base_url
+
+            # Run-label vs API-id: results carry the `lilac/...` tag (self.model_name,
+            # set from --model before this runs) while the API gets Lilac's real id.
+            LILAC_MODEL_IDS = {"lilac/gemma-4-31b-it": "google/gemma-4-31b-it"}
+            if model in LILAC_MODEL_IDS:
+                kwargs["model"] = LILAC_MODEL_IDS[model]
 
             from pipecat.services.openai.llm import OpenAILLMService
             enable_thinking = _env_bool("MTE_LILAC_THINKING", False)
@@ -306,51 +335,72 @@ class BasePipeline(ABC):
             )
             return service_class(**kwargs)
 
-        # Handle BaseTen (OpenAI-compatible Model API). Serves reasoning models
-        # like thinkingmachines/inkling that return chain-of-thought in a
-        # separate `reasoning_content` field; VLLMOpenAILLMService (the aliased
-        # class) times TTFT to the first non-thought token, not the first
-        # reasoning delta.
-        if service_name_lower == "baseten":
-            api_key = os.getenv("BASETEN_API_KEY")
+        # Handle BaseTen / Together (OpenAI-compatible reasoning-model hosts).
+        # Both serve models like thinkingmachines/inkling or Qwen3 that stream
+        # chain-of-thought in a separate `reasoning_content` field; the aliased
+        # Logged*LLMService times TTFT to the first non-thought token, not the
+        # first reasoning delta. Same knobs, per-provider MTE_ prefix.
+        if service_name_lower in ("baseten", "together"):
+            if service_name_lower == "together":
+                prov_label = "Together"
+                key_env = "TOGETHER_API_KEY"
+                base_url = os.getenv("TOGETHER_BASE_URL", "https://api.together.xyz/v1")
+                pfx = "MTE_TOGETHER"
+            else:
+                prov_label = "BaseTen"
+                key_env = "BASETEN_API_KEY"
+                base_url = os.getenv("BASETEN_BASE_URL", "https://inference.baseten.co/v1")
+                pfx = "MTE_BASETEN"
+            api_key = os.getenv(key_env)
             if not api_key:
-                raise EnvironmentError("BASETEN_API_KEY environment variable is required")
-            base_url = os.getenv("BASETEN_BASE_URL", "https://inference.baseten.co/v1")
+                raise EnvironmentError(f"{key_env} environment variable is required")
             kwargs["api_key"] = api_key
             kwargs["base_url"] = base_url
 
             from pipecat.services.openai.llm import OpenAILLMService
 
-            # Inkling reasoning depth. `reasoning_effort` is an OpenAI-standard
-            # top-level field BaseTen honors; levels are
+            # Reasoning depth. `reasoning_effort` is an OpenAI-standard top-level
+            # field these hosts honor for some models; levels are
             # none|minimal|low|medium|high|xhigh|max. `none` folds the
-            # chain-of-thought into `content` (a verbose visible answer), so the
-            # default is `low` — light thinking with a clean answer and reasoning
-            # kept in the separate reasoning_content field.
-            effort = os.getenv("MTE_BASETEN_REASONING_EFFORT", "low").strip().lower()
+            # chain-of-thought into `content`; `omit` sends no reasoning_effort at
+            # all — for models (Nemotron-120B, Qwen3) that reject it and toggle
+            # thinking only via the chat_template kwarg below. Default `low` suits
+            # Inkling (light thinking, clean answer, reasoning in reasoning_content).
+            effort = os.getenv(f"{pfx}_REASONING_EFFORT", "low").strip().lower()
             allowed_efforts = {
-                "none", "minimal", "low", "medium", "high", "xhigh", "max",
+                "none", "minimal", "low", "medium", "high", "xhigh", "max", "omit",
             }
             if effort and effort not in allowed_efforts:
                 raise ValueError(
-                    f"Invalid MTE_BASETEN_REASONING_EFFORT='{effort}'; "
+                    f"Invalid {pfx}_REASONING_EFFORT='{effort}'; "
                     f"expected one of {sorted(allowed_efforts)}"
                 )
+            # Open models (Qwen3/GLM/Kimi/Nemotron/DeepSeek on vLLM/SGLang) toggle
+            # thinking via chat_template_kwargs.enable_thinking rather than
+            # reasoning_effort. {pfx}_ENABLE_THINKING=0/false disables it.
+            et = os.getenv(f"{pfx}_ENABLE_THINKING", "").strip().lower()
             # Reasoning tokens count against max_tokens; keep generous headroom so
             # a long chain-of-thought can't truncate the answer.
-            max_tokens = int(os.getenv("MTE_BASETEN_MAX_TOKENS", "8192"))
-            # Thinking Machines' reference example runs Inkling at temperature=1.
-            temperature = float(os.getenv("MTE_BASETEN_TEMPERATURE", "1.0"))
+            max_tokens = int(os.getenv(f"{pfx}_MAX_TOKENS", "8192"))
+            temperature = float(os.getenv(f"{pfx}_TEMPERATURE", "1.0"))
             params_kwargs: Dict[str, Any] = {
                 "max_tokens": max_tokens,
                 "temperature": temperature,
             }
-            if effort:
-                params_kwargs["extra"] = {"extra_body": {"reasoning_effort": effort}}
+            extra_body: Dict[str, Any] = {}
+            if effort and effort != "omit":
+                extra_body["reasoning_effort"] = effort
+            if et in {"0", "false", "off", "no"}:
+                extra_body["chat_template_kwargs"] = {"enable_thinking": False}
+            elif et in {"1", "true", "on", "yes"}:
+                extra_body["chat_template_kwargs"] = {"enable_thinking": True}
+            if extra_body:
+                params_kwargs["extra"] = {"extra_body": extra_body}
             kwargs["params"] = OpenAILLMService.InputParams(**params_kwargs)
             logger.info(
-                f"Using BaseTen with base_url={base_url}, model={model}, "
+                f"Using {prov_label} with base_url={base_url}, model={model}, "
                 f"reasoning_effort={effort or '(model default)'}, "
+                f"enable_thinking={et or '(unset)'}, "
                 f"max_tokens={max_tokens}, temperature={temperature}"
             )
             return service_class(**kwargs)

@@ -39,6 +39,67 @@ from pipecat.processors.aggregators.llm_context import LLMSpecificMessage
 from pipecat.services.anthropic.llm import AnthropicLLMService
 
 from multi_turn_eval.metrics import RawTTFBMetricsData
+from multi_turn_eval.services.filler import filler_suffix
+
+_filler_logged = False
+
+
+def _apply_filler_anthropic(messages: list) -> list:
+    """Return a copy of Anthropic-format `messages` with the MTE_FILLER_DOTS
+    suffix appended to the last *text-bearing* user turn (the actual question).
+
+    Anthropic puts tool results in ``role:"user"`` messages whose content is a
+    list of ``tool_result`` blocks; those are skipped so the filler lands on the
+    real user question — matching the OpenAI path, where tool results are
+    ``role:"tool"`` and never receive filler. Applied on a copy at request-build
+    time, so the persisted context stays filler-free. No-op when the knob is off.
+    """
+    global _filler_logged
+    filler = filler_suffix()
+    if not filler or not messages:
+        return messages
+    for i in range(len(messages) - 1, -1, -1):
+        msg = messages[i]
+        if not isinstance(msg, dict) or msg.get("role") != "user":
+            continue
+        content = msg.get("content")
+        new_content: Any
+        if isinstance(content, str):
+            new_content = content.rstrip() + " " + filler
+        elif isinstance(content, list):
+            # Find the last text block; skip messages that carry only
+            # tool_result (or other non-text) blocks — do NOT graft a text
+            # block onto them.
+            text_idx = next(
+                (
+                    j
+                    for j in range(len(content) - 1, -1, -1)
+                    if isinstance(content[j], dict)
+                    and content[j].get("type") == "text"
+                    and isinstance(content[j].get("text"), str)
+                ),
+                None,
+            )
+            if text_idx is None:
+                continue
+            new_content = list(content)
+            part = dict(new_content[text_idx])
+            part["text"] = part["text"].rstrip() + " " + filler
+            new_content[text_idx] = part
+        else:
+            continue
+        new_messages = list(messages)
+        nm = dict(msg)
+        nm["content"] = new_content
+        new_messages[i] = nm
+        if not _filler_logged:
+            _filler_logged = True
+            logger.info(
+                f"MTE_FILLER_DOTS active: appending {filler.count('.')} dots to the "
+                "final user turn of each Anthropic request (history left filler-free)"
+            )
+        return new_messages
+    return messages
 
 
 def _env_bool(name: str, default: bool) -> bool:
@@ -181,6 +242,13 @@ class LoggedAnthropicLLMService(AnthropicLLMService):
         await super().stop_ttfb_metrics(end_time=end_time)
 
     async def _create_message_stream(self, api_call, params):  # type: ignore[override]
+        # Inject the filler suffix onto the last user question (outgoing request
+        # only; persisted context untouched). Replaces params["messages"] so the
+        # downstream API call — and the payload log below — see the filler.
+        msgs = params.get("messages")
+        if isinstance(msgs, list):
+            params["messages"] = _apply_filler_anthropic(msgs)
+
         if _env_bool("MTE_LOG_ANTHROPIC_PAYLOADS", False):
             safe_params = _json_safe(params)
             messages = safe_params.get("messages", [])

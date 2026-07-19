@@ -31,6 +31,7 @@ Text mode models:
 | **nemotron-3-super-120b (512)** | **97.0%** | **291/300** | **297/300** | **291/300** | **299/300** | **687ms** | **1210ms** | **2254ms** |
 | gemini-3.1-flash-lite-preview | 96.7% | 290/300 | 295/300 | 291/300 | 299/300 | 1016ms | 1515ms | 3405ms |
 | **gpt-4.1** | **96.3%** | **289/300** | **289/300** | **290/300** | **300/300** | **536ms** | **1771ms** | **5056ms** |
+| gpt-5.4 (none, +96 dots) | 96.3% | 289/300 | 289/300 | 289/300 | 300/300 | 657ms | 1461ms | 7648ms |
 | zai-org/glm-5.1 | 95.7% | 287/300 | 288/300 | 292/300 | 300/300 | 845ms | 14520ms | 43878ms |
 | qwen3.5-4b (thinking) | 95.0% | 285/300 | 288/300 | 288/300 | 297/300 | 778ms | 907ms | 1441ms |
 | google/gemma-4-31b-it | 95.0% | 285/300 | 285/300 | 285/300 | 300/300 | 358ms | 1111ms | 2129ms |
@@ -69,6 +70,8 @@ Models labeled "(thinking)" or "(512)" were run with reasoning/chain-of-thought,
 `gpt-5.6-terra` and `gpt-5.6-luna` are two of the three GPT-5.6 versions (the third, `sol`, is the flagship). Like `gpt-5.4`, GPT-5.6 requires the OpenAI Responses API when tools and a reasoning effort are combined — `reasoning_effort` with function tools returns a 400 on `/v1/chat/completions`. The parenthesized label is the `reasoning_effort` level; GPT-5.6 accuracy on this benchmark climbs monotonically with effort (terra none/low/medium = 92.0/96.3/97.8%; luna = 88.3/93.3/94.3%), so `low` and `medium` are both reasonable rows. `terra (medium)` is over 9 runs (268 turns; one run was dropped to a transient OpenAI overload). `luna (none)` runs with reasoning off; its 12s TTFT Max is an OpenAI-overload artifact from the capture window, not representative (P50 671ms).
 
 `inkling` is Thinking Machines' 975B-parameter (41B active) open-weights model, run on BaseTen's serverless Model API; `(none)` sets `reasoning_effort: none`. Unlike GPT-5.6, Inkling's accuracy peaks at `low` (96.3%) and does not improve with more reasoning — higher effort only adds latency (median TTFT climbs to ~2.0s at `medium` and ~2.5s at `max`, with the P95 tail reaching ~6s). See `docs/inkling-notes.md` and `docs/inkling-baseten-integration.md`.
+
+`gpt-5.4 (none, +96 dots)` is a *filler-token* experiment (arxiv 2607.03502), not the standard fixed-prompt config: gpt-5.4 is run thinking-off (`reasoning_effort: none`) with 96 space-separated dots appended to the final user turn of each request (the conversation history is left filler-free). The dots give the model extra latent/prefill compute before answering, recovering +6.0 points over thinking-off with no filler (90.3% → 96.3%, 10 runs each) at flat TTFT (658 vs 677ms) — i.e. roughly thinking-on accuracy (gpt-5.4 low = 97.0%) at thinking-off latency. The effect is model-specific: 96 dots did nothing for gpt-5.6-luna (−0.9 pts) or inkling (−2.1 pts). Set via `MTE_FILLER_DOTS`.
 
 Both `gpt-4.1-mini` and `gpt-5.4-mini` sometimes exit early via a premature `end_session` or a malformed tool call, so denominators are below 300.
 

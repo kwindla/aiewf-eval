@@ -30,6 +30,10 @@ from multi_turn_eval.services.lilac_logged import LoggedLilacLLMService
 
 
 class LoggedBaseTenLLMService(LoggedLilacLLMService):
-    """OpenAI-compatible BaseTen reasoning service recording raw + TTFAT TTFB."""
+    """OpenAI-compatible BaseTen reasoning service recording raw + TTFAT TTFB.
+
+    Filler-token injection (MTE_FILLER_DOTS) and content-aware/raw TTFB are both
+    inherited from LoggedLilacLLMService; nothing BaseTen-specific is needed here.
+    """
 
     pass

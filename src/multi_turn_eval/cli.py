@@ -31,10 +31,11 @@ load_dotenv()
 SERVICE_ALIASES = {
     "openai": "pipecat.services.openai.llm.OpenAILLMService",
     "openai-realtime": "pipecat.services.openai.realtime.llm.OpenAIRealtimeLLMService",
-    "openrouter": "pipecat.services.openai.llm.OpenAILLMService",  # OpenRouter uses OpenAI-compatible API
+    "openrouter": "multi_turn_eval.services.openrouter_logged.LoggedOpenRouterLLMService",  # OpenRouter (OpenAI-compatible); content-aware TTFB + filler for reasoning models (Qwen3, DeepSeek-V3.x)
     "modal": "pipecat.services.openai.llm.OpenAILLMService",  # Modal uses OpenAI-compatible API
     "baseten": "multi_turn_eval.services.baseten_logged.LoggedBaseTenLLMService",  # BaseTen Model API (OpenAI-compatible); records both raw-TTFB (first reasoning token) and TTFAT (first answer token) for reasoning_content models (e.g. thinkingmachines/inkling)
-    "lilac": "pipecat.services.openai.llm.OpenAILLMService",  # Lilac uses OpenAI-compatible API
+    "together": "multi_turn_eval.services.together_logged.LoggedTogetherLLMService",  # Together API (OpenAI-compatible); same raw-TTFB/TTFAT handling for Qwen3, DeepSeek-V3.x, etc.
+    "lilac": "multi_turn_eval.services.lilac_logged.LoggedLilacLLMService",  # Lilac (OpenAI-compatible) with content-aware + raw TTFB
     "vllm-openai": "multi_turn_eval.services.vllm_openai.VLLMOpenAILLMService",  # vLLM OpenAI-compatible endpoint; TTFT = first non-thought token
     "nemotron": "multi_turn_eval.services.nemotron.NemotronLLMService",
     "nemotron-audio-in": "multi_turn_eval.vendor.nemotron_omni.NemotronOmniAudioLLMService",
