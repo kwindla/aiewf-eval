@@ -13,69 +13,90 @@ Thank you to [Modal](https://modal.com/) for providing compute resources for thi
 
 Text mode models:
 
-| Model | Pass Rate | Turn Pass | Tool Use | Instruction | KB Ground | TTFT Med | TTFT P95 | TTFT Max |
-|---|---:|---:|---:|---:|---:|---:|---:|---:|
-| **nemotron-3-ultra (128)** | **100.0%** | **300/300** | **300/300** | **300/300** | **300/300** | **541ms** | **712ms** | **1302ms** |
-| claude-sonnet-4-6 | 100.0% | 300/300 | 300/300 | 300/300 | 300/300 | 850ms | 4126ms | 9396ms |
-| claude-fable-5 (low) | 100.0% | 300/300 | 300/300 | 300/300 | 300/300 | 3535ms | 5148ms | 8815ms |
-| claude-fable-5 (default) | 100.0% | 300/300 | 300/300 | 300/300 | 300/300 | 3956ms | 6496ms | 13602ms |
-| qwen3.5-27b (thinking) | 99.0% | 297/300 | 298/300 | 298/300 | 299/300 | 1443ms | 1666ms | 2199ms |
-| gemini-3.5-flash (minimal) | 99.0% | 297/300 | 298/300 | 297/300 | 300/300 | 960ms | 1588ms | 3132ms |
-| glm-5 (thinking) | 98.7% | 296/300 | 297/300 | 298/300 | 299/300 | 841ms | 873ms | 6712ms |
-| **nemotron-3-ultra (96)** | **98.3%** | **295/300** | **296/300** | **296/300** | **299/300** | **529ms** | **655ms** | **1259ms** |
-| **kimi-k2.6 Cerebras (thinking)** | **98.0%** | **294/300** | **296/300** | **294/300** | **300/300** | **452ms** | **1350ms** | **3483ms** |
-| **claude-haiku-4-5** | **98.0%** | **294/300** | **298/300** | **294/300** | **300/300** | **637ms** | **1615ms** | **3152ms** |
-| gpt-5.1 | 98.0% | 294/300 | 294/300 | 294/300 | 300/300 | 739ms | 1492ms | 4244ms |
-| gpt-5.6-terra (medium) | 97.8% | 262/268 | 263/268 | 262/268 | 268/268 | 927ms | 2149ms | 4167ms |
-| gpt-5.4 (low) | 97.0% | 291/300 | 291/300 | 291/300 | 300/300 | 782ms | 1706ms | 2698ms |
-| **nemotron-3-super-120b (512)** | **97.0%** | **291/300** | **297/300** | **291/300** | **299/300** | **687ms** | **1210ms** | **2254ms** |
-| gemini-3.1-flash-lite-preview | 96.7% | 290/300 | 295/300 | 291/300 | 299/300 | 1016ms | 1515ms | 3405ms |
-| **gpt-4.1** | **96.3%** | **289/300** | **289/300** | **290/300** | **300/300** | **536ms** | **1771ms** | **5056ms** |
-| gpt-5.4 (none, +96 dots) | 96.3% | 289/300 | 289/300 | 289/300 | 300/300 | 657ms | 1461ms | 7648ms |
-| zai-org/glm-5.1 | 95.7% | 287/300 | 288/300 | 292/300 | 300/300 | 845ms | 14520ms | 43878ms |
-| qwen3.5-4b (thinking) | 95.0% | 285/300 | 288/300 | 288/300 | 297/300 | 778ms | 907ms | 1441ms |
-| google/gemma-4-31b-it | 95.0% | 285/300 | 285/300 | 285/300 | 300/300 | 358ms | 1111ms | 2129ms |
-| **gpt-4o** | **94.7%** | **284/300** | **291/300** | **285/300** | **299/300** | **546ms** | **1369ms** | **4897ms** |
-| inkling (none) | 94.7% | 284/300 | 285/300 | 284/300 | 300/300 | 917ms | 1686ms | 3453ms |
-| qwen3.5-27b | 94.3% | 283/300 | 283/300 | 283/300 | 300/300 | 1494ms | 1666ms | 75111ms |
-| qwen3.5-9b (thinking) | 94.7% | 284/300 | 287/300 | 286/300 | 298/300 | 904ms | 1006ms | 1356ms |
-| **kimi-k2.6 Cerebras (instant)** | **94.0%** | **282/300** | **282/300** | **285/300** | **300/300** | **256ms** | **480ms** | **1639ms** |
-| **gpt-5.4** | **93.0%** | **279/300** | **280/300** | **280/300** | **299/300** | **646ms** | **971ms** | **4429ms** |
-| claude-sonnet-5 | 93.0% | 279/300 | 279/300 | 279/300 | 300/300 | 1204ms | 2465ms | 6955ms |
-| gpt-5.4-mini (medium) | 91.1% | 185/203 | 185/203 | 186/203 | 202/203 | 808ms | 2120ms | 2786ms |
-| nemotron-3-nano-30b (512) | 90.6% | 252/278 | 264/278 | 261/278 | 267/278 | 940ms | 1912ms | 2821ms |
-| **nova-2-pro-preview** | **90.3%** | **271/300** | **280/300** | **278/300** | **293/300** | **690ms** | **1616ms** | **3840ms** |
-| **gemini-2.5-flash** | **89.7%** | **269/300** | **274/300** | **269/300** | **300/300** | **597ms** | **1137ms** | **2313ms** |
-| qwen3.5-9b | 89.3% | 268/300 | 276/300 | 271/300 | 297/300 | 908ms | 1007ms | 24304ms |
-| **gpt-5.2** | **89.3%** | **268/300** | **270/300** | **268/300** | **298/300** | **624ms** | **1171ms** | **2509ms** |
-| qwen3.5-4b | 88.7% | 266/300 | 269/300 | 267/300 | 298/300 | 773ms | 921ms | 50986ms |
-| gpt-5.6-luna (none) | 88.3% | 265/300 | 265/300 | 265/300 | 300/300 | 671ms | 2304ms | 12017ms |
-| **gpt-oss-120b (groq)** | **86.3%** | **259/300** | **272/300** | **261/300** | **298/300** | **98ms** | **217ms** | **2117ms** |
-| gpt-4.1-mini | 85.3% | 244/286 | 244/286 | 244/286 | 286/286 | 851ms | 2135ms | 5945ms |
-| glm-4.7-flash | 84.7% | 254/300 | 268/300 | 265/300 | 288/300 | 940ms | 1079ms | 2524ms |
-| **gpt-5-mini** | **83.7%** | **251/300** | **258/300** | **251/300** | **297/300** | **682ms** | **1132ms** | **1904ms** |
-| gpt-5.4-mini (none) | 83.1% | 123/148 | 124/148 | 123/148 | 148/148 | 459ms | 731ms | 2369ms |
-| **gpt-4o-mini** | **82.7%** | **248/300** | **269/300** | **259/300** | **293/300** | **553ms** | **1947ms** | **6497ms** |
+| Model | Pass Rate | Any Error | Tool Error | Instruction Error | KB Error | TTFAT P50 | TTFAT P95 | TTFAT Max | Provider |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---|
+| **nemotron-3-ultra (128)** | **100.0%** | 0.0% | 0.0% | 0.0% | 0.0% | **541ms** | **712ms** | **1302ms** | Modal |
+| claude-sonnet-4-6 | 100.0% | 0.0% | 0.0% | 0.0% | 0.0% | 850ms | 4126ms | 9396ms | Anthropic |
+| claude-fable-5 (low) | 100.0% | 0.0% | 0.0% | 0.0% | 0.0% | 3535ms | 5148ms | 8815ms | Anthropic |
+| claude-fable-5 (default) | 100.0% | 0.0% | 0.0% | 0.0% | 0.0% | 3956ms | 6496ms | 13602ms | Anthropic |
+| glm-5.2 (none) | 99.7% | 0.3% | 0.2% | 0.2% | 0.0% | 936ms | 2140ms | 7567ms | BaseTen |
+| qwen3.5-27b (thinking) | 99.0% | 1.0% | 0.7% | 0.7% | 0.3% | 1443ms | 1666ms | 2199ms | Modal |
+| glm-5 (thinking) | 98.7% | 1.3% | 1.0% | 0.7% | 0.3% | 841ms | 873ms | 6712ms | Modal |
+| **nemotron-3-ultra (96)** | **98.3%** | 1.7% | 1.3% | 1.3% | 0.3% | **529ms** | **655ms** | **1259ms** | Modal |
+| **kimi-k2.6 Cerebras (thinking)** | **98.0%** | 2.0% | 1.3% | 2.0% | 0.0% | **452ms** | **1350ms** | **3483ms** | Cerebras |
+| **claude-haiku-4-5** | **98.0%** | 2.0% | 0.7% | 2.0% | 0.0% | **637ms** | **1615ms** | **3152ms** | Anthropic |
+| gpt-5.1 | 98.0% | 2.0% | 2.0% | 2.0% | 0.0% | 739ms | 1492ms | 4244ms | OpenAI |
+| gpt-5.6-terra (medium) | 97.8% | 2.2% | 1.9% | 2.2% | 0.0% | 927ms | 2149ms | 4167ms | OpenAI |
+| lilac/gemma-4-31b-it (thinking off) | 97.7% | 2.3% | 2.3% | 2.3% | 0.0% | 672ms | 4083ms | 43466ms | Lilac |
+| gpt-5.5 (none) | 97.4% | 2.6% | 2.0% | 2.6% | 0.0% | 875ms | 2177ms | 5623ms | OpenAI |
+| qwen3.6-27b (thinking off) | 97.3% | 2.7% | 2.7% | 2.7% | 0.0% | 668ms | 822ms | 5429ms | BaseTen |
+| gemini-3.6-flash (minimal) | 97.1% | 2.9% | 2.4% | 2.8% | 0.1% | 798ms | 984ms | 1472ms | AI Studio |
+| gpt-5.4 (low) | 97.0% | 3.0% | 3.0% | 3.0% | 0.0% | 782ms | 1706ms | 2698ms | OpenAI |
+| **nemotron-3-super-120b (512)** | **97.0%** | 3.0% | 1.0% | 3.0% | 0.3% | **687ms** | **1210ms** | **2254ms** | Modal |
+| gemini-3.1-flash-lite-preview | 96.7% | 3.3% | 1.7% | 3.0% | 0.3% | 1016ms | 1515ms | 3405ms | AI Studio |
+| gpt-5.6-sol (none) | 96.6% | 3.4% | 3.3% | 3.3% | 0.1% | 1098ms | 2625ms | 6344ms | OpenAI |
+| **gpt-4.1** | **96.3%** | 3.7% | 3.7% | 3.3% | 0.0% | **536ms** | **1771ms** | **5056ms** | OpenAI |
+| zai-org/glm-5.1 | 95.7% | 4.3% | 4.0% | 2.7% | 0.0% | 845ms | 14520ms | 43878ms | Lilac |
+| gpt-5.4 (none, +96 dots) | 95.2% | 4.8% | 4.7% | 4.6% | 0.1% | 694ms | 2273ms | 17264ms | OpenAI |
+| qwen3.5-4b (thinking) | 95.0% | 5.0% | 4.0% | 4.0% | 1.0% | 778ms | 907ms | 1441ms | Modal |
+| inkling (none) | 94.8% | 5.2% | 5.1% | 4.8% | 1.3% | 447ms | 727ms | 1813ms | BaseTen |
+| **gpt-4o** | **94.7%** | 5.3% | 3.0% | 5.0% | 0.3% | **546ms** | **1369ms** | **4897ms** | OpenAI |
+| qwen3.5-9b (thinking) | 94.7% | 5.3% | 4.3% | 4.7% | 0.7% | 904ms | 1006ms | 1356ms | Modal |
+| qwen3.5-27b | 94.3% | 5.7% | 5.7% | 5.7% | 0.0% | 1494ms | 1666ms | 75111ms | Modal |
+| **kimi-k2.6 Cerebras (instant)** | **94.0%** | 6.0% | 6.0% | 5.0% | 0.0% | **256ms** | **480ms** | **1639ms** | Cerebras |
+| gemini-3.5-flash (minimal) | 93.3% | 6.7% | 5.3% | 6.7% | 4.9% | 892ms | 1183ms | 1721ms | AI Studio |
+| claude-sonnet-5 | 93.0% | 7.0% | 7.0% | 7.0% | 0.0% | 1204ms | 2465ms | 6955ms | Anthropic |
+| qwen3.6-35b-a3b (thinking off, FP8) | 91.6% | 8.4% | 6.8% | 7.8% | 0.4% | 765ms | 1255ms | 35664ms | BaseTen |
+| gpt-5.6-terra (none) | 91.3% | 8.7% | 8.1% | 8.6% | 0.3% | 621ms | 1870ms | 5665ms | OpenAI |
+| gpt-5.4-mini (medium) | 91.1% | 8.9% | 8.9% | 8.4% | 0.5% | 808ms | 2120ms | 2786ms | OpenAI |
+| nemotron-3-nano-30b (512) | 90.6% | 9.4% | 5.0% | 6.1% | 4.0% | 940ms | 1912ms | 2821ms | Modal |
+| **nova-2-pro-preview** | **90.3%** | 9.7% | 6.7% | 7.3% | 2.3% | **690ms** | **1616ms** | **3840ms** | AWS Bedrock |
+| gpt-5.4 (none) | 90.2% | 9.8% | 9.4% | 9.7% | 0.1% | 689ms | 1723ms | 6571ms | OpenAI |
+| gemini-2.5-flash (thinking off) | 89.9% | 10.1% | 9.1% | 10.1% | 0.0% | 550ms | 850ms | 2352ms | AI Studio |
+| qwen3.5-9b | 89.3% | 10.7% | 8.0% | 9.7% | 1.0% | 908ms | 1007ms | 24304ms | Modal |
+| **gpt-5.2** | **89.3%** | 10.7% | 10.0% | 10.7% | 0.7% | **624ms** | **1171ms** | **2509ms** | OpenAI |
+| qwen3.5-4b | 88.7% | 11.3% | 10.3% | 11.0% | 0.7% | 773ms | 921ms | 50986ms | Modal |
+| gpt-5.6-luna (none) | 88.3% | 11.7% | 11.7% | 11.7% | 0.0% | 671ms | 2304ms | 12017ms | OpenAI |
+| **gpt-oss-120b (groq)** | **86.3%** | 13.7% | 9.3% | 13.0% | 0.7% | **98ms** | **217ms** | **2117ms** | Groq |
+| poolside/laguna-s-2.1 (thinking off) | 85.6% | 14.4% | 13.7% | 11.2% | 5.7% | 295ms | 620ms | 21032ms | OpenRouter |
+| gpt-4.1-mini | 85.3% | 14.7% | 14.7% | 14.7% | 0.0% | 851ms | 2135ms | 5945ms | OpenAI |
+| glm-4.7-flash | 84.7% | 15.3% | 10.7% | 11.7% | 4.0% | 940ms | 1079ms | 2524ms | Modal |
+| **gpt-5-mini** | **83.7%** | 16.3% | 14.0% | 16.3% | 1.0% | **682ms** | **1132ms** | **1904ms** | OpenAI |
+| gpt-5.4-mini (none) | 83.1% | 16.9% | 16.2% | 16.9% | 0.0% | 459ms | 731ms | 2369ms | OpenAI |
+| **gpt-4o-mini** | **82.7%** | 17.3% | 10.3% | 13.7% | 2.3% | **553ms** | **1947ms** | **6497ms** | OpenAI |
+| gemma-4-26b-a4b-it (thinking off) | 81.4% | 18.6% | 13.0% | 18.6% | 0.0% | 597ms | 670ms | 4583ms | BaseTen |
+| qwen3-8b (thinking off, BaseTen) | 81.3% | 18.7% | 15.7% | 15.9% | 3.4% | 564ms | 678ms | 1563ms | BaseTen |
+| gemini-3.5-flash-lite (minimal) | 68.6% | 31.4% | 30.8% | 31.4% | 28.1% | 591ms | 679ms | 928ms | AI Studio |
 
-Each conversation in this benchmark is 30 turns. The scores above are aggregated across 10 runs for each model unless otherwise noted. **Turn Pass** is the number of turns where all three judged dimensions pass on the same turn (`tool_use_correct && instruction_following && kb_grounding`). **Pass Rate** is `Turn Pass / total_turns`.
+Each conversation in this benchmark has 30 scripted turns. Refreshed filler-study rows use a fixed-denominator, attempt-based analysis in which missing, malformed, and post-abort future turns count as errors. Some legacy rows with early exits use their available observed turns and are therefore not directly comparable on completion reliability; detailed sample sizes and protocols live in the linked study artifacts rather than this summary table. **Any Error** is the percentage of turns where at least one of tool use, instruction following, or KB grounding fails; it is the complement of **Pass Rate**. The three dimension error rates overlap and therefore do not sum to Any Error.
 
-TTFT is the latency reported by the Pipecat service for each model from request to first token/byte of model output. An optimized speech-to-speech pipeline with typical network latencies should be able to achieve a total voice-to-voice latency of approximately LLM TTFT + 500ms. In general, a model with TTFT above ~700ms is too slow for most voice agent use cases.
+TTFAT is the latency reported by the Pipecat service from request to the first user-visible answer token or tool-call output; reasoning deltas are excluded where the service exposes them separately. An optimized speech-to-speech pipeline with typical network latencies should be able to achieve a total voice-to-voice latency of approximately LLM TTFAT + 500ms. In general, a model with TTFAT above ~700ms is too slow for most voice agent use cases.
 
 Models labeled "(thinking)" or "(512)" were run with reasoning/chain-of-thought, or thinking token budgets enabled. Models labeled with a reasoning effort like "(low)", "(medium)", or "(none)" were run at that effort level on the OpenAI Responses API.
 
-`claude-fable-5` cannot run without thinking: adaptive thinking is always on for this model and `thinking: {"type": "disabled"}` is rejected by the API. The "(default)" row is the out-of-the-box configuration (adaptive thinking at the default effort, `high`); the "(low)" row sets `output_config: {"effort": "low"}`. Both rows request `thinking.display: "summarized"` and measure TTFT to the first non-thinking token, the same convention used for other reasoning models in this table. We planned a low/medium/high/xhigh effort sweep but stopped after `low`: with a TTFT P50 above 3.5s, no higher effort level can pass the ~1500ms bar for voice use. A follow-up "voice-optimized" probe (effort low, `thinking.display: "omitted"`, plus a system-prompt instruction suppressing deliberation) cut median thinking delay to 14ms and still measured 2980ms median TTFT at 100% pass rate — the latency is serving-side prefill, not reasoning. See `docs/claude-fable-5-sweep-2026-06-09.md`.
+Gemini 3 rows labeled `(minimal)` use Google's lowest supported `thinking_level`, the closest current equivalent to no-think for latency testing. Google notes that `minimal` matches no thinking for most requests but does not guarantee that reasoning is completely off; these rows therefore are not labeled `thinking off`.
 
-`claude-sonnet-5` is run with thinking disabled (`thinking: {"type": "disabled"}`). Unlike `claude-sonnet-4-6`, Sonnet 5 runs adaptive thinking by default when the `thinking` parameter is omitted, so an explicit disable is required to measure the no-thinking (voice) configuration. A paired 10-run `output_config: {"effort": "low"}` adaptive comparison scored the same pass rate within noise (92.0%) at ~600ms higher median TTFT (1802ms) and ~1.7s higher P95 (4202ms), so low-effort thinking buys no accuracy on this benchmark and is omitted from the voice row. The remaining ~7% is a stochastic over-confirmation failure (the model re-asks for a user name it already collected instead of calling the tool); KB grounding and turn-taking are perfect. See `docs/ten-run-aggregates/claude-sonnet-5-disabled-2026-07-01.txt` and `docs/ten-run-aggregates/claude-sonnet-5-low-2026-07-01.txt`.
+`gemini-2.5-flash (thinking off)` explicitly sets `thinking_budget=0`. This is also Pipecat's low-latency default for Gemini 2.5 Flash, but the benchmark pins it so every included run has an auditable thinking-off signature rather than relying on an implicit service default.
 
-`gpt-5.6-terra` and `gpt-5.6-luna` are two of the three GPT-5.6 versions (the third, `sol`, is the flagship). Like `gpt-5.4`, GPT-5.6 requires the OpenAI Responses API when tools and a reasoning effort are combined — `reasoning_effort` with function tools returns a 400 on `/v1/chat/completions`. The parenthesized label is the `reasoning_effort` level; GPT-5.6 accuracy on this benchmark climbs monotonically with effort (terra none/low/medium = 92.0/96.3/97.8%; luna = 88.3/93.3/94.3%), so `low` and `medium` are both reasonable rows. `terra (medium)` is over 9 runs (268 turns; one run was dropped to a transient OpenAI overload). `luna (none)` runs with reasoning off; its 12s TTFT Max is an OpenAI-overload artifact from the capture window, not representative (P50 671ms).
+`poolside/laguna-s-2.1 (thinking off)` uses the exact paid `poolside/laguna-s-2.1` OpenRouter route, served upstream by Poolside in BF16. The benchmark explicitly sets `reasoning.enabled=false`, so thinking is disabled; its TTFAT is specific to this OpenRouter/Poolside serving route.
 
-`inkling` is Thinking Machines' 975B-parameter (41B active) open-weights model, run on BaseTen's serverless Model API; `(none)` sets `reasoning_effort: none`. Unlike GPT-5.6, Inkling's accuracy peaks at `low` (96.3%) and does not improve with more reasoning — higher effort only adds latency (median TTFT climbs to ~2.0s at `medium` and ~2.5s at `max`, with the P95 tail reaching ~6s). See `docs/inkling-notes.md` and `docs/inkling-baseten-integration.md`.
+`claude-fable-5` cannot run without thinking: adaptive thinking is always on for this model and `thinking: {"type": "disabled"}` is rejected by the API. The "(default)" row is the out-of-the-box configuration (adaptive thinking at the default effort, `high`); the "(low)" row sets `output_config: {"effort": "low"}`. Both rows request `thinking.display: "summarized"` and measure TTFAT to the first non-thinking token, the same convention used for other reasoning models in this table. We planned a low/medium/high/xhigh effort sweep but stopped after `low`: with a TTFAT P50 above 3.5s, no higher effort level can pass the ~1500ms bar for voice use. A follow-up "voice-optimized" probe (effort low, `thinking.display: "omitted"`, plus a system-prompt instruction suppressing deliberation) cut median thinking delay to 14ms and still measured 2980ms median TTFAT at 100% pass rate — the latency is serving-side prefill, not reasoning. See `docs/claude-fable-5-sweep-2026-06-09.md`.
 
-`gpt-5.4 (none, +96 dots)` is a *filler-token* experiment (arxiv 2607.03502), not the standard fixed-prompt config: gpt-5.4 is run thinking-off (`reasoning_effort: none`) with 96 space-separated dots appended to the final user turn of each request (the conversation history is left filler-free). The dots give the model extra latent/prefill compute before answering, recovering +6.0 points over thinking-off with no filler (90.3% → 96.3%, 10 runs each) at flat TTFT (658 vs 677ms) — i.e. roughly thinking-on accuracy (gpt-5.4 low = 97.0%) at thinking-off latency. The effect is model-specific: 96 dots did nothing for gpt-5.6-luna (−0.9 pts) or inkling (−2.1 pts). Set via `MTE_FILLER_DOTS`.
+`claude-sonnet-5` is run with thinking disabled (`thinking: {"type": "disabled"}`). Unlike `claude-sonnet-4-6`, Sonnet 5 runs adaptive thinking by default when the `thinking` parameter is omitted, so an explicit disable is required to measure the no-thinking (voice) configuration. A paired `output_config: {"effort": "low"}` adaptive comparison scored the same pass rate within noise (92.0%) at ~600ms higher median TTFAT (1802ms) and ~1.7s higher P95 (4202ms), so low-effort thinking buys no accuracy on this benchmark and is omitted from the voice row. The remaining ~7% is a stochastic over-confirmation failure (the model re-asks for a user name it already collected instead of calling the tool); KB grounding and turn-taking are perfect. See `docs/ten-run-aggregates/claude-sonnet-5-disabled-2026-07-01.txt` and `docs/ten-run-aggregates/claude-sonnet-5-low-2026-07-01.txt`.
 
-Both `gpt-4.1-mini` and `gpt-5.4-mini` sometimes exit early via a premature `end_session` or a malformed tool call, so denominators are below 300.
+`gpt-5.6-terra` and `gpt-5.6-luna` are two of the three GPT-5.6 versions (the third, `sol`, is the flagship). Like `gpt-5.4`, GPT-5.6 requires the OpenAI Responses API when tools and a reasoning effort are combined — `reasoning_effort` with function tools returns a 400 on `/v1/chat/completions`. The parenthesized label is the `reasoning_effort` level. The `terra (medium)` aggregate excludes a transient OpenAI overload. `luna (none)` runs with reasoning off; its 12s TTFAT Max is an OpenAI-overload artifact from the capture window, not representative (P50 671ms). The refreshed `terra (none)` and `sol (none)` rows use the fixed-denominator study pools described below.
 
-There's a curious regression between `glm-5` (99.7%) and `glm-5.1` (95.7%): the newer model misses `end_session` on every single one of 10 runs at the closing turn, where the user says "I just wanted to say the conference was great. I don't have anything else." `glm-5.1` produces a perfectly graceful goodbye in text but doesn't invoke the tool. The older `glm-5` caught this turn correctly almost every time, and public benchmarks suggest `glm-5.1` should generally be the stronger model. This is the kind of subtle behavior change that a small system-prompt nudge would likely fix — but it's a good example of how model-version updates can quietly shift behavior in ways that don't show up in headline benchmarks.
+`inkling` is Thinking Machines' 975B-parameter (41B active) open-weights model, run on BaseTen's serverless Model API; `(none)` sets `reasoning_effort: none`. Unlike GPT-5.6, Inkling's accuracy peaks at `low` in the earlier effort sweep and does not improve with more reasoning — higher effort only adds latency (median TTFAT climbs to ~2.0s at `medium` and ~2.5s at `max`, with the P95 tail reaching ~6s). See `docs/inkling-notes.md` and `docs/inkling-baseten-integration.md`.
+
+`qwen3-8b (thinking off, BaseTen)` uses the official BF16 `Qwen/Qwen3-8B` weights on a dedicated BaseTen vLLM endpoint. Its accuracy and TTFAT are computed only from that endpoint; interrupted OpenRouter/Alibaba attempts remain in the study audit artifacts and are not pooled. The latency is specific to this BaseTen serving configuration, including automatic prefix caching.
+
+The Qwen3.6 rows use official `Qwen/Qwen3.6-27B` BF16 and `Qwen/Qwen3.6-35B-A3B-FP8` checkpoints on dedicated BaseTen vLLM 0.26 endpoints with automatic prefix caching and two-token MTP speculative decoding. Native thinking is explicitly disabled. Each no-filler row contains 30 conversations and uses the same fixed 900-turn denominator as the focused filler-study rows; missing future turns after an early exit count as errors. Qwen3.6-27B completed all 30 conversations, while Qwen3.6-35B-A3B completed 27/30. See `docs/filler-study-data/qwen36-dots-2026-07-28/protocol.md` and `ops/baseten-qwen36-27b-vllm/aiewf-medium-qwen36-baseten-vllm026-apc-mtp-n30-20260728T110824Z/analysis/REPORT.md`.
+
+`gpt-5.4 (none, +96 dots)` is a *filler-token* experiment (arxiv 2607.03502), not the standard fixed-prompt config: gpt-5.4 is run thinking-off (`reasoning_effort: none`) with 96 space-separated dots appended to the final user turn of each request (the conversation history is left filler-free). The refreshed fixed-denominator comparison is summarized in the table and analyzed in `docs/filler-token-latent-scratchpad-study.md`. Set via `MTE_FILLER_DOTS`.
+
+Both `gpt-4.1-mini` and `gpt-5.4-mini` sometimes exit early via a premature `end_session` or a malformed tool call; consult their dedicated study artifacts when completion reliability matters.
+
+There's a curious regression between `glm-5` (99.7%) and `glm-5.1` (95.7%): the newer model consistently misses `end_session` at the closing turn, where the user says "I just wanted to say the conference was great. I don't have anything else." `glm-5.1` produces a perfectly graceful goodbye in text but doesn't invoke the tool. The older `glm-5` caught this turn correctly almost every time, and public benchmarks suggest `glm-5.1` should generally be the stronger model. This is the kind of subtle behavior change that a small system-prompt nudge would likely fix — but it's a good example of how model-version updates can quietly shift behavior in ways that don't show up in headline benchmarks.
 
 Speech-to-speech models:
 

@@ -1,0 +1,16 @@
+{
+  "captured_at_utc": "2026-07-30T17:59:31Z",
+  "id": "qz4zpye",
+  "model_id": "qel1y223",
+  "status": "SCALED_TO_ZERO",
+  "active_replica_count": 0,
+  "autoscaling_settings": {
+    "min_replica": 0,
+    "max_replica": 1,
+    "autoscaling_window": 60,
+    "scale_down_delay": 120,
+    "concurrency_target": 1,
+    "target_utilization_percentage": 70
+  },
+  "instance_type_name": "H100 - 1 H100 GPU, 80 GiB VRAM"
+}

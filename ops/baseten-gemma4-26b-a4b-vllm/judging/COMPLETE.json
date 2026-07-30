@@ -1,0 +1,9 @@
+{
+  "campaign": "aiewf-medium-gemma4-26b-a4b-baseten-vllm-n30-20260730",
+  "completed_at": "2026-07-30T17:58:39+00:00",
+  "canonical_runs": 30,
+  "judge_model": "claude-opus-4-5",
+  "judge_version": "claude-agent-sdk-v4-turn-taking",
+  "canonical_inputs_sha256": "c0b547920c8ba508573a42f7a01aac446d1c30925cfae19db4618b29a357e10a",
+  "judge_source_sha256": "5de7de91579af2c42c9ed2ae2bf59050a1626432bca6e54d98a3cb99141593c9"
+}

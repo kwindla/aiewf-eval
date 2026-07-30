@@ -1,0 +1,2 @@
+model	arm	runs	scheduled_turns	observed_turns	strict_pass_percent	full_coverage	strict_protocol_completion	ttfat_p50_ms	ttfat_p95_ms	ttfat_max_ms
+google/gemma-4-26B-A4B-it	none	30	900	900	81.4444	30/30	30/30	597	670	4583
