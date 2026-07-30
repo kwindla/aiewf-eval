@@ -265,6 +265,14 @@ class BasePipeline(ABC):
         if service_class is None:
             raise ValueError("--service is required for this pipeline")
 
+        from multi_turn_eval.model_policy import (
+            OPENAI_PRO_EXCLUSION_MESSAGE,
+            is_openai_pro_model,
+        )
+
+        if is_openai_pro_model(model, self.service_name):
+            raise ValueError(OPENAI_PRO_EXCLUSION_MESSAGE)
+
         # Build kwargs with API keys based on service class name
         kwargs: Dict[str, Any] = {"model": model}
         class_name = service_class.__name__
@@ -470,6 +478,18 @@ class BasePipeline(ABC):
             extra_body: Dict[str, Any] = {
                 "chat_template_kwargs": {"enable_thinking": enable_thinking}
             }
+            from multi_turn_eval.services.vllm_openai import (
+                is_qwen_reasoning_history_model,
+            )
+
+            if is_qwen_reasoning_history_model(model):
+                # Qwen's tool-use template must retain each assistant thought
+                # alongside the tool call that followed it. Sending both knobs
+                # makes the request behavior explicit for thinking-on and
+                # thinking-off runs.
+                extra_body["chat_template_kwargs"]["preserve_thinking"] = (
+                    enable_thinking
+                )
             # Optional thinking-budget cap. Two mechanisms:
             #  - default: custom `ThinkingBudgetLogitsProcessor` via vllm_xargs (has a
             #    grace period; BLOCKED by vLLM under speculative decoding / MTP).
@@ -689,6 +709,7 @@ class BasePipeline(ABC):
             if service_name_lower == "openai" and (
                 model_lower.startswith("gpt-4.1")
                 or model_lower.startswith("gpt-5.4")
+                or model_lower.startswith("gpt-5.5")
                 or model_lower.startswith("gpt-5.6")
             ):
                 from multi_turn_eval.services.openai_responses import OpenAIResponsesLLMService
@@ -702,17 +723,21 @@ class BasePipeline(ABC):
                 from pipecat.services.openai.llm import OpenAILLMService
                 # gpt-5.1 and gpt-5.2 use "none"; most other gpt-5 models use "minimal".
                 #
-                # gpt-5.4 rejects reasoning_effort with tools on
+                # Newer gpt-5.x models reject reasoning_effort with tools on
                 # /v1/chat/completions; use Responses API with reasoning.effort when
                 # routed, otherwise omit reasoning_effort for chat.completions.
-                if model_lower.startswith("gpt-5.4") or model_lower.startswith("gpt-5.6"):
+                if (
+                    model_lower.startswith("gpt-5.4")
+                    or model_lower.startswith("gpt-5.5")
+                    or model_lower.startswith("gpt-5.6")
+                ):
                     if class_name == "OpenAIResponsesLLMService":
                         reasoning_effort = os.getenv(
                             "MTE_OPENAI_RESPONSES_REASONING_EFFORT", "low"
                         ).strip().lower()
-                        # gpt-5.4 exposes none/low/medium/high/xhigh; gpt-5.6 (sol/
-                        # terra/luna) adds "max". Both reject reasoning_effort with
-                        # tools on /v1/chat/completions, so both route here (Responses).
+                        # gpt-5.4/5.5 expose none/low/medium/high/xhigh; gpt-5.6
+                        # (sol/terra/luna) adds "max". These route through Responses
+                        # for tool-use compatibility.
                         allowed_efforts = {"none", "low", "medium", "high", "xhigh"}
                         if model_lower.startswith("gpt-5.6"):
                             allowed_efforts = allowed_efforts | {"max"}
@@ -778,6 +803,35 @@ class BasePipeline(ABC):
                     f"Configured {model} (google/gemma) with T={temperature}, "
                     f"top_p={top_p}, thinking=ON (no API knob to disable)"
                 )
+
+            # Gemini 2.5 uses token budgets rather than Gemini 3's thinking
+            # levels. Pipecat's low-latency default for 2.5 Flash injects
+            # thinking_budget=0 later while building the request. Benchmarks
+            # can pin the same setting explicitly for auditable provenance.
+            elif "gemini-2.5" in model_lower:
+                from pipecat.services.google.llm import GoogleLLMService
+                thinking_mode = os.getenv("MTE_GOOGLE_THINKING_MODE", "default").strip().lower()
+
+                if thinking_mode in {"disabled", "disable", "off", "none", "budget0", "0"}:
+                    kwargs["params"] = GoogleLLMService.InputParams(
+                        thinking=GoogleLLMService.ThinkingConfig(
+                            thinking_budget=0,
+                        )
+                    )
+                    logger.info(
+                        f"Configured {model} with thinking_budget=0 (disabled)"
+                    )
+                elif thinking_mode in {"default", "auto"}:
+                    logger.info(
+                        f"Configured {model} with Pipecat default thinking behavior "
+                        "(thinking_budget=0 for Gemini 2.5 Flash)"
+                    )
+                else:
+                    raise ValueError(
+                        "Unsupported Gemini 2.5 MTE_GOOGLE_THINKING_MODE={!r}; expected disabled or default".format(
+                            thinking_mode
+                        )
+                    )
 
             # Configure Gemini 3 series models with an explicit thinking mode
             # so benchmark sweeps can compare disabled vs minimal reasoning.

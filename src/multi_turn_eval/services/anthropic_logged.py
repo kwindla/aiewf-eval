@@ -44,19 +44,44 @@ from multi_turn_eval.services.filler import filler_suffix
 _filler_logged = False
 
 
+def _filler_position() -> str:
+    position = os.getenv("MTE_FILLER_POSITION", "suffix").strip().lower()
+    return position if position in {"suffix", "prefix", "system"} else "suffix"
+
+
+def _weave_filler(text: str, filler: str, position: str) -> str:
+    if position == "prefix":
+        return filler + " " + text.lstrip()
+    return text.rstrip() + " " + filler
+
+
+def _log_filler(filler: str, position: str) -> None:
+    global _filler_logged
+    if _filler_logged:
+        return
+    _filler_logged = True
+    parts = filler.split()
+    logger.info(
+        f"MTE_FILLER_DOTS active: {len(parts)} x {parts[0]!r} filler tokens, "
+        f"position={position} (history left filler-free)"
+    )
+
+
 def _apply_filler_anthropic(messages: list) -> list:
-    """Return a copy of Anthropic-format `messages` with the MTE_FILLER_DOTS
-    suffix appended to the last *text-bearing* user turn (the actual question).
+    """Return a filled copy of Anthropic-format ``messages``.
 
     Anthropic puts tool results in ``role:"user"`` messages whose content is a
     list of ``tool_result`` blocks; those are skipped so the filler lands on the
     real user question — matching the OpenAI path, where tool results are
     ``role:"tool"`` and never receive filler. Applied on a copy at request-build
-    time, so the persisted context stays filler-free. No-op when the knob is off.
+    time, so the persisted context stays filler-free. ``system`` placement is
+    handled separately because Anthropic sends it outside ``messages``.
     """
-    global _filler_logged
     filler = filler_suffix()
     if not filler or not messages:
+        return messages
+    position = _filler_position()
+    if position == "system":
         return messages
     for i in range(len(messages) - 1, -1, -1):
         msg = messages[i]
@@ -65,7 +90,7 @@ def _apply_filler_anthropic(messages: list) -> list:
         content = msg.get("content")
         new_content: Any
         if isinstance(content, str):
-            new_content = content.rstrip() + " " + filler
+            new_content = _weave_filler(content, filler, position)
         elif isinstance(content, list):
             # Find the last text block; skip messages that carry only
             # tool_result (or other non-text) blocks — do NOT graft a text
@@ -84,7 +109,7 @@ def _apply_filler_anthropic(messages: list) -> list:
                 continue
             new_content = list(content)
             part = dict(new_content[text_idx])
-            part["text"] = part["text"].rstrip() + " " + filler
+            part["text"] = _weave_filler(part["text"], filler, position)
             new_content[text_idx] = part
         else:
             continue
@@ -92,14 +117,35 @@ def _apply_filler_anthropic(messages: list) -> list:
         nm = dict(msg)
         nm["content"] = new_content
         new_messages[i] = nm
-        if not _filler_logged:
-            _filler_logged = True
-            logger.info(
-                f"MTE_FILLER_DOTS active: appending {filler.count('.')} dots to the "
-                "final user turn of each Anthropic request (history left filler-free)"
-            )
+        _log_filler(filler, position)
         return new_messages
     return messages
+
+
+def _apply_filler_anthropic_system(system: Any) -> Any:
+    """Return a filled copy of Anthropic's string or text-block system prompt."""
+    filler = filler_suffix()
+    if not filler or _filler_position() != "system":
+        return system
+    if isinstance(system, str):
+        _log_filler(filler, "system")
+        return _weave_filler(system, filler, "system")
+    if not isinstance(system, list):
+        return system
+    for i in range(len(system) - 1, -1, -1):
+        block = system[i]
+        if (
+            isinstance(block, dict)
+            and block.get("type") == "text"
+            and isinstance(block.get("text"), str)
+        ):
+            copied = list(system)
+            copied_block = dict(block)
+            copied_block["text"] = _weave_filler(block["text"], filler, "system")
+            copied[i] = copied_block
+            _log_filler(filler, "system")
+            return copied
+    return system
 
 
 def _env_bool(name: str, default: bool) -> bool:
@@ -242,12 +288,13 @@ class LoggedAnthropicLLMService(AnthropicLLMService):
         await super().stop_ttfb_metrics(end_time=end_time)
 
     async def _create_message_stream(self, api_call, params):  # type: ignore[override]
-        # Inject the filler suffix onto the last user question (outgoing request
-        # only; persisted context untouched). Replaces params["messages"] so the
-        # downstream API call — and the payload log below — see the filler.
+        # Inject filler into the outgoing request only; persisted context stays
+        # untouched. Anthropic sends its system prompt outside ``messages``.
         msgs = params.get("messages")
         if isinstance(msgs, list):
             params["messages"] = _apply_filler_anthropic(msgs)
+        if "system" in params:
+            params["system"] = _apply_filler_anthropic_system(params["system"])
 
         if _env_bool("MTE_LOG_ANTHROPIC_PAYLOADS", False):
             safe_params = _json_safe(params)

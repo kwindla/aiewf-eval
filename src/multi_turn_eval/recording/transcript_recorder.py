@@ -54,6 +54,7 @@ class TranscriptRecorder:
         self.turn_usage: Dict[str, Any] = {}
         self.turn_calls: List[Dict[str, Any]] = []
         self.turn_results: List[Dict[str, Any]] = []
+        self.turn_assistant_thoughts: List[str] = []
         self.turn_index: int = 0
         self.turn_ttfb_ms: Optional[int] = None
         self.turn_raw_ttfb_ms: Optional[int] = None
@@ -72,6 +73,7 @@ class TranscriptRecorder:
         self.turn_usage = {}
         self.turn_calls = []
         self.turn_results = []
+        self.turn_assistant_thoughts = []
         self.turn_ttfb_ms = None
         self.turn_raw_ttfb_ms = None
 
@@ -166,6 +168,11 @@ class TranscriptRecorder:
         """
         self.turn_results.append({"name": name, "response": response})
 
+    def record_assistant_thought(self, thought: str):
+        """Record provider-separated assistant reasoning for the current turn."""
+        if thought:
+            self.turn_assistant_thoughts.append(thought)
+
     def write_turn(
         self,
         *,
@@ -206,6 +213,8 @@ class TranscriptRecorder:
             rec["recovery_turn"] = True
             if recovery_for_turn is not None:
                 rec["recovery_for_turn"] = recovery_for_turn
+        if self.turn_assistant_thoughts:
+            rec["assistant_thought"] = "\n\n".join(self.turn_assistant_thoughts)
         self.fp.write(json.dumps(rec, ensure_ascii=False) + "\n")
         self.fp.flush()
         self.total_turns_scored += 1

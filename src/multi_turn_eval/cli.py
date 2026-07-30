@@ -20,6 +20,11 @@ import click
 from dotenv import load_dotenv
 from loguru import logger
 
+from multi_turn_eval.model_policy import (
+    OPENAI_PRO_EXCLUSION_MESSAGE,
+    is_openai_pro_model,
+)
+
 # Load environment variables from .env file
 load_dotenv()
 
@@ -73,6 +78,12 @@ def load_service_class(service: str) -> type:
     module_name, cls_name = class_name.rsplit(".", 1)
     module = importlib.import_module(module_name)
     return getattr(module, cls_name)
+
+
+def reject_openai_pro_model(model: str, service: str | None = None) -> None:
+    """Reject OpenAI Pro models, which are outside this latency benchmark's scope."""
+    if is_openai_pro_model(model, service):
+        raise click.UsageError(OPENAI_PRO_EXCLUSION_MESSAGE)
 
 
 def load_benchmark(name: str):
@@ -221,6 +232,8 @@ async def _run(
     verbose: bool,
 ):
     """Async implementation of the run command."""
+    reject_openai_pro_model(model, service)
+
     # Load benchmark
     BenchmarkConfig = load_benchmark(benchmark_name)
     benchmark = BenchmarkConfig()

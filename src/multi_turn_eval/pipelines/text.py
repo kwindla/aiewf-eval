@@ -325,7 +325,36 @@ class TextPipeline(BasePipeline):
         tools = getattr(self.benchmark, "tools_schema", None)
 
         self.context = LLMContext(messages, tools=tools)
-        self.context_aggregator = LLMContextAggregatorPair(self.context)
+        # Reasoning-aware services can provide a universal aggregator pair that
+        # preserves provider-specific assistant history while keeping the rest
+        # of the text pipeline provider-neutral. A falsey result explicitly
+        # opts back into Pipecat's stock universal pair.
+        # Use a deliberately project-specific hook. Many Pipecat services
+        # expose the deprecated ``create_context_aggregator`` method; calling
+        # that here would silently switch every non-Qwen service away from the
+        # universal pair this pipeline has historically used.
+        service_aggregator_factory = getattr(
+            self.llm, "create_reasoning_context_aggregator_pair", None
+        )
+        service_aggregator = (
+            service_aggregator_factory(self.context)
+            if callable(service_aggregator_factory)
+            else None
+        )
+        self.context_aggregator = service_aggregator or LLMContextAggregatorPair(
+            self.context
+        )
+
+        if service_aggregator is not None:
+            assistant_aggregator = self.context_aggregator.assistant()
+
+            @assistant_aggregator.event_handler("on_assistant_thought")
+            async def on_assistant_thought(aggregator, message):
+                if self.recorder is not None and hasattr(
+                    self.recorder, "record_assistant_thought"
+                ):
+                    self.recorder.record_assistant_thought(message.content)
+
         self.last_msg_idx = len(messages)
 
     def _setup_llm(self) -> None:

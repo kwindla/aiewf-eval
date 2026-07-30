@@ -22,6 +22,13 @@ Or grep the output file for progress markers:
 - "Completed benchmark run" — run finished
 - "Transcript:" — final output path
 
+## Conversational-latency model scope
+
+- **Never run OpenAI `*-pro` variants in conversational-latency evaluations,
+  including smoke tests.** Their latency profile is outside this project's
+  conversational target. Requests to cover every model size do not include
+  `*-pro` variants.
+
 After the run completes, judge and analyze can run in parallel (~1-2 minutes each):
 
 ```

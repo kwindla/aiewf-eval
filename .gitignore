@@ -24,6 +24,9 @@ khk-notes.md
 # Output directories
 runs/
 turns_audio_backup/
+docs/filler-study-data/**/state/
+ops/**/judging/logs/
+ops/**/judging/*.lock
 
 # Python
 __pycache__/
@@ -41,6 +44,8 @@ __pycache__/
 .idea/
 *.swp
 *.swo
+\#*\#
+*~
 
 # OS
 .DS_Store

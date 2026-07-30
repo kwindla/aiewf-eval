@@ -15,12 +15,15 @@ Mirrors the same fix already used by ``LoggedCerebrasLLMService``.
 """
 
 import io
+import os
 import time
 import uuid
-from typing import AsyncIterator
+from typing import Any, AsyncIterator
 
+from google.genai.types import Content, Part
 from loguru import logger
 from PIL import Image
+from pipecat.adapters.services.gemini_adapter import GeminiLLMAdapter
 from pipecat.frames.frames import (
     AssistantImageRawFrame,
     LLMFullResponseEndFrame,
@@ -42,11 +45,152 @@ from pipecat.utils.tracing.service_decorators import traced_llm
 from google.api_core.exceptions import DeadlineExceeded
 
 from multi_turn_eval.metrics import RawTTFBMetricsData
+from multi_turn_eval.services.filler import filler_suffix
+
+
+_filler_logged = False
+
+
+def _filler_position() -> str:
+    position = os.getenv("MTE_FILLER_POSITION", "suffix").strip().lower()
+    return position if position in {"suffix", "prefix", "system"} else "suffix"
+
+
+def _weave_filler(text: str, filler: str, position: str) -> str:
+    if position == "prefix":
+        return filler + " " + text.lstrip()
+    return text.rstrip() + " " + filler
+
+
+def _log_filler(filler: str, position: str) -> None:
+    global _filler_logged
+    if _filler_logged:
+        return
+    _filler_logged = True
+    parts = filler.split()
+    logger.info(
+        f"MTE_FILLER_DOTS active: {len(parts)} x {parts[0]!r} filler tokens, "
+        f"position={position} (history left filler-free)"
+    )
+
+
+def _part_text(part: Any) -> str | None:
+    if isinstance(part, Part):
+        return part.text if isinstance(part.text, str) else None
+    if isinstance(part, dict):
+        text = part.get("text")
+        return text if isinstance(text, str) else None
+    return None
+
+
+def _content_role(content: Any) -> str | None:
+    if isinstance(content, Content):
+        return content.role
+    if isinstance(content, dict):
+        role = content.get("role")
+        return role if isinstance(role, str) else None
+    return None
+
+
+def _content_parts(content: Any) -> list[Any] | None:
+    if isinstance(content, Content):
+        return content.parts
+    if isinstance(content, dict):
+        parts = content.get("parts")
+        return parts if isinstance(parts, list) else None
+    return None
+
+
+def _copy_part_with_text(part: Any, text: str) -> Any:
+    if isinstance(part, Part):
+        return part.model_copy(update={"text": text})
+    copied = dict(part)
+    copied["text"] = text
+    return copied
+
+
+def _copy_content_with_parts(content: Any, parts: list[Any]) -> Any:
+    if isinstance(content, Content):
+        return content.model_copy(update={"parts": parts})
+    copied = dict(content)
+    copied["parts"] = parts
+    return copied
+
+
+def _apply_filler_google(
+    messages: list[Any], system_instruction: str | None
+) -> tuple[list[Any], str | None]:
+    """Copy and fill only the current outgoing Gemini request.
+
+    Google represents conversation turns as ``Content`` objects containing
+    ``Part`` objects. Tool responses also use ``role="user"``, so this walks
+    backward to the last *text-bearing* user turn rather than adding text to a
+    tool-response-only turn. The caller's list, Content, and Part instances are
+    never mutated. When the filler knob is off (or no target exists), the
+    original objects are returned unchanged.
+    """
+    filler = filler_suffix()
+    if not filler:
+        return messages, system_instruction
+
+    position = _filler_position()
+    if position == "system":
+        if not isinstance(system_instruction, str):
+            return messages, system_instruction
+        _log_filler(filler, position)
+        return messages, _weave_filler(system_instruction, filler, position)
+
+    for content_idx in range(len(messages) - 1, -1, -1):
+        content = messages[content_idx]
+        if _content_role(content) != "user":
+            continue
+        parts = _content_parts(content)
+        if not parts:
+            continue
+        for part_idx in range(len(parts) - 1, -1, -1):
+            text = _part_text(parts[part_idx])
+            if text is None:
+                continue
+            copied_parts = list(parts)
+            copied_parts[part_idx] = _copy_part_with_text(
+                parts[part_idx], _weave_filler(text, filler, position)
+            )
+            copied_messages = list(messages)
+            copied_messages[content_idx] = _copy_content_with_parts(content, copied_parts)
+            _log_filler(filler, position)
+            return copied_messages, system_instruction
+
+    return messages, system_instruction
+
+
+class FillerGoogleLLMAdapter(GeminiLLMAdapter):
+    """Gemini adapter that fills the ephemeral, API-ready request only."""
+
+    def get_llm_invocation_params(
+        self, context: LLMContext, *, system_instruction: str | None = None
+    ):
+        params = super().get_llm_invocation_params(
+            context, system_instruction=system_instruction
+        )
+        messages, effective_system = _apply_filler_google(
+            params["messages"], params["system_instruction"]
+        )
+        if (
+            messages is params["messages"]
+            and effective_system is params["system_instruction"]
+        ):
+            return params
+        copied = dict(params)
+        copied["messages"] = messages
+        copied["system_instruction"] = effective_system
+        return copied
 
 
 class LoggedGoogleLLMService(GoogleLLMService):
     """Google service that measures TTFB to first content/tool/inline-data part,
     not the first thought."""
+
+    adapter_class = FillerGoogleLLMAdapter
 
     @traced_llm
     async def _process_context(self, context: LLMContext):
