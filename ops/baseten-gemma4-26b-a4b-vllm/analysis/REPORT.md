@@ -28,7 +28,8 @@ row at the correct score-sorted position:
 ## Provenance
 
 - Model: `google/gemma-4-26B-A4B-it`
-- Endpoint: `https://model-qel1y223.api.baseten.co/deployment/qz4zpye/sync/v1`
+- Provider: dedicated BaseTen vLLM deployment
+- Serving: vLLM 0.26.1 development build, automatic prefix caching, one-token MTP
 - Sampling: temperature 1.0, top-p 0.95, top-k 64, max tokens 8,192
 - Thinking: explicitly disabled
 - Filler: none
