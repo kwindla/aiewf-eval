@@ -1,0 +1,139 @@
+{
+  "artifact_status": "DESCRIPTIVE_NOT_INTERACTION_TEST",
+  "protocol": {
+    "model": "gpt-5.4",
+    "reasoning_effort_values": [
+      "none",
+      "low"
+    ],
+    "filler_values": [
+      "nofiller",
+      "dots96"
+    ],
+    "turns_per_conversation": 30,
+    "bootstrap_samples": 100000,
+    "seed": 20260721,
+    "scope_note": "Separate collections with unequal sample sizes; effect differences are descriptive and do not estimate a filler-by-reasoning interaction.",
+    "low_included_runs": [
+      "runs/aiwf_medium_context/20260720T071535_gpt-5.4_f8a89198",
+      "runs/aiwf_medium_context/20260720T071850_gpt-5.4_8370adb5",
+      "runs/aiwf_medium_context/20260720T072113_gpt-5.4_28a56914",
+      "runs/aiwf_medium_context/20260720T072343_gpt-5.4_3ecdb251",
+      "runs/aiwf_medium_context/20260720T072557_gpt-5.4_f3a31449",
+      "runs/aiwf_medium_context/20260720T072833_gpt-5.4_46f79850",
+      "runs/aiwf_medium_context/20260720T073053_gpt-5.4_43432c1d",
+      "runs/aiwf_medium_context/20260720T073338_gpt-5.4_4bfe1d4b",
+      "runs/aiwf_medium_context/20260720T073604_gpt-5.4_43b2491d",
+      "runs/aiwf_medium_context/20260720T073923_gpt-5.4_12b3b8fd",
+      "runs/aiwf_medium_context/20260720T074144_gpt-5.4_c82ec35c",
+      "runs/aiwf_medium_context/20260720T074357_gpt-5.4_a63d715d",
+      "runs/aiwf_medium_context/20260720T074615_gpt-5.4_8ecc0a74",
+      "runs/aiwf_medium_context/20260720T074842_gpt-5.4_e9e47391",
+      "runs/aiwf_medium_context/20260720T075128_gpt-5.4_a59f3e95",
+      "runs/aiwf_medium_context/20260720T075352_gpt-5.4_e3baabf3"
+    ],
+    "source_sha256": {
+      "docs/filler-study-data/dot-stability-n30-2026-07-20/aggregates.json": "573e53779774f61c8cc9641d553c02c2368c56a2785fddc87071cdb5c22a1d99",
+      "docs/filler-study-data/gpt54_stack_manifest.tsv": "33a63082d179b5c55c9d181c492cb90475ba0e5d6654748ec848140061e1844a",
+      "runs/aiwf_medium_context/20260720T071535_gpt-5.4_f8a89198/transcript.jsonl": "dea6c97810483acac382d8fbd52781cc91ba1bfacd2c2378b6b75d5157d6f5b0",
+      "runs/aiwf_medium_context/20260720T071535_gpt-5.4_f8a89198/claude_judged.jsonl": "be199575db39a65605c2c3b2a397739aa0685b532278ff567d79d4a0e70fd21f",
+      "runs/aiwf_medium_context/20260720T071850_gpt-5.4_8370adb5/transcript.jsonl": "317a56bceb96f18d22b5c06e329776e4a9dbf068099bd32e02732c5b2e3c5e9a",
+      "runs/aiwf_medium_context/20260720T071850_gpt-5.4_8370adb5/claude_judged.jsonl": "dac5c870439abdda5c47cf9f7e02445382402726379f4b68446483bd5ff06c7c",
+      "runs/aiwf_medium_context/20260720T072113_gpt-5.4_28a56914/transcript.jsonl": "69043dde9e11d84c09784f5c10c4a6730a5436c3bedc285e0ec55bf0cda9d2ae",
+      "runs/aiwf_medium_context/20260720T072113_gpt-5.4_28a56914/claude_judged.jsonl": "4c18005c26b2e0f08ba23bfa94abe08c83a1824c85691011358503070e182080",
+      "runs/aiwf_medium_context/20260720T072343_gpt-5.4_3ecdb251/transcript.jsonl": "1a9eaf0448b9463623d2aa79010d080b3e5eb60919b6949e85f709cfe325df18",
+      "runs/aiwf_medium_context/20260720T072343_gpt-5.4_3ecdb251/claude_judged.jsonl": "8c9b7f09dd38914b2d809f48cf930eac093410f271d6aeeeb33212db49dc1fe0",
+      "runs/aiwf_medium_context/20260720T072557_gpt-5.4_f3a31449/transcript.jsonl": "85784775e110e6f1aa57dc4a8c1a0bf8e91492907c5c1ca168c868c8e0f2506f",
+      "runs/aiwf_medium_context/20260720T072557_gpt-5.4_f3a31449/claude_judged.jsonl": "08d479e0b7fa0f81b4952efc49d3074bf30caf7407dc246d549d1c6a1b8a3e44",
+      "runs/aiwf_medium_context/20260720T072833_gpt-5.4_46f79850/transcript.jsonl": "62596737a2b13102d42e0c96e71744fe62f4fbcf34385a57112f2be37e4a2b44",
+      "runs/aiwf_medium_context/20260720T072833_gpt-5.4_46f79850/claude_judged.jsonl": "bcf1ad00ea8e26e8d9ca183eb91288131b3031b74acf40d7ea978a6c4a51cadd",
+      "runs/aiwf_medium_context/20260720T073053_gpt-5.4_43432c1d/transcript.jsonl": "3a61064ed75ffcb8b89520b8799abffe7f95214a271cd3c0e4010a49096b919a",
+      "runs/aiwf_medium_context/20260720T073053_gpt-5.4_43432c1d/claude_judged.jsonl": "83cf60d821aa5a98234ab5cfe71a650124991067601a3a80946d524bb624e59f",
+      "runs/aiwf_medium_context/20260720T073338_gpt-5.4_4bfe1d4b/transcript.jsonl": "e4e4eb4ec0fd86549d10261e506a38c2db7df65fdbebc665a64f5d92989ce1cc",
+      "runs/aiwf_medium_context/20260720T073338_gpt-5.4_4bfe1d4b/claude_judged.jsonl": "8488b6f5d84f188a0fc62e80054564e01585f12bd35af304a5bc31b7423948e0",
+      "runs/aiwf_medium_context/20260720T073604_gpt-5.4_43b2491d/transcript.jsonl": "522a30f2feb3e95338d6df49003b9bf43095bf3bc6acb53356df781896865575",
+      "runs/aiwf_medium_context/20260720T073604_gpt-5.4_43b2491d/claude_judged.jsonl": "3b43b7f130550734feedcf16d132f046417e3220db9697d73525e85c187de787",
+      "runs/aiwf_medium_context/20260720T073923_gpt-5.4_12b3b8fd/transcript.jsonl": "ce536eca1a342fde08ca570fdea41e328eec4897d10847f9bbea81b3eb3e087a",
+      "runs/aiwf_medium_context/20260720T073923_gpt-5.4_12b3b8fd/claude_judged.jsonl": "b64c522b98becd5fae4885d8c668b650b7a0114f4e602b01be89e2dbe23c4121",
+      "runs/aiwf_medium_context/20260720T074144_gpt-5.4_c82ec35c/transcript.jsonl": "d07fa666355b85d01e6fc57959299d29e814b47bae97123bf253032e940630ee",
+      "runs/aiwf_medium_context/20260720T074144_gpt-5.4_c82ec35c/claude_judged.jsonl": "3448194d93239ebd75dd7039f3373b54b2096e4dd6065bea140b648853a6198b",
+      "runs/aiwf_medium_context/20260720T074357_gpt-5.4_a63d715d/transcript.jsonl": "d2ae45a1de56fde6785c2acb7cdbad9130a6c0a738a0c41e9151385a1811a962",
+      "runs/aiwf_medium_context/20260720T074357_gpt-5.4_a63d715d/claude_judged.jsonl": "b751fe936dd8509438ef808648d2df8837ecc8ecf66cdb2d276e0a0f0ff775cf",
+      "runs/aiwf_medium_context/20260720T074615_gpt-5.4_8ecc0a74/transcript.jsonl": "4874be0a6538d965d3b2ab7292bc5895107df87710e8038ff71fd347fcd384fa",
+      "runs/aiwf_medium_context/20260720T074615_gpt-5.4_8ecc0a74/claude_judged.jsonl": "b602172479100dfa5b748d107f1a832664bcd8ae482212cea8cb0dcf921c98f8",
+      "runs/aiwf_medium_context/20260720T074842_gpt-5.4_e9e47391/transcript.jsonl": "b2370d68952eae913e9f0b632051dcb2550909a95058ebcb46851b94f39ef408",
+      "runs/aiwf_medium_context/20260720T074842_gpt-5.4_e9e47391/claude_judged.jsonl": "00a83179ec84fe5c636b5eb3a20306fbaba4e4ef6c307961ab3f49f28570536a",
+      "runs/aiwf_medium_context/20260720T075128_gpt-5.4_a59f3e95/transcript.jsonl": "c75c494b61bded14c532e20ba9628efa2fd25f4d9b1aa7e016b8a59609b2fc6c",
+      "runs/aiwf_medium_context/20260720T075128_gpt-5.4_a59f3e95/claude_judged.jsonl": "d7461eb1c301f1b71ebb99aaf8218911b61535bb2aa6ae9f5df6e7e5e6667755",
+      "runs/aiwf_medium_context/20260720T075352_gpt-5.4_e3baabf3/transcript.jsonl": "486e6d6155b6f44032c28ae20959dc1f4634a10a64e65b54317f68a2770dfb55",
+      "runs/aiwf_medium_context/20260720T075352_gpt-5.4_e3baabf3/claude_judged.jsonl": "d069fcca58eb6c1f34df2a52c4d7cf3452db54eeceb154732bcd32e06eef7d82"
+    }
+  },
+  "reasoning_effort": {
+    "none": {
+      "n_per_arm": 30,
+      "nofiller": {
+        "pass_rate_pct": 90.22222222222223,
+        "pass_rate_ci95": [
+          88.77777777777777,
+          91.66666666666666
+        ],
+        "strict_completion_pct": 100.0,
+        "ttfat_p50_ms": 689.0,
+        "ttfat_p95_ms": 1722.999999999999,
+        "ttfat_max_ms": 6571.0
+      },
+      "dots96": {
+        "pass_rate_pct": 95.22222222222223,
+        "pass_rate_ci95": [
+          93.88888888888887,
+          96.44444444444444
+        ],
+        "strict_completion_pct": 100.0,
+        "ttfat_p50_ms": 694.0,
+        "ttfat_p95_ms": 2272.999999999999,
+        "ttfat_max_ms": 17264.0
+      },
+      "effect": {
+        "pass_delta_points": 5.0,
+        "pass_delta_ci95": [
+          3.0000000000000027,
+          6.8888888888889
+        ]
+      }
+    },
+    "low": {
+      "n_per_arm": 8,
+      "nofiller": {
+        "pass_rate_pct": 96.25,
+        "pass_rate_ci95": [
+          94.58333333333333,
+          97.91666666666667
+        ],
+        "strict_completion_pct": 100.0,
+        "ttfat_p50_ms": 1091.0,
+        "ttfat_p95_ms": 2874.2,
+        "ttfat_max_ms": 6498.0
+      },
+      "dots96": {
+        "pass_rate_pct": 99.58333333333333,
+        "pass_rate_ci95": [
+          98.75,
+          100.0
+        ],
+        "strict_completion_pct": 100.0,
+        "ttfat_p50_ms": 1131.0,
+        "ttfat_p95_ms": 2751.799999999996,
+        "ttfat_max_ms": 4452.0
+      },
+      "effect": {
+        "pass_delta_points": 3.3333333333333286,
+        "pass_delta_ci95": [
+          1.2499999999999956,
+          5.000000000000004
+        ]
+      }
+    }
+  },
+  "descriptive_effect_difference_points": -1.6666666666666714
+}

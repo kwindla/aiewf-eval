@@ -25,8 +25,10 @@ khk-notes.md
 runs/
 turns_audio_backup/
 docs/filler-study-data/**/state/
+docs/filler-study-data/**/*.lock
 ops/**/judging/logs/
 ops/**/judging/*.lock
+ops/**/*.lock
 
 # Python
 __pycache__/

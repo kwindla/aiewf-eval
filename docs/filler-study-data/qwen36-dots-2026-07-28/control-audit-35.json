@@ -1,0 +1,28 @@
+{
+  "audits": [
+    {
+      "model": "qwen36_35b",
+      "status": "PASS",
+      "controls": 30,
+      "decision_subset": [
+        "C35-01",
+        "C35-02",
+        "C35-03",
+        "C35-04",
+        "C35-05",
+        "C35-06",
+        "C35-07",
+        "C35-08",
+        "C35-09",
+        "C35-10"
+      ],
+      "strict_complete": 27,
+      "judgment_complete": {
+        "lane": "qwen35-control",
+        "runs": 30,
+        "completed_utc": "2026-07-28T16:09:40Z",
+        "transcripts_immutable": true
+      }
+    }
+  ]
+}

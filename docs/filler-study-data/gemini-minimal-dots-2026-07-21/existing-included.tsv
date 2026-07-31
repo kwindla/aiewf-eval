@@ -1,0 +1,11 @@
+model	arm	run_dir	primary	selection
+gemini35flash	nofiller	runs/aiwf_medium_context/20260519T155609_gemini-3.5-flash_355006c8	0	historical descriptive minimal batch; client/time-confounded for filler effect
+gemini35flash	nofiller	runs/aiwf_medium_context/20260519T155609_gemini-3.5-flash_4c21f6dd	0	historical descriptive minimal batch; client/time-confounded for filler effect
+gemini35flash	nofiller	runs/aiwf_medium_context/20260519T155609_gemini-3.5-flash_e25287c3	0	historical descriptive minimal batch; client/time-confounded for filler effect
+gemini35flash	nofiller	runs/aiwf_medium_context/20260519T155610_gemini-3.5-flash_13c641f1	0	historical descriptive minimal batch; client/time-confounded for filler effect
+gemini35flash	nofiller	runs/aiwf_medium_context/20260519T155610_gemini-3.5-flash_3c83e419	0	historical descriptive minimal batch; client/time-confounded for filler effect
+gemini35flash	nofiller	runs/aiwf_medium_context/20260519T155610_gemini-3.5-flash_a52b7872	0	historical descriptive minimal batch; client/time-confounded for filler effect
+gemini35flash	nofiller	runs/aiwf_medium_context/20260519T155610_gemini-3.5-flash_dd5e2396	0	historical descriptive minimal batch; client/time-confounded for filler effect
+gemini35flash	nofiller	runs/aiwf_medium_context/20260519T155610_gemini-3.5-flash_fe86e4b4	0	historical descriptive minimal batch; client/time-confounded for filler effect
+gemini35flash	nofiller	runs/aiwf_medium_context/20260519T155611_gemini-3.5-flash_5e9ad794	0	historical descriptive minimal batch; client/time-confounded for filler effect
+gemini35flash	nofiller	runs/aiwf_medium_context/20260519T155611_gemini-3.5-flash_ac0ec962	0	historical descriptive minimal batch; client/time-confounded for filler effect

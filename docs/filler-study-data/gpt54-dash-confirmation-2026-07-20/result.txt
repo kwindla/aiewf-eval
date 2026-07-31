@@ -1,0 +1,10 @@
+GPT-5.4 96-dash prospective confirmation
+conversations: 41 control, 41 dash
+mean strict pass: 92.44% control
+mean strict pass: 95.37% dash
+paired mean difference: +2.93 percentage points
+95% paired-t CI: [+1.09, +4.77] points
+studentized block sign-flip p: one-sided=0.001865, two-sided=0.003610 (200,000 draws)
+strict completion: 41/41 control, 41/41 dash
+error-free conversations: 0/41 control, 11/41 dash
+median of conversation-median TTFAT: 678 ms control, 678 ms dash

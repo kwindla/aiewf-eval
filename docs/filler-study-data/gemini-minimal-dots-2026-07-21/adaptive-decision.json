@@ -1,0 +1,578 @@
+{
+  "protocol_rule": {
+    "stage1_topup": "abs(delta) >= 2.0 points or any strict-completion difference",
+    "stage2_promotion": "95% bootstrap interval excludes zero, abs(delta) >= 3.0 points with a recurring same-turn direction in >=3 conversations, or strict-completion rates differ"
+  },
+  "models": {
+    "gemini35flash": {
+      "initial_dots_n": 6,
+      "observed_control_n": 30,
+      "observed_dots_n": 30,
+      "pass_delta_points": 3.2222222222222285,
+      "pass_delta_ci95": [
+        -2.333333333333343,
+        10.666666666666668
+      ],
+      "strict_completion_pct": [
+        93.33333333333333,
+        96.66666666666667
+      ],
+      "recurring_turn_signals": [
+        {
+          "turn": 6,
+          "direction": "benefit",
+          "control_failures": 4,
+          "dots_failures": 0
+        },
+        {
+          "turn": 7,
+          "direction": "benefit",
+          "control_failures": 5,
+          "dots_failures": 0
+        },
+        {
+          "turn": 8,
+          "direction": "benefit",
+          "control_failures": 3,
+          "dots_failures": 0
+        },
+        {
+          "turn": 10,
+          "direction": "harm",
+          "control_failures": 4,
+          "dots_failures": 19
+        },
+        {
+          "turn": 11,
+          "direction": "harm",
+          "control_failures": 2,
+          "dots_failures": 3
+        },
+        {
+          "turn": 12,
+          "direction": "benefit",
+          "control_failures": 3,
+          "dots_failures": 0
+        },
+        {
+          "turn": 14,
+          "direction": "harm",
+          "control_failures": 2,
+          "dots_failures": 4
+        },
+        {
+          "turn": 17,
+          "direction": "benefit",
+          "control_failures": 3,
+          "dots_failures": 0
+        },
+        {
+          "turn": 21,
+          "direction": "benefit",
+          "control_failures": 3,
+          "dots_failures": 0
+        },
+        {
+          "turn": 24,
+          "direction": "benefit",
+          "control_failures": 3,
+          "dots_failures": 0
+        }
+      ],
+      "aggregate_aligned_recurring_turn_signals": [
+        {
+          "turn": 6,
+          "direction": "benefit",
+          "control_failures": 4,
+          "dots_failures": 0
+        },
+        {
+          "turn": 7,
+          "direction": "benefit",
+          "control_failures": 5,
+          "dots_failures": 0
+        },
+        {
+          "turn": 8,
+          "direction": "benefit",
+          "control_failures": 3,
+          "dots_failures": 0
+        },
+        {
+          "turn": 12,
+          "direction": "benefit",
+          "control_failures": 3,
+          "dots_failures": 0
+        },
+        {
+          "turn": 17,
+          "direction": "benefit",
+          "control_failures": 3,
+          "dots_failures": 0
+        },
+        {
+          "turn": 21,
+          "direction": "benefit",
+          "control_failures": 3,
+          "dots_failures": 0
+        },
+        {
+          "turn": 24,
+          "direction": "benefit",
+          "control_failures": 3,
+          "dots_failures": 0
+        }
+      ],
+      "triggers": [],
+      "action": "focused_followup_complete",
+      "final_dots_n": 30,
+      "decision_pending": false
+    },
+    "gemini35flashlite": {
+      "initial_dots_n": 6,
+      "observed_control_n": 30,
+      "observed_dots_n": 30,
+      "pass_delta_points": -0.3333333333333286,
+      "pass_delta_ci95": [
+        -14.666666666666671,
+        14.444444444444427
+      ],
+      "strict_completion_pct": [
+        60.0,
+        40.0
+      ],
+      "recurring_turn_signals": [
+        {
+          "turn": 6,
+          "direction": "benefit",
+          "control_failures": 5,
+          "dots_failures": 0
+        },
+        {
+          "turn": 7,
+          "direction": "benefit",
+          "control_failures": 5,
+          "dots_failures": 0
+        },
+        {
+          "turn": 8,
+          "direction": "benefit",
+          "control_failures": 6,
+          "dots_failures": 0
+        },
+        {
+          "turn": 9,
+          "direction": "benefit",
+          "control_failures": 9,
+          "dots_failures": 3
+        },
+        {
+          "turn": 10,
+          "direction": "harm",
+          "control_failures": 13,
+          "dots_failures": 14
+        },
+        {
+          "turn": 11,
+          "direction": "benefit",
+          "control_failures": 10,
+          "dots_failures": 0
+        },
+        {
+          "turn": 12,
+          "direction": "benefit",
+          "control_failures": 10,
+          "dots_failures": 0
+        },
+        {
+          "turn": 13,
+          "direction": "benefit",
+          "control_failures": 10,
+          "dots_failures": 0
+        },
+        {
+          "turn": 14,
+          "direction": "harm",
+          "control_failures": 12,
+          "dots_failures": 16
+        },
+        {
+          "turn": 15,
+          "direction": "benefit",
+          "control_failures": 19,
+          "dots_failures": 1
+        },
+        {
+          "turn": 16,
+          "direction": "harm",
+          "control_failures": 19,
+          "dots_failures": 28
+        },
+        {
+          "turn": 17,
+          "direction": "harm",
+          "control_failures": 12,
+          "dots_failures": 17
+        },
+        {
+          "turn": 18,
+          "direction": "harm",
+          "control_failures": 12,
+          "dots_failures": 17
+        },
+        {
+          "turn": 19,
+          "direction": "harm",
+          "control_failures": 12,
+          "dots_failures": 17
+        },
+        {
+          "turn": 20,
+          "direction": "harm",
+          "control_failures": 12,
+          "dots_failures": 17
+        },
+        {
+          "turn": 22,
+          "direction": "harm",
+          "control_failures": 12,
+          "dots_failures": 18
+        },
+        {
+          "turn": 23,
+          "direction": "harm",
+          "control_failures": 12,
+          "dots_failures": 17
+        },
+        {
+          "turn": 24,
+          "direction": "harm",
+          "control_failures": 14,
+          "dots_failures": 17
+        },
+        {
+          "turn": 25,
+          "direction": "harm",
+          "control_failures": 14,
+          "dots_failures": 17
+        },
+        {
+          "turn": 26,
+          "direction": "harm",
+          "control_failures": 12,
+          "dots_failures": 17
+        },
+        {
+          "turn": 27,
+          "direction": "harm",
+          "control_failures": 12,
+          "dots_failures": 17
+        },
+        {
+          "turn": 28,
+          "direction": "harm",
+          "control_failures": 12,
+          "dots_failures": 18
+        },
+        {
+          "turn": 29,
+          "direction": "harm",
+          "control_failures": 12,
+          "dots_failures": 18
+        }
+      ],
+      "aggregate_aligned_recurring_turn_signals": [
+        {
+          "turn": 10,
+          "direction": "harm",
+          "control_failures": 13,
+          "dots_failures": 14
+        },
+        {
+          "turn": 14,
+          "direction": "harm",
+          "control_failures": 12,
+          "dots_failures": 16
+        },
+        {
+          "turn": 16,
+          "direction": "harm",
+          "control_failures": 19,
+          "dots_failures": 28
+        },
+        {
+          "turn": 17,
+          "direction": "harm",
+          "control_failures": 12,
+          "dots_failures": 17
+        },
+        {
+          "turn": 18,
+          "direction": "harm",
+          "control_failures": 12,
+          "dots_failures": 17
+        },
+        {
+          "turn": 19,
+          "direction": "harm",
+          "control_failures": 12,
+          "dots_failures": 17
+        },
+        {
+          "turn": 20,
+          "direction": "harm",
+          "control_failures": 12,
+          "dots_failures": 17
+        },
+        {
+          "turn": 22,
+          "direction": "harm",
+          "control_failures": 12,
+          "dots_failures": 18
+        },
+        {
+          "turn": 23,
+          "direction": "harm",
+          "control_failures": 12,
+          "dots_failures": 17
+        },
+        {
+          "turn": 24,
+          "direction": "harm",
+          "control_failures": 14,
+          "dots_failures": 17
+        },
+        {
+          "turn": 25,
+          "direction": "harm",
+          "control_failures": 14,
+          "dots_failures": 17
+        },
+        {
+          "turn": 26,
+          "direction": "harm",
+          "control_failures": 12,
+          "dots_failures": 17
+        },
+        {
+          "turn": 27,
+          "direction": "harm",
+          "control_failures": 12,
+          "dots_failures": 17
+        },
+        {
+          "turn": 28,
+          "direction": "harm",
+          "control_failures": 12,
+          "dots_failures": 18
+        },
+        {
+          "turn": 29,
+          "direction": "harm",
+          "control_failures": 12,
+          "dots_failures": 18
+        }
+      ],
+      "triggers": [],
+      "action": "focused_followup_complete",
+      "final_dots_n": 30,
+      "decision_pending": false
+    },
+    "gemini36flash": {
+      "initial_dots_n": 6,
+      "observed_control_n": 30,
+      "observed_dots_n": 30,
+      "pass_delta_points": -7.777777777777786,
+      "pass_delta_ci95": [
+        -13.333333333333341,
+        -2.8888888888889075
+      ],
+      "strict_completion_pct": [
+        90.0,
+        90.0
+      ],
+      "recurring_turn_signals": [
+        {
+          "turn": 10,
+          "direction": "harm",
+          "control_failures": 0,
+          "dots_failures": 5
+        },
+        {
+          "turn": 11,
+          "direction": "benefit",
+          "control_failures": 7,
+          "dots_failures": 0
+        },
+        {
+          "turn": 12,
+          "direction": "benefit",
+          "control_failures": 3,
+          "dots_failures": 0
+        },
+        {
+          "turn": 14,
+          "direction": "harm",
+          "control_failures": 0,
+          "dots_failures": 26
+        },
+        {
+          "turn": 15,
+          "direction": "benefit",
+          "control_failures": 3,
+          "dots_failures": 0
+        },
+        {
+          "turn": 16,
+          "direction": "harm",
+          "control_failures": 0,
+          "dots_failures": 23
+        },
+        {
+          "turn": 17,
+          "direction": "harm",
+          "control_failures": 3,
+          "dots_failures": 6
+        },
+        {
+          "turn": 18,
+          "direction": "harm",
+          "control_failures": 0,
+          "dots_failures": 3
+        },
+        {
+          "turn": 20,
+          "direction": "harm",
+          "control_failures": 0,
+          "dots_failures": 3
+        },
+        {
+          "turn": 21,
+          "direction": "harm",
+          "control_failures": 1,
+          "dots_failures": 3
+        },
+        {
+          "turn": 22,
+          "direction": "harm",
+          "control_failures": 0,
+          "dots_failures": 3
+        },
+        {
+          "turn": 23,
+          "direction": "harm",
+          "control_failures": 0,
+          "dots_failures": 3
+        },
+        {
+          "turn": 25,
+          "direction": "harm",
+          "control_failures": 0,
+          "dots_failures": 3
+        },
+        {
+          "turn": 26,
+          "direction": "harm",
+          "control_failures": 0,
+          "dots_failures": 3
+        },
+        {
+          "turn": 27,
+          "direction": "harm",
+          "control_failures": 0,
+          "dots_failures": 3
+        },
+        {
+          "turn": 28,
+          "direction": "harm",
+          "control_failures": 0,
+          "dots_failures": 3
+        }
+      ],
+      "aggregate_aligned_recurring_turn_signals": [
+        {
+          "turn": 10,
+          "direction": "harm",
+          "control_failures": 0,
+          "dots_failures": 5
+        },
+        {
+          "turn": 14,
+          "direction": "harm",
+          "control_failures": 0,
+          "dots_failures": 26
+        },
+        {
+          "turn": 16,
+          "direction": "harm",
+          "control_failures": 0,
+          "dots_failures": 23
+        },
+        {
+          "turn": 17,
+          "direction": "harm",
+          "control_failures": 3,
+          "dots_failures": 6
+        },
+        {
+          "turn": 18,
+          "direction": "harm",
+          "control_failures": 0,
+          "dots_failures": 3
+        },
+        {
+          "turn": 20,
+          "direction": "harm",
+          "control_failures": 0,
+          "dots_failures": 3
+        },
+        {
+          "turn": 21,
+          "direction": "harm",
+          "control_failures": 1,
+          "dots_failures": 3
+        },
+        {
+          "turn": 22,
+          "direction": "harm",
+          "control_failures": 0,
+          "dots_failures": 3
+        },
+        {
+          "turn": 23,
+          "direction": "harm",
+          "control_failures": 0,
+          "dots_failures": 3
+        },
+        {
+          "turn": 25,
+          "direction": "harm",
+          "control_failures": 0,
+          "dots_failures": 3
+        },
+        {
+          "turn": 26,
+          "direction": "harm",
+          "control_failures": 0,
+          "dots_failures": 3
+        },
+        {
+          "turn": 27,
+          "direction": "harm",
+          "control_failures": 0,
+          "dots_failures": 3
+        },
+        {
+          "turn": 28,
+          "direction": "harm",
+          "control_failures": 0,
+          "dots_failures": 3
+        }
+      ],
+      "triggers": [],
+      "action": "focused_followup_complete",
+      "final_dots_n": 30,
+      "decision_pending": false
+    }
+  }
+}

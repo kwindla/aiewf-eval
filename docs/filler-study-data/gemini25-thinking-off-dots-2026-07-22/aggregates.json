@@ -1,0 +1,216 @@
+{
+  "schema_version": 1,
+  "artifact_status": "FINAL",
+  "protocol": {
+    "benchmark": "aiwf_medium_context",
+    "turns": 30,
+    "thinking_mode": "disabled",
+    "thinking_budget": 0,
+    "full_thinking_off_guaranteed": true,
+    "filler": {
+      "arm": "dots96",
+      "glyph": ".",
+      "count": 96,
+      "position": "suffix"
+    },
+    "bootstrap_samples": 100000,
+    "seed": 20260722,
+    "model_order": [
+      "gemini25flash"
+    ]
+  },
+  "models": {
+    "gemini25flash": {
+      "display_name": "gemini-2.5-flash",
+      "readme_label": "gemini-2.5-flash (thinking off)",
+      "provider": "Google",
+      "requested_model": "gemini-2.5-flash",
+      "report_tier": "exploratory",
+      "arms": {
+        "nofiller": {
+          "n_attempts": 30,
+          "fixed_turn_denominator": 900,
+          "strict_complete_count": 30,
+          "strict_completion_pct": 100.0,
+          "strict_completion_ci95": [
+            88.64866068260312,
+            99.99999999999999
+          ],
+          "pass_count": 809,
+          "pass_rate_pct": 89.88888888888889,
+          "pass_rate_ci95": [
+            88.1111111111111,
+            91.44444444444441
+          ],
+          "any_error_count": 91,
+          "any_error_rate_pct": 10.11111111111111,
+          "any_error_rate_ci95": [
+            8.555555555555586,
+            11.8888888888889
+          ],
+          "ttfat_observations": 900,
+          "ttfat_p50_ms": 550.5,
+          "ttfat_p95_ms": 850.4999999999995,
+          "ttfat_max_ms": 2352.0,
+          "thought_tokens": 0,
+          "run_dirs": [
+            "runs/aiwf_medium_context/20260722T123240_gemini-2.5-flash_3fa4b00b",
+            "runs/aiwf_medium_context/20260722T123546_gemini-2.5-flash_0289c44d",
+            "runs/aiwf_medium_context/20260722T123823_gemini-2.5-flash_8e4e18b4",
+            "runs/aiwf_medium_context/20260722T124141_gemini-2.5-flash_4f2edcd3",
+            "runs/aiwf_medium_context/20260722T124427_gemini-2.5-flash_068d10dd",
+            "runs/aiwf_medium_context/20260722T124702_gemini-2.5-flash_0a2b1dc5",
+            "runs/aiwf_medium_context/20260722T124931_gemini-2.5-flash_5e3669ad",
+            "runs/aiwf_medium_context/20260722T125114_gemini-2.5-flash_28c10d84",
+            "runs/aiwf_medium_context/20260722T125330_gemini-2.5-flash_e8555760",
+            "runs/aiwf_medium_context/20260722T125524_gemini-2.5-flash_e2f26af8",
+            "runs/aiwf_medium_context/20260722T130145_gemini-2.5-flash_da706712",
+            "runs/aiwf_medium_context/20260722T130421_gemini-2.5-flash_1e31820c",
+            "runs/aiwf_medium_context/20260722T130635_gemini-2.5-flash_fe1c1261",
+            "runs/aiwf_medium_context/20260722T130827_gemini-2.5-flash_50bc045d",
+            "runs/aiwf_medium_context/20260722T131019_gemini-2.5-flash_36dc0105",
+            "runs/aiwf_medium_context/20260722T131211_gemini-2.5-flash_6de28b92",
+            "runs/aiwf_medium_context/20260722T131416_gemini-2.5-flash_df2dbcee",
+            "runs/aiwf_medium_context/20260722T131557_gemini-2.5-flash_bea6be87",
+            "runs/aiwf_medium_context/20260722T131805_gemini-2.5-flash_c8ca3206",
+            "runs/aiwf_medium_context/20260722T131945_gemini-2.5-flash_2a933571",
+            "runs/aiwf_medium_context/20260722T132119_gemini-2.5-flash_95592fb3",
+            "runs/aiwf_medium_context/20260722T132312_gemini-2.5-flash_3171f944",
+            "runs/aiwf_medium_context/20260722T132512_gemini-2.5-flash_ae816782",
+            "runs/aiwf_medium_context/20260722T132652_gemini-2.5-flash_f6c3ef9f",
+            "runs/aiwf_medium_context/20260722T132843_gemini-2.5-flash_27b90e57",
+            "runs/aiwf_medium_context/20260722T133048_gemini-2.5-flash_e8ffec45",
+            "runs/aiwf_medium_context/20260722T133247_gemini-2.5-flash_7ef8bc55",
+            "runs/aiwf_medium_context/20260722T133443_gemini-2.5-flash_3fe0ab87",
+            "runs/aiwf_medium_context/20260722T133625_gemini-2.5-flash_4340ad05",
+            "runs/aiwf_medium_context/20260722T133835_gemini-2.5-flash_4060a673"
+          ],
+          "tool_error_count": 82,
+          "tool_error_rate_pct": 9.11111111111111,
+          "tool_error_rate_ci95": [
+            8.11111111111111,
+            10.0
+          ],
+          "instruction_error_count": 91,
+          "instruction_error_rate_pct": 10.11111111111111,
+          "instruction_error_rate_ci95": [
+            8.555555555555555,
+            11.888888888888888
+          ],
+          "kb_error_count": 0,
+          "kb_error_rate_pct": 0.0,
+          "kb_error_rate_ci95": [
+            0.0,
+            0.0
+          ]
+        },
+        "dots96": {
+          "n_attempts": 6,
+          "fixed_turn_denominator": 180,
+          "strict_complete_count": 6,
+          "strict_completion_pct": 100.0,
+          "strict_completion_ci95": [
+            60.96657120978346,
+            100.0
+          ],
+          "pass_count": 163,
+          "pass_rate_pct": 90.55555555555556,
+          "pass_rate_ci95": [
+            88.33333333333334,
+            93.33333333333334
+          ],
+          "any_error_count": 17,
+          "any_error_rate_pct": 9.444444444444445,
+          "any_error_rate_ci95": [
+            6.666666666666657,
+            11.666666666666657
+          ],
+          "ttfat_observations": 180,
+          "ttfat_p50_ms": 557.5,
+          "ttfat_p95_ms": 977.3499999999996,
+          "ttfat_max_ms": 2100.0,
+          "thought_tokens": 0,
+          "run_dirs": [
+            "runs/aiwf_medium_context/20260722T123240_gemini-2.5-flash_facd8255",
+            "runs/aiwf_medium_context/20260722T123422_gemini-2.5-flash_377efc2d",
+            "runs/aiwf_medium_context/20260722T123702_gemini-2.5-flash_c2d918b4",
+            "runs/aiwf_medium_context/20260722T124020_gemini-2.5-flash_982306be",
+            "runs/aiwf_medium_context/20260722T124309_gemini-2.5-flash_318942a6",
+            "runs/aiwf_medium_context/20260722T124537_gemini-2.5-flash_9b493c13"
+          ],
+          "tool_error_count": 16,
+          "tool_error_rate_pct": 8.88888888888889,
+          "tool_error_rate_ci95": [
+            6.666666666666665,
+            9.999999999999998
+          ],
+          "instruction_error_count": 16,
+          "instruction_error_rate_pct": 8.88888888888889,
+          "instruction_error_rate_ci95": [
+            6.666666666666665,
+            9.999999999999998
+          ],
+          "kb_error_count": 1,
+          "kb_error_rate_pct": 0.5555555555555556,
+          "kb_error_rate_ci95": [
+            0.0,
+            1.6666666666666663
+          ]
+        }
+      },
+      "effect": {
+        "pass_delta_points": 0.6666666666666714,
+        "pass_delta_ci95": [
+          -1.9999999999999685,
+          3.777777777777813
+        ]
+      },
+      "adaptive_decision": {
+        "initial_dots_n": 6,
+        "observed_control_n": 30,
+        "observed_dots_n": 6,
+        "pass_delta_points": 0.6666666666666714,
+        "pass_delta_ci95": [
+          -1.9999999999999685,
+          3.777777777777813
+        ],
+        "strict_completion_pct": [
+          100.0,
+          100.0
+        ],
+        "recurring_turn_signals": [
+          {
+            "turn": 15,
+            "direction": "benefit",
+            "control_failures": 28,
+            "dots_failures": 5
+          },
+          {
+            "turn": 17,
+            "direction": "harm",
+            "control_failures": 24,
+            "dots_failures": 5
+          },
+          {
+            "turn": 24,
+            "direction": "harm",
+            "control_failures": 28,
+            "dots_failures": 6
+          }
+        ],
+        "aggregate_aligned_recurring_turn_signals": [
+          {
+            "turn": 15,
+            "direction": "benefit",
+            "control_failures": 28,
+            "dots_failures": 5
+          }
+        ],
+        "triggers": [],
+        "action": "control_precision_extension_complete",
+        "stage1_action": "stop_at_6",
+        "decision_pending": false
+      }
+    }
+  }
+}

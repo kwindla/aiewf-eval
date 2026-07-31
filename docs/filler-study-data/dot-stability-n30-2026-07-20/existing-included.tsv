@@ -1,0 +1,191 @@
+model	arm	run_dir	transcript_rows	end_session_turn	classification	judged	provenance	source
+gpt54	nofiller	runs/aiwf_medium_context/20260718T204517_gpt-5.4_4304593b	32	29	strict_complete	1	runtime-signature	docs/filler-study-data/gpt54_filler_manifest.tsv
+gpt54	nofiller	runs/aiwf_medium_context/20260718T204932_gpt-5.4_e005d4b2	32	29	strict_complete	1	runtime-signature	docs/filler-study-data/gpt54_filler_manifest.tsv
+gpt54	nofiller	runs/aiwf_medium_context/20260718T205406_gpt-5.4_e436a409	34	29	strict_complete	1	runtime-signature	docs/filler-study-data/gpt54_filler_manifest.tsv
+gpt54	nofiller	runs/aiwf_medium_context/20260718T205757_gpt-5.4_567846a3	31	29	strict_complete	1	runtime-signature	docs/filler-study-data/gpt54_filler_manifest.tsv
+gpt54	nofiller	runs/aiwf_medium_context/20260718T210212_gpt-5.4_1f7590bb	34	29	strict_complete	1	runtime-signature	docs/filler-study-data/gpt54_filler_manifest.tsv
+gpt54	nofiller	runs/aiwf_medium_context/20260718T210651_gpt-5.4_f0d8eac7	34	29	strict_complete	1	runtime-signature	docs/filler-study-data/gpt54_filler_manifest.tsv
+gpt54	nofiller	runs/aiwf_medium_context/20260718T211118_gpt-5.4_b4ba1f5b	32	29	strict_complete	1	runtime-signature	docs/filler-study-data/gpt54_filler_manifest.tsv
+gpt54	nofiller	runs/aiwf_medium_context/20260718T211600_gpt-5.4_7624b42c	32	29	strict_complete	1	runtime-signature	docs/filler-study-data/gpt54_filler_manifest.tsv
+gpt54	nofiller	runs/aiwf_medium_context/20260718T221419_gpt-5.4_7f1a2cc8	32	29	strict_complete	1	runtime-signature	docs/filler-study-data/gpt54_filler_manifest.tsv
+gpt54	nofiller	runs/aiwf_medium_context/20260718T221948_gpt-5.4_2dc2fbef	34	29	strict_complete	1	runtime-signature	docs/filler-study-data/gpt54_filler_manifest.tsv
+gpt54	dots96	runs/aiwf_medium_context/20260718T204735_gpt-5.4_53a7cdf3	31	29	strict_complete	1	runtime-signature	docs/filler-study-data/gpt54_filler_manifest.tsv
+gpt54	dots96	runs/aiwf_medium_context/20260718T205129_gpt-5.4_d59039c5	31	29	strict_complete	1	runtime-signature	docs/filler-study-data/gpt54_filler_manifest.tsv
+gpt54	dots96	runs/aiwf_medium_context/20260718T205605_gpt-5.4_e2b9c6ba	30	29	strict_complete	1	runtime-signature	docs/filler-study-data/gpt54_filler_manifest.tsv
+gpt54	dots96	runs/aiwf_medium_context/20260718T210010_gpt-5.4_dc2804af	33	29	strict_complete	1	runtime-signature	docs/filler-study-data/gpt54_filler_manifest.tsv
+gpt54	dots96	runs/aiwf_medium_context/20260718T210455_gpt-5.4_878c6c80	30	29	strict_complete	1	runtime-signature	docs/filler-study-data/gpt54_filler_manifest.tsv
+gpt54	dots96	runs/aiwf_medium_context/20260718T210904_gpt-5.4_4e651c2d	32	29	strict_complete	1	runtime-signature	docs/filler-study-data/gpt54_filler_manifest.tsv
+gpt54	dots96	runs/aiwf_medium_context/20260718T211404_gpt-5.4_7d808aff	30	29	strict_complete	1	runtime-signature	docs/filler-study-data/gpt54_filler_manifest.tsv
+gpt54	dots96	runs/aiwf_medium_context/20260718T211829_gpt-5.4_31eb14d3	30	29	strict_complete	1	runtime-signature	docs/filler-study-data/gpt54_filler_manifest.tsv
+gpt54	dots96	runs/aiwf_medium_context/20260718T221716_gpt-5.4_9a830590	31	29	strict_complete	1	runtime-signature	docs/filler-study-data/gpt54_filler_manifest.tsv
+gpt54	dots96	runs/aiwf_medium_context/20260718T222247_gpt-5.4_6bc13523	32	29	strict_complete	1	runtime-signature	docs/filler-study-data/gpt54_filler_manifest.tsv
+gpt55	nofiller	runs/aiwf_medium_context/20260720T102731_gpt-5.5_ce3e937e	31	29	strict_complete	1	runtime-signature	docs/filler-study-data/gpt55_manifest.tsv
+gpt55	nofiller	runs/aiwf_medium_context/20260720T103206_gpt-5.5_f0166057	32	29	strict_complete	1	runtime-signature	docs/filler-study-data/gpt55_manifest.tsv
+gpt55	nofiller	runs/aiwf_medium_context/20260720T103716_gpt-5.5_f30ef39d	31	29	strict_complete	1	runtime-signature	docs/filler-study-data/gpt55_manifest.tsv
+gpt55	nofiller	runs/aiwf_medium_context/20260720T104210_gpt-5.5_9598ee39	31	29	strict_complete	1	runtime-signature	docs/filler-study-data/gpt55_manifest.tsv
+gpt55	nofiller	runs/aiwf_medium_context/20260720T104643_gpt-5.5_868539a7	30	29	strict_complete	1	runtime-signature	docs/filler-study-data/gpt55_manifest.tsv
+gpt55	nofiller	runs/aiwf_medium_context/20260720T105049_gpt-5.5_a0cdbc07	30	29	strict_complete	1	runtime-signature	docs/filler-study-data/gpt55_manifest.tsv
+gpt55	nofiller	runs/aiwf_medium_context/20260720T105518_gpt-5.5_bcd82b49	30	29	strict_complete	1	runtime-signature	docs/filler-study-data/gpt55_manifest.tsv
+gpt55	nofiller	runs/aiwf_medium_context/20260720T105943_gpt-5.5_d04fe202	31	29	strict_complete	1	runtime-signature	docs/filler-study-data/gpt55_manifest.tsv
+gpt55	dots96	runs/aiwf_medium_context/20260720T102957_gpt-5.5_9e0583c5	30	29	strict_complete	1	runtime-signature	docs/filler-study-data/gpt55_manifest.tsv
+gpt55	dots96	runs/aiwf_medium_context/20260720T103517_gpt-5.5_37651c37	30	29	strict_complete	1	runtime-signature	docs/filler-study-data/gpt55_manifest.tsv
+gpt55	dots96	runs/aiwf_medium_context/20260720T104005_gpt-5.5_072e1d8f	30	29	strict_complete	1	runtime-signature	docs/filler-study-data/gpt55_manifest.tsv
+gpt55	dots96	runs/aiwf_medium_context/20260720T104427_gpt-5.5_1f8e4975	30	29	strict_complete	1	runtime-signature	docs/filler-study-data/gpt55_manifest.tsv
+gpt55	dots96	runs/aiwf_medium_context/20260720T104846_gpt-5.5_a9adada4	30	29	strict_complete	1	runtime-signature	docs/filler-study-data/gpt55_manifest.tsv
+gpt55	dots96	runs/aiwf_medium_context/20260720T105306_gpt-5.5_d1e7b503	30	29	strict_complete	1	runtime-signature	docs/filler-study-data/gpt55_manifest.tsv
+gpt55	dots96	runs/aiwf_medium_context/20260720T105726_gpt-5.5_9340db0d	30	29	strict_complete	1	runtime-signature	docs/filler-study-data/gpt55_manifest.tsv
+gpt55	dots96	runs/aiwf_medium_context/20260720T110224_gpt-5.5_c7a44850	30	29	strict_complete	1	runtime-signature	docs/filler-study-data/gpt55_manifest.tsv
+terra	nofiller	runs/aiwf_medium_context/20260716T100228_gpt-5.6-terra_4bdc9f2a	32	29	strict_complete	1	runtime-signature	docs/filler-study-data/gpt56_terra_manifest.tsv
+terra	nofiller	runs/aiwf_medium_context/20260716T100727_gpt-5.6-terra_ea4fad1c	31	29	strict_complete	1	runtime-signature	docs/filler-study-data/gpt56_terra_manifest.tsv
+terra	nofiller	runs/aiwf_medium_context/20260716T101147_gpt-5.6-terra_e3ad20a5	33	29	strict_complete	1	runtime-signature	docs/filler-study-data/gpt56_terra_manifest.tsv
+terra	nofiller	runs/aiwf_medium_context/20260716T101542_gpt-5.6-terra_568d5969	33	29	strict_complete	1	runtime-signature	docs/filler-study-data/gpt56_terra_manifest.tsv
+terra	nofiller	runs/aiwf_medium_context/20260716T102003_gpt-5.6-terra_b81ed3d7	32	29	strict_complete	1	runtime-signature	docs/filler-study-data/gpt56_terra_manifest.tsv
+terra	nofiller	runs/aiwf_medium_context/20260716T102435_gpt-5.6-terra_6e956952	33	29	strict_complete	1	runtime-signature	docs/filler-study-data/gpt56_terra_manifest.tsv
+terra	nofiller	runs/aiwf_medium_context/20260716T102904_gpt-5.6-terra_59ce6596	31	29	strict_complete	1	runtime-signature	docs/filler-study-data/gpt56_terra_manifest.tsv
+terra	nofiller	runs/aiwf_medium_context/20260716T103330_gpt-5.6-terra_9778a41d	31	29	strict_complete	1	runtime-signature	docs/filler-study-data/gpt56_terra_manifest.tsv
+terra	nofiller	runs/aiwf_medium_context/20260716T103809_gpt-5.6-terra_ae2d4d56	32	29	strict_complete	1	runtime-signature	docs/filler-study-data/gpt56_terra_manifest.tsv
+terra	nofiller	runs/aiwf_medium_context/20260716T104227_gpt-5.6-terra_b4696ed1	33	29	strict_complete	1	runtime-signature	docs/filler-study-data/gpt56_terra_manifest.tsv
+terra	nofiller	runs/aiwf_medium_context/20260719T090154_gpt-5.6-terra_f5f2d0e0	31	29	strict_complete	1	runtime-signature	docs/filler-study-data/expand_oai_ant_manifest.tsv
+terra	nofiller	runs/aiwf_medium_context/20260719T091556_gpt-5.6-terra_9786f6bf	32	29	strict_complete	1	runtime-signature	docs/filler-study-data/expand_oai_ant_manifest.tsv
+terra	nofiller	runs/aiwf_medium_context/20260719T093157_gpt-5.6-terra_bc67d1b5	31	29	strict_complete	1	runtime-signature	docs/filler-study-data/expand_oai_ant_manifest.tsv
+terra	nofiller	runs/aiwf_medium_context/20260719T094633_gpt-5.6-terra_f6ffdb8a	33	29	strict_complete	1	runtime-signature	docs/filler-study-data/expand_oai_ant_manifest.tsv
+terra	nofiller	runs/aiwf_medium_context/20260719T100118_gpt-5.6-terra_de57b3c8	31	29	strict_complete	1	runtime-signature	docs/filler-study-data/expand_oai_ant_manifest.tsv
+terra	nofiller	runs/aiwf_medium_context/20260719T101446_gpt-5.6-terra_8d1cc736	33	29	strict_complete	1	runtime-signature	docs/filler-study-data/expand_oai_ant_manifest.tsv
+terra	nofiller	runs/aiwf_medium_context/20260719T131820_gpt-5.6-terra_848db695	34	29	strict_complete	1	runtime-signature	docs/filler-study-data/expand_oai_ant_manifest.tsv
+terra	nofiller	runs/aiwf_medium_context/20260719T132053_gpt-5.6-terra_13d53e0a	33	29	strict_complete	1	runtime-signature	docs/filler-study-data/expand_oai_ant_manifest.tsv
+terra	nofiller	runs/aiwf_medium_context/20260719T132340_gpt-5.6-terra_fab69a95	33	29	strict_complete	1	runtime-signature	docs/filler-study-data/expand_oai_ant_manifest.tsv
+terra	nofiller	runs/aiwf_medium_context/20260719T132540_gpt-5.6-terra_ecc6b379	33	29	strict_complete	1	runtime-signature	docs/filler-study-data/expand_oai_ant_manifest.tsv
+terra	dots96	runs/aiwf_medium_context/20260719T090348_gpt-5.6-terra_4515b9b3	14	13	model_abort	0	attempt-reconstruction	chronological first 30 Jul-19 dot attempts
+terra	dots96	runs/aiwf_medium_context/20260719T090407_gpt-5.6-terra_a9f7d41d	30	29	strict_complete	1	attempt-reconstruction	chronological first 30 Jul-19 dot attempts
+terra	dots96	runs/aiwf_medium_context/20260719T091910_gpt-5.6-terra_788dfd1b	15	13	model_abort	0	attempt-reconstruction	chronological first 30 Jul-19 dot attempts
+terra	dots96	runs/aiwf_medium_context/20260719T091931_gpt-5.6-terra_8d001a0e	14	13	model_abort	0	attempt-reconstruction	chronological first 30 Jul-19 dot attempts
+terra	dots96	runs/aiwf_medium_context/20260719T091952_gpt-5.6-terra_35b96f4f	14	13	model_abort	0	attempt-reconstruction	chronological first 30 Jul-19 dot attempts
+terra	dots96	runs/aiwf_medium_context/20260719T092013_gpt-5.6-terra_536fc42e	17	-1	incomplete_no_end_session	0	attempt-reconstruction	chronological first 30 Jul-19 dot attempts
+terra	dots96	runs/aiwf_medium_context/20260719T093356_gpt-5.6-terra_7bd02599	32	29	strict_complete	1	attempt-reconstruction	chronological first 30 Jul-19 dot attempts
+terra	dots96	runs/aiwf_medium_context/20260719T094855_gpt-5.6-terra_6e9a46ca	14	13	model_abort	0	attempt-reconstruction	chronological first 30 Jul-19 dot attempts
+terra	dots96	runs/aiwf_medium_context/20260719T094913_gpt-5.6-terra_7f118d15	31	29	strict_complete	1	attempt-reconstruction	chronological first 30 Jul-19 dot attempts
+terra	dots96	runs/aiwf_medium_context/20260719T100311_gpt-5.6-terra_6d5fda4b	30	29	strict_complete	1	attempt-reconstruction	chronological first 30 Jul-19 dot attempts
+terra	dots96	runs/aiwf_medium_context/20260719T101732_gpt-5.6-terra_a1a66116	14	13	model_abort	0	attempt-reconstruction	chronological first 30 Jul-19 dot attempts
+terra	dots96	runs/aiwf_medium_context/20260719T101748_gpt-5.6-terra_e2b0590b	18	-1	incomplete_no_end_session	0	attempt-reconstruction	chronological first 30 Jul-19 dot attempts
+terra	dots96	runs/aiwf_medium_context/20260719T101856_gpt-5.6-terra_746bed10	18	-1	incomplete_no_end_session	0	attempt-reconstruction	chronological first 30 Jul-19 dot attempts
+terra	dots96	runs/aiwf_medium_context/20260719T102005_gpt-5.6-terra_39743e0a	14	13	model_abort	0	attempt-reconstruction	chronological first 30 Jul-19 dot attempts
+terra	dots96	runs/aiwf_medium_context/20260719T132826_gpt-5.6-terra_a435ce93	14	13	model_abort	0	attempt-reconstruction	chronological first 30 Jul-19 dot attempts
+terra	dots96	runs/aiwf_medium_context/20260719T132843_gpt-5.6-terra_b58bb799	30	29	strict_complete	1	attempt-reconstruction	chronological first 30 Jul-19 dot attempts
+terra	dots96	runs/aiwf_medium_context/20260719T133027_gpt-5.6-terra_e9044498	31	29	strict_complete	1	attempt-reconstruction	chronological first 30 Jul-19 dot attempts
+terra	dots96	runs/aiwf_medium_context/20260719T133223_gpt-5.6-terra_c131ac77	14	13	model_abort	0	attempt-reconstruction	chronological first 30 Jul-19 dot attempts
+terra	dots96	runs/aiwf_medium_context/20260719T133239_gpt-5.6-terra_42de6dc3	14	13	model_abort	0	attempt-reconstruction	chronological first 30 Jul-19 dot attempts
+terra	dots96	runs/aiwf_medium_context/20260719T133255_gpt-5.6-terra_fdf7f931	14	13	model_abort	0	attempt-reconstruction	chronological first 30 Jul-19 dot attempts
+terra	dots96	runs/aiwf_medium_context/20260719T133314_gpt-5.6-terra_7f3e3e49	14	13	model_abort	0	attempt-reconstruction	chronological first 30 Jul-19 dot attempts
+terra	dots96	runs/aiwf_medium_context/20260719T133331_gpt-5.6-terra_d54f3b06	14	13	model_abort	0	attempt-reconstruction	chronological first 30 Jul-19 dot attempts
+terra	dots96	runs/aiwf_medium_context/20260719T133352_gpt-5.6-terra_8b4effd5	7	-1	incomplete_no_end_session	0	attempt-reconstruction	chronological first 30 Jul-19 dot attempts
+terra	dots96	runs/aiwf_medium_context/20260719T133700_gpt-5.6-terra_cd0e6cd1	14	13	model_abort	0	attempt-reconstruction	chronological first 30 Jul-19 dot attempts
+terra	dots96	runs/aiwf_medium_context/20260719T133715_gpt-5.6-terra_fc7dd2dd	14	13	model_abort	0	attempt-reconstruction	chronological first 30 Jul-19 dot attempts
+terra	dots96	runs/aiwf_medium_context/20260719T133732_gpt-5.6-terra_6c7e4a2f	14	13	model_abort	0	attempt-reconstruction	chronological first 30 Jul-19 dot attempts
+terra	dots96	runs/aiwf_medium_context/20260719T133749_gpt-5.6-terra_899099bb	14	13	model_abort	0	attempt-reconstruction	chronological first 30 Jul-19 dot attempts
+terra	dots96	runs/aiwf_medium_context/20260719T133814_gpt-5.6-terra_a57e15e0	14	13	model_abort	0	attempt-reconstruction	chronological first 30 Jul-19 dot attempts
+terra	dots96	runs/aiwf_medium_context/20260719T133834_gpt-5.6-terra_f67070f5	31	29	strict_complete	1	attempt-reconstruction	chronological first 30 Jul-19 dot attempts
+terra	dots96	runs/aiwf_medium_context/20260719T134037_gpt-5.6-terra_a7f7d1d7	14	13	model_abort	0	attempt-reconstruction	chronological first 30 Jul-19 dot attempts
+sol	nofiller	runs/aiwf_medium_context/20260719T085708_gpt-5.6-sol_abf97165	31	29	strict_complete	1	runtime-signature	docs/filler-study-data/expand_oai_ant_manifest.tsv
+sol	nofiller	runs/aiwf_medium_context/20260719T091117_gpt-5.6-sol_09e4ba22	31	29	strict_complete	1	runtime-signature	docs/filler-study-data/expand_oai_ant_manifest.tsv
+sol	nofiller	runs/aiwf_medium_context/20260719T092714_gpt-5.6-sol_d63da36b	31	29	strict_complete	1	runtime-signature	docs/filler-study-data/expand_oai_ant_manifest.tsv
+sol	nofiller	runs/aiwf_medium_context/20260719T094219_gpt-5.6-sol_77de886d	31	29	strict_complete	1	runtime-signature	docs/filler-study-data/expand_oai_ant_manifest.tsv
+sol	nofiller	runs/aiwf_medium_context/20260719T095630_gpt-5.6-sol_7fad7c14	31	29	strict_complete	1	runtime-signature	docs/filler-study-data/expand_oai_ant_manifest.tsv
+sol	nofiller	runs/aiwf_medium_context/20260719T101005_gpt-5.6-sol_2c3691e8	31	29	strict_complete	1	runtime-signature	docs/filler-study-data/expand_oai_ant_manifest.tsv
+sol	nofiller	runs/aiwf_medium_context/20260719T124005_gpt-5.6-sol_8babee23	31	29	strict_complete	1	runtime-signature	docs/filler-study-data/expand_oai_ant_manifest.tsv
+sol	nofiller	runs/aiwf_medium_context/20260719T124229_gpt-5.6-sol_b0138564	31	29	strict_complete	1	runtime-signature	docs/filler-study-data/expand_oai_ant_manifest.tsv
+sol	nofiller	runs/aiwf_medium_context/20260719T124445_gpt-5.6-sol_4f8564d2	31	29	strict_complete	1	runtime-signature	docs/filler-study-data/expand_oai_ant_manifest.tsv
+sol	nofiller	runs/aiwf_medium_context/20260719T124723_gpt-5.6-sol_875c4227	31	29	strict_complete	1	runtime-signature	docs/filler-study-data/expand_oai_ant_manifest.tsv
+sol	dots96	runs/aiwf_medium_context/20260719T085931_gpt-5.6-sol_b061c0cf	31	29	strict_complete	1	runtime-signature	docs/filler-study-data/expand_oai_ant_manifest.tsv
+sol	dots96	runs/aiwf_medium_context/20260719T091343_gpt-5.6-sol_e9a3f512	30	29	strict_complete	1	runtime-signature	docs/filler-study-data/expand_oai_ant_manifest.tsv
+sol	dots96	runs/aiwf_medium_context/20260719T092940_gpt-5.6-sol_8692bfc4	31	29	strict_complete	1	runtime-signature	docs/filler-study-data/expand_oai_ant_manifest.tsv
+sol	dots96	runs/aiwf_medium_context/20260719T094426_gpt-5.6-sol_af6c39f5	30	29	strict_complete	1	runtime-signature	docs/filler-study-data/expand_oai_ant_manifest.tsv
+sol	dots96	runs/aiwf_medium_context/20260719T095904_gpt-5.6-sol_ef65ce20	30	29	strict_complete	1	runtime-signature	docs/filler-study-data/expand_oai_ant_manifest.tsv
+sol	dots96	runs/aiwf_medium_context/20260719T101240_gpt-5.6-sol_991b3a84	30	29	strict_complete	1	runtime-signature	docs/filler-study-data/expand_oai_ant_manifest.tsv
+sol	dots96	runs/aiwf_medium_context/20260719T124945_gpt-5.6-sol_203fd126	30	29	strict_complete	1	runtime-signature	docs/filler-study-data/expand_oai_ant_manifest.tsv
+sol	dots96	runs/aiwf_medium_context/20260719T125142_gpt-5.6-sol_30762bd9	30	29	strict_complete	1	runtime-signature	docs/filler-study-data/expand_oai_ant_manifest.tsv
+sol	dots96	runs/aiwf_medium_context/20260719T125408_gpt-5.6-sol_193106f3	30	29	strict_complete	1	runtime-signature	docs/filler-study-data/expand_oai_ant_manifest.tsv
+sol	dots96	runs/aiwf_medium_context/20260719T125634_gpt-5.6-sol_4528e7db	30	29	strict_complete	1	runtime-signature	docs/filler-study-data/expand_oai_ant_manifest.tsv
+gemma431	nofiller	runs/aiwf_medium_context/20260615T203631_lilac_gemma-4-31b-it_092aff24	31	29	strict_complete	1	runtime-signature	docs/ten-run-allowlists/lilac-gemma-4-31b-it-off-2026-06-15.txt
+gemma431	nofiller	runs/aiwf_medium_context/20260615T203844_lilac_gemma-4-31b-it_efe7dda2	32	29	strict_complete	1	runtime-signature	docs/ten-run-allowlists/lilac-gemma-4-31b-it-off-2026-06-15.txt
+gemma431	nofiller	runs/aiwf_medium_context/20260615T204051_lilac_gemma-4-31b-it_3e0233b4	31	29	strict_complete	1	runtime-signature	docs/ten-run-allowlists/lilac-gemma-4-31b-it-off-2026-06-15.txt
+gemma431	nofiller	runs/aiwf_medium_context/20260615T204241_lilac_gemma-4-31b-it_b880d213	30	29	strict_complete	1	runtime-signature	docs/ten-run-allowlists/lilac-gemma-4-31b-it-off-2026-06-15.txt
+gemma431	nofiller	runs/aiwf_medium_context/20260615T204433_lilac_gemma-4-31b-it_6026bf9d	31	29	strict_complete	1	runtime-signature	docs/ten-run-allowlists/lilac-gemma-4-31b-it-off-2026-06-15.txt
+gemma431	nofiller	runs/aiwf_medium_context/20260615T204616_lilac_gemma-4-31b-it_391172c2	30	29	strict_complete	1	runtime-signature	docs/ten-run-allowlists/lilac-gemma-4-31b-it-off-2026-06-15.txt
+gemma431	nofiller	runs/aiwf_medium_context/20260615T204751_lilac_gemma-4-31b-it_9c3177b5	31	29	strict_complete	1	runtime-signature	docs/ten-run-allowlists/lilac-gemma-4-31b-it-off-2026-06-15.txt
+gemma431	nofiller	runs/aiwf_medium_context/20260615T204932_lilac_gemma-4-31b-it_9f95f1e5	31	29	strict_complete	1	runtime-signature	docs/ten-run-allowlists/lilac-gemma-4-31b-it-off-2026-06-15.txt
+gemma431	nofiller	runs/aiwf_medium_context/20260615T205116_lilac_gemma-4-31b-it_16a0a20c	31	29	strict_complete	1	runtime-signature	docs/ten-run-allowlists/lilac-gemma-4-31b-it-off-2026-06-15.txt
+gemma431	nofiller	runs/aiwf_medium_context/20260615T205319_lilac_gemma-4-31b-it_9d464af0	30	29	strict_complete	1	runtime-signature	docs/ten-run-allowlists/lilac-gemma-4-31b-it-off-2026-06-15.txt
+gemma431	nofiller	runs/aiwf_medium_context/20260719T032503_lilac_gemma-4-31b-it_7379f65b	31	29	strict_complete	1	runtime-signature	docs/filler-study-data/broaden_oai_lilac_manifest.tsv
+gemma431	nofiller	runs/aiwf_medium_context/20260719T033623_lilac_gemma-4-31b-it_17f51340	32	29	strict_complete	1	runtime-signature	docs/filler-study-data/broaden_oai_lilac_manifest.tsv
+gemma431	nofiller	runs/aiwf_medium_context/20260719T034709_lilac_gemma-4-31b-it_4355ae1c	31	29	strict_complete	1	runtime-signature	docs/filler-study-data/broaden_oai_lilac_manifest.tsv
+gemma431	nofiller	runs/aiwf_medium_context/20260719T035838_lilac_gemma-4-31b-it_e2613ec9	32	29	strict_complete	1	runtime-signature	docs/filler-study-data/broaden_oai_lilac_manifest.tsv
+gemma431	nofiller	runs/aiwf_medium_context/20260719T040753_lilac_gemma-4-31b-it_f1a41069	31	29	strict_complete	1	runtime-signature	docs/filler-study-data/broaden_oai_lilac_manifest.tsv
+gemma431	nofiller	runs/aiwf_medium_context/20260719T042315_lilac_gemma-4-31b-it_ea65fc8a	31	29	strict_complete	1	runtime-signature	docs/filler-study-data/broaden_oai_lilac_manifest.tsv
+gemma431	nofiller	runs/aiwf_medium_context/20260719T052133_lilac_gemma-4-31b-it_e6384224	30	29	strict_complete	1	runtime-signature	docs/filler-study-data/broaden_oai_lilac_manifest.tsv
+gemma431	nofiller	runs/aiwf_medium_context/20260719T081205_lilac_gemma-4-31b-it_59688cd3	30	29	strict_complete	1	runtime-signature	docs/filler-study-data/broaden_oai_lilac_manifest.tsv
+gemma431	nofiller	runs/aiwf_medium_context/20260719T082537_lilac_gemma-4-31b-it_99cc0104	30	29	strict_complete	1	runtime-signature	docs/filler-study-data/broaden_oai_lilac_manifest.tsv
+gemma431	nofiller	runs/aiwf_medium_context/20260719T084018_lilac_gemma-4-31b-it_defcbb8b	31	29	strict_complete	1	runtime-signature	docs/filler-study-data/broaden_oai_lilac_manifest.tsv
+gemma431	dots96	runs/aiwf_medium_context/20260719T032927_lilac_gemma-4-31b-it_19186279	31	29	strict_complete	1	runtime-signature	docs/filler-study-data/broaden_oai_lilac_manifest.tsv
+gemma431	dots96	runs/aiwf_medium_context/20260719T033926_lilac_gemma-4-31b-it_62f63574	31	29	strict_complete	1	runtime-signature	docs/filler-study-data/broaden_oai_lilac_manifest.tsv
+gemma431	dots96	runs/aiwf_medium_context/20260719T035156_lilac_gemma-4-31b-it_a8e8a708	30	29	strict_complete	1	runtime-signature	docs/filler-study-data/broaden_oai_lilac_manifest.tsv
+gemma431	dots96	runs/aiwf_medium_context/20260719T040131_lilac_gemma-4-31b-it_792ee9df	31	29	strict_complete	1	runtime-signature	docs/filler-study-data/broaden_oai_lilac_manifest.tsv
+gemma431	dots96	runs/aiwf_medium_context/20260719T041608_lilac_gemma-4-31b-it_91678da3	30	29	strict_complete	1	runtime-signature	docs/filler-study-data/broaden_oai_lilac_manifest.tsv
+gemma431	dots96	runs/aiwf_medium_context/20260719T042701_lilac_gemma-4-31b-it_d8a2a30e	30	29	strict_complete	1	runtime-signature	docs/filler-study-data/broaden_oai_lilac_manifest.tsv
+gemma431	dots96	runs/aiwf_medium_context/20260719T081713_lilac_gemma-4-31b-it_1cd8a6c4	30	29	strict_complete	1	runtime-signature	docs/filler-study-data/broaden_oai_lilac_manifest.tsv
+gemma431	dots96	runs/aiwf_medium_context/20260719T082843_lilac_gemma-4-31b-it_24a5b5f2	30	29	strict_complete	1	runtime-signature	docs/filler-study-data/broaden_oai_lilac_manifest.tsv
+gemma431	dots96	runs/aiwf_medium_context/20260719T084250_lilac_gemma-4-31b-it_a3779af9	30	29	strict_complete	1	runtime-signature	docs/filler-study-data/broaden_oai_lilac_manifest.tsv
+gemma431	dots96	runs/aiwf_medium_context/20260719T085420_lilac_gemma-4-31b-it_6641f0d2	30	29	strict_complete	1	runtime-signature	docs/filler-study-data/broaden_oai_lilac_manifest.tsv
+inkling	nofiller	runs/aiwf_medium_context/20260718T221420_thinkingmachines_inkling_a5ebbb11	31	29	strict_complete	1	runtime-signature	docs/filler-study-data/inkling_filler_manifest.tsv
+inkling	nofiller	runs/aiwf_medium_context/20260718T222424_thinkingmachines_inkling_8ec92bd1	30	29	strict_complete	1	runtime-signature	docs/filler-study-data/inkling_filler_manifest.tsv
+inkling	nofiller	runs/aiwf_medium_context/20260718T223337_thinkingmachines_inkling_fc04b9c9	31	29	strict_complete	1	runtime-signature	docs/filler-study-data/inkling_filler_manifest.tsv
+inkling	nofiller	runs/aiwf_medium_context/20260718T224410_thinkingmachines_inkling_16b0a54b	31	29	strict_complete	1	runtime-signature	docs/filler-study-data/inkling_filler_manifest.tsv
+inkling	nofiller	runs/aiwf_medium_context/20260718T225454_thinkingmachines_inkling_28553bcd	31	29	strict_complete	1	runtime-signature	docs/filler-study-data/inkling_filler_manifest.tsv
+inkling	nofiller	runs/aiwf_medium_context/20260718T230434_thinkingmachines_inkling_c8000c6e	30	29	strict_complete	1	runtime-signature	docs/filler-study-data/inkling_filler_manifest.tsv
+inkling	nofiller	runs/aiwf_medium_context/20260718T231518_thinkingmachines_inkling_eac4f3fb	30	29	strict_complete	1	runtime-signature	docs/filler-study-data/inkling_filler_manifest.tsv
+inkling	nofiller	runs/aiwf_medium_context/20260718T232425_thinkingmachines_inkling_8351c57b	32	29	strict_complete	1	runtime-signature	docs/filler-study-data/inkling_filler_manifest.tsv
+inkling	dots96	runs/aiwf_medium_context/20260718T221956_thinkingmachines_inkling_58c64730	31	29	strict_complete	1	attempt-reconstruction	docs/filler-study-data/inkling_filler_manifest.tsv+attempt audit
+inkling	dots96	runs/aiwf_medium_context/20260718T222908_thinkingmachines_inkling_a67e6dc9	32	29	strict_complete	1	attempt-reconstruction	docs/filler-study-data/inkling_filler_manifest.tsv+attempt audit
+inkling	dots96	runs/aiwf_medium_context/20260718T223904_thinkingmachines_inkling_daeee3e8	31	29	strict_complete	1	attempt-reconstruction	docs/filler-study-data/inkling_filler_manifest.tsv+attempt audit
+inkling	dots96	runs/aiwf_medium_context/20260718T225052_thinkingmachines_inkling_870e2d7a	32	29	strict_complete	1	attempt-reconstruction	docs/filler-study-data/inkling_filler_manifest.tsv+attempt audit
+inkling	dots96	runs/aiwf_medium_context/20260718T230123_thinkingmachines_inkling_388aae8a	30	29	strict_complete	1	attempt-reconstruction	docs/filler-study-data/inkling_filler_manifest.tsv+attempt audit
+inkling	dots96	runs/aiwf_medium_context/20260718T231054_thinkingmachines_inkling_eed035eb	31	29	strict_complete	1	attempt-reconstruction	docs/filler-study-data/inkling_filler_manifest.tsv+attempt audit
+inkling	dots96	runs/aiwf_medium_context/20260718T232004_thinkingmachines_inkling_7d4b787b	30	29	strict_complete	1	attempt-reconstruction	docs/filler-study-data/inkling_filler_manifest.tsv+attempt audit
+inkling	dots96	runs/aiwf_medium_context/20260718T233118_thinkingmachines_inkling_73b552b8	31	29	strict_complete	1	attempt-reconstruction	docs/filler-study-data/inkling_filler_manifest.tsv+attempt audit
+inkling	dots96	runs/aiwf_medium_context/20260718T221939_thinkingmachines_inkling_f46cecd8	17	30	model_abort	0	attempt-reconstruction	docs/filler-study-data/inkling_filler_manifest.tsv+attempt audit
+inkling	dots96	runs/aiwf_medium_context/20260718T225034_thinkingmachines_inkling_dcd5c571	17	30	model_abort	0	attempt-reconstruction	docs/filler-study-data/inkling_filler_manifest.tsv+attempt audit
+qwen3_8b	nofiller	runs/aiwf_medium_context/20260719T085738_qwen_qwen3-8b_af705305	33	-1	incomplete_no_end_session	1	runtime-signature	docs/filler-study-data/expand_openrouter_manifest.tsv
+qwen3_8b	nofiller	runs/aiwf_medium_context/20260719T094349_qwen_qwen3-8b_4e2c7b20	34	-1	incomplete_no_end_session	1	runtime-signature	docs/filler-study-data/expand_openrouter_manifest.tsv
+qwen3_8b	nofiller	runs/aiwf_medium_context/20260719T101701_qwen_qwen3-8b_45b13444	33	-1	incomplete_no_end_session	1	runtime-signature	docs/filler-study-data/expand_openrouter_manifest.tsv
+qwen3_8b	nofiller	runs/aiwf_medium_context/20260719T105655_qwen_qwen3-8b_c78d641b	34	-1	incomplete_no_end_session	1	runtime-signature	docs/filler-study-data/expand_openrouter_manifest.tsv
+qwen3_8b	nofiller	runs/aiwf_medium_context/20260719T113228_qwen_qwen3-8b_2cc86dae	32	-1	incomplete_no_end_session	1	runtime-signature	docs/filler-study-data/expand_openrouter_manifest.tsv
+qwen3_8b	nofiller	runs/aiwf_medium_context/20260719T122422_qwen_qwen3-8b_971997d7	34	-1	incomplete_no_end_session	1	runtime-signature	docs/filler-study-data/expand_openrouter_manifest.tsv
+qwen3_8b	nofiller	runs/aiwf_medium_context/20260719T130551_qwen_qwen3-8b_d813e464	33	32	model_abort	1	runtime-signature	docs/filler-study-data/expand_openrouter_manifest.tsv
+qwen3_8b	nofiller	runs/aiwf_medium_context/20260719T131050_qwen_qwen3-8b_ecf9fd08	33	-1	incomplete_no_end_session	1	runtime-signature	docs/filler-study-data/expand_openrouter_manifest.tsv
+qwen3_8b	nofiller	runs/aiwf_medium_context/20260719T131523_qwen_qwen3-8b_24eb001c	33	-1	incomplete_no_end_session	1	runtime-signature	docs/filler-study-data/expand_openrouter_manifest.tsv
+qwen3_8b	nofiller	runs/aiwf_medium_context/20260719T132008_qwen_qwen3-8b_a4689533	33	32	model_abort	1	runtime-signature	docs/filler-study-data/expand_openrouter_manifest.tsv
+qwen3_8b	dots96	runs/aiwf_medium_context/20260719T090213_qwen_qwen3-8b_bd4ca44e	35	-1	incomplete_no_end_session	1	runtime-signature	docs/filler-study-data/expand_openrouter_manifest.tsv
+qwen3_8b	dots96	runs/aiwf_medium_context/20260719T094807_qwen_qwen3-8b_0fd909c9	35	-1	incomplete_no_end_session	1	runtime-signature	docs/filler-study-data/expand_openrouter_manifest.tsv
+qwen3_8b	dots96	runs/aiwf_medium_context/20260719T102127_qwen_qwen3-8b_353eb393	36	-1	incomplete_no_end_session	1	runtime-signature	docs/filler-study-data/expand_openrouter_manifest.tsv
+qwen3_8b	dots96	runs/aiwf_medium_context/20260719T110116_qwen_qwen3-8b_8f0789be	34	-1	incomplete_no_end_session	1	runtime-signature	docs/filler-study-data/expand_openrouter_manifest.tsv
+qwen3_8b	dots96	runs/aiwf_medium_context/20260719T113744_qwen_qwen3-8b_627b6384	32	-1	incomplete_no_end_session	1	runtime-signature	docs/filler-study-data/expand_openrouter_manifest.tsv
+qwen3_8b	dots96	runs/aiwf_medium_context/20260719T122905_qwen_qwen3-8b_e31f5905	35	-1	incomplete_no_end_session	1	runtime-signature	docs/filler-study-data/expand_openrouter_manifest.tsv
+glm52	nofiller	runs/aiwf_medium_context/20260719T032654_zai-org_GLM-5.2_c766c0fb	30	29	strict_complete	1	runtime-signature	docs/filler-study-data/broaden_baseten_manifest.tsv
+glm52	nofiller	runs/aiwf_medium_context/20260719T034436_zai-org_GLM-5.2_a1b3d776	30	29	strict_complete	1	runtime-signature	docs/filler-study-data/broaden_baseten_manifest.tsv
+glm52	nofiller	runs/aiwf_medium_context/20260719T040515_zai-org_GLM-5.2_7fa0becf	30	29	strict_complete	1	runtime-signature	docs/filler-study-data/broaden_baseten_manifest.tsv
+glm52	nofiller	runs/aiwf_medium_context/20260719T042517_zai-org_GLM-5.2_3d918489	31	29	strict_complete	1	runtime-signature	docs/filler-study-data/broaden_baseten_manifest.tsv
+glm52	nofiller	runs/aiwf_medium_context/20260719T044358_zai-org_GLM-5.2_1ac3112f	30	29	strict_complete	1	runtime-signature	docs/filler-study-data/broaden_baseten_manifest.tsv
+glm52	nofiller	runs/aiwf_medium_context/20260719T050550_zai-org_GLM-5.2_1d9be7e2	30	29	strict_complete	1	runtime-signature	docs/filler-study-data/broaden_baseten_manifest.tsv
+glm52	nofiller	runs/aiwf_medium_context/20260719T082027_zai-org_GLM-5.2_8f095801	30	29	strict_complete	1	runtime-signature	docs/filler-study-data/broaden_baseten_manifest.tsv
+glm52	nofiller	runs/aiwf_medium_context/20260719T083159_zai-org_GLM-5.2_585d5e02	30	29	strict_complete	1	runtime-signature	docs/filler-study-data/broaden_baseten_manifest.tsv
+glm52	nofiller	runs/aiwf_medium_context/20260719T084507_zai-org_GLM-5.2_babf4925	30	29	strict_complete	1	runtime-signature	docs/filler-study-data/broaden_baseten_manifest.tsv
+glm52	nofiller	runs/aiwf_medium_context/20260719T085644_zai-org_GLM-5.2_a6de8705	30	29	strict_complete	1	runtime-signature	docs/filler-study-data/broaden_baseten_manifest.tsv
+glm52	dots96	runs/aiwf_medium_context/20260719T032920_zai-org_GLM-5.2_7b5ec693	31	29	strict_complete	1	runtime-signature	docs/filler-study-data/broaden_baseten_manifest.tsv
+glm52	dots96	runs/aiwf_medium_context/20260719T034702_zai-org_GLM-5.2_0279b9bb	32	29	strict_complete	1	runtime-signature	docs/filler-study-data/broaden_baseten_manifest.tsv
+glm52	dots96	runs/aiwf_medium_context/20260719T040732_zai-org_GLM-5.2_5c74101b	31	29	strict_complete	1	runtime-signature	docs/filler-study-data/broaden_baseten_manifest.tsv
+glm52	dots96	runs/aiwf_medium_context/20260719T042743_zai-org_GLM-5.2_7c6bb2c7	32	29	strict_complete	1	runtime-signature	docs/filler-study-data/broaden_baseten_manifest.tsv
+glm52	dots96	runs/aiwf_medium_context/20260719T044615_zai-org_GLM-5.2_f1751bd9	30	29	strict_complete	1	runtime-signature	docs/filler-study-data/broaden_baseten_manifest.tsv
+glm52	dots96	runs/aiwf_medium_context/20260719T050753_zai-org_GLM-5.2_b601b71c	30	29	strict_complete	1	runtime-signature	docs/filler-study-data/broaden_baseten_manifest.tsv
+glm52	dots96	runs/aiwf_medium_context/20260719T082245_zai-org_GLM-5.2_af4037bc	32	29	strict_complete	1	runtime-signature	docs/filler-study-data/broaden_baseten_manifest.tsv
+glm52	dots96	runs/aiwf_medium_context/20260719T083434_zai-org_GLM-5.2_ec24f5df	30	29	strict_complete	1	runtime-signature	docs/filler-study-data/broaden_baseten_manifest.tsv
+glm52	dots96	runs/aiwf_medium_context/20260719T084737_zai-org_GLM-5.2_63912537	30	29	strict_complete	1	runtime-signature	docs/filler-study-data/broaden_baseten_manifest.tsv
+glm52	dots96	runs/aiwf_medium_context/20260719T085921_zai-org_GLM-5.2_799ba907	31	29	strict_complete	1	runtime-signature	docs/filler-study-data/broaden_baseten_manifest.tsv

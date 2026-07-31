@@ -1,0 +1,12 @@
+{
+  "frozen_utc": "2026-07-28T13:50:49Z",
+  "git_head": "3e9f805a86fb556a53724a1c83444d8d0de897d7",
+  "source_manifest": "source-manifest.sha256",
+  "source_manifest_sha256": "9828732e5eb2186c816769589364bcacc6a14411c918c64565e23ca6f3473bcb",
+  "outcome_state": {
+    "qwen36_35b_aiewf_requests_started": 0,
+    "qwen36_27b_dot_requests_started": 0,
+    "qwen36_35b_dot_requests_started": 0
+  },
+  "note": "The Qwen3.6-27B no-filler collection pre-existed this freeze. Its first-ten decision subset was separately committed before any judged outcomes were inspected."
+}

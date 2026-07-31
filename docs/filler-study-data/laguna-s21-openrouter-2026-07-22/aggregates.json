@@ -1,0 +1,336 @@
+{
+  "schema_version": 1,
+  "artifact_status": "FINAL",
+  "protocol": {
+    "benchmark": "aiwf_medium_context",
+    "turns": 30,
+    "target_per_arm": 30,
+    "missing_scripted_turns": "fail",
+    "thinking_mode": "disabled",
+    "full_thinking_off_guaranteed": true,
+    "route": "OpenRouter paid Poolside-hosted BF16",
+    "filler": {
+      "arm": "dots96",
+      "glyph": ".",
+      "count": 96,
+      "position": "suffix"
+    },
+    "bootstrap_unit": "whole conversation",
+    "bootstrap_samples": 100000,
+    "seed": 20260722
+  },
+  "models": {
+    "laguna_s21": {
+      "display_name": "laguna-s-2.1",
+      "readme_label": "poolside/laguna-s-2.1 (thinking off)",
+      "provider": "OpenRouter",
+      "requested_model": "poolside/laguna-s-2.1",
+      "endpoint_provider": "Poolside",
+      "quantization": "BF16",
+      "report_tier": "focused",
+      "arms": {
+        "nofiller": {
+          "n_attempts": 30,
+          "fixed_turn_denominator": 900,
+          "pass_count": 770,
+          "pass_rate_pct": 85.55555555555556,
+          "pass_rate_ci95": [
+            78.88888888888886,
+            90.44444444444443
+          ],
+          "any_error_count": 130,
+          "any_error_rate_pct": 14.444444444444445,
+          "any_error_rate_ci95": [
+            9.555555555555571,
+            21.111111111111143
+          ],
+          "tool_pass_count": 777,
+          "tool_pass_rate_pct": 86.33333333333333,
+          "tool_error_count": 123,
+          "tool_error_rate_pct": 13.666666666666666,
+          "tool_error_rate_ci95": [
+            8.666666666666671,
+            20.444444444444457
+          ],
+          "instruction_pass_count": 799,
+          "instruction_pass_rate_pct": 88.77777777777777,
+          "instruction_error_count": 101,
+          "instruction_error_rate_pct": 11.222222222222221,
+          "instruction_error_rate_ci95": [
+            6.1111111111111285,
+            18.222222222222257
+          ],
+          "kb_pass_count": 849,
+          "kb_pass_rate_pct": 94.33333333333333,
+          "kb_error_count": 51,
+          "kb_error_rate_pct": 5.666666666666667,
+          "kb_error_rate_ci95": [
+            0.5555555555555713,
+            13.222222222222229
+          ],
+          "strict_complete_count": 4,
+          "strict_completion_pct": 13.333333333333334,
+          "strict_completion_ci95": [
+            5.309655484054746,
+            29.681326682036303
+          ],
+          "ttfat_observations": 856,
+          "ttfat_p50_ms": 294.5,
+          "ttfat_p95_ms": 619.5,
+          "ttfat_max_ms": 21032.0,
+          "thinking_tokens": 0,
+          "run_dirs": [
+            "runs/aiwf_medium_context/20260722T153018_poolside_laguna-s-2.1_a7604f8a",
+            "runs/aiwf_medium_context/20260722T153252_poolside_laguna-s-2.1_d604bd55",
+            "runs/aiwf_medium_context/20260722T153401_poolside_laguna-s-2.1_0acc1800",
+            "runs/aiwf_medium_context/20260722T153437_poolside_laguna-s-2.1_4072c560",
+            "runs/aiwf_medium_context/20260722T153535_poolside_laguna-s-2.1_97cbcf5f",
+            "runs/aiwf_medium_context/20260722T153629_poolside_laguna-s-2.1_83a0795a",
+            "runs/aiwf_medium_context/20260722T153659_poolside_laguna-s-2.1_b8701b87",
+            "runs/aiwf_medium_context/20260722T153804_poolside_laguna-s-2.1_c52c7db9",
+            "runs/aiwf_medium_context/20260722T153907_poolside_laguna-s-2.1_1295181f",
+            "runs/aiwf_medium_context/20260722T153943_poolside_laguna-s-2.1_b644aebc",
+            "runs/aiwf_medium_context/20260722T155541_poolside_laguna-s-2.1_9c963c0d",
+            "runs/aiwf_medium_context/20260722T155651_poolside_laguna-s-2.1_71f1da33",
+            "runs/aiwf_medium_context/20260722T155807_poolside_laguna-s-2.1_4885e604",
+            "runs/aiwf_medium_context/20260722T155928_poolside_laguna-s-2.1_d5d0792d",
+            "runs/aiwf_medium_context/20260722T160227_poolside_laguna-s-2.1_0a0154e4",
+            "runs/aiwf_medium_context/20260722T160408_poolside_laguna-s-2.1_01972f82",
+            "runs/aiwf_medium_context/20260722T160535_poolside_laguna-s-2.1_bee7f82f",
+            "runs/aiwf_medium_context/20260722T160657_poolside_laguna-s-2.1_82080503",
+            "runs/aiwf_medium_context/20260722T160838_poolside_laguna-s-2.1_365969bd",
+            "runs/aiwf_medium_context/20260722T160947_poolside_laguna-s-2.1_1b23bab0",
+            "runs/aiwf_medium_context/20260722T161202_poolside_laguna-s-2.1_dbfb0f4b",
+            "runs/aiwf_medium_context/20260722T161307_poolside_laguna-s-2.1_2033585c",
+            "runs/aiwf_medium_context/20260722T161422_poolside_laguna-s-2.1_793204a7",
+            "runs/aiwf_medium_context/20260722T161539_poolside_laguna-s-2.1_7d0b567c",
+            "runs/aiwf_medium_context/20260722T161647_poolside_laguna-s-2.1_b8df9df2",
+            "runs/aiwf_medium_context/20260722T161759_poolside_laguna-s-2.1_8af7886f",
+            "runs/aiwf_medium_context/20260722T161906_poolside_laguna-s-2.1_49c0ca2a",
+            "runs/aiwf_medium_context/20260722T162013_poolside_laguna-s-2.1_9920d8d0",
+            "runs/aiwf_medium_context/20260722T162120_poolside_laguna-s-2.1_82619c23",
+            "runs/aiwf_medium_context/20260722T162240_poolside_laguna-s-2.1_3cddae7e"
+          ]
+        },
+        "dots96": {
+          "n_attempts": 30,
+          "fixed_turn_denominator": 900,
+          "pass_count": 750,
+          "pass_rate_pct": 83.33333333333333,
+          "pass_rate_ci95": [
+            79.77777777777779,
+            86.0
+          ],
+          "any_error_count": 150,
+          "any_error_rate_pct": 16.666666666666668,
+          "any_error_rate_ci95": [
+            14.0,
+            20.222222222222214
+          ],
+          "tool_pass_count": 762,
+          "tool_pass_rate_pct": 84.66666666666667,
+          "tool_error_count": 138,
+          "tool_error_rate_pct": 15.333333333333334,
+          "tool_error_rate_ci95": [
+            12.8888888888889,
+            18.66666666666667
+          ],
+          "instruction_pass_count": 772,
+          "instruction_pass_rate_pct": 85.77777777777777,
+          "instruction_error_count": 128,
+          "instruction_error_rate_pct": 14.222222222222221,
+          "instruction_error_rate_ci95": [
+            11.333333333333343,
+            18.0
+          ],
+          "kb_pass_count": 884,
+          "kb_pass_rate_pct": 98.22222222222223,
+          "kb_error_count": 16,
+          "kb_error_rate_pct": 1.7777777777777777,
+          "kb_error_rate_ci95": [
+            0.0,
+            5.0
+          ],
+          "strict_complete_count": 4,
+          "strict_completion_pct": 13.333333333333334,
+          "strict_completion_ci95": [
+            5.309655484054746,
+            29.681326682036303
+          ],
+          "ttfat_observations": 884,
+          "ttfat_p50_ms": 294.0,
+          "ttfat_p95_ms": 652.0,
+          "ttfat_max_ms": 40434.0,
+          "thinking_tokens": 0,
+          "run_dirs": [
+            "runs/aiwf_medium_context/20260722T153220_poolside_laguna-s-2.1_2473be07",
+            "runs/aiwf_medium_context/20260722T153326_poolside_laguna-s-2.1_28ec71f1",
+            "runs/aiwf_medium_context/20260722T153508_poolside_laguna-s-2.1_2d710922",
+            "runs/aiwf_medium_context/20260722T153602_poolside_laguna-s-2.1_6766fe27",
+            "runs/aiwf_medium_context/20260722T153728_poolside_laguna-s-2.1_8fef6318",
+            "runs/aiwf_medium_context/20260722T153836_poolside_laguna-s-2.1_6189708a",
+            "runs/aiwf_medium_context/20260722T154707_poolside_laguna-s-2.1_8d4a7e89",
+            "runs/aiwf_medium_context/20260722T154737_poolside_laguna-s-2.1_6bfd8738",
+            "runs/aiwf_medium_context/20260722T154807_poolside_laguna-s-2.1_3ad3a18e",
+            "runs/aiwf_medium_context/20260722T154837_poolside_laguna-s-2.1_1dba942b",
+            "runs/aiwf_medium_context/20260722T155616_poolside_laguna-s-2.1_90108fb3",
+            "runs/aiwf_medium_context/20260722T155725_poolside_laguna-s-2.1_fd119992",
+            "runs/aiwf_medium_context/20260722T155854_poolside_laguna-s-2.1_ae5d40f0",
+            "runs/aiwf_medium_context/20260722T160021_poolside_laguna-s-2.1_c5073d87",
+            "runs/aiwf_medium_context/20260722T160329_poolside_laguna-s-2.1_079e30d0",
+            "runs/aiwf_medium_context/20260722T160445_poolside_laguna-s-2.1_e1b3bf68",
+            "runs/aiwf_medium_context/20260722T160617_poolside_laguna-s-2.1_ee92c5cd",
+            "runs/aiwf_medium_context/20260722T160803_poolside_laguna-s-2.1_b7ef5bd6",
+            "runs/aiwf_medium_context/20260722T160910_poolside_laguna-s-2.1_7dd524ff",
+            "runs/aiwf_medium_context/20260722T161023_poolside_laguna-s-2.1_be66b3c4",
+            "runs/aiwf_medium_context/20260722T161237_poolside_laguna-s-2.1_34fa3bb8",
+            "runs/aiwf_medium_context/20260722T161344_poolside_laguna-s-2.1_b57af808",
+            "runs/aiwf_medium_context/20260722T161503_poolside_laguna-s-2.1_5bbe478b",
+            "runs/aiwf_medium_context/20260722T161612_poolside_laguna-s-2.1_f7a609c1",
+            "runs/aiwf_medium_context/20260722T161722_poolside_laguna-s-2.1_cd28464a",
+            "runs/aiwf_medium_context/20260722T161833_poolside_laguna-s-2.1_b89054b9",
+            "runs/aiwf_medium_context/20260722T161936_poolside_laguna-s-2.1_426df723",
+            "runs/aiwf_medium_context/20260722T162047_poolside_laguna-s-2.1_71eab385",
+            "runs/aiwf_medium_context/20260722T162155_poolside_laguna-s-2.1_29a35e0a",
+            "runs/aiwf_medium_context/20260722T162314_poolside_laguna-s-2.1_ddb340db"
+          ]
+        }
+      },
+      "effect": {
+        "pass_delta_points": -2.2222222222222285,
+        "pass_delta_ci95": [
+          -8.333333333333329,
+          5.1111111111111
+        ],
+        "tool_delta_points": -1.6666666666666572,
+        "tool_delta_ci95": [
+          -7.666666666666657,
+          5.666666666666643
+        ],
+        "instruction_delta_points": -3.0,
+        "instruction_delta_ci95": [
+          -9.444444444444414,
+          4.666666666666686
+        ],
+        "kb_delta_points": 3.8888888888889,
+        "kb_delta_ci95": [
+          -2.333333333333343,
+          11.888888888888886
+        ]
+      },
+      "adaptive_decision": {
+        "stage": "focused_n30",
+        "initial_dots_n": 6,
+        "observed_control_n": 30,
+        "observed_dots_n": 30,
+        "pass_delta_points": -2.2222222222222285,
+        "pass_delta_ci95": [
+          -8.333333333333329,
+          5.1111111111111
+        ],
+        "strict_completion_pct": [
+          13.333333333333334,
+          13.333333333333334
+        ],
+        "action": "focused_followup_complete",
+        "final_n": 30,
+        "adaptive_expansion_completed": true,
+        "no_further_sample_size_decision": true,
+        "decision_pending": false,
+        "frozen_n10_promotion_decision": {
+          "stage": "dots_n10",
+          "initial_dots_n": 6,
+          "observed_control_n": 10,
+          "observed_dots_n": 10,
+          "pass_delta_points": -5.666666666666671,
+          "pass_delta_ci95": [
+            -9.333333333333329,
+            -2.000000000000014
+          ],
+          "strict_completion_pct": [
+            0.0,
+            20.0
+          ],
+          "recurring_turn_signals": [
+            {
+              "turn": 11,
+              "direction": "harm",
+              "control_failures": 1,
+              "dots_failures": 5
+            },
+            {
+              "turn": 15,
+              "direction": "harm",
+              "control_failures": 3,
+              "dots_failures": 9
+            },
+            {
+              "turn": 17,
+              "direction": "harm",
+              "control_failures": 3,
+              "dots_failures": 7
+            },
+            {
+              "turn": 19,
+              "direction": "harm",
+              "control_failures": 0,
+              "dots_failures": 3
+            },
+            {
+              "turn": 24,
+              "direction": "harm",
+              "control_failures": 7,
+              "dots_failures": 9
+            },
+            {
+              "turn": 29,
+              "direction": "benefit",
+              "control_failures": 10,
+              "dots_failures": 8
+            }
+          ],
+          "aggregate_aligned_recurring_turn_signals": [
+            {
+              "turn": 11,
+              "direction": "harm",
+              "control_failures": 1,
+              "dots_failures": 5
+            },
+            {
+              "turn": 15,
+              "direction": "harm",
+              "control_failures": 3,
+              "dots_failures": 9
+            },
+            {
+              "turn": 17,
+              "direction": "harm",
+              "control_failures": 3,
+              "dots_failures": 7
+            },
+            {
+              "turn": 19,
+              "direction": "harm",
+              "control_failures": 0,
+              "dots_failures": 3
+            },
+            {
+              "turn": 24,
+              "direction": "harm",
+              "control_failures": 7,
+              "dots_failures": 9
+            }
+          ],
+          "triggers": [
+            "whole-conversation bootstrap 95% interval excludes zero",
+            "absolute difference >= 3.0 points with recurring same-turn direction",
+            "strict-completion rates still differ at n=10"
+          ],
+          "action": "promote_both_arms_to_30",
+          "final_n": 30,
+          "decision_pending": true
+        }
+      }
+    }
+  }
+}
