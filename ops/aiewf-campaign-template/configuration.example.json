@@ -1,0 +1,86 @@
+{
+  "schema_version": 1,
+  "campaign_id": "aiewf-medium-gemma4-26b-a4b-example",
+  "benchmark": "aiwf_medium_context",
+  "model": "google/gemma-4-26B-A4B-it",
+  "accepted_response_model_ids": [
+    "google/gemma-4-26B-A4B-it"
+  ],
+  "service": "vllm-openai",
+  "pipeline": "text",
+  "endpoint": {
+    "url": "https://YOUR-BASETEN-ENDPOINT/sync/v1",
+    "request_env": "VLLM_BASE_URL"
+  },
+  "credential": {
+    "request_env": "VLLM_API_KEY",
+    "source_env": "BASETEN_API_KEY",
+    "source_file": "../gb-benchmarks/.env",
+    "source_file_key": "BASETEN_API_KEY"
+  },
+  "paths": {
+    "campaign_artifact_dir": "ops/aiewf-campaign-template/example-gemma4-26b-artifacts",
+    "run_output_root": "runs/aiwf_medium_context"
+  },
+  "schedule_path": "ops/aiewf-campaign-template/schedule.example.tsv",
+  "source_integrity_paths": [
+    "benchmarks/_shared/__init__.py",
+    "benchmarks/_shared/tools.py",
+    "benchmarks/_shared/turns.py",
+    "benchmarks/aiwf_medium_context/prompts/system.py",
+    "benchmarks/aiwf_medium_context/data/knowledge_base.txt",
+    "src/multi_turn_eval/services/vllm_openai.py"
+  ],
+  "target_eligible_runs": 30,
+  "fixed_scheduled_turns_per_conversation": 30,
+  "serving": {
+    "verified": false,
+    "notes": "Replace the endpoint and set verified=true only after the direct and Pipecat smoke gates pass."
+  },
+  "eligibility": {
+    "policy": "first_valid_response",
+    "missing_future_turns": "retain_as_fixed_denominator_failures",
+    "notes": "Retain model-caused aborts, timeouts, and other short conversations after the first valid response. Replace only attempts with no valid response or invalid model/provenance."
+  },
+  "collection": {
+    "provider_endpoint_concurrency": 1,
+    "max_attempts_per_slot_default": 3,
+    "timeout_seconds_default": 1800
+  },
+  "unset_environment_prefixes": [
+    "MTE_FILLER_"
+  ],
+  "unset_environment": [
+    "MTE_VLLM_THINKING_BUDGET",
+    "MTE_VLLM_NATIVE_BUDGET",
+    "MTE_VLLM_GRACE"
+  ],
+  "common_environment": {
+    "MTE_ENABLE_RECOVERY": "1",
+    "MTE_DEDUPE_TOOL_CALLS": "1",
+    "MTE_TOOL_RESULT_RUN_LLM": "0",
+    "MTE_TEXT_IDLE_TIMEOUT_SECS": "45",
+    "MTE_VLLM_TEMPERATURE": "1.0",
+    "MTE_VLLM_TOP_P": "0.95",
+    "MTE_VLLM_TOP_K": "64",
+    "MTE_VLLM_MAX_TOKENS": "8192"
+  },
+  "arms": {
+    "none": {
+      "environment": {
+        "MTE_VLLM_THINKING": "0"
+      },
+      "provenance_log_needles": [
+        "thinking=False",
+        "thinking_budget=None",
+        "T=1.0",
+        "top_p=0.95",
+        "top_k=64",
+        "max_tokens=8192"
+      ],
+      "forbidden_log_needles": [
+        "MTE_FILLER_DOTS active"
+      ]
+    }
+  }
+}
