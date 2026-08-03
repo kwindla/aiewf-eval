@@ -186,12 +186,23 @@ class AudioInPipeline(TextPipeline):
                     str(NEMOTRON_OMNI_INSTRUCT_DEFAULT_MAX_TOKENS),
                 )
             ),
-            top_p=None,
-            top_k=int(
-                os.getenv(
-                    "MTE_NEMOTRON_AUDIO_IN_TOP_K",
-                    str(NEMOTRON_OMNI_INSTRUCT_DEFAULT_TOP_K),
+            # Empty-string env values mean "omit the parameter" so audio-in runs
+            # can match the vllm-openai text branch's sampling (T=0.6, top_p=0.95,
+            # no top_k) for apples-to-apples text-vs-audio comparisons.
+            top_p=(
+                float(_raw)
+                if (_raw := os.getenv("MTE_NEMOTRON_AUDIO_IN_TOP_P", "").strip())
+                else None
+            ),
+            top_k=(
+                int(_raw)
+                if (
+                    _raw := os.getenv(
+                        "MTE_NEMOTRON_AUDIO_IN_TOP_K",
+                        str(NEMOTRON_OMNI_INSTRUCT_DEFAULT_TOP_K),
+                    ).strip()
                 )
+                else None
             ),
             chat_template_kwargs={"enable_thinking": enable_thinking},
         )

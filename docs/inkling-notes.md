@@ -10,10 +10,11 @@ Findings from evaluating `thinkingmachines/inkling` on BaseTen against
   Released 2026-07-15. Controllable thinking effort via `reasoning_effort`.
 - Runs serverless on **BaseTen** (`thinkingmachines/inkling`). NOT serverless on
   Together (needs a paid dedicated endpoint); Modal endpoint here serves GLM-5.
-- **Inkling-Small** (276B / 12B active) was announced as a *preview* the same day,
-  positioned for latency/cost-sensitive workloads — but **weights aren't released
-  yet**, so it isn't on BaseTen. It's the natural voice-viability candidate given
-  the latency findings below; re-check the BaseTen catalog once weights drop.
+- **Inkling Small** (276B total / 12B active) was released on 2026-07-30 and is
+  available through BaseTen's shared Model API as
+  `thinkingmachines/inkling-small`. It is evaluated separately in the frozen
+  30-`none`/30-`low` campaign under
+  `ops/baseten-inkling-small/aiewf-medium-none-low-n30-20260731/`.
 
 ## Headline
 
@@ -84,5 +85,7 @@ realignment (a judge-prompt rule, `claude_judge.py`) handles the clean case at 1
 
 Accurate but latency-disqualified for voice. If added to the leaderboard, a `low`
 row (like Fable's `(low)`/`(default)`) is the fair representation. Revisit with
-**Inkling-Small** once its weights are released — that's the variant that might
-actually clear the voice bar.
+Inkling Small is now the direct latency-oriented follow-up. Its campaign uses
+the same first-answer-token timing convention and separately measures `none`
+and `low`, so the result should not be inferred from the full-size model's
+effort sweep.
