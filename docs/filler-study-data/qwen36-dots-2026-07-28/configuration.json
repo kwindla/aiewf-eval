@@ -1,0 +1,55 @@
+{
+  "schema_version": 1,
+  "benchmark": "aiwf_medium_context",
+  "scheduled_turns": 30,
+  "sampling": {
+    "temperature": 0.6,
+    "top_p": 0.95,
+    "max_tokens": 8192
+  },
+  "reasoning": {
+    "thinking": false,
+    "thinking_budget": null
+  },
+  "runtime": {
+    "recovery": true,
+    "dedupe_tool_calls": true,
+    "tool_result_run_llm": false,
+    "text_idle_timeout_secs": 45
+  },
+  "filler": {
+    "arm": "dots96",
+    "glyph": ".",
+    "count": 96,
+    "position": "suffix",
+    "request_local": true,
+    "persisted_history_filler_free": true
+  },
+  "models": {
+    "qwen36_27b": {
+      "requested_model": "Qwen/Qwen3.6-27B",
+      "checkpoint_precision": "BF16",
+      "model_id": "w67n482q",
+      "deployment_id": "wxpnlg5",
+      "endpoint": "https://model-w67n482q.api.baseten.co/deployment/wxpnlg5/sync/v1"
+    },
+    "qwen36_35b": {
+      "requested_model": "Qwen/Qwen3.6-35B-A3B-FP8",
+      "checkpoint_revision": "95a723d08a9490559dae23d0cff1d9466213d989",
+      "checkpoint_precision": "FP8",
+      "model_id": "qzkm8mpq",
+      "deployment_id": "qe20zvr",
+      "endpoint": "https://model-qzkm8mpq.api.baseten.co/deployment/qe20zvr/sync/v1"
+    }
+  },
+  "serving": {
+    "vllm": "0.26.0",
+    "gpu": "H100",
+    "tensor_parallel_size": 1,
+    "automatic_prefix_caching": true,
+    "mamba_cache_mode": "align",
+    "mtp_speculative_tokens": 2
+  },
+  "eligibility": "Retain every assignment after at least one valid model response. Replace only an objective provider or transport failure with no valid model response; at most four attempts per assignment.",
+  "report_tier": "exploratory_noninterleaved_reused_controls"
+}

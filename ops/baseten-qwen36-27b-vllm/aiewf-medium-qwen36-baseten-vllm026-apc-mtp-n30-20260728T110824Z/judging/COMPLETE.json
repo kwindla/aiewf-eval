@@ -1,0 +1,14 @@
+{
+  "arms": {
+    "high": 30,
+    "none": 30
+  },
+  "campaign": "aiewf-medium-qwen36-baseten-vllm026-apc-mtp-n30-20260728T110824Z",
+  "canonical_inputs_sha256": "1150b9e4348b8073ad54fbe119afd854c9f27bd46bc4ead9506b224f5be51213",
+  "canonical_runs": 60,
+  "completed_at": "2026-07-28T13:56:15+00:00",
+  "fixed_denominator_turns_per_arm": 900,
+  "judge_model": "claude-opus-4-5",
+  "judge_source_snapshot_sha256": "d8eb84db90b32b6826b1252e35b21565a8604152bba0f4e18a1db8be7112a357",
+  "judge_version": "claude-agent-sdk-v4-turn-taking"
+}
