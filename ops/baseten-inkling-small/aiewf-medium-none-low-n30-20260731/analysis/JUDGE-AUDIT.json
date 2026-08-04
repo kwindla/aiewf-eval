@@ -1,0 +1,246 @@
+{
+  "schema_version": 1,
+  "artifact_status": "POST_HOC_SENSITIVITY_AUDIT",
+  "generated_at": "2026-08-03T21:11:04+00:00",
+  "campaign": "aiewf-medium-inkling-small-baseten-none-low-n30-20260731",
+  "model": "thinkingmachines/inkling-small",
+  "official_artifacts_unchanged": true,
+  "policy": {
+    "official_judge_model": "claude-opus-4-5",
+    "official_judge_version": "claude-agent-sdk-v4-turn-taking",
+    "official_judge_source_sha256": "2f5f00dd7881a34b1be0798e8261c66373eeca7cdbadc00f1a9b2878dbab0c7d",
+    "counterfactual": {
+      "id": "specific-tech-support-attribution-v1",
+      "scope": "Only IS-18/IS-47 turns 16 and 17; only tool_use_correct changes.",
+      "rule": "A generic request_tech_support call at turn 16, before the user identifies the location-map problem, is not credited as the expected specific support action. The premature generic call at turn 16 and the absent call after the specific turn-17 report are both tool-use errors.",
+      "status": "post-hoc sensitivity policy, not an official relabeling"
+    }
+  },
+  "input_hashes": {
+    "analysis/aggregates.json": "428b23aee10b437923eef90260fae3e2b27bc51a92429e788226ca7b957c5cf4",
+    "judging/COMPLETE.json": "e0ba4c189440902850eef9d19836525106c5a4258522d4da93673ab1bfda803c",
+    "canonical.tsv": "440bd4f2eb449dd1a36790e9d36f31a700a37ed901d7add1fc67c2b942863a5c",
+    "judging/canonical-inputs.tsv": "515146cdbfd8efd577bad8a3ba070d800e99146b2ca7fbb58b6309541dd8e5b5",
+    "judging/judge-source-sha256.txt": "2f5f00dd7881a34b1be0798e8261c66373eeca7cdbadc00f1a9b2878dbab0c7d",
+    "analysis/analyze.py": "09c08c4048a87e30157adaf82d1f6c6a218804a3d631d43c0078fb46ea6140dd",
+    "analysis/judge_audit.py": "b7f4d1c18f74d50185261e037c2745c955c46af84ff203d797b4e98b92304b1d"
+  },
+  "pinned_evidence": {
+    "IS-18": {
+      "arm": "none",
+      "run_dir": "runs/aiwf_medium_context/20260731T110018_thinkingmachines_inkling-small_0f2029e6",
+      "transcript_sha256": "2b16a4adcd0c97837de54e924efa68dfe06573b0caf3cf373eef801bc23f4581",
+      "judgment_sha256": "1d272111ce86e4bd55b116d60deb1809b05775fe4dfcd3b2588ec72da7305839",
+      "turns": {
+        "16": {
+          "transcript_row_sha256": "dfd2d2e2c98622934ccfff054329849469df759db8939546ed9e25be0f11987e",
+          "judgment_row_sha256": "4954a2cf877ed2b308c9bd52694896dcb2dfd9c288119ffd27fd80f0ccb54152",
+          "official_scores": {
+            "tool_use_correct": true,
+            "instruction_following": true,
+            "kb_grounding": true
+          }
+        },
+        "17": {
+          "transcript_row_sha256": "3bc51ba365cd4ff39e69d89fdc15c350e935f4d049d1f769d23c028b11682bdd",
+          "judgment_row_sha256": "13cb7789dfbe758f1a279e45d3a948603c44a0b7544710cbe73b5c3201fa69ed",
+          "official_scores": {
+            "tool_use_correct": true,
+            "instruction_following": true,
+            "kb_grounding": true
+          }
+        }
+      }
+    },
+    "IS-47": {
+      "arm": "none",
+      "run_dir": "runs/aiwf_medium_context/20260731T111733_thinkingmachines_inkling-small_321519f6",
+      "transcript_sha256": "e66f0cc3e337ee8fffc57a269641ed7450ad91442e1d44a613a94b8215d94605",
+      "judgment_sha256": "6f7723e0296680d6d0542726af78deed0d4458142122d6a596998bf04f9f885a",
+      "turns": {
+        "16": {
+          "transcript_row_sha256": "51725b47d20d4dbc4ad1df86deadd3b8fa56190aa587509dad6d1139a642fdc3",
+          "judgment_row_sha256": "a255faa53e8cd6839291c0c19ee6525eeb0c7ff3692f23b8240f75a22fa268bc",
+          "official_scores": {
+            "tool_use_correct": true,
+            "instruction_following": false,
+            "kb_grounding": true
+          }
+        },
+        "17": {
+          "transcript_row_sha256": "cd9339f6c3f344798166b1a7d4d4eb88210d094c032a051b2eb3add8144029ba",
+          "judgment_row_sha256": "e69d78658c57d155a67921c17356a08d37e44f1d8e89fbfda40407ed91e9945b",
+          "official_scores": {
+            "tool_use_correct": true,
+            "instruction_following": true,
+            "kb_grounding": true
+          }
+        }
+      }
+    }
+  },
+  "label_changes": [
+    {
+      "slot": "IS-18",
+      "arm": "none",
+      "turn": 16,
+      "transcript_row_sha256": "dfd2d2e2c98622934ccfff054329849469df759db8939546ed9e25be0f11987e",
+      "judgment_row_sha256": "4954a2cf877ed2b308c9bd52694896dcb2dfd9c288119ffd27fd80f0ccb54152",
+      "official_scores": {
+        "tool_use_correct": true,
+        "instruction_following": true,
+        "kb_grounding": true
+      },
+      "counterfactual_scores": {
+        "tool_use_correct": false,
+        "instruction_following": true,
+        "kb_grounding": true
+      },
+      "official_strict_pass": true,
+      "counterfactual_strict_pass": false,
+      "official_any_error": false,
+      "counterfactual_any_error": true
+    },
+    {
+      "slot": "IS-18",
+      "arm": "none",
+      "turn": 17,
+      "transcript_row_sha256": "3bc51ba365cd4ff39e69d89fdc15c350e935f4d049d1f769d23c028b11682bdd",
+      "judgment_row_sha256": "13cb7789dfbe758f1a279e45d3a948603c44a0b7544710cbe73b5c3201fa69ed",
+      "official_scores": {
+        "tool_use_correct": true,
+        "instruction_following": true,
+        "kb_grounding": true
+      },
+      "counterfactual_scores": {
+        "tool_use_correct": false,
+        "instruction_following": true,
+        "kb_grounding": true
+      },
+      "official_strict_pass": true,
+      "counterfactual_strict_pass": false,
+      "official_any_error": false,
+      "counterfactual_any_error": true
+    },
+    {
+      "slot": "IS-47",
+      "arm": "none",
+      "turn": 16,
+      "transcript_row_sha256": "51725b47d20d4dbc4ad1df86deadd3b8fa56190aa587509dad6d1139a642fdc3",
+      "judgment_row_sha256": "a255faa53e8cd6839291c0c19ee6525eeb0c7ff3692f23b8240f75a22fa268bc",
+      "official_scores": {
+        "tool_use_correct": true,
+        "instruction_following": false,
+        "kb_grounding": true
+      },
+      "counterfactual_scores": {
+        "tool_use_correct": false,
+        "instruction_following": false,
+        "kb_grounding": true
+      },
+      "official_strict_pass": false,
+      "counterfactual_strict_pass": false,
+      "official_any_error": true,
+      "counterfactual_any_error": true
+    },
+    {
+      "slot": "IS-47",
+      "arm": "none",
+      "turn": 17,
+      "transcript_row_sha256": "cd9339f6c3f344798166b1a7d4d4eb88210d094c032a051b2eb3add8144029ba",
+      "judgment_row_sha256": "e69d78658c57d155a67921c17356a08d37e44f1d8e89fbfda40407ed91e9945b",
+      "official_scores": {
+        "tool_use_correct": true,
+        "instruction_following": true,
+        "kb_grounding": true
+      },
+      "counterfactual_scores": {
+        "tool_use_correct": false,
+        "instruction_following": true,
+        "kb_grounding": true
+      },
+      "official_strict_pass": true,
+      "counterfactual_strict_pass": false,
+      "official_any_error": false,
+      "counterfactual_any_error": true
+    }
+  ],
+  "arms": {
+    "none": {
+      "fixed_turn_denominator": 900,
+      "metrics": {
+        "strict_pass": {
+          "official_count": 676,
+          "official_rate_pct": 75.11111111111111,
+          "counterfactual_count": 673,
+          "counterfactual_rate_pct": 74.77777777777777,
+          "delta_count": -3,
+          "delta_percentage_points": -0.3333333333333333
+        },
+        "any_error": {
+          "official_count": 224,
+          "official_rate_pct": 24.88888888888889,
+          "counterfactual_count": 227,
+          "counterfactual_rate_pct": 25.22222222222222,
+          "delta_count": 3,
+          "delta_percentage_points": 0.3333333333333333
+        },
+        "tool_error": {
+          "official_count": 214,
+          "official_rate_pct": 23.77777777777778,
+          "counterfactual_count": 218,
+          "counterfactual_rate_pct": 24.22222222222222,
+          "delta_count": 4,
+          "delta_percentage_points": 0.4444444444444444
+        }
+      }
+    },
+    "low": {
+      "fixed_turn_denominator": 900,
+      "metrics": {
+        "strict_pass": {
+          "official_count": 465,
+          "official_rate_pct": 51.666666666666664,
+          "counterfactual_count": 465,
+          "counterfactual_rate_pct": 51.666666666666664,
+          "delta_count": 0,
+          "delta_percentage_points": 0.0
+        },
+        "any_error": {
+          "official_count": 435,
+          "official_rate_pct": 48.333333333333336,
+          "counterfactual_count": 435,
+          "counterfactual_rate_pct": 48.333333333333336,
+          "delta_count": 0,
+          "delta_percentage_points": 0.0
+        },
+        "tool_error": {
+          "official_count": 432,
+          "official_rate_pct": 48.0,
+          "counterfactual_count": 432,
+          "counterfactual_rate_pct": 48.0,
+          "delta_count": 0,
+          "delta_percentage_points": 0.0
+        }
+      }
+    }
+  },
+  "effects_low_minus_none": {
+    "strict_pass": {
+      "official_low_minus_none_points": -23.44444444444445,
+      "counterfactual_low_minus_none_points": -23.111111111111107,
+      "sensitivity_shift_points": 0.3333333333333428
+    },
+    "any_error": {
+      "official_low_minus_none_points": 23.444444444444446,
+      "counterfactual_low_minus_none_points": 23.111111111111114,
+      "sensitivity_shift_points": -0.33333333333333215
+    },
+    "tool_error": {
+      "official_low_minus_none_points": 24.22222222222222,
+      "counterfactual_low_minus_none_points": 23.77777777777778,
+      "sensitivity_shift_points": -0.44444444444444287
+    }
+  },
+  "interpretation_limit": "This is a deterministic sensitivity calculation under one alternate attribution policy. It does not replace the official Claude judgments, recompute confidence intervals, or modify any official artifact."
+}

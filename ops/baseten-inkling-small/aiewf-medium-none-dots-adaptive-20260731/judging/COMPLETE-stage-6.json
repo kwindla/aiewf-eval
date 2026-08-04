@@ -1,0 +1,18 @@
+{
+  "campaign": "aiewf-medium-inkling-small-baseten-none-dots-adaptive-20260731",
+  "stage": 6,
+  "completed_at": "2026-08-03T21:22:39+00:00",
+  "canonical_dots": 6,
+  "judge_model": "claude-opus-4-5",
+  "judge_version": "claude-agent-sdk-v4-turn-taking",
+  "canonical_inputs_sha256": "5def74fcffca1f561823ea2ca2483d69df0c25324643f39266d1f7658ecdcbf5",
+  "judge_source_sha256": "57b53f8969dec59894a401157796e6af72427019ca18fd8ef340426ed5cee528",
+  "transcript_sha256": {
+    "DOT-01": "b8a0ca354d0af460669e1e369254ed8b645e5f68ea759b88d05e6621d40a69f9",
+    "DOT-02": "efb695ab87ae498533ec4e8df823dda3025bfc2c409030a7e4a640ed2f22b823",
+    "DOT-03": "bfa47932909fe006c10c2fbd6fbf04bed369e93007f1400647b20026ba08ba40",
+    "DOT-04": "abdbd9c56be81e19e93f9eed37b887d66d29cd5775cfc99e2b365f6b95389aa8",
+    "DOT-05": "57adcb70aa59907d7301ceb4b76ad6e527b10d59690e89ae43197dba29a193bf",
+    "DOT-06": "52a8631218997bb038566064331800802dafede267fb5583e8d82ce72911eef7"
+  }
+}

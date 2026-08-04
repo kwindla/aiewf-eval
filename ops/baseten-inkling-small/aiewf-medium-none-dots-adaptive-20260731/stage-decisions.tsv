@@ -1,0 +1,3 @@
+completed_stage	requested_stage	decision	decided_at	analysis_artifact	analysis_sha256	rationale
+6	10	extend	2026-08-03T21:23:04+00:00	ops/baseten-inkling-small/aiewf-medium-none-dots-adaptive-20260731/analysis/stage-6.json	8a2eaa3de0c10e21975d7f4d850fa90948a304815191664150b1b9bf6f7c891e	prespecified stage-6 strict-completion and absolute-pass-delta triggers fired
+10	30	extend	2026-08-03T21:30:09+00:00	ops/baseten-inkling-small/aiewf-medium-none-dots-adaptive-20260731/analysis/stage-10.json	5108837cb358fea3bdd29fb7651fe8dee44a41144cf020cb8ad2f7b0fe4e706a	prespecified stage-10 strict-completion trigger fired

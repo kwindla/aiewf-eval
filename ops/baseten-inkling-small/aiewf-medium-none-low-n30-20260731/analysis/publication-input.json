@@ -1,0 +1,80 @@
+{
+  "schema_version": 1,
+  "artifact_status": "FINAL_PUBLICATION_INPUT",
+  "model": "thinkingmachines/inkling-small",
+  "report_name": "inkling-small",
+  "provider": "BaseTen",
+  "source_artifacts": {
+    "ops/baseten-inkling-small/aiewf-medium-none-low-n30-20260731/analysis/aggregates.json": "428b23aee10b437923eef90260fae3e2b27bc51a92429e788226ca7b957c5cf4",
+    "ops/baseten-inkling-small/aiewf-medium-none-dots-adaptive-20260731/analysis/stage-30.json": "2ddaa7279990e9594e75744b316dcae165a704a956423660f1eabaa66e083692",
+    "ops/baseten-inkling-small/aiewf-medium-none-low-n30-20260731/analysis/FAILURE-ANALYSIS.json": "c3dfbb69f2f86339e1bda6ab283571cbc8747548539e08294d3f255085f9ee27",
+    "ops/baseten-inkling-small/aiewf-medium-none-low-n30-20260731/analysis/JUDGE-AUDIT.json": "ad557cf68cbbf7bb22ae183ecd58f87de14d2aa2f1fee33bd10f048ebd62e37a"
+  },
+  "readme_arms": {
+    "none": {
+      "pass_rate_pct": 75.11111111111111,
+      "any_error_rate_pct": 24.88888888888889,
+      "tool_error_rate_pct": 23.77777777777778,
+      "instruction_error_rate_pct": 24.22222222222222,
+      "kb_error_rate_pct": 20.444444444444443,
+      "strict_completion_pct": 56.666666666666664,
+      "ttfat_p50_ms": 279.0,
+      "ttfat_p95_ms": 827.8,
+      "ttfat_max_ms": 2024.0
+    },
+    "low": {
+      "pass_rate_pct": 51.666666666666664,
+      "any_error_rate_pct": 48.333333333333336,
+      "tool_error_rate_pct": 48.0,
+      "instruction_error_rate_pct": 48.333333333333336,
+      "kb_error_rate_pct": 43.55555555555556,
+      "strict_completion_pct": 10.0,
+      "ttfat_p50_ms": 277.0,
+      "ttfat_p95_ms": 849.2999999999995,
+      "ttfat_max_ms": 5770.0
+    }
+  },
+  "screen_row": {
+    "name": "inkling-small",
+    "provider": "BaseTen",
+    "no_filler_pass_rate_pct": 75.11111111111111,
+    "dots_pass_rate_pct": 76.88888888888889,
+    "dots_minus_control_points": 1.777777777777767,
+    "ci95": [
+      -8.999999999999996,
+      13.111111111111118
+    ],
+    "included_runs": [
+      30,
+      30
+    ],
+    "key": "null",
+    "interpretation": "no detectable effect",
+    "none_ttfat_p50_ms": 279.0,
+    "strict_completion_pct": [
+      56.666666666666664,
+      33.33333333333333
+    ],
+    "focused": true
+  },
+  "dots_stage": 30,
+  "dots_recommendation": "terminal_at_30",
+  "robustness": {
+    "primary_effort_campaign": {
+      "retained_attempts": 60,
+      "baseten_429_idle_short_runs": {
+        "none": 12,
+        "low": 10,
+        "total": 22
+      },
+      "fixed_denominator_missing_future_turns_fail": true,
+      "serving_failures_not_generated_terminal_calls": true
+    },
+    "judge_sensitivity": {
+      "changed_tool_use_correct_labels": 4,
+      "max_abs_arm_rate_change_percentage_points": 0.4444444444444444,
+      "disclosure_bound_percentage_points": 0.5,
+      "official_artifacts_unchanged": true
+    }
+  }
+}

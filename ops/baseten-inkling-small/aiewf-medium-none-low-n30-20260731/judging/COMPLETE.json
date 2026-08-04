@@ -1,0 +1,14 @@
+{
+  "campaign": "aiewf-medium-inkling-small-baseten-none-low-n30-20260731",
+  "completed_at": "2026-08-03T21:10:45+00:00",
+  "canonical_runs": 60,
+  "canonical_conversations": 60,
+  "arms": {
+    "none": 30,
+    "low": 30
+  },
+  "judge_model": "claude-opus-4-5",
+  "judge_version": "claude-agent-sdk-v4-turn-taking",
+  "canonical_inputs_sha256": "515146cdbfd8efd577bad8a3ba070d800e99146b2ca7fbb58b6309541dd8e5b5",
+  "judge_source_sha256": "2f5f00dd7881a34b1be0798e8261c66373eeca7cdbadc00f1a9b2878dbab0c7d"
+}

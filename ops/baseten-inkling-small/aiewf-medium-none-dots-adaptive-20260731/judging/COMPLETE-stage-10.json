@@ -1,0 +1,22 @@
+{
+  "campaign": "aiewf-medium-inkling-small-baseten-none-dots-adaptive-20260731",
+  "stage": 10,
+  "completed_at": "2026-08-03T21:29:46+00:00",
+  "canonical_dots": 10,
+  "judge_model": "claude-opus-4-5",
+  "judge_version": "claude-agent-sdk-v4-turn-taking",
+  "canonical_inputs_sha256": "39f1d58571e2ab35bf0683eababa1a7ae237012e6f0b09286e160448c42ab386",
+  "judge_source_sha256": "57b53f8969dec59894a401157796e6af72427019ca18fd8ef340426ed5cee528",
+  "transcript_sha256": {
+    "DOT-01": "b8a0ca354d0af460669e1e369254ed8b645e5f68ea759b88d05e6621d40a69f9",
+    "DOT-02": "efb695ab87ae498533ec4e8df823dda3025bfc2c409030a7e4a640ed2f22b823",
+    "DOT-03": "bfa47932909fe006c10c2fbd6fbf04bed369e93007f1400647b20026ba08ba40",
+    "DOT-04": "abdbd9c56be81e19e93f9eed37b887d66d29cd5775cfc99e2b365f6b95389aa8",
+    "DOT-05": "57adcb70aa59907d7301ceb4b76ad6e527b10d59690e89ae43197dba29a193bf",
+    "DOT-06": "52a8631218997bb038566064331800802dafede267fb5583e8d82ce72911eef7",
+    "DOT-07": "521c5642e23194cd47fdfab1876ee9212cf1e985fca44e9fdea3dadd790341c9",
+    "DOT-08": "fdba37b81030a9c00ed96e54fed5b3f073cbf05afacbfb2cd8cd01cf6c1287cf",
+    "DOT-09": "4f5fc73ac89b672b81fa68aab59f6a81010f7906970b641cbb9ff3e9b398d681",
+    "DOT-10": "87493237aed98c9e0b450f5ba0a344851418c932770a47abf2362438c24af30d"
+  }
+}

@@ -1,0 +1,1458 @@
+{
+  "schema_version": 1,
+  "artifact_status": "RAW_CAUSE_ATTRIBUTION",
+  "generated_at": "2026-07-31T22:42:40+00:00",
+  "campaign": "aiewf-medium-inkling-small-baseten-none-low-n30-20260731",
+  "model": "thinkingmachines/inkling-small",
+  "method": {
+    "membership_source": "ops/baseten-inkling-small/aiewf-medium-none-low-n30-20260731/canonical.tsv",
+    "membership_validation_sources": [
+      "ops/baseten-inkling-small/aiewf-medium-none-low-n30-20260731/frozen-order.tsv",
+      "ops/baseten-inkling-small/aiewf-medium-none-low-n30-20260731/attempts.tsv"
+    ],
+    "judge_dependency": false,
+    "scheduled_turns_per_conversation": 30,
+    "classification_precedence": [
+      "strict_complete",
+      "model_abort",
+      "recovery_end_session",
+      "baseten_429_idle",
+      "unattributed_short"
+    ],
+    "baseten_429_idle_definition": "A short run with no end_session whose run.log contains the BaseTen signature, HTTP 429 rate-limit error, and idle-timeout cancellation.",
+    "recovery_turns_are_not_scheduled": true
+  },
+  "inputs": {
+    "canonical": {
+      "path": "ops/baseten-inkling-small/aiewf-medium-none-low-n30-20260731/canonical.tsv",
+      "sha256": "440bd4f2eb449dd1a36790e9d36f31a700a37ed901d7add1fc67c2b942863a5c"
+    },
+    "frozen_order": {
+      "path": "ops/baseten-inkling-small/aiewf-medium-none-low-n30-20260731/frozen-order.tsv",
+      "sha256": "1759c1bf610dff93399e183dce73cefd2006e95e3bd891bf3be6a0cbae355ca5"
+    },
+    "attempts": {
+      "path": "ops/baseten-inkling-small/aiewf-medium-none-low-n30-20260731/attempts.tsv",
+      "sha256": "4f58d52f9685b09308c48649f52e8ae795bd0a97cd185f265cae7c9ced83a654"
+    },
+    "analyzer": {
+      "path": "ops/baseten-inkling-small/aiewf-medium-none-low-n30-20260731/analysis/failure_analysis.py",
+      "sha256": "1907fd85cf869bbb29953d13e1f6711c8f8f7be34f4e220c4ed24a2509da63d2"
+    },
+    "runs": {
+      "IS-01": {
+        "run_dir": "runs/aiwf_medium_context/20260731T105207_thinkingmachines_inkling-small_a54d0995",
+        "transcript": "runs/aiwf_medium_context/20260731T105207_thinkingmachines_inkling-small_a54d0995/transcript.jsonl",
+        "transcript_sha256": "e2d96e2da673968b6836772484a0ea8fa620a5463e7968d0cf9099a690f326f6",
+        "run_log": "runs/aiwf_medium_context/20260731T105207_thinkingmachines_inkling-small_a54d0995/run.log",
+        "run_log_sha256": "78f2a2d7ee042adf2cd3eced259f45645d982c8dc13f9b942c90399b91fa116f"
+      },
+      "IS-02": {
+        "run_dir": "runs/aiwf_medium_context/20260731T105218_thinkingmachines_inkling-small_1818f402",
+        "transcript": "runs/aiwf_medium_context/20260731T105218_thinkingmachines_inkling-small_1818f402/transcript.jsonl",
+        "transcript_sha256": "9bc80005ce6d595d62e9a589aa10bea4a2b96af07185840722708a799f2bb217",
+        "run_log": "runs/aiwf_medium_context/20260731T105218_thinkingmachines_inkling-small_1818f402/run.log",
+        "run_log_sha256": "40cc7428ef87e7e18799957610bd671d66d6364650c243653e283a4660dbbe44"
+      },
+      "IS-03": {
+        "run_dir": "runs/aiwf_medium_context/20260731T105235_thinkingmachines_inkling-small_accc4502",
+        "transcript": "runs/aiwf_medium_context/20260731T105235_thinkingmachines_inkling-small_accc4502/transcript.jsonl",
+        "transcript_sha256": "8d47dd0194a4c576d6099414694bedcf2225b2adad7ca6607fa278f50f9f2856",
+        "run_log": "runs/aiwf_medium_context/20260731T105235_thinkingmachines_inkling-small_accc4502/run.log",
+        "run_log_sha256": "defdea273eb885ee71caa36268a7639ecc4d281119cf4bc2255d1439c873f067"
+      },
+      "IS-04": {
+        "run_dir": "runs/aiwf_medium_context/20260731T105246_thinkingmachines_inkling-small_70f9846b",
+        "transcript": "runs/aiwf_medium_context/20260731T105246_thinkingmachines_inkling-small_70f9846b/transcript.jsonl",
+        "transcript_sha256": "63249998ac37b67bf94bd43c8388da87654eb99ecd2663b11d514e344261f544",
+        "run_log": "runs/aiwf_medium_context/20260731T105246_thinkingmachines_inkling-small_70f9846b/run.log",
+        "run_log_sha256": "00342147b541a6928bab413ce6467e3d90a8735e7ce3deb70be8639c2c1b1433"
+      },
+      "IS-05": {
+        "run_dir": "runs/aiwf_medium_context/20260731T105341_thinkingmachines_inkling-small_70cdae48",
+        "transcript": "runs/aiwf_medium_context/20260731T105341_thinkingmachines_inkling-small_70cdae48/transcript.jsonl",
+        "transcript_sha256": "b58521ed910310f8c9c9949f397f1fe6fc407409e43e49c883f4fc385a854a1c",
+        "run_log": "runs/aiwf_medium_context/20260731T105341_thinkingmachines_inkling-small_70cdae48/run.log",
+        "run_log_sha256": "779330a89eb7007395bb6e71d957bf13c622536a6b366d171c4b7c4213f7abfe"
+      },
+      "IS-06": {
+        "run_dir": "runs/aiwf_medium_context/20260731T105357_thinkingmachines_inkling-small_f4e2b333",
+        "transcript": "runs/aiwf_medium_context/20260731T105357_thinkingmachines_inkling-small_f4e2b333/transcript.jsonl",
+        "transcript_sha256": "864933c0f0778225e97314acea217076134643a47a5ad2d1fa9511c18d24b5eb",
+        "run_log": "runs/aiwf_medium_context/20260731T105357_thinkingmachines_inkling-small_f4e2b333/run.log",
+        "run_log_sha256": "2b6ea87c47032c908ef11cde283323cf4d206213f83e433fad96e3b53242eb31"
+      },
+      "IS-07": {
+        "run_dir": "runs/aiwf_medium_context/20260731T105500_thinkingmachines_inkling-small_25f0baa6",
+        "transcript": "runs/aiwf_medium_context/20260731T105500_thinkingmachines_inkling-small_25f0baa6/transcript.jsonl",
+        "transcript_sha256": "6fe19e29867263c3af3ef1d0a2769087062eaa46591070130f59b4739a170d6d",
+        "run_log": "runs/aiwf_medium_context/20260731T105500_thinkingmachines_inkling-small_25f0baa6/run.log",
+        "run_log_sha256": "d90e8fb655bf8ff6ba8dee2f0f5ef117b5dccb583cee1bd4d0905116e480b18a"
+      },
+      "IS-08": {
+        "run_dir": "runs/aiwf_medium_context/20260731T105516_thinkingmachines_inkling-small_e43cdc51",
+        "transcript": "runs/aiwf_medium_context/20260731T105516_thinkingmachines_inkling-small_e43cdc51/transcript.jsonl",
+        "transcript_sha256": "d58b53239cc3376920f9a16b2d0523f0789211ac6d82c3a400142d61f3782e8c",
+        "run_log": "runs/aiwf_medium_context/20260731T105516_thinkingmachines_inkling-small_e43cdc51/run.log",
+        "run_log_sha256": "f17c20aaa41bc2af5d3dddeae8f5a4d5f66b10df07c735e5c1754fd15bf51d2f"
+      },
+      "IS-09": {
+        "run_dir": "runs/aiwf_medium_context/20260731T105526_thinkingmachines_inkling-small_37033777",
+        "transcript": "runs/aiwf_medium_context/20260731T105526_thinkingmachines_inkling-small_37033777/transcript.jsonl",
+        "transcript_sha256": "da6a3583f737172be17affbef4d937ddc3916e44bd43d2a3d76e41073fe2c6be",
+        "run_log": "runs/aiwf_medium_context/20260731T105526_thinkingmachines_inkling-small_37033777/run.log",
+        "run_log_sha256": "450ed869e286c6dd9eda523f439093ddc0121f14dc16a7d0d6683f037649d648"
+      },
+      "IS-10": {
+        "run_dir": "runs/aiwf_medium_context/20260731T105617_thinkingmachines_inkling-small_fe2ffc45",
+        "transcript": "runs/aiwf_medium_context/20260731T105617_thinkingmachines_inkling-small_fe2ffc45/transcript.jsonl",
+        "transcript_sha256": "eae1c4ef3bd6c48c850361dd478a4f183ae2b9e6629bc68b37b152e3e31221b5",
+        "run_log": "runs/aiwf_medium_context/20260731T105617_thinkingmachines_inkling-small_fe2ffc45/run.log",
+        "run_log_sha256": "a4b44e21e6bf8ad82fd686f84b1eb97cf76db394c3c5b8cfdc534f5ee7c4a8ce"
+      },
+      "IS-11": {
+        "run_dir": "runs/aiwf_medium_context/20260731T105633_thinkingmachines_inkling-small_0abce727",
+        "transcript": "runs/aiwf_medium_context/20260731T105633_thinkingmachines_inkling-small_0abce727/transcript.jsonl",
+        "transcript_sha256": "5aee1fe6c9b180fd93ef928d529d3c346a0320cb977217c60f9f8efd27328a07",
+        "run_log": "runs/aiwf_medium_context/20260731T105633_thinkingmachines_inkling-small_0abce727/run.log",
+        "run_log_sha256": "bbcea3d48e65af262f7acd0503d94da6e49608e51b8d962aa64f362523703d89"
+      },
+      "IS-12": {
+        "run_dir": "runs/aiwf_medium_context/20260731T105736_thinkingmachines_inkling-small_a4ee8724",
+        "transcript": "runs/aiwf_medium_context/20260731T105736_thinkingmachines_inkling-small_a4ee8724/transcript.jsonl",
+        "transcript_sha256": "f5a149162e568a6d1e89c024e1b72428187cd7bd9f314ae9063c41d63267c323",
+        "run_log": "runs/aiwf_medium_context/20260731T105736_thinkingmachines_inkling-small_a4ee8724/run.log",
+        "run_log_sha256": "27f6376a816076a3b56ff675fac3fc016eddd1c7d7bda40bd80b10f29f45fe6b"
+      },
+      "IS-13": {
+        "run_dir": "runs/aiwf_medium_context/20260731T105747_thinkingmachines_inkling-small_0b05e0f7",
+        "transcript": "runs/aiwf_medium_context/20260731T105747_thinkingmachines_inkling-small_0b05e0f7/transcript.jsonl",
+        "transcript_sha256": "7abac6e6ad5f004a1ef56a206d62eb52e1cc4a3a2d0ade29ce5bb5b580326507",
+        "run_log": "runs/aiwf_medium_context/20260731T105747_thinkingmachines_inkling-small_0b05e0f7/run.log",
+        "run_log_sha256": "effa5fe68772b216445a879968e27144cfb3fca153c162077faee6b4c938c251"
+      },
+      "IS-14": {
+        "run_dir": "runs/aiwf_medium_context/20260731T105808_thinkingmachines_inkling-small_4ad07a12",
+        "transcript": "runs/aiwf_medium_context/20260731T105808_thinkingmachines_inkling-small_4ad07a12/transcript.jsonl",
+        "transcript_sha256": "ece9043dac99e85768538bbbb22471d3c8ef0c507fbd0bcfdfc9c848316184f2",
+        "run_log": "runs/aiwf_medium_context/20260731T105808_thinkingmachines_inkling-small_4ad07a12/run.log",
+        "run_log_sha256": "d52bf981fd8b4dcf479b3cb0647b025324a0c67efb525102c758e0a4c4696921"
+      },
+      "IS-15": {
+        "run_dir": "runs/aiwf_medium_context/20260731T105859_thinkingmachines_inkling-small_4e3fbc03",
+        "transcript": "runs/aiwf_medium_context/20260731T105859_thinkingmachines_inkling-small_4e3fbc03/transcript.jsonl",
+        "transcript_sha256": "01c0c16cd5665b016d896d68c7ba3ea153018f27cf48501b30b3e5c79fcb66a1",
+        "run_log": "runs/aiwf_medium_context/20260731T105859_thinkingmachines_inkling-small_4e3fbc03/run.log",
+        "run_log_sha256": "1f2dedf42f09d59a1e7b013e172670f5c1b7989135b86c3fe09b252f2b8c1430"
+      },
+      "IS-16": {
+        "run_dir": "runs/aiwf_medium_context/20260731T105909_thinkingmachines_inkling-small_6abfb1be",
+        "transcript": "runs/aiwf_medium_context/20260731T105909_thinkingmachines_inkling-small_6abfb1be/transcript.jsonl",
+        "transcript_sha256": "f42fe4cd149c4c998b5a0644a9251767c07f35fba59018305aee7b357e6b7701",
+        "run_log": "runs/aiwf_medium_context/20260731T105909_thinkingmachines_inkling-small_6abfb1be/run.log",
+        "run_log_sha256": "f6ac54ec730b058aa25cb0624107476da10bc2f369b5ec582994523565258a1a"
+      },
+      "IS-17": {
+        "run_dir": "runs/aiwf_medium_context/20260731T105927_thinkingmachines_inkling-small_bb80d69b",
+        "transcript": "runs/aiwf_medium_context/20260731T105927_thinkingmachines_inkling-small_bb80d69b/transcript.jsonl",
+        "transcript_sha256": "c16baa294165d4e06081a6e10d22c43439bd81b357e620629240df0487ccd930",
+        "run_log": "runs/aiwf_medium_context/20260731T105927_thinkingmachines_inkling-small_bb80d69b/run.log",
+        "run_log_sha256": "f1330a0eda126117a0bfa3b0595e744a9cb7e864728ee13a043057a8c060ab16"
+      },
+      "IS-18": {
+        "run_dir": "runs/aiwf_medium_context/20260731T110018_thinkingmachines_inkling-small_0f2029e6",
+        "transcript": "runs/aiwf_medium_context/20260731T110018_thinkingmachines_inkling-small_0f2029e6/transcript.jsonl",
+        "transcript_sha256": "2b16a4adcd0c97837de54e924efa68dfe06573b0caf3cf373eef801bc23f4581",
+        "run_log": "runs/aiwf_medium_context/20260731T110018_thinkingmachines_inkling-small_0f2029e6/run.log",
+        "run_log_sha256": "7f780f13a9064daf38dab2ab503e2263facf5eb13a65bf5caadc7e34eae29ddd"
+      },
+      "IS-19": {
+        "run_dir": "runs/aiwf_medium_context/20260731T110036_thinkingmachines_inkling-small_63a3de1c",
+        "transcript": "runs/aiwf_medium_context/20260731T110036_thinkingmachines_inkling-small_63a3de1c/transcript.jsonl",
+        "transcript_sha256": "f58e38218aa5e79afb39ad5156ab775455cc73d647ccd5debb1c9b9fa158de80",
+        "run_log": "runs/aiwf_medium_context/20260731T110036_thinkingmachines_inkling-small_63a3de1c/run.log",
+        "run_log_sha256": "71fcf1fa6371d312b9dc385050d35831065fd8fc1d4be33c3de431a91c1be3f8"
+      },
+      "IS-20": {
+        "run_dir": "runs/aiwf_medium_context/20260731T110136_thinkingmachines_inkling-small_c8781593",
+        "transcript": "runs/aiwf_medium_context/20260731T110136_thinkingmachines_inkling-small_c8781593/transcript.jsonl",
+        "transcript_sha256": "9d3c8d29556e9c154d1a9f975f63a8afcdf44bc16099f188f362401524ac4e01",
+        "run_log": "runs/aiwf_medium_context/20260731T110136_thinkingmachines_inkling-small_c8781593/run.log",
+        "run_log_sha256": "879015578737549c3caaeed6db2e31a3bb5a919499787fb11124223e508d14b5"
+      },
+      "IS-21": {
+        "run_dir": "runs/aiwf_medium_context/20260731T110146_thinkingmachines_inkling-small_6d2c7bb7",
+        "transcript": "runs/aiwf_medium_context/20260731T110146_thinkingmachines_inkling-small_6d2c7bb7/transcript.jsonl",
+        "transcript_sha256": "305312571e1baf7c5ce33c4bea8b54034cb88318fd578beaf8d2b392199ad83f",
+        "run_log": "runs/aiwf_medium_context/20260731T110146_thinkingmachines_inkling-small_6d2c7bb7/run.log",
+        "run_log_sha256": "39cb6cfbe600f94d72f53afb4424912418e37ba2f9ef1781885f1afce868d25b"
+      },
+      "IS-22": {
+        "run_dir": "runs/aiwf_medium_context/20260731T110156_thinkingmachines_inkling-small_d164ca8f",
+        "transcript": "runs/aiwf_medium_context/20260731T110156_thinkingmachines_inkling-small_d164ca8f/transcript.jsonl",
+        "transcript_sha256": "3930af47c68eebf105e9aa815df017554c590fc8c68aecb8f56a51db1849a1bf",
+        "run_log": "runs/aiwf_medium_context/20260731T110156_thinkingmachines_inkling-small_d164ca8f/run.log",
+        "run_log_sha256": "ed3838d4fe7b66a9a396a0acf9dc1b0bc018740217b9fd3d72aace259de7273d"
+      },
+      "IS-23": {
+        "run_dir": "runs/aiwf_medium_context/20260731T110259_thinkingmachines_inkling-small_afaf1d33",
+        "transcript": "runs/aiwf_medium_context/20260731T110259_thinkingmachines_inkling-small_afaf1d33/transcript.jsonl",
+        "transcript_sha256": "1c3901cc0c206c5fcd0e20d6e8dbc4781da5cd5f083fc07c936600834aa71aa1",
+        "run_log": "runs/aiwf_medium_context/20260731T110259_thinkingmachines_inkling-small_afaf1d33/run.log",
+        "run_log_sha256": "2b4b9f2ec00cffec30dda027b658c50bdf6eea00aa24115af5fda398aefc53a8"
+      },
+      "IS-24": {
+        "run_dir": "runs/aiwf_medium_context/20260731T110316_thinkingmachines_inkling-small_5acf5684",
+        "transcript": "runs/aiwf_medium_context/20260731T110316_thinkingmachines_inkling-small_5acf5684/transcript.jsonl",
+        "transcript_sha256": "0a302d05230410512c030999049ecebf0513c1ba81f5f51f197edd8a736d6bb4",
+        "run_log": "runs/aiwf_medium_context/20260731T110316_thinkingmachines_inkling-small_5acf5684/run.log",
+        "run_log_sha256": "e03daf437c4d4cb37aab64f6caf29592b19af69c27b0cc4afaebced174abd909"
+      },
+      "IS-25": {
+        "run_dir": "runs/aiwf_medium_context/20260731T110413_thinkingmachines_inkling-small_de13acee",
+        "transcript": "runs/aiwf_medium_context/20260731T110413_thinkingmachines_inkling-small_de13acee/transcript.jsonl",
+        "transcript_sha256": "7b04095d737e41adfb8c1d6bc3a12e43b6d9929d6d44db9c23f34fb4dda68922",
+        "run_log": "runs/aiwf_medium_context/20260731T110413_thinkingmachines_inkling-small_de13acee/run.log",
+        "run_log_sha256": "203663ccde09e1ce6e0ae10f1f55d3ef62dcd624c9164266aad6b36b5471579f"
+      },
+      "IS-26": {
+        "run_dir": "runs/aiwf_medium_context/20260731T110424_thinkingmachines_inkling-small_a9fbc355",
+        "transcript": "runs/aiwf_medium_context/20260731T110424_thinkingmachines_inkling-small_a9fbc355/transcript.jsonl",
+        "transcript_sha256": "e816148f75e0362b5f78a075a5fe9ee37090d2277be0e1abc926d86085c4d0d6",
+        "run_log": "runs/aiwf_medium_context/20260731T110424_thinkingmachines_inkling-small_a9fbc355/run.log",
+        "run_log_sha256": "0780607f7db942e7245c9040a45c0284e0f5dd66126908dd12e6ff43755b1917"
+      },
+      "IS-27": {
+        "run_dir": "runs/aiwf_medium_context/20260731T110449_thinkingmachines_inkling-small_cce1f375",
+        "transcript": "runs/aiwf_medium_context/20260731T110449_thinkingmachines_inkling-small_cce1f375/transcript.jsonl",
+        "transcript_sha256": "10df00fd577c08066bf13760888674acb20ee45bb9b1a1c1efbc8eeef97e1b35",
+        "run_log": "runs/aiwf_medium_context/20260731T110449_thinkingmachines_inkling-small_cce1f375/run.log",
+        "run_log_sha256": "c52e86095b401a2ef2ab3e5626baab9320190daf37aaac1650f04483be28a1e8"
+      },
+      "IS-28": {
+        "run_dir": "runs/aiwf_medium_context/20260731T110554_thinkingmachines_inkling-small_5bfa8db9",
+        "transcript": "runs/aiwf_medium_context/20260731T110554_thinkingmachines_inkling-small_5bfa8db9/transcript.jsonl",
+        "transcript_sha256": "8edbc9fea0d0c30f9b001a679c4c4fd5328db80c8859c253d12024c31e4b05e1",
+        "run_log": "runs/aiwf_medium_context/20260731T110554_thinkingmachines_inkling-small_5bfa8db9/run.log",
+        "run_log_sha256": "2fef4af154e8a28f947dc2c9bed37e027d4c416fb1c0da3a2c2b5433fecb4b09"
+      },
+      "IS-29": {
+        "run_dir": "runs/aiwf_medium_context/20260731T110605_thinkingmachines_inkling-small_ee0527b0",
+        "transcript": "runs/aiwf_medium_context/20260731T110605_thinkingmachines_inkling-small_ee0527b0/transcript.jsonl",
+        "transcript_sha256": "01f4ce423ab392f250c38a5aefe1790d5ffb9b05ddfd01c2deb285ba92e90d6a",
+        "run_log": "runs/aiwf_medium_context/20260731T110605_thinkingmachines_inkling-small_ee0527b0/run.log",
+        "run_log_sha256": "2f04d9f38c60ffb3d8a2c929746334498f99ecd225f215eeefc7f0ac1403958c"
+      },
+      "IS-30": {
+        "run_dir": "runs/aiwf_medium_context/20260731T110632_thinkingmachines_inkling-small_b348350a",
+        "transcript": "runs/aiwf_medium_context/20260731T110632_thinkingmachines_inkling-small_b348350a/transcript.jsonl",
+        "transcript_sha256": "d8a316bcfa3802eb6712e39215f8b0851bd9e8db2b27200a47ed92e1b76b33bf",
+        "run_log": "runs/aiwf_medium_context/20260731T110632_thinkingmachines_inkling-small_b348350a/run.log",
+        "run_log_sha256": "e71a42208dade9df385295fbe148c5dcac1df54bbd4dbe9db4eef0aa49caa809"
+      },
+      "IS-31": {
+        "run_dir": "runs/aiwf_medium_context/20260731T110746_thinkingmachines_inkling-small_c1c19874",
+        "transcript": "runs/aiwf_medium_context/20260731T110746_thinkingmachines_inkling-small_c1c19874/transcript.jsonl",
+        "transcript_sha256": "938c959eebf3a59df1801a2cb8e6f17d5942ae44ec4bf41b58de6572a797a2ec",
+        "run_log": "runs/aiwf_medium_context/20260731T110746_thinkingmachines_inkling-small_c1c19874/run.log",
+        "run_log_sha256": "ffc57d9d53065cee4a34f9e26833b99569b0da109e18bb29a16c5b45c221107e"
+      },
+      "IS-32": {
+        "run_dir": "runs/aiwf_medium_context/20260731T110806_thinkingmachines_inkling-small_e8fd0fca",
+        "transcript": "runs/aiwf_medium_context/20260731T110806_thinkingmachines_inkling-small_e8fd0fca/transcript.jsonl",
+        "transcript_sha256": "fefacc387d73d2e792c5cb9f76f262ce52369f112510a739a7547072f8dbe6a6",
+        "run_log": "runs/aiwf_medium_context/20260731T110806_thinkingmachines_inkling-small_e8fd0fca/run.log",
+        "run_log_sha256": "2e9dc10ad20cfe96ece9c1d6cf513de1a2e3996b191c1d7e4528f0951db667f1"
+      },
+      "IS-33": {
+        "run_dir": "runs/aiwf_medium_context/20260731T110819_thinkingmachines_inkling-small_218d4825",
+        "transcript": "runs/aiwf_medium_context/20260731T110819_thinkingmachines_inkling-small_218d4825/transcript.jsonl",
+        "transcript_sha256": "0aaa079a2e554b1a65ca388bd3d68d5fd68569a02224f02deee275da68eb5bfd",
+        "run_log": "runs/aiwf_medium_context/20260731T110819_thinkingmachines_inkling-small_218d4825/run.log",
+        "run_log_sha256": "1ab6b3e643345aeb01c04b18ac0eb8545321b2407982078bf830bed1fb2fef9c"
+      },
+      "IS-34": {
+        "run_dir": "runs/aiwf_medium_context/20260731T110916_thinkingmachines_inkling-small_a84db19e",
+        "transcript": "runs/aiwf_medium_context/20260731T110916_thinkingmachines_inkling-small_a84db19e/transcript.jsonl",
+        "transcript_sha256": "6cf5f9dab46ab92929556c9187668bb4f790f2a6a4ad183e4b236a13ac3f4deb",
+        "run_log": "runs/aiwf_medium_context/20260731T110916_thinkingmachines_inkling-small_a84db19e/run.log",
+        "run_log_sha256": "a5d5b1e3c428c62830059705c283a57192e7046f4ec1898d428fe6a5f0d6fefe"
+      },
+      "IS-35": {
+        "run_dir": "runs/aiwf_medium_context/20260731T110934_thinkingmachines_inkling-small_0dcd09b2",
+        "transcript": "runs/aiwf_medium_context/20260731T110934_thinkingmachines_inkling-small_0dcd09b2/transcript.jsonl",
+        "transcript_sha256": "fc87624d061f60aeae9556e92f02def247031a2c15ff764578df49e64032bfe7",
+        "run_log": "runs/aiwf_medium_context/20260731T110934_thinkingmachines_inkling-small_0dcd09b2/run.log",
+        "run_log_sha256": "e5d623b0a2bdbd98566448c75ca5ccd1e2a57e5d6eda591c614f600c2bf0c6c2"
+      },
+      "IS-36": {
+        "run_dir": "runs/aiwf_medium_context/20260731T111034_thinkingmachines_inkling-small_0e4810c9",
+        "transcript": "runs/aiwf_medium_context/20260731T111034_thinkingmachines_inkling-small_0e4810c9/transcript.jsonl",
+        "transcript_sha256": "20d17eb64606d4362500ee3df963d3041b7906a8fac412486c43ac3c54808440",
+        "run_log": "runs/aiwf_medium_context/20260731T111034_thinkingmachines_inkling-small_0e4810c9/run.log",
+        "run_log_sha256": "85d985ebef853878712097495f57a97f05eec40e22380d29e5274bd95b307943"
+      },
+      "IS-37": {
+        "run_dir": "runs/aiwf_medium_context/20260731T111054_thinkingmachines_inkling-small_7a4862a2",
+        "transcript": "runs/aiwf_medium_context/20260731T111054_thinkingmachines_inkling-small_7a4862a2/transcript.jsonl",
+        "transcript_sha256": "9633f277111059c608bf142e9d878137b630dd7b78a4d5af5d30e1b169546072",
+        "run_log": "runs/aiwf_medium_context/20260731T111054_thinkingmachines_inkling-small_7a4862a2/run.log",
+        "run_log_sha256": "2cdd7ec13d21a3967a9d1917f4492e316770447c078eef7a67fc55ab242837d8"
+      },
+      "IS-38": {
+        "run_dir": "runs/aiwf_medium_context/20260731T111153_thinkingmachines_inkling-small_e990c834",
+        "transcript": "runs/aiwf_medium_context/20260731T111153_thinkingmachines_inkling-small_e990c834/transcript.jsonl",
+        "transcript_sha256": "d99669288df0695bd17a61b1ea4cdb4e78c7718cf17babf8adf8169ab91b49f4",
+        "run_log": "runs/aiwf_medium_context/20260731T111153_thinkingmachines_inkling-small_e990c834/run.log",
+        "run_log_sha256": "0ea7de9825352efc255de05cc6b1f415369f6db1d1bfe0c96fba79942958df9b"
+      },
+      "IS-39": {
+        "run_dir": "runs/aiwf_medium_context/20260731T111216_thinkingmachines_inkling-small_c9f4a20d",
+        "transcript": "runs/aiwf_medium_context/20260731T111216_thinkingmachines_inkling-small_c9f4a20d/transcript.jsonl",
+        "transcript_sha256": "ec8d5508ca8427b24d2a02c278a5146eaa3936e5317466dc0b5d5585c7de62b5",
+        "run_log": "runs/aiwf_medium_context/20260731T111216_thinkingmachines_inkling-small_c9f4a20d/run.log",
+        "run_log_sha256": "a1a13b1310346619dcbaf869557d13552fd235702905326c3c5fc26be9f011fb"
+      },
+      "IS-40": {
+        "run_dir": "runs/aiwf_medium_context/20260731T111319_thinkingmachines_inkling-small_93e77d0d",
+        "transcript": "runs/aiwf_medium_context/20260731T111319_thinkingmachines_inkling-small_93e77d0d/transcript.jsonl",
+        "transcript_sha256": "778785cfb16a63d6c403edbbb797344f7d61b614555d3391750a5355e42b66cb",
+        "run_log": "runs/aiwf_medium_context/20260731T111319_thinkingmachines_inkling-small_93e77d0d/run.log",
+        "run_log_sha256": "d01623cb4a99eb4aa70c2d55710f892acd595f922b70fc3052326ca4c4ea4e90"
+      },
+      "IS-41": {
+        "run_dir": "runs/aiwf_medium_context/20260731T111342_thinkingmachines_inkling-small_d66afdca",
+        "transcript": "runs/aiwf_medium_context/20260731T111342_thinkingmachines_inkling-small_d66afdca/transcript.jsonl",
+        "transcript_sha256": "6e6581dbecb5007c4146526db43e14069bb4d59267715b55e798161f7ceebc56",
+        "run_log": "runs/aiwf_medium_context/20260731T111342_thinkingmachines_inkling-small_d66afdca/run.log",
+        "run_log_sha256": "3cf8f60bd79fa4c7cc50143aac1e87ab30936a7df5b47166b64cd69d5acbee4e"
+      },
+      "IS-42": {
+        "run_dir": "runs/aiwf_medium_context/20260731T111446_thinkingmachines_inkling-small_ebe1f264",
+        "transcript": "runs/aiwf_medium_context/20260731T111446_thinkingmachines_inkling-small_ebe1f264/transcript.jsonl",
+        "transcript_sha256": "27fc2954a11c91fbdccc0b31e16b98cdec39521f19ee506c43c4b821fe5540ab",
+        "run_log": "runs/aiwf_medium_context/20260731T111446_thinkingmachines_inkling-small_ebe1f264/run.log",
+        "run_log_sha256": "c76ff02cbe321941ec9e4daed19b2263680290943b69e72693fbd5651ba96a16"
+      },
+      "IS-43": {
+        "run_dir": "runs/aiwf_medium_context/20260731T111456_thinkingmachines_inkling-small_7c21ca9a",
+        "transcript": "runs/aiwf_medium_context/20260731T111456_thinkingmachines_inkling-small_7c21ca9a/transcript.jsonl",
+        "transcript_sha256": "3aafcc2cce217182327f63a73027ef5701f18da0d7319a8f5e744368b70cfbe7",
+        "run_log": "runs/aiwf_medium_context/20260731T111456_thinkingmachines_inkling-small_7c21ca9a/run.log",
+        "run_log_sha256": "de81ddc454666cd7c2063cea3a249d8f0af367b54af58542e1eca2ca4c02e786"
+      },
+      "IS-44": {
+        "run_dir": "runs/aiwf_medium_context/20260731T111506_thinkingmachines_inkling-small_c8230dc1",
+        "transcript": "runs/aiwf_medium_context/20260731T111506_thinkingmachines_inkling-small_c8230dc1/transcript.jsonl",
+        "transcript_sha256": "ea0ca45ba52e410f1b668415acfbc371b01117e233c34e92844defe4c95175e3",
+        "run_log": "runs/aiwf_medium_context/20260731T111506_thinkingmachines_inkling-small_c8230dc1/run.log",
+        "run_log_sha256": "b932fda3d72dd627730ed936f8b83458875bf3db77346a69e7cbeb3abf7f913b"
+      },
+      "IS-45": {
+        "run_dir": "runs/aiwf_medium_context/20260731T111613_thinkingmachines_inkling-small_1e7ce740",
+        "transcript": "runs/aiwf_medium_context/20260731T111613_thinkingmachines_inkling-small_1e7ce740/transcript.jsonl",
+        "transcript_sha256": "861f6619392d37ac6ac42a263596506f306df684a12bc877e4282c3c67c02e20",
+        "run_log": "runs/aiwf_medium_context/20260731T111613_thinkingmachines_inkling-small_1e7ce740/run.log",
+        "run_log_sha256": "5166599c1548527a6fedef913e3f5b8746ab47635519a6453cc733da7bef9e29"
+      },
+      "IS-46": {
+        "run_dir": "runs/aiwf_medium_context/20260731T111631_thinkingmachines_inkling-small_5c0bfd3f",
+        "transcript": "runs/aiwf_medium_context/20260731T111631_thinkingmachines_inkling-small_5c0bfd3f/transcript.jsonl",
+        "transcript_sha256": "c1c2a1270039ee898357a7d2ac7ba4b19c51b9faecac7224fb8352b7641c6029",
+        "run_log": "runs/aiwf_medium_context/20260731T111631_thinkingmachines_inkling-small_5c0bfd3f/run.log",
+        "run_log_sha256": "78b1a9be2ff1028ca7d405c304c040ee41c2df342180ea267c32e797cadbd177"
+      },
+      "IS-47": {
+        "run_dir": "runs/aiwf_medium_context/20260731T111733_thinkingmachines_inkling-small_321519f6",
+        "transcript": "runs/aiwf_medium_context/20260731T111733_thinkingmachines_inkling-small_321519f6/transcript.jsonl",
+        "transcript_sha256": "e66f0cc3e337ee8fffc57a269641ed7450ad91442e1d44a613a94b8215d94605",
+        "run_log": "runs/aiwf_medium_context/20260731T111733_thinkingmachines_inkling-small_321519f6/run.log",
+        "run_log_sha256": "cfa1ad17a4f0df2a7c20b34997ce01284276e8b09c4c45375bfc14d6c7e47020"
+      },
+      "IS-48": {
+        "run_dir": "runs/aiwf_medium_context/20260731T111751_thinkingmachines_inkling-small_4c834cd8",
+        "transcript": "runs/aiwf_medium_context/20260731T111751_thinkingmachines_inkling-small_4c834cd8/transcript.jsonl",
+        "transcript_sha256": "b3d7cfbebf44e2b280f65a4e7bcf5fdbb7fc2fc9b2794b05390ae0e9c921e10c",
+        "run_log": "runs/aiwf_medium_context/20260731T111751_thinkingmachines_inkling-small_4c834cd8/run.log",
+        "run_log_sha256": "9e984260d6a68b62958a9b6f53f0de8b8b2ad92f617ae09a1e87acf00267f4d2"
+      },
+      "IS-49": {
+        "run_dir": "runs/aiwf_medium_context/20260731T111847_thinkingmachines_inkling-small_80b4e92b",
+        "transcript": "runs/aiwf_medium_context/20260731T111847_thinkingmachines_inkling-small_80b4e92b/transcript.jsonl",
+        "transcript_sha256": "f036d0e5426426667927fd0cfa1f76b4bd3e9844b1c6438756d15160ca1d58e5",
+        "run_log": "runs/aiwf_medium_context/20260731T111847_thinkingmachines_inkling-small_80b4e92b/run.log",
+        "run_log_sha256": "f1e9a357864d7dc6635905f8b529fe74a5b873c185e986bf059f535cab4c4628"
+      },
+      "IS-50": {
+        "run_dir": "runs/aiwf_medium_context/20260731T111857_thinkingmachines_inkling-small_b5feeddb",
+        "transcript": "runs/aiwf_medium_context/20260731T111857_thinkingmachines_inkling-small_b5feeddb/transcript.jsonl",
+        "transcript_sha256": "92ba70ad34f74fe66bcb5648458c6f63ae34e52d633ca8841a0f02c838ce96ea",
+        "run_log": "runs/aiwf_medium_context/20260731T111857_thinkingmachines_inkling-small_b5feeddb/run.log",
+        "run_log_sha256": "895ea946e0b66d196bf7dacdf964fa6f1c6a398755306e64dc54d0ed4c0a42c8"
+      },
+      "IS-51": {
+        "run_dir": "runs/aiwf_medium_context/20260731T111920_thinkingmachines_inkling-small_9807f01b",
+        "transcript": "runs/aiwf_medium_context/20260731T111920_thinkingmachines_inkling-small_9807f01b/transcript.jsonl",
+        "transcript_sha256": "149be39390fcf6662b221d85698996943828ac91af33ec585449d6d3f6af7f15",
+        "run_log": "runs/aiwf_medium_context/20260731T111920_thinkingmachines_inkling-small_9807f01b/run.log",
+        "run_log_sha256": "c1770de6fddcc6c5b47eb4f5f0a837f27361ff0378608325288ed7f405bb5136"
+      },
+      "IS-52": {
+        "run_dir": "runs/aiwf_medium_context/20260731T112023_thinkingmachines_inkling-small_23176e01",
+        "transcript": "runs/aiwf_medium_context/20260731T112023_thinkingmachines_inkling-small_23176e01/transcript.jsonl",
+        "transcript_sha256": "ad3bed80b585f9b7d28609f179df65a1736da1cbe60dc5bcf2ddd842080d4893",
+        "run_log": "runs/aiwf_medium_context/20260731T112023_thinkingmachines_inkling-small_23176e01/run.log",
+        "run_log_sha256": "aeab56b58e32c36e4182e088ca0761828811abbf4ee48503405a8df28ad2cf28"
+      },
+      "IS-53": {
+        "run_dir": "runs/aiwf_medium_context/20260731T112043_thinkingmachines_inkling-small_03d6f97b",
+        "transcript": "runs/aiwf_medium_context/20260731T112043_thinkingmachines_inkling-small_03d6f97b/transcript.jsonl",
+        "transcript_sha256": "45cdd1ee5215193b0465c9ef305839c30a07966a561ca8fd004a6a4249d1bbd0",
+        "run_log": "runs/aiwf_medium_context/20260731T112043_thinkingmachines_inkling-small_03d6f97b/run.log",
+        "run_log_sha256": "1755b3408bd853d5e0547afd8c479a85ae20af7462e6c66385590acc7af34f6d"
+      },
+      "IS-54": {
+        "run_dir": "runs/aiwf_medium_context/20260731T112052_thinkingmachines_inkling-small_24bb324c",
+        "transcript": "runs/aiwf_medium_context/20260731T112052_thinkingmachines_inkling-small_24bb324c/transcript.jsonl",
+        "transcript_sha256": "1f52777d5ab0f16baa058190817f3d77b422ae9dbd617641bfd0b7160440633f",
+        "run_log": "runs/aiwf_medium_context/20260731T112052_thinkingmachines_inkling-small_24bb324c/run.log",
+        "run_log_sha256": "c5d7a85845e32f867a89c92b942cb55b29cb6107b74e61da83dfae664453365b"
+      },
+      "IS-55": {
+        "run_dir": "runs/aiwf_medium_context/20260731T112152_thinkingmachines_inkling-small_8d369ad9",
+        "transcript": "runs/aiwf_medium_context/20260731T112152_thinkingmachines_inkling-small_8d369ad9/transcript.jsonl",
+        "transcript_sha256": "91cc628d43c353c3ae5121fa9aa824f46c5cac70a61286ae45aac1482d88469f",
+        "run_log": "runs/aiwf_medium_context/20260731T112152_thinkingmachines_inkling-small_8d369ad9/run.log",
+        "run_log_sha256": "84020cca3e0087659c32e7ce755dea0dea3770e1525fb55c4864fa482890b332"
+      },
+      "IS-56": {
+        "run_dir": "runs/aiwf_medium_context/20260731T112211_thinkingmachines_inkling-small_8680d2b9",
+        "transcript": "runs/aiwf_medium_context/20260731T112211_thinkingmachines_inkling-small_8680d2b9/transcript.jsonl",
+        "transcript_sha256": "1a7bf4d78e78bb60b30a466a786b70a0a7ac805e711e232f45905d7e7ce1ee56",
+        "run_log": "runs/aiwf_medium_context/20260731T112211_thinkingmachines_inkling-small_8680d2b9/run.log",
+        "run_log_sha256": "4c67615d8f408f15929e93c77dde7d7920a90b345868ca40f591c8e173373f74"
+      },
+      "IS-57": {
+        "run_dir": "runs/aiwf_medium_context/20260731T112223_thinkingmachines_inkling-small_4de15ba3",
+        "transcript": "runs/aiwf_medium_context/20260731T112223_thinkingmachines_inkling-small_4de15ba3/transcript.jsonl",
+        "transcript_sha256": "18e89569bcb65f4abe7426888fd0b48b20c48d1ebd85b235499c4acc480232ca",
+        "run_log": "runs/aiwf_medium_context/20260731T112223_thinkingmachines_inkling-small_4de15ba3/run.log",
+        "run_log_sha256": "4c8f499bff15d3746e15a1686c16e3fd1f7d3449508ae35ac538fab120998955"
+      },
+      "IS-58": {
+        "run_dir": "runs/aiwf_medium_context/20260731T112315_thinkingmachines_inkling-small_ac3756e8",
+        "transcript": "runs/aiwf_medium_context/20260731T112315_thinkingmachines_inkling-small_ac3756e8/transcript.jsonl",
+        "transcript_sha256": "85677908587dafc57297b1512aa335f18a8f76175a009617fe4bc9f14e3cb1a2",
+        "run_log": "runs/aiwf_medium_context/20260731T112315_thinkingmachines_inkling-small_ac3756e8/run.log",
+        "run_log_sha256": "723c6a4707edbf3f76c87386312376d73dda98205d79be8129e8bfbcc4383c16"
+      },
+      "IS-59": {
+        "run_dir": "runs/aiwf_medium_context/20260731T112326_thinkingmachines_inkling-small_0815765c",
+        "transcript": "runs/aiwf_medium_context/20260731T112326_thinkingmachines_inkling-small_0815765c/transcript.jsonl",
+        "transcript_sha256": "7b14877ced1e904bf699bf6d6987bded5763ba62d6993f756bbf1a0f42052950",
+        "run_log": "runs/aiwf_medium_context/20260731T112326_thinkingmachines_inkling-small_0815765c/run.log",
+        "run_log_sha256": "a2774d5ab6b5582df1e5d42a354913b8896e995485f5b376955ae5b80ac4a948"
+      },
+      "IS-60": {
+        "run_dir": "runs/aiwf_medium_context/20260731T112335_thinkingmachines_inkling-small_a5d6ea4d",
+        "transcript": "runs/aiwf_medium_context/20260731T112335_thinkingmachines_inkling-small_a5d6ea4d/transcript.jsonl",
+        "transcript_sha256": "7146f146e54fa0213e156a20126b59ca47444632fae1672d70ee09835224f605",
+        "run_log": "runs/aiwf_medium_context/20260731T112335_thinkingmachines_inkling-small_a5d6ea4d/run.log",
+        "run_log_sha256": "20b1459da7b4e77b100f92655ffc291cf4b3cdfb7ffc4c9910369a222559b858"
+      }
+    }
+  },
+  "arms": {
+    "none": {
+      "conversations": 30,
+      "fixed_turn_denominator": 900,
+      "observed_scheduled_turns": 723,
+      "missing_scheduled_turns": 177,
+      "conversation_causes": {
+        "strict_complete": {
+          "count": 17,
+          "percent": 56.666666666666664
+        },
+        "model_abort": {
+          "count": 1,
+          "percent": 3.3333333333333335
+        },
+        "recovery_end_session": {
+          "count": 0,
+          "percent": 0.0
+        },
+        "baseten_429_idle": {
+          "count": 12,
+          "percent": 40.0
+        },
+        "unattributed_short": {
+          "count": 0,
+          "percent": 0.0
+        }
+      },
+      "missing_turns_by_cause": {
+        "strict_complete": 0,
+        "model_abort": 1,
+        "recovery_end_session": 0,
+        "baseten_429_idle": 176,
+        "unattributed_short": 0
+      },
+      "focus_turns": {
+        "13": {
+          "assigned_conversations": 30,
+          "observed_responses": 25,
+          "missing_responses": 5,
+          "response_patterns": {
+            "missing": 5,
+            "text_only": 25
+          },
+          "tool_calls": {},
+          "end_session_calls": 0
+        },
+        "14": {
+          "assigned_conversations": 30,
+          "observed_responses": 25,
+          "missing_responses": 5,
+          "response_patterns": {
+            "missing": 5,
+            "text_only": 18,
+            "tool_only:submit_dietary_request": 7
+          },
+          "tool_calls": {
+            "submit_dietary_request": 7
+          },
+          "end_session_calls": 0
+        },
+        "15": {
+          "assigned_conversations": 30,
+          "observed_responses": 25,
+          "missing_responses": 5,
+          "response_patterns": {
+            "missing": 5,
+            "text_only": 10,
+            "tool_only:submit_dietary_request": 15
+          },
+          "tool_calls": {
+            "submit_dietary_request": 15
+          },
+          "end_session_calls": 0
+        },
+        "16": {
+          "assigned_conversations": 30,
+          "observed_responses": 24,
+          "missing_responses": 6,
+          "response_patterns": {
+            "missing": 6,
+            "text_only": 2,
+            "tool_only:request_tech_support": 22
+          },
+          "tool_calls": {
+            "request_tech_support": 22
+          },
+          "end_session_calls": 0
+        },
+        "17": {
+          "assigned_conversations": 30,
+          "observed_responses": 22,
+          "missing_responses": 8,
+          "response_patterns": {
+            "missing": 8,
+            "text_only": 8,
+            "tool_only:request_tech_support": 14
+          },
+          "tool_calls": {
+            "request_tech_support": 14
+          },
+          "end_session_calls": 0
+        },
+        "28": {
+          "assigned_conversations": 30,
+          "observed_responses": 18,
+          "missing_responses": 12,
+          "response_patterns": {
+            "missing": 12,
+            "text_only": 17,
+            "tool_only:end_session": 1
+          },
+          "tool_calls": {
+            "end_session": 1
+          },
+          "end_session_calls": 1
+        },
+        "29": {
+          "assigned_conversations": 30,
+          "observed_responses": 17,
+          "missing_responses": 13,
+          "response_patterns": {
+            "missing": 13,
+            "tool_only:end_session": 17
+          },
+          "tool_calls": {
+            "end_session": 17
+          },
+          "end_session_calls": 17
+        }
+      },
+      "transitions": {
+        "t14_to_t15": {
+          "t14=missing -> t15=missing": 5,
+          "t14=text_only -> t15=text_only": 3,
+          "t14=text_only -> t15=tool_only:submit_dietary_request": 15,
+          "t14=tool_only:submit_dietary_request -> t15=text_only": 7
+        },
+        "t16_to_t17": {
+          "t16=missing -> t17=missing": 6,
+          "t16=text_only -> t17=tool_only:request_tech_support": 2,
+          "t16=tool_only:request_tech_support -> t17=missing": 2,
+          "t16=tool_only:request_tech_support -> t17=text_only": 8,
+          "t16=tool_only:request_tech_support -> t17=tool_only:request_tech_support": 12
+        }
+      }
+    },
+    "low": {
+      "conversations": 30,
+      "fixed_turn_denominator": 900,
+      "observed_scheduled_turns": 508,
+      "missing_scheduled_turns": 392,
+      "conversation_causes": {
+        "strict_complete": {
+          "count": 3,
+          "percent": 10.0
+        },
+        "model_abort": {
+          "count": 9,
+          "percent": 30.0
+        },
+        "recovery_end_session": {
+          "count": 8,
+          "percent": 26.666666666666668
+        },
+        "baseten_429_idle": {
+          "count": 10,
+          "percent": 33.333333333333336
+        },
+        "unattributed_short": {
+          "count": 0,
+          "percent": 0.0
+        }
+      },
+      "missing_turns_by_cause": {
+        "strict_complete": 0,
+        "model_abort": 126,
+        "recovery_end_session": 110,
+        "baseten_429_idle": 156,
+        "unattributed_short": 0
+      },
+      "focus_turns": {
+        "13": {
+          "assigned_conversations": 30,
+          "observed_responses": 26,
+          "missing_responses": 4,
+          "response_patterns": {
+            "missing": 4,
+            "text_only": 26
+          },
+          "tool_calls": {},
+          "end_session_calls": 0
+        },
+        "14": {
+          "assigned_conversations": 30,
+          "observed_responses": 26,
+          "missing_responses": 4,
+          "response_patterns": {
+            "missing": 4,
+            "text_only": 9,
+            "tool_only:submit_dietary_request": 17
+          },
+          "tool_calls": {
+            "submit_dietary_request": 17
+          },
+          "end_session_calls": 0
+        },
+        "15": {
+          "assigned_conversations": 30,
+          "observed_responses": 26,
+          "missing_responses": 4,
+          "response_patterns": {
+            "missing": 4,
+            "text_only": 9,
+            "tool_only:end_session": 9,
+            "tool_only:submit_dietary_request": 8
+          },
+          "tool_calls": {
+            "end_session": 9,
+            "submit_dietary_request": 8
+          },
+          "end_session_calls": 9
+        },
+        "16": {
+          "assigned_conversations": 30,
+          "observed_responses": 10,
+          "missing_responses": 20,
+          "response_patterns": {
+            "missing": 20,
+            "tool_only:request_tech_support": 10
+          },
+          "tool_calls": {
+            "request_tech_support": 10
+          },
+          "end_session_calls": 0
+        },
+        "17": {
+          "assigned_conversations": 30,
+          "observed_responses": 9,
+          "missing_responses": 21,
+          "response_patterns": {
+            "missing": 21,
+            "text_only": 6,
+            "tool_only:request_tech_support": 3
+          },
+          "tool_calls": {
+            "request_tech_support": 3
+          },
+          "end_session_calls": 0
+        },
+        "28": {
+          "assigned_conversations": 30,
+          "observed_responses": 3,
+          "missing_responses": 27,
+          "response_patterns": {
+            "missing": 27,
+            "text_only": 3
+          },
+          "tool_calls": {},
+          "end_session_calls": 0
+        },
+        "29": {
+          "assigned_conversations": 30,
+          "observed_responses": 3,
+          "missing_responses": 27,
+          "response_patterns": {
+            "missing": 27,
+            "tool_only:end_session": 3
+          },
+          "tool_calls": {
+            "end_session": 3
+          },
+          "end_session_calls": 3
+        }
+      },
+      "transitions": {
+        "t14_to_t15": {
+          "t14=missing -> t15=missing": 4,
+          "t14=text_only -> t15=text_only": 1,
+          "t14=text_only -> t15=tool_only:submit_dietary_request": 8,
+          "t14=tool_only:submit_dietary_request -> t15=text_only": 8,
+          "t14=tool_only:submit_dietary_request -> t15=tool_only:end_session": 9
+        },
+        "t16_to_t17": {
+          "t16=missing -> t17=missing": 20,
+          "t16=tool_only:request_tech_support -> t17=missing": 1,
+          "t16=tool_only:request_tech_support -> t17=text_only": 6,
+          "t16=tool_only:request_tech_support -> t17=tool_only:request_tech_support": 3
+        }
+      }
+    }
+  },
+  "synthetic_recovery_turn_30": {
+    "none": {
+      "definition": "Synthetic recovery rows with transcript turn ID 30; not a scored scheduled turn.",
+      "conversations_with_turn_30": 15,
+      "response_patterns": {
+        "text_only": 5,
+        "tool_only:request_tech_support": 7,
+        "tool_only:submit_dietary_request": 3
+      },
+      "end_session_calls": 0
+    },
+    "low": {
+      "definition": "Synthetic recovery rows with transcript turn ID 30; not a scored scheduled turn.",
+      "conversations_with_turn_30": 13,
+      "response_patterns": {
+        "text_only": 2,
+        "tool_only:end_session": 8,
+        "tool_only:request_tech_support": 2,
+        "tool_only:submit_dietary_request": 1
+      },
+      "end_session_calls": 8
+    }
+  },
+  "run_causes": [
+    {
+      "slot": "IS-01",
+      "arm": "low",
+      "run_dir": "runs/aiwf_medium_context/20260731T105207_thinkingmachines_inkling-small_a54d0995",
+      "cause": "recovery_end_session",
+      "scheduled_turns": 16,
+      "missing_turns": 14,
+      "scheduled_end_session_turns": [],
+      "recovery_end_session_turns": [
+        30
+      ]
+    },
+    {
+      "slot": "IS-02",
+      "arm": "none",
+      "run_dir": "runs/aiwf_medium_context/20260731T105218_thinkingmachines_inkling-small_1818f402",
+      "cause": "strict_complete",
+      "scheduled_turns": 30,
+      "missing_turns": 0,
+      "scheduled_end_session_turns": [
+        29
+      ],
+      "recovery_end_session_turns": []
+    },
+    {
+      "slot": "IS-03",
+      "arm": "low",
+      "run_dir": "runs/aiwf_medium_context/20260731T105235_thinkingmachines_inkling-small_accc4502",
+      "cause": "model_abort",
+      "scheduled_turns": 16,
+      "missing_turns": 14,
+      "scheduled_end_session_turns": [
+        15
+      ],
+      "recovery_end_session_turns": []
+    },
+    {
+      "slot": "IS-04",
+      "arm": "none",
+      "run_dir": "runs/aiwf_medium_context/20260731T105246_thinkingmachines_inkling-small_70f9846b",
+      "cause": "baseten_429_idle",
+      "scheduled_turns": 12,
+      "missing_turns": 18,
+      "scheduled_end_session_turns": [],
+      "recovery_end_session_turns": []
+    },
+    {
+      "slot": "IS-05",
+      "arm": "low",
+      "run_dir": "runs/aiwf_medium_context/20260731T105341_thinkingmachines_inkling-small_70cdae48",
+      "cause": "strict_complete",
+      "scheduled_turns": 30,
+      "missing_turns": 0,
+      "scheduled_end_session_turns": [
+        29
+      ],
+      "recovery_end_session_turns": []
+    },
+    {
+      "slot": "IS-06",
+      "arm": "none",
+      "run_dir": "runs/aiwf_medium_context/20260731T105357_thinkingmachines_inkling-small_f4e2b333",
+      "cause": "baseten_429_idle",
+      "scheduled_turns": 17,
+      "missing_turns": 13,
+      "scheduled_end_session_turns": [],
+      "recovery_end_session_turns": []
+    },
+    {
+      "slot": "IS-07",
+      "arm": "none",
+      "run_dir": "runs/aiwf_medium_context/20260731T105500_thinkingmachines_inkling-small_25f0baa6",
+      "cause": "strict_complete",
+      "scheduled_turns": 30,
+      "missing_turns": 0,
+      "scheduled_end_session_turns": [
+        29
+      ],
+      "recovery_end_session_turns": []
+    },
+    {
+      "slot": "IS-08",
+      "arm": "low",
+      "run_dir": "runs/aiwf_medium_context/20260731T105516_thinkingmachines_inkling-small_e43cdc51",
+      "cause": "model_abort",
+      "scheduled_turns": 16,
+      "missing_turns": 14,
+      "scheduled_end_session_turns": [
+        15
+      ],
+      "recovery_end_session_turns": []
+    },
+    {
+      "slot": "IS-09",
+      "arm": "none",
+      "run_dir": "runs/aiwf_medium_context/20260731T105526_thinkingmachines_inkling-small_37033777",
+      "cause": "baseten_429_idle",
+      "scheduled_turns": 3,
+      "missing_turns": 27,
+      "scheduled_end_session_turns": [],
+      "recovery_end_session_turns": []
+    },
+    {
+      "slot": "IS-10",
+      "arm": "low",
+      "run_dir": "runs/aiwf_medium_context/20260731T105617_thinkingmachines_inkling-small_fe2ffc45",
+      "cause": "strict_complete",
+      "scheduled_turns": 30,
+      "missing_turns": 0,
+      "scheduled_end_session_turns": [
+        29
+      ],
+      "recovery_end_session_turns": []
+    },
+    {
+      "slot": "IS-11",
+      "arm": "none",
+      "run_dir": "runs/aiwf_medium_context/20260731T105633_thinkingmachines_inkling-small_0abce727",
+      "cause": "baseten_429_idle",
+      "scheduled_turns": 23,
+      "missing_turns": 7,
+      "scheduled_end_session_turns": [],
+      "recovery_end_session_turns": []
+    },
+    {
+      "slot": "IS-12",
+      "arm": "low",
+      "run_dir": "runs/aiwf_medium_context/20260731T105736_thinkingmachines_inkling-small_a4ee8724",
+      "cause": "recovery_end_session",
+      "scheduled_turns": 16,
+      "missing_turns": 14,
+      "scheduled_end_session_turns": [],
+      "recovery_end_session_turns": [
+        30
+      ]
+    },
+    {
+      "slot": "IS-13",
+      "arm": "none",
+      "run_dir": "runs/aiwf_medium_context/20260731T105747_thinkingmachines_inkling-small_0b05e0f7",
+      "cause": "strict_complete",
+      "scheduled_turns": 30,
+      "missing_turns": 0,
+      "scheduled_end_session_turns": [
+        29
+      ],
+      "recovery_end_session_turns": []
+    },
+    {
+      "slot": "IS-14",
+      "arm": "low",
+      "run_dir": "runs/aiwf_medium_context/20260731T105808_thinkingmachines_inkling-small_4ad07a12",
+      "cause": "baseten_429_idle",
+      "scheduled_turns": 1,
+      "missing_turns": 29,
+      "scheduled_end_session_turns": [],
+      "recovery_end_session_turns": []
+    },
+    {
+      "slot": "IS-15",
+      "arm": "low",
+      "run_dir": "runs/aiwf_medium_context/20260731T105859_thinkingmachines_inkling-small_4e3fbc03",
+      "cause": "recovery_end_session",
+      "scheduled_turns": 16,
+      "missing_turns": 14,
+      "scheduled_end_session_turns": [],
+      "recovery_end_session_turns": [
+        30
+      ]
+    },
+    {
+      "slot": "IS-16",
+      "arm": "none",
+      "run_dir": "runs/aiwf_medium_context/20260731T105909_thinkingmachines_inkling-small_6abfb1be",
+      "cause": "strict_complete",
+      "scheduled_turns": 30,
+      "missing_turns": 0,
+      "scheduled_end_session_turns": [
+        29
+      ],
+      "recovery_end_session_turns": []
+    },
+    {
+      "slot": "IS-17",
+      "arm": "low",
+      "run_dir": "runs/aiwf_medium_context/20260731T105927_thinkingmachines_inkling-small_bb80d69b",
+      "cause": "baseten_429_idle",
+      "scheduled_turns": 3,
+      "missing_turns": 27,
+      "scheduled_end_session_turns": [],
+      "recovery_end_session_turns": []
+    },
+    {
+      "slot": "IS-18",
+      "arm": "none",
+      "run_dir": "runs/aiwf_medium_context/20260731T110018_thinkingmachines_inkling-small_0f2029e6",
+      "cause": "strict_complete",
+      "scheduled_turns": 30,
+      "missing_turns": 0,
+      "scheduled_end_session_turns": [
+        29
+      ],
+      "recovery_end_session_turns": []
+    },
+    {
+      "slot": "IS-19",
+      "arm": "none",
+      "run_dir": "runs/aiwf_medium_context/20260731T110036_thinkingmachines_inkling-small_63a3de1c",
+      "cause": "baseten_429_idle",
+      "scheduled_turns": 17,
+      "missing_turns": 13,
+      "scheduled_end_session_turns": [],
+      "recovery_end_session_turns": []
+    },
+    {
+      "slot": "IS-20",
+      "arm": "low",
+      "run_dir": "runs/aiwf_medium_context/20260731T110136_thinkingmachines_inkling-small_c8781593",
+      "cause": "model_abort",
+      "scheduled_turns": 16,
+      "missing_turns": 14,
+      "scheduled_end_session_turns": [
+        15
+      ],
+      "recovery_end_session_turns": []
+    },
+    {
+      "slot": "IS-21",
+      "arm": "low",
+      "run_dir": "runs/aiwf_medium_context/20260731T110146_thinkingmachines_inkling-small_6d2c7bb7",
+      "cause": "recovery_end_session",
+      "scheduled_turns": 16,
+      "missing_turns": 14,
+      "scheduled_end_session_turns": [],
+      "recovery_end_session_turns": [
+        30
+      ]
+    },
+    {
+      "slot": "IS-22",
+      "arm": "none",
+      "run_dir": "runs/aiwf_medium_context/20260731T110156_thinkingmachines_inkling-small_d164ca8f",
+      "cause": "baseten_429_idle",
+      "scheduled_turns": 20,
+      "missing_turns": 10,
+      "scheduled_end_session_turns": [],
+      "recovery_end_session_turns": []
+    },
+    {
+      "slot": "IS-23",
+      "arm": "none",
+      "run_dir": "runs/aiwf_medium_context/20260731T110259_thinkingmachines_inkling-small_afaf1d33",
+      "cause": "strict_complete",
+      "scheduled_turns": 30,
+      "missing_turns": 0,
+      "scheduled_end_session_turns": [
+        29
+      ],
+      "recovery_end_session_turns": []
+    },
+    {
+      "slot": "IS-24",
+      "arm": "low",
+      "run_dir": "runs/aiwf_medium_context/20260731T110316_thinkingmachines_inkling-small_5acf5684",
+      "cause": "baseten_429_idle",
+      "scheduled_turns": 17,
+      "missing_turns": 13,
+      "scheduled_end_session_turns": [],
+      "recovery_end_session_turns": []
+    },
+    {
+      "slot": "IS-25",
+      "arm": "low",
+      "run_dir": "runs/aiwf_medium_context/20260731T110413_thinkingmachines_inkling-small_de13acee",
+      "cause": "recovery_end_session",
+      "scheduled_turns": 18,
+      "missing_turns": 12,
+      "scheduled_end_session_turns": [],
+      "recovery_end_session_turns": [
+        30
+      ]
+    },
+    {
+      "slot": "IS-26",
+      "arm": "none",
+      "run_dir": "runs/aiwf_medium_context/20260731T110424_thinkingmachines_inkling-small_a9fbc355",
+      "cause": "strict_complete",
+      "scheduled_turns": 30,
+      "missing_turns": 0,
+      "scheduled_end_session_turns": [
+        29
+      ],
+      "recovery_end_session_turns": []
+    },
+    {
+      "slot": "IS-27",
+      "arm": "none",
+      "run_dir": "runs/aiwf_medium_context/20260731T110449_thinkingmachines_inkling-small_cce1f375",
+      "cause": "baseten_429_idle",
+      "scheduled_turns": 13,
+      "missing_turns": 17,
+      "scheduled_end_session_turns": [],
+      "recovery_end_session_turns": []
+    },
+    {
+      "slot": "IS-28",
+      "arm": "low",
+      "run_dir": "runs/aiwf_medium_context/20260731T110554_thinkingmachines_inkling-small_5bfa8db9",
+      "cause": "recovery_end_session",
+      "scheduled_turns": 16,
+      "missing_turns": 14,
+      "scheduled_end_session_turns": [],
+      "recovery_end_session_turns": [
+        30
+      ]
+    },
+    {
+      "slot": "IS-29",
+      "arm": "none",
+      "run_dir": "runs/aiwf_medium_context/20260731T110605_thinkingmachines_inkling-small_ee0527b0",
+      "cause": "strict_complete",
+      "scheduled_turns": 30,
+      "missing_turns": 0,
+      "scheduled_end_session_turns": [
+        29
+      ],
+      "recovery_end_session_turns": []
+    },
+    {
+      "slot": "IS-30",
+      "arm": "low",
+      "run_dir": "runs/aiwf_medium_context/20260731T110632_thinkingmachines_inkling-small_b348350a",
+      "cause": "baseten_429_idle",
+      "scheduled_turns": 25,
+      "missing_turns": 5,
+      "scheduled_end_session_turns": [],
+      "recovery_end_session_turns": []
+    },
+    {
+      "slot": "IS-31",
+      "arm": "none",
+      "run_dir": "runs/aiwf_medium_context/20260731T110746_thinkingmachines_inkling-small_c1c19874",
+      "cause": "strict_complete",
+      "scheduled_turns": 30,
+      "missing_turns": 0,
+      "scheduled_end_session_turns": [
+        29
+      ],
+      "recovery_end_session_turns": []
+    },
+    {
+      "slot": "IS-32",
+      "arm": "low",
+      "run_dir": "runs/aiwf_medium_context/20260731T110806_thinkingmachines_inkling-small_e8fd0fca",
+      "cause": "model_abort",
+      "scheduled_turns": 16,
+      "missing_turns": 14,
+      "scheduled_end_session_turns": [
+        15
+      ],
+      "recovery_end_session_turns": []
+    },
+    {
+      "slot": "IS-33",
+      "arm": "low",
+      "run_dir": "runs/aiwf_medium_context/20260731T110819_thinkingmachines_inkling-small_218d4825",
+      "cause": "baseten_429_idle",
+      "scheduled_turns": 6,
+      "missing_turns": 24,
+      "scheduled_end_session_turns": [],
+      "recovery_end_session_turns": []
+    },
+    {
+      "slot": "IS-34",
+      "arm": "none",
+      "run_dir": "runs/aiwf_medium_context/20260731T110916_thinkingmachines_inkling-small_a84db19e",
+      "cause": "strict_complete",
+      "scheduled_turns": 30,
+      "missing_turns": 0,
+      "scheduled_end_session_turns": [
+        29
+      ],
+      "recovery_end_session_turns": []
+    },
+    {
+      "slot": "IS-35",
+      "arm": "low",
+      "run_dir": "runs/aiwf_medium_context/20260731T110934_thinkingmachines_inkling-small_0dcd09b2",
+      "cause": "baseten_429_idle",
+      "scheduled_turns": 22,
+      "missing_turns": 8,
+      "scheduled_end_session_turns": [],
+      "recovery_end_session_turns": []
+    },
+    {
+      "slot": "IS-36",
+      "arm": "none",
+      "run_dir": "runs/aiwf_medium_context/20260731T111034_thinkingmachines_inkling-small_0e4810c9",
+      "cause": "strict_complete",
+      "scheduled_turns": 30,
+      "missing_turns": 0,
+      "scheduled_end_session_turns": [
+        29
+      ],
+      "recovery_end_session_turns": []
+    },
+    {
+      "slot": "IS-37",
+      "arm": "low",
+      "run_dir": "runs/aiwf_medium_context/20260731T111054_thinkingmachines_inkling-small_7a4862a2",
+      "cause": "baseten_429_idle",
+      "scheduled_turns": 18,
+      "missing_turns": 12,
+      "scheduled_end_session_turns": [],
+      "recovery_end_session_turns": []
+    },
+    {
+      "slot": "IS-38",
+      "arm": "none",
+      "run_dir": "runs/aiwf_medium_context/20260731T111153_thinkingmachines_inkling-small_e990c834",
+      "cause": "strict_complete",
+      "scheduled_turns": 30,
+      "missing_turns": 0,
+      "scheduled_end_session_turns": [
+        29
+      ],
+      "recovery_end_session_turns": []
+    },
+    {
+      "slot": "IS-39",
+      "arm": "low",
+      "run_dir": "runs/aiwf_medium_context/20260731T111216_thinkingmachines_inkling-small_c9f4a20d",
+      "cause": "baseten_429_idle",
+      "scheduled_turns": 21,
+      "missing_turns": 9,
+      "scheduled_end_session_turns": [],
+      "recovery_end_session_turns": []
+    },
+    {
+      "slot": "IS-40",
+      "arm": "none",
+      "run_dir": "runs/aiwf_medium_context/20260731T111319_thinkingmachines_inkling-small_93e77d0d",
+      "cause": "model_abort",
+      "scheduled_turns": 29,
+      "missing_turns": 1,
+      "scheduled_end_session_turns": [
+        28
+      ],
+      "recovery_end_session_turns": []
+    },
+    {
+      "slot": "IS-41",
+      "arm": "none",
+      "run_dir": "runs/aiwf_medium_context/20260731T111342_thinkingmachines_inkling-small_d66afdca",
+      "cause": "baseten_429_idle",
+      "scheduled_turns": 24,
+      "missing_turns": 6,
+      "scheduled_end_session_turns": [],
+      "recovery_end_session_turns": []
+    },
+    {
+      "slot": "IS-42",
+      "arm": "low",
+      "run_dir": "runs/aiwf_medium_context/20260731T111446_thinkingmachines_inkling-small_ebe1f264",
+      "cause": "recovery_end_session",
+      "scheduled_turns": 16,
+      "missing_turns": 14,
+      "scheduled_end_session_turns": [],
+      "recovery_end_session_turns": [
+        30
+      ]
+    },
+    {
+      "slot": "IS-43",
+      "arm": "low",
+      "run_dir": "runs/aiwf_medium_context/20260731T111456_thinkingmachines_inkling-small_7c21ca9a",
+      "cause": "model_abort",
+      "scheduled_turns": 16,
+      "missing_turns": 14,
+      "scheduled_end_session_turns": [
+        15
+      ],
+      "recovery_end_session_turns": []
+    },
+    {
+      "slot": "IS-44",
+      "arm": "none",
+      "run_dir": "runs/aiwf_medium_context/20260731T111506_thinkingmachines_inkling-small_c8230dc1",
+      "cause": "baseten_429_idle",
+      "scheduled_turns": 25,
+      "missing_turns": 5,
+      "scheduled_end_session_turns": [],
+      "recovery_end_session_turns": []
+    },
+    {
+      "slot": "IS-45",
+      "arm": "none",
+      "run_dir": "runs/aiwf_medium_context/20260731T111613_thinkingmachines_inkling-small_1e7ce740",
+      "cause": "strict_complete",
+      "scheduled_turns": 30,
+      "missing_turns": 0,
+      "scheduled_end_session_turns": [
+        29
+      ],
+      "recovery_end_session_turns": []
+    },
+    {
+      "slot": "IS-46",
+      "arm": "low",
+      "run_dir": "runs/aiwf_medium_context/20260731T111631_thinkingmachines_inkling-small_5c0bfd3f",
+      "cause": "baseten_429_idle",
+      "scheduled_turns": 18,
+      "missing_turns": 12,
+      "scheduled_end_session_turns": [],
+      "recovery_end_session_turns": []
+    },
+    {
+      "slot": "IS-47",
+      "arm": "none",
+      "run_dir": "runs/aiwf_medium_context/20260731T111733_thinkingmachines_inkling-small_321519f6",
+      "cause": "strict_complete",
+      "scheduled_turns": 30,
+      "missing_turns": 0,
+      "scheduled_end_session_turns": [
+        29
+      ],
+      "recovery_end_session_turns": []
+    },
+    {
+      "slot": "IS-48",
+      "arm": "low",
+      "run_dir": "runs/aiwf_medium_context/20260731T111751_thinkingmachines_inkling-small_4c834cd8",
+      "cause": "baseten_429_idle",
+      "scheduled_turns": 13,
+      "missing_turns": 17,
+      "scheduled_end_session_turns": [],
+      "recovery_end_session_turns": []
+    },
+    {
+      "slot": "IS-49",
+      "arm": "low",
+      "run_dir": "runs/aiwf_medium_context/20260731T111847_thinkingmachines_inkling-small_80b4e92b",
+      "cause": "recovery_end_session",
+      "scheduled_turns": 16,
+      "missing_turns": 14,
+      "scheduled_end_session_turns": [],
+      "recovery_end_session_turns": [
+        30
+      ]
+    },
+    {
+      "slot": "IS-50",
+      "arm": "none",
+      "run_dir": "runs/aiwf_medium_context/20260731T111857_thinkingmachines_inkling-small_b5feeddb",
+      "cause": "strict_complete",
+      "scheduled_turns": 30,
+      "missing_turns": 0,
+      "scheduled_end_session_turns": [
+        29
+      ],
+      "recovery_end_session_turns": []
+    },
+    {
+      "slot": "IS-51",
+      "arm": "none",
+      "run_dir": "runs/aiwf_medium_context/20260731T111920_thinkingmachines_inkling-small_9807f01b",
+      "cause": "baseten_429_idle",
+      "scheduled_turns": 16,
+      "missing_turns": 14,
+      "scheduled_end_session_turns": [],
+      "recovery_end_session_turns": []
+    },
+    {
+      "slot": "IS-52",
+      "arm": "low",
+      "run_dir": "runs/aiwf_medium_context/20260731T112023_thinkingmachines_inkling-small_23176e01",
+      "cause": "strict_complete",
+      "scheduled_turns": 30,
+      "missing_turns": 0,
+      "scheduled_end_session_turns": [
+        29
+      ],
+      "recovery_end_session_turns": []
+    },
+    {
+      "slot": "IS-53",
+      "arm": "low",
+      "run_dir": "runs/aiwf_medium_context/20260731T112043_thinkingmachines_inkling-small_03d6f97b",
+      "cause": "model_abort",
+      "scheduled_turns": 16,
+      "missing_turns": 14,
+      "scheduled_end_session_turns": [
+        15
+      ],
+      "recovery_end_session_turns": []
+    },
+    {
+      "slot": "IS-54",
+      "arm": "none",
+      "run_dir": "runs/aiwf_medium_context/20260731T112052_thinkingmachines_inkling-small_24bb324c",
+      "cause": "baseten_429_idle",
+      "scheduled_turns": 11,
+      "missing_turns": 19,
+      "scheduled_end_session_turns": [],
+      "recovery_end_session_turns": []
+    },
+    {
+      "slot": "IS-55",
+      "arm": "none",
+      "run_dir": "runs/aiwf_medium_context/20260731T112152_thinkingmachines_inkling-small_8d369ad9",
+      "cause": "strict_complete",
+      "scheduled_turns": 30,
+      "missing_turns": 0,
+      "scheduled_end_session_turns": [
+        29
+      ],
+      "recovery_end_session_turns": []
+    },
+    {
+      "slot": "IS-56",
+      "arm": "low",
+      "run_dir": "runs/aiwf_medium_context/20260731T112211_thinkingmachines_inkling-small_8680d2b9",
+      "cause": "model_abort",
+      "scheduled_turns": 16,
+      "missing_turns": 14,
+      "scheduled_end_session_turns": [
+        15
+      ],
+      "recovery_end_session_turns": []
+    },
+    {
+      "slot": "IS-57",
+      "arm": "none",
+      "run_dir": "runs/aiwf_medium_context/20260731T112223_thinkingmachines_inkling-small_4de15ba3",
+      "cause": "baseten_429_idle",
+      "scheduled_turns": 3,
+      "missing_turns": 27,
+      "scheduled_end_session_turns": [],
+      "recovery_end_session_turns": []
+    },
+    {
+      "slot": "IS-58",
+      "arm": "low",
+      "run_dir": "runs/aiwf_medium_context/20260731T112315_thinkingmachines_inkling-small_ac3756e8",
+      "cause": "model_abort",
+      "scheduled_turns": 16,
+      "missing_turns": 14,
+      "scheduled_end_session_turns": [
+        15
+      ],
+      "recovery_end_session_turns": []
+    },
+    {
+      "slot": "IS-59",
+      "arm": "low",
+      "run_dir": "runs/aiwf_medium_context/20260731T112326_thinkingmachines_inkling-small_0815765c",
+      "cause": "model_abort",
+      "scheduled_turns": 16,
+      "missing_turns": 14,
+      "scheduled_end_session_turns": [
+        15
+      ],
+      "recovery_end_session_turns": []
+    },
+    {
+      "slot": "IS-60",
+      "arm": "none",
+      "run_dir": "runs/aiwf_medium_context/20260731T112335_thinkingmachines_inkling-small_a5d6ea4d",
+      "cause": "strict_complete",
+      "scheduled_turns": 30,
+      "missing_turns": 0,
+      "scheduled_end_session_turns": [
+        29
+      ],
+      "recovery_end_session_turns": []
+    }
+  ]
+}

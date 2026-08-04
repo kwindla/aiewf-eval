@@ -1,0 +1,34 @@
+{
+  "campaign_id": "aiewf-medium-inkling-small-baseten-none-low-n30-20260731",
+  "benchmark": "aiwf_medium_context",
+  "provider": "BaseTen Model API",
+  "endpoint": "https://inference.baseten.co/v1",
+  "model": "thinkingmachines/inkling-small",
+  "service": "baseten",
+  "pipeline": "text",
+  "arms": ["none", "low"],
+  "target_valid_conversations_per_arm": 30,
+  "fixed_scheduled_turns_per_conversation": 30,
+  "schedule_seed": 20260731,
+  "schedule_design": "30 temporal pairs in five six-pair blocks; each block has three none-first and three low-first pairs",
+  "sampling": {
+    "temperature": 1.0,
+    "max_tokens": 16384
+  },
+  "runtime": {
+    "provider_endpoint_concurrency": 1,
+    "enable_recovery": true,
+    "dedupe_tool_calls": true,
+    "tool_result_run_llm": false,
+    "text_idle_timeout_seconds": 45
+  },
+  "filler": null,
+  "smoke_gate": {
+    "none_full_conversation": "runs/aiwf_medium_context/20260731T094929_thinkingmachines_inkling-small_c411201a",
+    "none_passed": true,
+    "low_full_conversation": "runs/aiwf_medium_context/20260731T095023_thinkingmachines_inkling-small_0e06c755",
+    "low_passed": true
+  },
+  "eligibility": "Any attempt with at least one valid model response is canonical. Model aborts and later timeouts remain outcomes; replace only objective provider/transport failures with zero valid responses.",
+  "max_attempts_per_slot": 4
+}
