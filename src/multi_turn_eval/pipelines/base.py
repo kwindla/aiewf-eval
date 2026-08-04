@@ -91,6 +91,7 @@ class BasePipeline(ABC):
         self._recovery_for_actual_turn: Optional[int] = None
         self._recovery_turn_index_base: int = 0
         self._recovery_turn_counter: int = 0
+        self._run_failure: Optional[Dict[str, Any]] = None
 
     @property
     def effective_turns(self) -> List[dict]:
@@ -151,6 +152,10 @@ class BasePipeline(ABC):
         await self._queue_first_turn()
         runner = PipelineRunner(handle_sigint=True)
         await runner.run(self.task)
+        if self._run_failure is not None:
+            reason = self._run_failure.get("reason", "unknown")
+            turn = self._run_failure.get("turn")
+            raise RuntimeError(f"Benchmark run failed: {reason} at turn {turn}")
 
     def _get_actual_turn_index(self, effective_index: int) -> int:
         """Convert effective turn index to actual turn index."""

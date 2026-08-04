@@ -220,13 +220,22 @@ class TranscriptRecorder:
         self.total_turns_scored += 1
         logger.info(f"Recorded turn {self.turn_index}: {assistant_text[:100]}...")
 
-    def write_summary(self):
-        """Write the runtime summary file."""
+    def write_summary(
+        self,
+        *,
+        status: str = "completed",
+        failure: Optional[Dict[str, Any]] = None,
+    ):
+        """Write runtime metadata for a completed or failed run."""
         runtime = {
             "model_name": self.model_name,
             "turns": self.total_turns_scored,
+            "status": status,
+            "valid": status == "completed",
             "note": "runtime-only; scoring is performed post-run",
         }
+        if failure is not None:
+            runtime["failure"] = failure
         (self.run_dir / "runtime.json").write_text(
             json.dumps(runtime, indent=2), encoding="utf-8"
         )

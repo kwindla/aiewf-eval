@@ -20,6 +20,7 @@ import click
 from dotenv import load_dotenv
 from loguru import logger
 
+from multi_turn_eval.model_capabilities import get_model_capabilities
 from multi_turn_eval.model_policy import (
     OPENAI_PRO_EXCLUSION_MESSAGE,
     is_openai_pro_model,
@@ -132,6 +133,8 @@ def infer_pipeline(model: str, service: str | None = None) -> str:
     # Grok realtime uses dedicated pipeline for xAI-specific protocol handling
     if m.startswith("grok") and "realtime" in m:
         return "grok-realtime"
+    if get_model_capabilities(model).realtime or s == "gemini-live":
+        return "realtime"
     if "realtime" in m:
         return "realtime"
     if "native-audio" in m or "live" in m:
@@ -212,6 +215,26 @@ def cli():
     ),
     help="Provider thinking mode (supported values depend on the model).",
 )
+@click.option(
+    "--gemini-3-protocol",
+    is_flag=True,
+    help="Force Gemini 3 Live protocol behavior for an opaque model ID.",
+)
+@click.option(
+    "--gemini-require-interaction-status",
+    is_flag=True,
+    help="Require interaction_status to confirm Gemini Live turn completion.",
+)
+@click.option(
+    "--gemini-explicit-audio-activity",
+    is_flag=True,
+    help="Use exact WAV boundaries and disable Gemini server-side VAD.",
+)
+@click.option(
+    "--no-turn-replay",
+    is_flag=True,
+    help="Terminate a realtime run instead of replaying a failed user turn.",
+)
 @click.option("--verbose", "-v", is_flag=True, help="Enable verbose logging")
 def run(
     benchmark_name: str,
@@ -220,6 +243,10 @@ def run(
     pipeline: Optional[str],
     only_turns: Optional[str],
     thinking: Optional[str],
+    gemini_3_protocol: bool,
+    gemini_require_interaction_status: bool,
+    gemini_explicit_audio_activity: bool,
+    no_turn_replay: bool,
     verbose: bool,
 ):
     """Run a benchmark against an LLM.
@@ -230,7 +257,19 @@ def run(
         uv run multi-turn-eval run aiwf_medium_context --model gpt-realtime --service openai-realtime --pipeline realtime
     """
     asyncio.run(
-        _run(benchmark_name, model, service, pipeline, only_turns, thinking, verbose)
+        _run(
+            benchmark_name=benchmark_name,
+            model=model,
+            service=service,
+            pipeline_type=pipeline,
+            only_turns=only_turns,
+            thinking=thinking,
+            verbose=verbose,
+            gemini_3_protocol=gemini_3_protocol,
+            gemini_require_interaction_status=gemini_require_interaction_status,
+            gemini_explicit_audio_activity=gemini_explicit_audio_activity,
+            no_turn_replay=no_turn_replay,
+        )
     )
 
 
@@ -242,6 +281,10 @@ async def _run(
     only_turns: Optional[str],
     thinking: Optional[str],
     verbose: bool,
+    gemini_3_protocol: bool = False,
+    gemini_require_interaction_status: bool = False,
+    gemini_explicit_audio_activity: bool = False,
+    no_turn_replay: bool = False,
 ):
     """Async implementation of the run command."""
     reject_openai_pro_model(model, service)
@@ -254,6 +297,22 @@ async def _run(
     if not pipeline_type:
         pipeline_type = infer_pipeline(model, service)
         click.echo(f"Auto-detected pipeline: {pipeline_type}")
+
+    gemini_behavior_requested = any(
+        (
+            gemini_3_protocol,
+            gemini_require_interaction_status,
+            gemini_explicit_audio_activity,
+        )
+    )
+    if gemini_behavior_requested and (service or "").lower() != "gemini-live":
+        raise click.UsageError(
+            "Gemini Live behavior flags require --service gemini-live"
+        )
+    if (gemini_behavior_requested or no_turn_replay) and pipeline_type != "realtime":
+        raise click.UsageError(
+            "Realtime behavior flags require the realtime pipeline"
+        )
 
     pipeline_cls = get_pipeline_class(pipeline_type)
 
@@ -285,7 +344,19 @@ async def _run(
 
     # Run the pipeline
     try:
-        pipeline_instance = pipeline_cls(benchmark)
+        pipeline_kwargs = {}
+        if pipeline_type == "realtime":
+            pipeline_kwargs = {
+                "gemini_3_protocol": True if gemini_3_protocol else None,
+                "require_interaction_status": (
+                    True if gemini_require_interaction_status else None
+                ),
+                "explicit_audio_activity": (
+                    True if gemini_explicit_audio_activity else None
+                ),
+                "allow_turn_replay": False if no_turn_replay else None,
+            }
+        pipeline_instance = pipeline_cls(benchmark, **pipeline_kwargs)
         await pipeline_instance.run(
             recorder=recorder,
             model=model,

@@ -37,10 +37,11 @@ class TTSStoppedAssistantTranscriptProcessor(AssistantTranscriptProcessor):
     - Avoids default flush triggers from AssistantTranscriptProcessor.
     """
 
-    def __init__(self, **kwargs):
+    def __init__(self, *, flush_on_bot_stopped: bool = True, **kwargs):
         super().__init__(**kwargs)
         self._current_text_parts = []
         self._aggregation_start_time = None
+        self._flush_on_bot_stopped = flush_on_bot_stopped
 
     def clear_buffer(self):
         """Clear accumulated text buffer. Call this during reconnection to discard stale partial responses."""
@@ -94,9 +95,8 @@ class TTSStoppedAssistantTranscriptProcessor(AssistantTranscriptProcessor):
                 TextPartForConcatenation(text, includes_inter_part_spaces=True)
             )
             await self.push_frame(frame, direction)
-        elif isinstance(
-            frame,
-            (TTSStoppedFrame, LLMFullResponseEndFrame, BotStoppedSpeakingFrame),
+        elif isinstance(frame, (TTSStoppedFrame, LLMFullResponseEndFrame)) or (
+            self._flush_on_bot_stopped and isinstance(frame, BotStoppedSpeakingFrame)
         ):
             # Flush aggregated text on audio stop or text response end
             logger.info(f"[TRANSCRIPT] Received flush frame: {type(frame).__name__}")
@@ -130,6 +130,12 @@ class TTSStoppedAssistantTranscriptProcessor(AssistantTranscriptProcessor):
             else:
                 logger.info("[TRANSCRIPT] No text to flush (already flushed)")
 
+            await self.push_frame(frame, direction)
+        elif isinstance(frame, BotStoppedSpeakingFrame):
+            # Async-reasoning speech models can pause between multiple audio
+            # phases. Audio playback stopping is not a response boundary for
+            # those models; the provider's terminal signal will produce the
+            # eventual TTSStoppedFrame.
             await self.push_frame(frame, direction)
         else:
             # Forward everything else without flushing
