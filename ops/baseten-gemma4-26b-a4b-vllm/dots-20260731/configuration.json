@@ -1,0 +1,81 @@
+{
+  "campaign_id": "aiewf-medium-gemma4-26b-a4b-dots-paired-20260731",
+  "benchmark": "aiwf_medium_context",
+  "provider": "BaseTen",
+  "model": "google/gemma-4-26B-A4B-it",
+  "endpoint": "https://model-qel1y223.api.baseten.co/deployment/qz4zpye/sync/v1",
+  "control_endpoint": "https://api.baseten.co/v1/models/qel1y223/deployments/qz4zpye",
+  "deployment_id": "qz4zpye",
+  "model_id": "qel1y223",
+  "serving": {
+    "vllm_version": "0.26.1rc1.dev77+g6f91edf96",
+    "automatic_prefix_caching": true,
+    "streaming": true,
+    "automatic_tool_choice": true,
+    "tool_call_parser": "gemma4",
+    "reasoning_parser": "gemma4",
+    "enable_thinking": false,
+    "mtp": {
+      "assistant_model": "google/gemma-4-26B-A4B-it-assistant",
+      "num_speculative_tokens": 1
+    }
+  },
+  "sampling": {
+    "temperature": 1.0,
+    "top_p": 0.95,
+    "top_k": 64,
+    "max_tokens": 8192
+  },
+  "runtime": {
+    "provider_endpoint_concurrency": 1,
+    "enable_recovery": true,
+    "dedupe_tool_calls": true,
+    "tool_result_run_llm": false,
+    "text_idle_timeout_seconds": 45,
+    "conversation_timeout_seconds": 900
+  },
+  "arms": {
+    "nofiller": {
+      "filler": null
+    },
+    "dots96": {
+      "count": 96,
+      "token": ".",
+      "position": "suffix",
+      "request_only": true
+    }
+  },
+  "schedule_seed": 42620260731,
+  "schedule_design": "30 frozen temporal pairs in three order-balanced ten-pair blocks; initial pairs 1-10, promoted pairs 11-30",
+  "initial_target_per_arm": 10,
+  "promoted_target_per_arm": 30,
+  "fixed_scheduled_turns_per_conversation": 30,
+  "adaptive_promotion_rule": {
+    "decision_sample_per_arm": 10,
+    "promote_if_any": [
+      "paired whole-conversation bootstrap 95% interval excludes zero",
+      "absolute pass-rate effect is at least 3.0 points and an aggregate-direction-aligned same-turn failure recurs in at least three conversations",
+      "strict-completion rates differ"
+    ]
+  },
+  "eligibility": "Any attempt with at least one valid model response is canonical. Model aborts, later malformed responses, and later timeouts remain outcomes. Replace only objective provider/transport failures with zero valid model responses.",
+  "max_attempts_per_slot": 4,
+  "autoscaling": {
+    "collection": {
+      "min_replica": 1,
+      "max_replica": 1,
+      "autoscaling_window": 60,
+      "scale_down_delay": 120,
+      "concurrency_target": 1,
+      "target_utilization_percentage": 70
+    },
+    "teardown": {
+      "min_replica": 0,
+      "max_replica": 1,
+      "autoscaling_window": 60,
+      "scale_down_delay": 120,
+      "concurrency_target": 1,
+      "target_utilization_percentage": 70
+    }
+  }
+}

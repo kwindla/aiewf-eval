@@ -1,0 +1,12 @@
+{
+  "campaign_id": "aiewf-medium-gemma4-26b-a4b-dots-paired-20260731",
+  "decision_after_n_per_arm": 10,
+  "promote_to_n30": true,
+  "triggered_rules": [
+    "ci_excludes_zero"
+  ],
+  "aggregates_sha256": "REPLACE_WITH_64_HEX_DIGITS",
+  "included_runs_sha256": "REPLACE_WITH_64_HEX_DIGITS",
+  "decided_at": "REPLACE_WITH_ISO_8601_TIMESTAMP",
+  "notes": "Record the reviewed adaptive analysis; do not use interim outcomes for any other schedule change."
+}

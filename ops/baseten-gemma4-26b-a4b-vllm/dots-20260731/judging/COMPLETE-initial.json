@@ -1,0 +1,33 @@
+{
+  "campaign": "aiewf-medium-gemma4-26b-a4b-dots-paired-20260731",
+  "stage": "initial",
+  "completed_at": "2026-08-04T01:05:06+00:00",
+  "canonical_runs": 20,
+  "canonical_pairs": 10,
+  "judge_model": "claude-opus-4-5",
+  "judge_version": "claude-agent-sdk-v4-turn-taking",
+  "canonical_inputs_sha256": "f696323b888d7013ba4bb6441e99a15cae24fcf546a9ae54b01cdf53a0ad4f54",
+  "judge_source_sha256": "eef8d507d3aa7aa579a5c622f7a33d3586e49c280f5179bc33a5cf46fa87d7a1",
+  "transcript_sha256": {
+    "G4D-01": "9e584a563b0c75d82b41b0588de015b8168bdbec5f720ebbf0d469895a8b86c5",
+    "G4D-02": "d444479fed49d31f35e4fb967b60bec69a6682b98d10e246228337ac18572f2e",
+    "G4D-03": "1594c9f7c343780acb4fae82e1d3d0618e1751d1ddae578907fafb13639cabc5",
+    "G4D-04": "b14fed36429af963c4f98777814424d4e5ef14c270c100e066d93c1d09085386",
+    "G4D-05": "9ee97742e42f7a9e82b04c3201b6f1615fa560dfba6c72bc73167ca6dc032960",
+    "G4D-06": "b62e6b818fca601bd53cd7f0a347df20d81b1f6242e109040f88192ede58ea8a",
+    "G4D-07": "43f857663e3d22134b96dd0ec0362f0b20cec416c46bca19a12caa365917f6fe",
+    "G4D-08": "972e098d3d4ba05775a9357f8fbaf1385bc2eeb5dca1ec6fe1ca1dd65d0bab8f",
+    "G4D-09": "c77627a05c2b876f748af1f03a39d95539244fae710d906aa279a853fd0fe6a8",
+    "G4D-10": "80478a2b55f9b3ef241bba60c4e6013e9fa508c082dc9cee2ddd22fa68db0589",
+    "G4D-11": "10b74c8981230fbadbf9c81f0e1f37b3c4c5207a0260c00ca783035633428cf3",
+    "G4D-12": "079aae94b38b757da50369a9766e10cc7b089cb45c61203609936ead1882cd02",
+    "G4D-13": "929a44665ff2dd8ed78ed8f43c1c73205793e1defc7225917a2f98cf9e53dc24",
+    "G4D-14": "e7ac07c0ad08f27ae1938952fd7ddeadff805e6f5bab036974a2317952a6069b",
+    "G4D-15": "3188806e8f6b9349de926c6942c73d25b1c9422a3454b2b0765e44474e445fdd",
+    "G4D-16": "ffe8101bd3a520dcb51b50a5570748f164fd692a90d2becfbb51c9fc9de2a949",
+    "G4D-17": "0b10cdc5550069a00656bb4ed6306a4e31dc23fbc92f6533daffd26448d99478",
+    "G4D-18": "3e56f5f4625a4354ef29c4892e8b192f85d1a32d20a1caac93ee7b01d36d3cbb",
+    "G4D-19": "6943dea964b479ab5e2d04234d2147b22df3a0c5b99245df154b7ad77ef69ded",
+    "G4D-20": "d7d944b161e957343ecbf849d6ffaee0ab9f6bfd4fde92e4f6ca58f10ead79ce"
+  }
+}

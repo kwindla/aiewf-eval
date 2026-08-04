@@ -1,0 +1,15 @@
+{
+  "aggregates_path": "ops/baseten-gemma4-26b-a4b-vllm/dots-20260731/analysis/aggregates-initial.json",
+  "aggregates_sha256": "04964416c9d1d3ae5d0dea61b7f4a5b919e8c3e5ce8f2164bb4aab8d37e31367",
+  "campaign_id": "aiewf-medium-gemma4-26b-a4b-dots-paired-20260731",
+  "decided_at": "2026-08-04T01:07:05+00:00",
+  "decision_after_n_per_arm": 10,
+  "included_runs_path": "ops/baseten-gemma4-26b-a4b-vllm/dots-20260731/analysis/included-runs-initial.tsv",
+  "included_runs_sha256": "4d5ff944161211648860f514dfd17ade94a71497288d391c33b2881e6bf18d1a",
+  "notes": "Reviewed result of the prespecified initial-stage rule. This file authorizes only the frozen n=30 continuation; it does not launch it.",
+  "promote_to_n30": true,
+  "reviewed_by": "Codex",
+  "triggered_rules": [
+    "completion_differs"
+  ]
+}
