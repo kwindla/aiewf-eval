@@ -131,8 +131,8 @@ def main() -> None:
     markdown = MARKDOWN.read_text()
     primary = markdown.split("<!-- N30_PRIMARY_START -->", 1)[1].split("<!-- N30_PRIMARY_END -->", 1)[0]
     table_lines = [line for line in primary.splitlines() if line.startswith("|")]
-    if len(table_lines) != 26:
-        raise ValueError(f"Markdown primary table should have 24 model rows, found {len(table_lines)-2}")
+    if len(table_lines) != 28:
+        raise ValueError(f"Markdown primary table should have 26 model rows, found {len(table_lines)-2}")
     rows = [line for line in table_lines if line.startswith("| gemini-2.5-flash |")]
     if len(rows) != 1:
         raise ValueError("Markdown Gemini 2.5 row missing or duplicated")
@@ -148,11 +148,11 @@ def main() -> None:
         raise ValueError("Markdown focused-interval display mismatch")
 
     html = HTML.read_text()
-    if "a 24-Model Exploratory Study" not in html or "Twenty-four-model exploratory screen" not in html:
-        raise ValueError("HTML report model count was not updated to 24")
+    if "a 26-Model Exploratory Study" not in html or "Twenty-six-model exploratory screen" not in html:
+        raise ValueError("HTML report model count was not updated to 26")
     section = html.split('<section id="primary-screen">', 1)[1].split("</section>", 1)[0]
-    if section.count("<tr><td>") != 24:
-        raise ValueError("HTML primary table does not contain 24 rows")
+    if section.count("<tr><td>") != 26:
+        raise ValueError("HTML primary table does not contain 26 rows")
     html_rows = re.findall(r"<tr><td>gemini-2\.5-flash</td>.*?</tr>", section)
     if len(html_rows) != 1 or '<td class="mut">Google</td>' not in html_rows[0] or completion not in html_rows[0]:
         raise ValueError("HTML Gemini 2.5 table row mismatch")
@@ -169,7 +169,7 @@ def main() -> None:
         or mechanism.count('class="family-contribution-total') != 11
     ):
         raise ValueError("frozen 11-model mechanism cohort changed")
-    print("Gemini 2.5 campaign, README, and 24-row report verified")
+    print("Gemini 2.5 campaign, README, and 26-row report verified")
 
 
 if __name__ == "__main__":

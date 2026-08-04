@@ -33,12 +33,12 @@ def main() -> None:
     markdown = MARKDOWN.read_text()
     primary = markdown.split("<!-- N30_PRIMARY_START -->", 1)[1].split("<!-- N30_PRIMARY_END -->", 1)[0]
     table_lines = [line for line in primary.splitlines() if line.startswith("|")]
-    if len(table_lines) != 26:
-        raise ValueError(f"Markdown primary table should have 24 rows, found {len(table_lines) - 2}")
+    if len(table_lines) != 28:
+        raise ValueError(f"Markdown primary table should have 26 rows, found {len(table_lines) - 2}")
     html = HTML.read_text()
     section = html.split('<h2><span class="no">3</span>', 1)[1].split('<h2><span class="no">4</span>', 1)[0]
-    if section.count("<tr><td>") != 24:
-        raise ValueError(f"HTML primary table should have 24 rows, found {section.count('<tr><td>')}")
+    if section.count("<tr><td>") != 26:
+        raise ValueError(f"HTML primary table should have 26 rows, found {section.count('<tr><td>')}")
     if "p=" in section.lower() or "bonferroni" in section.lower():
         raise ValueError("HTML primary screen contains prohibited p-value language")
 
@@ -90,7 +90,7 @@ def main() -> None:
     for text, name in ((markdown, "Markdown"), (html, "HTML")):
         if "Flash Lite attempt-policy sensitivity" not in text or "primary estimates remain" not in text.lower():
             raise ValueError(f"{name} omits the Flash Lite attempt-policy sensitivity")
-    print("Gemini campaign, README, and 24-row report outputs verified")
+    print("Gemini campaign, README, and 26-row report outputs verified")
 
 
 if __name__ == "__main__":

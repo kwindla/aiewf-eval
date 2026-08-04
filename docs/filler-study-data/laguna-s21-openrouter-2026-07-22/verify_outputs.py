@@ -369,15 +369,15 @@ def main() -> None:
         raise ValueError("adaptive-expansion provenance mismatch")
 
     markdown = MARKDOWN.read_text()
-    if "**Scope:** Twenty-four standard filler comparisons" not in markdown:
-        raise ValueError("Markdown report scope was not updated to 24 models")
+    if "**Scope:** Twenty-six standard filler comparisons" not in markdown:
+        raise ValueError("Markdown report scope was not updated to 26")
     primary = markdown.split("<!-- N30_PRIMARY_START -->", 1)[1].split(
         "<!-- N30_PRIMARY_END -->", 1
     )[0]
     table_lines = [line for line in primary.splitlines() if line.startswith("|")]
-    if len(table_lines) != 26:
+    if len(table_lines) != 28:
         raise ValueError(
-            f"Markdown primary table should have 24 model rows, found {len(table_lines) - 2}"
+            f"Markdown primary table should have 26 model rows, found {len(table_lines) - 2}"
         )
     expected_markdown_row = (
         "| laguna-s-2.1 | OpenRouter | 85.6 | 83.3 | "
@@ -395,16 +395,16 @@ def main() -> None:
 
     html = HTML.read_text()
     if (
-        "a 24-Model Exploratory Study" not in html
-        or "Twenty-four-model exploratory screen" not in html
+        "a 26-Model Exploratory Study" not in html
+        or "Twenty-six-model exploratory screen" not in html
     ):
-        raise ValueError("HTML report model count was not updated to 24")
+        raise ValueError("HTML report model count was not updated to 26")
     section = html.split('<section id="primary-screen">', 1)[1].split(
         "</section>", 1
     )[0]
-    if section.count("<tr><td>") != 24:
+    if section.count("<tr><td>") != 26:
         raise ValueError(
-            f"HTML primary table should have 24 rows, found {section.count('<tr><td>')}"
+            f"HTML primary table should have 26 rows, found {section.count('<tr><td>')}"
         )
     expected_html_row = (
         '<tr><td>laguna-s-2.1</td><td class="mut">OpenRouter</td>'
@@ -443,7 +443,7 @@ def main() -> None:
         or mechanism.count('class="family-contribution-total') != 11
     ):
         raise ValueError("frozen 11-model mechanism cohort changed")
-    print("Laguna final 30/30 aggregate, source pool, and 24-row report verified")
+    print("Laguna final 30/30 aggregate, source pool, and 26-row report verified")
 
 
 if __name__ == "__main__":

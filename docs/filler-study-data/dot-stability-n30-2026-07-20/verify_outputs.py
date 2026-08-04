@@ -56,8 +56,8 @@ def main() -> None:
     markdown = MARKDOWN.read_text()
     primary = markdown.split("<!-- N30_PRIMARY_START -->", 1)[1].split("<!-- N30_PRIMARY_END -->", 1)[0]
     table_lines = [line for line in primary.splitlines() if line.startswith("|")]
-    if len(table_lines) != 26:
-        raise ValueError(f"Markdown primary table should have 24 data rows, found {len(table_lines) - 2}")
+    if len(table_lines) != 28:
+        raise ValueError(f"Markdown primary table should have 26 data rows, found {len(table_lines) - 2}")
     if "nemotron-super" in "\n".join(table_lines).lower():
         raise ValueError("Markdown primary table includes the separate Nemotron configuration contrast")
     if "p-value" in primary.lower() or "cluster p" in primary.lower() or "bonferroni" in primary.lower():
@@ -81,8 +81,8 @@ def main() -> None:
 
     html = HTML.read_text()
     section = html.split('<h2><span class="no">3</span>', 1)[1].split('<h2><span class="no">4</span>', 1)[0]
-    if section.count("<tr><td>") != 24:
-        raise ValueError(f"HTML primary table should have 24 rows, found {section.count('<tr><td>')}")
+    if section.count("<tr><td>") != 26:
+        raise ValueError(f"HTML primary table should have 26 rows, found {section.count('<tr><td>')}")
     lowered = section.lower()
     if "p=" in lowered or "cluster-p" in lowered or "bonferroni" in lowered:
         raise ValueError("HTML Section 3 contains a p-value or Bonferroni reference")

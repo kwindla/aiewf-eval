@@ -38,6 +38,8 @@ PROVIDERS = {
     "gpt-5.4 (none, +96 dots)": "OpenAI",
     "qwen3.5-4b (thinking)": "Modal",
     "inkling (none)": "BaseTen",
+    "inkling-small (none)": "BaseTen",
+    "inkling-small (low)": "BaseTen",
     "gpt-4o": "OpenAI",
     "qwen3.5-9b (thinking)": "Modal",
     "qwen3.5-27b": "Modal",

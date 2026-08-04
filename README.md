@@ -64,9 +64,11 @@ Text mode models:
 | **gpt-5-mini** | **83.7%** | 16.3% | 14.0% | 16.3% | 1.0% | **682ms** | **1132ms** | **1904ms** | OpenAI |
 | gpt-5.4-mini (none) | 83.1% | 16.9% | 16.2% | 16.9% | 0.0% | 459ms | 731ms | 2369ms | OpenAI |
 | **gpt-4o-mini** | **82.7%** | 17.3% | 10.3% | 13.7% | 2.3% | **553ms** | **1947ms** | **6497ms** | OpenAI |
-| gemma-4-26b-a4b-it (thinking off) | 81.4% | 18.6% | 13.0% | 18.6% | 0.0% | 597ms | 670ms | 4583ms | BaseTen |
 | qwen3-8b (thinking off, BaseTen) | 81.3% | 18.7% | 15.7% | 15.9% | 3.4% | 564ms | 678ms | 1563ms | BaseTen |
+| gemma-4-26b-a4b-it (thinking off) | 80.7% | 19.3% | 13.9% | 19.3% | 0.9% | 580ms | 803ms | 31574ms | BaseTen |
+| inkling-small (none) | 75.1% | 24.9% | 23.8% | 24.2% | 20.4% | 279ms | 828ms | 2024ms | BaseTen |
 | gemini-3.5-flash-lite (minimal) | 68.6% | 31.4% | 30.8% | 31.4% | 28.1% | 591ms | 679ms | 928ms | AI Studio |
+| inkling-small (low) | 51.7% | 48.3% | 48.0% | 48.3% | 43.6% | 277ms | 849ms | 5770ms | BaseTen |
 
 Each conversation in this benchmark has 30 scripted turns. Refreshed filler-study rows use a fixed-denominator, attempt-based analysis in which missing, malformed, and post-abort future turns count as errors. Some legacy rows with early exits use their available observed turns and are therefore not directly comparable on completion reliability; detailed sample sizes and protocols live in the linked study artifacts rather than this summary table. **Any Error** is the percentage of turns where at least one of tool use, instruction following, or KB grounding fails; it is the complement of **Pass Rate**. The three dimension error rates overlap and therefore do not sum to Any Error.
 
@@ -86,7 +88,11 @@ Gemini 3 rows labeled `(minimal)` use Google's lowest supported `thinking_level`
 
 `gpt-5.6-terra` and `gpt-5.6-luna` are two of the three GPT-5.6 versions (the third, `sol`, is the flagship). Like `gpt-5.4`, GPT-5.6 requires the OpenAI Responses API when tools and a reasoning effort are combined — `reasoning_effort` with function tools returns a 400 on `/v1/chat/completions`. The parenthesized label is the `reasoning_effort` level. The `terra (medium)` aggregate excludes a transient OpenAI overload. `luna (none)` runs with reasoning off; its 12s TTFAT Max is an OpenAI-overload artifact from the capture window, not representative (P50 671ms). The refreshed `terra (none)` and `sol (none)` rows use the fixed-denominator study pools described below.
 
-`inkling` is Thinking Machines' 975B-parameter (41B active) open-weights model, run on BaseTen's serverless Model API; `(none)` sets `reasoning_effort: none`. Unlike GPT-5.6, Inkling's accuracy peaks at `low` in the earlier effort sweep and does not improve with more reasoning — higher effort only adds latency (median TTFAT climbs to ~2.0s at `medium` and ~2.5s at `max`, with the P95 tail reaching ~6s). See `docs/inkling-notes.md` and `docs/inkling-baseten-integration.md`.
+<!-- INKLING_SMALL_README_PROSE_START -->
+`inkling` is Thinking Machines' earlier 975B-parameter (41B active) open-weights model. Its historical `(none)` row uses BaseTen's serverless Model API and should not be confused with the newer Inkling Small results below. See `docs/inkling-notes.md` and `docs/inkling-baseten-integration.md`.
+
+`inkling-small` is Thinking Machines' newer smaller model, tested through the BaseTen Model API in a frozen paired effort campaign. With `reasoning_effort=none` it scored 75.1% at 279ms P50 TTFAT; `low` scored 51.7% at 277ms. Both README rows use fixed turn denominators, with missing future turns counted as errors. Its separate exploratory +96-dot arm was compared with the frozen `none` control (+1.8 points); that later, non-interleaved comparison appears in Section 3 of the filler report.
+<!-- INKLING_SMALL_README_PROSE_END -->
 
 `qwen3-8b (thinking off, BaseTen)` uses the official BF16 `Qwen/Qwen3-8B` weights on a dedicated BaseTen vLLM endpoint. Its accuracy and TTFAT are computed only from that endpoint; interrupted OpenRouter/Alibaba attempts remain in the study audit artifacts and are not pooled. The latency is specific to this BaseTen serving configuration, including automatic prefix caching.
 

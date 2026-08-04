@@ -309,7 +309,168 @@ for qwen_key in QWEN_ORDER:
         row_key, verdict, int(control["ttfat_p50_ms"] + 0.5),
     ))
     QWEN_RESULTS[expected["report_name"]] = result
-EXPECTED_MODEL_COUNT = 23 + int(GEMINI25_RESULT is not None)
+# INKLING_SMALL_PUBLICATION_DATA_START
+INKLING_SMALL_PUBLICATION_PATH = (
+    Path(__file__).resolve().parents[1]
+    / "ops/baseten-inkling-small/aiewf-medium-none-low-n30-20260731/analysis/publication-input.json"
+)
+if not INKLING_SMALL_PUBLICATION_PATH.is_file():
+    raise RuntimeError(
+        f"final Inkling Small publication input is required: {INKLING_SMALL_PUBLICATION_PATH}"
+    )
+INKLING_SMALL_PUBLICATION = json.loads(INKLING_SMALL_PUBLICATION_PATH.read_text())
+if (
+    INKLING_SMALL_PUBLICATION.get("schema_version") != 1
+    or INKLING_SMALL_PUBLICATION.get("artifact_status") != "FINAL_PUBLICATION_INPUT"
+    or INKLING_SMALL_PUBLICATION.get("model") != "thinkingmachines/inkling-small"
+    or INKLING_SMALL_PUBLICATION.get("report_name") != "inkling-small"
+    or INKLING_SMALL_PUBLICATION.get("provider") != "BaseTen"
+):
+    raise ValueError("Inkling Small publication input identity mismatch")
+INKLING_SMALL_SCREEN = INKLING_SMALL_PUBLICATION.get("screen_row", {})
+if (
+    INKLING_SMALL_SCREEN.get("name") != "inkling-small"
+    or INKLING_SMALL_SCREEN.get("provider") != "BaseTen"
+    or INKLING_SMALL_SCREEN.get("included_runs", [None])[0] != 30
+    or INKLING_SMALL_SCREEN.get("none_ttfat_p50_ms") is None
+):
+    raise ValueError("Inkling Small screen row is incomplete")
+INKLING_SMALL_ROBUSTNESS = INKLING_SMALL_PUBLICATION.get("robustness", {})
+INKLING_SMALL_EFFORT_ROBUSTNESS = INKLING_SMALL_ROBUSTNESS.get(
+    "primary_effort_campaign", {}
+)
+INKLING_SMALL_SHORT_RUNS = INKLING_SMALL_EFFORT_ROBUSTNESS.get(
+    "baseten_429_idle_short_runs", {}
+)
+INKLING_SMALL_JUDGE_SENSITIVITY = INKLING_SMALL_ROBUSTNESS.get(
+    "judge_sensitivity", {}
+)
+if (
+    INKLING_SMALL_EFFORT_ROBUSTNESS.get("retained_attempts") != 60
+    or INKLING_SMALL_SHORT_RUNS.get("none") != 12
+    or INKLING_SMALL_SHORT_RUNS.get("low") != 10
+    or INKLING_SMALL_SHORT_RUNS.get("total") != 22
+    or INKLING_SMALL_EFFORT_ROBUSTNESS.get(
+        "fixed_denominator_missing_future_turns_fail"
+    ) is not True
+    or INKLING_SMALL_EFFORT_ROBUSTNESS.get(
+        "serving_failures_not_generated_terminal_calls"
+    ) is not True
+    or INKLING_SMALL_JUDGE_SENSITIVITY.get(
+        "changed_tool_use_correct_labels"
+    ) != 4
+    or INKLING_SMALL_JUDGE_SENSITIVITY.get(
+        "max_abs_arm_rate_change_percentage_points", 1
+    ) > 0.5
+    or INKLING_SMALL_JUDGE_SENSITIVITY.get(
+        "disclosure_bound_percentage_points"
+    ) != 0.5
+    or INKLING_SMALL_JUDGE_SENSITIVITY.get(
+        "official_artifacts_unchanged"
+    ) is not True
+):
+    raise ValueError("Inkling Small robustness disclosure input mismatch")
+inkling_small_delta = INKLING_SMALL_SCREEN["dots_minus_control_points"]
+MODELS.append((
+    "inkling-small",
+    "BaseTen",
+    INKLING_SMALL_SCREEN["no_filler_pass_rate_pct"],
+    INKLING_SMALL_SCREEN["dots_pass_rate_pct"],
+    f"{inkling_small_delta:+.1f}".replace("-", "−"),
+    "",
+    f'{INKLING_SMALL_SCREEN["included_runs"][0]} / {INKLING_SMALL_SCREEN["included_runs"][1]}',
+    INKLING_SMALL_SCREEN["key"],
+    INKLING_SMALL_SCREEN["interpretation"],
+    round(INKLING_SMALL_SCREEN["none_ttfat_p50_ms"]),
+))
+INKLING_SMALL_METHOD_MARKDOWN = (
+    " Inkling Small adds a separate fixed-denominator BaseTen comparison: its 30-run "
+    f"`none` control is frozen from the none/low campaign and its later adaptive dot arm "
+    f"stopped at {INKLING_SMALL_PUBLICATION['dots_stage']}; the two arms are not interleaved."
+)
+INKLING_SMALL_LIMITS_MARKDOWN = (
+    " The Inkling Small screen is fixed-denominator and attempt-based, but reuses an "
+    "earlier control, so deployment-time drift remains a limitation."
+)
+INKLING_SMALL_PROVENANCE_MARKDOWN = (
+    " The Inkling Small row uses BaseTen for both arms, the frozen `none` arm's TTFAT, "
+    "and the highest mechanically reached dot-stage artifact. In Inkling Small's primary "
+    "30-pair `none`/`low` campaign, "
+    f"{INKLING_SMALL_SHORT_RUNS['total']}/"
+    f"{INKLING_SMALL_EFFORT_ROBUSTNESS['retained_attempts']} retained attempts ended "
+    "short after a BaseTen HTTP 429 followed by the harness idle timeout "
+    f"({INKLING_SMALL_SHORT_RUNS['none']} `none`, "
+    f"{INKLING_SMALL_SHORT_RUNS['low']} `low`); these were serving failures rather "
+    "than generated terminal calls, and fixed-denominator scoring retains them with "
+    "missing future turns counted as failures. A post-hoc sensitivity check changing "
+    f"the {INKLING_SMALL_JUDGE_SENSITIVITY['changed_tool_use_correct_labels']} disputed "
+    "`tool_use_correct` labels shifted any arm-level published rate by no more than "
+    f"{INKLING_SMALL_JUDGE_SENSITIVITY['disclosure_bound_percentage_points']:.1f} "
+    "percentage points; official judgments remain unchanged."
+)
+INKLING_SMALL_METHOD_HTML = INKLING_SMALL_METHOD_MARKDOWN.replace("`none`", "<code>none</code>")
+INKLING_SMALL_LIMITS_HTML = INKLING_SMALL_LIMITS_MARKDOWN
+INKLING_SMALL_PROVENANCE_HTML = INKLING_SMALL_PROVENANCE_MARKDOWN.replace(
+    "`none`", "<code>none</code>"
+).replace(
+    "`low`", "<code>low</code>"
+).replace(
+    "`tool_use_correct`", "<code>tool_use_correct</code>"
+)
+# INKLING_SMALL_PUBLICATION_DATA_END
+# GEMMA26_PUBLICATION_DATA_START
+GEMMA26_PUBLICATION_PATH = (
+    Path(__file__).resolve().parents[1]
+    / "ops/baseten-gemma4-26b-a4b-vllm/dots-20260731/analysis/publication-input.json"
+)
+if not GEMMA26_PUBLICATION_PATH.is_file():
+    raise RuntimeError(f"final Gemma 4 26B publication input is required: {GEMMA26_PUBLICATION_PATH}")
+GEMMA26_PUBLICATION = json.loads(GEMMA26_PUBLICATION_PATH.read_text())
+if (
+    GEMMA26_PUBLICATION.get("schema_version") != 1
+    or GEMMA26_PUBLICATION.get("artifact_status") != "FINAL_PUBLICATION_INPUT"
+    or GEMMA26_PUBLICATION.get("model") != "google/gemma-4-26B-A4B-it"
+    or GEMMA26_PUBLICATION.get("provider") != "BaseTen"
+):
+    raise ValueError("Gemma 4 26B publication input identity mismatch")
+GEMMA26_SCREEN = GEMMA26_PUBLICATION.get("screen_row", {})
+if (
+    GEMMA26_SCREEN.get("name") != "gemma-4-26b-a4b"
+    or GEMMA26_SCREEN.get("provider") != "BaseTen"
+    or GEMMA26_SCREEN.get("included_runs", [None, None])[0]
+       != GEMMA26_SCREEN.get("included_runs", [None, None])[1]
+    or GEMMA26_SCREEN.get("included_runs", [None])[0] not in {10, 30}
+    or GEMMA26_SCREEN.get("no_filler_ttfat_p50_ms") is None
+):
+    raise ValueError("Gemma 4 26B screen row is incomplete")
+gemma26_delta = GEMMA26_SCREEN["dots_minus_control_points"]
+MODELS.append((
+    "gemma-4-26b-a4b", "BaseTen",
+    GEMMA26_SCREEN["no_filler_pass_rate_pct"],
+    GEMMA26_SCREEN["dots_pass_rate_pct"],
+    f"{gemma26_delta:+.1f}".replace("-", "−"), "",
+    f'{GEMMA26_SCREEN["included_runs"][0]} / {GEMMA26_SCREEN["included_runs"][1]}',
+    GEMMA26_SCREEN["key"], GEMMA26_SCREEN["interpretation"],
+    round(GEMMA26_SCREEN["no_filler_ttfat_p50_ms"]),
+))
+GEMMA26_METHOD_MARKDOWN = (
+    " Gemma 4 26B A4B adds a separate fixed-denominator, temporally paired BaseTen "
+    f"comparison with {GEMMA26_SCREEN['included_runs'][0]} fresh contemporaneous conversations "
+    "per arm and native thinking disabled."
+)
+GEMMA26_LIMITS_MARKDOWN = (
+    " The Gemma 4 26B comparison is attempt-based and paired within its collection window; "
+    "it does not reuse the older README control."
+)
+GEMMA26_PROVENANCE_MARKDOWN = (
+    " The Gemma 4 26B row and its README row share the fresh BaseTen no-filler arm; "
+    "the screen TTFAT is that row configuration's observed-response P50."
+)
+GEMMA26_METHOD_HTML = GEMMA26_METHOD_MARKDOWN
+GEMMA26_LIMITS_HTML = GEMMA26_LIMITS_MARKDOWN
+GEMMA26_PROVENANCE_HTML = GEMMA26_PROVENANCE_MARKDOWN
+# GEMMA26_PUBLICATION_DATA_END
+EXPECTED_MODEL_COUNT = 25 + int(GEMINI25_RESULT is not None)
 if len(MODELS) != EXPECTED_MODEL_COUNT or len({row[0] for row in MODELS}) != EXPECTED_MODEL_COUNT:
     raise ValueError(f"the exploratory screen must contain {EXPECTED_MODEL_COUNT} unique rows")
 SENSITIVITY_PATH = (Path(__file__).resolve().parents[1] /
@@ -449,6 +610,38 @@ for report_name, result in QWEN_RESULTS.items():
             result["arms"]["dots96"]["strict_completion_pct"],
         ]
     }
+# INKLING_SMALL_PUBLICATION_DETAIL_START
+PROSPECTIVE_DETAILS["inkling-small"] = {
+    "completion": INKLING_SMALL_SCREEN["strict_completion_pct"]
+}
+if INKLING_SMALL_SCREEN.get("focused") is True:
+    FOCUSED["inkling-small"] = {
+        "ci": INKLING_SMALL_SCREEN["ci95"],
+        "completion": INKLING_SMALL_SCREEN["strict_completion_pct"],
+        "raw_delta": INKLING_SMALL_SCREEN["dots_minus_control_points"],
+        "control": {
+            "pass_rate_pct": INKLING_SMALL_SCREEN["no_filler_pass_rate_pct"],
+            "ttfat_p50_ms": INKLING_SMALL_SCREEN["none_ttfat_p50_ms"],
+        },
+        "dots": {"pass_rate_pct": INKLING_SMALL_SCREEN["dots_pass_rate_pct"]},
+    }
+# INKLING_SMALL_PUBLICATION_DETAIL_END
+# GEMMA26_PUBLICATION_DETAIL_START
+PROSPECTIVE_DETAILS["gemma-4-26b-a4b"] = {
+    "completion": GEMMA26_SCREEN["strict_completion_pct"]
+}
+if GEMMA26_SCREEN.get("focused") is True:
+    FOCUSED["gemma-4-26b-a4b"] = {
+        "ci": GEMMA26_SCREEN["ci95"],
+        "completion": GEMMA26_SCREEN["strict_completion_pct"],
+        "raw_delta": GEMMA26_SCREEN["dots_minus_control_points"],
+        "control": {
+            "pass_rate_pct": GEMMA26_SCREEN["no_filler_pass_rate_pct"],
+            "ttfat_p50_ms": GEMMA26_SCREEN["no_filler_ttfat_p50_ms"],
+        },
+        "dots": {"pass_rate_pct": GEMMA26_SCREEN["dots_pass_rate_pct"]},
+    }
+# GEMMA26_PUBLICATION_DETAIL_END
 TURN_FAMILY_PATH = (Path(__file__).resolve().parents[1] /
                     "docs/filler-study-data/turn-family-secondary-2026-07-22/aggregates.json")
 if not TURN_FAMILY_PATH.is_file():
@@ -1031,9 +1224,9 @@ def markdown_primary_section():
         )
     lines.extend([
         "",
-        f"The {len(FOCUSED)} focused rows use exactly 30 eligible conversations and 900 fixed scripted turns per arm. Missing, malformed, or forfeited future turns fail all displayed criteria. Their intervals resample whole conversations. The three appended Gemini 3 rows use prospective fixed-denominator pools at Google's `minimal` reasoning floor; Gemini 3 does not guarantee complete thinking-off.{gemini25_method}{laguna_method}{qwen_method} The other nine standard rows retain their original exploratory available-outcome pools and show no new confidence interval; `†` marks a selected historical estimate.",
+        f"The {len(FOCUSED)} focused rows use exactly 30 eligible conversations and 900 fixed scripted turns per arm. Missing, malformed, or forfeited future turns fail all displayed criteria. Their intervals resample whole conversations. The three appended Gemini 3 rows use prospective fixed-denominator pools at Google's `minimal` reasoning floor; Gemini 3 does not guarantee complete thinking-off.{gemini25_method}{laguna_method}{qwen_method}{INKLING_SMALL_METHOD_MARKDOWN}{GEMMA26_METHOD_MARKDOWN} The other nine standard rows retain their original exploratory available-outcome pools and show no new confidence interval; `†` marks a selected historical estimate.",
         "",
-        f"The original 17 rows retain their exploratory-screen order rather than being resorted after the n=30 refresh; the three Gemini 3 extensions are appended in their prespecified requested order, followed by Gemini 2.5 Flash, Laguna S 2.1, and the two Qwen3.6 configurations from their separate campaigns. The original eight focused rows and the corresponding thinking-off rows in `README.md` share the same frozen no-filler aggregates. The Gemini 3 rows and their `(minimal)` README rows likewise share one campaign aggregate.{gemini25_provenance}{laguna_provenance}{qwen_provenance} The Qwen3-8B primary row uses only its dedicated 30-per-arm BaseTen replacement cohort, including its no-filler TTFAT; no OpenRouter attempt is pooled into it. That endpoint serves official BF16 weights with vLLM automatic prefix caching, so its latency is specific to that configuration.",
+        f"The original 17 rows retain their exploratory-screen order rather than being resorted after the n=30 refresh; the three Gemini 3 extensions are appended in their prespecified requested order, followed by Gemini 2.5 Flash, Laguna S 2.1, and the two Qwen3.6 configurations from their separate campaigns. The original eight focused rows and the corresponding thinking-off rows in `README.md` share the same frozen no-filler aggregates. The Gemini 3 rows and their `(minimal)` README rows likewise share one campaign aggregate.{gemini25_provenance}{laguna_provenance}{qwen_provenance}{INKLING_SMALL_PROVENANCE_MARKDOWN}{GEMMA26_PROVENANCE_MARKDOWN} The Qwen3-8B primary row uses only its dedicated 30-per-arm BaseTen replacement cohort, including its no-filler TTFAT; no OpenRouter attempt is pooled into it. That endpoint serves official BF16 weights with vLLM automatic prefix caching, so its latency is specific to that configuration.",
         "",
         f"Flash Lite attempt-policy sensitivity: one no-filler attempt reached the harness idle timeout after eight turns. Under the frozen attempt-based rule, it remains in the primary pool and its missing future turns fail. Replacing it only for sensitivity analysis with the already-generated complete extra attempt moves the no-filler pass rate from {SENSITIVITY_PRIMARY['pass_rate_pct']:.1f}% to {SENSITIVITY_REPLACEMENT['pass_rate_pct']:.1f}% ({SENSITIVITY['pass_rate_change_points']:+.1f} points) and strict completion from {SENSITIVITY_PRIMARY['strict_completion_pct']:.1f}% to {SENSITIVITY_REPLACEMENT['strict_completion_pct']:.1f}%. The primary estimates remain attempt-based and unchanged.",
         "",
@@ -1048,6 +1241,21 @@ def update_markdown_primary():
     start = "<!-- N30_PRIMARY_START -->"
     end = "<!-- N30_PRIMARY_END -->"
     text = MARKDOWN_OUT.read_text()
+    # GEMMA26_MARKDOWN_SCOPE_START
+    scope_words = {24: "Twenty-four", 25: "Twenty-five", 26: "Twenty-six"}
+    expected_scope = scope_words.get(len(MODELS), str(len(MODELS)))
+    scope_variants = [
+        f"**Scope:** {word} standard filler comparisons"
+        for word in scope_words.values()
+    ]
+    matched_scope = [variant for variant in scope_variants if variant in text]
+    if len(matched_scope) != 1:
+        raise ValueError("Markdown report scope count is missing or ambiguous")
+    text = text.replace(
+        matched_scope[0],
+        f"**Scope:** {expected_scope} standard filler comparisons",
+    )
+    # GEMMA26_MARKDOWN_SCOPE_END
     if text.count(start) != 1 or text.count(end) != 1:
         raise ValueError("Markdown primary-screen markers are missing or duplicated")
     before, remainder = text.split(start, 1)
@@ -1269,6 +1477,8 @@ def build():
         22: "Twenty-two",
         23: "Twenty-three",
         24: "Twenty-four",
+        25: "Twenty-five",
+        26: "Twenty-six",
     }.get(len(MODELS), str(len(MODELS)))
     gemini25_method_html = (
         " A separate Gemini 2.5 Flash extension uses <code>thinking_budget=0</code> "
@@ -1393,7 +1603,7 @@ scripted turns per arm. Missing, malformed, or forfeited future turns fail all d
 criteria. Confidence intervals resample whole conversations (100,000 bootstrap draws); strict
 completion intervals use Wilson's method. The three appended Gemini 3 rows use prospective,
 fixed-denominator pools at the provider's <code>minimal</code> reasoning floor; their adaptive
-dot-screen and n=30 promotion rules were frozen in advance.{gemini25_method_html}{laguna_method_html}{qwen_method_html} The nine retained historical standard rows and the
+dot-screen and n=30 promotion rules were frozen in advance.{gemini25_method_html}{laguna_method_html}{qwen_method_html}{INKLING_SMALL_METHOD_HTML}{GEMMA26_METHOD_HTML} The nine retained historical standard rows and the
 separate dose/pattern follow-ups keep their original exploratory analyses</dd>
 <dt>inference scope</dt><dd>Section 3 shows estimates and focused-row confidence intervals without
 a multiple-testing headline or p-values. The prospective GPT-5.4 dash validation is now complete:
@@ -1402,7 +1612,7 @@ configuration and is not pooled into the dot screen</dd>
 <dt>limits</dt><dd>Filler counts are nominal (“96 tokens”) and not verified against each provider’s tokenizer.
 The judge check establishes repeatability (90/90 on re-judge), not validity against human
 adjudication. All focused rows and all three Gemini 3 extensions are fixed-denominator,
-attempt-based analyses.{gemini25_limits_html}{laguna_limits_html}{qwen_limits_html} The nine retained historical standard rows keep their original
+attempt-based analyses.{gemini25_limits_html}{laguna_limits_html}{qwen_limits_html}{INKLING_SMALL_LIMITS_HTML}{GEMMA26_LIMITS_HTML} The nine retained historical standard rows keep their original
 available-outcome pools: missing judgments are omitted and
 incomplete runs contribute only observed turns, so they should be read as historical context.
 gpt-5.4-mini was excluded from the master
@@ -1436,7 +1646,7 @@ hypothesis-generating because checkpoints, providers, and serving stacks differ.
 the screen's frozen manifests. The original eight refreshed rows and their thinking-off rows in
 <code>README.md</code> share the same n=30 no-filler aggregates. The three Gemini 3 rows and their
 <code>(minimal)</code> README rows share the same prospective campaign aggregate; Google's
-<code>minimal</code> floor does not guarantee complete thinking-off.{gemini25_provenance_html}{laguna_provenance_html}{qwen_provenance_html} The nine retained historical
+<code>minimal</code> floor does not guarantee complete thinking-off.{gemini25_provenance_html}{laguna_provenance_html}{qwen_provenance_html}{INKLING_SMALL_PROVENANCE_HTML}{GEMMA26_PROVENANCE_HTML} The nine retained historical
 standard rows keep their original exploratory pools. GPT-5.4 uses the rolling Responses alias with explicit effort
 <code>none</code>; Gemma uses the Lilac route with thinking disabled. Qwen3-8B uses only its new
 30-per-arm dedicated BaseTen cohort; no historical or campaign OpenRouter attempt is pooled into
