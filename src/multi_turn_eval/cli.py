@@ -204,6 +204,14 @@ def cli():
     help="Pipeline type (text, audio-in, realtime, nova-sonic). Auto-detected if not specified.",
 )
 @click.option("--only-turns", help="Comma-separated turn indices to run (e.g., 0,1,2)")
+@click.option(
+    "--thinking",
+    type=click.Choice(
+        ["disabled", "minimal", "low", "medium", "high", "default"],
+        case_sensitive=False,
+    ),
+    help="Provider thinking mode (supported values depend on the model).",
+)
 @click.option("--verbose", "-v", is_flag=True, help="Enable verbose logging")
 def run(
     benchmark_name: str,
@@ -211,6 +219,7 @@ def run(
     service: Optional[str],
     pipeline: Optional[str],
     only_turns: Optional[str],
+    thinking: Optional[str],
     verbose: bool,
 ):
     """Run a benchmark against an LLM.
@@ -220,7 +229,9 @@ def run(
         uv run multi-turn-eval run aiwf_medium_context --model gpt-4o --service openai
         uv run multi-turn-eval run aiwf_medium_context --model gpt-realtime --service openai-realtime --pipeline realtime
     """
-    asyncio.run(_run(benchmark_name, model, service, pipeline, only_turns, verbose))
+    asyncio.run(
+        _run(benchmark_name, model, service, pipeline, only_turns, thinking, verbose)
+    )
 
 
 async def _run(
@@ -229,6 +240,7 @@ async def _run(
     service: Optional[str],
     pipeline_type: Optional[str],
     only_turns: Optional[str],
+    thinking: Optional[str],
     verbose: bool,
 ):
     """Async implementation of the run command."""
@@ -280,6 +292,7 @@ async def _run(
             service_class=service_class,
             service_name=service,
             turn_indices=turn_indices,
+            thinking=thinking,
         )
         click.echo(f"Completed benchmark run")
         click.echo(f"  Transcript: {run_dir / 'transcript.jsonl'}")

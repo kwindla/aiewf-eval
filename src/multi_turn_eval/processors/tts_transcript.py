@@ -3,6 +3,7 @@ from typing import List
 
 from loguru import logger
 from pipecat.frames.frames import (
+    BotStoppedSpeakingFrame,
     Frame,
     LLMFullResponseEndFrame,
     LLMTextFrame,
@@ -30,8 +31,8 @@ class TTSStoppedAssistantTranscriptProcessor(AssistantTranscriptProcessor):
     """Assistant transcript shim that flushes on end-of-response and re-emits updates.
 
     - Aggregates TTSTextFrame fragments (AUDIO modality) and LLMTextFrame fragments (TEXT modality).
-    - Emits a single assistant TranscriptionUpdateFrame when either TTSStoppedFrame (audio) or
-      LLMFullResponseEndFrame (text) arrives.
+    - Emits an assistant TranscriptionUpdateFrame when TTSStoppedFrame (audio),
+      LLMFullResponseEndFrame (text), or BotStoppedSpeakingFrame (audio fallback) arrives.
     - Replays that update through the shared TranscriptProcessor event system so external handlers fire.
     - Avoids default flush triggers from AssistantTranscriptProcessor.
     """
@@ -93,7 +94,10 @@ class TTSStoppedAssistantTranscriptProcessor(AssistantTranscriptProcessor):
                 TextPartForConcatenation(text, includes_inter_part_spaces=True)
             )
             await self.push_frame(frame, direction)
-        elif isinstance(frame, (TTSStoppedFrame, LLMFullResponseEndFrame)):
+        elif isinstance(
+            frame,
+            (TTSStoppedFrame, LLMFullResponseEndFrame, BotStoppedSpeakingFrame),
+        ):
             # Flush aggregated text on audio stop or text response end
             logger.info(f"[TRANSCRIPT] Received flush frame: {type(frame).__name__}")
 

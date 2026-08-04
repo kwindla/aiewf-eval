@@ -227,7 +227,7 @@ uv run multi-turn-eval run aiwf_medium_context --model gemini-2.5-flash --servic
 
 # Realtime audio models 
 uv run multi-turn-eval run aiwf_medium_context --model gpt-realtime --service openai-realtime
-uv run multi-turn-eval run aiwf_medium_context --model gemini-2.5-flash-native-audio-preview-12-2025 --service gemini-live
+uv run multi-turn-eval run aiwf_medium_context --model gemini-3.1-flash-live-preview --service gemini-live --thinking minimal
 uv run multi-turn-eval run aiwf_medium_context --model ultravox-v0.7 --service ultravox-realtime
 
 # Nova Sonic (no --service needed, pipeline creates its own LLM)
@@ -380,6 +380,7 @@ runs/
 | `gpt-4o-mini` | text | openai |
 | `gpt-realtime` | realtime | openai-realtime |
 | `gemini-2.5-flash` | text | google |
+| `gemini-3.1-flash-live-preview` | realtime | gemini-live |
 | `gemini-2.5-flash-native-audio-preview-12-2025` | realtime | gemini-live |
 | `ultravox-v0.7` | realtime | ultravox-realtime |
 | `claude-sonnet-4-5` | text | anthropic |

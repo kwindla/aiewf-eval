@@ -46,6 +46,7 @@ from pipecat.processors.aggregators.llm_response_universal import (
     LLMContextAggregatorPair,
     LLMUserAggregatorParams,
 )
+from google.genai import types as genai_types
 from multi_turn_eval.processors.audio_buffer import WallClockAlignedAudioBufferProcessor
 from pipecat.processors.frame_processor import FrameDirection, FrameProcessor
 # Vendored: pipecat 1.x removed the transcript-processor subsystem.
@@ -181,8 +182,28 @@ class TurnGate(FrameProcessor):
         Called by the transcript handler when assistant response is complete.
         The turn won't advance until BotStoppedSpeakingFrame is received.
         """
-        logger.info(f"[TurnGate] Storing pending transcript ({len(text)} chars)")
+        if self._pending_transcript:
+            previous = self._pending_transcript
+            if text == previous or previous.startswith(text):
+                text = previous
+            elif text.startswith(previous):
+                pass
+            else:
+                text = f"{previous.rstrip()} {text.lstrip()}"
+            logger.info(
+                f"[TurnGate] Merged assistant transcript segments ({len(text)} chars)"
+            )
+        else:
+            logger.info(f"[TurnGate] Storing pending transcript ({len(text)} chars)")
         self._pending_transcript = text
+        # Gemini can deliver the final transcript just after the output
+        # transport reports that speech stopped. In that ordering there will
+        # be no second BotStoppedSpeakingFrame, so schedule completion here.
+        if not self._bot_speaking:
+            self._pending_transcript = None
+            if self._turn_end_task and not self._turn_end_task.done():
+                self._turn_end_task.cancel()
+            self._turn_end_task = asyncio.create_task(self._delayed_turn_end(text))
 
     def clear_pending(self):
         """Clear any pending transcript and TTS state (e.g., on reconnection or empty response)."""
@@ -210,7 +231,17 @@ class TurnGate(FrameProcessor):
             logger.info(f"[TurnGate] Triggering turn end with transcript ({len(text)} chars)")
             await self._on_turn_ready(text)
         except asyncio.CancelledError:
-            logger.info("[TurnGate] Turn end cancelled (likely bot started speaking again)")
+            if self._pending_transcript is None:
+                # Preserve the transcript when the model emits a follow-up
+                # speech segment during the drain delay. The next stop event
+                # can then finish the same turn instead of hanging it.
+                self._pending_transcript = text
+                logger.info(
+                    "[TurnGate] Turn end cancelled; restored pending transcript "
+                    "for follow-up bot segment"
+                )
+            else:
+                logger.info("[TurnGate] Turn end cancelled (likely bot started speaking again)")
 
     async def _check_no_response(self):
         """Check if model never responded after user stopped speaking."""
@@ -507,6 +538,69 @@ class RealtimePipeline(BasePipeline):
         m = self.model_name.lower()
         return "grok" in m and "realtime" in m
 
+    def _build_gemini_live_thinking_config(
+        self, model: str
+    ) -> Optional[genai_types.ThinkingConfig]:
+        """Build the Gemini Live thinking config for the selected model.
+
+        Gemini 3.1 Live uses thinking levels and defaults to ``minimal`` for
+        the benchmark's low-latency configuration. Gemini 2.5 Live retains
+        its provider default unless explicitly disabled with a zero budget.
+        """
+        model_lower = model.lower()
+        default_mode = "minimal" if "gemini-3" in model_lower else "default"
+        thinking_mode = (
+            getattr(self, "thinking", None)
+            or os.getenv("MTE_GOOGLE_THINKING_MODE", default_mode)
+        ).strip().lower()
+
+        if thinking_mode in {"default", "auto"}:
+            logger.info(
+                f"Configured {model} with provider default Gemini Live thinking behavior"
+            )
+            return None
+
+        disabled_modes = {"disabled", "disable", "off", "none", "budget0", "0"}
+        if thinking_mode in disabled_modes:
+            if "gemini-3" in model_lower:
+                raise ValueError(
+                    f"{model} does not support thinking_budget=0; "
+                    "use minimal, low, medium, high, or default"
+                )
+            config = genai_types.ThinkingConfig(
+                thinking_budget=0,
+                include_thoughts=False,
+            )
+            logger.info(f"Configured {model} with thinking_budget=0 (disabled)")
+            return config
+
+        if "gemini-3" not in model_lower:
+            raise ValueError(
+                f"{model} uses thinking budgets, not thinking levels; "
+                "use disabled or default"
+            )
+
+        level_map = {
+            "minimal": genai_types.ThinkingLevel.MINIMAL,
+            "min": genai_types.ThinkingLevel.MINIMAL,
+            "low": genai_types.ThinkingLevel.LOW,
+            "medium": genai_types.ThinkingLevel.MEDIUM,
+            "high": genai_types.ThinkingLevel.HIGH,
+        }
+        level = level_map.get(thinking_mode)
+        if level is None:
+            raise ValueError(
+                "Unsupported Gemini Live thinking mode={!r}; expected minimal, "
+                "low, medium, high, or default".format(thinking_mode)
+            )
+
+        config = genai_types.ThinkingConfig(
+            thinking_level=level,
+            include_thoughts=False,
+        )
+        logger.info(f"Configured {model} with thinking_level={thinking_mode}")
+        return config
+
     def _get_audio_duration(self, audio_path: str) -> float:
         """Get duration of an audio file in seconds.
 
@@ -645,14 +739,23 @@ class RealtimePipeline(BasePipeline):
             if not api_key:
                 raise EnvironmentError("GOOGLE_API_KEY environment variable is required")
 
+            thinking_config = self._build_gemini_live_thinking_config(model)
+            settings_kwargs: Dict[str, Any] = {
+                "model": model,
+                "system_instruction": system_instruction,
+            }
+            if thinking_config is not None:
+                settings_kwargs["thinking"] = thinking_config
+
             return GeminiLiveLLMServiceWithReconnection(
                 api_key=api_key,
-                model=model,
-                system_instruction=system_instruction,
                 tools=tools,
                 inference_on_context_initialization=True,
                 on_reconnecting=self._on_gemini_reconnecting,
                 on_reconnected=self._on_gemini_reconnected,
+                settings=GeminiLiveLLMServiceWithReconnection.Settings(
+                    **settings_kwargs,
+                ),
             )
         else:
             # For other services, use base class implementation

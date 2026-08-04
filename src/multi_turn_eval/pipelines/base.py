@@ -71,6 +71,7 @@ class BasePipeline(ABC):
         self.llm: Optional[FrameProcessor] = None
         self.model_name: Optional[str] = None
         self.service_name: Optional[str] = None
+        self.thinking: Optional[str] = None
         self._turn_indices: Optional[List[int]] = None
         # Track tool calls to detect duplicates within a turn
         self._seen_tool_calls: set = set()
@@ -105,6 +106,7 @@ class BasePipeline(ABC):
         service_class: Optional[type] = None,
         service_name: Optional[str] = None,
         turn_indices: Optional[List[int]] = None,
+        thinking: Optional[str] = None,
     ) -> None:
         """Run the complete benchmark. Pipeline handles everything internally.
 
@@ -114,10 +116,12 @@ class BasePipeline(ABC):
             service_class: LLM service class (required unless pipeline sets requires_service=False).
             service_name: Service name/alias (e.g., "openai", "openrouter").
             turn_indices: Optional list of turn indices to run (for debugging).
+            thinking: Provider thinking level selected by the CLI, if any.
         """
         self.recorder = recorder
         self.model_name = model
         self.service_name = service_name  # Store for use in _create_llm overrides
+        self.thinking = thinking
         self._turn_indices = turn_indices
 
         logger.info(f"Recovery nudges enabled={self._enable_recovery_nudges}")
@@ -810,7 +814,10 @@ class BasePipeline(ABC):
             # can pin the same setting explicitly for auditable provenance.
             elif "gemini-2.5" in model_lower:
                 from pipecat.services.google.llm import GoogleLLMService
-                thinking_mode = os.getenv("MTE_GOOGLE_THINKING_MODE", "default").strip().lower()
+                thinking_mode = (
+                    getattr(self, "thinking", None)
+                    or os.getenv("MTE_GOOGLE_THINKING_MODE", "default")
+                ).strip().lower()
 
                 if thinking_mode in {"disabled", "disable", "off", "none", "budget0", "0"}:
                     kwargs["params"] = GoogleLLMService.InputParams(
@@ -837,16 +844,15 @@ class BasePipeline(ABC):
             # so benchmark sweeps can compare disabled vs minimal reasoning.
             elif "gemini-3" in model_lower:
                 from pipecat.services.google.llm import GoogleLLMService
-                thinking_mode = os.getenv("MTE_GOOGLE_THINKING_MODE", "minimal").strip().lower()
+                thinking_mode = (
+                    getattr(self, "thinking", None)
+                    or os.getenv("MTE_GOOGLE_THINKING_MODE", "minimal")
+                ).strip().lower()
 
                 if thinking_mode in {"disabled", "disable", "off", "none", "budget0", "0"}:
-                    kwargs["params"] = GoogleLLMService.InputParams(
-                        thinking=GoogleLLMService.ThinkingConfig(
-                            thinking_budget=0,
-                        )
-                    )
-                    logger.info(
-                        f"Configured {model} with thinking_budget=0 (disabled)"
+                    raise ValueError(
+                        f"{model} does not support thinking_budget=0; "
+                        "use minimal, low, medium, high, or default"
                     )
                 elif thinking_mode in {"minimal", "min"}:
                     kwargs["params"] = GoogleLLMService.InputParams(
@@ -874,7 +880,7 @@ class BasePipeline(ABC):
                     )
                 else:
                     raise ValueError(
-                        "Unsupported MTE_GOOGLE_THINKING_MODE={!r}; expected disabled, minimal, low, medium, high, or default".format(
+                        "Unsupported MTE_GOOGLE_THINKING_MODE={!r}; expected minimal, low, medium, high, or default".format(
                             thinking_mode
                         )
                     )
