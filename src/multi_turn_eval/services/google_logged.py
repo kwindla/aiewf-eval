@@ -206,6 +206,9 @@ class LoggedGoogleLLMService(GoogleLLMService):
         accumulated_text = ""
         ttfb_stopped = False
         raw_ttfb_emitted = False
+        finish_reasons = []
+        prompt_feedback = None
+        saw_parts = False
         # Reference for raw TTFB (first chunk of any kind). The pipecat TTFB
         # metric we stop later is content-aware; this one is the raw floor.
         raw_t0 = time.monotonic()
@@ -223,6 +226,9 @@ class LoggedGoogleLLMService(GoogleLLMService):
                     cache_read_input_tokens = chunk.usage_metadata.cached_content_token_count or 0
                     reasoning_tokens = chunk.usage_metadata.thoughts_token_count or 0
 
+                if chunk.prompt_feedback is not None:
+                    prompt_feedback = chunk.prompt_feedback
+
                 if not chunk.candidates:
                     continue
 
@@ -238,7 +244,10 @@ class LoggedGoogleLLMService(GoogleLLMService):
                     raw_ttfb_emitted = True
 
                 for candidate in chunk.candidates:
+                    if candidate.finish_reason is not None:
+                        finish_reasons.append(candidate.finish_reason)
                     if candidate.content and candidate.content.parts:
+                        saw_parts = True
                         for part in candidate.content.parts:
                             function_call_id = None
                             if part.text:
@@ -349,6 +358,19 @@ class LoggedGoogleLLMService(GoogleLLMService):
                             "rendered_content": rendered_content,
                             "origins": origins,
                         }
+
+            if not ttfb_stopped:
+                # Stream completed with no user-visible output (no text, no
+                # function call, no image). Capture the server-side verdict so
+                # empty completions are diagnosable from run.log alone.
+                logger.warning(
+                    "Empty completion from Gemini: "
+                    f"finish_reasons={[str(reason) for reason in finish_reasons]} "
+                    f"prompt_feedback={prompt_feedback} "
+                    f"candidates_seen={raw_ttfb_emitted} parts_seen={saw_parts} "
+                    f"completion_tokens={completion_tokens} "
+                    f"thought_tokens={reasoning_tokens}"
+                )
 
             await self.run_function_calls(function_calls)
         except DeadlineExceeded:
