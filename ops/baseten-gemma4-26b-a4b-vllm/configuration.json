@@ -1,0 +1,44 @@
+{
+  "campaign_id": "aiewf-medium-gemma4-26b-a4b-baseten-vllm-n30-20260730",
+  "benchmark": "aiwf_medium_context",
+  "model": "google/gemma-4-26B-A4B-it",
+  "provider": "BaseTen",
+  "endpoint": "https://model-qel1y223.api.baseten.co/deployment/qz4zpye/sync/v1",
+  "deployment_id": "qz4zpye",
+  "model_id": "qel1y223",
+  "serving": {
+    "vllm_requirement": "newest vLLM available at deployment build time",
+    "vllm_version": "0.26.1rc1.dev77+g6f91edf96",
+    "automatic_prefix_caching": true,
+    "streaming": true,
+    "automatic_tool_choice": true,
+    "tool_call_parser": "gemma4",
+    "reasoning_parser": "gemma4",
+    "mtp": {
+      "assistant_model": "google/gemma-4-26B-A4B-it-assistant",
+      "num_speculative_tokens": 1,
+      "status": "enabled; protocol smoke passed with one speculative token"
+    },
+    "verified": true
+  },
+  "arm": {
+    "name": "none",
+    "enable_thinking": false,
+    "label_note": "native Gemma thinking explicitly disabled"
+  },
+  "sampling": {
+    "temperature": 1.0,
+    "top_p": 0.95,
+    "top_k": 64,
+    "max_tokens": 8192
+  },
+  "filler": null,
+  "target_eligible_runs": 30,
+  "fixed_scheduled_turns_per_conversation": 30,
+  "eligibility": "Attempt-based: retain model aborts, idle timeouts, and other short runs after at least one valid model response; replace only attempts with no valid model response.",
+  "collection": {
+    "provider_endpoint_concurrency": 1,
+    "order": "slots 1 through 30, strictly sequential",
+    "max_attempts_per_slot_default": 3
+  }
+}

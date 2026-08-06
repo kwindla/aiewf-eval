@@ -1,0 +1,30 @@
+{
+  "queried_at": "2026-07-21T17:12:00-07:00",
+  "endpoint": "Gemini Developer API models.list",
+  "models": [
+    {
+      "name": "models/gemini-3.5-flash",
+      "version": "3.5-flash-05-2026",
+      "supported_generation_methods": ["generateContent", "countTokens", "createCachedContent", "batchGenerateContent"],
+      "input_token_limit": 1048576,
+      "output_token_limit": 65536,
+      "thinking": true
+    },
+    {
+      "name": "models/gemini-3.5-flash-lite",
+      "version": "3.5-flash-lite-07-2026",
+      "supported_generation_methods": ["generateContent", "countTokens", "createCachedContent", "batchGenerateContent"],
+      "input_token_limit": 1048576,
+      "output_token_limit": 65536,
+      "thinking": true
+    },
+    {
+      "name": "models/gemini-3.6-flash",
+      "version": "3.6-flash-07-2026",
+      "supported_generation_methods": ["generateContent", "countTokens", "createCachedContent", "batchGenerateContent"],
+      "input_token_limit": 1048576,
+      "output_token_limit": 65536,
+      "thinking": true
+    }
+  ]
+}

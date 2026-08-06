@@ -20,6 +20,7 @@ Usage:
 
 import argparse
 import json
+import math
 import statistics
 import subprocess
 import sys
@@ -101,10 +102,13 @@ def get_run_data(run_dir: Path) -> dict | None:
             except json.JSONDecodeError:
                 continue
 
-    # Get V2V metrics from analyze script
+    # Get V2V and TTFT metrics from analyze script (text runs report via its
+    # transcript-only mode; speech runs via the audio path)
     non_tool_v2vs = []
     tool_v2vs = []
     silence_pads = []
+    ttfts = []
+    raw_ttfts = []
 
     try:
         result = subprocess.run(
@@ -135,6 +139,13 @@ def get_run_data(run_dir: Path) -> dict | None:
 
                 if silence is not None:
                     silence_pads.append(silence)
+
+                ttft = turn.get("server_ttfb_ms")
+                if ttft is not None:
+                    ttfts.append(ttft)
+                raw = turn.get("raw_ttfb_ms")
+                if raw is not None:
+                    raw_ttfts.append(raw)
     except Exception:
         pass
 
@@ -144,6 +155,8 @@ def get_run_data(run_dir: Path) -> dict | None:
         "non_tool_v2vs": non_tool_v2vs,
         "tool_v2vs": tool_v2vs,
         "silence_pads": silence_pads,
+        "ttfts": ttfts,
+        "raw_ttfts": raw_ttfts,
     }
 
 
@@ -153,6 +166,8 @@ def aggregate_runs(runs: list[Path]) -> dict:
     all_non_tool_v2vs = []
     all_tool_v2vs = []
     all_silence_pads = []
+    all_ttfts = []
+    all_raw_ttfts = []
     valid_runs = 0
 
     for run in runs:
@@ -171,6 +186,8 @@ def aggregate_runs(runs: list[Path]) -> dict:
         all_non_tool_v2vs.extend(data["non_tool_v2vs"])
         all_tool_v2vs.extend(data["tool_v2vs"])
         all_silence_pads.extend(data["silence_pads"])
+        all_ttfts.extend(data["ttfts"])
+        all_raw_ttfts.extend(data["raw_ttfts"])
 
     return {
         "valid_runs": valid_runs,
@@ -179,6 +196,8 @@ def aggregate_runs(runs: list[Path]) -> dict:
         "non_tool_v2vs": all_non_tool_v2vs,
         "tool_v2vs": all_tool_v2vs,
         "silence_pads": all_silence_pads,
+        "ttfts": all_ttfts,
+        "raw_ttfts": all_raw_ttfts,
     }
 
 
@@ -198,6 +217,12 @@ def format_ms(values: list, stat: str = "median") -> str:
         return f"{int(max(values))}ms"
     elif stat == "mean":
         return f"{int(statistics.mean(values))}ms"
+    elif stat == "p95":
+        # Nearest-rank percentile: ceil(0.95*n)-1 indexes the value at or above
+        # which 95% of samples fall (int(n*0.95)-1 floors to a lower order
+        # statistic and underreports the tail for small n).
+        ordered = sorted(values)
+        return f"{int(ordered[max(0, math.ceil(len(ordered) * 0.95) - 1)])}ms"
     return "N/A"
 
 
@@ -225,6 +250,9 @@ def print_ascii_table(model_results: dict[str, dict]):
         "kb": 8,
         "turn": 7,
         "pass": 8,
+        "ttft_med": 9,
+        "ttft_p95": 9,
+        "ttft_max": 9,
         "v2v_med": 13,
         "v2v_max": 13,
         "tool_v2v": 10,
@@ -241,6 +269,9 @@ def print_ascii_table(model_results: dict[str, dict]):
         f"| {'KB':<{col_widths['kb']}} "
         f"| {'Turn':<{col_widths['turn']}} "
         f"| {'Pass':<{col_widths['pass']}} "
+        f"| {'TTFT':<{col_widths['ttft_med']}} "
+        f"| {'TTFT':<{col_widths['ttft_p95']}} "
+        f"| {'TTFT':<{col_widths['ttft_max']}} "
         f"| {'Non-Tool V2V':<{col_widths['v2v_med']}} "
         f"| {'Non-Tool V2V':<{col_widths['v2v_max']}} "
         f"| {'Tool V2V':<{col_widths['tool_v2v']}} "
@@ -253,6 +284,9 @@ def print_ascii_table(model_results: dict[str, dict]):
         f"| {'Ground':<{col_widths['kb']}} "
         f"| {'Ok':<{col_widths['turn']}} "
         f"| {'Rate':<{col_widths['pass']}} "
+        f"| {'Med':<{col_widths['ttft_med']}} "
+        f"| {'P95':<{col_widths['ttft_p95']}} "
+        f"| {'Max':<{col_widths['ttft_max']}} "
         f"| {'Med':<{col_widths['v2v_med']}} "
         f"| {'Max':<{col_widths['v2v_max']}} "
         f"| {'Mean':<{col_widths['tool_v2v']}} "
@@ -273,6 +307,9 @@ def print_ascii_table(model_results: dict[str, dict]):
             f"| {format_score(scores, 'kb_grounding'):<{col_widths['kb']}} "
             f"| {format_score(scores, 'turn_taking'):<{col_widths['turn']}} "
             f"| {pass_rate:>5.1f}% "
+            f"| {format_ms(data['ttfts'], 'median'):<{col_widths['ttft_med']}} "
+            f"| {format_ms(data['ttfts'], 'p95'):<{col_widths['ttft_p95']}} "
+            f"| {format_ms(data['ttfts'], 'max'):<{col_widths['ttft_max']}} "
             f"| {format_ms(data['non_tool_v2vs'], 'median'):<{col_widths['v2v_med']}} "
             f"| {format_ms(data['non_tool_v2vs'], 'max'):<{col_widths['v2v_max']}} "
             f"| {format_ms(data['tool_v2vs'], 'mean'):<{col_widths['tool_v2v']}} "

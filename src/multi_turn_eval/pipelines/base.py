@@ -24,6 +24,7 @@ from pipecat.processors.aggregators.llm_context import LLMContext
 from pipecat.processors.frame_processor import FrameProcessor
 from pipecat.services.llm_service import FunctionCallParams
 
+from multi_turn_eval.metrics import RawTTFBMetricsData
 from multi_turn_eval.recording.transcript_recorder import TranscriptRecorder
 
 
@@ -70,6 +71,7 @@ class BasePipeline(ABC):
         self.llm: Optional[FrameProcessor] = None
         self.model_name: Optional[str] = None
         self.service_name: Optional[str] = None
+        self.thinking: Optional[str] = None
         self._turn_indices: Optional[List[int]] = None
         # Track tool calls to detect duplicates within a turn
         self._seen_tool_calls: set = set()
@@ -89,6 +91,7 @@ class BasePipeline(ABC):
         self._recovery_for_actual_turn: Optional[int] = None
         self._recovery_turn_index_base: int = 0
         self._recovery_turn_counter: int = 0
+        self._run_failure: Optional[Dict[str, Any]] = None
 
     @property
     def effective_turns(self) -> List[dict]:
@@ -104,6 +107,7 @@ class BasePipeline(ABC):
         service_class: Optional[type] = None,
         service_name: Optional[str] = None,
         turn_indices: Optional[List[int]] = None,
+        thinking: Optional[str] = None,
     ) -> None:
         """Run the complete benchmark. Pipeline handles everything internally.
 
@@ -113,10 +117,12 @@ class BasePipeline(ABC):
             service_class: LLM service class (required unless pipeline sets requires_service=False).
             service_name: Service name/alias (e.g., "openai", "openrouter").
             turn_indices: Optional list of turn indices to run (for debugging).
+            thinking: Provider thinking level selected by the CLI, if any.
         """
         self.recorder = recorder
         self.model_name = model
         self.service_name = service_name  # Store for use in _create_llm overrides
+        self.thinking = thinking
         self._turn_indices = turn_indices
 
         logger.info(f"Recovery nudges enabled={self._enable_recovery_nudges}")
@@ -146,6 +152,10 @@ class BasePipeline(ABC):
         await self._queue_first_turn()
         runner = PipelineRunner(handle_sigint=True)
         await runner.run(self.task)
+        if self._run_failure is not None:
+            reason = self._run_failure.get("reason", "unknown")
+            turn = self._run_failure.get("turn")
+            raise RuntimeError(f"Benchmark run failed: {reason} at turn {turn}")
 
     def _get_actual_turn_index(self, effective_index: int) -> int:
         """Convert effective turn index to actual turn index."""
@@ -167,7 +177,7 @@ class BasePipeline(ABC):
         backends reject empty assistant content outright.
         """
         service_name = (self.service_name or "").lower()
-        if service_name not in {"openai", "openrouter", "nemotron", "nemotron-audio-in", "modal"}:
+        if service_name not in {"openai", "openrouter", "nemotron", "nemotron-audio-in", "modal", "baseten", "together"}:
             return
         if self.context is None:
             return
@@ -264,6 +274,14 @@ class BasePipeline(ABC):
         if service_class is None:
             raise ValueError("--service is required for this pipeline")
 
+        from multi_turn_eval.model_policy import (
+            OPENAI_PRO_EXCLUSION_MESSAGE,
+            is_openai_pro_model,
+        )
+
+        if is_openai_pro_model(model, self.service_name):
+            raise ValueError(OPENAI_PRO_EXCLUSION_MESSAGE)
+
         # Build kwargs with API keys based on service class name
         kwargs: Dict[str, Any] = {"model": model}
         class_name = service_class.__name__
@@ -277,7 +295,30 @@ class BasePipeline(ABC):
                 raise EnvironmentError("OPENROUTER_API_KEY environment variable is required")
             kwargs["api_key"] = api_key
             kwargs["base_url"] = "https://openrouter.ai/api/v1"
-            logger.info(f"Using OpenRouter with base_url={kwargs['base_url']}")
+
+            from pipecat.services.openai.llm import OpenAILLMService
+
+            # OpenRouter's unified reasoning control. MTE_OPENROUTER_REASONING_OFF=1
+            # disables thinking for hybrid models (Qwen3, ...) so they answer
+            # directly — the thinking-off leg of the filler experiment. Non-hybrid
+            # chat models (e.g. deepseek-chat-v3.1) ignore it harmlessly.
+            reasoning_off = _env_bool("MTE_OPENROUTER_REASONING_OFF", False)
+            params_kwargs: Dict[str, Any] = {}
+            mt = os.getenv("MTE_OPENROUTER_MAX_TOKENS")
+            if mt:
+                params_kwargs["max_tokens"] = int(mt)
+            tp = os.getenv("MTE_OPENROUTER_TEMPERATURE")
+            if tp:
+                params_kwargs["temperature"] = float(tp)
+            if reasoning_off:
+                params_kwargs["extra"] = {"extra_body": {"reasoning": {"enabled": False}}}
+            if params_kwargs:
+                kwargs["params"] = OpenAILLMService.InputParams(**params_kwargs)
+            logger.info(
+                f"Using OpenRouter with base_url={kwargs['base_url']}, "
+                f"reasoning_off={reasoning_off}, "
+                f"max_tokens={mt or '(default)'}"
+            )
             return service_class(**kwargs)
 
         # Handle Lilac (uses OpenAI-compatible API at api.getlilac.com)
@@ -288,6 +329,12 @@ class BasePipeline(ABC):
             base_url = os.getenv("LILAC_BASE_URL", "https://api.getlilac.com/v1")
             kwargs["api_key"] = api_key
             kwargs["base_url"] = base_url
+
+            # Run-label vs API-id: results carry the `lilac/...` tag (self.model_name,
+            # set from --model before this runs) while the API gets Lilac's real id.
+            LILAC_MODEL_IDS = {"lilac/gemma-4-31b-it": "google/gemma-4-31b-it"}
+            if model in LILAC_MODEL_IDS:
+                kwargs["model"] = LILAC_MODEL_IDS[model]
 
             from pipecat.services.openai.llm import OpenAILLMService
             enable_thinking = _env_bool("MTE_LILAC_THINKING", False)
@@ -302,6 +349,76 @@ class BasePipeline(ABC):
             kwargs["params"] = OpenAILLMService.InputParams(extra=extra)
             logger.info(
                 f"Using Lilac with base_url={base_url}, model={model}, thinking={enable_thinking}"
+            )
+            return service_class(**kwargs)
+
+        # Handle BaseTen / Together (OpenAI-compatible reasoning-model hosts).
+        # Both serve models like thinkingmachines/inkling or Qwen3 that stream
+        # chain-of-thought in a separate `reasoning_content` field; the aliased
+        # Logged*LLMService times TTFT to the first non-thought token, not the
+        # first reasoning delta. Same knobs, per-provider MTE_ prefix.
+        if service_name_lower in ("baseten", "together"):
+            if service_name_lower == "together":
+                prov_label = "Together"
+                key_env = "TOGETHER_API_KEY"
+                base_url = os.getenv("TOGETHER_BASE_URL", "https://api.together.xyz/v1")
+                pfx = "MTE_TOGETHER"
+            else:
+                prov_label = "BaseTen"
+                key_env = "BASETEN_API_KEY"
+                base_url = os.getenv("BASETEN_BASE_URL", "https://inference.baseten.co/v1")
+                pfx = "MTE_BASETEN"
+            api_key = os.getenv(key_env)
+            if not api_key:
+                raise EnvironmentError(f"{key_env} environment variable is required")
+            kwargs["api_key"] = api_key
+            kwargs["base_url"] = base_url
+
+            from pipecat.services.openai.llm import OpenAILLMService
+
+            # Reasoning depth. `reasoning_effort` is an OpenAI-standard top-level
+            # field these hosts honor for some models; levels are
+            # none|minimal|low|medium|high|xhigh|max. `none` folds the
+            # chain-of-thought into `content`; `omit` sends no reasoning_effort at
+            # all — for models (Nemotron-120B, Qwen3) that reject it and toggle
+            # thinking only via the chat_template kwarg below. Default `low` suits
+            # Inkling (light thinking, clean answer, reasoning in reasoning_content).
+            effort = os.getenv(f"{pfx}_REASONING_EFFORT", "low").strip().lower()
+            allowed_efforts = {
+                "none", "minimal", "low", "medium", "high", "xhigh", "max", "omit",
+            }
+            if effort and effort not in allowed_efforts:
+                raise ValueError(
+                    f"Invalid {pfx}_REASONING_EFFORT='{effort}'; "
+                    f"expected one of {sorted(allowed_efforts)}"
+                )
+            # Open models (Qwen3/GLM/Kimi/Nemotron/DeepSeek on vLLM/SGLang) toggle
+            # thinking via chat_template_kwargs.enable_thinking rather than
+            # reasoning_effort. {pfx}_ENABLE_THINKING=0/false disables it.
+            et = os.getenv(f"{pfx}_ENABLE_THINKING", "").strip().lower()
+            # Reasoning tokens count against max_tokens; keep generous headroom so
+            # a long chain-of-thought can't truncate the answer.
+            max_tokens = int(os.getenv(f"{pfx}_MAX_TOKENS", "8192"))
+            temperature = float(os.getenv(f"{pfx}_TEMPERATURE", "1.0"))
+            params_kwargs: Dict[str, Any] = {
+                "max_tokens": max_tokens,
+                "temperature": temperature,
+            }
+            extra_body: Dict[str, Any] = {}
+            if effort and effort != "omit":
+                extra_body["reasoning_effort"] = effort
+            if et in {"0", "false", "off", "no"}:
+                extra_body["chat_template_kwargs"] = {"enable_thinking": False}
+            elif et in {"1", "true", "on", "yes"}:
+                extra_body["chat_template_kwargs"] = {"enable_thinking": True}
+            if extra_body:
+                params_kwargs["extra"] = {"extra_body": extra_body}
+            kwargs["params"] = OpenAILLMService.InputParams(**params_kwargs)
+            logger.info(
+                f"Using {prov_label} with base_url={base_url}, model={model}, "
+                f"reasoning_effort={effort or '(model default)'}, "
+                f"enable_thinking={et or '(unset)'}, "
+                f"max_tokens={max_tokens}, temperature={temperature}"
             )
             return service_class(**kwargs)
 
@@ -370,6 +487,18 @@ class BasePipeline(ABC):
             extra_body: Dict[str, Any] = {
                 "chat_template_kwargs": {"enable_thinking": enable_thinking}
             }
+            from multi_turn_eval.services.vllm_openai import (
+                is_qwen_reasoning_history_model,
+            )
+
+            if is_qwen_reasoning_history_model(model):
+                # Qwen's tool-use template must retain each assistant thought
+                # alongside the tool call that followed it. Sending both knobs
+                # makes the request behavior explicit for thinking-on and
+                # thinking-off runs.
+                extra_body["chat_template_kwargs"]["preserve_thinking"] = (
+                    enable_thinking
+                )
             # Optional thinking-budget cap. Two mechanisms:
             #  - default: custom `ThinkingBudgetLogitsProcessor` via vllm_xargs (has a
             #    grace period; BLOCKED by vLLM under speculative decoding / MTP).
@@ -385,7 +514,9 @@ class BasePipeline(ABC):
                 else:
                     extra_body["vllm_xargs"] = {
                         "thinking_budget": thinking_budget,
-                        "thinking_budget_grace_period": _opt_int("MTE_VLLM_GRACE", "30") or 30,
+                        "thinking_budget_grace_period": (
+                            30 if (g := _opt_int("MTE_VLLM_GRACE", "30")) is None else g
+                        ),
                     }
             params_kwargs["extra"] = {"extra_body": extra_body}
             kwargs["params"] = OpenAILLMService.InputParams(**params_kwargs)
@@ -404,11 +535,136 @@ class BasePipeline(ABC):
             kwargs["api_key"] = api_key
             from pipecat.services.anthropic.llm import AnthropicLLMService
             enable_prompt_caching = _env_bool("MTE_ANTHROPIC_PROMPT_CACHING", True)
-            kwargs["params"] = AnthropicLLMService.InputParams(
-                enable_prompt_caching=enable_prompt_caching,
-            )
+
+            # Reasoning config for models with effort levels (claude-fable-5).
+            # MTE_ANTHROPIC_EFFORT=low|medium|high|xhigh|max sets
+            # output_config.effort. For non-fable models with effort unset, no
+            # thinking params are sent — the configuration used for the
+            # existing claude-sonnet-4-6 / claude-haiku-4-5 rows.
+            #
+            # pipecat's typed ThinkingConfig only knows enabled/disabled, so
+            # adaptive thinking rides in `extra`, which the service merges into
+            # the messages.create() kwargs (anthropic>=0.108 accepts both
+            # thinking=adaptive and output_config as first-class parameters).
+            effort = os.getenv("MTE_ANTHROPIC_EFFORT", "").strip().lower()
+            # MTE_ANTHROPIC_THINKING explicitly selects the thinking config for
+            # NON-fable models, where the omitted-param default differs by
+            # generation: claude-sonnet-5 runs ADAPTIVE thinking when `thinking`
+            # is omitted, whereas claude-sonnet-4-6 / claude-haiku-4-5 run
+            # thinking OFF when omitted. To reproduce the no-thinking config on
+            # sonnet-5 we must send {"type": "disabled"} explicitly.
+            #   - unset      -> legacy behavior (omit the param). Preserves the
+            #                   published sonnet-4-6 / haiku rows byte-for-byte.
+            #   - "disabled" -> send {"type": "disabled"} (sonnet-5 voice row).
+            #   - "adaptive" -> force the adaptive branch below without needing
+            #                   an effort level (sonnet-5 capability row).
+            thinking_mode = os.getenv("MTE_ANTHROPIC_THINKING", "").strip().lower()
+            if thinking_mode and thinking_mode not in {"disabled", "adaptive"}:
+                raise ValueError(
+                    f"Invalid MTE_ANTHROPIC_THINKING='{thinking_mode}'; "
+                    f"expected 'disabled' or 'adaptive'"
+                )
+            # claude-fable-5 thinks unconditionally: adaptive thinking is on
+            # even when the `thinking` param is omitted, and an explicit
+            # {"type": "disabled"} returns a 400. So there is no "no-thinking"
+            # configuration — the omitted-param default is adaptive thinking
+            # at the default effort (high, per Anthropic docs).
+            always_thinking = "fable" in model_lower
+            if thinking_mode == "disabled" and always_thinking:
+                raise ValueError(
+                    "MTE_ANTHROPIC_THINKING=disabled is invalid for always-thinking "
+                    f"model {model} (claude-fable-* returns 400 on an explicit disable)"
+                )
+            if thinking_mode == "disabled" and effort:
+                raise ValueError(
+                    "MTE_ANTHROPIC_THINKING=disabled conflicts with "
+                    f"MTE_ANTHROPIC_EFFORT={effort} (effort implies adaptive thinking)"
+                )
+            extra: Dict[str, Any] = {}
+            params_kwargs: Dict[str, Any] = {
+                "enable_prompt_caching": enable_prompt_caching,
+            }
+            # Honor an explicit max_tokens for any Anthropic run; the
+            # effort/thinking branch below only supplies a default.
+            max_tokens_env = os.getenv("MTE_ANTHROPIC_MAX_TOKENS", "").strip()
+            if max_tokens_env:
+                params_kwargs["max_tokens"] = int(max_tokens_env)
+            if thinking_mode == "disabled":
+                # Explicit no-thinking. Accepted on sonnet-5 / sonnet-4-6;
+                # reproduces the omitted-param behavior of the older rows so the
+                # sonnet-5 voice row is apples-to-apples with sonnet-4-6.
+                extra["thinking"] = {"type": "disabled"}
+            if effort:
+                allowed_efforts = {"low", "medium", "high", "xhigh", "max"}
+                if effort not in allowed_efforts:
+                    # Fail fast: a mislabeled effort level silently corrupts a
+                    # 10-run sweep, so don't fall back to a default.
+                    raise ValueError(
+                        f"Invalid MTE_ANTHROPIC_EFFORT='{effort}'; "
+                        f"expected one of {sorted(allowed_efforts)}"
+                    )
+                if not always_thinking:
+                    # Guard against a leftover export from a fable sweep
+                    # silently changing another model's published config.
+                    logger.warning(
+                        f"MTE_ANTHROPIC_EFFORT={effort} is set for non-fable "
+                        f"model {model}: adaptive thinking + output_config.effort "
+                        "will be sent. Unset the env var if this is unintended."
+                    )
+                extra["output_config"] = {"effort": effort}
+            if effort or always_thinking or thinking_mode == "adaptive":
+                # display=summarized (default) keeps thinking text non-empty,
+                # which pipecat 1.1.0's stock adapter requires to rebuild
+                # context thought messages. display=omitted skips streaming
+                # thinking text for faster time-to-first-text-token; it relies
+                # on PatchedAnthropicLLMAdapter (LoggedAnthropicLLMService)
+                # round-tripping empty-text+signature thinking blocks.
+                thinking_display = (
+                    os.getenv("MTE_ANTHROPIC_THINKING_DISPLAY", "summarized")
+                    .strip()
+                    .lower()
+                )
+                if thinking_display not in {"summarized", "omitted"}:
+                    raise ValueError(
+                        f"Invalid MTE_ANTHROPIC_THINKING_DISPLAY='{thinking_display}'; "
+                        f"expected 'summarized' or 'omitted'"
+                    )
+                if thinking_display == "omitted":
+                    from multi_turn_eval.services.anthropic_logged import (
+                        LoggedAnthropicLLMService,
+                    )
+
+                    if not (
+                        isinstance(service_class, type)
+                        and issubclass(service_class, LoggedAnthropicLLMService)
+                    ):
+                        # The stock adapter crashes on the next turn when
+                        # replaying empty-text thoughts (KeyError 'role').
+                        raise ValueError(
+                            "MTE_ANTHROPIC_THINKING_DISPLAY=omitted requires "
+                            "LoggedAnthropicLLMService (PatchedAnthropicLLMAdapter "
+                            f"round-trips empty thinking blocks); got {class_name}"
+                        )
+                extra["thinking"] = {"type": "adaptive", "display": thinking_display}
+                # Thinking tokens count against max_tokens; pipecat's 4096
+                # default can truncate mid-thought. xhigh/max effort needs far
+                # more headroom (Anthropic guidance: >=64K) — a truncated
+                # thinking block scores as a model failure and corrupts sweeps.
+                if "max_tokens" not in params_kwargs:
+                    params_kwargs["max_tokens"] = (
+                        65536 if effort in {"xhigh", "max"} else 16384
+                    )
+            params_kwargs["extra"] = extra
+            kwargs["params"] = AnthropicLLMService.InputParams(**params_kwargs)
             logger.info(
-                f"Configured {model} with enable_prompt_caching={enable_prompt_caching}"
+                f"Configured {model} with enable_prompt_caching={enable_prompt_caching}, "
+                f"effort={effort or '(unset/model default)'}, "
+                f"thinking={extra.get('thinking') or '(not sent)'}"
+                + (
+                    f", max_tokens={params_kwargs['max_tokens']}"
+                    if "max_tokens" in params_kwargs
+                    else ""
+                )
             )
         elif "Groq" in class_name:
             api_key = os.getenv("GROQ_API_KEY")
@@ -460,7 +716,10 @@ class BasePipeline(ABC):
             # Route selected OpenAI text models to Responses API without changing
             # benchmark pipelines.
             if service_name_lower == "openai" and (
-                model_lower.startswith("gpt-4.1") or model_lower.startswith("gpt-5.4")
+                model_lower.startswith("gpt-4.1")
+                or model_lower.startswith("gpt-5.4")
+                or model_lower.startswith("gpt-5.5")
+                or model_lower.startswith("gpt-5.6")
             ):
                 from multi_turn_eval.services.openai_responses import OpenAIResponsesLLMService
 
@@ -473,16 +732,24 @@ class BasePipeline(ABC):
                 from pipecat.services.openai.llm import OpenAILLMService
                 # gpt-5.1 and gpt-5.2 use "none"; most other gpt-5 models use "minimal".
                 #
-                # gpt-5.4 rejects reasoning_effort with tools on
+                # Newer gpt-5.x models reject reasoning_effort with tools on
                 # /v1/chat/completions; use Responses API with reasoning.effort when
                 # routed, otherwise omit reasoning_effort for chat.completions.
-                if model_lower.startswith("gpt-5.4"):
+                if (
+                    model_lower.startswith("gpt-5.4")
+                    or model_lower.startswith("gpt-5.5")
+                    or model_lower.startswith("gpt-5.6")
+                ):
                     if class_name == "OpenAIResponsesLLMService":
                         reasoning_effort = os.getenv(
                             "MTE_OPENAI_RESPONSES_REASONING_EFFORT", "low"
                         ).strip().lower()
-                        # gpt-5.4 model docs expose these effort levels.
+                        # gpt-5.4/5.5 expose none/low/medium/high/xhigh; gpt-5.6
+                        # (sol/terra/luna) adds "max". These route through Responses
+                        # for tool-use compatibility.
                         allowed_efforts = {"none", "low", "medium", "high", "xhigh"}
+                        if model_lower.startswith("gpt-5.6"):
+                            allowed_efforts = allowed_efforts | {"max"}
                         if reasoning_effort not in allowed_efforts:
                             logger.warning(
                                 "Invalid MTE_OPENAI_RESPONSES_REASONING_EFFORT='{}'; defaulting to low".format(
@@ -523,11 +790,39 @@ class BasePipeline(ABC):
                 raise EnvironmentError("GOOGLE_API_KEY environment variable is required")
             kwargs["api_key"] = api_key
 
-            # Configure Gemini 3 series models with an explicit thinking mode
-            # so benchmark sweeps can compare disabled vs minimal reasoning.
-            if "gemini-3" in model_lower:
+            # Configure Gemma 4 on Google AI Studio: thinking is permanently ON
+            # for gemma-4-*-it on this endpoint (Google rejects both
+            # thinking_budget and thinking_level for these models). Sampling
+            # follows Cerebras's agentic recommendation (T=0.8/top_p=0.95).
+            # Override via MTE_GOOGLE_TEMPERATURE / MTE_GOOGLE_TOP_P.
+            if "gemma-4" in model_lower:
                 from pipecat.services.google.llm import GoogleLLMService
-                thinking_mode = os.getenv("MTE_GOOGLE_THINKING_MODE", "minimal").strip().lower()
+
+                def _g_float(name: str, default: float) -> float:
+                    raw = os.getenv(name, "").strip()
+                    return float(raw) if raw else default
+
+                temperature = _g_float("MTE_GOOGLE_TEMPERATURE", 0.8)
+                top_p = _g_float("MTE_GOOGLE_TOP_P", 0.95)
+                kwargs["params"] = GoogleLLMService.InputParams(
+                    temperature=temperature,
+                    top_p=top_p,
+                )
+                logger.info(
+                    f"Configured {model} (google/gemma) with T={temperature}, "
+                    f"top_p={top_p}, thinking=ON (no API knob to disable)"
+                )
+
+            # Gemini 2.5 uses token budgets rather than Gemini 3's thinking
+            # levels. Pipecat's low-latency default for 2.5 Flash injects
+            # thinking_budget=0 later while building the request. Benchmarks
+            # can pin the same setting explicitly for auditable provenance.
+            elif "gemini-2.5" in model_lower:
+                from pipecat.services.google.llm import GoogleLLMService
+                thinking_mode = (
+                    getattr(self, "thinking", None)
+                    or os.getenv("MTE_GOOGLE_THINKING_MODE", "default")
+                ).strip().lower()
 
                 if thinking_mode in {"disabled", "disable", "off", "none", "budget0", "0"}:
                     kwargs["params"] = GoogleLLMService.InputParams(
@@ -537,6 +832,32 @@ class BasePipeline(ABC):
                     )
                     logger.info(
                         f"Configured {model} with thinking_budget=0 (disabled)"
+                    )
+                elif thinking_mode in {"default", "auto"}:
+                    logger.info(
+                        f"Configured {model} with Pipecat default thinking behavior "
+                        "(thinking_budget=0 for Gemini 2.5 Flash)"
+                    )
+                else:
+                    raise ValueError(
+                        "Unsupported Gemini 2.5 MTE_GOOGLE_THINKING_MODE={!r}; expected disabled or default".format(
+                            thinking_mode
+                        )
+                    )
+
+            # Configure Gemini 3 series models with an explicit thinking mode
+            # so benchmark sweeps can compare disabled vs minimal reasoning.
+            elif "gemini-3" in model_lower:
+                from pipecat.services.google.llm import GoogleLLMService
+                thinking_mode = (
+                    getattr(self, "thinking", None)
+                    or os.getenv("MTE_GOOGLE_THINKING_MODE", "minimal")
+                ).strip().lower()
+
+                if thinking_mode in {"disabled", "disable", "off", "none", "budget0", "0"}:
+                    raise ValueError(
+                        f"{model} does not support thinking_budget=0; "
+                        "use minimal, low, medium, high, or default"
                     )
                 elif thinking_mode in {"minimal", "min"}:
                     kwargs["params"] = GoogleLLMService.InputParams(
@@ -564,7 +885,7 @@ class BasePipeline(ABC):
                     )
                 else:
                     raise ValueError(
-                        "Unsupported MTE_GOOGLE_THINKING_MODE={!r}; expected disabled, minimal, low, medium, high, or default".format(
+                        "Unsupported MTE_GOOGLE_THINKING_MODE={!r}; expected minimal, low, medium, high, or default".format(
                             thinking_mode
                         )
                     )
@@ -692,6 +1013,10 @@ class BasePipeline(ABC):
         for md in frame.data:
             if isinstance(md, LLMUsageMetricsData):
                 self.recorder.record_usage_metrics(md.value, getattr(md, "model", None))
+            elif isinstance(md, RawTTFBMetricsData):
+                # RawTTFBMetricsData is a sibling of TTFBMetricsData (both
+                # subclass MetricsData directly), so branch order is irrelevant.
+                self.recorder.record_raw_ttfb(md.value)
             elif isinstance(md, TTFBMetricsData):
                 self.recorder.record_ttfb(md.value)
 

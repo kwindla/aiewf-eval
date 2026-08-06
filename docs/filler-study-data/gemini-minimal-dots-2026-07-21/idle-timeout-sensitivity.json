@@ -1,0 +1,162 @@
+{
+  "artifact_status": "SENSITIVITY_ONLY_NOT_PRIMARY",
+  "question": "Effect of treating the bare harness idle timeout as replacement-eligible infrastructure",
+  "primary_counted_run": "runs/aiwf_medium_context/20260721T172944_gemini-3.5-flash-lite_ab2a7e32",
+  "alternate_extra_run": "runs/aiwf_medium_context/20260721T173037_gemini-3.5-flash-lite_9b1df5f3",
+  "primary_attempt_based": {
+    "n_attempts": 30,
+    "fixed_turn_denominator": 900,
+    "strict_complete_count": 18,
+    "strict_completion_pct": 60.0,
+    "strict_completion_ci95": [
+      42.32036025332248,
+      75.40937188319815
+    ],
+    "pass_count": 617,
+    "pass_rate_pct": 68.55555555555556,
+    "pass_rate_ci95": [
+      56.666666666666664,
+      79.8888888888889
+    ],
+    "any_error_count": 283,
+    "any_error_rate_pct": 31.444444444444443,
+    "any_error_rate_ci95": [
+      20.1111111111111,
+      43.333333333333336
+    ],
+    "ttfat_observations": 648,
+    "ttfat_p50_ms": 591.0,
+    "ttfat_p95_ms": 679.2499999999999,
+    "ttfat_max_ms": 928.0,
+    "thought_tokens": 0,
+    "run_dirs": [
+      "runs/aiwf_medium_context/20260721T172944_gemini-3.5-flash-lite_ab2a7e32",
+      "runs/aiwf_medium_context/20260721T174151_gemini-3.5-flash-lite_93632696",
+      "runs/aiwf_medium_context/20260721T174749_gemini-3.5-flash-lite_a8adfcf0",
+      "runs/aiwf_medium_context/20260721T175736_gemini-3.5-flash-lite_76812032",
+      "runs/aiwf_medium_context/20260721T180520_gemini-3.5-flash-lite_dc4fb1e8",
+      "runs/aiwf_medium_context/20260721T181231_gemini-3.5-flash-lite_379ad6eb",
+      "runs/aiwf_medium_context/20260721T182015_gemini-3.5-flash-lite_91e0326d",
+      "runs/aiwf_medium_context/20260721T182432_gemini-3.5-flash-lite_599928ab",
+      "runs/aiwf_medium_context/20260721T182842_gemini-3.5-flash-lite_bbb9ed5d",
+      "runs/aiwf_medium_context/20260721T183016_gemini-3.5-flash-lite_903dc2ec",
+      "runs/aiwf_medium_context/20260721T185531_gemini-3.5-flash-lite_dc466b2b",
+      "runs/aiwf_medium_context/20260721T190311_gemini-3.5-flash-lite_5791f9f0",
+      "runs/aiwf_medium_context/20260721T191036_gemini-3.5-flash-lite_6a5d8ae0",
+      "runs/aiwf_medium_context/20260721T191742_gemini-3.5-flash-lite_215d79fc",
+      "runs/aiwf_medium_context/20260721T192326_gemini-3.5-flash-lite_1c7d2bbb",
+      "runs/aiwf_medium_context/20260721T193018_gemini-3.5-flash-lite_2abb231d",
+      "runs/aiwf_medium_context/20260721T193806_gemini-3.5-flash-lite_31727876",
+      "runs/aiwf_medium_context/20260721T194609_gemini-3.5-flash-lite_65d1dc65",
+      "runs/aiwf_medium_context/20260721T195518_gemini-3.5-flash-lite_100497f2",
+      "runs/aiwf_medium_context/20260721T200215_gemini-3.5-flash-lite_fd390ff6",
+      "runs/aiwf_medium_context/20260721T200849_gemini-3.5-flash-lite_f4427ee5",
+      "runs/aiwf_medium_context/20260721T201623_gemini-3.5-flash-lite_d29a7bae",
+      "runs/aiwf_medium_context/20260721T202322_gemini-3.5-flash-lite_efb4c34b",
+      "runs/aiwf_medium_context/20260721T203025_gemini-3.5-flash-lite_beee8a8a",
+      "runs/aiwf_medium_context/20260721T203731_gemini-3.5-flash-lite_428d0cf1",
+      "runs/aiwf_medium_context/20260721T204402_gemini-3.5-flash-lite_26f9d1dc",
+      "runs/aiwf_medium_context/20260721T205042_gemini-3.5-flash-lite_6a66f714",
+      "runs/aiwf_medium_context/20260721T205717_gemini-3.5-flash-lite_3d6ff878",
+      "runs/aiwf_medium_context/20260721T210602_gemini-3.5-flash-lite_324eff1e",
+      "runs/aiwf_medium_context/20260721T211140_gemini-3.5-flash-lite_1c59ac97"
+    ],
+    "tool_error_count": 277,
+    "tool_error_rate_pct": 30.77777777777778,
+    "tool_error_rate_ci95": [
+      19.222222222222218,
+      42.88888888888888
+    ],
+    "instruction_error_count": 283,
+    "instruction_error_rate_pct": 31.444444444444443,
+    "instruction_error_rate_ci95": [
+      20.111111111111104,
+      43.333333333333336
+    ],
+    "kb_error_count": 253,
+    "kb_error_rate_pct": 28.11111111111111,
+    "kb_error_rate_ci95": [
+      15.888888888888891,
+      40.777777777777786
+    ]
+  },
+  "replacement_sensitivity": {
+    "n_attempts": 30,
+    "fixed_turn_denominator": 900,
+    "strict_complete_count": 19,
+    "strict_completion_pct": 63.333333333333336,
+    "strict_completion_ci95": [
+      45.51356365479487,
+      78.12607919389929
+    ],
+    "pass_count": 639,
+    "pass_rate_pct": 71.0,
+    "pass_rate_ci95": [
+      59.22222222222221,
+      82.22222222222221
+    ],
+    "any_error_count": 261,
+    "any_error_rate_pct": 29.0,
+    "any_error_rate_ci95": [
+      17.777777777777786,
+      40.77777777777779
+    ],
+    "ttfat_observations": 670,
+    "ttfat_p50_ms": 590.5,
+    "ttfat_p95_ms": 681.0,
+    "ttfat_max_ms": 928.0,
+    "thought_tokens": 0,
+    "run_dirs": [
+      "runs/aiwf_medium_context/20260721T174151_gemini-3.5-flash-lite_93632696",
+      "runs/aiwf_medium_context/20260721T174749_gemini-3.5-flash-lite_a8adfcf0",
+      "runs/aiwf_medium_context/20260721T175736_gemini-3.5-flash-lite_76812032",
+      "runs/aiwf_medium_context/20260721T180520_gemini-3.5-flash-lite_dc4fb1e8",
+      "runs/aiwf_medium_context/20260721T181231_gemini-3.5-flash-lite_379ad6eb",
+      "runs/aiwf_medium_context/20260721T182015_gemini-3.5-flash-lite_91e0326d",
+      "runs/aiwf_medium_context/20260721T182432_gemini-3.5-flash-lite_599928ab",
+      "runs/aiwf_medium_context/20260721T182842_gemini-3.5-flash-lite_bbb9ed5d",
+      "runs/aiwf_medium_context/20260721T183016_gemini-3.5-flash-lite_903dc2ec",
+      "runs/aiwf_medium_context/20260721T185531_gemini-3.5-flash-lite_dc466b2b",
+      "runs/aiwf_medium_context/20260721T190311_gemini-3.5-flash-lite_5791f9f0",
+      "runs/aiwf_medium_context/20260721T191036_gemini-3.5-flash-lite_6a5d8ae0",
+      "runs/aiwf_medium_context/20260721T191742_gemini-3.5-flash-lite_215d79fc",
+      "runs/aiwf_medium_context/20260721T192326_gemini-3.5-flash-lite_1c7d2bbb",
+      "runs/aiwf_medium_context/20260721T193018_gemini-3.5-flash-lite_2abb231d",
+      "runs/aiwf_medium_context/20260721T193806_gemini-3.5-flash-lite_31727876",
+      "runs/aiwf_medium_context/20260721T194609_gemini-3.5-flash-lite_65d1dc65",
+      "runs/aiwf_medium_context/20260721T195518_gemini-3.5-flash-lite_100497f2",
+      "runs/aiwf_medium_context/20260721T200215_gemini-3.5-flash-lite_fd390ff6",
+      "runs/aiwf_medium_context/20260721T200849_gemini-3.5-flash-lite_f4427ee5",
+      "runs/aiwf_medium_context/20260721T201623_gemini-3.5-flash-lite_d29a7bae",
+      "runs/aiwf_medium_context/20260721T202322_gemini-3.5-flash-lite_efb4c34b",
+      "runs/aiwf_medium_context/20260721T203025_gemini-3.5-flash-lite_beee8a8a",
+      "runs/aiwf_medium_context/20260721T203731_gemini-3.5-flash-lite_428d0cf1",
+      "runs/aiwf_medium_context/20260721T204402_gemini-3.5-flash-lite_26f9d1dc",
+      "runs/aiwf_medium_context/20260721T205042_gemini-3.5-flash-lite_6a66f714",
+      "runs/aiwf_medium_context/20260721T205717_gemini-3.5-flash-lite_3d6ff878",
+      "runs/aiwf_medium_context/20260721T210602_gemini-3.5-flash-lite_324eff1e",
+      "runs/aiwf_medium_context/20260721T211140_gemini-3.5-flash-lite_1c59ac97",
+      "runs/aiwf_medium_context/20260721T173037_gemini-3.5-flash-lite_9b1df5f3"
+    ],
+    "tool_error_count": 255,
+    "tool_error_rate_pct": 28.333333333333332,
+    "tool_error_rate_ci95": [
+      16.888888888888893,
+      40.33333333333333
+    ],
+    "instruction_error_count": 261,
+    "instruction_error_rate_pct": 29.0,
+    "instruction_error_rate_ci95": [
+      17.77777777777777,
+      40.77777777777778
+    ],
+    "kb_error_count": 231,
+    "kb_error_rate_pct": 25.666666666666668,
+    "kb_error_rate_ci95": [
+      13.777777777777775,
+      38.22222222222223
+    ]
+  },
+  "pass_rate_change_points": 2.444444444444443,
+  "strict_completion_change_points": 3.3333333333333357
+}

@@ -856,6 +856,7 @@ class NovaSonicPipeline:
         service_class=None,
         service_name=None,
         turn_indices=None,
+        thinking=None,
     ) -> None:
         """Run the complete benchmark.
 
@@ -865,6 +866,7 @@ class NovaSonicPipeline:
             service_class: Ignored for Nova Sonic (we create our own LLM).
             service_name: Ignored for Nova Sonic (we create our own LLM).
             turn_indices: Optional list of turn indices to run (for debugging).
+            thinking: Ignored for Nova Sonic; accepted for CLI signature parity.
         """
         import os
         import soundfile as sf
@@ -880,6 +882,7 @@ class NovaSonicPipeline:
 
         self.recorder = recorder
         self.model_name = model
+        self.thinking = thinking
         self._turn_indices = turn_indices
 
         # Validate AWS credentials

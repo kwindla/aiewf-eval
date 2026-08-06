@@ -290,10 +290,29 @@ class TextPipeline(BasePipeline):
         self.context_aggregator = None
         self.last_msg_idx = 0
 
+    # Latency steering for always-thinking models (claude-fable-*): thinking
+    # can't be disabled via the API, but its triggering is promptable per the
+    # Anthropic adaptive-thinking docs. Env-gated (off by default) so steered
+    # runs are explicitly labeled and the published unsteered rows stay
+    # reproducible.
+    VOICE_STEERING_INSTRUCTION = (
+        "This is a conversational voice application. Fast responses are "
+        "important to the user experience. We need to prioritize low latency. "
+        "Always answer directly without deliberating."
+    )
+
     def _setup_context(self) -> None:
         """Create LLMContext with system prompt, tools, and first user message."""
         # Get system instruction from benchmark
         system_instruction = getattr(self.benchmark, "system_instruction", "")
+
+        if _env_bool("MTE_ANTHROPIC_VOICE_STEERING", False) and "fable" in (
+            self.model_name or ""
+        ).lower():
+            system_instruction = (
+                system_instruction.rstrip() + "\n\n" + self.VOICE_STEERING_INSTRUCTION
+            )
+            logger.info("Voice steering instruction appended to system prompt")
 
         # Initial messages: system + first user turn
         first_turn = self._get_current_turn()
@@ -306,7 +325,36 @@ class TextPipeline(BasePipeline):
         tools = getattr(self.benchmark, "tools_schema", None)
 
         self.context = LLMContext(messages, tools=tools)
-        self.context_aggregator = LLMContextAggregatorPair(self.context)
+        # Reasoning-aware services can provide a universal aggregator pair that
+        # preserves provider-specific assistant history while keeping the rest
+        # of the text pipeline provider-neutral. A falsey result explicitly
+        # opts back into Pipecat's stock universal pair.
+        # Use a deliberately project-specific hook. Many Pipecat services
+        # expose the deprecated ``create_context_aggregator`` method; calling
+        # that here would silently switch every non-Qwen service away from the
+        # universal pair this pipeline has historically used.
+        service_aggregator_factory = getattr(
+            self.llm, "create_reasoning_context_aggregator_pair", None
+        )
+        service_aggregator = (
+            service_aggregator_factory(self.context)
+            if callable(service_aggregator_factory)
+            else None
+        )
+        self.context_aggregator = service_aggregator or LLMContextAggregatorPair(
+            self.context
+        )
+
+        if service_aggregator is not None:
+            assistant_aggregator = self.context_aggregator.assistant()
+
+            @assistant_aggregator.event_handler("on_assistant_thought")
+            async def on_assistant_thought(aggregator, message):
+                if self.recorder is not None and hasattr(
+                    self.recorder, "record_assistant_thought"
+                ):
+                    self.recorder.record_assistant_thought(message.content)
+
         self.last_msg_idx = len(messages)
 
     def _setup_llm(self) -> None:

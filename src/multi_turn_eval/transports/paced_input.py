@@ -8,11 +8,10 @@ import soundfile as sf
 from loguru import logger
 
 from pipecat.frames.frames import (
-    EmulateUserStartedSpeakingFrame,
-    EmulateUserStoppedSpeakingFrame,
     Frame,
     InputAudioRawFrame,
     StartFrame,
+    UserStartedSpeakingFrame,
     UserStoppedSpeakingFrame,
 )
 from pipecat.processors.frame_processor import FrameDirection
@@ -57,6 +56,7 @@ class PacedInputTransport(BaseInputTransport):
         continuous_silence: bool = False,
         wait_for_ready: bool = False,
         emit_user_stopped_speaking: bool = False,
+        emit_user_activity_frames: bool = False,
     ):
         super().__init__(params)
         self._chunk_ms = chunk_ms
@@ -70,6 +70,10 @@ class PacedInputTransport(BaseInputTransport):
         self._continuous_silence = continuous_silence  # Send silence when no audio queued
         self._wait_for_ready = wait_for_ready  # If True, wait for signal_ready() before sending audio
         self._emit_user_stopped_speaking = emit_user_stopped_speaking  # Emit UserStoppedSpeakingFrame after each file
+        # Some realtime APIs support exact, client-delimited audio turns. In
+        # that mode the WAV file—not an acoustic VAD heuristic—is the source of
+        # truth for activity_start/activity_end.
+        self._emit_user_activity_frames = emit_user_activity_frames
         self._llm_ready = threading.Event()  # Signaled when downstream LLM is ready to receive audio
         if not wait_for_ready:
             self._llm_ready.set()  # If not waiting, consider LLM ready immediately
@@ -177,28 +181,28 @@ class PacedInputTransport(BaseInputTransport):
         self._ready.set()
 
     async def stop(self, frame):
+        self._stop_feeder()
         await super().stop(frame)
+
+    async def cancel(self, frame):
+        self._stop_feeder()
+        await super().cancel(frame)
+
+    def _stop_feeder(self):
+        """Stop and join the feeder before the pipeline event loop shuts down."""
         self._stop.set()
+        # Unblock every lifecycle wait so cancellation also works during setup,
+        # a reconnect pause, or recording initialization.
+        self._ready.set()
+        self._llm_ready.set()
+        self._recording_baseline_event.set()
         if self._feeder and self._feeder.is_alive():
             self._feeder.join(timeout=1.0)
 
-    async def process_frame(self, frame: Frame, direction: FrameDirection):
-        """Process frames, filtering out emulated VAD frames.
-
-        This transport is designed for synthetic/pre-recorded audio playback to
-        services with server-side VAD (Gemini Live, OpenAI Realtime). There is no
-        client-side VAD, so the user aggregator's "emulated VAD" logic incorrectly
-        assumes VAD failed to detect speech when it sees transcriptions without
-        preceding UserStartedSpeakingFrame.
-
-        We filter EmulateUser*SpeakingFrame to prevent spurious InterruptionFrames
-        that would disrupt the LLM's response generation.
-        """
-        if isinstance(frame, (EmulateUserStartedSpeakingFrame, EmulateUserStoppedSpeakingFrame)):
-            logger.debug(f"Filtering emulated VAD frame: {type(frame).__name__}")
-            return  # Don't forward to parent's handler
-
-        await super().process_frame(frame, direction)
+    # Note: older pipecat emitted EmulateUser*SpeakingFrame when transcriptions
+    # arrived without client-side VAD, and this transport overrode process_frame
+    # to filter them out (they caused spurious InterruptionFrames). pipecat 1.x
+    # removed those frames entirely, so the filter override is gone.
 
     # Internal
     def _feeder_loop(self):
@@ -294,6 +298,10 @@ class PacedInputTransport(BaseInputTransport):
                     num_channels = self._num_channels
                 else:
                     # Not in continuous silence mode, wait a bit before checking again
+                    # Keep the pacing clock current while idle. Otherwise a WAV
+                    # queued after a long greeting inherits a stale baseline and
+                    # every chunk is scheduled immediately instead of in realtime.
+                    next_chunk_time = time.monotonic()
                     time.sleep(0.02)
                     continue
 
@@ -304,6 +312,12 @@ class PacedInputTransport(BaseInputTransport):
             offset = 0
 
             if has_audio:
+                if self._emit_user_activity_frames:
+                    logger.info(f"{self}: Emitting UserStartedSpeakingFrame")
+                    loop = self.get_event_loop()
+                    loop.call_soon_threadsafe(
+                        lambda: self.create_task(self.push_frame(UserStartedSpeakingFrame()))
+                    )
                 # Log actual audio with sample of first bytes to verify no WAV header
                 logger.info(
                     f"{self}: SENDING REAL AUDIO: {total} bytes, sr={sr}, ch={num_channels}, "
@@ -343,7 +357,7 @@ class PacedInputTransport(BaseInputTransport):
 
                 # Optionally emit UserStoppedSpeakingFrame for services with VAD disabled
                 # This triggers manual audio buffer commit and response creation
-                if self._emit_user_stopped_speaking:
+                if self._emit_user_stopped_speaking or self._emit_user_activity_frames:
                     logger.info(f"{self}: Emitting UserStoppedSpeakingFrame")
                     loop = self.get_event_loop()
                     loop.call_soon_threadsafe(

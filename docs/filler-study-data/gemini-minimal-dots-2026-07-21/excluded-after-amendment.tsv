@@ -1,0 +1,2 @@
+model	arm	run_dir	reason
+gemini35flashlite	nofiller	runs/aiwf_medium_context/20260721T173037_gemini-3.5-flash-lite_9b1df5f3	generated only because the preceding bare idle timeout was initially misclassified as replaceable; excluded after pre-outcome audit amendment

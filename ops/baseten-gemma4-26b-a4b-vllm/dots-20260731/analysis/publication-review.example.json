@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "artifact_status": "FINAL_PUBLICATION_REVIEW",
+  "campaign_id": "aiewf-medium-gemma4-26b-a4b-dots-paired-20260731",
+  "model": "google/gemma-4-26B-A4B-it",
+  "provider": "BaseTen",
+  "selected_stage": "initial",
+  "action": "stop_at_initial",
+  "reviewed_by": "REPLACE WITH REVIEWER NAME",
+  "reviewed_at": "REPLACE WITH ISO 8601 TIMESTAMP",
+  "artifacts": {
+    "aggregates": {
+      "path": "ops/baseten-gemma4-26b-a4b-vllm/dots-20260731/analysis/aggregates-initial.json",
+      "sha256": "REPLACE WITH 64 HEX DIGITS"
+    },
+    "included_runs": {
+      "path": "ops/baseten-gemma4-26b-a4b-vllm/dots-20260731/analysis/included-runs-initial.tsv",
+      "sha256": "REPLACE WITH 64 HEX DIGITS"
+    },
+    "report": {
+      "path": "ops/baseten-gemma4-26b-a4b-vllm/dots-20260731/analysis/REPORT-initial.md",
+      "sha256": "REPLACE WITH 64 HEX DIGITS"
+    }
+  },
+  "notes": "The prespecified initial-stage rule did not trigger; publication stops at the reviewed 10-pair stage. For a terminal full result, use selected_stage=full, action=publish_full_terminal, point the three artifacts at their full-stage files, and add a promotion_decision artifact pointing at promotion-decision-initial.json."
+}

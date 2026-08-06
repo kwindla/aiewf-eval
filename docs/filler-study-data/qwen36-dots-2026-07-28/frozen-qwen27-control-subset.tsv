@@ -1,0 +1,11 @@
+decision_order	slot	pair	mode	assignment_source	assignment_seed
+1	2	1	none	frozen-order.tsv	qwen36-aiewf-medium-n30-20260728
+2	3	2	none	frozen-order.tsv	qwen36-aiewf-medium-n30-20260728
+3	6	3	none	frozen-order.tsv	qwen36-aiewf-medium-n30-20260728
+4	7	4	none	frozen-order.tsv	qwen36-aiewf-medium-n30-20260728
+5	9	5	none	frozen-order.tsv	qwen36-aiewf-medium-n30-20260728
+6	11	6	none	frozen-order.tsv	qwen36-aiewf-medium-n30-20260728
+7	13	7	none	frozen-order.tsv	qwen36-aiewf-medium-n30-20260728
+8	15	8	none	frozen-order.tsv	qwen36-aiewf-medium-n30-20260728
+9	18	9	none	frozen-order.tsv	qwen36-aiewf-medium-n30-20260728
+10	19	10	none	frozen-order.tsv	qwen36-aiewf-medium-n30-20260728

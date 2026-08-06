@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "artifact_status": "FINAL_PUBLICATION_REVIEW",
+  "campaign_id": "aiewf-medium-gemma4-26b-a4b-dots-paired-20260731",
+  "model": "google/gemma-4-26B-A4B-it",
+  "provider": "BaseTen",
+  "selected_stage": "full",
+  "action": "publish_full_terminal",
+  "reviewed_by": "Codex",
+  "reviewed_at": "2026-08-03T19:14:17-07:00",
+  "artifacts": {
+    "aggregates": {
+      "path": "ops/baseten-gemma4-26b-a4b-vllm/dots-20260731/analysis/aggregates-full.json",
+      "sha256": "367abfecb9e97237937a05f3774f9a1251f64005772130905ab55060ed9a4d69"
+    },
+    "included_runs": {
+      "path": "ops/baseten-gemma4-26b-a4b-vllm/dots-20260731/analysis/included-runs-full.tsv",
+      "sha256": "128d853306e54058088161becd617503270e59baab7041212a976ef2a90d7353"
+    },
+    "report": {
+      "path": "ops/baseten-gemma4-26b-a4b-vllm/dots-20260731/analysis/REPORT-full.md",
+      "sha256": "c0dfe6f446db311100237144e5fda51f201bd5af55cb8090edb353a7e5d01622"
+    },
+    "promotion_decision": {
+      "path": "ops/baseten-gemma4-26b-a4b-vllm/dots-20260731/analysis/promotion-decision-initial.json",
+      "sha256": "8e949ad9b98618dcc85cf2cbce3c48b67a8e09b8755030f395d1dd11c6b60677"
+    }
+  },
+  "notes": "The prespecified initial-stage completion rule triggered. The full 30-pair stage is terminal and is approved for publication."
+}

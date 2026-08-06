@@ -46,8 +46,11 @@ UNPROMPTED_GAP_THRESHOLD_MS = 5000  # Max gap from user end to bot start before 
 class TurnMetrics:
     """All metrics for a single turn."""
     turn_index: int
-    # Server TTFB from transcript.jsonl
+    # Server TTFB from transcript.jsonl (first user-visible token; thinking excluded)
     server_ttfb_ms: Optional[int] = None
+    # Raw TTFB from transcript.jsonl (first stream chunk of any kind — see
+    # multi_turn_eval/metrics.py for per-service trigger nuance)
+    raw_ttfb_ms: Optional[int] = None
     # Raw timestamps
     user_start_ms: Optional[float] = None  # Silero user speech start
     user_end_ms: Optional[float] = None  # Silero user speech end
@@ -441,6 +444,49 @@ def check_alignment(
     return stats, bot_log_to_wav, user_log_to_wav
 
 
+def analyze_run_transcript_only(run_dir: Path) -> tuple[list[TurnMetrics], dict]:
+    """Analyze a text-mode run (no conversation.wav) from the transcript alone.
+
+    Produces server/raw TTFB stats and tool/retry flags — the subset of
+    TurnMetrics that doesn't require audio alignment.
+    """
+    transcript = load_transcript(run_dir)
+    log_path = run_dir / "run.log"
+    retry_events = parse_retry_events_from_log(log_path) if log_path.exists() else {}
+
+    n_turns = max(transcript.keys()) + 1 if transcript else 0
+    turns: list[TurnMetrics] = []
+    for i in range(n_turns):
+        m = TurnMetrics(turn_index=i)
+        if i in transcript:
+            m.server_ttfb_ms = transcript[i].get("ttfb_ms")
+            m.raw_ttfb_ms = transcript[i].get("raw_ttfb_ms")
+            m.has_tool_call = len(transcript[i].get("tool_calls", [])) > 0
+            m.reconnection_count = transcript[i].get("reconnection_count", 0)
+        if i in retry_events:
+            m.retry_count = len(retry_events[i])
+            m.retry_reasons = [r["type"] for r in retry_events[i]]
+        turns.append(m)
+
+    # n_turns spans 0..max(turn index); turns_recorded counts actual
+    # transcript entries (they differ when a transcript has gaps — gap turns
+    # appear in the per-turn list with all-None metrics).
+    summary: dict = {
+        "mode": "transcript_only",
+        "n_turns": n_turns,
+        "turns_recorded": len(transcript),
+    }
+    for metric_name in ["server_ttfb_ms", "raw_ttfb_ms"]:
+        values = [getattr(t, metric_name) for t in turns if getattr(t, metric_name) is not None]
+        if values:
+            summary[f"{metric_name}_median"] = float(np.median(values))
+            summary[f"{metric_name}_mean"] = float(np.mean(values))
+            summary[f"{metric_name}_min"] = float(np.min(values))
+            summary[f"{metric_name}_max"] = float(np.max(values))
+            summary[f"{metric_name}_p95"] = float(np.percentile(values, 95))
+    return turns, summary
+
+
 def analyze_run(run_dir: Path) -> tuple[list[TurnMetrics], AlignmentStats, dict]:
     """Analyze a run directory and return per-turn metrics."""
     wav_path = run_dir / "conversation.wav"
@@ -530,6 +576,7 @@ def analyze_run(run_dir: Path) -> tuple[list[TurnMetrics], AlignmentStats, dict]
         # Server TTFB from transcript
         if i in transcript:
             m.server_ttfb_ms = transcript[i].get("ttfb_ms")
+            m.raw_ttfb_ms = transcript[i].get("raw_ttfb_ms")
             m.has_tool_call = len(transcript[i].get("tool_calls", [])) > 0
             m.reconnection_count = transcript[i].get("reconnection_count", 0)
 
@@ -674,7 +721,7 @@ def analyze_run(run_dir: Path) -> tuple[list[TurnMetrics], AlignmentStats, dict]
     }
 
     # Calculate stats for each metric
-    for metric_name in ["server_ttfb_ms", "pipeline_ttfb_ms", "wav_v2v_ms", "silent_pad_rms_ms", "silent_pad_silero_ms"]:
+    for metric_name in ["server_ttfb_ms", "raw_ttfb_ms", "pipeline_ttfb_ms", "wav_v2v_ms", "silent_pad_rms_ms", "silent_pad_silero_ms"]:
         values = [getattr(t, metric_name) for t in turns if getattr(t, metric_name) is not None]
         if values:
             summary[f"{metric_name}_median"] = float(np.median(values))
@@ -755,6 +802,7 @@ def print_results(turns: list[TurnMetrics], alignment: AlignmentStats, summary: 
     print("-" * 90)
     metrics = [
         ("Server TTFB", "server_ttfb_ms"),
+        ("Raw TTFB", "raw_ttfb_ms"),
         ("Pipeline TTFB", "pipeline_ttfb_ms"),
         ("WAV V2V", "wav_v2v_ms"),
         ("Silent Pad (RMS)", "silent_pad_rms_ms"),
@@ -794,6 +842,59 @@ It also verifies log/WAV alignment using audio tags.
         print(f"Error: Run directory not found: {args.run_dir}", file=sys.stderr)
         sys.exit(1)
 
+    # Text-mode runs have no conversation.wav: report transcript-derived
+    # metrics (server/raw TTFB, tools, retries) and skip audio alignment.
+    if not (args.run_dir / "conversation.wav").exists():
+        turns, summary = analyze_run_transcript_only(args.run_dir)
+        if args.json:
+            print(json.dumps({
+                "summary": summary,
+                "alignment": None,
+                "turns": [
+                    {
+                        "turn": t.turn_index,
+                        "server_ttfb_ms": t.server_ttfb_ms,
+                        "raw_ttfb_ms": t.raw_ttfb_ms,
+                        # Audio-only metrics: always None in transcript-only
+                        # mode, present for schema parity with the audio path.
+                        "pipeline_ttfb_ms": None,
+                        "wav_v2v_ms": None,
+                        "silent_pad_rms_ms": None,
+                        "silent_pad_silero_ms": None,
+                        "tag_alignment_ms": None,
+                        "has_tool_call": t.has_tool_call,
+                        "retry_count": t.retry_count,
+                        "retry_reasons": t.retry_reasons,
+                        "reconnection_count": t.reconnection_count,
+                    }
+                    for t in turns
+                ],
+            }, indent=2))
+        else:
+            print(f"Transcript-only analysis (no conversation.wav): {args.run_dir}")
+            recorded = summary.get('turns_recorded', 0)
+            span = summary.get('n_turns', 0)
+            gap_note = f" (turn indices span {span}; transcript has gaps)" if recorded != span else ""
+            print(f"Turns: {recorded}{gap_note}")
+            if args.verbose:
+                print(f"{'Turn':>4} | {'Srv TTFB':>9} | {'Raw TTFB':>9} | Tool")
+                for t in turns:
+                    srv = f"{t.server_ttfb_ms:>7}ms" if t.server_ttfb_ms is not None else "    N/A"
+                    raw = f"{t.raw_ttfb_ms:>7}ms" if t.raw_ttfb_ms is not None else "    N/A"
+                    tool = " [T]" if t.has_tool_call else ""
+                    print(f"{t.turn_index:>4} | {srv} | {raw} |{tool}")
+            print()
+            print(f"{'Metric':<14} | {'Median':>9} | {'Mean':>9} | {'P95':>9} | {'Min':>9} | {'Max':>9}")
+            print(f"{'-'*14}-+-{'-'*9}-+-{'-'*9}-+-{'-'*9}-+-{'-'*9}-+-{'-'*9}")
+            for label, key in [("Server TTFB", "server_ttfb_ms"), ("Raw TTFB", "raw_ttfb_ms")]:
+                if f"{key}_median" in summary:
+                    print(
+                        f"{label:<14} | {summary[f'{key}_median']:>7.0f}ms | "
+                        f"{summary[f'{key}_mean']:>7.0f}ms | {summary[f'{key}_p95']:>7.0f}ms | "
+                        f"{summary[f'{key}_min']:>7.0f}ms | {summary[f'{key}_max']:>7.0f}ms"
+                    )
+        sys.exit(0)
+
     try:
         turns, alignment, summary = analyze_run(args.run_dir)
     except Exception as e:
@@ -823,6 +924,7 @@ It also verifies log/WAV alignment using audio tags.
                 {
                     "turn": t.turn_index,
                     "server_ttfb_ms": t.server_ttfb_ms,
+                    "raw_ttfb_ms": t.raw_ttfb_ms,
                     "pipeline_ttfb_ms": t.pipeline_ttfb_ms,
                     "wav_v2v_ms": t.wav_v2v_ms,
                     "silent_pad_rms_ms": t.silent_pad_rms_ms,

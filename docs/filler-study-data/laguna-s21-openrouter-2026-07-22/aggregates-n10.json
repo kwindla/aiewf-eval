@@ -1,0 +1,275 @@
+{
+  "schema_version": 1,
+  "artifact_status": "STAGED_EXPLORATORY",
+  "protocol": {
+    "benchmark": "aiwf_medium_context",
+    "turns": 30,
+    "missing_scripted_turns": "fail",
+    "thinking_mode": "disabled",
+    "full_thinking_off_guaranteed": true,
+    "route": "OpenRouter paid Poolside-hosted BF16",
+    "filler": {
+      "arm": "dots96",
+      "glyph": ".",
+      "count": 96,
+      "position": "suffix"
+    },
+    "bootstrap_unit": "whole conversation",
+    "bootstrap_samples": 100000,
+    "seed": 20260722
+  },
+  "models": {
+    "laguna_s21": {
+      "display_name": "laguna-s-2.1",
+      "readme_label": "laguna-s-2.1 (thinking off)",
+      "provider": "OpenRouter",
+      "requested_model": "poolside/laguna-s-2.1",
+      "endpoint_provider": "Poolside",
+      "quantization": "BF16",
+      "report_tier": "exploratory",
+      "arms": {
+        "nofiller": {
+          "n_attempts": 10,
+          "fixed_turn_denominator": 300,
+          "pass_count": 273,
+          "pass_rate_pct": 91.0,
+          "pass_rate_ci95": [
+            88.66666666666667,
+            93.33333333333333
+          ],
+          "any_error_count": 27,
+          "any_error_rate_pct": 9.0,
+          "any_error_rate_ci95": [
+            6.666666666666671,
+            11.333333333333329
+          ],
+          "tool_pass_count": 276,
+          "tool_pass_rate_pct": 92.0,
+          "tool_error_count": 24,
+          "tool_error_rate_pct": 8.0,
+          "tool_error_rate_ci95": [
+            5.666666666666657,
+            10.666666666666643
+          ],
+          "instruction_pass_count": 285,
+          "instruction_pass_rate_pct": 95.0,
+          "instruction_error_count": 15,
+          "instruction_error_rate_pct": 5.0,
+          "instruction_error_rate_ci95": [
+            2.666666666666657,
+            7.333333333333329
+          ],
+          "kb_pass_count": 297,
+          "kb_pass_rate_pct": 99.0,
+          "kb_error_count": 3,
+          "kb_error_rate_pct": 1.0,
+          "kb_error_rate_ci95": [
+            0.0,
+            2.333333333333343
+          ],
+          "strict_complete_count": 0,
+          "strict_completion_pct": 0.0,
+          "strict_completion_ci95": [
+            0.0,
+            27.75327998628892
+          ],
+          "ttfat_observations": 300,
+          "ttfat_p50_ms": 291.0,
+          "ttfat_p95_ms": 647.6000000000001,
+          "ttfat_max_ms": 2515.0,
+          "thinking_tokens": 0,
+          "run_dirs": [
+            "runs/aiwf_medium_context/20260722T153018_poolside_laguna-s-2.1_a7604f8a",
+            "runs/aiwf_medium_context/20260722T153252_poolside_laguna-s-2.1_d604bd55",
+            "runs/aiwf_medium_context/20260722T153401_poolside_laguna-s-2.1_0acc1800",
+            "runs/aiwf_medium_context/20260722T153437_poolside_laguna-s-2.1_4072c560",
+            "runs/aiwf_medium_context/20260722T153535_poolside_laguna-s-2.1_97cbcf5f",
+            "runs/aiwf_medium_context/20260722T153629_poolside_laguna-s-2.1_83a0795a",
+            "runs/aiwf_medium_context/20260722T153659_poolside_laguna-s-2.1_b8701b87",
+            "runs/aiwf_medium_context/20260722T153804_poolside_laguna-s-2.1_c52c7db9",
+            "runs/aiwf_medium_context/20260722T153907_poolside_laguna-s-2.1_1295181f",
+            "runs/aiwf_medium_context/20260722T153943_poolside_laguna-s-2.1_b644aebc"
+          ]
+        },
+        "dots96": {
+          "n_attempts": 10,
+          "fixed_turn_denominator": 300,
+          "pass_count": 256,
+          "pass_rate_pct": 85.33333333333333,
+          "pass_rate_ci95": [
+            82.66666666666666,
+            88.00000000000001
+          ],
+          "any_error_count": 44,
+          "any_error_rate_pct": 14.666666666666666,
+          "any_error_rate_ci95": [
+            11.999999999999986,
+            17.333333333333343
+          ],
+          "tool_pass_count": 260,
+          "tool_pass_rate_pct": 86.66666666666667,
+          "tool_error_count": 40,
+          "tool_error_rate_pct": 13.333333333333334,
+          "tool_error_rate_ci95": [
+            11.0,
+            15.666666666666657
+          ],
+          "instruction_pass_count": 264,
+          "instruction_pass_rate_pct": 88.0,
+          "instruction_error_count": 36,
+          "instruction_error_rate_pct": 12.0,
+          "instruction_error_rate_ci95": [
+            9.333333333333314,
+            14.666666666666671
+          ],
+          "kb_pass_count": 300,
+          "kb_pass_rate_pct": 100.0,
+          "kb_error_count": 0,
+          "kb_error_rate_pct": 0.0,
+          "kb_error_rate_ci95": [
+            0.0,
+            0.0
+          ],
+          "strict_complete_count": 2,
+          "strict_completion_pct": 20.0,
+          "strict_completion_ci95": [
+            5.668215145437519,
+            50.983752846335825
+          ],
+          "ttfat_observations": 300,
+          "ttfat_p50_ms": 290.0,
+          "ttfat_p95_ms": 696.8000000000002,
+          "ttfat_max_ms": 1766.0,
+          "thinking_tokens": 0,
+          "run_dirs": [
+            "runs/aiwf_medium_context/20260722T153220_poolside_laguna-s-2.1_2473be07",
+            "runs/aiwf_medium_context/20260722T153326_poolside_laguna-s-2.1_28ec71f1",
+            "runs/aiwf_medium_context/20260722T153508_poolside_laguna-s-2.1_2d710922",
+            "runs/aiwf_medium_context/20260722T153602_poolside_laguna-s-2.1_6766fe27",
+            "runs/aiwf_medium_context/20260722T153728_poolside_laguna-s-2.1_8fef6318",
+            "runs/aiwf_medium_context/20260722T153836_poolside_laguna-s-2.1_6189708a",
+            "runs/aiwf_medium_context/20260722T154707_poolside_laguna-s-2.1_8d4a7e89",
+            "runs/aiwf_medium_context/20260722T154737_poolside_laguna-s-2.1_6bfd8738",
+            "runs/aiwf_medium_context/20260722T154807_poolside_laguna-s-2.1_3ad3a18e",
+            "runs/aiwf_medium_context/20260722T154837_poolside_laguna-s-2.1_1dba942b"
+          ]
+        }
+      },
+      "effect": {
+        "pass_delta_points": -5.666666666666671,
+        "pass_delta_ci95": [
+          -9.333333333333329,
+          -2.000000000000014
+        ],
+        "tool_delta_points": -5.333333333333329,
+        "tool_delta_ci95": [
+          -8.666666666666657,
+          -1.9999999999999858
+        ],
+        "instruction_delta_points": -7.0,
+        "instruction_delta_ci95": [
+          -10.666666666666643,
+          -3.3333333333333286
+        ],
+        "kb_delta_points": 1.0,
+        "kb_delta_ci95": [
+          0.0,
+          2.333333333333343
+        ]
+      },
+      "adaptive_decision": {
+        "stage": "dots_n10",
+        "initial_dots_n": 6,
+        "observed_control_n": 10,
+        "observed_dots_n": 10,
+        "pass_delta_points": -5.666666666666671,
+        "pass_delta_ci95": [
+          -9.333333333333329,
+          -2.000000000000014
+        ],
+        "strict_completion_pct": [
+          0.0,
+          20.0
+        ],
+        "recurring_turn_signals": [
+          {
+            "turn": 11,
+            "direction": "harm",
+            "control_failures": 1,
+            "dots_failures": 5
+          },
+          {
+            "turn": 15,
+            "direction": "harm",
+            "control_failures": 3,
+            "dots_failures": 9
+          },
+          {
+            "turn": 17,
+            "direction": "harm",
+            "control_failures": 3,
+            "dots_failures": 7
+          },
+          {
+            "turn": 19,
+            "direction": "harm",
+            "control_failures": 0,
+            "dots_failures": 3
+          },
+          {
+            "turn": 24,
+            "direction": "harm",
+            "control_failures": 7,
+            "dots_failures": 9
+          },
+          {
+            "turn": 29,
+            "direction": "benefit",
+            "control_failures": 10,
+            "dots_failures": 8
+          }
+        ],
+        "aggregate_aligned_recurring_turn_signals": [
+          {
+            "turn": 11,
+            "direction": "harm",
+            "control_failures": 1,
+            "dots_failures": 5
+          },
+          {
+            "turn": 15,
+            "direction": "harm",
+            "control_failures": 3,
+            "dots_failures": 9
+          },
+          {
+            "turn": 17,
+            "direction": "harm",
+            "control_failures": 3,
+            "dots_failures": 7
+          },
+          {
+            "turn": 19,
+            "direction": "harm",
+            "control_failures": 0,
+            "dots_failures": 3
+          },
+          {
+            "turn": 24,
+            "direction": "harm",
+            "control_failures": 7,
+            "dots_failures": 9
+          }
+        ],
+        "triggers": [
+          "whole-conversation bootstrap 95% interval excludes zero",
+          "absolute difference >= 3.0 points with recurring same-turn direction",
+          "strict-completion rates still differ at n=10"
+        ],
+        "action": "promote_both_arms_to_30",
+        "final_n": 30,
+        "decision_pending": true
+      }
+    }
+  }
+}

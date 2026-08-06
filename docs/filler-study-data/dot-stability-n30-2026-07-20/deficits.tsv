@@ -1,0 +1,17 @@
+model	arm	included	new_required	target
+gpt54	nofiller	10	20	30
+gpt54	dots96	10	20	30
+gpt55	nofiller	8	22	30
+gpt55	dots96	8	22	30
+terra	nofiller	20	10	30
+terra	dots96	30	0	30
+sol	nofiller	10	20	30
+sol	dots96	10	20	30
+gemma431	nofiller	20	10	30
+gemma431	dots96	10	20	30
+inkling	nofiller	8	22	30
+inkling	dots96	10	20	30
+qwen3_8b	nofiller	10	20	30
+qwen3_8b	dots96	6	24	30
+glm52	nofiller	10	20	30
+glm52	dots96	10	20	30

@@ -1,0 +1,32 @@
+Processing claude-fable-5 (10 runs)...
+{
+  "claude-fable-5": {
+    "valid_runs": 10,
+    "total_runs": 10,
+    "scores": {
+      "turn_taking": {
+        "correct": 300,
+        "total": 300
+      },
+      "tool_use_correct": {
+        "correct": 300,
+        "total": 300
+      },
+      "instruction_following": {
+        "correct": 300,
+        "total": 300
+      },
+      "kb_grounding": {
+        "correct": 300,
+        "total": 300
+      },
+      "turn_pass": {
+        "correct": 300,
+        "total": 300
+      }
+    },
+    "non_tool_v2vs": [],
+    "tool_v2vs": [],
+    "silence_pads": []
+  }
+}

@@ -55,6 +55,22 @@ class WallClockAlignedAudioBufferProcessor(AudioBufferProcessor):
         """
         pass
 
+    def _fill_buffer_silence_gap(self, buffer, last_update_time, now, frame_bytes):
+        """Override to disable wall-clock gap silence insertion.
+
+        The base class (pipecat >= 1.3.0) pads a buffer with silence whenever
+        the wall-clock gap since its last write exceeds 200ms. This
+        double-counts silence because NullAudioOutputTransport already inserts
+        wall-clock aligned silence for both tracks with < 10ms precision.
+
+        Args:
+            buffer: The buffer that would be padded (ignored).
+            last_update_time: Monotonic time of the last write (ignored).
+            now: Current monotonic time (ignored).
+            frame_bytes: Byte length of the incoming frame (ignored).
+        """
+        pass
+
 
 # Backwards compatibility alias
 NoSilenceAudioBufferProcessor = WallClockAlignedAudioBufferProcessor

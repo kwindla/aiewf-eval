@@ -1,0 +1,43 @@
+{
+  "campaign_id": "aiewf-medium-inkling-small-baseten-none-dots-adaptive-20260731",
+  "benchmark": "aiwf_medium_context",
+  "provider": "BaseTen Model API",
+  "endpoint": "https://inference.baseten.co/v1",
+  "model": "thinkingmachines/inkling-small",
+  "service": "baseten",
+  "pipeline": "text",
+  "thinking_effort": "none",
+  "control": {
+    "campaign": "ops/baseten-inkling-small/aiewf-medium-none-low-n30-20260731",
+    "arm": "none",
+    "target_conversations": 30,
+    "policy": "freeze and reuse the completed primary cohort; never rerun or top up control"
+  },
+  "test_arm": "dots96",
+  "stage_caps": [6, 10, 30],
+  "fixed_scheduled_turns_per_conversation": 30,
+  "sampling": {
+    "temperature": 1.0,
+    "max_tokens": 16384
+  },
+  "runtime": {
+    "provider_endpoint_concurrency": 1,
+    "enable_recovery": true,
+    "dedupe_tool_calls": true,
+    "tool_result_run_llm": false,
+    "text_idle_timeout_seconds": 45
+  },
+  "filler": {
+    "count": 96,
+    "token": ".",
+    "position": "suffix",
+    "outgoing_request_only": true
+  },
+  "eligibility": "Any attempt with at least one valid model response is canonical. Model aborts and later timeouts remain outcomes; replace only objective provider/transport failures with zero valid responses.",
+  "max_attempts_per_slot": 4,
+  "adaptive_rule": {
+    "6_to_10": "extend if absolute fixed-denominator pass-rate difference is at least 2.0 points or strict-completion rates differ",
+    "10_to_30": "extend if the whole-conversation bootstrap 95% interval excludes zero, or absolute difference is at least 3.0 points with an aggregate-aligned same-turn direction recurring in at least three conversations, or strict-completion rates differ",
+    "gate": "each extension requires a frozen local analysis artifact and an explicit extend decision"
+  }
+}

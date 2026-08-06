@@ -1,0 +1,1348 @@
+{
+  "schema_version": 1,
+  "campaign_id": "aiewf-medium-inkling-small-baseten-none-dots-adaptive-20260731",
+  "stage": 10,
+  "generated_at": "2026-08-03T21:30:02+00:00",
+  "model": "thinkingmachines/inkling-small",
+  "provider": "BaseTen Model API",
+  "configuration": {
+    "control": "frozen primary none arm",
+    "treatment": "+96 suffix dots",
+    "reasoning_effort": "none",
+    "fixed_turns_per_conversation": 30
+  },
+  "judge": {
+    "model": "claude-opus-4-5",
+    "version": "claude-agent-sdk-v4-turn-taking"
+  },
+  "method": {
+    "fixed_denominator": true,
+    "missing_future_turns_fail_all_displayed_criteria": true,
+    "bootstrap_unit": "whole conversation",
+    "bootstrap_design": "independent-arm resampling",
+    "bootstrap_iterations": 100000,
+    "deployment_time_caveat": "The reused primary controls precede dots collection; provider drift is not randomized away."
+  },
+  "inputs": {
+    "control_inputs": "ops/baseten-inkling-small/aiewf-medium-none-dots-adaptive-20260731/control-inputs.tsv",
+    "control_inputs_sha256": "39847bdfbab7c9eeb3ed67e5950bec2042a03178ecab34fb8bdd70898183d777",
+    "dots_judge_inputs": "ops/baseten-inkling-small/aiewf-medium-none-dots-adaptive-20260731/judging/canonical-inputs.tsv",
+    "dots_judge_inputs_sha256": "39f1d58571e2ab35bf0683eababa1a7ae237012e6f0b09286e160448c42ab386",
+    "dots_judge_complete": "ops/baseten-inkling-small/aiewf-medium-none-dots-adaptive-20260731/judging/COMPLETE-stage-10.json",
+    "dots_judge_complete_sha256": "53b56bd1626a95e82864d103b730747375463d2191c42eafb0ce7019efedf914"
+  },
+  "arms": {
+    "control_none": {
+      "conversations": 30,
+      "fixed_turn_denominator": 900,
+      "observed_turns": 723,
+      "missing_turns": 177,
+      "counts": {
+        "strict_pass": 676,
+        "any_error": 224,
+        "tool_error": 214,
+        "instruction_error": 218,
+        "kb_error": 184
+      },
+      "rates_percent": {
+        "strict_pass": 75.1111111111111,
+        "any_error": 24.88888888888889,
+        "tool_error": 23.77777777777778,
+        "instruction_error": 24.22222222222222,
+        "kb_error": 20.444444444444446
+      },
+      "strict_completion": {
+        "count": 17,
+        "total": 30,
+        "percent": 56.666666666666664
+      },
+      "classifications": {
+        "incomplete_no_end_session": 12,
+        "model_abort": 1,
+        "strict_complete": 17
+      },
+      "ttfat_ms_observed_responses_only": {
+        "n": 723,
+        "p50": 279.0,
+        "p95": 827.8,
+        "max": 2024.0
+      },
+      "turn_taking_error_count_fixed_denominator": 177,
+      "per_turn": [
+        {
+          "turn": 0,
+          "any_error_count": 0,
+          "tool_error_count": 0,
+          "instruction_error_count": 0,
+          "kb_error_count": 0,
+          "any_error_percent": 0.0,
+          "tool_error_percent": 0.0,
+          "instruction_error_percent": 0.0,
+          "kb_error_percent": 0.0
+        },
+        {
+          "turn": 1,
+          "any_error_count": 0,
+          "tool_error_count": 0,
+          "instruction_error_count": 0,
+          "kb_error_count": 0,
+          "any_error_percent": 0.0,
+          "tool_error_percent": 0.0,
+          "instruction_error_percent": 0.0,
+          "kb_error_percent": 0.0
+        },
+        {
+          "turn": 2,
+          "any_error_count": 0,
+          "tool_error_count": 0,
+          "instruction_error_count": 0,
+          "kb_error_count": 0,
+          "any_error_percent": 0.0,
+          "tool_error_percent": 0.0,
+          "instruction_error_percent": 0.0,
+          "kb_error_percent": 0.0
+        },
+        {
+          "turn": 3,
+          "any_error_count": 2,
+          "tool_error_count": 2,
+          "instruction_error_count": 2,
+          "kb_error_count": 2,
+          "any_error_percent": 6.666666666666667,
+          "tool_error_percent": 6.666666666666667,
+          "instruction_error_percent": 6.666666666666667,
+          "kb_error_percent": 6.666666666666667
+        },
+        {
+          "turn": 4,
+          "any_error_count": 2,
+          "tool_error_count": 2,
+          "instruction_error_count": 2,
+          "kb_error_count": 2,
+          "any_error_percent": 6.666666666666667,
+          "tool_error_percent": 6.666666666666667,
+          "instruction_error_percent": 6.666666666666667,
+          "kb_error_percent": 6.666666666666667
+        },
+        {
+          "turn": 5,
+          "any_error_count": 2,
+          "tool_error_count": 2,
+          "instruction_error_count": 2,
+          "kb_error_count": 2,
+          "any_error_percent": 6.666666666666667,
+          "tool_error_percent": 6.666666666666667,
+          "instruction_error_percent": 6.666666666666667,
+          "kb_error_percent": 6.666666666666667
+        },
+        {
+          "turn": 6,
+          "any_error_count": 2,
+          "tool_error_count": 2,
+          "instruction_error_count": 2,
+          "kb_error_count": 2,
+          "any_error_percent": 6.666666666666667,
+          "tool_error_percent": 6.666666666666667,
+          "instruction_error_percent": 6.666666666666667,
+          "kb_error_percent": 6.666666666666667
+        },
+        {
+          "turn": 7,
+          "any_error_count": 2,
+          "tool_error_count": 2,
+          "instruction_error_count": 2,
+          "kb_error_count": 2,
+          "any_error_percent": 6.666666666666667,
+          "tool_error_percent": 6.666666666666667,
+          "instruction_error_percent": 6.666666666666667,
+          "kb_error_percent": 6.666666666666667
+        },
+        {
+          "turn": 8,
+          "any_error_count": 2,
+          "tool_error_count": 2,
+          "instruction_error_count": 2,
+          "kb_error_count": 2,
+          "any_error_percent": 6.666666666666667,
+          "tool_error_percent": 6.666666666666667,
+          "instruction_error_percent": 6.666666666666667,
+          "kb_error_percent": 6.666666666666667
+        },
+        {
+          "turn": 9,
+          "any_error_count": 2,
+          "tool_error_count": 2,
+          "instruction_error_count": 2,
+          "kb_error_count": 2,
+          "any_error_percent": 6.666666666666667,
+          "tool_error_percent": 6.666666666666667,
+          "instruction_error_percent": 6.666666666666667,
+          "kb_error_percent": 6.666666666666667
+        },
+        {
+          "turn": 10,
+          "any_error_count": 2,
+          "tool_error_count": 2,
+          "instruction_error_count": 2,
+          "kb_error_count": 2,
+          "any_error_percent": 6.666666666666667,
+          "tool_error_percent": 6.666666666666667,
+          "instruction_error_percent": 6.666666666666667,
+          "kb_error_percent": 6.666666666666667
+        },
+        {
+          "turn": 11,
+          "any_error_count": 3,
+          "tool_error_count": 3,
+          "instruction_error_count": 3,
+          "kb_error_count": 3,
+          "any_error_percent": 10.0,
+          "tool_error_percent": 10.0,
+          "instruction_error_percent": 10.0,
+          "kb_error_percent": 10.0
+        },
+        {
+          "turn": 12,
+          "any_error_count": 4,
+          "tool_error_count": 4,
+          "instruction_error_count": 4,
+          "kb_error_count": 4,
+          "any_error_percent": 13.333333333333334,
+          "tool_error_percent": 13.333333333333334,
+          "instruction_error_percent": 13.333333333333334,
+          "kb_error_percent": 13.333333333333334
+        },
+        {
+          "turn": 13,
+          "any_error_count": 5,
+          "tool_error_count": 5,
+          "instruction_error_count": 5,
+          "kb_error_count": 5,
+          "any_error_percent": 16.666666666666664,
+          "tool_error_percent": 16.666666666666664,
+          "instruction_error_percent": 16.666666666666664,
+          "kb_error_percent": 16.666666666666664
+        },
+        {
+          "turn": 14,
+          "any_error_count": 12,
+          "tool_error_count": 12,
+          "instruction_error_count": 12,
+          "kb_error_count": 5,
+          "any_error_percent": 40.0,
+          "tool_error_percent": 40.0,
+          "instruction_error_percent": 40.0,
+          "kb_error_percent": 16.666666666666664
+        },
+        {
+          "turn": 15,
+          "any_error_count": 8,
+          "tool_error_count": 8,
+          "instruction_error_count": 8,
+          "kb_error_count": 5,
+          "any_error_percent": 26.666666666666668,
+          "tool_error_percent": 26.666666666666668,
+          "instruction_error_percent": 26.666666666666668,
+          "kb_error_percent": 16.666666666666664
+        },
+        {
+          "turn": 16,
+          "any_error_count": 26,
+          "tool_error_count": 25,
+          "instruction_error_count": 26,
+          "kb_error_count": 6,
+          "any_error_percent": 86.66666666666667,
+          "tool_error_percent": 83.33333333333334,
+          "instruction_error_percent": 86.66666666666667,
+          "kb_error_percent": 20.0
+        },
+        {
+          "turn": 17,
+          "any_error_count": 14,
+          "tool_error_count": 13,
+          "instruction_error_count": 14,
+          "kb_error_count": 8,
+          "any_error_percent": 46.666666666666664,
+          "tool_error_percent": 43.333333333333336,
+          "instruction_error_percent": 46.666666666666664,
+          "kb_error_percent": 26.666666666666668
+        },
+        {
+          "turn": 18,
+          "any_error_count": 8,
+          "tool_error_count": 8,
+          "instruction_error_count": 8,
+          "kb_error_count": 8,
+          "any_error_percent": 26.666666666666668,
+          "tool_error_percent": 26.666666666666668,
+          "instruction_error_percent": 26.666666666666668,
+          "kb_error_percent": 26.666666666666668
+        },
+        {
+          "turn": 19,
+          "any_error_count": 9,
+          "tool_error_count": 8,
+          "instruction_error_count": 9,
+          "kb_error_count": 8,
+          "any_error_percent": 30.0,
+          "tool_error_percent": 26.666666666666668,
+          "instruction_error_percent": 30.0,
+          "kb_error_percent": 26.666666666666668
+        },
+        {
+          "turn": 20,
+          "any_error_count": 14,
+          "tool_error_count": 9,
+          "instruction_error_count": 9,
+          "kb_error_count": 14,
+          "any_error_percent": 46.666666666666664,
+          "tool_error_percent": 30.0,
+          "instruction_error_percent": 30.0,
+          "kb_error_percent": 46.666666666666664
+        },
+        {
+          "turn": 21,
+          "any_error_count": 11,
+          "tool_error_count": 9,
+          "instruction_error_count": 10,
+          "kb_error_count": 11,
+          "any_error_percent": 36.666666666666664,
+          "tool_error_percent": 30.0,
+          "instruction_error_percent": 33.33333333333333,
+          "kb_error_percent": 36.666666666666664
+        },
+        {
+          "turn": 22,
+          "any_error_count": 9,
+          "tool_error_count": 9,
+          "instruction_error_count": 9,
+          "kb_error_count": 9,
+          "any_error_percent": 30.0,
+          "tool_error_percent": 30.0,
+          "instruction_error_percent": 30.0,
+          "kb_error_percent": 30.0
+        },
+        {
+          "turn": 23,
+          "any_error_count": 10,
+          "tool_error_count": 10,
+          "instruction_error_count": 10,
+          "kb_error_count": 10,
+          "any_error_percent": 33.33333333333333,
+          "tool_error_percent": 33.33333333333333,
+          "instruction_error_percent": 33.33333333333333,
+          "kb_error_percent": 33.33333333333333
+        },
+        {
+          "turn": 24,
+          "any_error_count": 13,
+          "tool_error_count": 13,
+          "instruction_error_count": 13,
+          "kb_error_count": 11,
+          "any_error_percent": 43.333333333333336,
+          "tool_error_percent": 43.333333333333336,
+          "instruction_error_percent": 43.333333333333336,
+          "kb_error_percent": 36.666666666666664
+        },
+        {
+          "turn": 25,
+          "any_error_count": 12,
+          "tool_error_count": 12,
+          "instruction_error_count": 12,
+          "kb_error_count": 12,
+          "any_error_percent": 40.0,
+          "tool_error_percent": 40.0,
+          "instruction_error_percent": 40.0,
+          "kb_error_percent": 40.0
+        },
+        {
+          "turn": 26,
+          "any_error_count": 12,
+          "tool_error_count": 12,
+          "instruction_error_count": 12,
+          "kb_error_count": 12,
+          "any_error_percent": 40.0,
+          "tool_error_percent": 40.0,
+          "instruction_error_percent": 40.0,
+          "kb_error_percent": 40.0
+        },
+        {
+          "turn": 27,
+          "any_error_count": 12,
+          "tool_error_count": 12,
+          "instruction_error_count": 12,
+          "kb_error_count": 12,
+          "any_error_percent": 40.0,
+          "tool_error_percent": 40.0,
+          "instruction_error_percent": 40.0,
+          "kb_error_percent": 40.0
+        },
+        {
+          "turn": 28,
+          "any_error_count": 13,
+          "tool_error_count": 13,
+          "instruction_error_count": 13,
+          "kb_error_count": 12,
+          "any_error_percent": 43.333333333333336,
+          "tool_error_percent": 43.333333333333336,
+          "instruction_error_percent": 43.333333333333336,
+          "kb_error_percent": 40.0
+        },
+        {
+          "turn": 29,
+          "any_error_count": 13,
+          "tool_error_count": 13,
+          "instruction_error_count": 13,
+          "kb_error_count": 13,
+          "any_error_percent": 43.333333333333336,
+          "tool_error_percent": 43.333333333333336,
+          "instruction_error_percent": 43.333333333333336,
+          "kb_error_percent": 43.333333333333336
+        }
+      ],
+      "top_any_error_turns": [
+        {
+          "turn": 16,
+          "count": 26,
+          "percent": 86.66666666666667
+        },
+        {
+          "turn": 17,
+          "count": 14,
+          "percent": 46.666666666666664
+        },
+        {
+          "turn": 20,
+          "count": 14,
+          "percent": 46.666666666666664
+        },
+        {
+          "turn": 24,
+          "count": 13,
+          "percent": 43.333333333333336
+        },
+        {
+          "turn": 28,
+          "count": 13,
+          "percent": 43.333333333333336
+        },
+        {
+          "turn": 29,
+          "count": 13,
+          "percent": 43.333333333333336
+        },
+        {
+          "turn": 14,
+          "count": 12,
+          "percent": 40.0
+        },
+        {
+          "turn": 25,
+          "count": 12,
+          "percent": 40.0
+        },
+        {
+          "turn": 26,
+          "count": 12,
+          "percent": 40.0
+        },
+        {
+          "turn": 27,
+          "count": 12,
+          "percent": 40.0
+        },
+        {
+          "turn": 21,
+          "count": 11,
+          "percent": 36.666666666666664
+        },
+        {
+          "turn": 23,
+          "count": 10,
+          "percent": 33.33333333333333
+        },
+        {
+          "turn": 19,
+          "count": 9,
+          "percent": 30.0
+        },
+        {
+          "turn": 22,
+          "count": 9,
+          "percent": 30.0
+        },
+        {
+          "turn": 15,
+          "count": 8,
+          "percent": 26.666666666666668
+        },
+        {
+          "turn": 18,
+          "count": 8,
+          "percent": 26.666666666666668
+        },
+        {
+          "turn": 13,
+          "count": 5,
+          "percent": 16.666666666666664
+        },
+        {
+          "turn": 12,
+          "count": 4,
+          "percent": 13.333333333333334
+        },
+        {
+          "turn": 11,
+          "count": 3,
+          "percent": 10.0
+        },
+        {
+          "turn": 3,
+          "count": 2,
+          "percent": 6.666666666666667
+        },
+        {
+          "turn": 4,
+          "count": 2,
+          "percent": 6.666666666666667
+        },
+        {
+          "turn": 5,
+          "count": 2,
+          "percent": 6.666666666666667
+        },
+        {
+          "turn": 6,
+          "count": 2,
+          "percent": 6.666666666666667
+        },
+        {
+          "turn": 7,
+          "count": 2,
+          "percent": 6.666666666666667
+        },
+        {
+          "turn": 8,
+          "count": 2,
+          "percent": 6.666666666666667
+        },
+        {
+          "turn": 9,
+          "count": 2,
+          "percent": 6.666666666666667
+        },
+        {
+          "turn": 10,
+          "count": 2,
+          "percent": 6.666666666666667
+        }
+      ]
+    },
+    "dots96": {
+      "conversations": 10,
+      "fixed_turn_denominator": 300,
+      "observed_turns": 258,
+      "missing_turns": 42,
+      "counts": {
+        "strict_pass": 225,
+        "any_error": 75,
+        "tool_error": 69,
+        "instruction_error": 73,
+        "kb_error": 44
+      },
+      "rates_percent": {
+        "strict_pass": 75.0,
+        "any_error": 25.0,
+        "tool_error": 23.0,
+        "instruction_error": 24.333333333333336,
+        "kb_error": 14.666666666666666
+      },
+      "strict_completion": {
+        "count": 4,
+        "total": 10,
+        "percent": 40.0
+      },
+      "classifications": {
+        "incomplete_no_end_session": 3,
+        "model_abort": 3,
+        "strict_complete": 4
+      },
+      "ttfat_ms_observed_responses_only": {
+        "n": 258,
+        "p50": 369.0,
+        "p95": 962.1499999999991,
+        "max": 2083.0
+      },
+      "turn_taking_error_count_fixed_denominator": 42,
+      "per_turn": [
+        {
+          "turn": 0,
+          "any_error_count": 0,
+          "tool_error_count": 0,
+          "instruction_error_count": 0,
+          "kb_error_count": 0,
+          "any_error_percent": 0.0,
+          "tool_error_percent": 0.0,
+          "instruction_error_percent": 0.0,
+          "kb_error_percent": 0.0
+        },
+        {
+          "turn": 1,
+          "any_error_count": 0,
+          "tool_error_count": 0,
+          "instruction_error_count": 0,
+          "kb_error_count": 0,
+          "any_error_percent": 0.0,
+          "tool_error_percent": 0.0,
+          "instruction_error_percent": 0.0,
+          "kb_error_percent": 0.0
+        },
+        {
+          "turn": 2,
+          "any_error_count": 0,
+          "tool_error_count": 0,
+          "instruction_error_count": 0,
+          "kb_error_count": 0,
+          "any_error_percent": 0.0,
+          "tool_error_percent": 0.0,
+          "instruction_error_percent": 0.0,
+          "kb_error_percent": 0.0
+        },
+        {
+          "turn": 3,
+          "any_error_count": 0,
+          "tool_error_count": 0,
+          "instruction_error_count": 0,
+          "kb_error_count": 0,
+          "any_error_percent": 0.0,
+          "tool_error_percent": 0.0,
+          "instruction_error_percent": 0.0,
+          "kb_error_percent": 0.0
+        },
+        {
+          "turn": 4,
+          "any_error_count": 0,
+          "tool_error_count": 0,
+          "instruction_error_count": 0,
+          "kb_error_count": 0,
+          "any_error_percent": 0.0,
+          "tool_error_percent": 0.0,
+          "instruction_error_percent": 0.0,
+          "kb_error_percent": 0.0
+        },
+        {
+          "turn": 5,
+          "any_error_count": 0,
+          "tool_error_count": 0,
+          "instruction_error_count": 0,
+          "kb_error_count": 0,
+          "any_error_percent": 0.0,
+          "tool_error_percent": 0.0,
+          "instruction_error_percent": 0.0,
+          "kb_error_percent": 0.0
+        },
+        {
+          "turn": 6,
+          "any_error_count": 0,
+          "tool_error_count": 0,
+          "instruction_error_count": 0,
+          "kb_error_count": 0,
+          "any_error_percent": 0.0,
+          "tool_error_percent": 0.0,
+          "instruction_error_percent": 0.0,
+          "kb_error_percent": 0.0
+        },
+        {
+          "turn": 7,
+          "any_error_count": 0,
+          "tool_error_count": 0,
+          "instruction_error_count": 0,
+          "kb_error_count": 0,
+          "any_error_percent": 0.0,
+          "tool_error_percent": 0.0,
+          "instruction_error_percent": 0.0,
+          "kb_error_percent": 0.0
+        },
+        {
+          "turn": 8,
+          "any_error_count": 0,
+          "tool_error_count": 0,
+          "instruction_error_count": 0,
+          "kb_error_count": 0,
+          "any_error_percent": 0.0,
+          "tool_error_percent": 0.0,
+          "instruction_error_percent": 0.0,
+          "kb_error_percent": 0.0
+        },
+        {
+          "turn": 9,
+          "any_error_count": 2,
+          "tool_error_count": 2,
+          "instruction_error_count": 2,
+          "kb_error_count": 0,
+          "any_error_percent": 20.0,
+          "tool_error_percent": 20.0,
+          "instruction_error_percent": 20.0,
+          "kb_error_percent": 0.0
+        },
+        {
+          "turn": 10,
+          "any_error_count": 4,
+          "tool_error_count": 4,
+          "instruction_error_count": 4,
+          "kb_error_count": 0,
+          "any_error_percent": 40.0,
+          "tool_error_percent": 40.0,
+          "instruction_error_percent": 40.0,
+          "kb_error_percent": 0.0
+        },
+        {
+          "turn": 11,
+          "any_error_count": 1,
+          "tool_error_count": 1,
+          "instruction_error_count": 1,
+          "kb_error_count": 1,
+          "any_error_percent": 10.0,
+          "tool_error_percent": 10.0,
+          "instruction_error_percent": 10.0,
+          "kb_error_percent": 10.0
+        },
+        {
+          "turn": 12,
+          "any_error_count": 1,
+          "tool_error_count": 1,
+          "instruction_error_count": 1,
+          "kb_error_count": 1,
+          "any_error_percent": 10.0,
+          "tool_error_percent": 10.0,
+          "instruction_error_percent": 10.0,
+          "kb_error_percent": 10.0
+        },
+        {
+          "turn": 13,
+          "any_error_count": 1,
+          "tool_error_count": 1,
+          "instruction_error_count": 1,
+          "kb_error_count": 1,
+          "any_error_percent": 10.0,
+          "tool_error_percent": 10.0,
+          "instruction_error_percent": 10.0,
+          "kb_error_percent": 10.0
+        },
+        {
+          "turn": 14,
+          "any_error_count": 9,
+          "tool_error_count": 9,
+          "instruction_error_count": 9,
+          "kb_error_count": 1,
+          "any_error_percent": 90.0,
+          "tool_error_percent": 90.0,
+          "instruction_error_percent": 90.0,
+          "kb_error_percent": 10.0
+        },
+        {
+          "turn": 15,
+          "any_error_count": 7,
+          "tool_error_count": 3,
+          "instruction_error_count": 7,
+          "kb_error_count": 1,
+          "any_error_percent": 70.0,
+          "tool_error_percent": 30.0,
+          "instruction_error_percent": 70.0,
+          "kb_error_percent": 10.0
+        },
+        {
+          "turn": 16,
+          "any_error_count": 10,
+          "tool_error_count": 10,
+          "instruction_error_count": 10,
+          "kb_error_count": 2,
+          "any_error_percent": 100.0,
+          "tool_error_percent": 100.0,
+          "instruction_error_percent": 100.0,
+          "kb_error_percent": 20.0
+        },
+        {
+          "turn": 17,
+          "any_error_count": 2,
+          "tool_error_count": 2,
+          "instruction_error_count": 2,
+          "kb_error_count": 2,
+          "any_error_percent": 20.0,
+          "tool_error_percent": 20.0,
+          "instruction_error_percent": 20.0,
+          "kb_error_percent": 20.0
+        },
+        {
+          "turn": 18,
+          "any_error_count": 2,
+          "tool_error_count": 2,
+          "instruction_error_count": 2,
+          "kb_error_count": 2,
+          "any_error_percent": 20.0,
+          "tool_error_percent": 20.0,
+          "instruction_error_percent": 20.0,
+          "kb_error_percent": 20.0
+        },
+        {
+          "turn": 19,
+          "any_error_count": 2,
+          "tool_error_count": 2,
+          "instruction_error_count": 2,
+          "kb_error_count": 2,
+          "any_error_percent": 20.0,
+          "tool_error_percent": 20.0,
+          "instruction_error_percent": 20.0,
+          "kb_error_percent": 20.0
+        },
+        {
+          "turn": 20,
+          "any_error_count": 4,
+          "tool_error_count": 2,
+          "instruction_error_count": 2,
+          "kb_error_count": 4,
+          "any_error_percent": 40.0,
+          "tool_error_percent": 20.0,
+          "instruction_error_percent": 20.0,
+          "kb_error_percent": 40.0
+        },
+        {
+          "turn": 21,
+          "any_error_count": 2,
+          "tool_error_count": 2,
+          "instruction_error_count": 2,
+          "kb_error_count": 2,
+          "any_error_percent": 20.0,
+          "tool_error_percent": 20.0,
+          "instruction_error_percent": 20.0,
+          "kb_error_percent": 20.0
+        },
+        {
+          "turn": 22,
+          "any_error_count": 2,
+          "tool_error_count": 2,
+          "instruction_error_count": 2,
+          "kb_error_count": 2,
+          "any_error_percent": 20.0,
+          "tool_error_percent": 20.0,
+          "instruction_error_percent": 20.0,
+          "kb_error_percent": 20.0
+        },
+        {
+          "turn": 23,
+          "any_error_count": 2,
+          "tool_error_count": 2,
+          "instruction_error_count": 2,
+          "kb_error_count": 2,
+          "any_error_percent": 20.0,
+          "tool_error_percent": 20.0,
+          "instruction_error_percent": 20.0,
+          "kb_error_percent": 20.0
+        },
+        {
+          "turn": 24,
+          "any_error_count": 2,
+          "tool_error_count": 2,
+          "instruction_error_count": 2,
+          "kb_error_count": 2,
+          "any_error_percent": 20.0,
+          "tool_error_percent": 20.0,
+          "instruction_error_percent": 20.0,
+          "kb_error_percent": 20.0
+        },
+        {
+          "turn": 25,
+          "any_error_count": 3,
+          "tool_error_count": 3,
+          "instruction_error_count": 3,
+          "kb_error_count": 3,
+          "any_error_percent": 30.0,
+          "tool_error_percent": 30.0,
+          "instruction_error_percent": 30.0,
+          "kb_error_percent": 30.0
+        },
+        {
+          "turn": 26,
+          "any_error_count": 4,
+          "tool_error_count": 4,
+          "instruction_error_count": 4,
+          "kb_error_count": 3,
+          "any_error_percent": 40.0,
+          "tool_error_percent": 40.0,
+          "instruction_error_percent": 40.0,
+          "kb_error_percent": 30.0
+        },
+        {
+          "turn": 27,
+          "any_error_count": 3,
+          "tool_error_count": 3,
+          "instruction_error_count": 3,
+          "kb_error_count": 3,
+          "any_error_percent": 30.0,
+          "tool_error_percent": 30.0,
+          "instruction_error_percent": 30.0,
+          "kb_error_percent": 30.0
+        },
+        {
+          "turn": 28,
+          "any_error_count": 6,
+          "tool_error_count": 6,
+          "instruction_error_count": 6,
+          "kb_error_count": 4,
+          "any_error_percent": 60.0,
+          "tool_error_percent": 60.0,
+          "instruction_error_percent": 60.0,
+          "kb_error_percent": 40.0
+        },
+        {
+          "turn": 29,
+          "any_error_count": 6,
+          "tool_error_count": 6,
+          "instruction_error_count": 6,
+          "kb_error_count": 6,
+          "any_error_percent": 60.0,
+          "tool_error_percent": 60.0,
+          "instruction_error_percent": 60.0,
+          "kb_error_percent": 60.0
+        }
+      ],
+      "top_any_error_turns": [
+        {
+          "turn": 16,
+          "count": 10,
+          "percent": 100.0
+        },
+        {
+          "turn": 14,
+          "count": 9,
+          "percent": 90.0
+        },
+        {
+          "turn": 15,
+          "count": 7,
+          "percent": 70.0
+        },
+        {
+          "turn": 28,
+          "count": 6,
+          "percent": 60.0
+        },
+        {
+          "turn": 29,
+          "count": 6,
+          "percent": 60.0
+        },
+        {
+          "turn": 10,
+          "count": 4,
+          "percent": 40.0
+        },
+        {
+          "turn": 20,
+          "count": 4,
+          "percent": 40.0
+        },
+        {
+          "turn": 26,
+          "count": 4,
+          "percent": 40.0
+        },
+        {
+          "turn": 25,
+          "count": 3,
+          "percent": 30.0
+        },
+        {
+          "turn": 27,
+          "count": 3,
+          "percent": 30.0
+        },
+        {
+          "turn": 9,
+          "count": 2,
+          "percent": 20.0
+        },
+        {
+          "turn": 17,
+          "count": 2,
+          "percent": 20.0
+        },
+        {
+          "turn": 18,
+          "count": 2,
+          "percent": 20.0
+        },
+        {
+          "turn": 19,
+          "count": 2,
+          "percent": 20.0
+        },
+        {
+          "turn": 21,
+          "count": 2,
+          "percent": 20.0
+        },
+        {
+          "turn": 22,
+          "count": 2,
+          "percent": 20.0
+        },
+        {
+          "turn": 23,
+          "count": 2,
+          "percent": 20.0
+        },
+        {
+          "turn": 24,
+          "count": 2,
+          "percent": 20.0
+        },
+        {
+          "turn": 11,
+          "count": 1,
+          "percent": 10.0
+        },
+        {
+          "turn": 12,
+          "count": 1,
+          "percent": 10.0
+        },
+        {
+          "turn": 13,
+          "count": 1,
+          "percent": 10.0
+        }
+      ]
+    }
+  },
+  "effects": {
+    "strict_pass": {
+      "dots_minus_control_points": -0.11111111111111738,
+      "ci95_low": -16.333333333333332,
+      "ci95_high": 15.000000000000002
+    },
+    "any_error": {
+      "dots_minus_control_points": 0.11111111111111183,
+      "ci95_low": -14.888888888888893,
+      "ci95_high": 16.444444444444443
+    },
+    "tool_error": {
+      "dots_minus_control_points": -0.77777777777778,
+      "ci95_low": -16.11111111111111,
+      "ci95_high": 15.666666666666664
+    },
+    "instruction_error": {
+      "dots_minus_control_points": 0.11111111111110905,
+      "ci95_low": -15.000000000000005,
+      "ci95_high": 16.33333333333333
+    },
+    "kb_error": {
+      "dots_minus_control_points": -5.777777777777779,
+      "ci95_low": -21.555555555555557,
+      "ci95_high": 11.555555555555555
+    },
+    "completion": {
+      "dots_minus_control_points": -16.666666666666664,
+      "ci95_low": -50.0,
+      "ci95_high": 19.999999999999996
+    }
+  },
+  "turn_error_comparison": [
+    {
+      "turn": 0,
+      "control_any_error_count": 0,
+      "control_any_error_percent": 0.0,
+      "dots_any_error_count": 0,
+      "dots_any_error_percent": 0.0,
+      "dots_minus_control_error_points": 0.0
+    },
+    {
+      "turn": 1,
+      "control_any_error_count": 0,
+      "control_any_error_percent": 0.0,
+      "dots_any_error_count": 0,
+      "dots_any_error_percent": 0.0,
+      "dots_minus_control_error_points": 0.0
+    },
+    {
+      "turn": 2,
+      "control_any_error_count": 0,
+      "control_any_error_percent": 0.0,
+      "dots_any_error_count": 0,
+      "dots_any_error_percent": 0.0,
+      "dots_minus_control_error_points": 0.0
+    },
+    {
+      "turn": 3,
+      "control_any_error_count": 2,
+      "control_any_error_percent": 6.666666666666667,
+      "dots_any_error_count": 0,
+      "dots_any_error_percent": 0.0,
+      "dots_minus_control_error_points": -6.666666666666667
+    },
+    {
+      "turn": 4,
+      "control_any_error_count": 2,
+      "control_any_error_percent": 6.666666666666667,
+      "dots_any_error_count": 0,
+      "dots_any_error_percent": 0.0,
+      "dots_minus_control_error_points": -6.666666666666667
+    },
+    {
+      "turn": 5,
+      "control_any_error_count": 2,
+      "control_any_error_percent": 6.666666666666667,
+      "dots_any_error_count": 0,
+      "dots_any_error_percent": 0.0,
+      "dots_minus_control_error_points": -6.666666666666667
+    },
+    {
+      "turn": 6,
+      "control_any_error_count": 2,
+      "control_any_error_percent": 6.666666666666667,
+      "dots_any_error_count": 0,
+      "dots_any_error_percent": 0.0,
+      "dots_minus_control_error_points": -6.666666666666667
+    },
+    {
+      "turn": 7,
+      "control_any_error_count": 2,
+      "control_any_error_percent": 6.666666666666667,
+      "dots_any_error_count": 0,
+      "dots_any_error_percent": 0.0,
+      "dots_minus_control_error_points": -6.666666666666667
+    },
+    {
+      "turn": 8,
+      "control_any_error_count": 2,
+      "control_any_error_percent": 6.666666666666667,
+      "dots_any_error_count": 0,
+      "dots_any_error_percent": 0.0,
+      "dots_minus_control_error_points": -6.666666666666667
+    },
+    {
+      "turn": 9,
+      "control_any_error_count": 2,
+      "control_any_error_percent": 6.666666666666667,
+      "dots_any_error_count": 2,
+      "dots_any_error_percent": 20.0,
+      "dots_minus_control_error_points": 13.333333333333332
+    },
+    {
+      "turn": 10,
+      "control_any_error_count": 2,
+      "control_any_error_percent": 6.666666666666667,
+      "dots_any_error_count": 4,
+      "dots_any_error_percent": 40.0,
+      "dots_minus_control_error_points": 33.333333333333336
+    },
+    {
+      "turn": 11,
+      "control_any_error_count": 3,
+      "control_any_error_percent": 10.0,
+      "dots_any_error_count": 1,
+      "dots_any_error_percent": 10.0,
+      "dots_minus_control_error_points": 0.0
+    },
+    {
+      "turn": 12,
+      "control_any_error_count": 4,
+      "control_any_error_percent": 13.333333333333334,
+      "dots_any_error_count": 1,
+      "dots_any_error_percent": 10.0,
+      "dots_minus_control_error_points": -3.333333333333334
+    },
+    {
+      "turn": 13,
+      "control_any_error_count": 5,
+      "control_any_error_percent": 16.666666666666664,
+      "dots_any_error_count": 1,
+      "dots_any_error_percent": 10.0,
+      "dots_minus_control_error_points": -6.666666666666664
+    },
+    {
+      "turn": 14,
+      "control_any_error_count": 12,
+      "control_any_error_percent": 40.0,
+      "dots_any_error_count": 9,
+      "dots_any_error_percent": 90.0,
+      "dots_minus_control_error_points": 50.0
+    },
+    {
+      "turn": 15,
+      "control_any_error_count": 8,
+      "control_any_error_percent": 26.666666666666668,
+      "dots_any_error_count": 7,
+      "dots_any_error_percent": 70.0,
+      "dots_minus_control_error_points": 43.33333333333333
+    },
+    {
+      "turn": 16,
+      "control_any_error_count": 26,
+      "control_any_error_percent": 86.66666666666667,
+      "dots_any_error_count": 10,
+      "dots_any_error_percent": 100.0,
+      "dots_minus_control_error_points": 13.333333333333329
+    },
+    {
+      "turn": 17,
+      "control_any_error_count": 14,
+      "control_any_error_percent": 46.666666666666664,
+      "dots_any_error_count": 2,
+      "dots_any_error_percent": 20.0,
+      "dots_minus_control_error_points": -26.666666666666664
+    },
+    {
+      "turn": 18,
+      "control_any_error_count": 8,
+      "control_any_error_percent": 26.666666666666668,
+      "dots_any_error_count": 2,
+      "dots_any_error_percent": 20.0,
+      "dots_minus_control_error_points": -6.666666666666668
+    },
+    {
+      "turn": 19,
+      "control_any_error_count": 9,
+      "control_any_error_percent": 30.0,
+      "dots_any_error_count": 2,
+      "dots_any_error_percent": 20.0,
+      "dots_minus_control_error_points": -10.0
+    },
+    {
+      "turn": 20,
+      "control_any_error_count": 14,
+      "control_any_error_percent": 46.666666666666664,
+      "dots_any_error_count": 4,
+      "dots_any_error_percent": 40.0,
+      "dots_minus_control_error_points": -6.666666666666664
+    },
+    {
+      "turn": 21,
+      "control_any_error_count": 11,
+      "control_any_error_percent": 36.666666666666664,
+      "dots_any_error_count": 2,
+      "dots_any_error_percent": 20.0,
+      "dots_minus_control_error_points": -16.666666666666664
+    },
+    {
+      "turn": 22,
+      "control_any_error_count": 9,
+      "control_any_error_percent": 30.0,
+      "dots_any_error_count": 2,
+      "dots_any_error_percent": 20.0,
+      "dots_minus_control_error_points": -10.0
+    },
+    {
+      "turn": 23,
+      "control_any_error_count": 10,
+      "control_any_error_percent": 33.33333333333333,
+      "dots_any_error_count": 2,
+      "dots_any_error_percent": 20.0,
+      "dots_minus_control_error_points": -13.333333333333329
+    },
+    {
+      "turn": 24,
+      "control_any_error_count": 13,
+      "control_any_error_percent": 43.333333333333336,
+      "dots_any_error_count": 2,
+      "dots_any_error_percent": 20.0,
+      "dots_minus_control_error_points": -23.333333333333336
+    },
+    {
+      "turn": 25,
+      "control_any_error_count": 12,
+      "control_any_error_percent": 40.0,
+      "dots_any_error_count": 3,
+      "dots_any_error_percent": 30.0,
+      "dots_minus_control_error_points": -10.0
+    },
+    {
+      "turn": 26,
+      "control_any_error_count": 12,
+      "control_any_error_percent": 40.0,
+      "dots_any_error_count": 4,
+      "dots_any_error_percent": 40.0,
+      "dots_minus_control_error_points": 0.0
+    },
+    {
+      "turn": 27,
+      "control_any_error_count": 12,
+      "control_any_error_percent": 40.0,
+      "dots_any_error_count": 3,
+      "dots_any_error_percent": 30.0,
+      "dots_minus_control_error_points": -10.0
+    },
+    {
+      "turn": 28,
+      "control_any_error_count": 13,
+      "control_any_error_percent": 43.333333333333336,
+      "dots_any_error_count": 6,
+      "dots_any_error_percent": 60.0,
+      "dots_minus_control_error_points": 16.666666666666664
+    },
+    {
+      "turn": 29,
+      "control_any_error_count": 13,
+      "control_any_error_percent": 43.333333333333336,
+      "dots_any_error_count": 6,
+      "dots_any_error_percent": 60.0,
+      "dots_minus_control_error_points": 16.666666666666664
+    }
+  ],
+  "adaptive_decision": {
+    "evaluated_stage": 10,
+    "triggers": {
+      "bootstrap_ci_excludes_zero": false,
+      "absolute_delta_at_least_3_with_recurring_aligned_turn": false,
+      "strict_completion_rates_differ": true
+    },
+    "trigger_fired": true,
+    "recommendation": "extend_to_30",
+    "aligned_recurring_turns": [
+      {
+        "turn": 10,
+        "direction": "dots_more_errors",
+        "control_error_percent": 6.666666666666667,
+        "dots_error_percent": 40.0,
+        "recurrences_in_worse_arm": 4
+      },
+      {
+        "turn": 14,
+        "direction": "dots_more_errors",
+        "control_error_percent": 40.0,
+        "dots_error_percent": 90.0,
+        "recurrences_in_worse_arm": 9
+      },
+      {
+        "turn": 15,
+        "direction": "dots_more_errors",
+        "control_error_percent": 26.666666666666668,
+        "dots_error_percent": 70.0,
+        "recurrences_in_worse_arm": 7
+      },
+      {
+        "turn": 16,
+        "direction": "dots_more_errors",
+        "control_error_percent": 86.66666666666667,
+        "dots_error_percent": 100.0,
+        "recurrences_in_worse_arm": 10
+      },
+      {
+        "turn": 28,
+        "direction": "dots_more_errors",
+        "control_error_percent": 43.333333333333336,
+        "dots_error_percent": 60.0,
+        "recurrences_in_worse_arm": 6
+      },
+      {
+        "turn": 29,
+        "direction": "dots_more_errors",
+        "control_error_percent": 43.333333333333336,
+        "dots_error_percent": 60.0,
+        "recurrences_in_worse_arm": 6
+      }
+    ],
+    "gate_executed": false,
+    "note": "Analysis evaluates the prespecified rule but never writes stage-decisions.tsv."
+  }
+}

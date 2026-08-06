@@ -20,6 +20,12 @@ import click
 from dotenv import load_dotenv
 from loguru import logger
 
+from multi_turn_eval.model_capabilities import get_model_capabilities
+from multi_turn_eval.model_policy import (
+    OPENAI_PRO_EXCLUSION_MESSAGE,
+    is_openai_pro_model,
+)
+
 # Load environment variables from .env file
 load_dotenv()
 
@@ -31,14 +37,16 @@ load_dotenv()
 SERVICE_ALIASES = {
     "openai": "pipecat.services.openai.llm.OpenAILLMService",
     "openai-realtime": "pipecat.services.openai.realtime.llm.OpenAIRealtimeLLMService",
-    "openrouter": "pipecat.services.openai.llm.OpenAILLMService",  # OpenRouter uses OpenAI-compatible API
+    "openrouter": "multi_turn_eval.services.openrouter_logged.LoggedOpenRouterLLMService",  # OpenRouter (OpenAI-compatible); content-aware TTFB + filler for reasoning models (Qwen3, DeepSeek-V3.x)
     "modal": "pipecat.services.openai.llm.OpenAILLMService",  # Modal uses OpenAI-compatible API
-    "lilac": "pipecat.services.openai.llm.OpenAILLMService",  # Lilac uses OpenAI-compatible API
+    "baseten": "multi_turn_eval.services.baseten_logged.LoggedBaseTenLLMService",  # BaseTen Model API (OpenAI-compatible); records both raw-TTFB (first reasoning token) and TTFAT (first answer token) for reasoning_content models (e.g. thinkingmachines/inkling)
+    "together": "multi_turn_eval.services.together_logged.LoggedTogetherLLMService",  # Together API (OpenAI-compatible); same raw-TTFB/TTFAT handling for Qwen3, DeepSeek-V3.x, etc.
+    "lilac": "multi_turn_eval.services.lilac_logged.LoggedLilacLLMService",  # Lilac (OpenAI-compatible) with content-aware + raw TTFB
     "vllm-openai": "multi_turn_eval.services.vllm_openai.VLLMOpenAILLMService",  # vLLM OpenAI-compatible endpoint; TTFT = first non-thought token
     "nemotron": "multi_turn_eval.services.nemotron.NemotronLLMService",
     "nemotron-audio-in": "multi_turn_eval.vendor.nemotron_omni.NemotronOmniAudioLLMService",
     "anthropic": "multi_turn_eval.services.anthropic_logged.LoggedAnthropicLLMService",
-    "google": "pipecat.services.google.llm.GoogleLLMService",
+    "google": "multi_turn_eval.services.google_logged.LoggedGoogleLLMService",
     "gemini-live": "multi_turn_eval.pipelines.realtime.GeminiLiveLLMServiceWithReconnection",
     "bedrock": "pipecat.services.aws.llm.AWSBedrockLLMService",
     "groq": "pipecat.services.groq.llm.GroqLLMService",
@@ -71,6 +79,12 @@ def load_service_class(service: str) -> type:
     module_name, cls_name = class_name.rsplit(".", 1)
     module = importlib.import_module(module_name)
     return getattr(module, cls_name)
+
+
+def reject_openai_pro_model(model: str, service: str | None = None) -> None:
+    """Reject OpenAI Pro models, which are outside this latency benchmark's scope."""
+    if is_openai_pro_model(model, service):
+        raise click.UsageError(OPENAI_PRO_EXCLUSION_MESSAGE)
 
 
 def load_benchmark(name: str):
@@ -119,6 +133,8 @@ def infer_pipeline(model: str, service: str | None = None) -> str:
     # Grok realtime uses dedicated pipeline for xAI-specific protocol handling
     if m.startswith("grok") and "realtime" in m:
         return "grok-realtime"
+    if get_model_capabilities(model).realtime or s == "gemini-live":
+        return "realtime"
     if "realtime" in m:
         return "realtime"
     if "native-audio" in m or "live" in m:
@@ -191,6 +207,34 @@ def cli():
     help="Pipeline type (text, audio-in, realtime, nova-sonic). Auto-detected if not specified.",
 )
 @click.option("--only-turns", help="Comma-separated turn indices to run (e.g., 0,1,2)")
+@click.option(
+    "--thinking",
+    type=click.Choice(
+        ["disabled", "minimal", "low", "medium", "high", "default"],
+        case_sensitive=False,
+    ),
+    help="Provider thinking mode (supported values depend on the model).",
+)
+@click.option(
+    "--gemini-3-protocol",
+    is_flag=True,
+    help="Force Gemini 3 Live protocol behavior for an opaque model ID.",
+)
+@click.option(
+    "--gemini-require-interaction-status",
+    is_flag=True,
+    help="Require interaction_status to confirm Gemini Live turn completion.",
+)
+@click.option(
+    "--gemini-explicit-audio-activity",
+    is_flag=True,
+    help="Use exact WAV boundaries and disable Gemini server-side VAD.",
+)
+@click.option(
+    "--no-turn-replay",
+    is_flag=True,
+    help="Terminate a realtime run instead of replaying a failed user turn.",
+)
 @click.option("--verbose", "-v", is_flag=True, help="Enable verbose logging")
 def run(
     benchmark_name: str,
@@ -198,6 +242,11 @@ def run(
     service: Optional[str],
     pipeline: Optional[str],
     only_turns: Optional[str],
+    thinking: Optional[str],
+    gemini_3_protocol: bool,
+    gemini_require_interaction_status: bool,
+    gemini_explicit_audio_activity: bool,
+    no_turn_replay: bool,
     verbose: bool,
 ):
     """Run a benchmark against an LLM.
@@ -207,7 +256,21 @@ def run(
         uv run multi-turn-eval run aiwf_medium_context --model gpt-4o --service openai
         uv run multi-turn-eval run aiwf_medium_context --model gpt-realtime --service openai-realtime --pipeline realtime
     """
-    asyncio.run(_run(benchmark_name, model, service, pipeline, only_turns, verbose))
+    asyncio.run(
+        _run(
+            benchmark_name=benchmark_name,
+            model=model,
+            service=service,
+            pipeline_type=pipeline,
+            only_turns=only_turns,
+            thinking=thinking,
+            verbose=verbose,
+            gemini_3_protocol=gemini_3_protocol,
+            gemini_require_interaction_status=gemini_require_interaction_status,
+            gemini_explicit_audio_activity=gemini_explicit_audio_activity,
+            no_turn_replay=no_turn_replay,
+        )
+    )
 
 
 async def _run(
@@ -216,9 +279,16 @@ async def _run(
     service: Optional[str],
     pipeline_type: Optional[str],
     only_turns: Optional[str],
+    thinking: Optional[str],
     verbose: bool,
+    gemini_3_protocol: bool = False,
+    gemini_require_interaction_status: bool = False,
+    gemini_explicit_audio_activity: bool = False,
+    no_turn_replay: bool = False,
 ):
     """Async implementation of the run command."""
+    reject_openai_pro_model(model, service)
+
     # Load benchmark
     BenchmarkConfig = load_benchmark(benchmark_name)
     benchmark = BenchmarkConfig()
@@ -227,6 +297,22 @@ async def _run(
     if not pipeline_type:
         pipeline_type = infer_pipeline(model, service)
         click.echo(f"Auto-detected pipeline: {pipeline_type}")
+
+    gemini_behavior_requested = any(
+        (
+            gemini_3_protocol,
+            gemini_require_interaction_status,
+            gemini_explicit_audio_activity,
+        )
+    )
+    if gemini_behavior_requested and (service or "").lower() != "gemini-live":
+        raise click.UsageError(
+            "Gemini Live behavior flags require --service gemini-live"
+        )
+    if (gemini_behavior_requested or no_turn_replay) and pipeline_type != "realtime":
+        raise click.UsageError(
+            "Realtime behavior flags require the realtime pipeline"
+        )
 
     pipeline_cls = get_pipeline_class(pipeline_type)
 
@@ -258,13 +344,26 @@ async def _run(
 
     # Run the pipeline
     try:
-        pipeline_instance = pipeline_cls(benchmark)
+        pipeline_kwargs = {}
+        if pipeline_type == "realtime":
+            pipeline_kwargs = {
+                "gemini_3_protocol": True if gemini_3_protocol else None,
+                "require_interaction_status": (
+                    True if gemini_require_interaction_status else None
+                ),
+                "explicit_audio_activity": (
+                    True if gemini_explicit_audio_activity else None
+                ),
+                "allow_turn_replay": False if no_turn_replay else None,
+            }
+        pipeline_instance = pipeline_cls(benchmark, **pipeline_kwargs)
         await pipeline_instance.run(
             recorder=recorder,
             model=model,
             service_class=service_class,
             service_name=service,
             turn_indices=turn_indices,
+            thinking=thinking,
         )
         click.echo(f"Completed benchmark run")
         click.echo(f"  Transcript: {run_dir / 'transcript.jsonl'}")

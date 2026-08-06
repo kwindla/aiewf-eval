@@ -12,10 +12,11 @@ from openai import NOT_GIVEN
 from pipecat.adapters.services.open_ai_adapter import OpenAILLMInvocationParams
 from pipecat.metrics.metrics import LLMTokenUsage
 from pipecat.processors.aggregators.llm_context import LLMContext
-from pipecat.processors.aggregators.openai_llm_context import OpenAILLMContext
 from pipecat.services.llm_service import FunctionCallFromLLM
 from pipecat.services.openai.llm import OpenAILLMService
 from pipecat.utils.tracing.service_decorators import traced_llm
+
+from multi_turn_eval.services.filler import apply_filler_to_last_user
 
 
 class OpenAIResponsesLLMService(OpenAILLMService):
@@ -28,11 +29,17 @@ class OpenAIResponsesLLMService(OpenAILLMService):
         return getattr(settings, key, default)
 
     def _context_to_openai_params(
-        self, context: LLMContext | OpenAILLMContext
+        self, context: LLMContext
     ) -> OpenAILLMInvocationParams:
         if isinstance(context, LLMContext):
             adapter = self.get_llm_adapter()
-            return adapter.get_llm_invocation_params(context)
+            # Mirror upstream OpenAI base_llm: both kwargs are required on the
+            # pipecat 1.1.0 adapter.
+            return adapter.get_llm_invocation_params(
+                context,
+                system_instruction=self._settings.system_instruction,
+                convert_developer_to_user=not self.supports_developer_role,
+            )
 
         return OpenAILLMInvocationParams(
             messages=context.messages,
@@ -183,10 +190,11 @@ class OpenAIResponsesLLMService(OpenAILLMService):
 
         return tool_choice
 
-    def _responses_request_params(self, context: LLMContext | OpenAILLMContext) -> Dict[str, Any]:
+    def _responses_request_params(self, context: LLMContext) -> Dict[str, Any]:
         params_from_context = self._context_to_openai_params(context)
 
         messages = params_from_context.get("messages") or []
+        messages = apply_filler_to_last_user(messages)
         tools = params_from_context.get("tools", NOT_GIVEN)
         tool_choice = params_from_context.get("tool_choice", NOT_GIVEN)
 
@@ -241,7 +249,7 @@ class OpenAIResponsesLLMService(OpenAILLMService):
         return "".join(parts)
 
     async def run_inference(
-        self, context: LLMContext | OpenAILLMContext, max_tokens: int | None = None
+        self, context: LLMContext, max_tokens: int | None = None
     ) -> str | None:
         params = self._responses_request_params(context)
         params["stream"] = False
@@ -252,7 +260,7 @@ class OpenAIResponsesLLMService(OpenAILLMService):
         return self._extract_response_text(response)
 
     @traced_llm
-    async def _process_context(self, context: OpenAILLMContext | LLMContext):
+    async def _process_context(self, context: LLMContext):
         await self.start_ttfb_metrics()
         ttfb_stopped = False
         function_call_map: Dict[str, Dict[str, str]] = {}

@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "artifact_status": "FINAL_PUBLICATION_INPUT",
+  "campaign_id": "aiewf-medium-gemma4-26b-a4b-dots-paired-20260731",
+  "model": "google/gemma-4-26B-A4B-it",
+  "provider": "BaseTen",
+  "selected_stage": "full",
+  "reviewed_by": "Codex",
+  "source_artifacts": {
+    "ops/baseten-gemma4-26b-a4b-vllm/dots-20260731/analysis/aggregates-full.json": "367abfecb9e97237937a05f3774f9a1251f64005772130905ab55060ed9a4d69",
+    "ops/baseten-gemma4-26b-a4b-vllm/dots-20260731/analysis/included-runs-full.tsv": "128d853306e54058088161becd617503270e59baab7041212a976ef2a90d7353",
+    "ops/baseten-gemma4-26b-a4b-vllm/dots-20260731/analysis/REPORT-full.md": "c0dfe6f446db311100237144e5fda51f201bd5af55cb8090edb353a7e5d01622",
+    "ops/baseten-gemma4-26b-a4b-vllm/dots-20260731/analysis/publication-review.json": "c36a3723cead5063c958035afa14a52bf6fa109d683af28e11a7bcf92dd247a3",
+    "ops/baseten-gemma4-26b-a4b-vllm/dots-20260731/analysis/promotion-decision-initial.json": "8e949ad9b98618dcc85cf2cbce3c48b67a8e09b8755030f395d1dd11c6b60677"
+  },
+  "readme_row": {
+    "label": "gemma-4-26b-a4b-it (thinking off)",
+    "pass_rate_pct": 80.66666666666666,
+    "any_error_rate_pct": 19.333333333333332,
+    "tool_error_rate_pct": 13.88888888888889,
+    "instruction_error_rate_pct": 19.333333333333332,
+    "kb_error_rate_pct": 0.8888888888888888,
+    "ttfat_p50_ms": 579.5,
+    "ttfat_p95_ms": 802.6999999999998,
+    "ttfat_max_ms": 31574.0,
+    "provider": "BaseTen"
+  },
+  "screen_row": {
+    "name": "gemma-4-26b-a4b",
+    "provider": "BaseTen",
+    "no_filler_pass_rate_pct": 80.66666666666666,
+    "dots_pass_rate_pct": 79.77777777777779,
+    "dots_minus_control_points": -0.8888888888888888,
+    "ci95": [
+      -4.555555555555555,
+      1.7777777777777781
+    ],
+    "included_runs": [
+      30,
+      30
+    ],
+    "key": "null",
+    "interpretation": "no detectable effect",
+    "no_filler_ttfat_p50_ms": 579.5,
+    "strict_completion_pct": [
+      96.66666666666667,
+      96.66666666666667
+    ],
+    "focused": true,
+    "temporally_paired": true
+  }
+}

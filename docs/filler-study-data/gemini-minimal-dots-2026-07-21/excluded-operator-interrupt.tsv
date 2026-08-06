@@ -1,0 +1,2 @@
+model	arm	run_dir	reason
+gemini35flashlite	nofiller	runs/aiwf_medium_context/20260721T173749_gemini-3.5-flash-lite_3f233ed6	operator stopped all lanes before first response to amend protocol following independent audit

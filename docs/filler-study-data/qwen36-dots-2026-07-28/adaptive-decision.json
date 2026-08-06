@@ -1,0 +1,183 @@
+{
+  "schema_version": 1,
+  "artifact_status": "FINAL_EXPLORATORY",
+  "models": {
+    "qwen36_27b": {
+      "control_decision_n": 10,
+      "dots_observed_n": 6,
+      "action": "stop_at_6",
+      "triggers": [],
+      "recurring_turn_signals": [
+        {
+          "turn": 16,
+          "direction": "benefit",
+          "control_failures": 4,
+          "dots_failures": 2
+        }
+      ],
+      "aggregate_aligned_recurring_turn_signals": [],
+      "decision_pending": false
+    },
+    "qwen36_35b": {
+      "control_decision_n": 10,
+      "dots_observed_n": 30,
+      "action": "n30_treatment_complete",
+      "triggers": [],
+      "recurring_turn_signals": [
+        {
+          "turn": 2,
+          "direction": "harm",
+          "control_failures": 1,
+          "dots_failures": 16
+        },
+        {
+          "turn": 4,
+          "direction": "harm",
+          "control_failures": 1,
+          "dots_failures": 15
+        },
+        {
+          "turn": 11,
+          "direction": "harm",
+          "control_failures": 3,
+          "dots_failures": 17
+        },
+        {
+          "turn": 12,
+          "direction": "harm",
+          "control_failures": 4,
+          "dots_failures": 13
+        },
+        {
+          "turn": 14,
+          "direction": "harm",
+          "control_failures": 0,
+          "dots_failures": 8
+        },
+        {
+          "turn": 15,
+          "direction": "harm",
+          "control_failures": 7,
+          "dots_failures": 25
+        },
+        {
+          "turn": 16,
+          "direction": "benefit",
+          "control_failures": 5,
+          "dots_failures": 12
+        },
+        {
+          "turn": 17,
+          "direction": "harm",
+          "control_failures": 2,
+          "dots_failures": 15
+        },
+        {
+          "turn": 19,
+          "direction": "harm",
+          "control_failures": 1,
+          "dots_failures": 21
+        },
+        {
+          "turn": 23,
+          "direction": "harm",
+          "control_failures": 0,
+          "dots_failures": 8
+        },
+        {
+          "turn": 24,
+          "direction": "harm",
+          "control_failures": 5,
+          "dots_failures": 19
+        },
+        {
+          "turn": 25,
+          "direction": "harm",
+          "control_failures": 0,
+          "dots_failures": 5
+        },
+        {
+          "turn": 29,
+          "direction": "harm",
+          "control_failures": 2,
+          "dots_failures": 8
+        }
+      ],
+      "aggregate_aligned_recurring_turn_signals": [
+        {
+          "turn": 2,
+          "direction": "harm",
+          "control_failures": 1,
+          "dots_failures": 16
+        },
+        {
+          "turn": 4,
+          "direction": "harm",
+          "control_failures": 1,
+          "dots_failures": 15
+        },
+        {
+          "turn": 11,
+          "direction": "harm",
+          "control_failures": 3,
+          "dots_failures": 17
+        },
+        {
+          "turn": 12,
+          "direction": "harm",
+          "control_failures": 4,
+          "dots_failures": 13
+        },
+        {
+          "turn": 14,
+          "direction": "harm",
+          "control_failures": 0,
+          "dots_failures": 8
+        },
+        {
+          "turn": 15,
+          "direction": "harm",
+          "control_failures": 7,
+          "dots_failures": 25
+        },
+        {
+          "turn": 17,
+          "direction": "harm",
+          "control_failures": 2,
+          "dots_failures": 15
+        },
+        {
+          "turn": 19,
+          "direction": "harm",
+          "control_failures": 1,
+          "dots_failures": 21
+        },
+        {
+          "turn": 23,
+          "direction": "harm",
+          "control_failures": 0,
+          "dots_failures": 8
+        },
+        {
+          "turn": 24,
+          "direction": "harm",
+          "control_failures": 5,
+          "dots_failures": 19
+        },
+        {
+          "turn": 25,
+          "direction": "harm",
+          "control_failures": 0,
+          "dots_failures": 5
+        },
+        {
+          "turn": 29,
+          "direction": "harm",
+          "control_failures": 2,
+          "dots_failures": 8
+        }
+      ],
+      "decision_pending": false
+    }
+  }
+}

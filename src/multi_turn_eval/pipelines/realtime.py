@@ -31,9 +31,10 @@ from pipecat.frames.frames import (
     LLMRunFrame,
     MetricsFrame,
     OutputAudioRawFrame,
-    TranscriptionMessage,
     TTSStartedFrame,
     TTSStoppedFrame,
+    UserStartedSpeakingFrame,
+    UserStoppedSpeakingFrame,
     VADUserStartedSpeakingFrame,
     VADUserStoppedSpeakingFrame,
 )
@@ -43,16 +44,33 @@ from pipecat.pipeline.task import PipelineParams, PipelineTask
 from pipecat.processors.aggregators.llm_context import LLMContext
 from pipecat.processors.aggregators.llm_response_universal import (
     LLMContextAggregatorPair,
+    LLMUserAggregatorParams,
 )
+from google.genai import types as genai_types
+from multi_turn_eval.model_capabilities import get_model_capabilities
 from multi_turn_eval.processors.audio_buffer import WallClockAlignedAudioBufferProcessor
 from pipecat.processors.frame_processor import FrameDirection, FrameProcessor
-from pipecat.processors.transcript_processor import TranscriptProcessor
-from pipecat.services.google.gemini_live.llm import GeminiLiveLLMService
+# Vendored: pipecat 1.x removed the transcript-processor subsystem.
+from multi_turn_eval.vendor.transcript_processor import (
+    TranscriptionMessage,
+    TranscriptProcessor,
+)
+from pipecat.services.google.gemini_live.llm import (
+    GeminiLiveLLMService,
+    GeminiVADParams,
+)
 from pipecat.services.openai.realtime import events as rt_events
 from pipecat.services.ultravox.llm import OneShotInputParams
 from pipecat.transports.base_transport import TransportParams
 from pipecat.audio.vad.silero import SileroVADAnalyzer
 from pipecat.audio.vad.vad_analyzer import VADParams
+from pipecat.turns.user_start.external_user_turn_start_strategy import (
+    ExternalUserTurnStartStrategy,
+)
+from pipecat.turns.user_stop.external_user_turn_stop_strategy import (
+    ExternalUserTurnStopStrategy,
+)
+from pipecat.turns.user_turn_strategies import UserTurnStrategies
 
 from multi_turn_eval.pipelines.base import BasePipeline
 
@@ -117,6 +135,7 @@ class TurnGate(FrameProcessor):
         audio_drain_delay: float = 0.5,
         no_response_timeout: float = 15.0,
         on_greeting_done: Optional[Callable[[], None]] = None,
+        require_terminal_signal: bool = False,
         **kwargs,
     ):
         """Initialize the turn gate.
@@ -133,6 +152,9 @@ class TurnGate(FrameProcessor):
             on_greeting_done: Optional callback to invoke when the initial greeting
                              completes (first BotStoppedSpeakingFrame). Used to signal
                              that user audio can start playing.
+            require_terminal_signal: Require a provider-confirmed TTSStoppedFrame in
+                             addition to drained playback. This prevents an
+                             asynchronous reasoning pause from ending the turn.
         """
         super().__init__(**kwargs)
         self._on_turn_ready = on_turn_ready
@@ -146,6 +168,8 @@ class TurnGate(FrameProcessor):
         self._tts_started = False
         self._no_response_check_task: Optional[asyncio.Task] = None
         self._on_empty_response: Optional[Callable[[str], None]] = None
+        self._require_terminal_signal = require_terminal_signal
+        self._terminal_signal_received = False
 
         # Initial greeting detection
         self._on_greeting_done = on_greeting_done
@@ -175,20 +199,71 @@ class TurnGate(FrameProcessor):
         Called by the transcript handler when assistant response is complete.
         The turn won't advance until BotStoppedSpeakingFrame is received.
         """
-        logger.info(f"[TurnGate] Storing pending transcript ({len(text)} chars)")
+        if self._pending_transcript:
+            previous = self._pending_transcript
+            if text == previous or previous.startswith(text):
+                text = previous
+            elif text.startswith(previous):
+                pass
+            else:
+                text = f"{previous.rstrip()} {text.lstrip()}"
+            logger.info(
+                f"[TurnGate] Merged assistant transcript segments ({len(text)} chars)"
+            )
+        else:
+            logger.info(f"[TurnGate] Storing pending transcript ({len(text)} chars)")
         self._pending_transcript = text
+        # Gemini can deliver the final transcript just after the output
+        # transport reports that speech stopped. In that ordering there will
+        # be no second BotStoppedSpeakingFrame, so schedule completion here.
+        if not self._bot_speaking and self._completion_is_terminal():
+            self._pending_transcript = None
+            if self._turn_end_task and not self._turn_end_task.done():
+                self._turn_end_task.cancel()
+            self._turn_end_task = asyncio.create_task(self._delayed_turn_end(text))
 
     def clear_pending(self):
         """Clear any pending transcript and TTS state (e.g., on reconnection or empty response)."""
         self._pending_transcript = None
         self._tts_started = False
         self._bot_speaking = False
+        self._terminal_signal_received = False
         if self._turn_end_task and not self._turn_end_task.done():
             self._turn_end_task.cancel()
             self._turn_end_task = None
         if self._no_response_check_task and not self._no_response_check_task.done():
             self._no_response_check_task.cancel()
             self._no_response_check_task = None
+
+    def _completion_is_terminal(self) -> bool:
+        return not self._require_terminal_signal or self._terminal_signal_received
+
+    def _signal_greeting_done_if_ready(self) -> None:
+        if (
+            not self._greeting_signaled
+            and self._on_greeting_done
+            and not self._bot_speaking
+            and self._completion_is_terminal()
+        ):
+            self._greeting_signaled = True
+            logger.info("[TurnGate] Initial greeting terminal and drained; signaling done")
+            self._on_greeting_done()
+
+    def _schedule_turn_end_if_ready(self) -> None:
+        if (
+            self._pending_transcript is None
+            or self._bot_speaking
+            or not self._completion_is_terminal()
+        ):
+            return
+        text = self._pending_transcript
+        self._pending_transcript = None
+        if self._turn_end_task and not self._turn_end_task.done():
+            self._turn_end_task.cancel()
+        if self._no_response_check_task and not self._no_response_check_task.done():
+            self._no_response_check_task.cancel()
+            self._no_response_check_task = None
+        self._turn_end_task = asyncio.create_task(self._delayed_turn_end(text))
 
     def _is_empty_transcript(self, text: str) -> bool:
         """Check if transcript is empty or only contains control tokens."""
@@ -202,9 +277,20 @@ class TurnGate(FrameProcessor):
             logger.info(f"[TurnGate] Waiting {self._audio_drain_delay}s for audio to drain...")
             await asyncio.sleep(self._audio_drain_delay)
             logger.info(f"[TurnGate] Triggering turn end with transcript ({len(text)} chars)")
+            self._terminal_signal_received = False
             await self._on_turn_ready(text)
         except asyncio.CancelledError:
-            logger.info("[TurnGate] Turn end cancelled (likely bot started speaking again)")
+            if self._pending_transcript is None:
+                # Preserve the transcript when the model emits a follow-up
+                # speech segment during the drain delay. The next stop event
+                # can then finish the same turn instead of hanging it.
+                self._pending_transcript = text
+                logger.info(
+                    "[TurnGate] Turn end cancelled; restored pending transcript "
+                    "for follow-up bot segment"
+                )
+            else:
+                logger.info("[TurnGate] Turn end cancelled (likely bot started speaking again)")
 
     async def _check_no_response(self):
         """Check if model never responded after user stopped speaking."""
@@ -224,8 +310,9 @@ class TurnGate(FrameProcessor):
         """Watch for TTS and Bot speaking frames to manage turn advancement."""
         await super().process_frame(frame, direction)
 
-        # Start no-response timeout when user stops speaking
-        if isinstance(frame, VADUserStoppedSpeakingFrame):
+        # Start no-response timeout when user stops speaking (pipecat 1.x
+        # pushes UserStoppedSpeakingFrame; pre-1.x pushed the VAD variant)
+        if isinstance(frame, (UserStoppedSpeakingFrame, VADUserStoppedSpeakingFrame)):
             # Cancel any existing no-response check and start a new one
             if self._no_response_check_task and not self._no_response_check_task.done():
                 self._no_response_check_task.cancel()
@@ -234,6 +321,22 @@ class TurnGate(FrameProcessor):
         # Track TTS state for empty response detection
         if isinstance(frame, TTSStartedFrame):
             self._tts_started = True
+            if self._require_terminal_signal and self._terminal_signal_received:
+                # Async Gemini Live models can deliver a final buffered audio continuation
+                # shortly after REQUIRES_ACTION. That status says processing is
+                # idle, but it does not guarantee that every already-produced
+                # output frame has traversed the client pipeline. Treat a new
+                # TTS phase during the drain window as part of the same response:
+                # revoke the provisional terminal state and retain the transcript
+                # until the continuation reaches its own terminal status.
+                logger.info(
+                    "[TurnGate] TTS restarted after provider terminal; "
+                    "cancelling provisional turn end"
+                )
+                self._terminal_signal_received = False
+                if self._turn_end_task and not self._turn_end_task.done():
+                    self._turn_end_task.cancel()
+                    self._turn_end_task = None
             # Cancel no-response check - model is responding
             if self._no_response_check_task and not self._no_response_check_task.done():
                 self._no_response_check_task.cancel()
@@ -241,6 +344,11 @@ class TurnGate(FrameProcessor):
 
         elif isinstance(frame, TTSStoppedFrame):
             self._tts_started = False
+            if self._require_terminal_signal:
+                self._terminal_signal_received = True
+                logger.info("[TurnGate] Provider terminal signal received")
+                self._signal_greeting_done_if_ready()
+                self._schedule_turn_end_if_ready()
             # If TTS stopped but bot never started speaking, this is an empty response
             # We can detect immediately - no timeout needed
             if self._pending_transcript is not None and not self._bot_speaking:
@@ -280,30 +388,16 @@ class TurnGate(FrameProcessor):
 
             # Signal greeting done on first BotStoppedSpeakingFrame
             # This allows user audio to start playing after the initial greeting
-            if not self._greeting_signaled and self._on_greeting_done:
-                self._greeting_signaled = True
-                logger.info("[TurnGate] Initial greeting complete, signaling greeting done")
-                self._on_greeting_done()
+            self._signal_greeting_done_if_ready()
 
             # If we have a pending transcript, schedule turn end after delay
-            if self._pending_transcript is not None:
-                text = self._pending_transcript
-                self._pending_transcript = None
-                # Cancel any existing turn end task
-                if self._turn_end_task and not self._turn_end_task.done():
-                    self._turn_end_task.cancel()
-                # Cancel no-response check since we're advancing normally
-                if self._no_response_check_task and not self._no_response_check_task.done():
-                    self._no_response_check_task.cancel()
-                    self._no_response_check_task = None
-                # Schedule delayed turn end
-                self._turn_end_task = asyncio.create_task(self._delayed_turn_end(text))
+            self._schedule_turn_end_if_ready()
 
         await self.push_frame(frame, direction)
 
 
 class GeminiLiveLLMServiceWithReconnection(GeminiLiveLLMService):
-    """Extended Gemini Live service that exposes reconnection events.
+    """Extended Gemini Live service for reconnection and async turn completion.
 
     The base GeminiLiveLLMService handles reconnection internally when the
     10-minute session timeout occurs, but doesn't expose events for external
@@ -312,6 +406,7 @@ class GeminiLiveLLMServiceWithReconnection(GeminiLiveLLMService):
     1. Calls on_reconnecting callback before disconnecting
     2. Calls on_reconnected callback after reconnecting
     3. Tracks whether we were in the middle of receiving a response
+    4. Defers terminal response frames while asynchronous reasoning is in progress
 
     This allows the test harness to:
     - Pause audio input during reconnection
@@ -319,10 +414,24 @@ class GeminiLiveLLMServiceWithReconnection(GeminiLiveLLMService):
     - Reset turn tracking state
     """
 
+    @property
+    def _is_gemini_3(self) -> bool:
+        """Classify Gemini 3 aliases that Pipecat cannot infer by name."""
+        if self._gemini_3_protocol is not None:
+            return self._gemini_3_protocol
+        return get_model_capabilities(self._settings.model).gemini_3
+
+    @property
+    def _requires_interaction_status(self) -> bool:
+        """Whether this model needs ``interaction_status`` to delimit a turn."""
+        return self._require_interaction_status
+
     def __init__(
         self,
         on_reconnecting: Optional[Callable[[], None]] = None,
         on_reconnected: Optional[Callable[[], None]] = None,
+        gemini_3_protocol: Optional[bool] = None,
+        require_interaction_status: bool = False,
         **kwargs,
     ):
         """Initialize with optional reconnection callbacks.
@@ -332,15 +441,118 @@ class GeminiLiveLLMServiceWithReconnection(GeminiLiveLLMService):
                             Use this to pause audio input and save state.
             on_reconnected: Called after reconnection completes.
                            Use this to resume audio input and re-queue interrupted turn.
+            gemini_3_protocol: Override Pipecat's model-name-based Gemini 3
+                              protocol detection for opaque model IDs.
+            require_interaction_status: Treat ``interaction_status`` as the
+                              authoritative asynchronous turn boundary.
         """
+        # Pipecat consults _is_gemini_3 during its constructor, so set behavior
+        # overrides before calling super().__init__().
+        self._gemini_3_protocol = gemini_3_protocol
+        self._require_interaction_status = require_interaction_status
         super().__init__(**kwargs)
         self._on_reconnecting = on_reconnecting
         self._on_reconnected = on_reconnected
         self._reconnecting = False
+        self._interaction_in_progress = False
+        self._explicit_input_activity_open = False
+
+        # Async-reasoning models can send turn_complete=True while they are
+        # still processing and may emit more audio or tool calls afterward.
+        # Older/public SDK builds silently discard interaction_status, which
+        # makes those intermediate messages indistinguishable from a terminal
+        # completion. Refuse to run such a model instead of producing invalid
+        # benchmark results.
+        if (
+            self._requires_interaction_status
+            and "interaction_status" not in genai_types.LiveServerContent.model_fields
+        ):
+            raise RuntimeError(
+                f"Gemini Live model {self._settings.model!r} requires a google-genai "
+                "SDK build that exposes LiveServerContent.interaction_status; the "
+                "loaded SDK does not. Install the Google EAP interaction-status SDK "
+                "before running this model."
+            )
+
+    async def process_frame(self, frame: Frame, direction: FrameDirection):
+        """Track exact input activity so stale terminal events cannot end it."""
+        if self._requires_interaction_status:
+            if isinstance(frame, (UserStartedSpeakingFrame, VADUserStartedSpeakingFrame)):
+                self._explicit_input_activity_open = True
+            elif isinstance(frame, (UserStoppedSpeakingFrame, VADUserStoppedSpeakingFrame)):
+                self._explicit_input_activity_open = False
+        await super().process_frame(frame, direction)
 
     def is_reconnecting(self) -> bool:
         """Check if currently in the middle of a reconnection."""
         return self._reconnecting
+
+    def is_interaction_in_progress(self) -> bool:
+        """Return whether the server says background processing is still active."""
+        return self._interaction_in_progress
+
+    @staticmethod
+    def _get_interaction_status(message: Any) -> Optional[str]:
+        """Return the wire value of a Live interaction status, if present."""
+        server_content = getattr(message, "server_content", None)
+        status = getattr(server_content, "interaction_status", None)
+        if status is None:
+            return None
+        return str(getattr(status, "value", status)).upper()
+
+    async def _handle_msg_turn_complete(self, message):
+        """Finalize only when Gemini Live is idle and requires client action.
+
+        Async-reasoning models use ``turn_complete`` as a phase boundary. An
+        ``IN_PROGRESS`` phase can be followed by more model audio or tool calls,
+        so clearing the response buffers or emitting TTSStoppedFrame here would
+        advance the benchmark too early. ``REQUIRES_ACTION`` is the definitive
+        terminal state. Models without the new field retain Pipecat's legacy
+        turn-complete behavior.
+        """
+        interaction_status = self._get_interaction_status(message)
+
+        if interaction_status == "IN_PROGRESS":
+            if not self._interaction_in_progress:
+                logger.debug(
+                    "Gemini Live reported turn_complete with interaction_status=IN_PROGRESS; "
+                    "deferring terminal response frames"
+                )
+            self._interaction_in_progress = True
+            return
+
+        if interaction_status == "REQUIRES_ACTION":
+            if self._requires_interaction_status and self._explicit_input_activity_open:
+                # The Live API can acknowledge interruption of the previous
+                # response with a zero-output REQUIRES_ACTION just after the
+                # next explicit activity_start. It is protocol housekeeping,
+                # not completion of the still-streaming user turn. Forwarding
+                # it would let the turn gate attribute stale state to new input.
+                logger.warning(
+                    "[GEMINI_IGNORED_TERMINAL_DURING_INPUT] Ignoring "
+                    "REQUIRES_ACTION while explicit user activity is open"
+                )
+                self._interaction_in_progress = False
+                return
+            logger.debug(
+                "Gemini Live reported interaction_status=REQUIRES_ACTION; "
+                "emitting terminal response frames"
+            )
+            self._interaction_in_progress = False
+            await super()._handle_msg_turn_complete(message)
+            return
+
+        if self._requires_interaction_status:
+            raise RuntimeError(
+                f"Gemini Live model {self._settings.model!r} returned turn_complete "
+                f"without a usable interaction_status (received {interaction_status!r}); "
+                "cannot determine whether the response is terminal."
+            )
+
+        # Existing Gemini Live models do not expose interaction_status and use
+        # turn_complete itself as the terminal signal.
+        self._interaction_in_progress = False
+        await super()._handle_msg_turn_complete(message)
 
     async def _reconnect(self):
         """Override to call callbacks before/after reconnection.
@@ -396,8 +608,9 @@ class LLMFrameLogger(FrameProcessor):
     async def process_frame(self, frame: Frame, direction: FrameDirection):
         await super().process_frame(frame, direction)
 
-        # Log VAD frames with timing offset information
-        if isinstance(frame, VADUserStartedSpeakingFrame):
+        # Log VAD frames with timing offset information (both 1.x plain and
+        # pre-1.x VAD variants)
+        if isinstance(frame, (UserStartedSpeakingFrame, VADUserStartedSpeakingFrame)):
             now = time.time()
             offset = self._vad_params.start_secs if self._vad_params else 0.2
             actual_start = now - offset
@@ -407,7 +620,7 @@ class LLMFrameLogger(FrameProcessor):
                 f"[VAD] UserStartedSpeaking at T+{rel_time:.0f}ms "
                 f"(actual start: T+{actual_rel:.0f}ms, offset={offset*1000:.0f}ms)"
             )
-        elif isinstance(frame, VADUserStoppedSpeakingFrame):
+        elif isinstance(frame, (UserStoppedSpeakingFrame, VADUserStoppedSpeakingFrame)):
             now = time.time()
             offset = self._vad_params.stop_secs if self._vad_params else 0.8
             actual_end = now - offset
@@ -442,8 +655,20 @@ class RealtimePipeline(BasePipeline):
 
     requires_service = True
 
-    def __init__(self, benchmark):
+    def __init__(
+        self,
+        benchmark,
+        *,
+        gemini_3_protocol: Optional[bool] = None,
+        require_interaction_status: Optional[bool] = None,
+        explicit_audio_activity: Optional[bool] = None,
+        allow_turn_replay: Optional[bool] = None,
+    ):
         super().__init__(benchmark)
+        self._gemini_3_protocol = gemini_3_protocol
+        self._require_interaction_status = require_interaction_status
+        self._explicit_audio_activity = explicit_audio_activity
+        self._allow_turn_replay = allow_turn_replay
         self.context_aggregator = None
         self.paced_input = None
         self.transcript = None
@@ -473,10 +698,34 @@ class RealtimePipeline(BasePipeline):
         """Check if current model is Gemini Live."""
         if not self.model_name:
             return False
-        m = self.model_name.lower()
-        return (m.startswith("gemini") or m.startswith("models/gemini")) and (
-            "live" in m or "native-audio" in m
+        return (
+            (self.service_name or "").lower() == "gemini-live"
+            or get_model_capabilities(self.model_name).gemini_live
         )
+
+    def _allows_turn_replay(self) -> bool:
+        """Whether a failed or interrupted user turn may be sent again."""
+        if self._allow_turn_replay is not None:
+            return self._allow_turn_replay
+        if not self.model_name:
+            return True
+        return get_model_capabilities(self.model_name).allow_turn_replay
+
+    def _uses_explicit_audio_activity(self) -> bool:
+        """Whether scripted WAV boundaries must delimit provider audio turns."""
+        return bool(self._explicit_audio_activity)
+
+    def _requires_async_interaction_status(self) -> bool:
+        """Whether provider interaction status is the authoritative turn end."""
+        return bool(self._require_interaction_status)
+
+    def _uses_gemini_3_protocol(self) -> bool:
+        """Whether to force Gemini 3 protocol behavior for an opaque model ID."""
+        if self._gemini_3_protocol is not None:
+            return self._gemini_3_protocol
+        if not self.model_name:
+            return False
+        return get_model_capabilities(self.model_name).gemini_3
 
     def _is_openai_realtime(self) -> bool:
         """Check if current model is OpenAI Realtime."""
@@ -498,6 +747,70 @@ class RealtimePipeline(BasePipeline):
             return False
         m = self.model_name.lower()
         return "grok" in m and "realtime" in m
+
+    def _build_gemini_live_thinking_config(
+        self, model: str
+    ) -> Optional[genai_types.ThinkingConfig]:
+        """Build the Gemini Live thinking config for the selected model.
+
+        Gemini 3.1 Live uses thinking levels and defaults to ``minimal`` for
+        the benchmark's low-latency configuration. Gemini 2.5 Live retains
+        its provider default unless explicitly disabled with a zero budget.
+        """
+        capabilities = get_model_capabilities(model)
+        thinking_levels = capabilities.thinking_levels or self._uses_gemini_3_protocol()
+        default_mode = "minimal" if thinking_levels else capabilities.default_thinking_mode
+        thinking_mode = (
+            getattr(self, "thinking", None)
+            or os.getenv("MTE_GOOGLE_THINKING_MODE", default_mode)
+        ).strip().lower()
+
+        if thinking_mode in {"default", "auto"}:
+            logger.info(
+                f"Configured {model} with provider default Gemini Live thinking behavior"
+            )
+            return None
+
+        disabled_modes = {"disabled", "disable", "off", "none", "budget0", "0"}
+        if thinking_mode in disabled_modes:
+            if thinking_levels:
+                raise ValueError(
+                    f"{model} does not support thinking_budget=0; "
+                    "use minimal, low, medium, high, or default"
+                )
+            config = genai_types.ThinkingConfig(
+                thinking_budget=0,
+                include_thoughts=False,
+            )
+            logger.info(f"Configured {model} with thinking_budget=0 (disabled)")
+            return config
+
+        if not thinking_levels:
+            raise ValueError(
+                f"{model} uses thinking budgets, not thinking levels; "
+                "use disabled or default"
+            )
+
+        level_map = {
+            "minimal": genai_types.ThinkingLevel.MINIMAL,
+            "min": genai_types.ThinkingLevel.MINIMAL,
+            "low": genai_types.ThinkingLevel.LOW,
+            "medium": genai_types.ThinkingLevel.MEDIUM,
+            "high": genai_types.ThinkingLevel.HIGH,
+        }
+        level = level_map.get(thinking_mode)
+        if level is None:
+            raise ValueError(
+                "Unsupported Gemini Live thinking mode={!r}; expected minimal, "
+                "low, medium, high, or default".format(thinking_mode)
+            )
+
+        config = genai_types.ThinkingConfig(
+            thinking_level=level,
+            include_thoughts=False,
+        )
+        logger.info(f"Configured {model} with thinking_level={thinking_mode}")
+        return config
 
     def _get_audio_duration(self, audio_path: str) -> float:
         """Get duration of an audio file in seconds.
@@ -637,14 +950,27 @@ class RealtimePipeline(BasePipeline):
             if not api_key:
                 raise EnvironmentError("GOOGLE_API_KEY environment variable is required")
 
+            thinking_config = self._build_gemini_live_thinking_config(model)
+            settings_kwargs: Dict[str, Any] = {
+                "model": model,
+                "system_instruction": system_instruction,
+            }
+            if thinking_config is not None:
+                settings_kwargs["thinking"] = thinking_config
+            if self._uses_explicit_audio_activity():
+                settings_kwargs["vad"] = GeminiVADParams(disabled=True)
+
             return GeminiLiveLLMServiceWithReconnection(
                 api_key=api_key,
-                model=model,
-                system_instruction=system_instruction,
                 tools=tools,
                 inference_on_context_initialization=True,
                 on_reconnecting=self._on_gemini_reconnecting,
                 on_reconnected=self._on_gemini_reconnected,
+                gemini_3_protocol=self._uses_gemini_3_protocol(),
+                require_interaction_status=self._requires_async_interaction_status(),
+                settings=GeminiLiveLLMServiceWithReconnection.Settings(
+                    **settings_kwargs,
+                ),
             )
         else:
             # For other services, use base class implementation
@@ -672,7 +998,44 @@ class RealtimePipeline(BasePipeline):
             messages.append({"role": "user", "content": "Greet the user briefly."})
 
         self.context = LLMContext(messages, tools=tools)
-        self.context_aggregator = LLMContextAggregatorPair(self.context)
+        # pipecat 1.x: the local VAD analyzer rides on the user aggregator
+        # (TransportParams lost its vad_analyzer field — passing it there is
+        # silently dropped, leaving services without server-side VAD events
+        # (Gemini Live, Ultravox) with no user-turn boundaries at all).
+        self._user_vad_params = VADParams(
+            start_secs=0.2,  # Emit VADUserStartedSpeaking 0.2s after speech starts
+            stop_secs=0.8,   # Emit VADUserStoppedSpeaking 0.8s after speech ends
+        )
+        # Silero VAD only supports 16kHz or 8kHz - use our resampling subclass
+        # to handle 24kHz audio from OpenAI/Ultravox
+        self._user_vad = ResamplingSileroVAD(params=self._user_vad_params)
+        logger.info(
+            f"[VAD] User VAD config: start_secs={self._user_vad_params.start_secs}, "
+            f"stop_secs={self._user_vad_params.stop_secs}"
+        )
+        aggregator_vad = None if self._uses_explicit_audio_activity() else self._user_vad
+        if aggregator_vad is None:
+            logger.info(
+                "[VAD] Acoustic VAD disabled; using exact scripted WAV boundaries"
+            )
+        user_turn_strategies = None
+        if self._uses_explicit_audio_activity():
+            # The Gemini input transcription arrives after activity_end. The
+            # universal aggregator's defaults would interpret that transcript
+            # as a new zero-duration user turn and send a duplicate
+            # activity_start/activity_end pair back to Gemini. Bind aggregation
+            # to the transport's explicit frames instead.
+            user_turn_strategies = UserTurnStrategies(
+                start=[ExternalUserTurnStartStrategy()],
+                stop=[ExternalUserTurnStopStrategy()],
+            )
+        self.context_aggregator = LLMContextAggregatorPair(
+            self.context,
+            user_params=LLMUserAggregatorParams(
+                vad_analyzer=aggregator_vad,
+                user_turn_strategies=user_turn_strategies,
+            ),
+        )
 
     def _setup_llm(self) -> None:
         """Configure LLM and set up reconnection callbacks for Gemini Live."""
@@ -685,6 +1048,17 @@ class RealtimePipeline(BasePipeline):
 
     def _on_gemini_reconnecting(self):
         """Called when Gemini Live starts reconnecting due to session timeout."""
+        if not self._allows_turn_replay():
+            logger.error(
+                f"Gemini reconnecting during turn {self.turn_idx}; "
+                "this model forbids turn replay, terminating run"
+            )
+            self.paced_input.pause()
+            asyncio.create_task(
+                self._terminate_failed_run("gemini_connection_reconnect")
+            )
+            return
+
         logger.info(f"Gemini reconnecting: pausing audio, turn {self.turn_idx} will be retried")
         self.needs_turn_retry = True
         # Pause audio input to avoid sending audio during reconnection
@@ -702,6 +1076,10 @@ class RealtimePipeline(BasePipeline):
 
     def _on_gemini_reconnected(self):
         """Called when Gemini Live reconnection completes."""
+        if self._run_failure is not None or not self._allows_turn_replay():
+            logger.info("Gemini reconnected after run termination; turn will not be replayed")
+            return
+
         logger.info(f"Gemini reconnected: scheduling turn {self.turn_idx} retry")
         # Resume audio input
         self.paced_input.signal_ready()
@@ -735,6 +1113,24 @@ class RealtimePipeline(BasePipeline):
         tag = "EMPTY_RESPONSE" if reason == "empty_response" else "NO_RESPONSE"
         logger.info(f"[{tag}] turn={self.turn_idx} retry_count={self._turn_retry_count}")
 
+        if not self._allows_turn_replay():
+            failure_reason = (
+                "empty_audio_response"
+                if reason == "empty_response"
+                else "no_audio_timeout"
+            )
+            asyncio.create_task(
+                self._terminate_failed_run(
+                    failure_reason,
+                    timeout_seconds=(
+                        self.turn_gate._no_response_timeout
+                        if reason == "no_response" and self.turn_gate
+                        else None
+                    ),
+                )
+            )
+            return
+
         if self._turn_retry_count >= self._max_turn_retries:
             logger.error(
                 f"[EMPTY_RESPONSE] Max retries ({self._max_turn_retries}) reached for turn {self.turn_idx}"
@@ -754,6 +1150,37 @@ class RealtimePipeline(BasePipeline):
 
         # Reuse the same retry logic as reconnection
         asyncio.create_task(self._retry_current_turn())
+
+    async def _terminate_failed_run(
+        self,
+        reason: str,
+        timeout_seconds: Optional[float] = None,
+    ) -> None:
+        """Persist a fatal run result and stop without replaying user input."""
+        if self._run_failure is not None:
+            return
+
+        actual_turn = self._get_actual_turn_index(self.turn_idx)
+        failure: Dict[str, Any] = {
+            "reason": reason,
+            "turn": actual_turn,
+            "replayed": False,
+        }
+        if timeout_seconds is not None:
+            failure["timeout_seconds"] = timeout_seconds
+
+        self._run_failure = failure
+        self.done = True
+        self.needs_turn_retry = False
+        if self.turn_gate:
+            self.turn_gate.clear_pending()
+        if self.assistant_shim:
+            self.assistant_shim.clear_buffer()
+
+        details = " ".join(f"{key}={value}" for key, value in failure.items())
+        logger.error(f"[RUN_TERMINATED] status=failed valid=false {details}")
+        self.recorder.write_summary(status="failed", failure=failure)
+        await self.task.cancel()
 
     async def _retry_current_turn(self):
         """Unified retry logic for empty responses (called from reconnection retry as well)."""
@@ -805,38 +1232,26 @@ class RealtimePipeline(BasePipeline):
             except Exception as e:
                 logger.warning(f"Could not read sample rate from {t0_audio}: {e}")
 
-        # Create local VAD analyzer for user speech detection
-        # This emits VADUserStartedSpeakingFrame/VADUserStoppedSpeakingFrame
-        # which we can compare against WAV-based VAD for timing analysis
-        vad_params = VADParams(
-            start_secs=0.2,  # Emit VADUserStartedSpeaking 0.2s after speech starts
-            stop_secs=0.8,   # Emit VADUserStoppedSpeaking 0.8s after speech ends
-        )
-        # Silero VAD only supports 16kHz or 8kHz - use our resampling subclass
-        # to handle 24kHz audio from OpenAI/Ultravox
-        user_vad = ResamplingSileroVAD(params=vad_params)
-        logger.info(
-            f"[VAD] User VAD config: start_secs={vad_params.start_secs}, "
-            f"stop_secs={vad_params.stop_secs}"
-        )
-
-        # Create paced input transport with VAD
+        # Local VAD now lives on the user aggregator (see _setup_context);
+        # pipecat 1.x TransportParams has no vad_analyzer field.
         input_params = TransportParams(
             audio_in_enabled=True,
             audio_in_sample_rate=default_sr,
             audio_in_channels=1,
             audio_in_passthrough=True,
-            vad_analyzer=user_vad,
         )
         self.paced_input = PacedInputTransport(
             input_params,
             pre_roll_ms=100,
-            continuous_silence=True,
+            continuous_silence=not self._uses_explicit_audio_activity(),
+            emit_user_activity_frames=self._uses_explicit_audio_activity(),
         )
 
         # Create transcript processors
         self.transcript = TranscriptProcessor()
-        self.assistant_shim = TTSStoppedAssistantTranscriptProcessor()
+        self.assistant_shim = TTSStoppedAssistantTranscriptProcessor(
+            flush_on_bot_stopped=not self._requires_async_interaction_status()
+        )
 
         # Create audio buffer processor for recording both user and bot audio
         # NullAudioOutputTransport is the "source of truth" for wall-clock aligned recording.
@@ -933,6 +1348,7 @@ class RealtimePipeline(BasePipeline):
         self.turn_gate = TurnGate(
             on_turn_ready=self._on_turn_end,
             on_greeting_done=lambda: self._greeting_done.set(),
+            require_terminal_signal=self._requires_async_interaction_status(),
         )
         self.turn_gate.set_greeting_started_callback(lambda: self._greeting_started.set())
         # Set up empty response callback for Gemini Live models
@@ -954,7 +1370,16 @@ class RealtimePipeline(BasePipeline):
             )
         )
 
-        self.llm_logger = LLMFrameLogger(recorder_accessor, vad_params=vad_params)
+        logger_boundary_params = self._user_vad_params
+        if self._uses_explicit_audio_activity():
+            # These frames are exact file boundaries, not delayed acoustic-VAD
+            # decisions. Do not subtract the ordinary 200/800ms VAD offsets in
+            # timing diagnostics.
+            logger_boundary_params = VADParams(start_secs=0, stop_secs=0)
+        self.llm_logger = LLMFrameLogger(
+            recorder_accessor,
+            vad_params=logger_boundary_params,
+        )
 
         pipeline = Pipeline(
             [

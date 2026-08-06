@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "frozen_at": "2026-07-22T06:51:35-07:00",
+  "derivation": "Task-semantic classification from the benchmark turns and system contract; independently drafted without campaign artifacts.",
+  "families": [
+    {
+      "key": "grounded_information",
+      "label": "Grounded information / reference resolution",
+      "short_label": "Grounded information",
+      "turns": [0, 1, 2, 3, 4, 13, 20, 21, 25, 26, 27, 28],
+      "rationale": "Direct event-knowledge answers, including conversational reference resolution."
+    },
+    {
+      "key": "recommendation_protocol",
+      "label": "Recommendation protocol / personalized synthesis",
+      "short_label": "Recommendation",
+      "turns": [5, 6, 7, 8],
+      "rationale": "The dedicated multi-step contract to elicit interests and availability, recommend two sessions, and revise after correction."
+    },
+    {
+      "key": "tool_preparation",
+      "label": "Tool preparation / slot elicitation / disambiguation",
+      "short_label": "Tool preparation",
+      "turns": [9, 10, 14, 16, 22, 23],
+      "rationale": "An actionable workflow is active, but the assistant must collect or disambiguate information before acting."
+    },
+    {
+      "key": "tool_commitment",
+      "label": "Nonterminal tool commitment / confirmation",
+      "short_label": "Tool commitment",
+      "turns": [11, 12, 15, 17, 24],
+      "rationale": "The gold response requires a concrete nonterminal function call with exact arguments, often assembled across turns."
+    },
+    {
+      "key": "interaction_boundary",
+      "label": "Interaction boundary / closing pragmatics",
+      "short_label": "Boundary / closing",
+      "turns": [18, 19, 29],
+      "rationale": "The assistant must enforce its information boundary or recognize and execute the terminal user signal."
+    }
+  ],
+  "ambiguities": {
+    "turns": [2, 4, 7, 8, 14, 21, 23, 24, 29],
+    "note": "These turns combine adjacent semantic roles; assignments were frozen before family-level effects were computed."
+  }
+}

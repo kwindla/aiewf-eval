@@ -1,0 +1,176 @@
+#!/usr/bin/env python3
+"""Resumable four-run dots top-up after the prospective n=6 trigger."""
+
+from __future__ import annotations
+
+import fcntl
+import importlib.util
+from pathlib import Path
+
+
+HERE = Path(__file__).resolve().parent
+ROOT = HERE.parents[2]
+SPEC = importlib.util.spec_from_file_location("laguna_run_campaign", HERE / "run_campaign.py")
+if SPEC is None or SPEC.loader is None:
+    raise RuntimeError("cannot load run_campaign.py")
+campaign = importlib.util.module_from_spec(SPEC)
+SPEC.loader.exec_module(campaign)
+
+
+def main() -> None:
+    schedule = HERE / "schedule-dots-topup.tsv"
+    state = HERE / "state" / "dots-topup"
+    logs = state / "logs"
+    logs.mkdir(parents=True, exist_ok=True)
+    attempts_path = state / "attempts.tsv"
+    counted_path = state / "counted.tsv"
+    manifest_path = state / "manifest.tsv"
+    master_manifest = HERE / "state" / "manifest.tsv"
+    driver_log = state / "driver.log"
+
+    with (state / "driver.lock").open("a") as lock_handle:
+        try:
+            fcntl.flock(lock_handle, fcntl.LOCK_EX | fcntl.LOCK_NB)
+        except BlockingIOError as exc:
+            raise SystemExit("another Laguna dots top-up driver is active") from exc
+
+        def log(message: str) -> None:
+            line = f"[{campaign.now()}] {message}"
+            print(line, flush=True)
+            with driver_log.open("a") as handle:
+                handle.write(line + "\n")
+
+        counted = {row["slot"] for row in campaign.read_tsv(counted_path)}
+        master = {row["slot"]: row for row in campaign.read_tsv(master_manifest)}
+        for assignment in campaign.read_tsv(schedule):
+            slot = assignment["slot"]
+            arm = assignment["arm"]
+            if (
+                assignment["model"] != campaign.MODEL_KEY
+                or assignment["requested_model"] != campaign.MODEL
+                or assignment["service"] != "openrouter"
+                or arm != "dots96"
+            ):
+                raise RuntimeError(f"top-up schedule policy failure in {slot}")
+            if slot in counted:
+                continue
+            if slot in master:
+                raise RuntimeError(f"uncounted top-up slot already in master manifest: {slot}")
+
+            prior = [
+                row
+                for row in campaign.read_tsv(attempts_path)
+                if row["slot"] == slot and not row["classification"].startswith("infra_")
+            ]
+            candidate: Path | None = None
+            classification = ""
+            attempt = len(
+                [row for row in campaign.read_tsv(attempts_path) if row["slot"] == slot]
+            )
+            if prior:
+                candidate = Path(prior[-1]["run_dir"])
+                classification = prior[-1]["classification"]
+                log(f"adopting slot={slot} run={candidate}")
+
+            while candidate is None:
+                attempt += 1
+                if attempt > campaign.MAX_ATTEMPTS:
+                    raise RuntimeError(f"replacement limit reached: {slot}")
+                run_output = logs / f"{slot}-attempt-{attempt}.log"
+                started = campaign.now()
+                log(f"run slot={slot} attempt={attempt} arm={arm}")
+                rc, output, run_dir = campaign.run_attempt(arm, run_output)
+                rows = 0
+                es_turn = -1
+                if run_dir is not None and (run_dir / "transcript.jsonl").is_file():
+                    rows = len((run_dir / "transcript.jsonl").read_text().splitlines())
+                    es_turn = campaign.end_session_turn(run_dir)
+                infra = es_turn < 0 and bool(campaign.INFRA_RE.search(output))
+                if infra:
+                    classification = (
+                        "infra_zero_response_replaced"
+                        if rows == 0
+                        else "infra_partial_response_replaced"
+                    )
+                elif rows == 0:
+                    classification = "zero_response_unclassified"
+                elif es_turn == 29:
+                    classification = "strict_complete"
+                elif es_turn >= 0:
+                    classification = "model_abort"
+                else:
+                    classification = "incomplete_no_end_session"
+                campaign.append_tsv(
+                    attempts_path,
+                    [
+                        "slot",
+                        "model",
+                        "arm",
+                        "attempt",
+                        "start_utc",
+                        "end_utc",
+                        "run_rc",
+                        "run_dir",
+                        "transcript_rows",
+                        "end_session_turn",
+                        "classification",
+                        "log",
+                    ],
+                    {
+                        "slot": slot,
+                        "model": campaign.MODEL_KEY,
+                        "arm": arm,
+                        "attempt": attempt,
+                        "start_utc": started,
+                        "end_utc": campaign.now(),
+                        "run_rc": rc,
+                        "run_dir": run_dir or "NA",
+                        "transcript_rows": rows,
+                        "end_session_turn": es_turn,
+                        "classification": classification,
+                        "log": run_output,
+                    },
+                )
+                log(
+                    f"attempt slot={slot} rc={rc} rows={rows} "
+                    f"end_session={es_turn} class={classification}"
+                )
+                if classification.startswith("infra_"):
+                    continue
+                if classification == "zero_response_unclassified" or run_dir is None:
+                    raise RuntimeError(f"unclassified zero-response: {slot}")
+                candidate = run_dir
+
+            campaign.validate_run(candidate, arm)
+            row = {
+                "slot": slot,
+                "model": campaign.MODEL_KEY,
+                "arm": arm,
+                "run_dir": candidate.relative_to(ROOT),
+                "classification": classification,
+            }
+            campaign.append_tsv(
+                counted_path,
+                ["slot", "model", "arm", "attempt", "run_dir", "classification"],
+                {**row, "attempt": attempt, "run_dir": candidate},
+            )
+            campaign.append_tsv(
+                manifest_path,
+                ["slot", "model", "arm", "run_dir", "classification"],
+                row,
+            )
+            campaign.append_tsv(
+                master_manifest,
+                ["slot", "model", "arm", "run_dir", "classification"],
+                row,
+            )
+            counted.add(slot)
+            master[slot] = row
+            log(f"counted slot={slot} class={classification} run={candidate}")
+
+        (state / "RUNS_COMPLETE").touch()
+        log("DOTS_TOPUP_RUNS_COMPLETE")
+
+
+if __name__ == "__main__":
+    main()
