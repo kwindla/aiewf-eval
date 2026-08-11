@@ -1,0 +1,2535 @@
+{
+  "schema_version": 1,
+  "rows": 9600,
+  "histories_per_origin": 150,
+  "paired_seeds_per_history": 16,
+  "primary": {
+    "local_bf16_origin_difference_points": 11.125,
+    "local_fp8_origin_difference_points": 7.083333333333333,
+    "origin_interaction_points": 4.041666666666667,
+    "balanced_origin_mixture_difference_points": 9.104166666666666,
+    "history_cluster_bootstrap_95_percent": {
+      "local_bf16_origin": [
+        5.416666666666667,
+        16.791666666666664
+      ],
+      "local_fp8_origin": [
+        0.75,
+        13.458333333333334
+      ],
+      "origin_interaction": [
+        -4.5,
+        12.541666666666668
+      ],
+      "balanced_origin_mixture": [
+        4.854166666666666,
+        13.354166666666668
+      ]
+    },
+    "two_stage_bootstrap_sensitivity_95_percent": {
+      "local_bf16_origin": [
+        5.0,
+        17.25
+      ],
+      "local_fp8_origin": [
+        0.33333333333333337,
+        13.791666666666666
+      ],
+      "origin_interaction": [
+        -5.041666666666666,
+        13.124999999999998
+      ],
+      "balanced_origin_mixture": [
+        4.520833333333334,
+        13.666666666666666
+      ]
+    }
+  },
+  "history_effect_distribution": {
+    "local_bf16": {
+      "bf16_favoring_histories": 84,
+      "fp8_favoring_histories": 49,
+      "ties": 17,
+      "median_difference_points": 6.25,
+      "interquartile_difference_points": [
+        -6.25,
+        35.9375
+      ]
+    },
+    "local_fp8": {
+      "bf16_favoring_histories": 76,
+      "fp8_favoring_histories": 62,
+      "ties": 12,
+      "median_difference_points": 6.25,
+      "interquartile_difference_points": [
+        -18.75,
+        31.25
+      ]
+    }
+  },
+  "category_counts": {
+    "local_bf16": {
+      "bf16": {
+        "correct_tool_and_arguments": 1270,
+        "no_tool_false_claim_of_completion": 595,
+        "no_tool_redundant_confirmation_or_question": 469,
+        "no_tool_other": 47,
+        "correct_tool_wrong_or_missing_argument": 18,
+        "wrong_tool": 1
+      },
+      "fp8": {
+        "no_tool_false_claim_of_completion": 629,
+        "no_tool_redundant_confirmation_or_question": 688,
+        "correct_tool_and_arguments": 1003,
+        "no_tool_other": 73,
+        "correct_tool_wrong_or_missing_argument": 5,
+        "wrong_tool": 2
+      }
+    },
+    "local_fp8": {
+      "bf16": {
+        "no_tool_other": 61,
+        "no_tool_redundant_confirmation_or_question": 475,
+        "correct_tool_and_arguments": 1263,
+        "no_tool_false_claim_of_completion": 600,
+        "correct_tool_wrong_or_missing_argument": 1
+      },
+      "fp8": {
+        "correct_tool_and_arguments": 1093,
+        "no_tool_redundant_confirmation_or_question": 644,
+        "no_tool_false_claim_of_completion": 553,
+        "no_tool_other": 109,
+        "correct_tool_wrong_or_missing_argument": 1
+      }
+    }
+  },
+  "cohort_sensitivity": {
+    "local_bf16": {
+      "n120": {
+        "histories": 120,
+        "mean_difference_points": 13.385416666666666
+      },
+      "n30": {
+        "histories": 30,
+        "mean_difference_points": 2.0833333333333335
+      }
+    },
+    "local_fp8": {
+      "n120": {
+        "histories": 120,
+        "mean_difference_points": 8.333333333333334
+      },
+      "n30": {
+        "histories": 30,
+        "mean_difference_points": 2.0833333333333335
+      }
+    }
+  },
+  "descriptive_on_policy_diagonal": {
+    "bf16_inference_on_bf16_origin_success_percent": 52.916666666666664,
+    "fp8_inference_on_fp8_origin_success_percent": 45.541666666666664,
+    "unpaired_diagonal_difference_points": 7.375
+  },
+  "histories": [
+    {
+      "snapshot_id": "turn12-local_bf16-001",
+      "origin": "local_bf16",
+      "cohort": "n120",
+      "bf16_success_percent": 100.0,
+      "fp8_success_percent": 25.0,
+      "difference_points": 75.0
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-002",
+      "origin": "local_bf16",
+      "cohort": "n120",
+      "bf16_success_percent": 37.5,
+      "fp8_success_percent": 31.25,
+      "difference_points": 6.25
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-003",
+      "origin": "local_bf16",
+      "cohort": "n30",
+      "bf16_success_percent": 31.25,
+      "fp8_success_percent": 50.0,
+      "difference_points": -18.75
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-004",
+      "origin": "local_bf16",
+      "cohort": "n120",
+      "bf16_success_percent": 62.5,
+      "fp8_success_percent": 100.0,
+      "difference_points": -37.5
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-005",
+      "origin": "local_bf16",
+      "cohort": "n30",
+      "bf16_success_percent": 81.25,
+      "fp8_success_percent": 100.0,
+      "difference_points": -18.75
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-006",
+      "origin": "local_bf16",
+      "cohort": "n120",
+      "bf16_success_percent": 18.75,
+      "fp8_success_percent": 43.75,
+      "difference_points": -25.0
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-007",
+      "origin": "local_bf16",
+      "cohort": "n120",
+      "bf16_success_percent": 31.25,
+      "fp8_success_percent": 37.5,
+      "difference_points": -6.25
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-008",
+      "origin": "local_bf16",
+      "cohort": "n120",
+      "bf16_success_percent": 6.25,
+      "fp8_success_percent": 56.25,
+      "difference_points": -50.0
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-009",
+      "origin": "local_bf16",
+      "cohort": "n120",
+      "bf16_success_percent": 37.5,
+      "fp8_success_percent": 81.25,
+      "difference_points": -43.75
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-010",
+      "origin": "local_bf16",
+      "cohort": "n120",
+      "bf16_success_percent": 18.75,
+      "fp8_success_percent": 43.75,
+      "difference_points": -25.0
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-011",
+      "origin": "local_bf16",
+      "cohort": "n120",
+      "bf16_success_percent": 12.5,
+      "fp8_success_percent": 12.5,
+      "difference_points": 0.0
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-012",
+      "origin": "local_bf16",
+      "cohort": "n120",
+      "bf16_success_percent": 87.5,
+      "fp8_success_percent": 37.5,
+      "difference_points": 50.0
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-013",
+      "origin": "local_bf16",
+      "cohort": "n120",
+      "bf16_success_percent": 100.0,
+      "fp8_success_percent": 75.0,
+      "difference_points": 25.0
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-014",
+      "origin": "local_bf16",
+      "cohort": "n120",
+      "bf16_success_percent": 68.75,
+      "fp8_success_percent": 50.0,
+      "difference_points": 18.75
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-015",
+      "origin": "local_bf16",
+      "cohort": "n120",
+      "bf16_success_percent": 37.5,
+      "fp8_success_percent": 50.0,
+      "difference_points": -12.5
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-016",
+      "origin": "local_bf16",
+      "cohort": "n120",
+      "bf16_success_percent": 100.0,
+      "fp8_success_percent": 37.5,
+      "difference_points": 62.5
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-017",
+      "origin": "local_bf16",
+      "cohort": "n120",
+      "bf16_success_percent": 100.0,
+      "fp8_success_percent": 31.25,
+      "difference_points": 68.75
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-018",
+      "origin": "local_bf16",
+      "cohort": "n120",
+      "bf16_success_percent": 100.0,
+      "fp8_success_percent": 56.25,
+      "difference_points": 43.75
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-019",
+      "origin": "local_bf16",
+      "cohort": "n120",
+      "bf16_success_percent": 100.0,
+      "fp8_success_percent": 50.0,
+      "difference_points": 50.0
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-020",
+      "origin": "local_bf16",
+      "cohort": "n120",
+      "bf16_success_percent": 100.0,
+      "fp8_success_percent": 50.0,
+      "difference_points": 50.0
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-021",
+      "origin": "local_bf16",
+      "cohort": "n120",
+      "bf16_success_percent": 81.25,
+      "fp8_success_percent": 18.75,
+      "difference_points": 62.5
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-022",
+      "origin": "local_bf16",
+      "cohort": "n30",
+      "bf16_success_percent": 50.0,
+      "fp8_success_percent": 31.25,
+      "difference_points": 18.75
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-023",
+      "origin": "local_bf16",
+      "cohort": "n120",
+      "bf16_success_percent": 43.75,
+      "fp8_success_percent": 25.0,
+      "difference_points": 18.75
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-024",
+      "origin": "local_bf16",
+      "cohort": "n30",
+      "bf16_success_percent": 68.75,
+      "fp8_success_percent": 31.25,
+      "difference_points": 37.5
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-025",
+      "origin": "local_bf16",
+      "cohort": "n120",
+      "bf16_success_percent": 56.25,
+      "fp8_success_percent": 6.25,
+      "difference_points": 50.0
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-026",
+      "origin": "local_bf16",
+      "cohort": "n120",
+      "bf16_success_percent": 43.75,
+      "fp8_success_percent": 18.75,
+      "difference_points": 25.0
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-027",
+      "origin": "local_bf16",
+      "cohort": "n120",
+      "bf16_success_percent": 100.0,
+      "fp8_success_percent": 56.25,
+      "difference_points": 43.75
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-028",
+      "origin": "local_bf16",
+      "cohort": "n30",
+      "bf16_success_percent": 37.5,
+      "fp8_success_percent": 6.25,
+      "difference_points": 31.25
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-029",
+      "origin": "local_bf16",
+      "cohort": "n120",
+      "bf16_success_percent": 62.5,
+      "fp8_success_percent": 0.0,
+      "difference_points": 62.5
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-030",
+      "origin": "local_bf16",
+      "cohort": "n120",
+      "bf16_success_percent": 62.5,
+      "fp8_success_percent": 31.25,
+      "difference_points": 31.25
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-031",
+      "origin": "local_bf16",
+      "cohort": "n120",
+      "bf16_success_percent": 25.0,
+      "fp8_success_percent": 18.75,
+      "difference_points": 6.25
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-032",
+      "origin": "local_bf16",
+      "cohort": "n120",
+      "bf16_success_percent": 100.0,
+      "fp8_success_percent": 31.25,
+      "difference_points": 68.75
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-033",
+      "origin": "local_bf16",
+      "cohort": "n120",
+      "bf16_success_percent": 37.5,
+      "fp8_success_percent": 56.25,
+      "difference_points": -18.75
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-034",
+      "origin": "local_bf16",
+      "cohort": "n120",
+      "bf16_success_percent": 37.5,
+      "fp8_success_percent": 25.0,
+      "difference_points": 12.5
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-035",
+      "origin": "local_bf16",
+      "cohort": "n120",
+      "bf16_success_percent": 100.0,
+      "fp8_success_percent": 31.25,
+      "difference_points": 68.75
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-036",
+      "origin": "local_bf16",
+      "cohort": "n120",
+      "bf16_success_percent": 62.5,
+      "fp8_success_percent": 37.5,
+      "difference_points": 25.0
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-037",
+      "origin": "local_bf16",
+      "cohort": "n120",
+      "bf16_success_percent": 100.0,
+      "fp8_success_percent": 100.0,
+      "difference_points": 0.0
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-038",
+      "origin": "local_bf16",
+      "cohort": "n120",
+      "bf16_success_percent": 43.75,
+      "fp8_success_percent": 25.0,
+      "difference_points": 18.75
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-039",
+      "origin": "local_bf16",
+      "cohort": "n120",
+      "bf16_success_percent": 25.0,
+      "fp8_success_percent": 43.75,
+      "difference_points": -18.75
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-040",
+      "origin": "local_bf16",
+      "cohort": "n30",
+      "bf16_success_percent": 31.25,
+      "fp8_success_percent": 37.5,
+      "difference_points": -6.25
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-041",
+      "origin": "local_bf16",
+      "cohort": "n120",
+      "bf16_success_percent": 100.0,
+      "fp8_success_percent": 100.0,
+      "difference_points": 0.0
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-042",
+      "origin": "local_bf16",
+      "cohort": "n120",
+      "bf16_success_percent": 100.0,
+      "fp8_success_percent": 31.25,
+      "difference_points": 68.75
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-043",
+      "origin": "local_bf16",
+      "cohort": "n120",
+      "bf16_success_percent": 37.5,
+      "fp8_success_percent": 37.5,
+      "difference_points": 0.0
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-044",
+      "origin": "local_bf16",
+      "cohort": "n120",
+      "bf16_success_percent": 18.75,
+      "fp8_success_percent": 81.25,
+      "difference_points": -62.5
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-045",
+      "origin": "local_bf16",
+      "cohort": "n30",
+      "bf16_success_percent": 25.0,
+      "fp8_success_percent": 25.0,
+      "difference_points": 0.0
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-046",
+      "origin": "local_bf16",
+      "cohort": "n30",
+      "bf16_success_percent": 100.0,
+      "fp8_success_percent": 18.75,
+      "difference_points": 81.25
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-047",
+      "origin": "local_bf16",
+      "cohort": "n120",
+      "bf16_success_percent": 93.75,
+      "fp8_success_percent": 100.0,
+      "difference_points": -6.25
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-048",
+      "origin": "local_bf16",
+      "cohort": "n120",
+      "bf16_success_percent": 93.75,
+      "fp8_success_percent": 18.75,
+      "difference_points": 75.0
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-049",
+      "origin": "local_bf16",
+      "cohort": "n30",
+      "bf16_success_percent": 25.0,
+      "fp8_success_percent": 43.75,
+      "difference_points": -18.75
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-050",
+      "origin": "local_bf16",
+      "cohort": "n120",
+      "bf16_success_percent": 25.0,
+      "fp8_success_percent": 25.0,
+      "difference_points": 0.0
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-051",
+      "origin": "local_bf16",
+      "cohort": "n120",
+      "bf16_success_percent": 100.0,
+      "fp8_success_percent": 100.0,
+      "difference_points": 0.0
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-052",
+      "origin": "local_bf16",
+      "cohort": "n120",
+      "bf16_success_percent": 37.5,
+      "fp8_success_percent": 43.75,
+      "difference_points": -6.25
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-053",
+      "origin": "local_bf16",
+      "cohort": "n120",
+      "bf16_success_percent": 37.5,
+      "fp8_success_percent": 12.5,
+      "difference_points": 25.0
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-054",
+      "origin": "local_bf16",
+      "cohort": "n120",
+      "bf16_success_percent": 43.75,
+      "fp8_success_percent": 25.0,
+      "difference_points": 18.75
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-055",
+      "origin": "local_bf16",
+      "cohort": "n120",
+      "bf16_success_percent": 56.25,
+      "fp8_success_percent": 75.0,
+      "difference_points": -18.75
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-056",
+      "origin": "local_bf16",
+      "cohort": "n30",
+      "bf16_success_percent": 37.5,
+      "fp8_success_percent": 50.0,
+      "difference_points": -12.5
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-057",
+      "origin": "local_bf16",
+      "cohort": "n120",
+      "bf16_success_percent": 37.5,
+      "fp8_success_percent": 43.75,
+      "difference_points": -6.25
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-058",
+      "origin": "local_bf16",
+      "cohort": "n120",
+      "bf16_success_percent": 100.0,
+      "fp8_success_percent": 25.0,
+      "difference_points": 75.0
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-059",
+      "origin": "local_bf16",
+      "cohort": "n30",
+      "bf16_success_percent": 31.25,
+      "fp8_success_percent": 12.5,
+      "difference_points": 18.75
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-060",
+      "origin": "local_bf16",
+      "cohort": "n30",
+      "bf16_success_percent": 18.75,
+      "fp8_success_percent": 18.75,
+      "difference_points": 0.0
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-061",
+      "origin": "local_bf16",
+      "cohort": "n120",
+      "bf16_success_percent": 100.0,
+      "fp8_success_percent": 43.75,
+      "difference_points": 56.25
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-062",
+      "origin": "local_bf16",
+      "cohort": "n120",
+      "bf16_success_percent": 31.25,
+      "fp8_success_percent": 25.0,
+      "difference_points": 6.25
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-063",
+      "origin": "local_bf16",
+      "cohort": "n120",
+      "bf16_success_percent": 43.75,
+      "fp8_success_percent": 25.0,
+      "difference_points": 18.75
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-064",
+      "origin": "local_bf16",
+      "cohort": "n30",
+      "bf16_success_percent": 87.5,
+      "fp8_success_percent": 68.75,
+      "difference_points": 18.75
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-065",
+      "origin": "local_bf16",
+      "cohort": "n120",
+      "bf16_success_percent": 56.25,
+      "fp8_success_percent": 43.75,
+      "difference_points": 12.5
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-066",
+      "origin": "local_bf16",
+      "cohort": "n120",
+      "bf16_success_percent": 100.0,
+      "fp8_success_percent": 100.0,
+      "difference_points": 0.0
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-067",
+      "origin": "local_bf16",
+      "cohort": "n30",
+      "bf16_success_percent": 0.0,
+      "fp8_success_percent": 0.0,
+      "difference_points": 0.0
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-068",
+      "origin": "local_bf16",
+      "cohort": "n120",
+      "bf16_success_percent": 100.0,
+      "fp8_success_percent": 25.0,
+      "difference_points": 75.0
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-069",
+      "origin": "local_bf16",
+      "cohort": "n120",
+      "bf16_success_percent": 50.0,
+      "fp8_success_percent": 12.5,
+      "difference_points": 37.5
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-070",
+      "origin": "local_bf16",
+      "cohort": "n120",
+      "bf16_success_percent": 43.75,
+      "fp8_success_percent": 25.0,
+      "difference_points": 18.75
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-071",
+      "origin": "local_bf16",
+      "cohort": "n120",
+      "bf16_success_percent": 31.25,
+      "fp8_success_percent": 100.0,
+      "difference_points": -68.75
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-072",
+      "origin": "local_bf16",
+      "cohort": "n120",
+      "bf16_success_percent": 25.0,
+      "fp8_success_percent": 25.0,
+      "difference_points": 0.0
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-073",
+      "origin": "local_bf16",
+      "cohort": "n120",
+      "bf16_success_percent": 50.0,
+      "fp8_success_percent": 31.25,
+      "difference_points": 18.75
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-074",
+      "origin": "local_bf16",
+      "cohort": "n120",
+      "bf16_success_percent": 50.0,
+      "fp8_success_percent": 93.75,
+      "difference_points": -43.75
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-075",
+      "origin": "local_bf16",
+      "cohort": "n120",
+      "bf16_success_percent": 43.75,
+      "fp8_success_percent": 43.75,
+      "difference_points": 0.0
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-076",
+      "origin": "local_bf16",
+      "cohort": "n120",
+      "bf16_success_percent": 18.75,
+      "fp8_success_percent": 18.75,
+      "difference_points": 0.0
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-077",
+      "origin": "local_bf16",
+      "cohort": "n30",
+      "bf16_success_percent": 56.25,
+      "fp8_success_percent": 18.75,
+      "difference_points": 37.5
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-078",
+      "origin": "local_bf16",
+      "cohort": "n30",
+      "bf16_success_percent": 18.75,
+      "fp8_success_percent": 75.0,
+      "difference_points": -56.25
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-079",
+      "origin": "local_bf16",
+      "cohort": "n120",
+      "bf16_success_percent": 56.25,
+      "fp8_success_percent": 100.0,
+      "difference_points": -43.75
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-080",
+      "origin": "local_bf16",
+      "cohort": "n120",
+      "bf16_success_percent": 37.5,
+      "fp8_success_percent": 31.25,
+      "difference_points": 6.25
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-081",
+      "origin": "local_bf16",
+      "cohort": "n120",
+      "bf16_success_percent": 50.0,
+      "fp8_success_percent": 18.75,
+      "difference_points": 31.25
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-082",
+      "origin": "local_bf16",
+      "cohort": "n120",
+      "bf16_success_percent": 31.25,
+      "fp8_success_percent": 6.25,
+      "difference_points": 25.0
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-083",
+      "origin": "local_bf16",
+      "cohort": "n120",
+      "bf16_success_percent": 25.0,
+      "fp8_success_percent": 18.75,
+      "difference_points": 6.25
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-084",
+      "origin": "local_bf16",
+      "cohort": "n120",
+      "bf16_success_percent": 18.75,
+      "fp8_success_percent": 25.0,
+      "difference_points": -6.25
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-085",
+      "origin": "local_bf16",
+      "cohort": "n120",
+      "bf16_success_percent": 56.25,
+      "fp8_success_percent": 43.75,
+      "difference_points": 12.5
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-086",
+      "origin": "local_bf16",
+      "cohort": "n120",
+      "bf16_success_percent": 50.0,
+      "fp8_success_percent": 25.0,
+      "difference_points": 25.0
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-087",
+      "origin": "local_bf16",
+      "cohort": "n120",
+      "bf16_success_percent": 31.25,
+      "fp8_success_percent": 37.5,
+      "difference_points": -6.25
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-088",
+      "origin": "local_bf16",
+      "cohort": "n120",
+      "bf16_success_percent": 25.0,
+      "fp8_success_percent": 37.5,
+      "difference_points": -12.5
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-089",
+      "origin": "local_bf16",
+      "cohort": "n120",
+      "bf16_success_percent": 18.75,
+      "fp8_success_percent": 25.0,
+      "difference_points": -6.25
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-090",
+      "origin": "local_bf16",
+      "cohort": "n120",
+      "bf16_success_percent": 25.0,
+      "fp8_success_percent": 18.75,
+      "difference_points": 6.25
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-091",
+      "origin": "local_bf16",
+      "cohort": "n120",
+      "bf16_success_percent": 31.25,
+      "fp8_success_percent": 18.75,
+      "difference_points": 12.5
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-092",
+      "origin": "local_bf16",
+      "cohort": "n120",
+      "bf16_success_percent": 31.25,
+      "fp8_success_percent": 100.0,
+      "difference_points": -68.75
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-093",
+      "origin": "local_bf16",
+      "cohort": "n120",
+      "bf16_success_percent": 93.75,
+      "fp8_success_percent": 50.0,
+      "difference_points": 43.75
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-094",
+      "origin": "local_bf16",
+      "cohort": "n120",
+      "bf16_success_percent": 37.5,
+      "fp8_success_percent": 100.0,
+      "difference_points": -62.5
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-095",
+      "origin": "local_bf16",
+      "cohort": "n120",
+      "bf16_success_percent": 87.5,
+      "fp8_success_percent": 43.75,
+      "difference_points": 43.75
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-096",
+      "origin": "local_bf16",
+      "cohort": "n120",
+      "bf16_success_percent": 100.0,
+      "fp8_success_percent": 37.5,
+      "difference_points": 62.5
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-097",
+      "origin": "local_bf16",
+      "cohort": "n120",
+      "bf16_success_percent": 100.0,
+      "fp8_success_percent": 62.5,
+      "difference_points": 37.5
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-098",
+      "origin": "local_bf16",
+      "cohort": "n120",
+      "bf16_success_percent": 31.25,
+      "fp8_success_percent": 25.0,
+      "difference_points": 6.25
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-099",
+      "origin": "local_bf16",
+      "cohort": "n120",
+      "bf16_success_percent": 0.0,
+      "fp8_success_percent": 18.75,
+      "difference_points": -18.75
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-100",
+      "origin": "local_bf16",
+      "cohort": "n30",
+      "bf16_success_percent": 100.0,
+      "fp8_success_percent": 37.5,
+      "difference_points": 62.5
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-101",
+      "origin": "local_bf16",
+      "cohort": "n30",
+      "bf16_success_percent": 81.25,
+      "fp8_success_percent": 100.0,
+      "difference_points": -18.75
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-102",
+      "origin": "local_bf16",
+      "cohort": "n30",
+      "bf16_success_percent": 18.75,
+      "fp8_success_percent": 50.0,
+      "difference_points": -31.25
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-103",
+      "origin": "local_bf16",
+      "cohort": "n120",
+      "bf16_success_percent": 100.0,
+      "fp8_success_percent": 18.75,
+      "difference_points": 81.25
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-104",
+      "origin": "local_bf16",
+      "cohort": "n120",
+      "bf16_success_percent": 31.25,
+      "fp8_success_percent": 62.5,
+      "difference_points": -31.25
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-105",
+      "origin": "local_bf16",
+      "cohort": "n30",
+      "bf16_success_percent": 37.5,
+      "fp8_success_percent": 68.75,
+      "difference_points": -31.25
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-106",
+      "origin": "local_bf16",
+      "cohort": "n120",
+      "bf16_success_percent": 43.75,
+      "fp8_success_percent": 31.25,
+      "difference_points": 12.5
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-107",
+      "origin": "local_bf16",
+      "cohort": "n120",
+      "bf16_success_percent": 25.0,
+      "fp8_success_percent": 43.75,
+      "difference_points": -18.75
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-108",
+      "origin": "local_bf16",
+      "cohort": "n120",
+      "bf16_success_percent": 43.75,
+      "fp8_success_percent": 18.75,
+      "difference_points": 25.0
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-109",
+      "origin": "local_bf16",
+      "cohort": "n30",
+      "bf16_success_percent": 50.0,
+      "fp8_success_percent": 50.0,
+      "difference_points": 0.0
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-110",
+      "origin": "local_bf16",
+      "cohort": "n120",
+      "bf16_success_percent": 62.5,
+      "fp8_success_percent": 43.75,
+      "difference_points": 18.75
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-111",
+      "origin": "local_bf16",
+      "cohort": "n120",
+      "bf16_success_percent": 100.0,
+      "fp8_success_percent": 100.0,
+      "difference_points": 0.0
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-112",
+      "origin": "local_bf16",
+      "cohort": "n120",
+      "bf16_success_percent": 37.5,
+      "fp8_success_percent": 37.5,
+      "difference_points": 0.0
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-113",
+      "origin": "local_bf16",
+      "cohort": "n120",
+      "bf16_success_percent": 25.0,
+      "fp8_success_percent": 25.0,
+      "difference_points": 0.0
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-114",
+      "origin": "local_bf16",
+      "cohort": "n120",
+      "bf16_success_percent": 37.5,
+      "fp8_success_percent": 25.0,
+      "difference_points": 12.5
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-115",
+      "origin": "local_bf16",
+      "cohort": "n120",
+      "bf16_success_percent": 25.0,
+      "fp8_success_percent": 31.25,
+      "difference_points": -6.25
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-116",
+      "origin": "local_bf16",
+      "cohort": "n30",
+      "bf16_success_percent": 50.0,
+      "fp8_success_percent": 31.25,
+      "difference_points": 18.75
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-117",
+      "origin": "local_bf16",
+      "cohort": "n120",
+      "bf16_success_percent": 100.0,
+      "fp8_success_percent": 31.25,
+      "difference_points": 68.75
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-118",
+      "origin": "local_bf16",
+      "cohort": "n120",
+      "bf16_success_percent": 62.5,
+      "fp8_success_percent": 75.0,
+      "difference_points": -12.5
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-119",
+      "origin": "local_bf16",
+      "cohort": "n120",
+      "bf16_success_percent": 75.0,
+      "fp8_success_percent": 43.75,
+      "difference_points": 31.25
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-120",
+      "origin": "local_bf16",
+      "cohort": "n30",
+      "bf16_success_percent": 6.25,
+      "fp8_success_percent": 12.5,
+      "difference_points": -6.25
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-121",
+      "origin": "local_bf16",
+      "cohort": "n120",
+      "bf16_success_percent": 18.75,
+      "fp8_success_percent": 12.5,
+      "difference_points": 6.25
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-122",
+      "origin": "local_bf16",
+      "cohort": "n120",
+      "bf16_success_percent": 6.25,
+      "fp8_success_percent": 68.75,
+      "difference_points": -62.5
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-123",
+      "origin": "local_bf16",
+      "cohort": "n120",
+      "bf16_success_percent": 43.75,
+      "fp8_success_percent": 37.5,
+      "difference_points": 6.25
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-124",
+      "origin": "local_bf16",
+      "cohort": "n120",
+      "bf16_success_percent": 100.0,
+      "fp8_success_percent": 31.25,
+      "difference_points": 68.75
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-125",
+      "origin": "local_bf16",
+      "cohort": "n120",
+      "bf16_success_percent": 12.5,
+      "fp8_success_percent": 18.75,
+      "difference_points": -6.25
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-126",
+      "origin": "local_bf16",
+      "cohort": "n120",
+      "bf16_success_percent": 56.25,
+      "fp8_success_percent": 31.25,
+      "difference_points": 25.0
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-127",
+      "origin": "local_bf16",
+      "cohort": "n30",
+      "bf16_success_percent": 31.25,
+      "fp8_success_percent": 25.0,
+      "difference_points": 6.25
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-128",
+      "origin": "local_bf16",
+      "cohort": "n120",
+      "bf16_success_percent": 25.0,
+      "fp8_success_percent": 31.25,
+      "difference_points": -6.25
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-129",
+      "origin": "local_bf16",
+      "cohort": "n30",
+      "bf16_success_percent": 37.5,
+      "fp8_success_percent": 12.5,
+      "difference_points": 25.0
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-130",
+      "origin": "local_bf16",
+      "cohort": "n120",
+      "bf16_success_percent": 100.0,
+      "fp8_success_percent": 50.0,
+      "difference_points": 50.0
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-131",
+      "origin": "local_bf16",
+      "cohort": "n120",
+      "bf16_success_percent": 50.0,
+      "fp8_success_percent": 43.75,
+      "difference_points": 6.25
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-132",
+      "origin": "local_bf16",
+      "cohort": "n120",
+      "bf16_success_percent": 25.0,
+      "fp8_success_percent": 50.0,
+      "difference_points": -25.0
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-133",
+      "origin": "local_bf16",
+      "cohort": "n30",
+      "bf16_success_percent": 56.25,
+      "fp8_success_percent": 50.0,
+      "difference_points": 6.25
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-134",
+      "origin": "local_bf16",
+      "cohort": "n30",
+      "bf16_success_percent": 18.75,
+      "fp8_success_percent": 25.0,
+      "difference_points": -6.25
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-135",
+      "origin": "local_bf16",
+      "cohort": "n120",
+      "bf16_success_percent": 37.5,
+      "fp8_success_percent": 25.0,
+      "difference_points": 12.5
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-136",
+      "origin": "local_bf16",
+      "cohort": "n120",
+      "bf16_success_percent": 100.0,
+      "fp8_success_percent": 25.0,
+      "difference_points": 75.0
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-137",
+      "origin": "local_bf16",
+      "cohort": "n120",
+      "bf16_success_percent": 25.0,
+      "fp8_success_percent": 37.5,
+      "difference_points": -12.5
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-138",
+      "origin": "local_bf16",
+      "cohort": "n120",
+      "bf16_success_percent": 31.25,
+      "fp8_success_percent": 43.75,
+      "difference_points": -12.5
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-139",
+      "origin": "local_bf16",
+      "cohort": "n30",
+      "bf16_success_percent": 25.0,
+      "fp8_success_percent": 100.0,
+      "difference_points": -75.0
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-140",
+      "origin": "local_bf16",
+      "cohort": "n120",
+      "bf16_success_percent": 25.0,
+      "fp8_success_percent": 75.0,
+      "difference_points": -50.0
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-141",
+      "origin": "local_bf16",
+      "cohort": "n30",
+      "bf16_success_percent": 37.5,
+      "fp8_success_percent": 25.0,
+      "difference_points": 12.5
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-142",
+      "origin": "local_bf16",
+      "cohort": "n120",
+      "bf16_success_percent": 25.0,
+      "fp8_success_percent": 93.75,
+      "difference_points": -68.75
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-143",
+      "origin": "local_bf16",
+      "cohort": "n120",
+      "bf16_success_percent": 100.0,
+      "fp8_success_percent": 31.25,
+      "difference_points": 68.75
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-144",
+      "origin": "local_bf16",
+      "cohort": "n120",
+      "bf16_success_percent": 93.75,
+      "fp8_success_percent": 50.0,
+      "difference_points": 43.75
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-145",
+      "origin": "local_bf16",
+      "cohort": "n120",
+      "bf16_success_percent": 100.0,
+      "fp8_success_percent": 62.5,
+      "difference_points": 37.5
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-146",
+      "origin": "local_bf16",
+      "cohort": "n30",
+      "bf16_success_percent": 12.5,
+      "fp8_success_percent": 25.0,
+      "difference_points": -12.5
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-147",
+      "origin": "local_bf16",
+      "cohort": "n120",
+      "bf16_success_percent": 100.0,
+      "fp8_success_percent": 31.25,
+      "difference_points": 68.75
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-148",
+      "origin": "local_bf16",
+      "cohort": "n120",
+      "bf16_success_percent": 50.0,
+      "fp8_success_percent": 12.5,
+      "difference_points": 37.5
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-149",
+      "origin": "local_bf16",
+      "cohort": "n120",
+      "bf16_success_percent": 31.25,
+      "fp8_success_percent": 25.0,
+      "difference_points": 6.25
+    },
+    {
+      "snapshot_id": "turn12-local_bf16-150",
+      "origin": "local_bf16",
+      "cohort": "n120",
+      "bf16_success_percent": 87.5,
+      "fp8_success_percent": 25.0,
+      "difference_points": 62.5
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-001",
+      "origin": "local_fp8",
+      "cohort": "n120",
+      "bf16_success_percent": 68.75,
+      "fp8_success_percent": 50.0,
+      "difference_points": 18.75
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-002",
+      "origin": "local_fp8",
+      "cohort": "n120",
+      "bf16_success_percent": 31.25,
+      "fp8_success_percent": 25.0,
+      "difference_points": 6.25
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-003",
+      "origin": "local_fp8",
+      "cohort": "n120",
+      "bf16_success_percent": 31.25,
+      "fp8_success_percent": 18.75,
+      "difference_points": 12.5
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-004",
+      "origin": "local_fp8",
+      "cohort": "n120",
+      "bf16_success_percent": 31.25,
+      "fp8_success_percent": 31.25,
+      "difference_points": 0.0
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-005",
+      "origin": "local_fp8",
+      "cohort": "n120",
+      "bf16_success_percent": 25.0,
+      "fp8_success_percent": 25.0,
+      "difference_points": 0.0
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-006",
+      "origin": "local_fp8",
+      "cohort": "n120",
+      "bf16_success_percent": 43.75,
+      "fp8_success_percent": 75.0,
+      "difference_points": -31.25
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-007",
+      "origin": "local_fp8",
+      "cohort": "n30",
+      "bf16_success_percent": 100.0,
+      "fp8_success_percent": 50.0,
+      "difference_points": 50.0
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-008",
+      "origin": "local_fp8",
+      "cohort": "n120",
+      "bf16_success_percent": 50.0,
+      "fp8_success_percent": 62.5,
+      "difference_points": -12.5
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-009",
+      "origin": "local_fp8",
+      "cohort": "n30",
+      "bf16_success_percent": 43.75,
+      "fp8_success_percent": 18.75,
+      "difference_points": 25.0
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-010",
+      "origin": "local_fp8",
+      "cohort": "n120",
+      "bf16_success_percent": 31.25,
+      "fp8_success_percent": 18.75,
+      "difference_points": 12.5
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-011",
+      "origin": "local_fp8",
+      "cohort": "n120",
+      "bf16_success_percent": 12.5,
+      "fp8_success_percent": 62.5,
+      "difference_points": -50.0
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-012",
+      "origin": "local_fp8",
+      "cohort": "n120",
+      "bf16_success_percent": 50.0,
+      "fp8_success_percent": 37.5,
+      "difference_points": 12.5
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-013",
+      "origin": "local_fp8",
+      "cohort": "n120",
+      "bf16_success_percent": 25.0,
+      "fp8_success_percent": 43.75,
+      "difference_points": -18.75
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-014",
+      "origin": "local_fp8",
+      "cohort": "n30",
+      "bf16_success_percent": 18.75,
+      "fp8_success_percent": 93.75,
+      "difference_points": -75.0
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-015",
+      "origin": "local_fp8",
+      "cohort": "n30",
+      "bf16_success_percent": 50.0,
+      "fp8_success_percent": 43.75,
+      "difference_points": 6.25
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-016",
+      "origin": "local_fp8",
+      "cohort": "n120",
+      "bf16_success_percent": 6.25,
+      "fp8_success_percent": 31.25,
+      "difference_points": -25.0
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-017",
+      "origin": "local_fp8",
+      "cohort": "n120",
+      "bf16_success_percent": 37.5,
+      "fp8_success_percent": 50.0,
+      "difference_points": -12.5
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-018",
+      "origin": "local_fp8",
+      "cohort": "n30",
+      "bf16_success_percent": 25.0,
+      "fp8_success_percent": 12.5,
+      "difference_points": 12.5
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-019",
+      "origin": "local_fp8",
+      "cohort": "n120",
+      "bf16_success_percent": 50.0,
+      "fp8_success_percent": 31.25,
+      "difference_points": 18.75
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-020",
+      "origin": "local_fp8",
+      "cohort": "n120",
+      "bf16_success_percent": 93.75,
+      "fp8_success_percent": 81.25,
+      "difference_points": 12.5
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-021",
+      "origin": "local_fp8",
+      "cohort": "n120",
+      "bf16_success_percent": 31.25,
+      "fp8_success_percent": 43.75,
+      "difference_points": -12.5
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-022",
+      "origin": "local_fp8",
+      "cohort": "n120",
+      "bf16_success_percent": 93.75,
+      "fp8_success_percent": 43.75,
+      "difference_points": 50.0
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-023",
+      "origin": "local_fp8",
+      "cohort": "n120",
+      "bf16_success_percent": 25.0,
+      "fp8_success_percent": 25.0,
+      "difference_points": 0.0
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-024",
+      "origin": "local_fp8",
+      "cohort": "n120",
+      "bf16_success_percent": 0.0,
+      "fp8_success_percent": 37.5,
+      "difference_points": -37.5
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-025",
+      "origin": "local_fp8",
+      "cohort": "n30",
+      "bf16_success_percent": 31.25,
+      "fp8_success_percent": 12.5,
+      "difference_points": 18.75
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-026",
+      "origin": "local_fp8",
+      "cohort": "n120",
+      "bf16_success_percent": 100.0,
+      "fp8_success_percent": 31.25,
+      "difference_points": 68.75
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-027",
+      "origin": "local_fp8",
+      "cohort": "n120",
+      "bf16_success_percent": 50.0,
+      "fp8_success_percent": 100.0,
+      "difference_points": -50.0
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-028",
+      "origin": "local_fp8",
+      "cohort": "n120",
+      "bf16_success_percent": 100.0,
+      "fp8_success_percent": 31.25,
+      "difference_points": 68.75
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-029",
+      "origin": "local_fp8",
+      "cohort": "n120",
+      "bf16_success_percent": 6.25,
+      "fp8_success_percent": 25.0,
+      "difference_points": -18.75
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-030",
+      "origin": "local_fp8",
+      "cohort": "n30",
+      "bf16_success_percent": 100.0,
+      "fp8_success_percent": 50.0,
+      "difference_points": 50.0
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-031",
+      "origin": "local_fp8",
+      "cohort": "n30",
+      "bf16_success_percent": 25.0,
+      "fp8_success_percent": 43.75,
+      "difference_points": -18.75
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-032",
+      "origin": "local_fp8",
+      "cohort": "n120",
+      "bf16_success_percent": 56.25,
+      "fp8_success_percent": 18.75,
+      "difference_points": 37.5
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-033",
+      "origin": "local_fp8",
+      "cohort": "n30",
+      "bf16_success_percent": 25.0,
+      "fp8_success_percent": 100.0,
+      "difference_points": -75.0
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-034",
+      "origin": "local_fp8",
+      "cohort": "n120",
+      "bf16_success_percent": 56.25,
+      "fp8_success_percent": 25.0,
+      "difference_points": 31.25
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-035",
+      "origin": "local_fp8",
+      "cohort": "n120",
+      "bf16_success_percent": 18.75,
+      "fp8_success_percent": 37.5,
+      "difference_points": -18.75
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-036",
+      "origin": "local_fp8",
+      "cohort": "n120",
+      "bf16_success_percent": 43.75,
+      "fp8_success_percent": 37.5,
+      "difference_points": 6.25
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-037",
+      "origin": "local_fp8",
+      "cohort": "n120",
+      "bf16_success_percent": 6.25,
+      "fp8_success_percent": 25.0,
+      "difference_points": -18.75
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-038",
+      "origin": "local_fp8",
+      "cohort": "n120",
+      "bf16_success_percent": 18.75,
+      "fp8_success_percent": 25.0,
+      "difference_points": -6.25
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-039",
+      "origin": "local_fp8",
+      "cohort": "n30",
+      "bf16_success_percent": 6.25,
+      "fp8_success_percent": 18.75,
+      "difference_points": -12.5
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-040",
+      "origin": "local_fp8",
+      "cohort": "n120",
+      "bf16_success_percent": 50.0,
+      "fp8_success_percent": 37.5,
+      "difference_points": 12.5
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-041",
+      "origin": "local_fp8",
+      "cohort": "n120",
+      "bf16_success_percent": 37.5,
+      "fp8_success_percent": 37.5,
+      "difference_points": 0.0
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-042",
+      "origin": "local_fp8",
+      "cohort": "n120",
+      "bf16_success_percent": 62.5,
+      "fp8_success_percent": 100.0,
+      "difference_points": -37.5
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-043",
+      "origin": "local_fp8",
+      "cohort": "n30",
+      "bf16_success_percent": 31.25,
+      "fp8_success_percent": 100.0,
+      "difference_points": -68.75
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-044",
+      "origin": "local_fp8",
+      "cohort": "n120",
+      "bf16_success_percent": 25.0,
+      "fp8_success_percent": 37.5,
+      "difference_points": -12.5
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-045",
+      "origin": "local_fp8",
+      "cohort": "n120",
+      "bf16_success_percent": 56.25,
+      "fp8_success_percent": 50.0,
+      "difference_points": 6.25
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-046",
+      "origin": "local_fp8",
+      "cohort": "n30",
+      "bf16_success_percent": 25.0,
+      "fp8_success_percent": 37.5,
+      "difference_points": -12.5
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-047",
+      "origin": "local_fp8",
+      "cohort": "n120",
+      "bf16_success_percent": 100.0,
+      "fp8_success_percent": 6.25,
+      "difference_points": 93.75
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-048",
+      "origin": "local_fp8",
+      "cohort": "n120",
+      "bf16_success_percent": 100.0,
+      "fp8_success_percent": 68.75,
+      "difference_points": 31.25
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-049",
+      "origin": "local_fp8",
+      "cohort": "n120",
+      "bf16_success_percent": 62.5,
+      "fp8_success_percent": 100.0,
+      "difference_points": -37.5
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-050",
+      "origin": "local_fp8",
+      "cohort": "n120",
+      "bf16_success_percent": 25.0,
+      "fp8_success_percent": 31.25,
+      "difference_points": -6.25
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-051",
+      "origin": "local_fp8",
+      "cohort": "n120",
+      "bf16_success_percent": 37.5,
+      "fp8_success_percent": 56.25,
+      "difference_points": -18.75
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-052",
+      "origin": "local_fp8",
+      "cohort": "n120",
+      "bf16_success_percent": 93.75,
+      "fp8_success_percent": 37.5,
+      "difference_points": 56.25
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-053",
+      "origin": "local_fp8",
+      "cohort": "n120",
+      "bf16_success_percent": 100.0,
+      "fp8_success_percent": 31.25,
+      "difference_points": 68.75
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-054",
+      "origin": "local_fp8",
+      "cohort": "n120",
+      "bf16_success_percent": 18.75,
+      "fp8_success_percent": 18.75,
+      "difference_points": 0.0
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-055",
+      "origin": "local_fp8",
+      "cohort": "n120",
+      "bf16_success_percent": 25.0,
+      "fp8_success_percent": 68.75,
+      "difference_points": -43.75
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-056",
+      "origin": "local_fp8",
+      "cohort": "n120",
+      "bf16_success_percent": 43.75,
+      "fp8_success_percent": 6.25,
+      "difference_points": 37.5
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-057",
+      "origin": "local_fp8",
+      "cohort": "n120",
+      "bf16_success_percent": 87.5,
+      "fp8_success_percent": 37.5,
+      "difference_points": 50.0
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-058",
+      "origin": "local_fp8",
+      "cohort": "n120",
+      "bf16_success_percent": 50.0,
+      "fp8_success_percent": 62.5,
+      "difference_points": -12.5
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-059",
+      "origin": "local_fp8",
+      "cohort": "n120",
+      "bf16_success_percent": 100.0,
+      "fp8_success_percent": 68.75,
+      "difference_points": 31.25
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-060",
+      "origin": "local_fp8",
+      "cohort": "n120",
+      "bf16_success_percent": 25.0,
+      "fp8_success_percent": 12.5,
+      "difference_points": 12.5
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-061",
+      "origin": "local_fp8",
+      "cohort": "n120",
+      "bf16_success_percent": 31.25,
+      "fp8_success_percent": 50.0,
+      "difference_points": -18.75
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-062",
+      "origin": "local_fp8",
+      "cohort": "n120",
+      "bf16_success_percent": 18.75,
+      "fp8_success_percent": 56.25,
+      "difference_points": -37.5
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-063",
+      "origin": "local_fp8",
+      "cohort": "n120",
+      "bf16_success_percent": 50.0,
+      "fp8_success_percent": 25.0,
+      "difference_points": 25.0
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-064",
+      "origin": "local_fp8",
+      "cohort": "n30",
+      "bf16_success_percent": 87.5,
+      "fp8_success_percent": 100.0,
+      "difference_points": -12.5
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-065",
+      "origin": "local_fp8",
+      "cohort": "n120",
+      "bf16_success_percent": 75.0,
+      "fp8_success_percent": 87.5,
+      "difference_points": -12.5
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-066",
+      "origin": "local_fp8",
+      "cohort": "n30",
+      "bf16_success_percent": 43.75,
+      "fp8_success_percent": 37.5,
+      "difference_points": 6.25
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-067",
+      "origin": "local_fp8",
+      "cohort": "n120",
+      "bf16_success_percent": 31.25,
+      "fp8_success_percent": 25.0,
+      "difference_points": 6.25
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-068",
+      "origin": "local_fp8",
+      "cohort": "n120",
+      "bf16_success_percent": 100.0,
+      "fp8_success_percent": 12.5,
+      "difference_points": 87.5
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-069",
+      "origin": "local_fp8",
+      "cohort": "n120",
+      "bf16_success_percent": 31.25,
+      "fp8_success_percent": 37.5,
+      "difference_points": -6.25
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-070",
+      "origin": "local_fp8",
+      "cohort": "n30",
+      "bf16_success_percent": 100.0,
+      "fp8_success_percent": 37.5,
+      "difference_points": 62.5
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-071",
+      "origin": "local_fp8",
+      "cohort": "n120",
+      "bf16_success_percent": 68.75,
+      "fp8_success_percent": 100.0,
+      "difference_points": -31.25
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-072",
+      "origin": "local_fp8",
+      "cohort": "n120",
+      "bf16_success_percent": 37.5,
+      "fp8_success_percent": 50.0,
+      "difference_points": -12.5
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-073",
+      "origin": "local_fp8",
+      "cohort": "n120",
+      "bf16_success_percent": 100.0,
+      "fp8_success_percent": 56.25,
+      "difference_points": 43.75
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-074",
+      "origin": "local_fp8",
+      "cohort": "n120",
+      "bf16_success_percent": 31.25,
+      "fp8_success_percent": 50.0,
+      "difference_points": -18.75
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-075",
+      "origin": "local_fp8",
+      "cohort": "n120",
+      "bf16_success_percent": 100.0,
+      "fp8_success_percent": 37.5,
+      "difference_points": 62.5
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-076",
+      "origin": "local_fp8",
+      "cohort": "n120",
+      "bf16_success_percent": 100.0,
+      "fp8_success_percent": 100.0,
+      "difference_points": 0.0
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-077",
+      "origin": "local_fp8",
+      "cohort": "n120",
+      "bf16_success_percent": 50.0,
+      "fp8_success_percent": 68.75,
+      "difference_points": -18.75
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-078",
+      "origin": "local_fp8",
+      "cohort": "n120",
+      "bf16_success_percent": 100.0,
+      "fp8_success_percent": 43.75,
+      "difference_points": 56.25
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-079",
+      "origin": "local_fp8",
+      "cohort": "n120",
+      "bf16_success_percent": 31.25,
+      "fp8_success_percent": 18.75,
+      "difference_points": 12.5
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-080",
+      "origin": "local_fp8",
+      "cohort": "n120",
+      "bf16_success_percent": 100.0,
+      "fp8_success_percent": 25.0,
+      "difference_points": 75.0
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-081",
+      "origin": "local_fp8",
+      "cohort": "n120",
+      "bf16_success_percent": 100.0,
+      "fp8_success_percent": 68.75,
+      "difference_points": 31.25
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-082",
+      "origin": "local_fp8",
+      "cohort": "n30",
+      "bf16_success_percent": 50.0,
+      "fp8_success_percent": 100.0,
+      "difference_points": -50.0
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-083",
+      "origin": "local_fp8",
+      "cohort": "n30",
+      "bf16_success_percent": 43.75,
+      "fp8_success_percent": 31.25,
+      "difference_points": 12.5
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-084",
+      "origin": "local_fp8",
+      "cohort": "n120",
+      "bf16_success_percent": 100.0,
+      "fp8_success_percent": 43.75,
+      "difference_points": 56.25
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-085",
+      "origin": "local_fp8",
+      "cohort": "n120",
+      "bf16_success_percent": 50.0,
+      "fp8_success_percent": 100.0,
+      "difference_points": -50.0
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-086",
+      "origin": "local_fp8",
+      "cohort": "n120",
+      "bf16_success_percent": 6.25,
+      "fp8_success_percent": 18.75,
+      "difference_points": -12.5
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-087",
+      "origin": "local_fp8",
+      "cohort": "n120",
+      "bf16_success_percent": 12.5,
+      "fp8_success_percent": 12.5,
+      "difference_points": 0.0
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-088",
+      "origin": "local_fp8",
+      "cohort": "n120",
+      "bf16_success_percent": 50.0,
+      "fp8_success_percent": 62.5,
+      "difference_points": -12.5
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-089",
+      "origin": "local_fp8",
+      "cohort": "n120",
+      "bf16_success_percent": 43.75,
+      "fp8_success_percent": 81.25,
+      "difference_points": -37.5
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-090",
+      "origin": "local_fp8",
+      "cohort": "n120",
+      "bf16_success_percent": 31.25,
+      "fp8_success_percent": 43.75,
+      "difference_points": -12.5
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-091",
+      "origin": "local_fp8",
+      "cohort": "n30",
+      "bf16_success_percent": 31.25,
+      "fp8_success_percent": 31.25,
+      "difference_points": 0.0
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-092",
+      "origin": "local_fp8",
+      "cohort": "n30",
+      "bf16_success_percent": 43.75,
+      "fp8_success_percent": 43.75,
+      "difference_points": 0.0
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-093",
+      "origin": "local_fp8",
+      "cohort": "n120",
+      "bf16_success_percent": 18.75,
+      "fp8_success_percent": 68.75,
+      "difference_points": -50.0
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-094",
+      "origin": "local_fp8",
+      "cohort": "n120",
+      "bf16_success_percent": 43.75,
+      "fp8_success_percent": 31.25,
+      "difference_points": 12.5
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-095",
+      "origin": "local_fp8",
+      "cohort": "n120",
+      "bf16_success_percent": 100.0,
+      "fp8_success_percent": 25.0,
+      "difference_points": 75.0
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-096",
+      "origin": "local_fp8",
+      "cohort": "n120",
+      "bf16_success_percent": 37.5,
+      "fp8_success_percent": 62.5,
+      "difference_points": -25.0
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-097",
+      "origin": "local_fp8",
+      "cohort": "n30",
+      "bf16_success_percent": 37.5,
+      "fp8_success_percent": 25.0,
+      "difference_points": 12.5
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-098",
+      "origin": "local_fp8",
+      "cohort": "n120",
+      "bf16_success_percent": 100.0,
+      "fp8_success_percent": 31.25,
+      "difference_points": 68.75
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-099",
+      "origin": "local_fp8",
+      "cohort": "n120",
+      "bf16_success_percent": 100.0,
+      "fp8_success_percent": 18.75,
+      "difference_points": 81.25
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-100",
+      "origin": "local_fp8",
+      "cohort": "n30",
+      "bf16_success_percent": 25.0,
+      "fp8_success_percent": 0.0,
+      "difference_points": 25.0
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-101",
+      "origin": "local_fp8",
+      "cohort": "n120",
+      "bf16_success_percent": 43.75,
+      "fp8_success_percent": 37.5,
+      "difference_points": 6.25
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-102",
+      "origin": "local_fp8",
+      "cohort": "n120",
+      "bf16_success_percent": 62.5,
+      "fp8_success_percent": 43.75,
+      "difference_points": 18.75
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-103",
+      "origin": "local_fp8",
+      "cohort": "n120",
+      "bf16_success_percent": 31.25,
+      "fp8_success_percent": 25.0,
+      "difference_points": 6.25
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-104",
+      "origin": "local_fp8",
+      "cohort": "n120",
+      "bf16_success_percent": 37.5,
+      "fp8_success_percent": 100.0,
+      "difference_points": -62.5
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-105",
+      "origin": "local_fp8",
+      "cohort": "n30",
+      "bf16_success_percent": 25.0,
+      "fp8_success_percent": 37.5,
+      "difference_points": -12.5
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-106",
+      "origin": "local_fp8",
+      "cohort": "n120",
+      "bf16_success_percent": 100.0,
+      "fp8_success_percent": 50.0,
+      "difference_points": 50.0
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-107",
+      "origin": "local_fp8",
+      "cohort": "n30",
+      "bf16_success_percent": 100.0,
+      "fp8_success_percent": 25.0,
+      "difference_points": 75.0
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-108",
+      "origin": "local_fp8",
+      "cohort": "n120",
+      "bf16_success_percent": 56.25,
+      "fp8_success_percent": 50.0,
+      "difference_points": 6.25
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-109",
+      "origin": "local_fp8",
+      "cohort": "n120",
+      "bf16_success_percent": 43.75,
+      "fp8_success_percent": 37.5,
+      "difference_points": 6.25
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-110",
+      "origin": "local_fp8",
+      "cohort": "n120",
+      "bf16_success_percent": 31.25,
+      "fp8_success_percent": 100.0,
+      "difference_points": -68.75
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-111",
+      "origin": "local_fp8",
+      "cohort": "n120",
+      "bf16_success_percent": 56.25,
+      "fp8_success_percent": 43.75,
+      "difference_points": 12.5
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-112",
+      "origin": "local_fp8",
+      "cohort": "n30",
+      "bf16_success_percent": 25.0,
+      "fp8_success_percent": 62.5,
+      "difference_points": -37.5
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-113",
+      "origin": "local_fp8",
+      "cohort": "n120",
+      "bf16_success_percent": 37.5,
+      "fp8_success_percent": 12.5,
+      "difference_points": 25.0
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-114",
+      "origin": "local_fp8",
+      "cohort": "n120",
+      "bf16_success_percent": 37.5,
+      "fp8_success_percent": 75.0,
+      "difference_points": -37.5
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-115",
+      "origin": "local_fp8",
+      "cohort": "n120",
+      "bf16_success_percent": 18.75,
+      "fp8_success_percent": 18.75,
+      "difference_points": 0.0
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-116",
+      "origin": "local_fp8",
+      "cohort": "n120",
+      "bf16_success_percent": 56.25,
+      "fp8_success_percent": 56.25,
+      "difference_points": 0.0
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-117",
+      "origin": "local_fp8",
+      "cohort": "n120",
+      "bf16_success_percent": 18.75,
+      "fp8_success_percent": 43.75,
+      "difference_points": -25.0
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-118",
+      "origin": "local_fp8",
+      "cohort": "n120",
+      "bf16_success_percent": 100.0,
+      "fp8_success_percent": 25.0,
+      "difference_points": 75.0
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-119",
+      "origin": "local_fp8",
+      "cohort": "n120",
+      "bf16_success_percent": 31.25,
+      "fp8_success_percent": 43.75,
+      "difference_points": -12.5
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-120",
+      "origin": "local_fp8",
+      "cohort": "n120",
+      "bf16_success_percent": 25.0,
+      "fp8_success_percent": 50.0,
+      "difference_points": -25.0
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-121",
+      "origin": "local_fp8",
+      "cohort": "n30",
+      "bf16_success_percent": 37.5,
+      "fp8_success_percent": 6.25,
+      "difference_points": 31.25
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-122",
+      "origin": "local_fp8",
+      "cohort": "n120",
+      "bf16_success_percent": 100.0,
+      "fp8_success_percent": 25.0,
+      "difference_points": 75.0
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-123",
+      "origin": "local_fp8",
+      "cohort": "n120",
+      "bf16_success_percent": 68.75,
+      "fp8_success_percent": 31.25,
+      "difference_points": 37.5
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-124",
+      "origin": "local_fp8",
+      "cohort": "n120",
+      "bf16_success_percent": 37.5,
+      "fp8_success_percent": 100.0,
+      "difference_points": -62.5
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-125",
+      "origin": "local_fp8",
+      "cohort": "n30",
+      "bf16_success_percent": 100.0,
+      "fp8_success_percent": 93.75,
+      "difference_points": 6.25
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-126",
+      "origin": "local_fp8",
+      "cohort": "n120",
+      "bf16_success_percent": 100.0,
+      "fp8_success_percent": 43.75,
+      "difference_points": 56.25
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-127",
+      "origin": "local_fp8",
+      "cohort": "n120",
+      "bf16_success_percent": 31.25,
+      "fp8_success_percent": 37.5,
+      "difference_points": -6.25
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-128",
+      "origin": "local_fp8",
+      "cohort": "n120",
+      "bf16_success_percent": 12.5,
+      "fp8_success_percent": 43.75,
+      "difference_points": -31.25
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-129",
+      "origin": "local_fp8",
+      "cohort": "n120",
+      "bf16_success_percent": 25.0,
+      "fp8_success_percent": 100.0,
+      "difference_points": -75.0
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-130",
+      "origin": "local_fp8",
+      "cohort": "n120",
+      "bf16_success_percent": 43.75,
+      "fp8_success_percent": 0.0,
+      "difference_points": 43.75
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-131",
+      "origin": "local_fp8",
+      "cohort": "n120",
+      "bf16_success_percent": 87.5,
+      "fp8_success_percent": 100.0,
+      "difference_points": -12.5
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-132",
+      "origin": "local_fp8",
+      "cohort": "n120",
+      "bf16_success_percent": 43.75,
+      "fp8_success_percent": 62.5,
+      "difference_points": -18.75
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-133",
+      "origin": "local_fp8",
+      "cohort": "n30",
+      "bf16_success_percent": 100.0,
+      "fp8_success_percent": 62.5,
+      "difference_points": 37.5
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-134",
+      "origin": "local_fp8",
+      "cohort": "n120",
+      "bf16_success_percent": 37.5,
+      "fp8_success_percent": 31.25,
+      "difference_points": 6.25
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-135",
+      "origin": "local_fp8",
+      "cohort": "n120",
+      "bf16_success_percent": 18.75,
+      "fp8_success_percent": 18.75,
+      "difference_points": 0.0
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-136",
+      "origin": "local_fp8",
+      "cohort": "n120",
+      "bf16_success_percent": 100.0,
+      "fp8_success_percent": 50.0,
+      "difference_points": 50.0
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-137",
+      "origin": "local_fp8",
+      "cohort": "n120",
+      "bf16_success_percent": 12.5,
+      "fp8_success_percent": 25.0,
+      "difference_points": -12.5
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-138",
+      "origin": "local_fp8",
+      "cohort": "n120",
+      "bf16_success_percent": 18.75,
+      "fp8_success_percent": 37.5,
+      "difference_points": -18.75
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-139",
+      "origin": "local_fp8",
+      "cohort": "n30",
+      "bf16_success_percent": 100.0,
+      "fp8_success_percent": 18.75,
+      "difference_points": 81.25
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-140",
+      "origin": "local_fp8",
+      "cohort": "n120",
+      "bf16_success_percent": 93.75,
+      "fp8_success_percent": 31.25,
+      "difference_points": 62.5
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-141",
+      "origin": "local_fp8",
+      "cohort": "n120",
+      "bf16_success_percent": 100.0,
+      "fp8_success_percent": 31.25,
+      "difference_points": 68.75
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-142",
+      "origin": "local_fp8",
+      "cohort": "n30",
+      "bf16_success_percent": 25.0,
+      "fp8_success_percent": 37.5,
+      "difference_points": -12.5
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-143",
+      "origin": "local_fp8",
+      "cohort": "n120",
+      "bf16_success_percent": 25.0,
+      "fp8_success_percent": 100.0,
+      "difference_points": -75.0
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-144",
+      "origin": "local_fp8",
+      "cohort": "n120",
+      "bf16_success_percent": 100.0,
+      "fp8_success_percent": 25.0,
+      "difference_points": 75.0
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-145",
+      "origin": "local_fp8",
+      "cohort": "n120",
+      "bf16_success_percent": 93.75,
+      "fp8_success_percent": 31.25,
+      "difference_points": 62.5
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-146",
+      "origin": "local_fp8",
+      "cohort": "n120",
+      "bf16_success_percent": 100.0,
+      "fp8_success_percent": 68.75,
+      "difference_points": 31.25
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-147",
+      "origin": "local_fp8",
+      "cohort": "n120",
+      "bf16_success_percent": 37.5,
+      "fp8_success_percent": 31.25,
+      "difference_points": 6.25
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-148",
+      "origin": "local_fp8",
+      "cohort": "n30",
+      "bf16_success_percent": 18.75,
+      "fp8_success_percent": 81.25,
+      "difference_points": -62.5
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-149",
+      "origin": "local_fp8",
+      "cohort": "n120",
+      "bf16_success_percent": 100.0,
+      "fp8_success_percent": 18.75,
+      "difference_points": 81.25
+    },
+    {
+      "snapshot_id": "turn12-local_fp8-150",
+      "origin": "local_fp8",
+      "cohort": "n120",
+      "bf16_success_percent": 100.0,
+      "fp8_success_percent": 31.25,
+      "difference_points": 68.75
+    }
+  ]
+}

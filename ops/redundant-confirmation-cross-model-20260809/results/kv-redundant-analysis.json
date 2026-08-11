@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "scope": "post-hoc redundant-confirmation history-cluster analysis",
+  "bootstrap_seed": 20260809,
+  "bootstrap_draws": 100000,
+  "counts": {
+    "bf16": {
+      "correct_tool_and_arguments": 2533,
+      "correct_tool_wrong_or_missing_argument": 19,
+      "no_tool_false_claim_of_completion": 1195,
+      "no_tool_other": 108,
+      "no_tool_redundant_confirmation_or_question": 944,
+      "wrong_tool": 1
+    },
+    "fp8": {
+      "correct_tool_and_arguments": 2096,
+      "correct_tool_wrong_or_missing_argument": 6,
+      "no_tool_false_claim_of_completion": 1182,
+      "no_tool_other": 182,
+      "no_tool_redundant_confirmation_or_question": 1332,
+      "wrong_tool": 2
+    }
+  },
+  "fp8_minus_bf16_redundant_points": {
+    "local_bf16": 9.125,
+    "local_fp8": 7.041666666666667,
+    "balanced": 8.083333333333334
+  },
+  "history_cluster_bootstrap_95_percent": {
+    "local_bf16": [
+      5.5,
+      12.75
+    ],
+    "local_fp8": [
+      3.5416666666666665,
+      10.541666666666666
+    ],
+    "balanced": [
+      5.5625,
+      10.604166666666668
+    ]
+  },
+  "redundant_subtypes": {
+    "bf16": {
+      "authorization_reconfirmation": 35,
+      "content_or_intent_reconfirmation": 287,
+      "identity_or_ownership_reconfirmation": 572,
+      "other_question": 21,
+      "post_action_claim_then_followup": 29
+    },
+    "fp8": {
+      "authorization_reconfirmation": 92,
+      "content_or_intent_reconfirmation": 345,
+      "identity_or_ownership_reconfirmation": 843,
+      "other_question": 30,
+      "post_action_claim_then_followup": 22
+    }
+  }
+}

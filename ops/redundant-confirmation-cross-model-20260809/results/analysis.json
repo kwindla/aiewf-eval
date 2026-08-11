@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "scope": {
+    "source_cutoff_date": "20260809",
+    "all_canonical_turn12_rows": 4597,
+    "standard_complete_judged_no_filler_rows": 3177,
+    "eligible_turn11_subset_rows": 2412,
+    "exact_reported_models_standard": 80,
+    "skipped": {
+      "no_canonical_turn12": 836,
+      "after_source_cutoff": 61
+    }
+  },
+  "correlations": {
+    "models_n_ge_10": 68,
+    "spearman_quality_vs_redundant_all_turn12_rate": -0.3424969926233774,
+    "spearman_quality_vs_redundant_share_of_turn12_failures": -0.21421144665073522
+  },
+  "standard_aggregate_categories": {
+    "correct_tool_and_arguments": 2296,
+    "no_tool_other": 94,
+    "correct_tool_wrong_or_missing_argument": 7,
+    "no_tool_false_claim_of_completion": 220,
+    "no_tool_redundant_confirmation_or_question": 543,
+    "duplicate_or_multiple_tool_calls": 16,
+    "wrong_tool": 1
+  },
+  "eligible_aggregate_categories": {
+    "correct_tool_and_arguments": 1802,
+    "no_tool_false_claim_of_completion": 185,
+    "no_tool_other": 47,
+    "no_tool_redundant_confirmation_or_question": 370,
+    "duplicate_or_multiple_tool_calls": 8
+  }
+}

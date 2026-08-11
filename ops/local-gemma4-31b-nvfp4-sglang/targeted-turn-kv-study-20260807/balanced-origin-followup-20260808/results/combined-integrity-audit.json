@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "passed": true,
+  "errors": [],
+  "rows": 9600,
+  "expected_cells": 9600,
+  "server_instance_ids": {
+    "block1": "6ec53654a78e7fa7d86a575d33d2dd6133104978fcc4f7aa9efd8a1215e5426f",
+    "block2": "a19859613b3abe70b2e4ec2a287e445bbbfdf3e8d4712641c33f82c579086370",
+    "block3": "a19859613b3abe70b2e4ec2a287e445bbbfdf3e8d4712641c33f82c579086370",
+    "block4": "2c9a5d38316092389e969ec900c13d5e48b24698e44a5211ef2c9167a40a51af"
+  },
+  "server_separation": {
+    "block1_fp8_destroyed_before_block2_bf16": true,
+    "block2_and_block3_same_bf16_instance": true,
+    "block3_bf16_destroyed_before_block4_fp8": true,
+    "block1_and_block4_fresh_fp8_instances": true
+  },
+  "collection_unix_ranges": {
+    "block1": [
+      1786210974.6259317,
+      1786214936.3847685
+    ],
+    "block2": [
+      1786215025.7683048,
+      1786219165.8766747
+    ],
+    "block3": [
+      1786219190.7365716,
+      1786223320.021388
+    ],
+    "block4": [
+      1786223417.182572,
+      1786227355.529996
+    ]
+  },
+  "artifact_sha256": {
+    "results/block1-fp8-first.jsonl": "42d611fd4e3d8afa7977f309d8a80351d75101651d8025f17d5c219b130f0da7",
+    "results/block1-fp8-first.jsonl.plan.json": "3cf9bb20da49b5a228dfaa1c481b24527e8553f6ea4d9124208b0c6d1b3d1f75",
+    "results/block1-fp8-first.jsonl.audit.json": "d60bbd047d5f2b047c7318bb44633a99f508cd170459ca6bcd19de6765011c03",
+    "results/block2-bf16-first.jsonl": "0bc8b35e58caa5ccf9063e8b72f0ee9e2840136f397ee0fea30d6a4d5be1429e",
+    "results/block2-bf16-first.jsonl.plan.json": "28ceb3358612a929f9ea73d14c8837bed2298f1172ee06d085f544750d5da91f",
+    "results/block2-bf16-first.jsonl.audit.json": "0b4a1cba92369447be76eaf4228f1fb518e2009f237a4c1ed0f634f4bef9f8c2",
+    "results/block3-bf16-second.jsonl": "3d5b358c8503a0f65900c18d288660d54401d5078d7b45c470b9b39927a3d181",
+    "results/block3-bf16-second.jsonl.plan.json": "bf8e3c23f7d373da5a5877441a4215c8205c3e66ccb2aaab2d5f7f80a1a3e0ef",
+    "results/block3-bf16-second.jsonl.audit.json": "207d3c564bf6482242f4295d3cb141182ba84f9de8f7532ed49624b4267c2666",
+    "results/block4-fp8-second.jsonl": "b52b6e581e20342f8d10cd5386d9310e291be179b13ed086d606fe49b535d59e",
+    "results/block4-fp8-second.jsonl.plan.json": "3a22194a8a0c5f6573750348532bd3adde4c4e0c37c09617638e70f08952ef64",
+    "results/block4-fp8-second.jsonl.audit.json": "4293cef6b084ffcd082ff98edd8a085a61c25580f4f2dc05ef1211e842aad7a5",
+    "results/token-identity-audit.json": "9bcacd9245326a07cf994464f2dedf4c134ddbc5f79b0d0759555be5742c071f"
+  }
+}

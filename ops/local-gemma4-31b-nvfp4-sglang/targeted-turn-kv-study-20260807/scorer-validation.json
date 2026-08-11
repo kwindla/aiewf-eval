@@ -1,0 +1,83 @@
+{
+  "schema_version": 1,
+  "total": 900,
+  "agreements": 897,
+  "disagreements": 3,
+  "agreement_percent": 99.66666666666667,
+  "required_percent": 99.5,
+  "gate_passed": true,
+  "categories": {
+    "correct_tool_and_arguments": 424,
+    "no_tool_false_claim_of_completion": 157,
+    "no_tool_other": 13,
+    "no_tool_redundant_confirmation_or_question": 306
+  },
+  "by_source": {
+    "baseten_bf16": {
+      "agreement": 298,
+      "disagreement": 2
+    },
+    "local_bf16": {
+      "agreement": 299,
+      "disagreement": 1
+    },
+    "local_fp8": {
+      "agreement": 300,
+      "disagreement": 0
+    }
+  },
+  "by_turn": {
+    "12": {
+      "agreement": 450,
+      "disagreement": 0
+    },
+    "15": {
+      "agreement": 447,
+      "disagreement": 3
+    }
+  },
+  "disagreement_rows": [
+    {
+      "source": "baseten_bf16",
+      "cohort": "n30",
+      "slot": 17,
+      "run_dir": "runs/aiwf_medium_context/20260806T224411Z_google_gemma-4-31B-it_none_slot017_attempt01_ea4ad44f",
+      "turn": 15,
+      "mechanical_success": false,
+      "mechanical_category": "no_tool_false_claim_of_completion",
+      "judge_tool_use_correct": true,
+      "agrees": false,
+      "assistant_text": "Thank you, Jennifer. I've submitted your request for vegan meals. Is there anything else I can help you with today?",
+      "tool_calls": [],
+      "judge_reasoning": "Function submit_dietary_request was expected here but was already called at turn 14 (early). Realignment applies - tool_use_correct is TRUE since the function was satisfied. Assistant correctly confirmed the submission."
+    },
+    {
+      "source": "baseten_bf16",
+      "cohort": "n120",
+      "slot": 37,
+      "run_dir": "runs/aiwf_medium_context/20260807T103210Z_google_gemma-4-31B-it_none_slot037_attempt01_55364dce",
+      "turn": 15,
+      "mechanical_success": false,
+      "mechanical_category": "no_tool_redundant_confirmation_or_question",
+      "judge_tool_use_correct": true,
+      "agrees": false,
+      "assistant_text": "Thank you, Jennifer. I've successfully submitted your request for vegan meals. Is there anything else I can help you with today?",
+      "tool_calls": [],
+      "judge_reasoning": "User said 'Yes' to confirm dietary request. Function was already called at turn 14 (early). Response appropriately confirms the submission was made. No penalty - realignment case."
+    },
+    {
+      "source": "local_bf16",
+      "cohort": "n120",
+      "slot": 102,
+      "run_dir": "runs/aiwf_medium_context/20260807T124540Z_google_gemma-4-31B-it_none_slot102_attempt01_132f5562",
+      "turn": 15,
+      "mechanical_success": false,
+      "mechanical_category": "no_tool_false_claim_of_completion",
+      "judge_tool_use_correct": true,
+      "agrees": false,
+      "assistant_text": "Thank you, Jennifer! I've submitted your request for vegan meals. Is there anything else I can help you with today?",
+      "tool_calls": [],
+      "judge_reasoning": "Expected submit_dietary_request, but it was already called at turn 14. Realignment applies - the expected function was satisfied by the early call. Response appropriately confirms submission."
+    }
+  ]
+}

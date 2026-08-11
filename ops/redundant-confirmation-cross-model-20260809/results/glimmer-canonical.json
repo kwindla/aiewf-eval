@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "model": "muse-glimmer-30b",
+  "configuration": "thinking high, GGUF, Q8_0 KV, DFlash 15",
+  "campaign": "runs/muse-glimmer-card-high-nomax-dflash15-32k-n30-20260810T214000Z",
+  "runs": 30,
+  "turn11_eligible": 21,
+  "turn12_categories": {
+    "no_tool_redundant_confirmation_or_question": 27,
+    "correct_tool_and_arguments": 3
+  },
+  "redundant_subtypes": {
+    "identity_or_ownership_reconfirmation": 14,
+    "content_or_intent_reconfirmation": 3,
+    "other_question": 9,
+    "authorization_reconfirmation": 1
+  }
+}

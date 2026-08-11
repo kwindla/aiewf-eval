@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "source_files": [
+    "ops/local-gemma4-31b-nvfp4-sglang/targeted-turn-kv-study-20260807/results/bf16-cap-parity.jsonl"
+  ],
+  "cap_parity": {
+    "bf16": {
+      "pairs": 128,
+      "mismatches": [],
+      "truncations_at_512": [],
+      "passed": true
+    }
+  },
+  "paired_comparisons": {},
+  "primary_holm_adjusted_p": null,
+  "cache_difference_in_differences": {},
+  "cache_outcome_discordance": []
+}

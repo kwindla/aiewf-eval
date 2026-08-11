@@ -1,0 +1,16 @@
+{
+  "schema_version": 2,
+  "token_hash_gate": {
+    "paths": [
+      "/home/khkramer/src/aiewf-eval/ops/local-gemma4-31b-nvfp4-sglang/targeted-turn-kv-study-20260807/balanced-origin-followup-20260808/results/token-manifest-fp8.json",
+      "/home/khkramer/src/aiewf-eval/ops/local-gemma4-31b-nvfp4-sglang/targeted-turn-kv-study-20260807/balanced-origin-followup-20260808/results/token-manifest-bf16.json"
+    ],
+    "snapshot_count": 300,
+    "mismatches": [],
+    "integrity_errors": [],
+    "passed": true
+  },
+  "result_gate": null,
+  "strict_repeatability_gate": null,
+  "passed": true
+}

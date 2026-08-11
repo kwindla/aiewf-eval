@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "source_files": [
+    "results/bf16-cap-parity.jsonl",
+    "results/fp8-cap-parity.jsonl"
+  ],
+  "repeat_selection": {
+    "raw_rows": 512,
+    "inferential_rows": 512,
+    "repeated_logical_cells": 0,
+    "excluded_gate_repeats": 0,
+    "reused_repeat": 0
+  },
+  "cap_parity": {
+    "bf16": {
+      "pairs": 128,
+      "mismatches": [],
+      "truncations_at_512": [],
+      "passed": true
+    },
+    "fp8": {
+      "pairs": 128,
+      "mismatches": [],
+      "truncations_at_512": [],
+      "passed": true
+    }
+  },
+  "paired_comparisons": {},
+  "primary_holm_adjusted_p": null,
+  "cache_difference_in_differences": {},
+  "cache_outcome_discordance": [],
+  "greedy_probe": [],
+  "fp8_geometry_bridge": [],
+  "teacher_forced_probe": []
+}

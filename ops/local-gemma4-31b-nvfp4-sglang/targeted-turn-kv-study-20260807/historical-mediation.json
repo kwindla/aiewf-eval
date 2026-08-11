@@ -1,0 +1,111 @@
+{
+  "schema_version": 1,
+  "n_conversations": 300,
+  "scope": "existing 150 local FP8-KV and 150 local BF16-KV completed conversations",
+  "arms": {
+    "local_fp8": {
+      "n": 150,
+      "turn12_failure_percent": 65.33333333333333,
+      "turn15_failure_percent": 57.333333333333336,
+      "mean_turn9_11_words": 50.67333333333333,
+      "mean_turn13_14_words": 69.17333333333333,
+      "feature_percent": {
+        "turn12_failure": 65.33333333333333,
+        "turn15_failure": 57.333333333333336,
+        "turn11_tool_present": 100.0,
+        "turn11_text_with_tool": 0.0,
+        "turn10_mentions_jennifer": 100.0,
+        "turn12_recovery_recorded": 65.33333333333333,
+        "turn14_mentions_jennifer": 22.0,
+        "turn14_mentions_vegan": 99.33333333333333,
+        "turn14_offers_request": 100.0,
+        "turn14_asks_question": 100.0,
+        "turn14_tool_present": 0.0
+      }
+    },
+    "local_bf16": {
+      "n": 150,
+      "turn12_failure_percent": 46.0,
+      "turn15_failure_percent": 51.33333333333333,
+      "mean_turn9_11_words": 50.60666666666667,
+      "mean_turn13_14_words": 69.35333333333334,
+      "feature_percent": {
+        "turn12_failure": 46.0,
+        "turn15_failure": 51.33333333333333,
+        "turn11_tool_present": 100.0,
+        "turn11_text_with_tool": 0.0,
+        "turn10_mentions_jennifer": 100.0,
+        "turn12_recovery_recorded": 46.0,
+        "turn14_mentions_jennifer": 32.666666666666664,
+        "turn14_mentions_vegan": 100.0,
+        "turn14_offers_request": 100.0,
+        "turn14_asks_question": 99.33333333333333,
+        "turn14_tool_present": 0.6666666666666667
+      }
+    }
+  },
+  "predictors_pooled_across_arms": [
+    {
+      "predictor": "turn11_text_with_tool",
+      "outcome": "turn12_failure",
+      "estimable": false
+    },
+    {
+      "predictor": "turn10_mentions_jennifer",
+      "outcome": "turn12_failure",
+      "estimable": false
+    },
+    {
+      "predictor": "turn12_recovery_recorded",
+      "outcome": "turn15_failure",
+      "estimable": true,
+      "present_n": 167,
+      "absent_n": 133,
+      "failure_percent_when_present": 58.68263473053892,
+      "failure_percent_when_absent": 48.87218045112782,
+      "risk_difference_points": 9.810454279411104,
+      "bootstrap_95_percent": [
+        -1.7333753545540453,
+        21.07514294718833
+      ]
+    },
+    {
+      "predictor": "turn14_mentions_jennifer",
+      "outcome": "turn15_failure",
+      "estimable": true,
+      "present_n": 82,
+      "absent_n": 218,
+      "failure_percent_when_present": 13.414634146341465,
+      "failure_percent_when_absent": 69.72477064220183,
+      "risk_difference_points": -56.31013649586037,
+      "bootstrap_95_percent": [
+        -65.47326023718954,
+        -46.37502797046319
+      ]
+    },
+    {
+      "predictor": "turn14_offers_request",
+      "outcome": "turn15_failure",
+      "estimable": false
+    },
+    {
+      "predictor": "turn14_asks_question",
+      "outcome": "turn15_failure",
+      "estimable": true,
+      "present_n": 299,
+      "absent_n": 1,
+      "failure_percent_when_present": 54.515050167224075,
+      "failure_percent_when_absent": 0.0,
+      "risk_difference_points": 54.515050167224075,
+      "bootstrap_95_percent": [
+        48.82943143812709,
+        60.200668896321076
+      ]
+    }
+  ],
+  "notes": [
+    "Associations are descriptive and post hoc; they are not causal mediation estimates.",
+    "Prefix-bank replay isolates the direct KV effect conditional on frozen history.",
+    "Arm differences in these prefix features quantify the upstream-history pathway that frozen replay removes."
+  ]
+}

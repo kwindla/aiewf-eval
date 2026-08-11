@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "created_date": "2026-08-07",
+  "inferential_use": false,
+  "incidents": [
+    {
+      "reason": "model_tool_call_was_misclassified_as_parser_failure",
+      "result_path": "results/v2-bf16-repeatability-warm-r01.jsonl",
+      "result_sha256": "099644c484893d25bf135d632864fba728fb516127d8a9324be7769dc99c7dfe",
+      "result_rows": 91,
+      "plan_path": "results/v2-bf16-repeatability-warm-r01.jsonl.plan.json",
+      "plan_sha256": "9fe0a5020901458f282edf17be1424419355d09f701713e65f16232016ddcff0",
+      "failing_request_id": "v2:3d12864c7f4548c1:repeatability:bf16:warm:turn12-golden:45:0",
+      "semantic_output_sha256": "8f6b9c89969eb9ddef7b41087bb970f9d75920e829f1d3ac7f37f2f1d506942d",
+      "old_category": "malformed_parser_failure",
+      "new_category": "malformed_tool_call",
+      "decision": "Preserve and exclude the partial collection; retain this structurally complete malformed model tool call as a scored failure in future collections."
+    },
+    {
+      "reason": "mutable_runtime_telemetry_was_included_in_server_binding",
+      "result_path": "results/v2-bf16-repeatability-warm-r01b.jsonl",
+      "result_sha256": "cbe441230d718909df8a575bca2372e3500f8ce58ede51a868df1053a74a8e0e",
+      "result_rows": 100,
+      "plan_path": "results/v2-bf16-repeatability-warm-r01b.jsonl.plan.json",
+      "plan_sha256": "3088c84f3379f54998d807d4aa2f374c1044e722025ba9f8f2371ddfcd131cc1",
+      "boundary": "after turn12-golden and before turn15-golden",
+      "observed_drift": "full_server_info_sha256",
+      "root_cause": "SGLang /get_server_info internal_states includes mutable last_gen_throughput telemetry.",
+      "decision": "Preserve and exclude the partial collection; bind enumerated serving configuration and exact Docker state while retaining the full-document hash as diagnostic evidence."
+    }
+  ],
+  "corroborating_model_outputs": [
+    "bf16:warm:turn12-golden:45:0",
+    "bf16:warm:turn12-golden:45:1",
+    "v2:276f67ed417e7203:repeatability:bf16:warm:turn12-golden:45:0",
+    "v2:276f67ed417e7203:repeatability:bf16:warm:turn12-golden:45:1"
+  ]
+}
