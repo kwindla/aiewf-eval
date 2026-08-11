@@ -1,0 +1,178 @@
+{
+  "model": "google/gemma-4-31B-it",
+  "resource_states": [
+    {
+      "arm": "sglang_no_mtp",
+      "at": "2026-08-06T21:26:33+00:00",
+      "detail": {
+        "active_replica_count": 1,
+        "autoscaling_settings": {
+          "autoscaling_window": 60,
+          "concurrency_target": 1,
+          "max_replica": 1,
+          "min_replica": 1,
+          "scale_down_delay": 120,
+          "target_utilization_percentage": 70
+        },
+        "created_at": "2026-08-06T21:13:23.416Z",
+        "environment": null,
+        "id": "324j8o2",
+        "instance_type_name": "H100:2 - 2 H100 GPUs, 160 GiB VRAM",
+        "is_development": false,
+        "is_production": false,
+        "labels": {},
+        "model_id": "qel8v803",
+        "name": "gemma4-31b-sglang-v0516-no-mtp-20260806-r2",
+        "status": "ACTIVE"
+      },
+      "state": "ACTIVE"
+    },
+    {
+      "arm": "sglang_mtp",
+      "at": "2026-08-06T21:26:34+00:00",
+      "detail": {
+        "active_replica_count": 1,
+        "autoscaling_settings": {
+          "autoscaling_window": 60,
+          "concurrency_target": 1,
+          "max_replica": 1,
+          "min_replica": 1,
+          "scale_down_delay": 120,
+          "target_utilization_percentage": 70
+        },
+        "created_at": "2026-08-06T21:13:22.562Z",
+        "environment": null,
+        "id": "q862ez8",
+        "instance_type_name": "H100:2 - 2 H100 GPUs, 160 GiB VRAM",
+        "is_development": false,
+        "is_production": false,
+        "labels": {},
+        "model_id": "q951m16w",
+        "name": "gemma4-31b-sglang-v0516-nextn-20260806-r2",
+        "status": "ACTIVE"
+      },
+      "state": "ACTIVE"
+    },
+    {
+      "arm": "sglang_no_mtp",
+      "at": "2026-08-06T21:31:21+00:00",
+      "detail": {
+        "active_replica_count": 0,
+        "autoscaling_settings": {
+          "autoscaling_window": 60,
+          "concurrency_target": 1,
+          "max_replica": 1,
+          "min_replica": 0,
+          "scale_down_delay": 120,
+          "target_utilization_percentage": 70
+        },
+        "created_at": "2026-08-06T21:13:23.416Z",
+        "environment": null,
+        "id": "324j8o2",
+        "instance_type_name": "H100:2 - 2 H100 GPUs, 160 GiB VRAM",
+        "is_development": false,
+        "is_production": false,
+        "labels": {},
+        "model_id": "qel8v803",
+        "name": "gemma4-31b-sglang-v0516-no-mtp-20260806-r2",
+        "status": "SCALED_TO_ZERO"
+      },
+      "state": "SCALED_TO_ZERO"
+    },
+    {
+      "arm": "sglang_mtp",
+      "at": "2026-08-06T21:31:43+00:00",
+      "detail": {
+        "active_replica_count": 0,
+        "autoscaling_settings": {
+          "autoscaling_window": 60,
+          "concurrency_target": 1,
+          "max_replica": 1,
+          "min_replica": 0,
+          "scale_down_delay": 120,
+          "target_utilization_percentage": 70
+        },
+        "created_at": "2026-08-06T21:13:22.562Z",
+        "environment": null,
+        "id": "q862ez8",
+        "instance_type_name": "H100:2 - 2 H100 GPUs, 160 GiB VRAM",
+        "is_development": false,
+        "is_production": false,
+        "labels": {},
+        "model_id": "q951m16w",
+        "name": "gemma4-31b-sglang-v0516-nextn-20260806-r2",
+        "status": "SCALED_TO_ZERO"
+      },
+      "state": "SCALED_TO_ZERO"
+    }
+  ],
+  "runs": [
+    {
+      "arm": "vllm_no_mtp",
+      "cache_read_input_tokens": 423072,
+      "complete": true,
+      "completion_tokens": 1548,
+      "index": 1,
+      "preexisting": true,
+      "prompt_tokens": 438867,
+      "rows": 31,
+      "run_dir": "runs/aiwf_medium_context/20260806T094200_google_gemma-4-31B-it_8b8db844",
+      "runtime_status": "completed",
+      "runtime_valid": true,
+      "scripted_turns": 30,
+      "thinking_tokens": 0,
+      "ttfat_max_ms": 2374.0,
+      "ttfat_p50_ms": 457.0,
+      "ttfat_p95_ms": 721.5999999999991
+    },
+    {
+      "arm": "sglang_no_mtp",
+      "cache_read_input_tokens": 133876,
+      "complete": false,
+      "completion_tokens": 675,
+      "elapsed_seconds": 66.658,
+      "exit_code": 0,
+      "finished_at": "2026-08-06T21:27:51+00:00",
+      "index": 1,
+      "log": "ops/baseten-gemma4-31b-sglang/bakeoff-20260806/logs/sglang_no_mtp-run01.log",
+      "prompt_tokens": 147816,
+      "rows": 11,
+      "run_dir": "runs/aiwf_medium_context/20260806T142646_google_gemma-4-31B-it_a1441b49",
+      "runtime_status": null,
+      "runtime_valid": null,
+      "scripted_turns": 11,
+      "thinking_tokens": 0,
+      "ttfat_max_ms": 2829.0,
+      "ttfat_p50_ms": 443.0,
+      "ttfat_p95_ms": 1653.5
+    },
+    {
+      "arm": "sglang_mtp",
+      "cache_read_input_tokens": 133683,
+      "complete": false,
+      "completion_tokens": 620,
+      "elapsed_seconds": 63.537,
+      "exit_code": 0,
+      "finished_at": "2026-08-06T21:27:48+00:00",
+      "index": 1,
+      "log": "ops/baseten-gemma4-31b-sglang/bakeoff-20260806/logs/sglang_mtp-run01.log",
+      "prompt_tokens": 147574,
+      "rows": 11,
+      "run_dir": "runs/aiwf_medium_context/20260806T142646_google_gemma-4-31B-it_135ff5c2",
+      "runtime_status": null,
+      "runtime_valid": null,
+      "scripted_turns": 11,
+      "thinking_tokens": 0,
+      "ttfat_max_ms": 2671.0,
+      "ttfat_p50_ms": 437.0,
+      "ttfat_p95_ms": 1581.5
+    }
+  ],
+  "sampling": {
+    "temperature": 1.0,
+    "top_k": 64,
+    "top_p": 0.95
+  },
+  "schema_version": 1,
+  "started_at": "2026-08-06T21:26:32+00:00"
+}

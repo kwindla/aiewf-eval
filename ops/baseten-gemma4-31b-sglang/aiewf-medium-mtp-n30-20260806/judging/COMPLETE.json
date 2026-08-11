@@ -1,0 +1,8 @@
+{
+  "completed_at": "2026-08-06T23:06:18+00:00",
+  "canonical_runs": 30,
+  "scripted_turns": 900,
+  "judge_model": "claude-opus-4-5",
+  "judge_version": "claude-agent-sdk-v4-turn-taking",
+  "canonical_inputs_sha256": "19dbeaafd910f7974014bc03ba6b17e8f12210ee7f4dd1bf9602387485cd6e8c"
+}

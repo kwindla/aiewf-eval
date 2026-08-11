@@ -1,0 +1,194 @@
+[
+  {
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_seconds": 49.581,
+        "exit_code": 0,
+        "log": "ops/model-freshness-2026-08-06/logs/infra-glm5_thinking-attempt1.log",
+        "run_dir": null
+      },
+      {
+        "attempt": 2,
+        "elapsed_seconds": 46.886,
+        "exit_code": 0,
+        "log": "ops/model-freshness-2026-08-06/logs/infra-glm5_thinking-attempt2.log",
+        "run_dir": null
+      },
+      {
+        "attempt": 3,
+        "elapsed_seconds": 46.918,
+        "exit_code": 0,
+        "log": "ops/model-freshness-2026-08-06/logs/infra-glm5_thinking-attempt3.log",
+        "run_dir": null
+      }
+    ],
+    "complete": false,
+    "finished_at": "2026-08-06T15:45:34+00:00",
+    "key": "glm5_thinking",
+    "label": "glm-5 (thinking)",
+    "lane": "infra",
+    "model": "zai-org/GLM-5-FP8",
+    "service": "modal"
+  },
+  {
+    "attempts": [
+      {
+        "all_rows_have_tokens": true,
+        "assistant_words": 1529,
+        "attempt": 1,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "complete": true,
+        "completion_tokens": 2859,
+        "elapsed_seconds": 51.202,
+        "exit_code": 0,
+        "log": "ops/model-freshness-2026-08-06/logs/infra-qwen36_27-attempt1.log",
+        "prompt_tokens": 460124,
+        "run_dir": "runs/aiwf_medium_context/20260806T084913_Qwen_Qwen3.6-27B_d7928f1e",
+        "runtime_status": "completed",
+        "runtime_valid": true,
+        "scripted_turns": 30,
+        "thinking_tokens": 0,
+        "token_rows": 30,
+        "transcript_rows": 30,
+        "user_words": 311
+      }
+    ],
+    "complete": true,
+    "finished_at": "2026-08-06T15:53:10+00:00",
+    "key": "qwen36_27",
+    "label": "qwen3.6-27b (thinking off)",
+    "lane": "infra",
+    "model": "Qwen/Qwen3.6-27B",
+    "service": "vllm-openai"
+  },
+  {
+    "attempts": [
+      {
+        "all_rows_have_tokens": true,
+        "assistant_words": 1993,
+        "attempt": 1,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "complete": true,
+        "completion_tokens": 3331,
+        "elapsed_seconds": 55.585,
+        "exit_code": 0,
+        "log": "ops/model-freshness-2026-08-06/logs/infra-qwen36_35-attempt1.log",
+        "prompt_tokens": 568893,
+        "run_dir": "runs/aiwf_medium_context/20260806T090616_Qwen_Qwen3.6-35B-A3B-FP8_cd7e7f24",
+        "runtime_status": "completed",
+        "runtime_valid": true,
+        "scripted_turns": 30,
+        "thinking_tokens": 0,
+        "token_rows": 36,
+        "transcript_rows": 36,
+        "user_words": 340
+      }
+    ],
+    "complete": true,
+    "finished_at": "2026-08-06T16:10:20+00:00",
+    "key": "qwen36_35",
+    "label": "qwen3.6-35b-a3b (thinking off, FP8)",
+    "lane": "infra",
+    "model": "Qwen/Qwen3.6-35B-A3B-FP8",
+    "service": "vllm-openai"
+  },
+  {
+    "attempts": [
+      {
+        "all_rows_have_tokens": true,
+        "assistant_words": 2318,
+        "attempt": 1,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "complete": true,
+        "completion_tokens": 4427,
+        "elapsed_seconds": 77.748,
+        "exit_code": 0,
+        "log": "ops/model-freshness-2026-08-06/logs/infra-qwen3_8b-attempt1.log",
+        "prompt_tokens": 532646,
+        "run_dir": "runs/aiwf_medium_context/20260806T091307_qwen_qwen3-8b_f18ed148",
+        "runtime_status": "completed",
+        "runtime_valid": true,
+        "scripted_turns": 30,
+        "thinking_tokens": 0,
+        "token_rows": 33,
+        "transcript_rows": 33,
+        "user_words": 331
+      }
+    ],
+    "complete": true,
+    "finished_at": "2026-08-06T16:17:30+00:00",
+    "key": "qwen3_8b",
+    "label": "qwen3-8b (thinking off, BaseTen)",
+    "lane": "infra",
+    "model": "qwen/qwen3-8b",
+    "service": "vllm-openai"
+  },
+  {
+    "attempts": [
+      {
+        "all_rows_have_tokens": true,
+        "assistant_words": 1583,
+        "attempt": 1,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 489760,
+        "complete": true,
+        "completion_tokens": 2260,
+        "elapsed_seconds": 30.796,
+        "exit_code": 0,
+        "log": "ops/model-freshness-2026-08-06/logs/infra-gemma426-attempt1.log",
+        "prompt_tokens": 507380,
+        "run_dir": "runs/aiwf_medium_context/20260806T092333_google_gemma-4-26B-A4B-it_54dc9f77",
+        "runtime_status": "completed",
+        "runtime_valid": true,
+        "scripted_turns": 30,
+        "thinking_tokens": 0,
+        "token_rows": 35,
+        "transcript_rows": 35,
+        "user_words": 326
+      }
+    ],
+    "complete": true,
+    "finished_at": "2026-08-06T16:27:09+00:00",
+    "key": "gemma426",
+    "label": "gemma-4-26b-a4b-it (thinking off)",
+    "lane": "infra",
+    "model": "google/gemma-4-26B-A4B-it",
+    "service": "vllm-openai"
+  },
+  {
+    "attempts": [
+      {
+        "all_rows_have_tokens": true,
+        "assistant_words": 971,
+        "attempt": 1,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 423072,
+        "complete": true,
+        "completion_tokens": 1548,
+        "elapsed_seconds": 40.325,
+        "exit_code": 0,
+        "log": "ops/model-freshness-2026-08-06/logs/infra-gemma431_baseten-attempt1.log",
+        "prompt_tokens": 438867,
+        "run_dir": "runs/aiwf_medium_context/20260806T094200_google_gemma-4-31B-it_8b8db844",
+        "runtime_status": "completed",
+        "runtime_valid": true,
+        "scripted_turns": 30,
+        "thinking_tokens": 0,
+        "token_rows": 31,
+        "transcript_rows": 31,
+        "user_words": 314
+      }
+    ],
+    "complete": true,
+    "finished_at": "2026-08-06T16:45:42+00:00",
+    "key": "gemma431_baseten",
+    "label": "gemma-4-31b-it (thinking off)",
+    "lane": "infra",
+    "model": "google/gemma-4-31B-it",
+    "service": "vllm-openai"
+  }
+]

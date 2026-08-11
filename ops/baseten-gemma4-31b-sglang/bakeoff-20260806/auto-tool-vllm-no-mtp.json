@@ -1,0 +1,571 @@
+{
+  "captured_at": "2026-08-06T21:51:02.985972+00:00",
+  "endpoint": "https://model-qzk215kq.api.baseten.co/deployment/wgvde5j/sync/v1/chat/completions",
+  "full_message_count": 24,
+  "label": "vllm-no-mtp",
+  "model": "google/gemma-4-31B-it",
+  "schema_version": 1,
+  "simple_auto": {
+    "content": "",
+    "elapsed_seconds": 12.650233899243176,
+    "finish_reasons": [
+      "tool_calls"
+    ],
+    "first_event_seconds": 12.27047983231023,
+    "http_status": 200,
+    "raw_events": [
+      {
+        "choices": [
+          {
+            "delta": {
+              "content": "",
+              "role": "assistant"
+            },
+            "finish_reason": null,
+            "index": 0,
+            "logprobs": null
+          }
+        ],
+        "created": 1786053075,
+        "id": "chatcmpl-073acd20-a734-4dd2-b6c9-e86ae1695f38",
+        "model": "google/gemma-4-31B-it",
+        "object": "chat.completion.chunk",
+        "prompt_text": null,
+        "prompt_token_ids": null
+      },
+      {
+        "choices": [
+          {
+            "delta": {
+              "tool_calls": [
+                {
+                  "function": {
+                    "name": "submit_session_suggestion"
+                  },
+                  "id": "chatcmpl-tool-9185337041d7db49",
+                  "index": 0,
+                  "type": "function"
+                }
+              ]
+            },
+            "finish_reason": null,
+            "index": 0,
+            "logprobs": null,
+            "token_ids": null
+          }
+        ],
+        "created": 1786053075,
+        "id": "chatcmpl-073acd20-a734-4dd2-b6c9-e86ae1695f38",
+        "model": "google/gemma-4-31B-it",
+        "object": "chat.completion.chunk"
+      },
+      {
+        "choices": [
+          {
+            "delta": {
+              "tool_calls": [
+                {
+                  "function": {
+                    "arguments": "{\"name\": \""
+                  },
+                  "index": 0
+                }
+              ]
+            },
+            "finish_reason": null,
+            "index": 0,
+            "logprobs": null,
+            "token_ids": null
+          }
+        ],
+        "created": 1786053075,
+        "id": "chatcmpl-073acd20-a734-4dd2-b6c9-e86ae1695f38",
+        "model": "google/gemma-4-31B-it",
+        "object": "chat.completion.chunk"
+      },
+      {
+        "choices": [
+          {
+            "delta": {
+              "tool_calls": [
+                {
+                  "function": {
+                    "arguments": "Jennifer Smith"
+                  },
+                  "index": 0
+                }
+              ]
+            },
+            "finish_reason": null,
+            "index": 0,
+            "logprobs": null,
+            "token_ids": null
+          }
+        ],
+        "created": 1786053075,
+        "id": "chatcmpl-073acd20-a734-4dd2-b6c9-e86ae1695f38",
+        "model": "google/gemma-4-31B-it",
+        "object": "chat.completion.chunk"
+      },
+      {
+        "choices": [
+          {
+            "delta": {
+              "tool_calls": [
+                {
+                  "function": {
+                    "arguments": "\", \"suggestion_text\": \""
+                  },
+                  "index": 0
+                }
+              ]
+            },
+            "finish_reason": null,
+            "index": 0,
+            "logprobs": null,
+            "token_ids": null
+          }
+        ],
+        "created": 1786053075,
+        "id": "chatcmpl-073acd20-a734-4dd2-b6c9-e86ae1695f38",
+        "model": "google/gemma-4-31B-it",
+        "object": "chat.completion.chunk"
+      },
+      {
+        "choices": [
+          {
+            "delta": {
+              "tool_calls": [
+                {
+                  "function": {
+                    "arguments": "OpenTelemetry tracing"
+                  },
+                  "index": 0
+                }
+              ]
+            },
+            "finish_reason": null,
+            "index": 0,
+            "logprobs": null,
+            "token_ids": null
+          }
+        ],
+        "created": 1786053075,
+        "id": "chatcmpl-073acd20-a734-4dd2-b6c9-e86ae1695f38",
+        "model": "google/gemma-4-31B-it",
+        "object": "chat.completion.chunk"
+      },
+      {
+        "choices": [
+          {
+            "delta": {
+              "tool_calls": [
+                {
+                  "function": {
+                    "arguments": "\"}"
+                  },
+                  "index": 0
+                }
+              ]
+            },
+            "finish_reason": null,
+            "index": 0,
+            "logprobs": null,
+            "token_ids": null
+          }
+        ],
+        "created": 1786053075,
+        "id": "chatcmpl-073acd20-a734-4dd2-b6c9-e86ae1695f38",
+        "model": "google/gemma-4-31B-it",
+        "object": "chat.completion.chunk"
+      },
+      {
+        "choices": [
+          {
+            "delta": {},
+            "finish_reason": "tool_calls",
+            "index": 0,
+            "logprobs": null,
+            "stop_reason": 50,
+            "token_ids": null
+          }
+        ],
+        "created": 1786053075,
+        "id": "chatcmpl-073acd20-a734-4dd2-b6c9-e86ae1695f38",
+        "model": "google/gemma-4-31B-it",
+        "object": "chat.completion.chunk"
+      },
+      {
+        "choices": [],
+        "created": 1786053075,
+        "id": "chatcmpl-073acd20-a734-4dd2-b6c9-e86ae1695f38",
+        "model": "google/gemma-4-31B-it",
+        "object": "chat.completion.chunk",
+        "system_fingerprint": "vllm-0.26.1rc1.dev77+g6f91edf96-tp2-b84a96c0",
+        "usage": {
+          "completion_tokens": 28,
+          "prompt_tokens": 430,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "created_cache_tokens": 416
+          },
+          "total_tokens": 458
+        }
+      }
+    ],
+    "reasoning": "",
+    "tool_calls": [
+      {
+        "arguments": "{\"name\": \"Jennifer Smith\", \"suggestion_text\": \"OpenTelemetry tracing\"}",
+        "id": "chatcmpl-tool-9185337041d7db49",
+        "name": "submit_session_suggestion"
+      }
+    ],
+    "usage": {
+      "completion_tokens": 28,
+      "prompt_tokens": 430,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "created_cache_tokens": 416
+      },
+      "total_tokens": 458
+    }
+  },
+  "system_sha256": "14d62989a3475567d22300f2bab2a4b141abb0f1b675edec2f8c876a0ea9448e",
+  "tools": [
+    {
+      "function": {
+        "description": "End the current session.",
+        "name": "end_session",
+        "parameters": {
+          "properties": {},
+          "required": [],
+          "type": "object"
+        }
+      },
+      "type": "function"
+    },
+    {
+      "function": {
+        "description": "Submit a dietary request.",
+        "name": "submit_dietary_request",
+        "parameters": {
+          "properties": {
+            "dietary_preference": {
+              "description": "The dietary preference (e.g., vegetarian, gluten-free).",
+              "type": "string"
+            },
+            "name": {
+              "description": "The name of the person making the request.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "name",
+            "dietary_preference"
+          ],
+          "type": "object"
+        }
+      },
+      "type": "function"
+    },
+    {
+      "function": {
+        "description": "Submit a suggestion for a new session.",
+        "name": "submit_session_suggestion",
+        "parameters": {
+          "properties": {
+            "name": {
+              "description": "The name of the person making the suggestion.",
+              "type": "string"
+            },
+            "suggestion_text": {
+              "description": "The text of the session suggestion.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "name",
+            "suggestion_text"
+          ],
+          "type": "object"
+        }
+      },
+      "type": "function"
+    },
+    {
+      "function": {
+        "description": "Vote for an existing session.",
+        "name": "vote_for_session",
+        "parameters": {
+          "properties": {
+            "name": {
+              "description": "The name of the person voting.",
+              "type": "string"
+            },
+            "session_id": {
+              "description": "The Session ID of the session being voted for.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "name",
+            "session_id"
+          ],
+          "type": "object"
+        }
+      },
+      "type": "function"
+    },
+    {
+      "function": {
+        "description": "Request technical support.",
+        "name": "request_tech_support",
+        "parameters": {
+          "properties": {
+            "issue_description": {
+              "description": "A description of the technical issue.",
+              "type": "string"
+            },
+            "name": {
+              "description": "The name of the person requesting support.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "name",
+            "issue_description"
+          ],
+          "type": "object"
+        }
+      },
+      "type": "function"
+    }
+  ],
+  "turn11_auto": {
+    "content": "",
+    "elapsed_seconds": 1.629480994772166,
+    "finish_reasons": [
+      "tool_calls"
+    ],
+    "first_event_seconds": 1.2341168406419456,
+    "http_status": 200,
+    "raw_events": [
+      {
+        "choices": [
+          {
+            "delta": {
+              "content": "",
+              "role": "assistant"
+            },
+            "finish_reason": null,
+            "index": 0,
+            "logprobs": null
+          }
+        ],
+        "created": 1786053075,
+        "id": "chatcmpl-b0fac47b-928b-45f6-ad6f-5cabd15a0390",
+        "model": "google/gemma-4-31B-it",
+        "object": "chat.completion.chunk",
+        "prompt_text": null,
+        "prompt_token_ids": null
+      },
+      {
+        "choices": [
+          {
+            "delta": {
+              "tool_calls": [
+                {
+                  "function": {
+                    "name": "submit_session_suggestion"
+                  },
+                  "id": "chatcmpl-tool-969798ee7b8fc936",
+                  "index": 0,
+                  "type": "function"
+                }
+              ]
+            },
+            "finish_reason": null,
+            "index": 0,
+            "logprobs": null,
+            "token_ids": null
+          }
+        ],
+        "created": 1786053075,
+        "id": "chatcmpl-b0fac47b-928b-45f6-ad6f-5cabd15a0390",
+        "model": "google/gemma-4-31B-it",
+        "object": "chat.completion.chunk"
+      },
+      {
+        "choices": [
+          {
+            "delta": {
+              "tool_calls": [
+                {
+                  "function": {
+                    "arguments": "{\"name\": \""
+                  },
+                  "index": 0
+                }
+              ]
+            },
+            "finish_reason": null,
+            "index": 0,
+            "logprobs": null,
+            "token_ids": null
+          }
+        ],
+        "created": 1786053075,
+        "id": "chatcmpl-b0fac47b-928b-45f6-ad6f-5cabd15a0390",
+        "model": "google/gemma-4-31B-it",
+        "object": "chat.completion.chunk"
+      },
+      {
+        "choices": [
+          {
+            "delta": {
+              "tool_calls": [
+                {
+                  "function": {
+                    "arguments": "Jennifer Smith"
+                  },
+                  "index": 0
+                }
+              ]
+            },
+            "finish_reason": null,
+            "index": 0,
+            "logprobs": null,
+            "token_ids": null
+          }
+        ],
+        "created": 1786053075,
+        "id": "chatcmpl-b0fac47b-928b-45f6-ad6f-5cabd15a0390",
+        "model": "google/gemma-4-31B-it",
+        "object": "chat.completion.chunk"
+      },
+      {
+        "choices": [
+          {
+            "delta": {
+              "tool_calls": [
+                {
+                  "function": {
+                    "arguments": "\", \"suggestion_text\": \""
+                  },
+                  "index": 0
+                }
+              ]
+            },
+            "finish_reason": null,
+            "index": 0,
+            "logprobs": null,
+            "token_ids": null
+          }
+        ],
+        "created": 1786053075,
+        "id": "chatcmpl-b0fac47b-928b-45f6-ad6f-5cabd15a0390",
+        "model": "google/gemma-4-31B-it",
+        "object": "chat.completion.chunk"
+      },
+      {
+        "choices": [
+          {
+            "delta": {
+              "tool_calls": [
+                {
+                  "function": {
+                    "arguments": "a session about open telemetry tracing"
+                  },
+                  "index": 0
+                }
+              ]
+            },
+            "finish_reason": null,
+            "index": 0,
+            "logprobs": null,
+            "token_ids": null
+          }
+        ],
+        "created": 1786053075,
+        "id": "chatcmpl-b0fac47b-928b-45f6-ad6f-5cabd15a0390",
+        "model": "google/gemma-4-31B-it",
+        "object": "chat.completion.chunk"
+      },
+      {
+        "choices": [
+          {
+            "delta": {
+              "tool_calls": [
+                {
+                  "function": {
+                    "arguments": "\"}"
+                  },
+                  "index": 0
+                }
+              ]
+            },
+            "finish_reason": null,
+            "index": 0,
+            "logprobs": null,
+            "token_ids": null
+          }
+        ],
+        "created": 1786053075,
+        "id": "chatcmpl-b0fac47b-928b-45f6-ad6f-5cabd15a0390",
+        "model": "google/gemma-4-31B-it",
+        "object": "chat.completion.chunk"
+      },
+      {
+        "choices": [
+          {
+            "delta": {},
+            "finish_reason": "tool_calls",
+            "index": 0,
+            "logprobs": null,
+            "stop_reason": 50,
+            "token_ids": null
+          }
+        ],
+        "created": 1786053075,
+        "id": "chatcmpl-b0fac47b-928b-45f6-ad6f-5cabd15a0390",
+        "model": "google/gemma-4-31B-it",
+        "object": "chat.completion.chunk"
+      },
+      {
+        "choices": [],
+        "created": 1786053075,
+        "id": "chatcmpl-b0fac47b-928b-45f6-ad6f-5cabd15a0390",
+        "model": "google/gemma-4-31B-it",
+        "object": "chat.completion.chunk",
+        "system_fingerprint": "vllm-0.26.1rc1.dev77+g6f91edf96-tp2-b84a96c0",
+        "usage": {
+          "completion_tokens": 31,
+          "prompt_tokens": 13943,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "created_cache_tokens": 13920
+          },
+          "total_tokens": 13974
+        }
+      }
+    ],
+    "reasoning": "",
+    "tool_calls": [
+      {
+        "arguments": "{\"name\": \"Jennifer Smith\", \"suggestion_text\": \"a session about open telemetry tracing\"}",
+        "id": "chatcmpl-tool-969798ee7b8fc936",
+        "name": "submit_session_suggestion"
+      }
+    ],
+    "usage": {
+      "completion_tokens": 31,
+      "prompt_tokens": 13943,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "created_cache_tokens": 13920
+      },
+      "total_tokens": 13974
+    }
+  }
+}

@@ -1,0 +1,148 @@
+{
+  "base_url": "https://model-qel8v803.api.baseten.co/deployment/324j8o2/sync/v1",
+  "cache_cold": {
+    "chunks": 5,
+    "content": "Yes",
+    "elapsed_seconds": 1.4398257350549102,
+    "finish_reasons": [
+      "stop"
+    ],
+    "first_chunk_seconds": 1.4259075722657144,
+    "first_visible_seconds": 1.425968297291547,
+    "reasoning": "",
+    "response_model": "google/gemma-4-31B-it",
+    "tool_calls": [],
+    "usage": {
+      "completion_tokens": 2,
+      "prompt_tokens": 10670,
+      "prompt_tokens_details": {
+        "cached_tokens": 6
+      },
+      "reasoning_tokens": 0,
+      "total_tokens": 10672
+    }
+  },
+  "cache_warm": {
+    "chunks": 5,
+    "content": "Yes",
+    "elapsed_seconds": 0.43021476501598954,
+    "finish_reasons": [
+      "stop"
+    ],
+    "first_chunk_seconds": 0.41487551433965564,
+    "first_visible_seconds": 0.4149490939453244,
+    "reasoning": "",
+    "response_model": "google/gemma-4-31B-it",
+    "tool_calls": [],
+    "usage": {
+      "completion_tokens": 2,
+      "prompt_tokens": 10670,
+      "prompt_tokens_details": {
+        "cached_tokens": 10669
+      },
+      "reasoning_tokens": 0,
+      "total_tokens": 10672
+    }
+  },
+  "finished_at": "2026-08-06T21:22:10.796904+00:00",
+  "forced_tool": {
+    "chunks": 10,
+    "content": "",
+    "elapsed_seconds": 1.0265967580489814,
+    "finish_reasons": [
+      "tool_calls"
+    ],
+    "first_chunk_seconds": 0.6695458041504025,
+    "first_visible_seconds": 0.7773922793567181,
+    "reasoning": "",
+    "response_model": "google/gemma-4-31B-it",
+    "tool_calls": [
+      {
+        "arguments": "{\"city\": \"Paris\", \"unit\": \"celsius\"}",
+        "id": "call_23c60bd89e78421281ad2c46",
+        "name": "get_weather"
+      }
+    ],
+    "usage": {
+      "completion_tokens": 27,
+      "prompt_tokens": 105,
+      "prompt_tokens_details": {
+        "cached_tokens": 4
+      },
+      "reasoning_tokens": 0,
+      "total_tokens": 132
+    }
+  },
+  "label": "no-mtp",
+  "metrics": {
+    "error_preview": null,
+    "selected": [
+      "sglang:cached_tokens_total{cache_source=\"device\",engine_type=\"unified\",model_name=\"google/gemma-4-31B-it\"} 10782.0",
+      "sglang:cache_hit_rate{engine_type=\"unified\",model_name=\"google/gemma-4-31B-it\",moe_ep_rank=\"0\",pp_rank=\"0\",tp_rank=\"0\"} 0.9999062792877226",
+      "sglang:spec_accept_length{engine_type=\"unified\",model_name=\"google/gemma-4-31B-it\",moe_ep_rank=\"0\",pp_rank=\"0\",tp_rank=\"0\"} 0.0",
+      "sglang:spec_accept_rate{engine_type=\"unified\",model_name=\"google/gemma-4-31B-it\",moe_ep_rank=\"0\",pp_rank=\"0\",tp_rank=\"0\"} 0.0"
+    ],
+    "status_code": 200,
+    "url": "https://model-qel8v803.api.baseten.co/deployment/324j8o2/sync/metrics"
+  },
+  "model": "google/gemma-4-31B-it",
+  "models": {
+    "data": [
+      {
+        "created": 1786051325,
+        "id": "google/gemma-4-31B-it",
+        "max_model_len": 32768,
+        "object": "model",
+        "owned_by": "sglang",
+        "root": "google/gemma-4-31B-it"
+      }
+    ],
+    "object": "list"
+  },
+  "plain": {
+    "chunks": 6,
+    "content": "protocol pass",
+    "elapsed_seconds": 1.040468994062394,
+    "finish_reasons": [
+      "stop"
+    ],
+    "first_chunk_seconds": 1.0172566561959684,
+    "first_visible_seconds": 1.0173380211926997,
+    "reasoning": "",
+    "response_model": "google/gemma-4-31B-it",
+    "tool_calls": [],
+    "usage": {
+      "completion_tokens": 3,
+      "prompt_tokens": 27,
+      "prompt_tokens_details": {
+        "cached_tokens": 2
+      },
+      "reasoning_tokens": 0,
+      "total_tokens": 30
+    }
+  },
+  "schema_version": 1,
+  "started_at": "2026-08-06T21:22:04.139710+00:00",
+  "tool_continuation": {
+    "chunks": 16,
+    "content": "The current weather in Paris is 18\u00b0C.",
+    "elapsed_seconds": 0.4626721958629787,
+    "finish_reasons": [
+      "stop"
+    ],
+    "first_chunk_seconds": 0.2506121527403593,
+    "first_visible_seconds": 0.2940235189162195,
+    "reasoning": "",
+    "response_model": "google/gemma-4-31B-it",
+    "tool_calls": [],
+    "usage": {
+      "completion_tokens": 17,
+      "prompt_tokens": 155,
+      "prompt_tokens_details": {
+        "cached_tokens": 101
+      },
+      "reasoning_tokens": 0,
+      "total_tokens": 172
+    }
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "campaign_id": "aiewf-medium-baseten-kimi-k2.6-thinking-n30-20260806",
+  "benchmark": "aiwf_medium_context",
+  "provider": "BaseTen Model API",
+  "endpoint": "https://inference.baseten.co/v1",
+  "model": "moonshotai/Kimi-K2.6",
+  "service": "baseten",
+  "pipeline": "text",
+  "arm": "thinking",
+  "target_complete_conversations": 30,
+  "fixed_scheduled_turns_per_conversation": 30,
+  "filler": null,
+  "sampling": {
+    "reasoning_effort": "omit",
+    "chat_template_args": {"enable_thinking": true},
+    "temperature": 1.0,
+    "top_p": 0.95,
+    "max_tokens": 8192
+  },
+  "runtime": {
+    "provider_endpoint_concurrency": 1,
+    "enable_recovery": true,
+    "dedupe_tool_calls": true,
+    "tool_result_run_llm": false,
+    "text_idle_timeout_seconds": 45,
+    "conversation_timeout_seconds": 600,
+    "inter_attempt_cooldown_seconds": 30,
+    "max_attempts_per_slot": 5
+  },
+  "paths": {"run_output_root": "runs/aiwf_medium_context"},
+  "arms": {"thinking": {}},
+  "seed_runs": [
+    {
+      "slot": "K26T-01",
+      "run_dir": "runs/aiwf_medium_context/20260806T173519Z_moonshotai_Kimi-K2.6_thinking_SMOKE_attempt01",
+      "disposition": "counted-after-exact-signature-and-completeness-validation"
+    }
+  ],
+  "smoke_gate": {
+    "passed": true,
+    "run_dir": "runs/aiwf_medium_context/20260806T173519Z_moonshotai_Kimi-K2.6_thinking_SMOKE_attempt01",
+    "reasoning_content_observed": true,
+    "ttfat_excludes_reasoning_only_deltas": true,
+    "standalone_probe_at": "2026-08-06T17:33:00Z",
+    "notes": "Standalone streaming exposed reasoning_content before content. The exact full-conversation smoke had 30/30 positive thinking_tokens, median raw TTFB 718 ms, median content/tool TTFAT 1715 ms, all 30 scripted rows, complete token accounting, runtime completed+valid, and end_session on turn 29."
+  },
+  "credential": {
+    "source_environment": "BASETEN_API_KEY",
+    "fallback_dotenv": "../gb-benchmarks/.env",
+    "fallback_key": "BASETEN_API_KEY"
+  }
+}

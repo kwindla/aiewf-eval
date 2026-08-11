@@ -1,0 +1,15 @@
+{
+  "checked_at": "2026-08-07T11:38:34Z",
+  "deployment_id": "q862ez8",
+  "deployment_name": "gemma4-31b-sglang-v0516-nextn-20260806-r2",
+  "status": "SCALED_TO_ZERO",
+  "active_replica_count": 0,
+  "autoscaling_settings": {
+    "min_replica": 0,
+    "max_replica": 1,
+    "autoscaling_window": 60,
+    "scale_down_delay": 120,
+    "concurrency_target": 1,
+    "target_utilization_percentage": 70
+  }
+}

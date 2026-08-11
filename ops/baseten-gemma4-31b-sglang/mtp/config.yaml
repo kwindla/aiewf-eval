@@ -1,0 +1,83 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/basetenlabs/truss/main/truss/config.schema.json
+
+model_name: gemma4-31b-bf16-h100x2-sglang-v0516-nextn
+
+model_metadata:
+  example_model_input:
+    model: google/gemma-4-31B-it
+    messages:
+      - role: user
+        content: "Call an available tool if the request requires it."
+    stream: true
+    stream_options:
+      include_usage: true
+    max_tokens: 128
+    temperature: 1.0
+    top_p: 0.95
+    extra_body:
+      top_k: 64
+      chat_template_kwargs:
+        enable_thinking: false
+  tags:
+    - openai-compatible
+    - gemma4
+    - sglang
+    - prefix-caching
+    - nextn-mtp
+
+base_image:
+  # lmsysorg/sglang:v0.5.16, Linux/amd64 manifest. SGLang source tag commit:
+  # fdebc938f7f4d16fe6b9f55dcd9a767cf0899ea1.
+  image: lmsysorg/sglang@sha256:984699c298a95b73c469b2191403ddc85fd780506e13c39c4afff3845e27bc6c
+
+weights:
+  - source: "hf://google/gemma-4-31B-it@842da3794eaa0b77d5f08bae87a17459d91ff475"
+    mount_location: /models/gemma4-31b
+  - source: "hf://google/gemma-4-31B-it-assistant@627c5ec1458b9086b841a91e0512fd31fd2fbbf1"
+    mount_location: /models/gemma4-31b-assistant
+
+resources:
+  accelerator: H100:2
+  use_gpu: true
+
+runtime:
+  predict_concurrency: 1
+  streaming_read_timeout: 180
+  health_checks:
+    startup_threshold_seconds: 1800
+    restart_threshold_seconds: 300
+    stop_traffic_threshold_seconds: 120
+
+environment_variables:
+  HF_HUB_OFFLINE: "1"
+  TRANSFORMERS_OFFLINE: "1"
+
+docker_server:
+  start_command: >-
+    python3 -m sglang.launch_server
+    --model-path /models/gemma4-31b
+    --served-model-name google/gemma-4-31B-it
+    --host 0.0.0.0
+    --port 8000
+    --dtype bfloat16
+    --tp-size 2
+    --context-length 32768
+    --max-running-requests 1
+    --chunked-prefill-size 8192
+    --mem-fraction-static 0.85
+    --sampling-defaults openai
+    --stream-interval 1
+    --default-chat-template-kwargs '{"enable_thinking":false}'
+    --reasoning-parser gemma4
+    --tool-call-parser gemma4
+    --enable-cache-report
+    --enable-metrics
+    --speculative-algorithm NEXTN
+    --speculative-draft-model-path /models/gemma4-31b-assistant
+    --speculative-num-steps 5
+    --speculative-num-draft-tokens 6
+    --speculative-eagle-topk 1
+  readiness_endpoint: /health
+  liveness_endpoint: /health
+  predict_endpoint: /v1/chat/completions
+  server_port: 8000

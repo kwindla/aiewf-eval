@@ -1,0 +1,403 @@
+{
+  "captured_at": "2026-08-06T21:51:02.985007+00:00",
+  "endpoint": "https://model-qel8v803.api.baseten.co/deployment/324j8o2/sync/v1/chat/completions",
+  "full_message_count": 24,
+  "label": "sglang-no-mtp",
+  "model": "google/gemma-4-31B-it",
+  "schema_version": 1,
+  "simple_auto": {
+    "content": "",
+    "elapsed_seconds": 1.8869673549197614,
+    "finish_reasons": [
+      "tool_calls"
+    ],
+    "first_event_seconds": 1.5083726695738733,
+    "http_status": 200,
+    "raw_events": [
+      {
+        "choices": [
+          {
+            "delta": {
+              "content": "",
+              "reasoning_content": null,
+              "role": "assistant"
+            },
+            "finish_reason": null,
+            "index": 0,
+            "logprobs": null,
+            "matched_stop": null
+          }
+        ],
+        "created": 1786053064,
+        "id": "35eac57ea6b54d3ab8873094bc79ebdb",
+        "model": "google/gemma-4-31B-it",
+        "object": "chat.completion.chunk"
+      },
+      {
+        "choices": [
+          {
+            "delta": {
+              "content": null,
+              "reasoning_content": null,
+              "role": null,
+              "tool_calls": [
+                {
+                  "function": {
+                    "arguments": "",
+                    "name": "submit_session_suggestion"
+                  },
+                  "id": "call_62b2ebcc29554868973bcdec",
+                  "index": 2,
+                  "type": "function"
+                }
+              ]
+            },
+            "finish_reason": null,
+            "index": 0,
+            "logprobs": null,
+            "matched_stop": null
+          }
+        ],
+        "created": 1786053064,
+        "id": "35eac57ea6b54d3ab8873094bc79ebdb",
+        "model": "google/gemma-4-31B-it",
+        "object": "chat.completion.chunk",
+        "usage": null
+      },
+      {
+        "choices": [
+          {
+            "delta": {
+              "content": null,
+              "reasoning_content": null,
+              "role": null,
+              "tool_calls": [
+                {
+                  "function": {
+                    "arguments": "{\"name\": \"Jennifer Smith\", \"suggestion_text\": \"OpenTelemetry tracing\"}",
+                    "name": null
+                  },
+                  "id": null,
+                  "index": 2,
+                  "type": "function"
+                }
+              ]
+            },
+            "finish_reason": null,
+            "index": 0,
+            "logprobs": null,
+            "matched_stop": null
+          }
+        ],
+        "created": 1786053064,
+        "id": "35eac57ea6b54d3ab8873094bc79ebdb",
+        "model": "google/gemma-4-31B-it",
+        "object": "chat.completion.chunk",
+        "usage": null
+      },
+      {
+        "choices": [
+          {
+            "delta": {
+              "reasoning_content": null
+            },
+            "finish_reason": "tool_calls",
+            "index": 0,
+            "logprobs": null,
+            "matched_stop": 50
+          }
+        ],
+        "created": 1786053064,
+        "id": "35eac57ea6b54d3ab8873094bc79ebdb",
+        "model": "google/gemma-4-31B-it",
+        "object": "chat.completion.chunk"
+      },
+      {
+        "choices": [],
+        "created": 1786053064,
+        "id": "35eac57ea6b54d3ab8873094bc79ebdb",
+        "model": "google/gemma-4-31B-it",
+        "object": "chat.completion.chunk",
+        "usage": {
+          "completion_tokens": 28,
+          "prompt_tokens": 429,
+          "prompt_tokens_details": {
+            "cached_tokens": 2
+          },
+          "reasoning_tokens": 0,
+          "total_tokens": 457
+        }
+      }
+    ],
+    "reasoning": "",
+    "tool_calls": [
+      {
+        "arguments": "{\"name\": \"Jennifer Smith\", \"suggestion_text\": \"OpenTelemetry tracing\"}",
+        "id": "call_62b2ebcc29554868973bcdec",
+        "name": "submit_session_suggestion"
+      }
+    ],
+    "usage": {
+      "completion_tokens": 28,
+      "prompt_tokens": 429,
+      "prompt_tokens_details": {
+        "cached_tokens": 2
+      },
+      "reasoning_tokens": 0,
+      "total_tokens": 457
+    }
+  },
+  "system_sha256": "14d62989a3475567d22300f2bab2a4b141abb0f1b675edec2f8c876a0ea9448e",
+  "tools": [
+    {
+      "function": {
+        "description": "End the current session.",
+        "name": "end_session",
+        "parameters": {
+          "properties": {},
+          "required": [],
+          "type": "object"
+        }
+      },
+      "type": "function"
+    },
+    {
+      "function": {
+        "description": "Submit a dietary request.",
+        "name": "submit_dietary_request",
+        "parameters": {
+          "properties": {
+            "dietary_preference": {
+              "description": "The dietary preference (e.g., vegetarian, gluten-free).",
+              "type": "string"
+            },
+            "name": {
+              "description": "The name of the person making the request.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "name",
+            "dietary_preference"
+          ],
+          "type": "object"
+        }
+      },
+      "type": "function"
+    },
+    {
+      "function": {
+        "description": "Submit a suggestion for a new session.",
+        "name": "submit_session_suggestion",
+        "parameters": {
+          "properties": {
+            "name": {
+              "description": "The name of the person making the suggestion.",
+              "type": "string"
+            },
+            "suggestion_text": {
+              "description": "The text of the session suggestion.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "name",
+            "suggestion_text"
+          ],
+          "type": "object"
+        }
+      },
+      "type": "function"
+    },
+    {
+      "function": {
+        "description": "Vote for an existing session.",
+        "name": "vote_for_session",
+        "parameters": {
+          "properties": {
+            "name": {
+              "description": "The name of the person voting.",
+              "type": "string"
+            },
+            "session_id": {
+              "description": "The Session ID of the session being voted for.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "name",
+            "session_id"
+          ],
+          "type": "object"
+        }
+      },
+      "type": "function"
+    },
+    {
+      "function": {
+        "description": "Request technical support.",
+        "name": "request_tech_support",
+        "parameters": {
+          "properties": {
+            "issue_description": {
+              "description": "A description of the technical issue.",
+              "type": "string"
+            },
+            "name": {
+              "description": "The name of the person requesting support.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "name",
+            "issue_description"
+          ],
+          "type": "object"
+        }
+      },
+      "type": "function"
+    }
+  ],
+  "turn11_auto": {
+    "content": "",
+    "elapsed_seconds": 2.505708053242415,
+    "finish_reasons": [
+      "tool_calls"
+    ],
+    "first_event_seconds": 1.981178464833647,
+    "http_status": 200,
+    "raw_events": [
+      {
+        "choices": [
+          {
+            "delta": {
+              "content": "",
+              "reasoning_content": null,
+              "role": "assistant"
+            },
+            "finish_reason": null,
+            "index": 0,
+            "logprobs": null,
+            "matched_stop": null
+          }
+        ],
+        "created": 1786053066,
+        "id": "ef7764e0d3da405da1668567f551c4b3",
+        "model": "google/gemma-4-31B-it",
+        "object": "chat.completion.chunk"
+      },
+      {
+        "choices": [
+          {
+            "delta": {
+              "content": null,
+              "reasoning_content": null,
+              "role": null,
+              "tool_calls": [
+                {
+                  "function": {
+                    "arguments": "",
+                    "name": "submit_session_suggestion"
+                  },
+                  "id": "call_ea7c850ed0584fd6ae0dcfdf",
+                  "index": 2,
+                  "type": "function"
+                }
+              ]
+            },
+            "finish_reason": null,
+            "index": 0,
+            "logprobs": null,
+            "matched_stop": null
+          }
+        ],
+        "created": 1786053066,
+        "id": "ef7764e0d3da405da1668567f551c4b3",
+        "model": "google/gemma-4-31B-it",
+        "object": "chat.completion.chunk",
+        "usage": null
+      },
+      {
+        "choices": [
+          {
+            "delta": {
+              "content": null,
+              "reasoning_content": null,
+              "role": null,
+              "tool_calls": [
+                {
+                  "function": {
+                    "arguments": "{\"name\": \"Jennifer Smith\", \"suggestion_text\": \"a session about open telemetry tracing\"}",
+                    "name": null
+                  },
+                  "id": null,
+                  "index": 2,
+                  "type": "function"
+                }
+              ]
+            },
+            "finish_reason": null,
+            "index": 0,
+            "logprobs": null,
+            "matched_stop": null
+          }
+        ],
+        "created": 1786053067,
+        "id": "ef7764e0d3da405da1668567f551c4b3",
+        "model": "google/gemma-4-31B-it",
+        "object": "chat.completion.chunk",
+        "usage": null
+      },
+      {
+        "choices": [
+          {
+            "delta": {
+              "reasoning_content": null
+            },
+            "finish_reason": "tool_calls",
+            "index": 0,
+            "logprobs": null,
+            "matched_stop": 50
+          }
+        ],
+        "created": 1786053067,
+        "id": "ef7764e0d3da405da1668567f551c4b3",
+        "model": "google/gemma-4-31B-it",
+        "object": "chat.completion.chunk"
+      },
+      {
+        "choices": [],
+        "created": 1786053067,
+        "id": "ef7764e0d3da405da1668567f551c4b3",
+        "model": "google/gemma-4-31B-it",
+        "object": "chat.completion.chunk",
+        "usage": {
+          "completion_tokens": 31,
+          "prompt_tokens": 13942,
+          "prompt_tokens_details": {
+            "cached_tokens": 4
+          },
+          "reasoning_tokens": 0,
+          "total_tokens": 13973
+        }
+      }
+    ],
+    "reasoning": "",
+    "tool_calls": [
+      {
+        "arguments": "{\"name\": \"Jennifer Smith\", \"suggestion_text\": \"a session about open telemetry tracing\"}",
+        "id": "call_ea7c850ed0584fd6ae0dcfdf",
+        "name": "submit_session_suggestion"
+      }
+    ],
+    "usage": {
+      "completion_tokens": 31,
+      "prompt_tokens": 13942,
+      "prompt_tokens_details": {
+        "cached_tokens": 4
+      },
+      "reasoning_tokens": 0,
+      "total_tokens": 13973
+    }
+  }
+}

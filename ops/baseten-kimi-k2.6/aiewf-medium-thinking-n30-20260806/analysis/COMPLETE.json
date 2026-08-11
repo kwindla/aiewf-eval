@@ -1,0 +1,9 @@
+{
+  "campaign_id": "aiewf-medium-baseten-kimi-k2.6-thinking-n30-20260806",
+  "generated_at": "2026-08-06T18:43:01+00:00",
+  "fixed_scripted_turns": 900,
+  "aggregates_json_sha256": "01ea96ce81fbeb138a39fcbe4d923cd74381e079c54faa379058e35b6684a327",
+  "aggregates_tsv_sha256": "448176d387bbfc08ca5d359ba852546574b2fd281f280aae9183c9960e0d9215",
+  "included_runs_sha256": "c737de082a51f26bd8628a1bad866b025354c341832baf45968d08543dd64faa",
+  "report_sha256": "93cdb78856fd13895b22cd7ce6ceca4a77c5471f3030a699d381f0edb0f2551a"
+}

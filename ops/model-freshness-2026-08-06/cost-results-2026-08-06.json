@@ -1,0 +1,847 @@
+{
+  "conversation_minutes_method": "actual user plus assistant words divided by 150 words per minute",
+  "currency": "USD",
+  "estimates": [
+    {
+      "billed_token_counts": {
+        "cache_write_5m": 17896,
+        "cached_input": 470341,
+        "output": 3483,
+        "uncached_input": 180
+      },
+      "billing_mode": "tokens",
+      "cost_components_usd": {
+        "cache_write_5m": 0.06711,
+        "cached_input": 0.1411023,
+        "output": 0.052245,
+        "uncached_input": 0.00054
+      },
+      "estimated_conversation_minutes_150wpm": 13.48,
+      "estimated_cost_per_conversation_minute_usd": 0.01936182,
+      "estimated_sample_cost_usd": 0.2609973,
+      "key": "sonnet46",
+      "label": "claude-sonnet-4-6",
+      "model": "claude-sonnet-4-6",
+      "pricing_notes": "Uses the separate five-minute prompt-cache write rate.",
+      "pricing_source": "https://platform.claude.com/docs/en/about-claude/pricing",
+      "provider": "Anthropic",
+      "run_dir": "runs/aiwf_medium_context/20260806T083608_claude-sonnet-4-6_cf993c71"
+    },
+    {
+      "billed_token_counts": {
+        "cache_write_5m": 24680,
+        "cached_input": 655385,
+        "output": 4386,
+        "uncached_input": 120
+      },
+      "billing_mode": "tokens",
+      "cost_components_usd": {
+        "cache_write_5m": 0.3085,
+        "cached_input": 0.655385,
+        "output": 0.2193,
+        "uncached_input": 0.0012
+      },
+      "estimated_conversation_minutes_150wpm": 10.727,
+      "estimated_cost_per_conversation_minute_usd": 0.11041158,
+      "estimated_sample_cost_usd": 1.184385,
+      "key": "fable5_low",
+      "label": "claude-fable-5 (low)",
+      "model": "claude-fable-5",
+      "pricing_notes": "Low effort does not change the token rate; uses the five-minute cache-write rate.",
+      "pricing_source": "https://platform.claude.com/docs/en/about-claude/pricing",
+      "provider": "Anthropic",
+      "run_dir": "runs/aiwf_medium_context/20260806T083806_claude-fable-5_6b537ca4"
+    },
+    {
+      "billed_token_counts": {
+        "cache_write_5m": 5736,
+        "cached_input": 692249,
+        "output": 5731,
+        "uncached_input": 120
+      },
+      "billing_mode": "tokens",
+      "cost_components_usd": {
+        "cache_write_5m": 0.0717,
+        "cached_input": 0.692249,
+        "output": 0.28655,
+        "uncached_input": 0.0012
+      },
+      "estimated_conversation_minutes_150wpm": 12.367,
+      "estimated_cost_per_conversation_minute_usd": 0.08504075,
+      "estimated_sample_cost_usd": 1.051699,
+      "key": "fable5_default",
+      "label": "claude-fable-5 (default)",
+      "model": "claude-fable-5",
+      "pricing_notes": "Uses the five-minute cache-write rate.",
+      "pricing_source": "https://platform.claude.com/docs/en/about-claude/pricing",
+      "provider": "Anthropic",
+      "run_dir": "runs/aiwf_medium_context/20260806T084312_claude-fable-5_93f98482"
+    },
+    {
+      "billed_token_counts": {
+        "cache_write_5m": 0,
+        "cached_input": 407872,
+        "output": 3206,
+        "uncached_input": 32612
+      },
+      "billing_mode": "tokens",
+      "cost_components_usd": {
+        "cache_write_5m": 0.0,
+        "cached_input": 0.05710208,
+        "output": 0.0141064,
+        "uncached_input": 0.0456568
+      },
+      "estimated_conversation_minutes_150wpm": 15.18,
+      "estimated_cost_per_conversation_minute_usd": 0.00769864,
+      "estimated_sample_cost_usd": 0.11686528,
+      "key": "glm52_none",
+      "label": "glm-5.2 (none)",
+      "model": "zai-org/GLM-5.2",
+      "pricing_notes": "BaseTen Model API rate.",
+      "pricing_source": "https://www.baseten.co/pricing/",
+      "provider": "BaseTen",
+      "run_dir": "runs/aiwf_medium_context/20260806T084936_zai-org_GLM-5.2_e2e5e9fb"
+    },
+    {
+      "billed_token_counts": {
+        "cache_write_5m": 19113,
+        "cached_input": 487644,
+        "output": 4576,
+        "uncached_input": 180
+      },
+      "billing_mode": "tokens",
+      "cost_components_usd": {
+        "cache_write_5m": 0.02389125,
+        "cached_input": 0.0487644,
+        "output": 0.02288,
+        "uncached_input": 0.00018
+      },
+      "estimated_conversation_minutes_150wpm": 18.133,
+      "estimated_cost_per_conversation_minute_usd": 0.00527853,
+      "estimated_sample_cost_usd": 0.09571565,
+      "key": "haiku45",
+      "label": "claude-haiku-4-5",
+      "model": "claude-haiku-4-5",
+      "pricing_notes": "Uses the separate five-minute prompt-cache write rate.",
+      "pricing_source": "https://platform.claude.com/docs/en/about-claude/pricing",
+      "provider": "Anthropic",
+      "run_dir": "runs/aiwf_medium_context/20260806T084616_claude-haiku-4-5_4d252a64"
+    },
+    {
+      "billed_token_counts": {
+        "cache_write_5m": 0,
+        "cached_input": 460544,
+        "output": 5594,
+        "uncached_input": 20807
+      },
+      "billing_mode": "tokens",
+      "cost_components_usd": {
+        "cache_write_5m": 0.0,
+        "cached_input": 0.057568,
+        "output": 0.05594,
+        "uncached_input": 0.02600875
+      },
+      "estimated_conversation_minutes_150wpm": 22.153,
+      "estimated_cost_per_conversation_minute_usd": 0.00629787,
+      "estimated_sample_cost_usd": 0.13951675,
+      "key": "gpt51",
+      "label": "gpt-5.1",
+      "model": "gpt-5.1",
+      "pricing_notes": "Standard processing.",
+      "pricing_source": "https://developers.openai.com/api/docs/models/gpt-5.1",
+      "provider": "OpenAI",
+      "run_dir": "runs/aiwf_medium_context/20260806T083608_gpt-5.1_f75bfc75"
+    },
+    {
+      "billed_token_counts": {
+        "cache_write_5m": 0,
+        "cached_input": 374182,
+        "output": 2049,
+        "uncached_input": 14052
+      },
+      "billing_mode": "tokens",
+      "cost_components_usd": {
+        "cache_write_5m": 0.0,
+        "cached_input": 0.0935455,
+        "output": 0.030735,
+        "uncached_input": 0.03513
+      },
+      "estimated_conversation_minutes_150wpm": 6.92,
+      "estimated_cost_per_conversation_minute_usd": 0.0230362,
+      "estimated_sample_cost_usd": 0.1594105,
+      "key": "terra_medium",
+      "label": "gpt-5.6-terra (medium)",
+      "model": "gpt-5.6-terra",
+      "pricing_notes": "Reasoning effort does not change the token rate.",
+      "pricing_source": "https://developers.openai.com/api/docs/models/gpt-5.6-terra",
+      "provider": "OpenAI",
+      "run_dir": "runs/aiwf_medium_context/20260806T083737_gpt-5.6-terra_a646f070"
+    },
+    {
+      "billed_token_counts": {
+        "cache_write_5m": 0,
+        "cached_input": 381952,
+        "output": 2053,
+        "uncached_input": 45342
+      },
+      "billing_mode": "tokens",
+      "cost_components_usd": {
+        "cache_write_5m": 0.0,
+        "cached_input": 0.190976,
+        "output": 0.06159,
+        "uncached_input": 0.22671
+      },
+      "estimated_conversation_minutes_150wpm": 9.607,
+      "estimated_cost_per_conversation_minute_usd": 0.04988821,
+      "estimated_sample_cost_usd": 0.479276,
+      "key": "gpt55_none",
+      "label": "gpt-5.5 (none)",
+      "model": "gpt-5.5",
+      "pricing_notes": "Standard tier; each request is below the 272K-input long-context threshold.",
+      "pricing_source": "https://developers.openai.com/api/docs/models/gpt-5.5",
+      "provider": "OpenAI",
+      "run_dir": "runs/aiwf_medium_context/20260806T082003_gpt-5.5_16467539"
+    },
+    {
+      "billed_token_counts": {
+        "cache_write_5m": null,
+        "cached_input": null,
+        "output": null,
+        "uncached_input": null
+      },
+      "billing_mode": "active_gpu_conversation_minute",
+      "cost_components_usd": {
+        "active_gpu_compute": 1.32888411
+      },
+      "estimated_conversation_minutes_150wpm": 12.267,
+      "estimated_cost_per_conversation_minute_usd": 0.10833,
+      "estimated_sample_cost_usd": 1.32888411,
+      "key": "qwen36_27",
+      "label": "qwen3.6-27b (thinking off)",
+      "model": "Qwen/Qwen3.6-27B",
+      "pricing_notes": "Dedicated deployment at approximately $6.50 per active GPU-hour.",
+      "pricing_source": "https://docs.baseten.co/deployment/resources",
+      "provider": "BaseTen",
+      "run_dir": "runs/aiwf_medium_context/20260806T084913_Qwen_Qwen3.6-27B_d7928f1e",
+      "utilization_assumption": {
+        "accelerator": "1x H100",
+        "active_conversations": 1,
+        "excluded": "cold-start and idle scale-down time",
+        "scope": "active estimated conversation minutes only"
+      }
+    },
+    {
+      "billed_token_counts": {
+        "cache_write_5m": 0,
+        "cached_input": 233527,
+        "output": 1651,
+        "uncached_input": 191071
+      },
+      "billing_mode": "tokens",
+      "cost_components_usd": {
+        "cache_write_5m": 0.0,
+        "cached_input": 0.03502905,
+        "output": 0.0123825,
+        "uncached_input": 0.2866065
+      },
+      "estimated_conversation_minutes_150wpm": 8.02,
+      "estimated_cost_per_conversation_minute_usd": 0.04164814,
+      "estimated_sample_cost_usd": 0.33401805,
+      "key": "gemini36",
+      "label": "gemini-3.6-flash (minimal)",
+      "model": "gemini-3.6-flash",
+      "pricing_notes": "Standard paid Gemini Developer API; explicit cache storage is excluded.",
+      "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+      "provider": "AI Studio",
+      "run_dir": "runs/aiwf_medium_context/20260806T085314_gemini-3.6-flash_483a3e95"
+    },
+    {
+      "billed_token_counts": {
+        "cache_write_5m": 0,
+        "cached_input": 382976,
+        "output": 2641,
+        "uncached_input": 29973
+      },
+      "billing_mode": "tokens",
+      "cost_components_usd": {
+        "cache_write_5m": 0.0,
+        "cached_input": 0.095744,
+        "output": 0.039615,
+        "uncached_input": 0.0749325
+      },
+      "estimated_conversation_minutes_150wpm": 10.327,
+      "estimated_cost_per_conversation_minute_usd": 0.02036327,
+      "estimated_sample_cost_usd": 0.2102915,
+      "key": "gpt54_low",
+      "label": "gpt-5.4 (low)",
+      "model": "gpt-5.4",
+      "pricing_notes": "Standard tier; each request is below the 272K-input long-context threshold.",
+      "pricing_source": "https://developers.openai.com/api/docs/models/gpt-5.4",
+      "provider": "OpenAI",
+      "run_dir": "runs/aiwf_medium_context/20260806T083858_gpt-5.4_7ebb8ac3"
+    },
+    {
+      "billed_token_counts": {
+        "cache_write_5m": 0,
+        "cached_input": 387089,
+        "output": 1465,
+        "uncached_input": 14072
+      },
+      "billing_mode": "tokens",
+      "cost_components_usd": {
+        "cache_write_5m": 0.0,
+        "cached_input": 0.1935445,
+        "output": 0.04395,
+        "uncached_input": 0.07036
+      },
+      "estimated_conversation_minutes_150wpm": 7.2,
+      "estimated_cost_per_conversation_minute_usd": 0.04275757,
+      "estimated_sample_cost_usd": 0.3078545,
+      "key": "sol_none",
+      "label": "gpt-5.6-sol (none)",
+      "model": "gpt-5.6-sol",
+      "pricing_notes": "Standard non-Pro Sol model.",
+      "pricing_source": "https://developers.openai.com/api/docs/models/gpt-5.6-sol",
+      "provider": "OpenAI",
+      "run_dir": "runs/aiwf_medium_context/20260806T084011_gpt-5.6-sol_d99b3147"
+    },
+    {
+      "billed_token_counts": {
+        "cache_write_5m": 0,
+        "cached_input": 409984,
+        "output": 2615,
+        "uncached_input": 27648
+      },
+      "billing_mode": "tokens",
+      "cost_components_usd": {
+        "cache_write_5m": 0.0,
+        "cached_input": 0.204992,
+        "output": 0.02092,
+        "uncached_input": 0.055296
+      },
+      "estimated_conversation_minutes_150wpm": 13.287,
+      "estimated_cost_per_conversation_minute_usd": 0.02116415,
+      "estimated_sample_cost_usd": 0.281208,
+      "key": "gpt41",
+      "label": "gpt-4.1",
+      "model": "gpt-4.1",
+      "pricing_notes": "Standard processing.",
+      "pricing_source": "https://developers.openai.com/api/docs/models/gpt-4.1",
+      "provider": "OpenAI",
+      "run_dir": "runs/aiwf_medium_context/20260806T083353_gpt-4.1_cf38fb0c"
+    },
+    {
+      "billed_token_counts": {
+        "cache_write_5m": 0,
+        "cached_input": 380928,
+        "output": 2111,
+        "uncached_input": 37601
+      },
+      "billing_mode": "tokens",
+      "cost_components_usd": {
+        "cache_write_5m": 0.0,
+        "cached_input": 0.095232,
+        "output": 0.031665,
+        "uncached_input": 0.0940025
+      },
+      "estimated_conversation_minutes_150wpm": 10.793,
+      "estimated_cost_per_conversation_minute_usd": 0.02046692,
+      "estimated_sample_cost_usd": 0.2208995,
+      "key": "gpt54_none_dots",
+      "label": "gpt-5.4 (none, +96 dots)",
+      "model": "gpt-5.4",
+      "pricing_notes": "Standard tier; filler changes consumption, not the token rate.",
+      "pricing_source": "https://developers.openai.com/api/docs/models/gpt-5.4",
+      "provider": "OpenAI",
+      "run_dir": "runs/aiwf_medium_context/20260806T084312_gpt-5.4_843b8e98"
+    },
+    {
+      "billed_token_counts": {
+        "cache_write_5m": 0,
+        "cached_input": 398368,
+        "output": 1876,
+        "uncached_input": 28286
+      },
+      "billing_mode": "tokens",
+      "cost_components_usd": {
+        "cache_write_5m": 0.0,
+        "cached_input": 0.06772256,
+        "output": 0.0075978,
+        "uncached_input": 0.028286
+      },
+      "estimated_conversation_minutes_150wpm": 8.873,
+      "estimated_cost_per_conversation_minute_usd": 0.01167659,
+      "estimated_sample_cost_usd": 0.10360636,
+      "key": "inkling_none",
+      "label": "inkling (none)",
+      "model": "thinkingmachines/inkling",
+      "pricing_notes": "BaseTen Model API rate.",
+      "pricing_source": "https://www.baseten.co/pricing/",
+      "provider": "BaseTen",
+      "run_dir": "runs/aiwf_medium_context/20260806T085118_thinkingmachines_inkling_4cfc9e3b"
+    },
+    {
+      "billed_token_counts": {
+        "cache_write_5m": 0,
+        "cached_input": 412032,
+        "output": 2225,
+        "uncached_input": 16420
+      },
+      "billing_mode": "tokens",
+      "cost_components_usd": {
+        "cache_write_5m": 0.0,
+        "cached_input": 0.51504,
+        "output": 0.02225,
+        "uncached_input": 0.04105
+      },
+      "estimated_conversation_minutes_150wpm": 11.347,
+      "estimated_cost_per_conversation_minute_usd": 0.05096854,
+      "estimated_sample_cost_usd": 0.57834,
+      "key": "gpt4o",
+      "label": "gpt-4o",
+      "model": "gpt-4o",
+      "pricing_notes": "Standard processing.",
+      "pricing_source": "https://developers.openai.com/api/docs/models/gpt-4o",
+      "provider": "OpenAI",
+      "run_dir": "runs/aiwf_medium_context/20260806T084436_gpt-4o_3e8bf5ec"
+    },
+    {
+      "billed_token_counts": {
+        "cache_write_5m": 0,
+        "cached_input": 385600,
+        "output": 2244,
+        "uncached_input": 39899
+      },
+      "billing_mode": "tokens",
+      "cost_components_usd": {
+        "cache_write_5m": 0.0,
+        "cached_input": 0.061696,
+        "output": 0.008976,
+        "uncached_input": 0.03790405
+      },
+      "estimated_conversation_minutes_150wpm": 12.113,
+      "estimated_cost_per_conversation_minute_usd": 0.0089636,
+      "estimated_sample_cost_usd": 0.10857605,
+      "key": "kimi26_none",
+      "label": "kimi-k2.6 (thinking off)",
+      "model": "moonshotai/Kimi-K2.6",
+      "pricing_notes": "BaseTen Model API model moonshotai/Kimi-K2.6; current README replacement row.",
+      "pricing_source": "https://www.baseten.co/pricing/",
+      "provider": "BaseTen",
+      "run_dir": "runs/aiwf_medium_context/20260806T091743_moonshotai_Kimi-K2.6_fba32308"
+    },
+    {
+      "billed_token_counts": {
+        "cache_write_5m": 0,
+        "cached_input": 233607,
+        "output": 2332,
+        "uncached_input": 201520
+      },
+      "billing_mode": "tokens",
+      "cost_components_usd": {
+        "cache_write_5m": 0.0,
+        "cached_input": 0.03504105,
+        "output": 0.020988,
+        "uncached_input": 0.30228
+      },
+      "estimated_conversation_minutes_150wpm": 11.387,
+      "estimated_cost_per_conversation_minute_usd": 0.0314665,
+      "estimated_sample_cost_usd": 0.35830905,
+      "key": "gemini35",
+      "label": "gemini-3.5-flash (minimal)",
+      "model": "gemini-3.5-flash",
+      "pricing_notes": "Standard paid Gemini Developer API; explicit cache storage is excluded.",
+      "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+      "provider": "AI Studio",
+      "run_dir": "runs/aiwf_medium_context/20260806T085350_gemini-3.5-flash_3545a83d"
+    },
+    {
+      "billed_token_counts": {
+        "cache_write_5m": 24995,
+        "cached_input": 712286,
+        "output": 4546,
+        "uncached_input": 128
+      },
+      "billing_mode": "tokens",
+      "cost_components_usd": {
+        "cache_write_5m": 0.0624875,
+        "cached_input": 0.1424572,
+        "output": 0.04546,
+        "uncached_input": 0.000256
+      },
+      "estimated_conversation_minutes_150wpm": 12.473,
+      "estimated_cost_per_conversation_minute_usd": 0.02009626,
+      "estimated_sample_cost_usd": 0.2506607,
+      "key": "sonnet5",
+      "label": "claude-sonnet-5",
+      "model": "claude-sonnet-5",
+      "pricing_notes": "Introductory rate through 2026-08-31; uses the five-minute cache-write rate.",
+      "pricing_source": "https://platform.claude.com/docs/en/about-claude/pricing",
+      "provider": "Anthropic",
+      "run_dir": "runs/aiwf_medium_context/20260806T084735_claude-sonnet-5_414eabac"
+    },
+    {
+      "billed_token_counts": {
+        "cache_write_5m": null,
+        "cached_input": null,
+        "output": null,
+        "uncached_input": null
+      },
+      "billing_mode": "active_gpu_conversation_minute",
+      "cost_components_usd": {
+        "active_gpu_compute": 1.68485649
+      },
+      "estimated_conversation_minutes_150wpm": 15.553,
+      "estimated_cost_per_conversation_minute_usd": 0.10833,
+      "estimated_sample_cost_usd": 1.68485649,
+      "key": "qwen36_35",
+      "label": "qwen3.6-35b-a3b (thinking off, FP8)",
+      "model": "Qwen/Qwen3.6-35B-A3B-FP8",
+      "pricing_notes": "Dedicated deployment at approximately $6.50 per active GPU-hour.",
+      "pricing_source": "https://docs.baseten.co/deployment/resources",
+      "provider": "BaseTen",
+      "run_dir": "runs/aiwf_medium_context/20260806T090616_Qwen_Qwen3.6-35B-A3B-FP8_cd7e7f24",
+      "utilization_assumption": {
+        "accelerator": "1x H100",
+        "active_conversations": 1,
+        "excluded": "cold-start and idle scale-down time",
+        "scope": "active estimated conversation minutes only"
+      }
+    },
+    {
+      "billed_token_counts": {
+        "cache_write_5m": 0,
+        "cached_input": 413249,
+        "output": 1485,
+        "uncached_input": 14118
+      },
+      "billing_mode": "tokens",
+      "cost_components_usd": {
+        "cache_write_5m": 0.0,
+        "cached_input": 0.10331225,
+        "output": 0.022275,
+        "uncached_input": 0.035295
+      },
+      "estimated_conversation_minutes_150wpm": 7.327,
+      "estimated_cost_per_conversation_minute_usd": 0.02195745,
+      "estimated_sample_cost_usd": 0.16088225,
+      "key": "terra_none",
+      "label": "gpt-5.6-terra (none)",
+      "model": "gpt-5.6-terra",
+      "pricing_notes": "Reasoning effort does not change the token rate.",
+      "pricing_source": "https://developers.openai.com/api/docs/models/gpt-5.6-terra",
+      "provider": "OpenAI",
+      "run_dir": "runs/aiwf_medium_context/20260806T084526_gpt-5.6-terra_049bd0b1"
+    },
+    {
+      "billed_token_counts": {
+        "cache_write_5m": 0,
+        "cached_input": 433152,
+        "output": 1965,
+        "uncached_input": 21356
+      },
+      "billing_mode": "tokens",
+      "cost_components_usd": {
+        "cache_write_5m": 0.0,
+        "cached_input": 0.108288,
+        "output": 0.029475,
+        "uncached_input": 0.05339
+      },
+      "estimated_conversation_minutes_150wpm": 10.587,
+      "estimated_cost_per_conversation_minute_usd": 0.01805545,
+      "estimated_sample_cost_usd": 0.191153,
+      "key": "gpt54_none",
+      "label": "gpt-5.4 (none)",
+      "model": "gpt-5.4",
+      "pricing_notes": "Standard tier; each request is below the 272K-input long-context threshold.",
+      "pricing_source": "https://developers.openai.com/api/docs/models/gpt-5.4",
+      "provider": "OpenAI",
+      "run_dir": "runs/aiwf_medium_context/20260806T084835_gpt-5.4_0642fd08"
+    },
+    {
+      "billed_token_counts": {
+        "cache_write_5m": 0,
+        "cached_input": 283767,
+        "output": 1727,
+        "uncached_input": 181619
+      },
+      "billing_mode": "tokens",
+      "cost_components_usd": {
+        "cache_write_5m": 0.0,
+        "cached_input": 0.00851301,
+        "output": 0.0043175,
+        "uncached_input": 0.0544857
+      },
+      "estimated_conversation_minutes_150wpm": 9.573,
+      "estimated_cost_per_conversation_minute_usd": 0.00703188,
+      "estimated_sample_cost_usd": 0.06731621,
+      "key": "gemini25",
+      "label": "gemini-2.5-flash (thinking off)",
+      "model": "gemini-2.5-flash",
+      "pricing_notes": "Text-input paid rate; explicit cache storage is excluded.",
+      "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+      "provider": "AI Studio",
+      "run_dir": "runs/aiwf_medium_context/20260806T085440_gemini-2.5-flash_a6ebce8f"
+    },
+    {
+      "billed_token_counts": {
+        "cache_write_5m": 0,
+        "cached_input": 447872,
+        "output": 2447,
+        "uncached_input": 16079
+      },
+      "billing_mode": "tokens",
+      "cost_components_usd": {
+        "cache_write_5m": 0.0,
+        "cached_input": 0.0783776,
+        "output": 0.034258,
+        "uncached_input": 0.02813825
+      },
+      "estimated_conversation_minutes_150wpm": 10.667,
+      "estimated_cost_per_conversation_minute_usd": 0.01319714,
+      "estimated_sample_cost_usd": 0.14077385,
+      "key": "gpt52",
+      "label": "gpt-5.2",
+      "model": "gpt-5.2",
+      "pricing_notes": "Standard processing.",
+      "pricing_source": "https://developers.openai.com/api/docs/models/gpt-5.2",
+      "provider": "OpenAI",
+      "run_dir": "runs/aiwf_medium_context/20260806T084954_gpt-5.2_b1abc574"
+    },
+    {
+      "billed_token_counts": {
+        "cache_write_5m": 0,
+        "cached_input": 426070,
+        "output": 1472,
+        "uncached_input": 14067
+      },
+      "billing_mode": "tokens",
+      "cost_components_usd": {
+        "cache_write_5m": 0.0,
+        "cached_input": 0.042607,
+        "output": 0.008832,
+        "uncached_input": 0.014067
+      },
+      "estimated_conversation_minutes_150wpm": 7.913,
+      "estimated_cost_per_conversation_minute_usd": 0.00827828,
+      "estimated_sample_cost_usd": 0.065506,
+      "key": "luna_none",
+      "label": "gpt-5.6-luna (none)",
+      "model": "gpt-5.6-luna",
+      "pricing_notes": "Reasoning effort does not change the token rate.",
+      "pricing_source": "https://developers.openai.com/api/docs/models/gpt-5.6-luna",
+      "provider": "OpenAI",
+      "run_dir": "runs/aiwf_medium_context/20260806T085106_gpt-5.6-luna_78e83341"
+    },
+    {
+      "billed_token_counts": {
+        "cache_write_5m": 0,
+        "cached_input": 232192,
+        "output": 6563,
+        "uncached_input": 262278
+      },
+      "billing_mode": "tokens",
+      "cost_components_usd": {
+        "cache_write_5m": 0.0,
+        "cached_input": 0.0174144,
+        "output": 0.0039378,
+        "uncached_input": 0.0393417
+      },
+      "estimated_conversation_minutes_150wpm": 17.34,
+      "estimated_cost_per_conversation_minute_usd": 0.00350022,
+      "estimated_sample_cost_usd": 0.0606939,
+      "key": "gptoss_groq",
+      "label": "gpt-oss-120b (groq)",
+      "model": "openai/gpt-oss-120b",
+      "pricing_notes": "Groq production model rate; OpenAI-compatible prompt total includes cached input.",
+      "pricing_source": "https://console.groq.com/docs/model/openai/gpt-oss-120b",
+      "provider": "Groq",
+      "run_dir": "runs/aiwf_medium_context/20260806T085942_openai_gpt-oss-120b_0f174486"
+    },
+    {
+      "billed_token_counts": {
+        "cache_write_5m": 0,
+        "cached_input": 504320,
+        "output": 3005,
+        "uncached_input": 31594
+      },
+      "billing_mode": "tokens",
+      "cost_components_usd": {
+        "cache_write_5m": 0.0,
+        "cached_input": 0.0050432,
+        "output": 0.000601,
+        "uncached_input": 0.0031594
+      },
+      "estimated_conversation_minutes_150wpm": 14.12,
+      "estimated_cost_per_conversation_minute_usd": 0.00062348,
+      "estimated_sample_cost_usd": 0.0088036,
+      "key": "laguna",
+      "label": "poolside/laguna-s-2.1 (thinking off)",
+      "model": "poolside/laguna-s-2.1",
+      "pricing_notes": "Poolside list rate through OpenRouter.",
+      "pricing_source": "https://openrouter.ai/poolside/laguna-s-2.1",
+      "provider": "OpenRouter",
+      "run_dir": "runs/aiwf_medium_context/20260806T090024_poolside_laguna-s-2.1_84846e95"
+    },
+    {
+      "billed_token_counts": {
+        "cache_write_5m": 0,
+        "cached_input": 188544,
+        "output": 2107,
+        "uncached_input": 269029
+      },
+      "billing_mode": "tokens",
+      "cost_components_usd": {
+        "cache_write_5m": 0.0,
+        "cached_input": 0.0188544,
+        "output": 0.0033712,
+        "uncached_input": 0.1076116
+      },
+      "estimated_conversation_minutes_150wpm": 12.353,
+      "estimated_cost_per_conversation_minute_usd": 0.01051058,
+      "estimated_sample_cost_usd": 0.1298372,
+      "key": "gpt41mini",
+      "label": "gpt-4.1-mini",
+      "model": "gpt-4.1-mini",
+      "pricing_notes": "Standard processing.",
+      "pricing_source": "https://developers.openai.com/api/docs/models/gpt-4.1-mini",
+      "provider": "OpenAI",
+      "run_dir": "runs/aiwf_medium_context/20260806T085218_gpt-4.1-mini_36bc4f88"
+    },
+    {
+      "billed_token_counts": {
+        "cache_write_5m": 0,
+        "cached_input": 464000,
+        "output": 3541,
+        "uncached_input": 21939
+      },
+      "billing_mode": "tokens",
+      "cost_components_usd": {
+        "cache_write_5m": 0.0,
+        "cached_input": 0.0116,
+        "output": 0.007082,
+        "uncached_input": 0.00548475
+      },
+      "estimated_conversation_minutes_150wpm": 16.227,
+      "estimated_cost_per_conversation_minute_usd": 0.00148929,
+      "estimated_sample_cost_usd": 0.02416675,
+      "key": "gpt5mini",
+      "label": "gpt-5-mini",
+      "model": "gpt-5-mini",
+      "pricing_notes": "Standard processing.",
+      "pricing_source": "https://developers.openai.com/api/docs/models/gpt-5-mini",
+      "provider": "OpenAI",
+      "run_dir": "runs/aiwf_medium_context/20260806T085408_gpt-5-mini_78fdf1f6"
+    },
+    {
+      "billed_token_counts": {
+        "cache_write_5m": 0,
+        "cached_input": 416256,
+        "output": 2233,
+        "uncached_input": 14935
+      },
+      "billing_mode": "tokens",
+      "cost_components_usd": {
+        "cache_write_5m": 0.0,
+        "cached_input": 0.0312192,
+        "output": 0.0013398,
+        "uncached_input": 0.00224025
+      },
+      "estimated_conversation_minutes_150wpm": 11.193,
+      "estimated_cost_per_conversation_minute_usd": 0.00310902,
+      "estimated_sample_cost_usd": 0.03479925,
+      "key": "gpt4omini",
+      "label": "gpt-4o-mini",
+      "model": "gpt-4o-mini",
+      "pricing_notes": "Standard processing.",
+      "pricing_source": "https://developers.openai.com/api/docs/models/gpt-4o-mini",
+      "provider": "OpenAI",
+      "run_dir": "runs/aiwf_medium_context/20260806T085659_gpt-4o-mini_c7b45030"
+    },
+    {
+      "billed_token_counts": {
+        "cache_write_5m": null,
+        "cached_input": null,
+        "output": null,
+        "uncached_input": null
+      },
+      "billing_mode": "active_gpu_conversation_minute",
+      "cost_components_usd": {
+        "active_gpu_compute": 1.9131078
+      },
+      "estimated_conversation_minutes_150wpm": 17.66,
+      "estimated_cost_per_conversation_minute_usd": 0.10833,
+      "estimated_sample_cost_usd": 1.9131078,
+      "key": "qwen3_8b",
+      "label": "qwen3-8b (thinking off, BaseTen)",
+      "model": "qwen/qwen3-8b",
+      "pricing_notes": "Dedicated deployment at approximately $6.50 per active GPU-hour.",
+      "pricing_source": "https://docs.baseten.co/deployment/resources",
+      "provider": "BaseTen",
+      "run_dir": "runs/aiwf_medium_context/20260806T091307_qwen_qwen3-8b_f18ed148",
+      "utilization_assumption": {
+        "accelerator": "1x H100",
+        "active_conversations": 1,
+        "excluded": "cold-start and idle scale-down time",
+        "scope": "active estimated conversation minutes only"
+      }
+    },
+    {
+      "billed_token_counts": {
+        "cache_write_5m": null,
+        "cached_input": null,
+        "output": null,
+        "uncached_input": null
+      },
+      "billing_mode": "active_gpu_conversation_minute",
+      "cost_components_usd": {
+        "active_gpu_compute": 1.37871591
+      },
+      "estimated_conversation_minutes_150wpm": 12.727,
+      "estimated_cost_per_conversation_minute_usd": 0.10833,
+      "estimated_sample_cost_usd": 1.37871591,
+      "key": "gemma426",
+      "label": "gemma-4-26b-a4b-it (thinking off)",
+      "model": "google/gemma-4-26B-A4B-it",
+      "pricing_notes": "Dedicated deployment at approximately $6.50 per active GPU-hour.",
+      "pricing_source": "https://docs.baseten.co/deployment/resources",
+      "provider": "BaseTen",
+      "run_dir": "runs/aiwf_medium_context/20260806T092333_google_gemma-4-26B-A4B-it_54dc9f77",
+      "utilization_assumption": {
+        "accelerator": "1x H100",
+        "active_conversations": 1,
+        "excluded": "cold-start and idle scale-down time",
+        "scope": "active estimated conversation minutes only"
+      }
+    },
+    {
+      "billed_token_counts": {
+        "cache_write_5m": 0,
+        "cached_input": 0,
+        "output": 2033,
+        "uncached_input": 444970
+      },
+      "billing_mode": "tokens",
+      "cost_components_usd": {
+        "cache_write_5m": 0.0,
+        "cached_input": 0.0,
+        "output": 0.0050825,
+        "uncached_input": 0.133491
+      },
+      "estimated_conversation_minutes_150wpm": 9.787,
+      "estimated_cost_per_conversation_minute_usd": 0.01415894,
+      "estimated_sample_cost_usd": 0.1385735,
+      "key": "gemini35lite",
+      "label": "gemini-3.5-flash-lite (minimal)",
+      "model": "gemini-3.5-flash-lite",
+      "pricing_notes": "Standard paid Gemini Developer API; explicit cache storage is excluded.",
+      "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+      "provider": "AI Studio",
+      "run_dir": "runs/aiwf_medium_context/20260806T083414_gemini-3.5-flash-lite_7db73e40"
+    }
+  ],
+  "included_completed_conversations": 33,
+  "pricing_as_of": "2026-08-06",
+  "schema_version": 1,
+  "usage_sample_date": "2026-08-06"
+}

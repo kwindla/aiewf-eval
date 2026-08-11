@@ -1,0 +1,435 @@
+{
+  "schema_version": 1,
+  "pricing_as_of": "2026-08-06",
+  "usage_sample_date": "2026-08-06",
+  "currency": "USD",
+  "conversation_minutes_method": "actual user plus assistant words divided by 150 words per minute",
+  "global_assumptions": [
+    "Token rates are standard synchronous paid-API list prices, in USD per one million tokens.",
+    "The OpenAI GPT-5.4 and GPT-5.5 long-context surcharge is per request, not based on the sum across a conversation. Every request in this medium-context sample is below the 272,000-input-token threshold, so standard rates apply.",
+    "Completion token counters already include any billed reasoning tokens; thinking_tokens is diagnostic and is not added a second time.",
+    "Google explicit cache-storage charges are excluded because cache residence duration is not present in usage-results.json.",
+    "Dedicated BaseTen deployments are estimated from active accelerator time with one active conversation, excluding cold-start and idle scale-down overhead."
+  ],
+  "models": {
+    "sonnet46": {
+      "provider": "Anthropic",
+      "billing_mode": "tokens",
+      "token_accounting": "prompt_excludes_cache_reads_and_writes",
+      "rates_usd_per_million_tokens": {
+        "input": 3.0,
+        "cached_input": 0.3,
+        "cache_write_5m": 3.75,
+        "output": 15.0
+      },
+      "source": "https://platform.claude.com/docs/en/about-claude/pricing",
+      "notes": "Uses the separate five-minute prompt-cache write rate."
+    },
+    "fable5_low": {
+      "provider": "Anthropic",
+      "billing_mode": "tokens",
+      "token_accounting": "prompt_excludes_cache_reads_and_writes",
+      "rates_usd_per_million_tokens": {
+        "input": 10.0,
+        "cached_input": 1.0,
+        "cache_write_5m": 12.5,
+        "output": 50.0
+      },
+      "source": "https://platform.claude.com/docs/en/about-claude/pricing",
+      "notes": "Low effort does not change the token rate; uses the five-minute cache-write rate."
+    },
+    "fable5_default": {
+      "provider": "Anthropic",
+      "billing_mode": "tokens",
+      "token_accounting": "prompt_excludes_cache_reads_and_writes",
+      "rates_usd_per_million_tokens": {
+        "input": 10.0,
+        "cached_input": 1.0,
+        "cache_write_5m": 12.5,
+        "output": 50.0
+      },
+      "source": "https://platform.claude.com/docs/en/about-claude/pricing",
+      "notes": "Uses the five-minute cache-write rate."
+    },
+    "glm52_none": {
+      "provider": "BaseTen",
+      "billing_mode": "tokens",
+      "token_accounting": "prompt_includes_cache_reads",
+      "rates_usd_per_million_tokens": {
+        "input": 1.4,
+        "cached_input": 0.14,
+        "output": 4.4
+      },
+      "source": "https://www.baseten.co/pricing/",
+      "notes": "BaseTen Model API rate."
+    },
+    "haiku45": {
+      "provider": "Anthropic",
+      "billing_mode": "tokens",
+      "token_accounting": "prompt_excludes_cache_reads_and_writes",
+      "rates_usd_per_million_tokens": {
+        "input": 1.0,
+        "cached_input": 0.1,
+        "cache_write_5m": 1.25,
+        "output": 5.0
+      },
+      "source": "https://platform.claude.com/docs/en/about-claude/pricing",
+      "notes": "Uses the separate five-minute prompt-cache write rate."
+    },
+    "gpt51": {
+      "provider": "OpenAI",
+      "billing_mode": "tokens",
+      "token_accounting": "prompt_includes_cache_reads",
+      "rates_usd_per_million_tokens": {
+        "input": 1.25,
+        "cached_input": 0.125,
+        "output": 10.0
+      },
+      "source": "https://developers.openai.com/api/docs/models/gpt-5.1",
+      "notes": "Standard processing."
+    },
+    "terra_medium": {
+      "provider": "OpenAI",
+      "billing_mode": "tokens",
+      "token_accounting": "prompt_includes_cache_reads",
+      "rates_usd_per_million_tokens": {
+        "input": 2.5,
+        "cached_input": 0.25,
+        "output": 15.0
+      },
+      "source": "https://developers.openai.com/api/docs/models/gpt-5.6-terra",
+      "notes": "Reasoning effort does not change the token rate."
+    },
+    "gpt55_none": {
+      "provider": "OpenAI",
+      "billing_mode": "tokens",
+      "token_accounting": "prompt_includes_cache_reads",
+      "rates_usd_per_million_tokens": {
+        "input": 5.0,
+        "cached_input": 0.5,
+        "output": 30.0
+      },
+      "source": "https://developers.openai.com/api/docs/models/gpt-5.5",
+      "notes": "Standard tier; each request is below the 272K-input long-context threshold."
+    },
+    "qwen36_27": {
+      "provider": "BaseTen",
+      "billing_mode": "active_gpu_conversation_minute",
+      "active_compute_usd_per_minute": 0.10833,
+      "utilization_assumption": {
+        "accelerator": "1x H100",
+        "active_conversations": 1,
+        "scope": "active estimated conversation minutes only",
+        "excluded": "cold-start and idle scale-down time"
+      },
+      "source": "https://docs.baseten.co/deployment/resources",
+      "notes": "Dedicated deployment at approximately $6.50 per active GPU-hour."
+    },
+    "gemini36": {
+      "provider": "Google AI Studio",
+      "billing_mode": "tokens",
+      "token_accounting": "prompt_includes_cache_reads",
+      "rates_usd_per_million_tokens": {
+        "input": 1.5,
+        "cached_input": 0.15,
+        "output": 7.5
+      },
+      "source": "https://ai.google.dev/gemini-api/docs/pricing",
+      "notes": "Standard paid Gemini Developer API; explicit cache storage is excluded."
+    },
+    "gpt54_low": {
+      "provider": "OpenAI",
+      "billing_mode": "tokens",
+      "token_accounting": "prompt_includes_cache_reads",
+      "rates_usd_per_million_tokens": {
+        "input": 2.5,
+        "cached_input": 0.25,
+        "output": 15.0
+      },
+      "source": "https://developers.openai.com/api/docs/models/gpt-5.4",
+      "notes": "Standard tier; each request is below the 272K-input long-context threshold."
+    },
+    "sol_none": {
+      "provider": "OpenAI",
+      "billing_mode": "tokens",
+      "token_accounting": "prompt_includes_cache_reads",
+      "rates_usd_per_million_tokens": {
+        "input": 5.0,
+        "cached_input": 0.5,
+        "output": 30.0
+      },
+      "source": "https://developers.openai.com/api/docs/models/gpt-5.6-sol",
+      "notes": "Standard non-Pro Sol model."
+    },
+    "gpt41": {
+      "provider": "OpenAI",
+      "billing_mode": "tokens",
+      "token_accounting": "prompt_includes_cache_reads",
+      "rates_usd_per_million_tokens": {
+        "input": 2.0,
+        "cached_input": 0.5,
+        "output": 8.0
+      },
+      "source": "https://developers.openai.com/api/docs/models/gpt-4.1",
+      "notes": "Standard processing."
+    },
+    "gpt54_none_dots": {
+      "provider": "OpenAI",
+      "billing_mode": "tokens",
+      "token_accounting": "prompt_includes_cache_reads",
+      "rates_usd_per_million_tokens": {
+        "input": 2.5,
+        "cached_input": 0.25,
+        "output": 15.0
+      },
+      "source": "https://developers.openai.com/api/docs/models/gpt-5.4",
+      "notes": "Standard tier; filler changes consumption, not the token rate."
+    },
+    "inkling_none": {
+      "provider": "BaseTen",
+      "billing_mode": "tokens",
+      "token_accounting": "prompt_includes_cache_reads",
+      "rates_usd_per_million_tokens": {
+        "input": 1.0,
+        "cached_input": 0.17,
+        "output": 4.05
+      },
+      "source": "https://www.baseten.co/pricing/",
+      "notes": "BaseTen Model API rate."
+    },
+    "gpt4o": {
+      "provider": "OpenAI",
+      "billing_mode": "tokens",
+      "token_accounting": "prompt_includes_cache_reads",
+      "rates_usd_per_million_tokens": {
+        "input": 2.5,
+        "cached_input": 1.25,
+        "output": 10.0
+      },
+      "source": "https://developers.openai.com/api/docs/models/gpt-4o",
+      "notes": "Standard processing."
+    },
+    "gemini35": {
+      "provider": "Google AI Studio",
+      "billing_mode": "tokens",
+      "token_accounting": "prompt_includes_cache_reads",
+      "rates_usd_per_million_tokens": {
+        "input": 1.5,
+        "cached_input": 0.15,
+        "output": 9.0
+      },
+      "source": "https://ai.google.dev/gemini-api/docs/pricing",
+      "notes": "Standard paid Gemini Developer API; explicit cache storage is excluded."
+    },
+    "sonnet5": {
+      "provider": "Anthropic",
+      "billing_mode": "tokens",
+      "token_accounting": "prompt_excludes_cache_reads_and_writes",
+      "rates_usd_per_million_tokens": {
+        "input": 2.0,
+        "cached_input": 0.2,
+        "cache_write_5m": 2.5,
+        "output": 10.0
+      },
+      "source": "https://platform.claude.com/docs/en/about-claude/pricing",
+      "notes": "Introductory rate through 2026-08-31; uses the five-minute cache-write rate.",
+      "valid_through": "2026-08-31"
+    },
+    "qwen36_35": {
+      "provider": "BaseTen",
+      "billing_mode": "active_gpu_conversation_minute",
+      "active_compute_usd_per_minute": 0.10833,
+      "utilization_assumption": {
+        "accelerator": "1x H100",
+        "active_conversations": 1,
+        "scope": "active estimated conversation minutes only",
+        "excluded": "cold-start and idle scale-down time"
+      },
+      "source": "https://docs.baseten.co/deployment/resources",
+      "notes": "Dedicated deployment at approximately $6.50 per active GPU-hour."
+    },
+    "terra_none": {
+      "provider": "OpenAI",
+      "billing_mode": "tokens",
+      "token_accounting": "prompt_includes_cache_reads",
+      "rates_usd_per_million_tokens": {
+        "input": 2.5,
+        "cached_input": 0.25,
+        "output": 15.0
+      },
+      "source": "https://developers.openai.com/api/docs/models/gpt-5.6-terra",
+      "notes": "Reasoning effort does not change the token rate."
+    },
+    "gpt54_none": {
+      "provider": "OpenAI",
+      "billing_mode": "tokens",
+      "token_accounting": "prompt_includes_cache_reads",
+      "rates_usd_per_million_tokens": {
+        "input": 2.5,
+        "cached_input": 0.25,
+        "output": 15.0
+      },
+      "source": "https://developers.openai.com/api/docs/models/gpt-5.4",
+      "notes": "Standard tier; each request is below the 272K-input long-context threshold."
+    },
+    "gemini25": {
+      "provider": "Google AI Studio",
+      "billing_mode": "tokens",
+      "token_accounting": "prompt_includes_cache_reads",
+      "rates_usd_per_million_tokens": {
+        "input": 0.3,
+        "cached_input": 0.03,
+        "output": 2.5
+      },
+      "source": "https://ai.google.dev/gemini-api/docs/pricing",
+      "notes": "Text-input paid rate; explicit cache storage is excluded."
+    },
+    "gpt52": {
+      "provider": "OpenAI",
+      "billing_mode": "tokens",
+      "token_accounting": "prompt_includes_cache_reads",
+      "rates_usd_per_million_tokens": {
+        "input": 1.75,
+        "cached_input": 0.175,
+        "output": 14.0
+      },
+      "source": "https://developers.openai.com/api/docs/models/gpt-5.2",
+      "notes": "Standard processing."
+    },
+    "luna_none": {
+      "provider": "OpenAI",
+      "billing_mode": "tokens",
+      "token_accounting": "prompt_includes_cache_reads",
+      "rates_usd_per_million_tokens": {
+        "input": 1.0,
+        "cached_input": 0.1,
+        "output": 6.0
+      },
+      "source": "https://developers.openai.com/api/docs/models/gpt-5.6-luna",
+      "notes": "Reasoning effort does not change the token rate."
+    },
+    "gptoss_groq": {
+      "provider": "Groq",
+      "billing_mode": "tokens",
+      "token_accounting": "prompt_includes_cache_reads",
+      "rates_usd_per_million_tokens": {
+        "input": 0.15,
+        "cached_input": 0.075,
+        "output": 0.6
+      },
+      "source": "https://console.groq.com/docs/model/openai/gpt-oss-120b",
+      "notes": "Groq production model rate; OpenAI-compatible prompt total includes cached input."
+    },
+    "laguna": {
+      "provider": "OpenRouter",
+      "billing_mode": "tokens",
+      "token_accounting": "prompt_includes_cache_reads",
+      "rates_usd_per_million_tokens": {
+        "input": 0.1,
+        "cached_input": 0.01,
+        "output": 0.2
+      },
+      "source": "https://openrouter.ai/poolside/laguna-s-2.1",
+      "notes": "Poolside list rate through OpenRouter."
+    },
+    "gpt41mini": {
+      "provider": "OpenAI",
+      "billing_mode": "tokens",
+      "token_accounting": "prompt_includes_cache_reads",
+      "rates_usd_per_million_tokens": {
+        "input": 0.4,
+        "cached_input": 0.1,
+        "output": 1.6
+      },
+      "source": "https://developers.openai.com/api/docs/models/gpt-4.1-mini",
+      "notes": "Standard processing."
+    },
+    "gpt5mini": {
+      "provider": "OpenAI",
+      "billing_mode": "tokens",
+      "token_accounting": "prompt_includes_cache_reads",
+      "rates_usd_per_million_tokens": {
+        "input": 0.25,
+        "cached_input": 0.025,
+        "output": 2.0
+      },
+      "source": "https://developers.openai.com/api/docs/models/gpt-5-mini",
+      "notes": "Standard processing."
+    },
+    "gpt4omini": {
+      "provider": "OpenAI",
+      "billing_mode": "tokens",
+      "token_accounting": "prompt_includes_cache_reads",
+      "rates_usd_per_million_tokens": {
+        "input": 0.15,
+        "cached_input": 0.075,
+        "output": 0.6
+      },
+      "source": "https://developers.openai.com/api/docs/models/gpt-4o-mini",
+      "notes": "Standard processing."
+    },
+    "qwen3_8b": {
+      "provider": "BaseTen",
+      "billing_mode": "active_gpu_conversation_minute",
+      "active_compute_usd_per_minute": 0.10833,
+      "utilization_assumption": {
+        "accelerator": "1x H100",
+        "active_conversations": 1,
+        "scope": "active estimated conversation minutes only",
+        "excluded": "cold-start and idle scale-down time"
+      },
+      "source": "https://docs.baseten.co/deployment/resources",
+      "notes": "Dedicated deployment at approximately $6.50 per active GPU-hour."
+    },
+    "gemma426": {
+      "provider": "BaseTen",
+      "billing_mode": "active_gpu_conversation_minute",
+      "active_compute_usd_per_minute": 0.10833,
+      "utilization_assumption": {
+        "accelerator": "1x H100",
+        "active_conversations": 1,
+        "scope": "active estimated conversation minutes only",
+        "excluded": "cold-start and idle scale-down time"
+      },
+      "source": "https://docs.baseten.co/deployment/resources",
+      "notes": "Dedicated deployment at approximately $6.50 per active GPU-hour."
+    },
+    "gemini35lite": {
+      "provider": "Google AI Studio",
+      "billing_mode": "tokens",
+      "token_accounting": "prompt_includes_cache_reads",
+      "rates_usd_per_million_tokens": {
+        "input": 0.3,
+        "cached_input": 0.03,
+        "output": 2.5
+      },
+      "source": "https://ai.google.dev/gemini-api/docs/pricing",
+      "notes": "Standard paid Gemini Developer API; explicit cache storage is excluded."
+    },
+    "kimi26_none": {
+      "provider": "BaseTen",
+      "billing_mode": "tokens",
+      "token_accounting": "prompt_includes_cache_reads",
+      "rates_usd_per_million_tokens": {
+        "input": 0.95,
+        "cached_input": 0.16,
+        "output": 4.0
+      },
+      "source": "https://www.baseten.co/pricing/",
+      "notes": "BaseTen Model API model moonshotai/Kimi-K2.6; current README replacement row."
+    },
+    "gemma431_baseten": {
+      "provider": "BaseTen",
+      "billing_mode": "active_gpu_conversation_minute",
+      "active_compute_usd_per_minute": 0.21667,
+      "utilization_assumption": {
+        "accelerator": "2x H100",
+        "active_conversations": 1,
+        "scope": "active estimated conversation minutes only",
+        "excluded": "cold-start and idle scale-down time"
+      },
+      "source": "https://docs.baseten.co/deployment/resources",
+      "notes": "Prospective Gemma 4 31B dedicated deployment at approximately $13.00 per active GPU-hour; included for the pending replacement cohort."
+    }
+  }
+}

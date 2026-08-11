@@ -1,0 +1,389 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-08-06T17:09:16+00:00",
+  "campaign_id": "aiewf-medium-baseten-kimi-k2.6-none-n30-20260806",
+  "model": "moonshotai/Kimi-K2.6",
+  "provider": "BaseTen Model API",
+  "request_signature": {
+    "endpoint": "https://inference.baseten.co/v1",
+    "reasoning_effort": "none",
+    "temperature": 0.6,
+    "max_tokens": 8192,
+    "filler": null
+  },
+  "collection_pacing": {
+    "provider_endpoint_concurrency": 1,
+    "enable_recovery": true,
+    "dedupe_tool_calls": true,
+    "tool_result_run_llm": false,
+    "text_idle_timeout_seconds": 45,
+    "conversation_timeout_seconds": 300,
+    "inter_attempt_cooldown_seconds": 30,
+    "max_attempts_per_slot": 5
+  },
+  "canonical_conversations": 30,
+  "fixed_scripted_turns": 900,
+  "conversation_attempts_recorded": 41,
+  "canonical_yield_per_conversation_attempt_percent": 73.17073170731707,
+  "canonical_on_first_attempt": 25,
+  "slots_requiring_retries": [
+    "K26-02",
+    "K26-03",
+    "K26-08",
+    "K26-12",
+    "K26-15"
+  ],
+  "attempt_outcomes": {
+    "canonical_or_eligible_complete": 30,
+    "incomplete_scheduled_turns": 2,
+    "out_of_cohort_duplicate_complete": 1,
+    "out_of_cohort_interrupted": 1,
+    "provider_429": 3,
+    "provider_stream_or_502": 4
+  },
+  "end_session_outcomes": {
+    "scripted_turn_0_29": 9,
+    "recovery_turn_30_plus": 16,
+    "missing": 5
+  },
+  "input_hashes": {
+    "configuration.json": "68268fac7ed901d5313e82889199fed2f0a5c9fff437a45a96e03bc242cbfe84",
+    "attempts.tsv": "79129c7902f9a849926cac03005122f3b57aa73ae07f61fe634191e83146bbab",
+    "canonical.tsv": "52269a25371c6f12b449fc13c52fa58fdad6f05283511a1043dca253f5e034ae",
+    "campaign.log": "00439a89d64f293c9bc8e5787dd9409b8078960583114989483cefe5cb1e9064",
+    "source-sha256.txt": "318d36e93cb8a9e6c379475372608f99d4ca9169caa4fd554cfbdcfd8fe762e3",
+    "summarize_collection.py": "4d97d92165c671a4a792dbbbb90229e448afc1b621908b74492bd66846770984"
+  },
+  "canonical_runs": [
+    {
+      "slot": "K26-01",
+      "attempt": "1",
+      "run_dir": "runs/aiwf_medium_context/20260806T091743_moonshotai_Kimi-K2.6_fba32308",
+      "scheduled_rows": "30",
+      "response_turns": "30",
+      "tool_calls": "5",
+      "token_rows": "30",
+      "end_session_turn": "30",
+      "classification": "strict_complete"
+    },
+    {
+      "slot": "K26-02",
+      "attempt": "3",
+      "run_dir": "runs/aiwf_medium_context/20260806T163316Z_moonshotai_Kimi-K2.6_none_K26-02_attempt03_bfcbce32",
+      "scheduled_rows": "30",
+      "response_turns": "30",
+      "tool_calls": "5",
+      "token_rows": "30",
+      "end_session_turn": "31",
+      "classification": "strict_complete"
+    },
+    {
+      "slot": "K26-03",
+      "attempt": "3",
+      "run_dir": "runs/aiwf_medium_context/20260806T163344Z_moonshotai_Kimi-K2.6_none_K26-03_attempt03_00477416",
+      "scheduled_rows": "30",
+      "response_turns": "30",
+      "tool_calls": "4",
+      "token_rows": "30",
+      "end_session_turn": "31",
+      "classification": "strict_complete"
+    },
+    {
+      "slot": "K26-04",
+      "attempt": "1",
+      "run_dir": "runs/aiwf_medium_context/20260806T163509Z_moonshotai_Kimi-K2.6_none_K26-04_attempt01_80fd98b6",
+      "scheduled_rows": "30",
+      "response_turns": "30",
+      "tool_calls": "2",
+      "token_rows": "30",
+      "end_session_turn": "-1",
+      "classification": "strict_complete"
+    },
+    {
+      "slot": "K26-05",
+      "attempt": "1",
+      "run_dir": "runs/aiwf_medium_context/20260806T163815Z_moonshotai_Kimi-K2.6_none_K26-05_attempt01_741b70a3",
+      "scheduled_rows": "30",
+      "response_turns": "30",
+      "tool_calls": "5",
+      "token_rows": "30",
+      "end_session_turn": "30",
+      "classification": "strict_complete"
+    },
+    {
+      "slot": "K26-06",
+      "attempt": "1",
+      "run_dir": "runs/aiwf_medium_context/20260806T163847Z_moonshotai_Kimi-K2.6_none_K26-06_attempt01_16f8789b",
+      "scheduled_rows": "30",
+      "response_turns": "30",
+      "tool_calls": "3",
+      "token_rows": "30",
+      "end_session_turn": "29",
+      "classification": "strict_complete"
+    },
+    {
+      "slot": "K26-07",
+      "attempt": "1",
+      "run_dir": "runs/aiwf_medium_context/20260806T163924Z_moonshotai_Kimi-K2.6_none_K26-07_attempt01_55a7b52d",
+      "scheduled_rows": "30",
+      "response_turns": "30",
+      "tool_calls": "4",
+      "token_rows": "30",
+      "end_session_turn": "31",
+      "classification": "strict_complete"
+    },
+    {
+      "slot": "K26-08",
+      "attempt": "4",
+      "run_dir": "runs/aiwf_medium_context/20260806T164422Z_moonshotai_Kimi-K2.6_none_K26-08_attempt04_ae307e7a",
+      "scheduled_rows": "30",
+      "response_turns": "30",
+      "tool_calls": "5",
+      "token_rows": "30",
+      "end_session_turn": "30",
+      "classification": "strict_complete"
+    },
+    {
+      "slot": "K26-09",
+      "attempt": "1",
+      "run_dir": "runs/aiwf_medium_context/20260806T164455Z_moonshotai_Kimi-K2.6_none_K26-09_attempt01_394cd596",
+      "scheduled_rows": "30",
+      "response_turns": "30",
+      "tool_calls": "4",
+      "token_rows": "30",
+      "end_session_turn": "31",
+      "classification": "strict_complete"
+    },
+    {
+      "slot": "K26-10",
+      "attempt": "1",
+      "run_dir": "runs/aiwf_medium_context/20260806T164532Z_moonshotai_Kimi-K2.6_none_K26-10_attempt01_a4c4d688",
+      "scheduled_rows": "30",
+      "response_turns": "30",
+      "tool_calls": "5",
+      "token_rows": "30",
+      "end_session_turn": "30",
+      "classification": "strict_complete"
+    },
+    {
+      "slot": "K26-11",
+      "attempt": "1",
+      "run_dir": "runs/aiwf_medium_context/20260806T164608Z_moonshotai_Kimi-K2.6_none_K26-11_attempt01_cf190162",
+      "scheduled_rows": "30",
+      "response_turns": "30",
+      "tool_calls": "6",
+      "token_rows": "30",
+      "end_session_turn": "29",
+      "classification": "strict_complete"
+    },
+    {
+      "slot": "K26-12",
+      "attempt": "2",
+      "run_dir": "runs/aiwf_medium_context/20260806T164749Z_moonshotai_Kimi-K2.6_none_K26-12_attempt02_1bde1b61",
+      "scheduled_rows": "30",
+      "response_turns": "30",
+      "tool_calls": "4",
+      "token_rows": "30",
+      "end_session_turn": "31",
+      "classification": "strict_complete"
+    },
+    {
+      "slot": "K26-13",
+      "attempt": "1",
+      "run_dir": "runs/aiwf_medium_context/20260806T164822Z_moonshotai_Kimi-K2.6_none_K26-13_attempt01_646f2eb8",
+      "scheduled_rows": "30",
+      "response_turns": "30",
+      "tool_calls": "5",
+      "token_rows": "30",
+      "end_session_turn": "29",
+      "classification": "strict_complete"
+    },
+    {
+      "slot": "K26-14",
+      "attempt": "1",
+      "run_dir": "runs/aiwf_medium_context/20260806T164953Z_moonshotai_Kimi-K2.6_none_K26-14_attempt01_1ef773f5",
+      "scheduled_rows": "30",
+      "response_turns": "30",
+      "tool_calls": "6",
+      "token_rows": "30",
+      "end_session_turn": "29",
+      "classification": "strict_complete"
+    },
+    {
+      "slot": "K26-15",
+      "attempt": "2",
+      "run_dir": "runs/aiwf_medium_context/20260806T165214Z_moonshotai_Kimi-K2.6_none_K26-15_attempt02_1976030c",
+      "scheduled_rows": "30",
+      "response_turns": "30",
+      "tool_calls": "2",
+      "token_rows": "30",
+      "end_session_turn": "-1",
+      "classification": "strict_complete"
+    },
+    {
+      "slot": "K26-16",
+      "attempt": "1",
+      "run_dir": "runs/aiwf_medium_context/20260806T165324Z_moonshotai_Kimi-K2.6_none_K26-16_attempt01_4d8867f8",
+      "scheduled_rows": "30",
+      "response_turns": "30",
+      "tool_calls": "2",
+      "token_rows": "30",
+      "end_session_turn": "33",
+      "classification": "strict_complete"
+    },
+    {
+      "slot": "K26-17",
+      "attempt": "1",
+      "run_dir": "runs/aiwf_medium_context/20260806T165427Z_moonshotai_Kimi-K2.6_none_K26-17_attempt01_dd8e0c88",
+      "scheduled_rows": "30",
+      "response_turns": "30",
+      "tool_calls": "5",
+      "token_rows": "30",
+      "end_session_turn": "29",
+      "classification": "strict_complete"
+    },
+    {
+      "slot": "K26-18",
+      "attempt": "1",
+      "run_dir": "runs/aiwf_medium_context/20260806T165528Z_moonshotai_Kimi-K2.6_none_K26-18_attempt01_ae09a478",
+      "scheduled_rows": "30",
+      "response_turns": "30",
+      "tool_calls": "4",
+      "token_rows": "30",
+      "end_session_turn": "29",
+      "classification": "strict_complete"
+    },
+    {
+      "slot": "K26-19",
+      "attempt": "1",
+      "run_dir": "runs/aiwf_medium_context/20260806T165631Z_moonshotai_Kimi-K2.6_none_K26-19_attempt01_092b7b0c",
+      "scheduled_rows": "30",
+      "response_turns": "30",
+      "tool_calls": "2",
+      "token_rows": "30",
+      "end_session_turn": "-1",
+      "classification": "strict_complete"
+    },
+    {
+      "slot": "K26-20",
+      "attempt": "1",
+      "run_dir": "runs/aiwf_medium_context/20260806T165736Z_moonshotai_Kimi-K2.6_none_K26-20_attempt01_ef2ceb9b",
+      "scheduled_rows": "30",
+      "response_turns": "30",
+      "tool_calls": "5",
+      "token_rows": "30",
+      "end_session_turn": "30",
+      "classification": "strict_complete"
+    },
+    {
+      "slot": "K26-21",
+      "attempt": "1",
+      "run_dir": "runs/aiwf_medium_context/20260806T165842Z_moonshotai_Kimi-K2.6_none_K26-21_attempt01_4c721d08",
+      "scheduled_rows": "30",
+      "response_turns": "30",
+      "tool_calls": "4",
+      "token_rows": "30",
+      "end_session_turn": "31",
+      "classification": "strict_complete"
+    },
+    {
+      "slot": "K26-22",
+      "attempt": "1",
+      "run_dir": "runs/aiwf_medium_context/20260806T165942Z_moonshotai_Kimi-K2.6_none_K26-22_attempt01_26ca14f5",
+      "scheduled_rows": "30",
+      "response_turns": "30",
+      "tool_calls": "5",
+      "token_rows": "30",
+      "end_session_turn": "29",
+      "classification": "strict_complete"
+    },
+    {
+      "slot": "K26-23",
+      "attempt": "1",
+      "run_dir": "runs/aiwf_medium_context/20260806T170054Z_moonshotai_Kimi-K2.6_none_K26-23_attempt01_021ed2e5",
+      "scheduled_rows": "30",
+      "response_turns": "30",
+      "tool_calls": "5",
+      "token_rows": "30",
+      "end_session_turn": "30",
+      "classification": "strict_complete"
+    },
+    {
+      "slot": "K26-24",
+      "attempt": "1",
+      "run_dir": "runs/aiwf_medium_context/20260806T170214Z_moonshotai_Kimi-K2.6_none_K26-24_attempt01_7b073d60",
+      "scheduled_rows": "30",
+      "response_turns": "30",
+      "tool_calls": "2",
+      "token_rows": "30",
+      "end_session_turn": "-1",
+      "classification": "strict_complete"
+    },
+    {
+      "slot": "K26-25",
+      "attempt": "1",
+      "run_dir": "runs/aiwf_medium_context/20260806T170317Z_moonshotai_Kimi-K2.6_none_K26-25_attempt01_3430fa65",
+      "scheduled_rows": "30",
+      "response_turns": "30",
+      "tool_calls": "2",
+      "token_rows": "30",
+      "end_session_turn": "-1",
+      "classification": "strict_complete"
+    },
+    {
+      "slot": "K26-26",
+      "attempt": "1",
+      "run_dir": "runs/aiwf_medium_context/20260806T170430Z_moonshotai_Kimi-K2.6_none_K26-26_attempt01_cecca9c8",
+      "scheduled_rows": "30",
+      "response_turns": "30",
+      "tool_calls": "5",
+      "token_rows": "30",
+      "end_session_turn": "30",
+      "classification": "strict_complete"
+    },
+    {
+      "slot": "K26-27",
+      "attempt": "1",
+      "run_dir": "runs/aiwf_medium_context/20260806T170538Z_moonshotai_Kimi-K2.6_none_K26-27_attempt01_aff1495e",
+      "scheduled_rows": "30",
+      "response_turns": "30",
+      "tool_calls": "5",
+      "token_rows": "30",
+      "end_session_turn": "29",
+      "classification": "strict_complete"
+    },
+    {
+      "slot": "K26-28",
+      "attempt": "1",
+      "run_dir": "runs/aiwf_medium_context/20260806T170643Z_moonshotai_Kimi-K2.6_none_K26-28_attempt01_f11c7015",
+      "scheduled_rows": "30",
+      "response_turns": "30",
+      "tool_calls": "5",
+      "token_rows": "30",
+      "end_session_turn": "30",
+      "classification": "strict_complete"
+    },
+    {
+      "slot": "K26-29",
+      "attempt": "1",
+      "run_dir": "runs/aiwf_medium_context/20260806T170743Z_moonshotai_Kimi-K2.6_none_K26-29_attempt01_d3be7bc2",
+      "scheduled_rows": "30",
+      "response_turns": "30",
+      "tool_calls": "5",
+      "token_rows": "30",
+      "end_session_turn": "30",
+      "classification": "strict_complete"
+    },
+    {
+      "slot": "K26-30",
+      "attempt": "1",
+      "run_dir": "runs/aiwf_medium_context/20260806T170846Z_moonshotai_Kimi-K2.6_none_K26-30_attempt01_06799710",
+      "scheduled_rows": "30",
+      "response_turns": "30",
+      "tool_calls": "6",
+      "token_rows": "30",
+      "end_session_turn": "29",
+      "classification": "strict_complete"
+    }
+  ]
+}

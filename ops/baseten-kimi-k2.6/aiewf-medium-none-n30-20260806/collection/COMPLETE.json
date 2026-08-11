@@ -1,0 +1,8 @@
+{
+  "campaign_id": "aiewf-medium-baseten-kimi-k2.6-none-n30-20260806",
+  "canonical_conversations": 30,
+  "fixed_scripted_turns": 900,
+  "summary_json_sha256": "7d8886e7a28cd2fd0c865323e0236b9983041da4aedc7286ca1c6544f9379798",
+  "summary_md_sha256": "87886c26c05f729551697be14ab359c88bba9d9605413e58be48dcbe30695e72",
+  "included_runs_sha256": "3a3ea9dc76b65588b1b71e303b6248a3d0ccb757b3b2dcc98f26c9f0337ee49d"
+}

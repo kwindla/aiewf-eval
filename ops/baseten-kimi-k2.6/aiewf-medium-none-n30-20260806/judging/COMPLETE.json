@@ -1,0 +1,10 @@
+{
+  "campaign_id": "aiewf-medium-baseten-kimi-k2.6-none-n30-20260806",
+  "completed_at": "2026-08-06T17:20:52+00:00",
+  "canonical_runs": 30,
+  "scripted_turns": 900,
+  "judge_model": "claude-opus-4-5",
+  "judge_version": "claude-agent-sdk-v4-turn-taking",
+  "canonical_inputs_sha256": "3212f4b4de7e3445f35a552ab1f303abc74dcc82adbc4147e300127cea529bc7",
+  "judge_source_sha256": "82ce844a36336c19a51c3c4e8039af04173fda019ba87ac4fad1633717962e80"
+}

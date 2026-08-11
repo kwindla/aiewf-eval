@@ -1,0 +1,2 @@
+model	runs	scripted_turns	strict_pass_percent	any_error_percent	tool_error_percent	instruction_error_percent	kb_error_percent	ttfat_p50_ms	ttfat_p95_ms	ttfat_max_ms	raw_ttfb_p50_ms	reasoning_delay_p50_ms	provider
+moonshotai/Kimi-K2.6	30	900	98.3333	1.6667	1.4444	1.6667	0.0000	1596	5252	13622	666	854	BaseTen

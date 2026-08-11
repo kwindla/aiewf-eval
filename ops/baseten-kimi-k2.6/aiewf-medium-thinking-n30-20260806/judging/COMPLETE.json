@@ -1,0 +1,10 @@
+{
+  "campaign_id": "aiewf-medium-baseten-kimi-k2.6-thinking-n30-20260806",
+  "completed_at": "2026-08-06T18:43:01+00:00",
+  "canonical_runs": 30,
+  "scripted_turns": 900,
+  "judge_model": "claude-opus-4-5",
+  "judge_version": "claude-agent-sdk-v4-turn-taking",
+  "canonical_inputs_sha256": "9a215772a7a166a052d9045a805b1999c1d08e9eec9a9aede1d7cd38a9c6644d",
+  "judge_source_sha256": "961475ce84a0bbb38266d9b74f5184efd5df2c88875bdb1f6a18a1f04273de24"
+}

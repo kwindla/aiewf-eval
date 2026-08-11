@@ -13,74 +13,68 @@ Thank you to [Modal](https://modal.com/) for providing compute resources for thi
 
 Text mode models:
 
+The standalone copy of this table is [leaderboard-medium-context.md](leaderboard-medium-context.md).
+
 | Model | Pass Rate | Any Error | Tool Error | Instruction Error | KB Error | TTFAT P50 | TTFAT P95 | TTFAT Max | Provider |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|---|
-| **nemotron-3-ultra (128)** | **100.0%** | 0.0% | 0.0% | 0.0% | 0.0% | **541ms** | **712ms** | **1302ms** | Modal |
 | claude-sonnet-4-6 | 100.0% | 0.0% | 0.0% | 0.0% | 0.0% | 850ms | 4126ms | 9396ms | Anthropic |
 | claude-fable-5 (low) | 100.0% | 0.0% | 0.0% | 0.0% | 0.0% | 3535ms | 5148ms | 8815ms | Anthropic |
 | claude-fable-5 (default) | 100.0% | 0.0% | 0.0% | 0.0% | 0.0% | 3956ms | 6496ms | 13602ms | Anthropic |
 | glm-5.2 (none) | 99.7% | 0.3% | 0.2% | 0.2% | 0.0% | 936ms | 2140ms | 7567ms | BaseTen |
-| qwen3.5-27b (thinking) | 99.0% | 1.0% | 0.7% | 0.7% | 0.3% | 1443ms | 1666ms | 2199ms | Modal |
-| glm-5 (thinking) | 98.7% | 1.3% | 1.0% | 0.7% | 0.3% | 841ms | 873ms | 6712ms | Modal |
-| **nemotron-3-ultra (96)** | **98.3%** | 1.7% | 1.3% | 1.3% | 0.3% | **529ms** | **655ms** | **1259ms** | Modal |
-| **kimi-k2.6 Cerebras (thinking)** | **98.0%** | 2.0% | 1.3% | 2.0% | 0.0% | **452ms** | **1350ms** | **3483ms** | Cerebras |
+| kimi-k2.6 (thinking on) | 98.3% | 1.7% | 1.4% | 1.7% | 0.0% | 1596ms | 5252ms | 13622ms | BaseTen |
 | **claude-haiku-4-5** | **98.0%** | 2.0% | 0.7% | 2.0% | 0.0% | **637ms** | **1615ms** | **3152ms** | Anthropic |
 | gpt-5.1 | 98.0% | 2.0% | 2.0% | 2.0% | 0.0% | 739ms | 1492ms | 4244ms | OpenAI |
 | gpt-5.6-terra (medium) | 97.8% | 2.2% | 1.9% | 2.2% | 0.0% | 927ms | 2149ms | 4167ms | OpenAI |
-| lilac/gemma-4-31b-it (thinking off) | 97.7% | 2.3% | 2.3% | 2.3% | 0.0% | 672ms | 4083ms | 43466ms | Lilac |
 | gpt-5.5 (none) | 97.4% | 2.6% | 2.0% | 2.6% | 0.0% | 875ms | 2177ms | 5623ms | OpenAI |
 | qwen3.6-27b (thinking off) | 97.3% | 2.7% | 2.7% | 2.7% | 0.0% | 668ms | 822ms | 5429ms | BaseTen |
 | gemini-3.6-flash (minimal) | 97.1% | 2.9% | 2.4% | 2.8% | 0.1% | 798ms | 984ms | 1472ms | AI Studio |
 | gpt-5.4 (low) | 97.0% | 3.0% | 3.0% | 3.0% | 0.0% | 782ms | 1706ms | 2698ms | OpenAI |
-| **nemotron-3-super-120b (512)** | **97.0%** | 3.0% | 1.0% | 3.0% | 0.3% | **687ms** | **1210ms** | **2254ms** | Modal |
-| gemini-3.1-flash-lite-preview | 96.7% | 3.3% | 1.7% | 3.0% | 0.3% | 1016ms | 1515ms | 3405ms | AI Studio |
+| gemma-4-31b-it (thinking off) | 96.6% | 3.4% | 3.3% | 3.4% | 0.0% | 490ms | 718ms | 38250ms | BaseTen |
 | gpt-5.6-sol (none) | 96.6% | 3.4% | 3.3% | 3.3% | 0.1% | 1098ms | 2625ms | 6344ms | OpenAI |
 | **gpt-4.1** | **96.3%** | 3.7% | 3.7% | 3.3% | 0.0% | **536ms** | **1771ms** | **5056ms** | OpenAI |
-| zai-org/glm-5.1 | 95.7% | 4.3% | 4.0% | 2.7% | 0.0% | 845ms | 14520ms | 43878ms | Lilac |
 | gpt-5.4 (none, +96 dots) | 95.2% | 4.8% | 4.7% | 4.6% | 0.1% | 694ms | 2273ms | 17264ms | OpenAI |
-| qwen3.5-4b (thinking) | 95.0% | 5.0% | 4.0% | 4.0% | 1.0% | 778ms | 907ms | 1441ms | Modal |
 | inkling (none) | 94.8% | 5.2% | 5.1% | 4.8% | 1.3% | 447ms | 727ms | 1813ms | BaseTen |
 | **gpt-4o** | **94.7%** | 5.3% | 3.0% | 5.0% | 0.3% | **546ms** | **1369ms** | **4897ms** | OpenAI |
-| qwen3.5-9b (thinking) | 94.7% | 5.3% | 4.3% | 4.7% | 0.7% | 904ms | 1006ms | 1356ms | Modal |
-| qwen3.5-27b | 94.3% | 5.7% | 5.7% | 5.7% | 0.0% | 1494ms | 1666ms | 75111ms | Modal |
-| **kimi-k2.6 Cerebras (instant)** | **94.0%** | 6.0% | 6.0% | 5.0% | 0.0% | **256ms** | **480ms** | **1639ms** | Cerebras |
+| kimi-k2.6 (thinking off) | 93.9% | 6.1% | 6.0% | 3.9% | 0.0% | 480ms | 854ms | 4458ms | BaseTen |
 | gemini-3.5-flash (minimal) | 93.3% | 6.7% | 5.3% | 6.7% | 4.9% | 892ms | 1183ms | 1721ms | AI Studio |
 | claude-sonnet-5 | 93.0% | 7.0% | 7.0% | 7.0% | 0.0% | 1204ms | 2465ms | 6955ms | Anthropic |
 | qwen3.6-35b-a3b (thinking off, FP8) | 91.6% | 8.4% | 6.8% | 7.8% | 0.4% | 765ms | 1255ms | 35664ms | BaseTen |
 | gpt-5.6-terra (none) | 91.3% | 8.7% | 8.1% | 8.6% | 0.3% | 621ms | 1870ms | 5665ms | OpenAI |
-| gpt-5.4-mini (medium) | 91.1% | 8.9% | 8.9% | 8.4% | 0.5% | 808ms | 2120ms | 2786ms | OpenAI |
-| nemotron-3-nano-30b (512) | 90.6% | 9.4% | 5.0% | 6.1% | 4.0% | 940ms | 1912ms | 2821ms | Modal |
-| **nova-2-pro-preview** | **90.3%** | 9.7% | 6.7% | 7.3% | 2.3% | **690ms** | **1616ms** | **3840ms** | AWS Bedrock |
 | gpt-5.4 (none) | 90.2% | 9.8% | 9.4% | 9.7% | 0.1% | 689ms | 1723ms | 6571ms | OpenAI |
 | gemini-2.5-flash (thinking off) | 89.9% | 10.1% | 9.1% | 10.1% | 0.0% | 550ms | 850ms | 2352ms | AI Studio |
-| qwen3.5-9b | 89.3% | 10.7% | 8.0% | 9.7% | 1.0% | 908ms | 1007ms | 24304ms | Modal |
 | **gpt-5.2** | **89.3%** | 10.7% | 10.0% | 10.7% | 0.7% | **624ms** | **1171ms** | **2509ms** | OpenAI |
-| qwen3.5-4b | 88.7% | 11.3% | 10.3% | 11.0% | 0.7% | 773ms | 921ms | 50986ms | Modal |
 | gpt-5.6-luna (none) | 88.3% | 11.7% | 11.7% | 11.7% | 0.0% | 671ms | 2304ms | 12017ms | OpenAI |
 | **gpt-oss-120b (groq)** | **86.3%** | 13.7% | 9.3% | 13.0% | 0.7% | **98ms** | **217ms** | **2117ms** | Groq |
 | poolside/laguna-s-2.1 (thinking off) | 85.6% | 14.4% | 13.7% | 11.2% | 5.7% | 295ms | 620ms | 21032ms | OpenRouter |
 | gpt-4.1-mini | 85.3% | 14.7% | 14.7% | 14.7% | 0.0% | 851ms | 2135ms | 5945ms | OpenAI |
-| glm-4.7-flash | 84.7% | 15.3% | 10.7% | 11.7% | 4.0% | 940ms | 1079ms | 2524ms | Modal |
+| muse-glimmer-30b (thinking high, GGUF) | 84.9% | 15.1% | 14.0% | 14.0% | 0.3% | 232ms | 6488ms | 11586ms | Local RTX 5090 |
 | **gpt-5-mini** | **83.7%** | 16.3% | 14.0% | 16.3% | 1.0% | **682ms** | **1132ms** | **1904ms** | OpenAI |
-| gpt-5.4-mini (none) | 83.1% | 16.9% | 16.2% | 16.9% | 0.0% | 459ms | 731ms | 2369ms | OpenAI |
 | **gpt-4o-mini** | **82.7%** | 17.3% | 10.3% | 13.7% | 2.3% | **553ms** | **1947ms** | **6497ms** | OpenAI |
 | qwen3-8b (thinking off, BaseTen) | 81.3% | 18.7% | 15.7% | 15.9% | 3.4% | 564ms | 678ms | 1563ms | BaseTen |
 | gemma-4-26b-a4b-it (thinking off) | 80.7% | 19.3% | 13.9% | 19.3% | 0.9% | 580ms | 803ms | 31574ms | BaseTen |
-| inkling-small (none) | 75.1% | 24.9% | 23.8% | 24.2% | 20.4% | 279ms | 828ms | 2024ms | BaseTen |
 | gemini-3.5-flash-lite (minimal) | 68.6% | 31.4% | 30.8% | 31.4% | 28.1% | 591ms | 679ms | 928ms | AI Studio |
-| inkling-small (low) | 51.7% | 48.3% | 48.0% | 48.3% | 43.6% | 277ms | 849ms | 5770ms | BaseTen |
+
+This table is a current-production view, not a historical archive. An August 2026 freshness audit removed retired provider routes, superseded previews, and self-hosted configurations whose original deployment no longer exists. Their transcripts and dedicated study documents remain in the repository and its history.
 
 Each conversation in this benchmark has 30 scripted turns. Refreshed filler-study rows use a fixed-denominator, attempt-based analysis in which missing, malformed, and post-abort future turns count as errors. Some legacy rows with early exits use their available observed turns and are therefore not directly comparable on completion reliability; detailed sample sizes and protocols live in the linked study artifacts rather than this summary table. **Any Error** is the percentage of turns where at least one of tool use, instruction following, or KB grounding fails; it is the complement of **Pass Rate**. The three dimension error rates overlap and therefore do not sum to Any Error.
 
 TTFAT is the latency reported by the Pipecat service from request to the first user-visible answer token or tool-call output; reasoning deltas are excluded where the service exposes them separately. An optimized speech-to-speech pipeline with typical network latencies should be able to achieve a total voice-to-voice latency of approximately LLM TTFAT + 500ms. In general, a model with TTFAT above ~700ms is too slow for most voice agent use cases.
 
-Models labeled "(thinking)" or "(512)" were run with reasoning/chain-of-thought, or thinking token budgets enabled. Models labeled with a reasoning effort like "(low)", "(medium)", or "(none)" were run at that effort level on the OpenAI Responses API.
+Models labeled "(thinking)" were run with reasoning/chain-of-thought enabled. Models labeled with a reasoning effort like "(low)", "(medium)", or "(none)" were run at that effort level on the OpenAI Responses API.
 
 Gemini 3 rows labeled `(minimal)` use Google's lowest supported `thinking_level`, the closest current equivalent to no-think for latency testing. Google notes that `minimal` matches no thinking for most requests but does not guarantee that reasoning is completely off; these rows therefore are not labeled `thinking off`.
 
 `gemini-2.5-flash (thinking off)` explicitly sets `thinking_budget=0`. This is also Pipecat's low-latency default for Gemini 2.5 Flash, but the benchmark pins it so every included run has an auditable thinking-off signature rather than relying on an implicit service default.
 
 `poolside/laguna-s-2.1 (thinking off)` uses the exact paid `poolside/laguna-s-2.1` OpenRouter route, served upstream by Poolside in BF16. The benchmark explicitly sets `reasoning.enabled=false`, so thinking is disabled; its TTFAT is specific to this OpenRouter/Poolside serving route.
+
+`muse-glimmer-30b (thinking high, GGUF)` is the public quantized model served locally through llama.cpp on one RTX 5090 with a 32,768-token context, Q8_0 K/V cache, and DFlash draft length 15. The server used Meta's recommended temperature 1.0, top-p 0.95, and top-k 64 sampler, native `reasoning_strength=high`, and no request-level output-token cap. All 30 conversations completed all 30 scripted turns and scored 764/900 strict turns (84.9%); TTFAT was 232ms P50 / 6488ms P95. The large P95 is the model's uncapped reasoning tail, not time to the first reasoning token: raw TTFT was 178ms P50 / 291ms P95. See the [campaign report](runs/muse-glimmer-card-high-nomax-dflash15-32k-n30-20260810T214000Z/REPORT.md).
+
+`gemma-4-31b-it (thinking off)` replaces the retired Lilac route with the official `google/gemma-4-31B-it` BF16 checkpoint on a dedicated BaseTen deployment. The selected serving stack is SGLang v0.5.16 on two H100s with RadixAttention prefix caching and the official Gemma 4 NEXTN/MTP assistant. A matched three-conversation bakeoff measured 422ms P50 / 537ms P95 TTFAT for NEXTN/MTP, versus 434ms / 648ms for vLLM with prefix caching and no MTP, and 496ms / 728ms for SGLang without MTP. The published row pools an immutable 30-conversation cohort with a matched 120-conversation extension: all 150 conversations completed all 30 scripted turns, scored 4346/4500 strict turns (96.6%, conversation-cluster bootstrap 95% CI 96.1–97.0%), and produced zero thinking tokens. Pooled TTFAT was 490ms P50 / 718ms P95, but the extension exposed intermittent serving stalls: 27/3600 turns exceeded 10 seconds and the maximum was 38.25 seconds. SGLang's Gemma 4 parser incorrectly emits request-schema tool positions as OpenAI streaming call indices; the campaign uses an explicit, default-off compatibility option that remaps them to response-local ordinals. See the [pooled campaign report](ops/baseten-gemma4-31b-sglang/aiewf-medium-mtp-n150-20260807/REPORT.md), [original campaign](ops/baseten-gemma4-31b-sglang/aiewf-medium-mtp-n30-20260806/REPORT.md), and [serving bakeoff](ops/baseten-gemma4-31b-sglang/bakeoff-20260806-normalized/REPORT.md). The historical Lilac 97.7% aggregate remains in `docs/ten-run-aggregates/lilac-gemma-4-31b-it-off-2026-06-15.txt` and is not pooled with the BaseTen result.
+
+A separate RTX 5090 serving study used the public Red Hat NVFP4 checkpoint at batch one with the same no-filler benchmark configuration. Pooled N=150 cohorts scored 95.5% with FP8 KV and 96.2% with a compact BF16-KV layout. BF16 minus FP8 KV was +0.67 percentage points with an independent whole-conversation bootstrap 95% interval of -0.07 to +1.40 points: the point estimate favors BF16, but the global difference remains inconclusive. BF16 measured 128ms P50 / 336ms P95 TTFAT versus 105ms / 309ms for FP8; both completed 150/150 conversations and retained 100% KB grounding. The BaseTen BF16 row remains the production-table result because the local experiment uses quantized weights and omits MTP. See the [pooled local three-way comparison](ops/local-gemma4-31b-nvfp4-sglang/pooled-n150-analysis-20260807/REPORT.md).
+
+The two historical `kimi-k2.6 Cerebras` rows have been removed from the current-production table, but their content-aware TTFAT results remain useful serving context: thinking measured 452ms P50, 1350ms P95, and 3483ms max; instant measured 256ms P50, 480ms P95, and 1639ms max. The exact Cerebras route used by those runs is no longer generally available and now returns 404. Access to Kimi K2.6 on Cerebras requires a large commercial commitment, so these results are not representative of a route most developers can use, and the old accuracy or latency numbers are not transferred to another provider. The two current Kimi rows are separate 30-conversation, fixed-900-turn campaigns against [BaseTen's OpenAI-compatible Model API](https://www.baseten.co/library/kimi-k26/), model ID `moonshotai/Kimi-K2.6`, with no filler. Thinking on explicitly sets `chat_template_args.enable_thinking=true`, temperature 1.0, and top-p 0.95; it scored 885/900 strict turns (98.3%, conversation-cluster bootstrap 95% CI 97.7–99.0%) and measured 1596ms P50 TTFAT. Thinking off omits `chat_template_args`, leaving BaseTen's default-off behavior, and uses temperature 0.6 with provider-default top-p; it scored 845/900 strict turns (93.9%, 95% CI 92.3–95.3%) and measured 480ms P50 TTFAT. Although the off request transmitted `reasoning_effort=none`, BaseTen does not support that control for Kimi K2.6 and ignores it; zero thinking tokens on all 900 off-cohort turns confirm the effective state. Thinking on called `end_session` correctly on scripted turn 29 in 30/30 conversations, while thinking off did so in 9/30, used recovery in 16/30, and omitted it in 5/30. This reproduces the two vendor-mode sampling signatures rather than changing only one setting. See the [paired comparison](ops/baseten-kimi-k2.6/aiewf-medium-thinking-n30-20260806/analysis/COMPARISON.md), the individual [thinking-on](ops/baseten-kimi-k2.6/aiewf-medium-thinking-n30-20260806/analysis/REPORT.md) and [thinking-off](ops/baseten-kimi-k2.6/aiewf-medium-none-n30-20260806/analysis/REPORT.md) BaseTen reports, and the [historical Cerebras notes](docs/kimi-k2.6-cerebras-2026-05-25.md).
 
 `claude-fable-5` cannot run without thinking: adaptive thinking is always on for this model and `thinking: {"type": "disabled"}` is rejected by the API. The "(default)" row is the out-of-the-box configuration (adaptive thinking at the default effort, `high`); the "(low)" row sets `output_config: {"effort": "low"}`. Both rows request `thinking.display: "summarized"` and measure TTFAT to the first non-thinking token, the same convention used for other reasoning models in this table. We planned a low/medium/high/xhigh effort sweep but stopped after `low`: with a TTFAT P50 above 3.5s, no higher effort level can pass the ~1500ms bar for voice use. A follow-up "voice-optimized" probe (effort low, `thinking.display: "omitted"`, plus a system-prompt instruction suppressing deliberation) cut median thinking delay to 14ms and still measured 2980ms median TTFAT at 100% pass rate — the latency is serving-side prefill, not reasoning. See `docs/claude-fable-5-sweep-2026-06-09.md`.
 
@@ -91,7 +85,7 @@ Gemini 3 rows labeled `(minimal)` use Google's lowest supported `thinking_level`
 <!-- INKLING_SMALL_README_PROSE_START -->
 `inkling` is Thinking Machines' earlier 975B-parameter (41B active) open-weights model. Its historical `(none)` row uses BaseTen's serverless Model API and should not be confused with the newer Inkling Small results below. See `docs/inkling-notes.md` and `docs/inkling-baseten-integration.md`.
 
-`inkling-small` is Thinking Machines' newer smaller model, tested through the BaseTen Model API in a frozen paired effort campaign. With `reasoning_effort=none` it scored 75.1% at 279ms P50 TTFAT; `low` scored 51.7% at 277ms. Both README rows use fixed turn denominators, with missing future turns counted as errors. Its separate exploratory +96-dot arm was compared with the frozen `none` control (+1.8 points); that later, non-interleaved comparison appears in Section 3 of the filler report.
+`inkling-small` is Thinking Machines' newer smaller model, tested through the BaseTen Model API in a frozen paired effort campaign. Its historical aggregates were 75.1% at 279ms P50 TTFAT with `reasoning_effort=none` and 51.7% at 277ms with `low`; the separate exploratory +96-dot arm was +1.8 points versus the frozen `none` control. The model has been removed from the current-production table after the August 2026 freshness audit: `none` completed its current 30-turn probe, but `low` produced no complete conversation in 10 attempts (eight ended at turn 16 and two stalled without a valid runtime record). The frozen results remain in the campaign artifacts and Section 3 of the filler report.
 <!-- INKLING_SMALL_README_PROSE_END -->
 
 `qwen3-8b (thinking off, BaseTen)` uses the official BF16 `Qwen/Qwen3-8B` weights on a dedicated BaseTen vLLM endpoint. Its accuracy and TTFAT are computed only from that endpoint; interrupted OpenRouter/Alibaba attempts remain in the study audit artifacts and are not pooled. The latency is specific to this BaseTen serving configuration, including automatic prefix caching.
@@ -102,9 +96,7 @@ The Qwen3.6 rows use official `Qwen/Qwen3.6-27B` BF16 and `Qwen/Qwen3.6-35B-A3B-
 
 `gpt-5.4 (none, +96 dots)` is a *filler-token* experiment (arxiv 2607.03502), not the standard fixed-prompt config: gpt-5.4 is run thinking-off (`reasoning_effort: none`) with 96 space-separated dots appended to the final user turn of each request (the conversation history is left filler-free). The refreshed fixed-denominator comparison is summarized in the table and analyzed in `docs/filler-token-latent-scratchpad-study.md`. Set via `MTE_FILLER_DOTS`.
 
-Both `gpt-4.1-mini` and `gpt-5.4-mini` sometimes exit early via a premature `end_session` or a malformed tool call; consult their dedicated study artifacts when completion reliability matters.
-
-There's a curious regression between `glm-5` (99.7%) and `glm-5.1` (95.7%): the newer model consistently misses `end_session` at the closing turn, where the user says "I just wanted to say the conference was great. I don't have anything else." `glm-5.1` produces a perfectly graceful goodbye in text but doesn't invoke the tool. The older `glm-5` caught this turn correctly almost every time, and public benchmarks suggest `glm-5.1` should generally be the stronger model. This is the kind of subtle behavior change that a small system-prompt nudge would likely fix — but it's a good example of how model-version updates can quietly shift behavior in ways that don't show up in headline benchmarks.
+`gpt-5.4-mini` has been removed from the current-production table because the August 2026 freshness audit found severe premature-termination behavior. At `medium`, only 1/6 attempts completed: four called `end_session` incorrectly on scripted turn 13, and one reached only turn 28. At `none`, 0/4 completed; all four called `end_session` on turn 13. The historical aggregates remain in the study artifacts. `gpt-4.1-mini` remains in the table and completed its freshness conversation on the first attempt.
 
 Speech-to-speech models:
 

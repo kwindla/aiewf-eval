@@ -1,0 +1,669 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-08-06T17:20:52+00:00",
+  "campaign_id": "aiewf-medium-baseten-kimi-k2.6-none-n30-20260806",
+  "model": "moonshotai/Kimi-K2.6",
+  "provider": "BaseTen",
+  "benchmark": "aiwf_medium_context",
+  "arm": "none",
+  "reasoning_effort": "none",
+  "filler": null,
+  "fixed_score_denominator": "30 canonical conversations x scripted turns 0-29 = 900",
+  "strict_pass": {
+    "correct": 845,
+    "total": 900,
+    "rate_percent": 93.88888888888889,
+    "error_percent": 6.111111111111111,
+    "conversation_cluster_bootstrap_95_percent": [
+      92.33333333333333,
+      95.33333333333334
+    ]
+  },
+  "components": {
+    "tool_use_correct": {
+      "correct": 846,
+      "total": 900,
+      "rate_percent": 94.0,
+      "error_percent": 6.0,
+      "conversation_cluster_bootstrap_95_percent": [
+        92.44444444444444,
+        95.44444444444444
+      ]
+    },
+    "instruction_following": {
+      "correct": 865,
+      "total": 900,
+      "rate_percent": 96.11111111111111,
+      "error_percent": 3.888888888888889,
+      "conversation_cluster_bootstrap_95_percent": [
+        94.66666666666667,
+        97.44444444444444
+      ]
+    },
+    "kb_grounding": {
+      "correct": 900,
+      "total": 900,
+      "rate_percent": 100.0,
+      "error_percent": 0.0,
+      "conversation_cluster_bootstrap_95_percent": [
+        100.0,
+        100.0
+      ]
+    }
+  },
+  "ttfat_ms": {
+    "scope": "scripted_turns_0_29_only",
+    "count": 900,
+    "p50": 479.5,
+    "p95": 854.0,
+    "max": 4458.0
+  },
+  "recovery": {
+    "rows_excluded_from_score_and_ttfat": 54,
+    "tokens_included_in_billed_totals": {
+      "prompt_tokens": 778306,
+      "completion_tokens": 1039,
+      "total_tokens": 779345,
+      "cache_read_input_tokens": 775232,
+      "cache_creation_input_tokens": 0,
+      "thinking_tokens": 0
+    }
+  },
+  "billed_token_totals_all_canonical_rows": {
+    "prompt_tokens": 13102869,
+    "completion_tokens": 68638,
+    "total_tokens": 13171507,
+    "cache_read_input_tokens": 12930304,
+    "cache_creation_input_tokens": 0,
+    "thinking_tokens": 0
+  },
+  "end_session_outcomes": {
+    "counts": {
+      "missing": 5,
+      "recovery": 16,
+      "scripted": 9
+    },
+    "turn_distribution": {
+      "29": 9,
+      "30": 9,
+      "31": 6,
+      "33": 1
+    }
+  },
+  "collection_reliability": {
+    "conversation_attempts_recorded": 41,
+    "canonical_yield_per_conversation_attempt_percent": 73.17073170731707,
+    "canonical_on_first_attempt": 25,
+    "slots_requiring_retries": [
+      "K26-02",
+      "K26-03",
+      "K26-08",
+      "K26-12",
+      "K26-15"
+    ],
+    "attempt_outcomes": {
+      "canonical_or_eligible_complete": 30,
+      "incomplete_scheduled_turns": 2,
+      "out_of_cohort_duplicate_complete": 1,
+      "out_of_cohort_interrupted": 1,
+      "provider_429": 3,
+      "provider_stream_or_502": 4
+    }
+  },
+  "turn_errors": [
+    {
+      "turn": 0,
+      "strict_failures": 0,
+      "tool_use_correct_failures": 0,
+      "instruction_following_failures": 0,
+      "kb_grounding_failures": 0
+    },
+    {
+      "turn": 1,
+      "strict_failures": 0,
+      "tool_use_correct_failures": 0,
+      "instruction_following_failures": 0,
+      "kb_grounding_failures": 0
+    },
+    {
+      "turn": 2,
+      "strict_failures": 0,
+      "tool_use_correct_failures": 0,
+      "instruction_following_failures": 0,
+      "kb_grounding_failures": 0
+    },
+    {
+      "turn": 3,
+      "strict_failures": 0,
+      "tool_use_correct_failures": 0,
+      "instruction_following_failures": 0,
+      "kb_grounding_failures": 0
+    },
+    {
+      "turn": 4,
+      "strict_failures": 0,
+      "tool_use_correct_failures": 0,
+      "instruction_following_failures": 0,
+      "kb_grounding_failures": 0
+    },
+    {
+      "turn": 5,
+      "strict_failures": 0,
+      "tool_use_correct_failures": 0,
+      "instruction_following_failures": 0,
+      "kb_grounding_failures": 0
+    },
+    {
+      "turn": 6,
+      "strict_failures": 0,
+      "tool_use_correct_failures": 0,
+      "instruction_following_failures": 0,
+      "kb_grounding_failures": 0
+    },
+    {
+      "turn": 7,
+      "strict_failures": 0,
+      "tool_use_correct_failures": 0,
+      "instruction_following_failures": 0,
+      "kb_grounding_failures": 0
+    },
+    {
+      "turn": 8,
+      "strict_failures": 0,
+      "tool_use_correct_failures": 0,
+      "instruction_following_failures": 0,
+      "kb_grounding_failures": 0
+    },
+    {
+      "turn": 9,
+      "strict_failures": 0,
+      "tool_use_correct_failures": 0,
+      "instruction_following_failures": 0,
+      "kb_grounding_failures": 0
+    },
+    {
+      "turn": 10,
+      "strict_failures": 0,
+      "tool_use_correct_failures": 0,
+      "instruction_following_failures": 0,
+      "kb_grounding_failures": 0
+    },
+    {
+      "turn": 11,
+      "strict_failures": 0,
+      "tool_use_correct_failures": 0,
+      "instruction_following_failures": 0,
+      "kb_grounding_failures": 0
+    },
+    {
+      "turn": 12,
+      "strict_failures": 0,
+      "tool_use_correct_failures": 0,
+      "instruction_following_failures": 0,
+      "kb_grounding_failures": 0
+    },
+    {
+      "turn": 13,
+      "strict_failures": 0,
+      "tool_use_correct_failures": 0,
+      "instruction_following_failures": 0,
+      "kb_grounding_failures": 0
+    },
+    {
+      "turn": 14,
+      "strict_failures": 0,
+      "tool_use_correct_failures": 0,
+      "instruction_following_failures": 0,
+      "kb_grounding_failures": 0
+    },
+    {
+      "turn": 15,
+      "strict_failures": 18,
+      "tool_use_correct_failures": 18,
+      "instruction_following_failures": 18,
+      "kb_grounding_failures": 0
+    },
+    {
+      "turn": 16,
+      "strict_failures": 0,
+      "tool_use_correct_failures": 0,
+      "instruction_following_failures": 0,
+      "kb_grounding_failures": 0
+    },
+    {
+      "turn": 17,
+      "strict_failures": 8,
+      "tool_use_correct_failures": 8,
+      "instruction_following_failures": 8,
+      "kb_grounding_failures": 0
+    },
+    {
+      "turn": 18,
+      "strict_failures": 0,
+      "tool_use_correct_failures": 0,
+      "instruction_following_failures": 0,
+      "kb_grounding_failures": 0
+    },
+    {
+      "turn": 19,
+      "strict_failures": 1,
+      "tool_use_correct_failures": 0,
+      "instruction_following_failures": 1,
+      "kb_grounding_failures": 0
+    },
+    {
+      "turn": 20,
+      "strict_failures": 0,
+      "tool_use_correct_failures": 0,
+      "instruction_following_failures": 0,
+      "kb_grounding_failures": 0
+    },
+    {
+      "turn": 21,
+      "strict_failures": 0,
+      "tool_use_correct_failures": 0,
+      "instruction_following_failures": 0,
+      "kb_grounding_failures": 0
+    },
+    {
+      "turn": 22,
+      "strict_failures": 0,
+      "tool_use_correct_failures": 0,
+      "instruction_following_failures": 0,
+      "kb_grounding_failures": 0
+    },
+    {
+      "turn": 23,
+      "strict_failures": 0,
+      "tool_use_correct_failures": 0,
+      "instruction_following_failures": 0,
+      "kb_grounding_failures": 0
+    },
+    {
+      "turn": 24,
+      "strict_failures": 7,
+      "tool_use_correct_failures": 7,
+      "instruction_following_failures": 7,
+      "kb_grounding_failures": 0
+    },
+    {
+      "turn": 25,
+      "strict_failures": 0,
+      "tool_use_correct_failures": 0,
+      "instruction_following_failures": 0,
+      "kb_grounding_failures": 0
+    },
+    {
+      "turn": 26,
+      "strict_failures": 0,
+      "tool_use_correct_failures": 0,
+      "instruction_following_failures": 0,
+      "kb_grounding_failures": 0
+    },
+    {
+      "turn": 27,
+      "strict_failures": 0,
+      "tool_use_correct_failures": 0,
+      "instruction_following_failures": 0,
+      "kb_grounding_failures": 0
+    },
+    {
+      "turn": 28,
+      "strict_failures": 0,
+      "tool_use_correct_failures": 0,
+      "instruction_following_failures": 0,
+      "kb_grounding_failures": 0
+    },
+    {
+      "turn": 29,
+      "strict_failures": 21,
+      "tool_use_correct_failures": 21,
+      "instruction_following_failures": 1,
+      "kb_grounding_failures": 0
+    }
+  ],
+  "readme_candidate_row": "| kimi-k2.6 (thinking off) | 93.9% | 6.1% | 6.0% | 3.9% | 0.0% | 480ms | 854ms | 4458ms | BaseTen |",
+  "input_hashes": {
+    "configuration.json": "68268fac7ed901d5313e82889199fed2f0a5c9fff437a45a96e03bc242cbfe84",
+    "canonical.tsv": "52269a25371c6f12b449fc13c52fa58fdad6f05283511a1043dca253f5e034ae",
+    "attempts.tsv": "79129c7902f9a849926cac03005122f3b57aa73ae07f61fe634191e83146bbab",
+    "collection/COMPLETE.json": "5e7c14a0dcb8658afc7f5052a1506feb55b5b04873515f4cba7fd9d95689220a",
+    "collection/summary.json": "7d8886e7a28cd2fd0c865323e0236b9983041da4aedc7286ca1c6544f9379798",
+    "judging/COMPLETE.json": "b00f4731ab8fc5c99269d95c45a5ce31584dc5b5b7f9d0a3b82201387919a88f",
+    "judging/canonical-inputs.tsv": "3212f4b4de7e3445f35a552ab1f303abc74dcc82adbc4147e300127cea529bc7",
+    "judging/judge-source-sha256.txt": "82ce844a36336c19a51c3c4e8039af04173fda019ba87ac4fad1633717962e80",
+    "analysis/analyze.py": "ddc51f014aca8044d0e1df1df1583506b3302eb336b0a3ee7a65174b7d2525f6"
+  },
+  "runs": [
+    {
+      "slot": "K26-01",
+      "run_dir": "runs/aiwf_medium_context/20260806T091743_moonshotai_Kimi-K2.6_fba32308",
+      "strict_passes": 29,
+      "end_session_kind": "recovery",
+      "end_session_turn": 30,
+      "recovery_rows": 1,
+      "transcript_sha256": "b9a5435a31481cbc15a990a05271907e4c254ac937add346a9b28bdf431390c1",
+      "judgment_sha256": "91ab5d28e5d8def34e9203af42ccbf1d5e1a9402daab6af7bc354cc864b21db3",
+      "summary_sha256": "cce6603c145d16be996422e40754974e72a015252ff707a090cdf4c7e94b3a05"
+    },
+    {
+      "slot": "K26-02",
+      "run_dir": "runs/aiwf_medium_context/20260806T163316Z_moonshotai_Kimi-K2.6_none_K26-02_attempt03_bfcbce32",
+      "strict_passes": 28,
+      "end_session_kind": "recovery",
+      "end_session_turn": 31,
+      "recovery_rows": 2,
+      "transcript_sha256": "4458a178411b7859735c08dd592c8e000adf28b39a15fe6fa052914fc9165d06",
+      "judgment_sha256": "d06e2d6a32837b419394d229d941393b5aec289be346f06cb3d1728f0561a222",
+      "summary_sha256": "e15ee3d8eb1cd0f11723b24fe4eae6dfe6f0a9d53926243ce492a83284553bbf"
+    },
+    {
+      "slot": "K26-03",
+      "run_dir": "runs/aiwf_medium_context/20260806T163344Z_moonshotai_Kimi-K2.6_none_K26-03_attempt03_00477416",
+      "strict_passes": 28,
+      "end_session_kind": "recovery",
+      "end_session_turn": 31,
+      "recovery_rows": 2,
+      "transcript_sha256": "f8667e4bef959342644784bedbd9090cb4a265673c9b4a57d62a706bf89f919f",
+      "judgment_sha256": "cd03287bad132feb2df4a2a62bbe70a12e1b546385e05603ccd32d2be0937b58",
+      "summary_sha256": "e5547ec844a2fb239f4ac2e0d32cb2ac3ec5396d2c6aeb87a1bee6ef5c3a9ac3"
+    },
+    {
+      "slot": "K26-04",
+      "run_dir": "runs/aiwf_medium_context/20260806T163509Z_moonshotai_Kimi-K2.6_none_K26-04_attempt01_80fd98b6",
+      "strict_passes": 26,
+      "end_session_kind": "missing",
+      "end_session_turn": -1,
+      "recovery_rows": 4,
+      "transcript_sha256": "6cebf006669b88aea4ec644b6b8dc9a48ab2e3ddda25671baaaf542e9a4fe646",
+      "judgment_sha256": "c419591b70d262f519fc75ac9c78457f74a0137bf6d9f1f2004794936976b64e",
+      "summary_sha256": "30747c724e7e4e14e5d2303c50c983fb8d1539d513a1c12c89f18db1249cce26"
+    },
+    {
+      "slot": "K26-05",
+      "run_dir": "runs/aiwf_medium_context/20260806T163815Z_moonshotai_Kimi-K2.6_none_K26-05_attempt01_741b70a3",
+      "strict_passes": 29,
+      "end_session_kind": "recovery",
+      "end_session_turn": 30,
+      "recovery_rows": 1,
+      "transcript_sha256": "5239d310cc1008b65f4c6f265449b5199e9f0f7b3f85f6e0215d114aa8a80d29",
+      "judgment_sha256": "669a9e4301715cb54606bd6e3df3d88cd9f7aef2b4466613c0c5dfefb77a6640",
+      "summary_sha256": "5c6ecca249866c9f1cc2b768f60c0a3c88c8770cfd10dec37d0ceba85dfe6fe9"
+    },
+    {
+      "slot": "K26-06",
+      "run_dir": "runs/aiwf_medium_context/20260806T163847Z_moonshotai_Kimi-K2.6_none_K26-06_attempt01_16f8789b",
+      "strict_passes": 27,
+      "end_session_kind": "scripted",
+      "end_session_turn": 29,
+      "recovery_rows": 3,
+      "transcript_sha256": "e48a219b86605e26a12ea7be4782b405cc501059b76d7f1fc4ac124a8669e260",
+      "judgment_sha256": "61d0e9e469f090c2a510ca20218fa34ec0118bfb7698b74d5627b1f425f9e738",
+      "summary_sha256": "0d9b40281d945c2250ea39ee0f5afb747aa8f4be188f2d1d88e2ff31bfc3f650"
+    },
+    {
+      "slot": "K26-07",
+      "run_dir": "runs/aiwf_medium_context/20260806T163924Z_moonshotai_Kimi-K2.6_none_K26-07_attempt01_55a7b52d",
+      "strict_passes": 28,
+      "end_session_kind": "recovery",
+      "end_session_turn": 31,
+      "recovery_rows": 2,
+      "transcript_sha256": "970c39148ac9e5f5c16c72b9986aa1935a50a960bc8c9fca0817efff3b23b98c",
+      "judgment_sha256": "94e154825cfb5aa9c762a934972596e5beaafcaea8c0bdff5eef95e33d646e34",
+      "summary_sha256": "1f71aced9f1759806680d3d359ae9356488ed5879f9135485681cdbe1c1a4387"
+    },
+    {
+      "slot": "K26-08",
+      "run_dir": "runs/aiwf_medium_context/20260806T164422Z_moonshotai_Kimi-K2.6_none_K26-08_attempt04_ae307e7a",
+      "strict_passes": 29,
+      "end_session_kind": "recovery",
+      "end_session_turn": 30,
+      "recovery_rows": 1,
+      "transcript_sha256": "eecee55a7a92292ffdb472a41768dc24235648d128b2036831e1dca072c545a2",
+      "judgment_sha256": "07a9d56e8338115340c784c0ad9674df7ffed91da4ae29c30427888f676ca3e8",
+      "summary_sha256": "be0a0b5770f23813aa83fb475ea67e876d959ad2b847d2a12a4b5d12bbd6acfe"
+    },
+    {
+      "slot": "K26-09",
+      "run_dir": "runs/aiwf_medium_context/20260806T164455Z_moonshotai_Kimi-K2.6_none_K26-09_attempt01_394cd596",
+      "strict_passes": 28,
+      "end_session_kind": "recovery",
+      "end_session_turn": 31,
+      "recovery_rows": 2,
+      "transcript_sha256": "941282db934ceeb8aeba6bb6f234ab6635fd6be4e9ee1669b9b9629620987063",
+      "judgment_sha256": "dbf5f9764df8cfd725b21d1185a9e06b906558d84303d830ee3afd0fa16f4933",
+      "summary_sha256": "7ed139a5d9149d1f2dd5fdebf6c03d1e03a6d6b4a92d5b9f494d522ccd510122"
+    },
+    {
+      "slot": "K26-10",
+      "run_dir": "runs/aiwf_medium_context/20260806T164532Z_moonshotai_Kimi-K2.6_none_K26-10_attempt01_a4c4d688",
+      "strict_passes": 29,
+      "end_session_kind": "recovery",
+      "end_session_turn": 30,
+      "recovery_rows": 1,
+      "transcript_sha256": "1af739678670680e8dd11f14c9eda6e4d5cd5366619458f62cae07d0c757d79c",
+      "judgment_sha256": "c0a7bef10e6fe3c6c9056a20a43b79f0590c45437c18db4b4e90e0632865d170",
+      "summary_sha256": "525bf41da3bbe31ab28864986fbc3ea602939e9da29867ce277044ccfb640ac7"
+    },
+    {
+      "slot": "K26-11",
+      "run_dir": "runs/aiwf_medium_context/20260806T164608Z_moonshotai_Kimi-K2.6_none_K26-11_attempt01_cf190162",
+      "strict_passes": 30,
+      "end_session_kind": "scripted",
+      "end_session_turn": 29,
+      "recovery_rows": 0,
+      "transcript_sha256": "f4b653cc1731f985ac19aed4f6ce5f9a9e029594d7595fabadd0f75e46d90fe0",
+      "judgment_sha256": "5ddde8bb512e52d7953ac3c78fc36626b35a0dd8cf549f340f3dd75e80ac3b1c",
+      "summary_sha256": "2e7968a3c91a662cddf9584e0b4ce8e02ba92b18f1a24490f3df345b9e05b032"
+    },
+    {
+      "slot": "K26-12",
+      "run_dir": "runs/aiwf_medium_context/20260806T164749Z_moonshotai_Kimi-K2.6_none_K26-12_attempt02_1bde1b61",
+      "strict_passes": 28,
+      "end_session_kind": "recovery",
+      "end_session_turn": 31,
+      "recovery_rows": 2,
+      "transcript_sha256": "23c635c9995854d7f3f8833b88f8d3d154e66c92ea6799ef35b2e4f9c73e4ef3",
+      "judgment_sha256": "39cd27cb0d06e2d3a30694c15d5f7c129839604425083c01e16745830fd4e84f",
+      "summary_sha256": "e0a0c1628dabb1c8cca624b97810cc52a28d7491e9eba02fde367bffdc530e96"
+    },
+    {
+      "slot": "K26-13",
+      "run_dir": "runs/aiwf_medium_context/20260806T164822Z_moonshotai_Kimi-K2.6_none_K26-13_attempt01_646f2eb8",
+      "strict_passes": 29,
+      "end_session_kind": "scripted",
+      "end_session_turn": 29,
+      "recovery_rows": 1,
+      "transcript_sha256": "88f9b49ba934d4e2fa5bc1af4ccf19e181d79978f076999d26d89f10c4a50d02",
+      "judgment_sha256": "c8dc0f85292238cd70bb8f1207ff8de98dab7338a041febfd6ca7d42fbd1aa32",
+      "summary_sha256": "86afe2733e1eeb86fd39dc678c420f473308be749f3fe97625b4bbf5e70d812d"
+    },
+    {
+      "slot": "K26-14",
+      "run_dir": "runs/aiwf_medium_context/20260806T164953Z_moonshotai_Kimi-K2.6_none_K26-14_attempt01_1ef773f5",
+      "strict_passes": 30,
+      "end_session_kind": "scripted",
+      "end_session_turn": 29,
+      "recovery_rows": 0,
+      "transcript_sha256": "22be35317264be9dc63f9c780584f2fb6ea9c83d7be13f0d1a100b9359469bba",
+      "judgment_sha256": "d042d8796ca004d9d16f77c04382149af16683635384146f1ecdfcdf2358f03e",
+      "summary_sha256": "ce076cdad41943c5e86e837eda7b9f32513a0c6787e0017e9745246f5cfd1ab3"
+    },
+    {
+      "slot": "K26-15",
+      "run_dir": "runs/aiwf_medium_context/20260806T165214Z_moonshotai_Kimi-K2.6_none_K26-15_attempt02_1976030c",
+      "strict_passes": 26,
+      "end_session_kind": "missing",
+      "end_session_turn": -1,
+      "recovery_rows": 4,
+      "transcript_sha256": "19f90d0cc7de2823e27edf872a1777b4ea1a32a446844bb439e8d421f5627b84",
+      "judgment_sha256": "e1827930c63643475b49d6e1cb1b493f7b9167814acf49db9082604f3dc290a3",
+      "summary_sha256": "8ff8697f4cd05f9f376f2b42be15edb566f7bfa0000eacb134b9abbed0f6f0c3"
+    },
+    {
+      "slot": "K26-16",
+      "run_dir": "runs/aiwf_medium_context/20260806T165324Z_moonshotai_Kimi-K2.6_none_K26-16_attempt01_4d8867f8",
+      "strict_passes": 26,
+      "end_session_kind": "recovery",
+      "end_session_turn": 33,
+      "recovery_rows": 4,
+      "transcript_sha256": "230dca17fe6f1207b0f515fd0d3e10cbad5f7291d97df0e0bd7e7de76ea129cd",
+      "judgment_sha256": "8fdc7fa15edbe654b4cc623ae90d00b2c1dc16a9a9dfb50541554d3695072b46",
+      "summary_sha256": "cd2620c2809e29f2e701011a734f719660c0eb35343b136800b7bc71b5911358"
+    },
+    {
+      "slot": "K26-17",
+      "run_dir": "runs/aiwf_medium_context/20260806T165427Z_moonshotai_Kimi-K2.6_none_K26-17_attempt01_dd8e0c88",
+      "strict_passes": 29,
+      "end_session_kind": "scripted",
+      "end_session_turn": 29,
+      "recovery_rows": 1,
+      "transcript_sha256": "000d49a99118b3a4f43c4ea032bb3934b5030ee4a1ba2c2d72a20e9fb939ce0c",
+      "judgment_sha256": "61f93e9a7628943585f1f0b910a6e5591e164f415af36018d7f7411b48eb2b86",
+      "summary_sha256": "421c27203720ad535afcef76390e02b7d2531d56dfcf29589841facc0db8aa1e"
+    },
+    {
+      "slot": "K26-18",
+      "run_dir": "runs/aiwf_medium_context/20260806T165528Z_moonshotai_Kimi-K2.6_none_K26-18_attempt01_ae09a478",
+      "strict_passes": 28,
+      "end_session_kind": "scripted",
+      "end_session_turn": 29,
+      "recovery_rows": 2,
+      "transcript_sha256": "1b8de98a2bda4b95d93e908102ee1f2b43abcc2d13e5c9ca888ad1e0bce6c2bc",
+      "judgment_sha256": "cfc42bf43a1846a67725bb27763220be135072ccf8625219f3e53b5bee2fc95a",
+      "summary_sha256": "1ee73e76ca87f56e7ef232c0d2034bc0a55794b486b767a5944dc2a51c9d4ea4"
+    },
+    {
+      "slot": "K26-19",
+      "run_dir": "runs/aiwf_medium_context/20260806T165631Z_moonshotai_Kimi-K2.6_none_K26-19_attempt01_092b7b0c",
+      "strict_passes": 26,
+      "end_session_kind": "missing",
+      "end_session_turn": -1,
+      "recovery_rows": 4,
+      "transcript_sha256": "6fdd85ecb1752d4fea834161609e8fca6061944b5b7bd803ce6f4ad480bde95b",
+      "judgment_sha256": "506cdde0057e005ee3f40624cc6643eb3a36d806a5c2841c651c557356114e82",
+      "summary_sha256": "3c11053e15ae68fd56073890e0fabc44d7c04b339ec54ebfae15805e84ff8b95"
+    },
+    {
+      "slot": "K26-20",
+      "run_dir": "runs/aiwf_medium_context/20260806T165736Z_moonshotai_Kimi-K2.6_none_K26-20_attempt01_ef2ceb9b",
+      "strict_passes": 29,
+      "end_session_kind": "recovery",
+      "end_session_turn": 30,
+      "recovery_rows": 1,
+      "transcript_sha256": "5f02df4557010cc9f6626dc6336357eb6add93b87c5b7bde46430dd415ebd117",
+      "judgment_sha256": "94bd3e0ac5bc1f6220b60f262dbd2a9b3c4fc1e7a810e454d0967aaba2ccbec0",
+      "summary_sha256": "36da2c70f16c2506597c3ee18b30ac8e51ebd92d44967d00ea046e62f4fb352c"
+    },
+    {
+      "slot": "K26-21",
+      "run_dir": "runs/aiwf_medium_context/20260806T165842Z_moonshotai_Kimi-K2.6_none_K26-21_attempt01_4c721d08",
+      "strict_passes": 28,
+      "end_session_kind": "recovery",
+      "end_session_turn": 31,
+      "recovery_rows": 2,
+      "transcript_sha256": "e4c8ab00909122e86986bd13228387f0f1c184adf7186db6e7c0a1fe1f186d2e",
+      "judgment_sha256": "e374f96e51b3c1651235324a39f0854f4ccf24bbabfc3f336305e054833550bb",
+      "summary_sha256": "9561374723a3150d7e84788af5dfef2caa123783ce42539205a663de8c3ccdfc"
+    },
+    {
+      "slot": "K26-22",
+      "run_dir": "runs/aiwf_medium_context/20260806T165942Z_moonshotai_Kimi-K2.6_none_K26-22_attempt01_26ca14f5",
+      "strict_passes": 29,
+      "end_session_kind": "scripted",
+      "end_session_turn": 29,
+      "recovery_rows": 1,
+      "transcript_sha256": "e6c17ee76831fb26548b151246a50adb37ba276ff2a39ceabbb04c96f705f8a5",
+      "judgment_sha256": "8e82f1fc730b1194414899a60ba9d9effac96b1350b123dc90a6fd4e1f800018",
+      "summary_sha256": "bd4164ef6d25e55c3e00e0690a7f7239a0d351397c665d1ea25a0b5fe33a8cd7"
+    },
+    {
+      "slot": "K26-23",
+      "run_dir": "runs/aiwf_medium_context/20260806T170054Z_moonshotai_Kimi-K2.6_none_K26-23_attempt01_021ed2e5",
+      "strict_passes": 29,
+      "end_session_kind": "recovery",
+      "end_session_turn": 30,
+      "recovery_rows": 1,
+      "transcript_sha256": "01cb27619c1d7fddbe41e06adf2cadd728b6b0b3f18667e6d3481ac39ac826eb",
+      "judgment_sha256": "15fc8db4e1cb86fa07e9b70cfcd65271ddaba6fabc3daf874d96361c1ed340ef",
+      "summary_sha256": "1f35304ebc9527024fff491f8bf6c4e465810ed48548b3db531f9682a055bef3"
+    },
+    {
+      "slot": "K26-24",
+      "run_dir": "runs/aiwf_medium_context/20260806T170214Z_moonshotai_Kimi-K2.6_none_K26-24_attempt01_7b073d60",
+      "strict_passes": 26,
+      "end_session_kind": "missing",
+      "end_session_turn": -1,
+      "recovery_rows": 4,
+      "transcript_sha256": "879400d0731869686036364e3dea3ca88e062ed3b5e254191f178a5aac807843",
+      "judgment_sha256": "d37a5282d0d3928435e38c9deb45ad1f2c3fdec94464c7afdedcb75b75a2deaf",
+      "summary_sha256": "8214bc5e41ba94e21064aba2012412716ee72b9eba25c0741e17f61d4b522e28"
+    },
+    {
+      "slot": "K26-25",
+      "run_dir": "runs/aiwf_medium_context/20260806T170317Z_moonshotai_Kimi-K2.6_none_K26-25_attempt01_3430fa65",
+      "strict_passes": 26,
+      "end_session_kind": "missing",
+      "end_session_turn": -1,
+      "recovery_rows": 4,
+      "transcript_sha256": "fb4231caf441256c4e5833ad965c5a42375b119f3fcd65a75f881b999982efb3",
+      "judgment_sha256": "11dbb118b8e769046ef40a2c46cd685aebbf3318d5f3180a8be24fcfe727f415",
+      "summary_sha256": "e3971b098d9e3351f067e8a47cd02ef55285000ba61d9f64894307557b32e46b"
+    },
+    {
+      "slot": "K26-26",
+      "run_dir": "runs/aiwf_medium_context/20260806T170430Z_moonshotai_Kimi-K2.6_none_K26-26_attempt01_cecca9c8",
+      "strict_passes": 28,
+      "end_session_kind": "recovery",
+      "end_session_turn": 30,
+      "recovery_rows": 1,
+      "transcript_sha256": "0977afd08e6f7d3c94b019696c6709cabb40cb4949f8bd86cc4ae6b9cc8373dc",
+      "judgment_sha256": "e0d4b2b58a6cbfc939bdaaf8a6f2038f4f82c88c2058f206d22932c59756704e",
+      "summary_sha256": "d95db47dcee98c7c4bb77238a0508f0ecd89d444e55aa5ae16967292503d7f16"
+    },
+    {
+      "slot": "K26-27",
+      "run_dir": "runs/aiwf_medium_context/20260806T170538Z_moonshotai_Kimi-K2.6_none_K26-27_attempt01_aff1495e",
+      "strict_passes": 29,
+      "end_session_kind": "scripted",
+      "end_session_turn": 29,
+      "recovery_rows": 1,
+      "transcript_sha256": "b5d8f4345d3636968cf7d3aad389bf06d8f9b7d3ab5110a4025be392e6f4c283",
+      "judgment_sha256": "9edec23399d85667e7b70934eadc286df8f35a041fccc08210beb4f4425a2944",
+      "summary_sha256": "d8ce2b732ab160eebde1a43ca5ad403b4e6c5df8f9554f545c877050024d1820"
+    },
+    {
+      "slot": "K26-28",
+      "run_dir": "runs/aiwf_medium_context/20260806T170643Z_moonshotai_Kimi-K2.6_none_K26-28_attempt01_f11c7015",
+      "strict_passes": 29,
+      "end_session_kind": "recovery",
+      "end_session_turn": 30,
+      "recovery_rows": 1,
+      "transcript_sha256": "232626f716a57af5fc8e997b5955e53f0210e6d1504b4443001fbb698cc21f70",
+      "judgment_sha256": "0ddbb024efbe346a55895286b60392324a4ff1813a196bec8afc161d63b0664f",
+      "summary_sha256": "4f4e94ac351926cab7482996e377a4ce86ba4dfa078e85444964026f19aaacbe"
+    },
+    {
+      "slot": "K26-29",
+      "run_dir": "runs/aiwf_medium_context/20260806T170743Z_moonshotai_Kimi-K2.6_none_K26-29_attempt01_d3be7bc2",
+      "strict_passes": 29,
+      "end_session_kind": "recovery",
+      "end_session_turn": 30,
+      "recovery_rows": 1,
+      "transcript_sha256": "51ecf65d675a02d4e25a47bd851cdc0794f54fb463ee38900b6b866824ff55b0",
+      "judgment_sha256": "fd6cbf50216b3f08b19fa5327632438cdfa503d6582e295fa7335b1144da777e",
+      "summary_sha256": "fffac5282438fe28ff6b9b346c41ccaa9f78854a1136616fc04eb69f4a9dbe1e"
+    },
+    {
+      "slot": "K26-30",
+      "run_dir": "runs/aiwf_medium_context/20260806T170846Z_moonshotai_Kimi-K2.6_none_K26-30_attempt01_06799710",
+      "strict_passes": 30,
+      "end_session_kind": "scripted",
+      "end_session_turn": 29,
+      "recovery_rows": 0,
+      "transcript_sha256": "6f948360a2839ce36db3050fad14246c2f895225bac80aaf422b339255cb9a93",
+      "judgment_sha256": "ef427a60d33f242cf9c975735c36a3f84c399e8a9c9135ad336765952800342a",
+      "summary_sha256": "05bf5bf2e3df99fdfd1a9fb38644afc5de32f7febbbc019358392ec941b7bb02"
+    }
+  ]
+}

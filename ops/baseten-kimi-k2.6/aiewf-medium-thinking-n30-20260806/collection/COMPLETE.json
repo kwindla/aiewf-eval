@@ -1,0 +1,8 @@
+{
+  "campaign_id": "aiewf-medium-baseten-kimi-k2.6-thinking-n30-20260806",
+  "canonical_conversations": 30,
+  "fixed_scripted_turns": 900,
+  "summary_json_sha256": "38b07104985423f5826f5228d8b2a0738a9a7d8857c22f4b83cd3c6655c6398e",
+  "summary_md_sha256": "ea015e9d46c66591fb421f787c2b5b74fe50d42f34c2cadfa0e81d6ae4dc3e5e",
+  "included_runs_sha256": "3074ac753af14645b45274c89dcaa62e535fac07d284e639ae12678beb4585e4"
+}

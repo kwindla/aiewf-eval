@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "campaign_id": "aiewf-medium-baseten-kimi-k2.6-none-n30-20260806",
+  "benchmark": "aiwf_medium_context",
+  "provider": "BaseTen Model API",
+  "endpoint": "https://inference.baseten.co/v1",
+  "model": "moonshotai/Kimi-K2.6",
+  "service": "baseten",
+  "pipeline": "text",
+  "paths": {
+    "run_output_root": "runs/aiwf_medium_context"
+  },
+  "arms": {
+    "none": {}
+  },
+  "arm": "none",
+  "target_complete_conversations": 30,
+  "fixed_scheduled_turns_per_conversation": 30,
+  "filler": null,
+  "sampling": {
+    "reasoning_effort": "none",
+    "temperature": 0.6,
+    "max_tokens": 8192
+  },
+  "runtime": {
+    "provider_endpoint_concurrency": 1,
+    "enable_recovery": true,
+    "dedupe_tool_calls": true,
+    "tool_result_run_llm": false,
+    "text_idle_timeout_seconds": 45,
+    "conversation_timeout_seconds": 300,
+    "inter_attempt_cooldown_seconds": 30,
+    "max_attempts_per_slot": 5
+  },
+  "credential": {
+    "source_environment": "BASETEN_API_KEY",
+    "fallback_dotenv": "../gb-benchmarks/.env",
+    "fallback_key": "BASETEN_API_KEY"
+  },
+  "seed_runs": [
+    {
+      "slot": "K26-01",
+      "run_dir": "runs/aiwf_medium_context/20260806T091743_moonshotai_Kimi-K2.6_fba32308",
+      "disposition": "counted_after_exact-signature-and-completeness-validation"
+    }
+  ],
+  "smoke_gate": {
+    "passed": true,
+    "run_dir": "runs/aiwf_medium_context/20260806T091743_moonshotai_Kimi-K2.6_fba32308",
+    "notes": "The excluded current-route probe used the frozen model, endpoint, no-filler, thinking-off, temperature, max-token, and runtime signature and completed all 30 scheduled turns with a successful recovery end_session. It is canonical slot K26-01. Collection initially tried provider concurrency 2; both first-batch attempts received BaseTen 429s late in their conversations, so provider concurrency was reduced to 1 before any later slot was launched."
+  }
+}
