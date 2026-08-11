@@ -199,21 +199,21 @@
   <line class="range" x1="476.8" y1="1419" x2="601.2" y2="1419"/>
   <circle class="p50 frontier" cx="476.8" cy="1419" r="4.3"><title>gpt-oss-120b (groq): 86.3% pass rate; TTFAT 98ms P50 and 217ms P95; Groq</title></circle>
   <circle class="p95" cx="601.2" cy="1419" r="3.6"><title>gpt-oss-120b (groq): 86.3% pass rate; TTFAT 98ms P50 and 217ms P95; Groq</title></circle>
-  <text class="model" x="38" y="1457">poolside/laguna-s-2.1 (thinking off)</text>
-  <text class="meta" x="38" y="1473">85.6% pass · 295ms P50 / 620ms P95 · OpenRouter</text>
-  <line class="range" x1="649.3" y1="1460" x2="765.6" y2="1460"/>
-  <circle class="p50" cx="649.3" cy="1460" r="4.3"><title>poolside/laguna-s-2.1 (thinking off): 85.6% pass rate; TTFAT 295ms P50 and 620ms P95; OpenRouter</title></circle>
-  <circle class="p95" cx="765.6" cy="1460" r="3.6"><title>poolside/laguna-s-2.1 (thinking off): 85.6% pass rate; TTFAT 295ms P50 and 620ms P95; OpenRouter</title></circle>
-  <text class="model" x="38" y="1498">gpt-4.1-mini</text>
-  <text class="meta" x="38" y="1514">85.3% pass · 851ms P50 / 2.13s P95 · OpenAI</text>
-  <line class="range" x1="815.2" y1="1501" x2="959.2" y2="1501"/>
-  <circle class="p50" cx="815.2" cy="1501" r="4.3"><title>gpt-4.1-mini: 85.3% pass rate; TTFAT 851ms P50 and 2.13s P95; OpenAI</title></circle>
-  <circle class="p95" cx="959.2" cy="1501" r="3.6"><title>gpt-4.1-mini: 85.3% pass rate; TTFAT 851ms P50 and 2.13s P95; OpenAI</title></circle>
-  <text class="model" x="38" y="1539">muse-glimmer-30b (thinking high, GGUF)</text>
-  <text class="meta" x="38" y="1555">84.9% pass · 232ms P50 / 6.5s P95 · Local RTX 5090</text>
-  <line class="range" x1="611.7" y1="1542" x2="1133.2" y2="1542"/>
-  <circle class="p50" cx="611.7" cy="1542" r="4.3"><title>muse-glimmer-30b (thinking high, GGUF): 84.9% pass rate; TTFAT 232ms P50 and 6.5s P95; Local RTX 5090</title></circle>
-  <circle class="p95" cx="1133.2" cy="1542" r="3.6"><title>muse-glimmer-30b (thinking high, GGUF): 84.9% pass rate; TTFAT 232ms P50 and 6.5s P95; Local RTX 5090</title></circle>
+  <text class="model" x="38" y="1457">muse-glimmer-30b (thinking low, GGUF)</text>
+  <text class="meta" x="38" y="1473">86.1% pass · 232ms P50 / 2.80s P95 · Local RTX 5090</text>
+  <line class="range" x1="611.7" y1="1460" x2="1001.6" y2="1460"/>
+  <circle class="p50" cx="611.7" cy="1460" r="4.3"><title>muse-glimmer-30b (thinking low, GGUF): 86.1% pass rate; TTFAT 232ms P50 and 2.80s P95; Local RTX 5090</title></circle>
+  <circle class="p95" cx="1001.6" cy="1460" r="3.6"><title>muse-glimmer-30b (thinking low, GGUF): 86.1% pass rate; TTFAT 232ms P50 and 2.80s P95; Local RTX 5090</title></circle>
+  <text class="model" x="38" y="1498">poolside/laguna-s-2.1 (thinking off)</text>
+  <text class="meta" x="38" y="1514">85.6% pass · 295ms P50 / 620ms P95 · OpenRouter</text>
+  <line class="range" x1="649.3" y1="1501" x2="765.6" y2="1501"/>
+  <circle class="p50" cx="649.3" cy="1501" r="4.3"><title>poolside/laguna-s-2.1 (thinking off): 85.6% pass rate; TTFAT 295ms P50 and 620ms P95; OpenRouter</title></circle>
+  <circle class="p95" cx="765.6" cy="1501" r="3.6"><title>poolside/laguna-s-2.1 (thinking off): 85.6% pass rate; TTFAT 295ms P50 and 620ms P95; OpenRouter</title></circle>
+  <text class="model" x="38" y="1539">gpt-4.1-mini</text>
+  <text class="meta" x="38" y="1555">85.3% pass · 851ms P50 / 2.13s P95 · OpenAI</text>
+  <line class="range" x1="815.2" y1="1542" x2="959.2" y2="1542"/>
+  <circle class="p50" cx="815.2" cy="1542" r="4.3"><title>gpt-4.1-mini: 85.3% pass rate; TTFAT 851ms P50 and 2.13s P95; OpenAI</title></circle>
+  <circle class="p95" cx="959.2" cy="1542" r="3.6"><title>gpt-4.1-mini: 85.3% pass rate; TTFAT 851ms P50 and 2.13s P95; OpenAI</title></circle>
   <text class="model" x="38" y="1580">gpt-5-mini</text>
   <text class="meta" x="38" y="1596">83.7% pass · 682ms P50 / 1.13s P95 · OpenAI</text>
   <line class="range" x1="780.5" y1="1583" x2="859.8" y2="1583"/>

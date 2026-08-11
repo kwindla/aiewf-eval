@@ -398,6 +398,23 @@ class BasePipeline(ABC):
             # object ``chat_template_args``; Together uses the vLLM-style
             # ``chat_template_kwargs`` spelling.
             et = os.getenv(f"{pfx}_ENABLE_THINKING", "").strip().lower()
+            reasoning_strength = os.getenv(
+                f"{pfx}_REASONING_STRENGTH", ""
+            ).strip().lower()
+            is_muse_glimmer = "muse-glimmer" in model.lower()
+            allowed_reasoning_strengths = {"low", "medium", "high", "xhigh"}
+            if (
+                reasoning_strength
+                and reasoning_strength not in allowed_reasoning_strengths
+            ):
+                raise ValueError(
+                    f"Invalid {pfx}_REASONING_STRENGTH='{reasoning_strength}'; "
+                    f"expected one of {sorted(allowed_reasoning_strengths)}"
+                )
+            if reasoning_strength and not is_muse_glimmer:
+                raise ValueError(
+                    f"{pfx}_REASONING_STRENGTH is only supported for Muse Glimmer"
+                )
             # Reasoning tokens count against max_tokens; keep generous headroom so
             # a long chain-of-thought can't truncate the answer.
             max_tokens_raw = os.getenv(f"{pfx}_MAX_TOKENS", "8192").strip()
@@ -424,10 +441,21 @@ class BasePipeline(ABC):
                 if service_name_lower == "baseten"
                 else "chat_template_kwargs"
             )
+            # Muse Glimmer is served through llama.cpp's OpenAI-compatible API,
+            # whose embedded Jinja template consumes ``chat_template_kwargs``.
+            # This is intentionally a template variable, not prompt text and not
+            # the unrelated top-level ``reasoning_effort`` field.
+            if is_muse_glimmer:
+                template_argument_name = "chat_template_kwargs"
+            template_arguments: Dict[str, Any] = {}
             if et in {"0", "false", "off", "no"}:
-                extra_body[template_argument_name] = {"enable_thinking": False}
+                template_arguments["enable_thinking"] = False
             elif et in {"1", "true", "on", "yes"}:
-                extra_body[template_argument_name] = {"enable_thinking": True}
+                template_arguments["enable_thinking"] = True
+            if reasoning_strength:
+                template_arguments["reasoning_strength"] = reasoning_strength
+            if template_arguments:
+                extra_body[template_argument_name] = template_arguments
             if extra_body:
                 params_kwargs["extra"] = {"extra_body": extra_body}
             kwargs["params"] = OpenAILLMService.InputParams(**params_kwargs)
@@ -435,6 +463,7 @@ class BasePipeline(ABC):
                 f"Using {prov_label} with base_url={base_url}, model={model}, "
                 f"reasoning_effort={effort or '(model default)'}, "
                 f"enable_thinking={et or '(unset)'}, "
+                f"reasoning_strength={reasoning_strength or '(unset)'}, "
                 f"max_tokens={max_tokens}, temperature={temperature}, "
                 f"top_p={params_kwargs.get('top_p', '(model default)')}"
             )
