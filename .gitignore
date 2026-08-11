@@ -63,3 +63,35 @@ build/
 .pytest_cache/
 .coverage
 htmlcov/
+
+# Local research inputs, raw captures, and scratch outputs
+/Gemma_4_31B_Quick_Start_Guide.pdf
+/Kimi K2.6 Testing Guide.pdf
+/pipecat/
+/ops/systemd/
+/ops/baseten-qwen36-27b-vllm/aiewf-medium-qwen36-baseten-vllm026-apc-mtp-n30-20260728T110824Z/metrics-final.prom
+/ops/local-gemma4-31b-nvfp4-sglang/targeted-turn-kv-study-20260807/server-logs/
+/ops/local-gemma4-31b-nvfp4-sglang/targeted-turn-kv-study-20260807/snapshots/
+/ops/local-gemma4-31b-nvfp4-sglang/targeted-turn-kv-study-20260807/results/*.jsonl
+/ops/local-gemma4-31b-nvfp4-sglang/targeted-turn-kv-study-20260807/results/*.plan.json
+/ops/local-gemma4-31b-nvfp4-sglang/targeted-turn-kv-study-20260807/results/*-teacher-forced-*.json
+/ops/local-gemma4-31b-nvfp4-sglang/targeted-turn-kv-study-20260807/results/token-manifest-*.json
+/ops/local-gemma4-31b-nvfp4-sglang/targeted-turn-kv-study-20260807/results/fp8-cache-pilot-warm-retrospective-sidecar.json
+/ops/local-gemma4-31b-nvfp4-sglang/targeted-turn-kv-study-20260807/balanced-origin-followup-20260808/snapshots/
+/ops/local-gemma4-31b-nvfp4-sglang/targeted-turn-kv-study-20260807/balanced-origin-followup-20260808/results/*.jsonl
+/ops/local-gemma4-31b-nvfp4-sglang/targeted-turn-kv-study-20260807/balanced-origin-followup-20260808/results/*.plan.json
+/ops/local-gemma4-31b-nvfp4-sglang/targeted-turn-kv-study-20260807/balanced-origin-followup-20260808/results/token-manifest-*.json
+/docs/nemotron-super-modal-optimization-data/bf16-030326-mtp-only/checkpoint-metadata/
+/docs/filler-study-data/turn-family-secondary-2026-07-22/analyze.out
+/docs/gemini-3.1-live-thinking-levels-temp.md
+/docs/open-weights-latency-vs-passrate.png
+/docs/open-weights-latency-vs-passrate-v2.png
+/docs/Untitled-1
+/docs/run-notes.txt
+/eval_output.json
+/evaluation_output.json
+/evaluation_result.json
+/leaderboard-natural-tmp.md
+/openai.md
+/tmp-review-001.md
+/tmp.png
