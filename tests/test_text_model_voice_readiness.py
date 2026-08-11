@@ -37,7 +37,7 @@ def test_chart_has_one_p50_and_p95_mark_per_model():
     assert svg.count('class="p95"') == len(rows)
     assert "~700ms voice guideline" in svg
     assert "muse-glimmer-30b" in svg
-    assert "232ms P50 / 6.5s P95" in svg
+    assert "232ms P50 / 2.80s P95" in svg
     assert "qwen3-8b" not in svg
 
 

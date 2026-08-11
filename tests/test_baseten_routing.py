@@ -87,6 +87,43 @@ def test_baseten_max_tokens_can_be_omitted(monkeypatch):
     assert params.max_tokens is NOT_GIVEN
 
 
+def test_muse_glimmer_reasoning_strength_uses_embedded_template_kwarg(monkeypatch):
+    monkeypatch.setenv("BASETEN_API_KEY", "test-baseten-key")
+    monkeypatch.setenv("MTE_BASETEN_REASONING_EFFORT", "omit")
+    monkeypatch.setenv("MTE_BASETEN_REASONING_STRENGTH", "low")
+    monkeypatch.setenv("MTE_BASETEN_MAX_TOKENS", "")
+
+    service = baseten_pipeline_stub()._create_llm(
+        CapturingService, "muse-glimmer-30b"
+    )
+
+    params = service.kwargs["params"]
+    assert params.extra == {
+        "extra_body": {
+            "chat_template_kwargs": {"reasoning_strength": "low"}
+        }
+    }
+
+
+@pytest.mark.parametrize("value", ["none", "minimal", "max"])
+def test_muse_glimmer_rejects_unsupported_reasoning_strength(monkeypatch, value):
+    monkeypatch.setenv("BASETEN_API_KEY", "test-baseten-key")
+    monkeypatch.setenv("MTE_BASETEN_REASONING_STRENGTH", value)
+
+    with pytest.raises(ValueError, match="expected one of"):
+        baseten_pipeline_stub()._create_llm(
+            CapturingService, "muse-glimmer-30b"
+        )
+
+
+def test_reasoning_strength_does_not_leak_to_other_models(monkeypatch):
+    monkeypatch.setenv("BASETEN_API_KEY", "test-baseten-key")
+    monkeypatch.setenv("MTE_BASETEN_REASONING_STRENGTH", "low")
+
+    with pytest.raises(ValueError, match="only supported for Muse Glimmer"):
+        baseten_pipeline_stub()._create_llm(CapturingService, "other-model")
+
+
 @pytest.mark.parametrize("value", ["0", "-0.1", "1.1"])
 def test_baseten_rejects_invalid_top_p(monkeypatch, value):
     monkeypatch.setenv("BASETEN_API_KEY", "test-baseten-key")

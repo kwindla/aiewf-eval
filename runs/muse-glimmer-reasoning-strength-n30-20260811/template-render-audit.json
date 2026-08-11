@@ -1,0 +1,89 @@
+{
+  "assertions": {
+    "default_is_high": true,
+    "enable_thinking_false_is_render_noop": true,
+    "reasoning_effort_none_is_render_noop": true,
+    "system_instruction_preserved_once": true,
+    "unsupported_values_are_unvalidated_labels_only": true
+  },
+  "base_url": "http://127.0.0.1:8080",
+  "captured_at": "2026-08-11T13:12:25.045122+00:00",
+  "renders": {
+    "default": {
+      "length": 44943,
+      "reasoning_lines": [
+        "Reasoning strength: high."
+      ],
+      "sha256": "4eb3d3264122eb65fe94c7216b9d034ce8bb4d2413672b3d42b04ccdae53319d"
+    },
+    "enable_thinking_false": {
+      "length": 44943,
+      "reasoning_lines": [
+        "Reasoning strength: high."
+      ],
+      "sha256": "4eb3d3264122eb65fe94c7216b9d034ce8bb4d2413672b3d42b04ccdae53319d"
+    },
+    "reasoning_effort_none": {
+      "length": 44943,
+      "reasoning_lines": [
+        "Reasoning strength: high."
+      ],
+      "sha256": "4eb3d3264122eb65fe94c7216b9d034ce8bb4d2413672b3d42b04ccdae53319d"
+    },
+    "strength_high": {
+      "length": 44943,
+      "reasoning_lines": [
+        "Reasoning strength: high."
+      ],
+      "sha256": "4eb3d3264122eb65fe94c7216b9d034ce8bb4d2413672b3d42b04ccdae53319d"
+    },
+    "strength_low": {
+      "length": 44942,
+      "reasoning_lines": [
+        "Reasoning strength: low."
+      ],
+      "sha256": "e25e23a95a7b836b602c0a77a56475d5096e2b86938cad2c8a1194bbb4969661"
+    },
+    "strength_medium": {
+      "length": 44945,
+      "reasoning_lines": [
+        "Reasoning strength: medium."
+      ],
+      "sha256": "c771c0f20b317675de9a924dae7f4965462764f40a342c3cffb43ab30544506f"
+    },
+    "strength_minimal": {
+      "length": 44946,
+      "reasoning_lines": [
+        "Reasoning strength: minimal."
+      ],
+      "sha256": "6275a5eef6f21794e9283d861d6de2f4692cc865ab2010ca49d74530e3cbfb3b"
+    },
+    "strength_none": {
+      "length": 44943,
+      "reasoning_lines": [
+        "Reasoning strength: none."
+      ],
+      "sha256": "16362d4bf0c90a2333e02ac7b74d8994b94519847ac2c7897b102caa40fac8ce"
+    },
+    "strength_xhigh": {
+      "length": 44944,
+      "reasoning_lines": [
+        "Reasoning strength: xhigh."
+      ],
+      "sha256": "268a7fc814d1747031bd0296cd7e69367b7cbadb14dfd2051dd59e2745b4995b"
+    }
+  },
+  "schema_version": 1,
+  "supported_strengths": [
+    "low",
+    "medium",
+    "high",
+    "xhigh"
+  ],
+  "system_instruction_length": 44828,
+  "system_instruction_sha256": "14d62989a3475567d22300f2bab2a4b141abb0f1b675edec2f8c876a0ea9448e",
+  "unsupported_render_controls": [
+    "none",
+    "minimal"
+  ]
+}

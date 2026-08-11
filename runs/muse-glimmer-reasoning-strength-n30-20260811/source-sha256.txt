@@ -1,0 +1,8 @@
+02dd02b115d1378051f8e3bf78ec0104040ffd8d099474c4bcded3e643ea765a  ops/local-muse-glimmer-reasoning-sweep-20260811/README.md
+117175d1943e4e0fa1141f454fa4db0917697651a875bf9e3a12a1cd4edbca52  ops/local-muse-glimmer-reasoning-sweep-20260811/make_schedule.py
+9362cddb4ff278af42a00b9899439d99bb8e2136f86dfdc92a33afc034579e49  ops/local-muse-glimmer-reasoning-sweep-20260811/audit_template.py
+c1e81f5ea37bde53ad30b60054a3d876845d97979c61a49379418a2759795a72  ops/local-muse-glimmer-reasoning-sweep-20260811/worker.sh
+9df204458daf3b1c6975c51d8168a955510518f690555f22f61b4e75385a6ccd  ops/local-muse-glimmer-reasoning-sweep-20260811/judge.sh
+3aee07af6d35df81d9e1d6fe4cbf11546768cf80d3d83c3b76fb2060efeddf3b  ops/local-muse-glimmer-reasoning-sweep-20260811/analyze.py
+a26e806ec88e226d53ad8f52b38a714ce8b32b1ec2b09cf9b7a0b324f3b02f00  ops/local-muse-glimmer-reasoning-sweep-20260811/schedule.tsv
+ebab4cc8f8465a844adc0c9542ef60e16400fdd5528b91eceed042486560e164  benchmarks/aiwf_medium_context/config.py
