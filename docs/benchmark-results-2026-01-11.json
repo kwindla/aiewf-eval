@@ -1,0 +1,141 @@
+{
+  "date": "2026-01-11",
+  "benchmark": "aiwf_medium_context",
+  "turns": 30,
+  "purpose": "Validate greeting tag fix - verify WAV alignment and semantic judging",
+  "models": {
+    "ultravox-v0.7": {
+      "run_dir": "runs/aiwf_medium_context/20260111T121854_ultravox-v0.7_e9bd95f9",
+      "alignment": {
+        "min_ms": -52,
+        "max_ms": 13,
+        "drift": false,
+        "status": "pass"
+      },
+      "v2v": {
+        "median_ms": 880,
+        "max_ms": 3264
+      },
+      "greeting_detected": true,
+      "scores": {
+        "turn_taking": {"pass": 30, "total": 30, "pct": 100},
+        "tool_use": {"pass": 29, "total": 30, "pct": 97},
+        "instruction": {"pass": 30, "total": 30, "pct": 100},
+        "kb_grounding": {"pass": 30, "total": 30, "pct": 100}
+      },
+      "overall_pct": 99,
+      "turn_taking_failures": [],
+      "function_tracking": {
+        "submit_session_suggestion_1": {"expected": 11, "actual": 11, "status": "on_time"},
+        "submit_session_suggestion_2": {"expected": 12, "actual": 12, "status": "on_time"},
+        "submit_dietary_request": {"expected": 15, "actual": 15, "status": "on_time"},
+        "request_tech_support": {"expected": 17, "actual": 17, "status": "on_time"},
+        "vote_for_session": {"expected": 24, "actual": 24, "status": "on_time"},
+        "end_session": {"expected": 29, "actual": null, "status": "missing"}
+      }
+    },
+    "gpt-realtime": {
+      "run_dir": "runs/aiwf_medium_context/20260111T121855_gpt-realtime_b37aa3e9",
+      "alignment": {
+        "min_ms": -125,
+        "max_ms": 16,
+        "drift": false,
+        "status": "pass",
+        "note": "Early turns negative, within ±150ms tolerance"
+      },
+      "v2v": {
+        "median_ms": 1120,
+        "max_ms": 2016
+      },
+      "greeting_detected": true,
+      "scores": {
+        "turn_taking": {"pass": 30, "total": 30, "pct": 100},
+        "tool_use": {"pass": 26, "total": 30, "pct": 87},
+        "instruction": {"pass": 25, "total": 30, "pct": 83},
+        "kb_grounding": {"pass": 30, "total": 30, "pct": 100}
+      },
+      "overall_pct": 93,
+      "turn_taking_failures": [],
+      "function_tracking": {
+        "submit_session_suggestion_1": {"expected": 11, "actual": 11, "status": "on_time"},
+        "submit_session_suggestion_2": {"expected": 12, "actual": null, "status": "missed"},
+        "submit_dietary_request": {"expected": 15, "actual": null, "status": "missed"},
+        "request_tech_support": {"expected": 17, "actual": null, "status": "missed"},
+        "vote_for_session": {"expected": 24, "actual": null, "status": "missed"},
+        "end_session": {"expected": 29, "actual": 29, "status": "on_time"}
+      }
+    },
+    "grok-realtime": {
+      "run_dir": "runs/aiwf_medium_context/20260111T121855_grok-realtime_692b2fcf",
+      "alignment": {
+        "min_ms": 11,
+        "max_ms": 16,
+        "drift": false,
+        "status": "pass"
+      },
+      "v2v": {
+        "median_ms": 1248,
+        "max_ms": 2656
+      },
+      "greeting_detected": true,
+      "scores": {
+        "turn_taking": {"pass": 29, "total": 30, "pct": 97},
+        "tool_use": {"pass": 26, "total": 30, "pct": 87},
+        "instruction": {"pass": 27, "total": 30, "pct": 90},
+        "kb_grounding": {"pass": 30, "total": 30, "pct": 100}
+      },
+      "overall_pct": 93,
+      "turn_taking_failures": [28],
+      "function_tracking": {
+        "submit_session_suggestion_1": {"expected": 11, "actual": 11, "status": "on_time"},
+        "submit_session_suggestion_2": {"expected": 12, "actual": null, "status": "missed"},
+        "submit_dietary_request": {"expected": 15, "actual": null, "status": "missed"},
+        "request_tech_support": {"expected": 17, "actual": 17, "status": "on_time"},
+        "vote_for_session": {"expected": 24, "actual": null, "status": "missed"},
+        "end_session": {"expected": 29, "actual": null, "status": "missed"}
+      }
+    },
+    "gemini-live": {
+      "run_dir": "runs/aiwf_medium_context/20260111T121856_gemini-2.5-flash-native-audio-preview-12-2025_e14d6d6c",
+      "alignment": {
+        "min_ms": 11,
+        "max_ms": 16,
+        "drift": false,
+        "status": "pass"
+      },
+      "v2v": {
+        "median_ms": 2240,
+        "max_ms": 4896
+      },
+      "greeting_detected": true,
+      "scores": {
+        "turn_taking": {"pass": 29, "total": 30, "pct": 97},
+        "tool_use": {"pass": 27, "total": 30, "pct": 90},
+        "instruction": {"pass": 26, "total": 30, "pct": 87},
+        "kb_grounding": {"pass": 29, "total": 30, "pct": 97}
+      },
+      "overall_pct": 93,
+      "turn_taking_failures": [0],
+      "function_tracking": {
+        "submit_session_suggestion_1": {"expected": 11, "actual": 11, "status": "on_time"},
+        "submit_session_suggestion_2": {"expected": 12, "actual": null, "status": "missing"},
+        "submit_dietary_request": {"expected": 15, "actual": null, "status": "missing"},
+        "request_tech_support": {"expected": 17, "actual": 17, "status": "on_time"},
+        "vote_for_session": {"expected": 24, "actual": null, "status": "missing"},
+        "end_session": {"expected": 29, "actual": 29, "status": "on_time"}
+      }
+    }
+  },
+  "summary": {
+    "greeting_fix_validated": true,
+    "wav_alignment_stable": true,
+    "best_performer": "ultravox-v0.7",
+    "notes": [
+      "All 4 models detect and produce initial greetings correctly",
+      "No alignment drift over 30-turn duration",
+      "Ultravox best overall (99%)",
+      "GPT-Realtime and Grok-Realtime struggle with mid-conversation function calls",
+      "KB grounding strong across all models (97-100%)"
+    ]
+  }
+}

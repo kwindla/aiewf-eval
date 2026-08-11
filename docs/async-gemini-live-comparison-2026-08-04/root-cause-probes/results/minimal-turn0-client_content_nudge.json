@@ -1,0 +1,267 @@
+[
+  {
+    "trial": 1,
+    "model": "clever-chatter",
+    "boundary": "client_content_nudge",
+    "turn": 0,
+    "system": "minimal",
+    "tools": "none",
+    "history": "none",
+    "deadline_seconds": 45.0,
+    "started_unix": 1785905900.3213332,
+    "raw_typed_messages": 38,
+    "empty_typed_messages": 21,
+    "events": [
+      {
+        "received_monotonic_ns": 3298635659096743,
+        "session_resumption": true
+      },
+      {
+        "received_monotonic_ns": 3298636673446879,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null
+      },
+      {
+        "received_monotonic_ns": 3298636926079560,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "output_transcription": "I don't have ",
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 4320,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298637021153953,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 15360,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298637108346466,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 15360,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298637227940159,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "output_transcription": "the specific schedule",
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 17280,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298637254359807,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 15360,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298637333206530,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 15360,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298637461743838,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "output_transcription": " for the workshops on hand",
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 21120,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298637509461227,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 15360,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298637669824842,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "output_transcription": " right now.",
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 28800,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298637745397065,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 15360,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298637848656353,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 15360,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298637892469688,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 15360,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298637915472537,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 1920,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298637944653579,
+        "turn_complete": null,
+        "generation_complete": true,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null
+      },
+      {
+        "received_monotonic_ns": 3298641015527991,
+        "turn_complete": true,
+        "generation_complete": null,
+        "interaction_status": "REQUIRES_ACTION",
+        "interrupted": null,
+        "waiting_for_input": null,
+        "usage": {
+          "prompt_tokens": 2521,
+          "response_tokens": 109,
+          "thought_tokens": 247,
+          "total_tokens": 2630
+        }
+      }
+    ],
+    "in_progress_count": 0,
+    "audio_send_calls": 0,
+    "audio_bytes_sent": 0,
+    "silence_send_calls": 0,
+    "silence_bytes_sent": 0,
+    "maximum_send_ms": 0.0,
+    "history_messages": 0,
+    "realtime_text_nudge_sent": true,
+    "terminal_signal": "REQUIRES_ACTION",
+    "first_output_ms": 1281.688678,
+    "terminal_ms": 5371.137109,
+    "output_transcription": "I don't have the specific schedule for the workshops on hand right now.",
+    "input_transcription": "",
+    "audio_output_bytes": 196320,
+    "tool_calls": [],
+    "outcome": "terminal",
+    "finished_unix": 1785905905.9715052
+  }
+]

@@ -1,0 +1,31 @@
+{
+  "amazon.nova-2-sonic-v1_0": {
+    "valid_runs": 10,
+    "total_runs": 10,
+    "scores": {
+      "turn_taking": {
+        "correct": 300,
+        "total": 300
+      },
+      "tool_use_correct": {
+        "correct": 257,
+        "total": 300
+      },
+      "instruction_following": {
+        "correct": 247,
+        "total": 300
+      },
+      "kb_grounding": {
+        "correct": 293,
+        "total": 300
+      },
+      "turn_pass": {
+        "correct": 240,
+        "total": 300
+      }
+    },
+    "non_tool_v2vs": [],
+    "tool_v2vs": [],
+    "silence_pads": []
+  }
+}

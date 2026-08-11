@@ -1,0 +1,2 @@
+attempt	exit_code	classification	turns	failure_turn	raw_events	in_progress	terminal	activity_starts	activity_ends	audio_bytes	run_dir	log
+1	0	complete	30		2565	7	30	30	30	62693656	runs/aiwf_medium_context/20260805T051513_clever-chatter_35fce0ed	docs/clever-chatter-comparison-2026-08-04/exact-boundary-n20-2026-08-05/logs/attempt-01.log

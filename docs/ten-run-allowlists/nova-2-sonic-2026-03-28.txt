@@ -1,0 +1,10 @@
+runs/aiwf_medium_context/20260328T094818_amazon.nova-2-sonic-v1_0_5cf530ed
+runs/aiwf_medium_context/20260328T100846_amazon.nova-2-sonic-v1_0_8698fe92
+runs/aiwf_medium_context/20260328T103031_amazon.nova-2-sonic-v1_0_0393af77
+runs/aiwf_medium_context/20260328T105219_amazon.nova-2-sonic-v1_0_2774729a
+runs/aiwf_medium_context/20260328T111422_amazon.nova-2-sonic-v1_0_2d67c3e5
+runs/aiwf_medium_context/20260328T113223_amazon.nova-2-sonic-v1_0_a87955a6
+runs/aiwf_medium_context/20260328T115117_amazon.nova-2-sonic-v1_0_3eaf21c2
+runs/aiwf_medium_context/20260328T121151_amazon.nova-2-sonic-v1_0_8dc0d29c
+runs/aiwf_medium_context/20260328T123148_amazon.nova-2-sonic-v1_0_e2f9cf3c
+runs/aiwf_medium_context/20260328T124930_amazon.nova-2-sonic-v1_0_09b15e9a

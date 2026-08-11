@@ -1,0 +1,8 @@
+{
+  "first_token_pending": false,
+  "output_text": "Yes, you can vote for a session to show your interest. Just let me know your name and the session ID, and I can record your vote.",
+  "phase": "client-response",
+  "timestamp": 1778690285.2438776,
+  "tool_calls": [],
+  "trace_id": "nemotron-mte-d6f755bd4d034ea5afe6ba293e4371be-turn-023-attempt-01"
+}

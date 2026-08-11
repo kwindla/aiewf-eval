@@ -1,0 +1,39 @@
+{
+  "date": "2026-08-04",
+  "model": "clever-chatter",
+  "api_version": "v1alpha",
+  "response_modality": "AUDIO",
+  "include_thoughts": true,
+  "probes": [
+    {
+      "input_modality": "AUDIO",
+      "thinking_level": "minimal",
+      "thoughts_token_count": 125,
+      "thought_text_parts": 0,
+      "ordinary_text_parts": 0,
+      "audio_part_count": 14,
+      "output_transcription": "I can help with that. What specific workshops are on the schedule for day 1?"
+    },
+    {
+      "input_modality": "TEXT",
+      "input_method": "send_realtime_input(text=...)",
+      "thinking_level": "minimal",
+      "thoughts_token_count": 69,
+      "thought_text_parts": 0,
+      "ordinary_text_parts": 0,
+      "audio_part_count": 9,
+      "output_transcription": "Let me calculate that quickly."
+    },
+    {
+      "input_modality": "TEXT",
+      "input_method": "send_realtime_input(text=...)",
+      "thinking_level": "high",
+      "thoughts_token_count": 209,
+      "thought_text_parts": 0,
+      "ordinary_text_parts": 0,
+      "audio_part_count": 7,
+      "output_transcription": "Working through that calculation now."
+    }
+  ],
+  "conclusion": "Clever Chatter reports internal reasoning-token usage but did not expose thought text in any tested native-audio configuration. Text sent through send_realtime_input triggered a model turn without a separate turn_complete argument."
+}

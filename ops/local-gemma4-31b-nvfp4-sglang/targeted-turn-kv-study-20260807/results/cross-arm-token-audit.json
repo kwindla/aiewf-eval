@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "token_hash_gate": {
+    "paths": [
+      "ops/local-gemma4-31b-nvfp4-sglang/targeted-turn-kv-study-20260807/results/token-manifest-fp8-compact.json",
+      "ops/local-gemma4-31b-nvfp4-sglang/targeted-turn-kv-study-20260807/results/token-manifest-bf16-compact.json"
+    ],
+    "snapshot_count": 26,
+    "mismatches": [],
+    "passed": true
+  },
+  "result_gate": null,
+  "passed": true
+}

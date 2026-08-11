@@ -1,0 +1,9 @@
+attempt	exit_code	classification	turns	retry_events	audio_bytes	run_dir	log
+1	0	complete	30	0	51385296	runs/aiwf_medium_context/20260805T092804_gemini-3.1-flash-live-preview_f6cc4d80	docs/clever-chatter-comparison-2026-08-04/gemini31-topup-n5-2026-08-05/logs/attempt-01.log
+2	0	complete	30	3	52102260	runs/aiwf_medium_context/20260805T093702_gemini-3.1-flash-live-preview_4c623e20	docs/clever-chatter-comparison-2026-08-04/gemini31-topup-n5-2026-08-05/logs/attempt-02.log
+3	0	complete	30	0	51515800	runs/aiwf_medium_context/20260805T094606_gemini-3.1-flash-live-preview_af105fe5	docs/clever-chatter-comparison-2026-08-04/gemini31-topup-n5-2026-08-05/logs/attempt-03.log
+4	0	complete	30	0	51090304	runs/aiwf_medium_context/20260805T095505_gemini-3.1-flash-live-preview_e36cc80f	docs/clever-chatter-comparison-2026-08-04/gemini31-topup-n5-2026-08-05/logs/attempt-04.log
+5	0	complete	30	0	51662196	runs/aiwf_medium_context/20260805T100359_gemini-3.1-flash-live-preview_7841a1a7	docs/clever-chatter-comparison-2026-08-04/gemini31-topup-n5-2026-08-05/logs/attempt-05.log
+6	0	complete	30	0	51995256	runs/aiwf_medium_context/20260805T101308_gemini-3.1-flash-live-preview_70267479	docs/clever-chatter-comparison-2026-08-04/gemini31-topup-n5-2026-08-05/logs/attempt-06.log
+7	1	failed	12	2	23424896	runs/aiwf_medium_context/20260805T105408_gemini-3.1-flash-live-preview_c2aafa67	docs/clever-chatter-comparison-2026-08-04/gemini31-topup-n5-2026-08-05/logs/attempt-07.log
+8	0	complete	30	0	50240844	runs/aiwf_medium_context/20260805T105814_gemini-3.1-flash-live-preview_8802a358	docs/clever-chatter-comparison-2026-08-04/gemini31-topup-n5-2026-08-05/logs/attempt-08.log

@@ -1,0 +1,6 @@
+run_dir	attempt	exit_code	judged_turns	log
+runs/aiwf_medium_context/20260804T164511_gpt-realtime-2.1_2ec9b314	0	0	30	already-judged
+runs/aiwf_medium_context/20260804T165428_gpt-realtime-2.1_7439c9c6	0	0	30	already-judged
+runs/aiwf_medium_context/20260804T170537_gpt-realtime-2.1_fbf91036	0	0	30	already-judged
+runs/aiwf_medium_context/20260804T171538_gpt-realtime-2.1_06dedff1	0	0	30	already-judged
+runs/aiwf_medium_context/20260804T172619_gpt-realtime-2.1_9d4f50e4	1	0	30	docs/clever-chatter-comparison-2026-08-04/logs/judge-openai-topup-c-20260804T172619_gpt-realtime-2.1_9d4f50e4-attempt-1.log

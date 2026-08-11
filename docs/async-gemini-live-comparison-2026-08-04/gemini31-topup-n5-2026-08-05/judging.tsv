@@ -1,0 +1,7 @@
+run_dir	attempt	exit_code	judged_turns	log
+runs/aiwf_medium_context/20260805T092804_gemini-3.1-flash-live-preview_f6cc4d80	1	0	30	docs/clever-chatter-comparison-2026-08-04/gemini31-topup-n5-2026-08-05/logs/judge-20260805T092804_gemini-3.1-flash-live-preview_f6cc4d80-attempt-1.log
+runs/aiwf_medium_context/20260805T093702_gemini-3.1-flash-live-preview_4c623e20	1	0	30	docs/clever-chatter-comparison-2026-08-04/gemini31-topup-n5-2026-08-05/logs/judge-20260805T093702_gemini-3.1-flash-live-preview_4c623e20-attempt-1.log
+runs/aiwf_medium_context/20260805T094606_gemini-3.1-flash-live-preview_af105fe5	1	0	30	docs/clever-chatter-comparison-2026-08-04/gemini31-topup-n5-2026-08-05/logs/judge-20260805T094606_gemini-3.1-flash-live-preview_af105fe5-attempt-1.log
+runs/aiwf_medium_context/20260805T095505_gemini-3.1-flash-live-preview_e36cc80f	1	0	30	docs/clever-chatter-comparison-2026-08-04/gemini31-topup-n5-2026-08-05/logs/judge-20260805T095505_gemini-3.1-flash-live-preview_e36cc80f-attempt-1.log
+runs/aiwf_medium_context/20260805T100359_gemini-3.1-flash-live-preview_7841a1a7	1	0	30	docs/clever-chatter-comparison-2026-08-04/gemini31-topup-n5-2026-08-05/logs/judge-20260805T100359_gemini-3.1-flash-live-preview_7841a1a7-attempt-1.log
+runs/aiwf_medium_context/20260805T101308_gemini-3.1-flash-live-preview_70267479	1	0	30	docs/clever-chatter-comparison-2026-08-04/gemini31-topup-n5-2026-08-05/logs/judge-20260805T101308_gemini-3.1-flash-live-preview_70267479-attempt-1.log

@@ -1,0 +1,138 @@
+[
+  {
+    "App ID": "ap-Vi1zEclSgFzUkOepi4sMvV",
+    "Description": "nemotron-super-b200-vllm-017-release",
+    "State": "deployed",
+    "Tasks": "0",
+    "Created at": "2026-03-12 15:01:27-07:00",
+    "Stopped at": null
+  },
+  {
+    "App ID": "ap-8Z2SptSwIiKEJ6WACxM3qp",
+    "Description": "glm5-sglang-release",
+    "State": "deployed",
+    "Tasks": "0",
+    "Created at": "2026-03-20 11:21:01-07:00",
+    "Stopped at": null
+  },
+  {
+    "App ID": "ap-2eOCIidRHlj3s0t9WocbMV",
+    "Description": "nemotron-cascade-b200-vllm-017",
+    "State": "deployed",
+    "Tasks": "0",
+    "Created at": "2026-03-20 13:29:20-07:00",
+    "Stopped at": null
+  },
+  {
+    "App ID": "ap-zqdFoXEG9iNlBbt2WCtS0K",
+    "Description": "nemotron-small-rtxpro6000-vllm-017",
+    "State": "deployed",
+    "Tasks": "0",
+    "Created at": "2026-03-20 20:32:18-07:00",
+    "Stopped at": null
+  },
+  {
+    "App ID": "ap-KBypvTXDtFuCP9YR63ExTF",
+    "Description": "gpt-oss-120b-b200-vllm-017-snapshot",
+    "State": "deployed",
+    "Tasks": "0",
+    "Created at": "2026-03-20 23:01:22-07:00",
+    "Stopped at": null
+  },
+  {
+    "App ID": "ap-WFnFnHdFuCPDjiSFZJzAow",
+    "Description": "gpt-oss-120b-b200x1-vllm-017",
+    "State": "deployed",
+    "Tasks": "0",
+    "Created at": "2026-03-22 20:29:25-07:00",
+    "Stopped at": null
+  },
+  {
+    "App ID": "ap-gCTWKK16AfTJm8yznOFKIB",
+    "Description": "glm5-sglang-release-handoff-test",
+    "State": "deployed",
+    "Tasks": "0",
+    "Created at": "2026-03-23 17:29:33-07:00",
+    "Stopped at": null
+  },
+  {
+    "App ID": "ap-1MtTblkLPAScbCRHDxloxs",
+    "Description": "gpt-oss-120b-b2001-vllm-017",
+    "State": "deployed",
+    "Tasks": "0",
+    "Created at": "2026-03-25 13:55:12-07:00",
+    "Stopped at": null
+  },
+  {
+    "App ID": "ap-neW3lkMHY9BYxiInkflQgW",
+    "Description": "gemma4-31b-vllm",
+    "State": "deployed",
+    "Tasks": "0",
+    "Created at": "2026-04-15 13:14:44-07:00",
+    "Stopped at": null
+  },
+  {
+    "App ID": "ap-SvUH3SRsixkyDnJQDECNqS",
+    "Description": "gemma4-e4b-vllm",
+    "State": "deployed",
+    "Tasks": "0",
+    "Created at": "2026-04-15 15:03:51-07:00",
+    "Stopped at": null
+  },
+  {
+    "App ID": "ap-kIbFtNa7UHQLO6a1WBPKWS",
+    "Description": "unreasonable-webrtc",
+    "State": "deployed",
+    "Tasks": "1",
+    "Created at": "2026-05-12 19:23:26-07:00",
+    "Stopped at": null
+  },
+  {
+    "App ID": "ap-WwmRnLhV48ewUKz2iunOM2",
+    "Description": "nemotron-super-b200-budget",
+    "State": "deployed",
+    "Tasks": "0",
+    "Created at": "2026-07-19 18:54:21-07:00",
+    "Stopped at": null
+  },
+  {
+    "App ID": "ap-AHv7XacYl2eBIfHZCTVHQS",
+    "Description": "nemotron-super-b200-nvfp4-budget",
+    "State": "deployed",
+    "Tasks": "0",
+    "Created at": "2026-07-20 12:17:03-07:00",
+    "Stopped at": null
+  },
+  {
+    "App ID": "ap-Jf9HxEJResQwIxlFubPCo8",
+    "Description": "nemotron-super-b200-bisect",
+    "State": "deployed",
+    "Tasks": "0",
+    "Created at": "2026-07-20 12:49:02-07:00",
+    "Stopped at": null
+  },
+  {
+    "App ID": "ap-dIotBPY2GHeT2tlEpSLNB1",
+    "Description": "nemotron-super-bf16-030326-no-mtp",
+    "State": "stopped",
+    "Tasks": "0",
+    "Created at": "2026-07-20 19:40:51-07:00",
+    "Stopped at": "2026-07-20 20:16:23-07:00"
+  },
+  {
+    "App ID": "ap-onpUnDHwNUAlxCAbjbFK17",
+    "Description": "nemotron-super-nvfp4-030326-no-mtp",
+    "State": "stopped",
+    "Tasks": "0",
+    "Created at": "2026-07-20 19:07:38-07:00",
+    "Stopped at": "2026-07-20 19:38:33-07:00"
+  },
+  {
+    "App ID": "ap-leuP7dwFTKxOIw7FzFVM3V",
+    "Description": "nemotron-super-bf16-030326-mtp-only",
+    "State": "stopped",
+    "Tasks": "0",
+    "Created at": "2026-07-20 18:23:47-07:00",
+    "Stopped at": "2026-07-20 19:00:38-07:00"
+  }
+]

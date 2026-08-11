@@ -1,0 +1,6 @@
+attempt	exit_code	turns	run_dir	log
+1	0	30	runs/aiwf_medium_context/20260804T151359_gpt-realtime-2.1_9727553e	docs/clever-chatter-comparison-2026-08-04/logs/openai-b-attempt-01.log
+2	0	30	runs/aiwf_medium_context/20260804T152603_gpt-realtime-2.1_c7aaf20d	docs/clever-chatter-comparison-2026-08-04/logs/openai-b-attempt-02.log
+3	0	30	runs/aiwf_medium_context/20260804T153635_gpt-realtime-2.1_ef5610fd	docs/clever-chatter-comparison-2026-08-04/logs/openai-b-attempt-03.log
+4	0	30	runs/aiwf_medium_context/20260804T154636_gpt-realtime-2.1_792bee7e	docs/clever-chatter-comparison-2026-08-04/logs/openai-b-attempt-04.log
+5	0	30	runs/aiwf_medium_context/20260804T155731_gpt-realtime-2.1_37ff135d	docs/clever-chatter-comparison-2026-08-04/logs/openai-b-attempt-05.log

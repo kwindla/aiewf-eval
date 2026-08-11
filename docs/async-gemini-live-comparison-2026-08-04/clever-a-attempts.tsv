@@ -1,0 +1,10 @@
+attempt	exit_code	turns	run_dir	log
+1	0	30	runs/aiwf_medium_context/20260804T151359_clever-chatter_d2d5a6af	docs/clever-chatter-comparison-2026-08-04/logs/clever-a-attempt-01.log
+2	0	30	runs/aiwf_medium_context/20260804T152634_clever-chatter_4672837b	docs/clever-chatter-comparison-2026-08-04/logs/clever-a-attempt-02.log
+3	0	11	runs/aiwf_medium_context/20260804T153600_clever-chatter_cc041baf	docs/clever-chatter-comparison-2026-08-04/logs/clever-a-attempt-03.log
+4	0	30	runs/aiwf_medium_context/20260804T154024_clever-chatter_9e319b32	docs/clever-chatter-comparison-2026-08-04/logs/clever-a-attempt-04.log
+5	0	30	runs/aiwf_medium_context/20260804T155321_clever-chatter_bd56746d	docs/clever-chatter-comparison-2026-08-04/logs/clever-a-attempt-05.log
+6	0	30	runs/aiwf_medium_context/20260804T160244_clever-chatter_88760ff7	docs/clever-chatter-comparison-2026-08-04/logs/clever-a-attempt-06.log
+7	0	30	runs/aiwf_medium_context/20260804T161419_clever-chatter_da429573	docs/clever-chatter-comparison-2026-08-04/logs/clever-a-attempt-07.log
+8	0	14	runs/aiwf_medium_context/20260804T162506_clever-chatter_5e1a6276	docs/clever-chatter-comparison-2026-08-04/logs/clever-a-attempt-08.log
+9	0	30	runs/aiwf_medium_context/20260804T163155_clever-chatter_d3ba5b3a	docs/clever-chatter-comparison-2026-08-04/logs/clever-a-attempt-09.log

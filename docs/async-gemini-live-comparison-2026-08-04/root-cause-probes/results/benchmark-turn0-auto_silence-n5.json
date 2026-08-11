@@ -1,0 +1,2837 @@
+[
+  {
+    "trial": 1,
+    "model": "clever-chatter",
+    "boundary": "auto_silence",
+    "turn": 0,
+    "system": "benchmark",
+    "tools": "benchmark",
+    "history": "none",
+    "deadline_seconds": 45.0,
+    "started_unix": 1785905955.906971,
+    "raw_typed_messages": 59,
+    "empty_typed_messages": 32,
+    "events": [
+      {
+        "received_monotonic_ns": 3298691824074704,
+        "session_resumption": true
+      },
+      {
+        "received_monotonic_ns": 3298697471910261,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "input_transcription": "I'm trying to decide whether to come for workshop day one of the workshops."
+      },
+      {
+        "received_monotonic_ns": 3298697767989444,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null
+      },
+      {
+        "received_monotonic_ns": 3298698010924043,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "output_transcription": "I can help with that. ",
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 2400,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298698035917361,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 7680,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298698066091509,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 7680,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298698121996765,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 7680,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298698153448920,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 7680,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298698175909357,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 3840,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298698251456809,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "output_transcription": "What are your interests",
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 13440,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298698336353327,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 15360,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298698425014726,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 15360,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298698440557064,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 3840,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298698654057491,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "output_transcription": " in AI engineering",
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 26880,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298698672004907,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 15360,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298698679864845,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 5760,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298698790280729,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "output_transcription": " so I can suggest the best",
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 17280,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298698858059627,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 15360,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298698945697892,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 15360,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298699108225018,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "output_transcription": " workshops for you?",
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 26880,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298699151317721,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 15360,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298699240119044,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 15360,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298699298741592,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 15360,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298699386852384,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 15360,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298699413767933,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 7680,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298699413850490,
+        "turn_complete": null,
+        "generation_complete": true,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null
+      },
+      {
+        "received_monotonic_ns": 3298703785134192,
+        "turn_complete": true,
+        "generation_complete": null,
+        "interaction_status": "REQUIRES_ACTION",
+        "interrupted": null,
+        "waiting_for_input": null,
+        "usage": {
+          "prompt_tokens": 15860,
+          "response_tokens": 150,
+          "thought_tokens": 51,
+          "total_tokens": 16010
+        }
+      }
+    ],
+    "in_progress_count": 0,
+    "audio_send_calls": 268,
+    "audio_bytes_sent": 256506,
+    "silence_send_calls": 324,
+    "silence_bytes_sent": 311040,
+    "maximum_send_ms": 0.429757,
+    "history_messages": 0,
+    "sample_rate": 24000,
+    "wav_bytes": 246906,
+    "terminal_signal": "REQUIRES_ACTION",
+    "first_output_ms": 777.104089,
+    "terminal_ms": 6551.314238,
+    "output_transcription": "I can help with that. What are your interests in AI engineering so I can suggest the best workshops for you?",
+    "input_transcription": "I'm trying to decide whether to come for workshop day one of the workshops.",
+    "audio_output_bytes": 276960,
+    "tool_calls": [],
+    "outcome": "terminal",
+    "finished_unix": 1785905968.742022
+  },
+  {
+    "trial": 2,
+    "model": "clever-chatter",
+    "boundary": "auto_silence",
+    "turn": 0,
+    "system": "benchmark",
+    "tools": "benchmark",
+    "history": "none",
+    "deadline_seconds": 45.0,
+    "started_unix": 1785905968.7424757,
+    "raw_typed_messages": 95,
+    "empty_typed_messages": 53,
+    "events": [
+      {
+        "received_monotonic_ns": 3298704129871395,
+        "session_resumption": true
+      },
+      {
+        "received_monotonic_ns": 3298709679283531,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "input_transcription": "I'm trying to decide whether to come for workshop day one of the workshops."
+      },
+      {
+        "received_monotonic_ns": 3298710098453646,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null
+      },
+      {
+        "received_monotonic_ns": 3298710341105334,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "output_transcription": "Exclusive hands on ",
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 6240,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298710415656583,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 15360,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298710509931020,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 15360,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298710609942915,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "output_transcription": "workshops across",
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 17280,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298710659639339,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 15360,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298710741626661,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 15360,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298710870142510,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "output_transcription": " 5 tracks are available,",
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 24960,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298710942643504,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 15360,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298710961292022,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 7680,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298711075738191,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "output_transcription": " instructed",
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 15360,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298711159529088,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 15360,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298711204294548,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 15360,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298711233976931,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 1920,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298711369783988,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "output_transcription": " by industry leading",
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 17280,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298711382288587,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 15360,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298711468121813,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 15360,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298711594455749,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "output_transcription": " companies, founders,",
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 23040,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298711671977299,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 15360,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298711698738204,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 9600,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298711863851931,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "output_transcription": " and engineers",
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 28800,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298711937079726,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 15360,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298711958626057,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 3840,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298712066425041,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "output_transcription": " covering all levels",
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 17280,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298712113911648,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 15360,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298712202806839,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 15360,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298712335875966,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "output_transcription": " of experience and specialties",
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 23040,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298712409170338,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 15360,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298712436116725,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 9600,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298712534203152,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "output_transcription": " in AI",
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 17280,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298712615640449,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 15360,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298712703428117,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 15360,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298712848861918,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "output_transcription": " Engineering.",
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 26880,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298712910512926,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 15360,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298712999365185,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 15360,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298713056904756,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 15360,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298713145849441,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 15360,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298713236288975,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 15360,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298713256065846,
+        "turn_complete": null,
+        "generation_complete": true,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null
+      },
+      {
+        "received_monotonic_ns": 3298722268963060,
+        "turn_complete": true,
+        "generation_complete": null,
+        "interaction_status": "REQUIRES_ACTION",
+        "interrupted": null,
+        "waiting_for_input": null,
+        "usage": {
+          "prompt_tokens": 15860,
+          "response_tokens": 304,
+          "thought_tokens": 109,
+          "total_tokens": 16164
+        }
+      }
+    ],
+    "in_progress_count": 0,
+    "audio_send_calls": 268,
+    "audio_bytes_sent": 256506,
+    "silence_send_calls": 628,
+    "silence_bytes_sent": 602880,
+    "maximum_send_ms": 0.39482,
+    "history_messages": 0,
+    "sample_rate": 24000,
+    "wav_bytes": 246906,
+    "terminal_signal": "REQUIRES_ACTION",
+    "first_output_ms": 801.223318,
+    "terminal_ms": 12729.081044,
+    "output_transcription": "Exclusive hands on workshops across 5 tracks are available, instructed by industry leading companies, founders, and engineers covering all levels of experience and specialties in AI Engineering.",
+    "input_transcription": "I'm trying to decide whether to come for workshop day one of the workshops.",
+    "audio_output_bytes": 572640,
+    "tool_calls": [],
+    "outcome": "terminal",
+    "finished_unix": 1785905987.2259395
+  },
+  {
+    "trial": 3,
+    "model": "clever-chatter",
+    "boundary": "auto_silence",
+    "turn": 0,
+    "system": "benchmark",
+    "tools": "benchmark",
+    "history": "none",
+    "deadline_seconds": 45.0,
+    "started_unix": 1785905987.2265437,
+    "raw_typed_messages": 42,
+    "empty_typed_messages": 21,
+    "events": [
+      {
+        "received_monotonic_ns": 3298722627708323,
+        "session_resumption": true
+      },
+      {
+        "received_monotonic_ns": 3298728287023329,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "input_transcription": "I'm trying to decide whether to come for workshop day one of the workshops."
+      },
+      {
+        "received_monotonic_ns": 3298738639641651,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null
+      },
+      {
+        "received_monotonic_ns": 3298742431831306,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "output_transcription": "I can certainly ",
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 11520,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298743395619306,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 15360,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298744829767127,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 7680,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298746371949073,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "output_transcription": "share some details",
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 17280,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298747778432199,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 15360,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298753713748536,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 15360,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298755269949887,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "output_transcription": " about the workshops",
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 17280,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298756698620994,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 15360,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298759380121789,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 15360,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298760791240678,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "output_transcription": " available on June 3rd.",
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 21120,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298762178056891,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 15360,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298764564021764,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 11520,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298765911176688,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "output_transcription": " We have various",
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 26880,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298768277208826,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 15360,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298768298231041,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 5760,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298769682128272,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "output_transcription": " options, including",
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 17280,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298770986910920,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 15360,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298773021763923,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 15360,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      }
+    ],
+    "in_progress_count": 0,
+    "audio_send_calls": 268,
+    "audio_bytes_sent": 256506,
+    "silence_send_calls": 2223,
+    "silence_bytes_sent": 2134080,
+    "maximum_send_ms": 0.417564,
+    "history_messages": 0,
+    "sample_rate": 24000,
+    "wav_bytes": 246906,
+    "deadline_expired": true,
+    "first_output_ms": 14404.264949,
+    "terminal_ms": null,
+    "output_transcription": "I can certainly share some details about the workshops available on June 3rd. We have various options, including",
+    "input_transcription": "I'm trying to decide whether to come for workshop day one of the workshops.",
+    "audio_output_bytes": 274560,
+    "tool_calls": [],
+    "outcome": "audio_without_terminal",
+    "finished_unix": 1785906037.9859462
+  },
+  {
+    "trial": 4,
+    "model": "clever-chatter",
+    "boundary": "auto_silence",
+    "turn": 0,
+    "system": "benchmark",
+    "tools": "benchmark",
+    "history": "none",
+    "deadline_seconds": 45.0,
+    "started_unix": 1785906037.9867868,
+    "raw_typed_messages": 142,
+    "empty_typed_messages": 80,
+    "events": [
+      {
+        "received_monotonic_ns": 3298773408156637,
+        "session_resumption": true
+      },
+      {
+        "received_monotonic_ns": 3298778946996435,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "input_transcription": "I'm trying to decide whether to come for workshop day one of the workshops."
+      },
+      {
+        "received_monotonic_ns": 3298779424949286,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null
+      },
+      {
+        "received_monotonic_ns": 3298779768781561,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "output_transcription": "On June 3rd, ",
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 16320,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298779844110753,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 15360,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298779864102691,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 5760,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298779991141720,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "output_transcription": "workshop day offers",
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 17280,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298780023987068,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 15360,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298780102263959,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 15360,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298780236175349,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "output_transcription": " exclusive hands-on",
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 23040,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298780309064738,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 15360,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298780336227906,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 9600,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298780504635740,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "output_transcription": " workshops across",
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 26880,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298780584444169,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 15360,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298780598162513,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 5760,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298780739959899,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "output_transcription": " 5 tracks, instructed",
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 17280,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298780751076010,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 15360,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298780839231622,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 15360,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298780993659797,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "output_transcription": " by industry-leading",
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 23040,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298781045177617,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 15360,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298781079490443,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 9600,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298781174242773,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "output_transcription": " companies,",
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 17280,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298781251701690,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 15360,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298781339793662,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 15360,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298781451600401,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "output_transcription": " founders,",
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 19200,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298781517777582,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 15360,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298781575176281,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 13440,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298781715938482,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "output_transcription": " and engineers. These",
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 24960,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298781791096911,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 15360,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298781807117707,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 7680,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298781929017845,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "output_transcription": " topics span",
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 17280,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298781987676788,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 15360,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298782079912469,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 15360,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298782235796568,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "output_transcription": " all levels of experience",
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 23040,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298782262758864,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 15360,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298782315995429,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 9600,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298782407978440,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "output_transcription": " and specialties",
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 17280,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298782487346012,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 15360,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298782549576878,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 15360,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298782707228324,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "output_transcription": " in AI Engineering.",
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 21120,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298782752635370,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 15360,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298782811787279,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 11520,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298782975094676,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "output_transcription": " You can also",
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 26880,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298783016931651,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 15360,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298783042317623,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 5760,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298783175687665,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "output_transcription": " attend the Evening Welcome",
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 17280,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298783230416714,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 15360,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298783282228083,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 15360,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298783450995670,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "output_transcription": " Reception from",
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 28800,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298783519851518,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 15360,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298783543454635,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 3840,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298783614072169,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "output_transcription": " 4:00 to 7:00 PM",
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 15360,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298783694884053,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 15360,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298783782329877,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 15360,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298783943413932,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "output_transcription": " in the Grand Assembly.",
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 26880,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298783990662324,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 15360,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298784076710604,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 15360,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298784143993715,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 15360,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298784226043972,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 15360,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298784282087708,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 11520,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298784308067127,
+        "turn_complete": null,
+        "generation_complete": true,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null
+      },
+      {
+        "received_monotonic_ns": 3298798577520522,
+        "turn_complete": true,
+        "generation_complete": null,
+        "interaction_status": "REQUIRES_ACTION",
+        "interrupted": null,
+        "waiting_for_input": null,
+        "usage": {
+          "prompt_tokens": 15860,
+          "response_tokens": 476,
+          "thought_tokens": 127,
+          "total_tokens": 16336
+        }
+      }
+    ],
+    "in_progress_count": 0,
+    "audio_send_calls": 268,
+    "audio_bytes_sent": 256506,
+    "silence_send_calls": 975,
+    "silence_bytes_sent": 936000,
+    "maximum_send_ms": 0.441168,
+    "history_messages": 0,
+    "sample_rate": 24000,
+    "wav_bytes": 246906,
+    "terminal_signal": "REQUIRES_ACTION",
+    "first_output_ms": 955.569205,
+    "terminal_ms": 19764.308166,
+    "output_transcription": "On June 3rd, workshop day offers exclusive hands-on workshops across 5 tracks, instructed by industry-leading companies, founders, and engineers. These topics span all levels of experience and specialties in AI Engineering. You can also attend the Evening Welcome Reception from 4:00 to 7:00 PM in the Grand Assembly.",
+    "input_transcription": "I'm trying to decide whether to come for workshop day one of the workshops.",
+    "audio_output_bytes": 903360,
+    "tool_calls": [],
+    "outcome": "terminal",
+    "finished_unix": 1785906063.5369968
+  },
+  {
+    "trial": 5,
+    "model": "clever-chatter",
+    "boundary": "auto_silence",
+    "turn": 0,
+    "system": "benchmark",
+    "tools": "benchmark",
+    "history": "none",
+    "deadline_seconds": 45.0,
+    "started_unix": 1785906063.5382676,
+    "raw_typed_messages": 73,
+    "empty_typed_messages": 40,
+    "events": [
+      {
+        "received_monotonic_ns": 3298798915754560,
+        "session_resumption": true
+      },
+      {
+        "received_monotonic_ns": 3298804442201803,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "input_transcription": "I'm trying to decide whether to come for workshop day one of the workshops."
+      },
+      {
+        "received_monotonic_ns": 3298804829510721,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null
+      },
+      {
+        "received_monotonic_ns": 3298805011927277,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "output_transcription": "We have a ",
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 4800,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298805032030616,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 7680,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298805061633396,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 7680,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298805117530413,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 7680,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298805146786013,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 7680,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298805265306491,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 7680,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298805290062246,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 1920,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298805461589973,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "output_transcription": "variety of workshops",
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 23040,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298805539316387,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 15360,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298805620713322,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 9600,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298805746183187,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "output_transcription": " across 5 tracks",
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 17280,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298805832301469,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 15360,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298805919511514,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 15360,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298806048605833,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "output_transcription": " on Tuesday, June",
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 17280,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298806100173117,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 15360,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298806214592436,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 15360,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298806336199135,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "output_transcription": " 3rd, spanning",
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 19200,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298806390882276,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 15360,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298806448974261,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 13440,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298806584846272,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "output_transcription": " all levels of experience",
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 21120,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298806657320942,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 15360,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298806819231674,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "output_transcription": " in AI Engineering.",
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 26880,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298806892192277,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 15360,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298806950710261,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 15360,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298807067586596,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 15360,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298807158680627,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 15360,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298807214768546,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 15360,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298807303208156,
+        "turn_complete": null,
+        "generation_complete": null,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null,
+        "parts": [
+          {
+            "type": "audio",
+            "bytes": 15360,
+            "mime_type": "audio/pcm;rate=24000"
+          }
+        ]
+      },
+      {
+        "received_monotonic_ns": 3298807322909452,
+        "turn_complete": null,
+        "generation_complete": true,
+        "interaction_status": null,
+        "interrupted": null,
+        "waiting_for_input": null
+      },
+      {
+        "received_monotonic_ns": 3298813209855201,
+        "turn_complete": true,
+        "generation_complete": null,
+        "interaction_status": "REQUIRES_ACTION",
+        "interrupted": null,
+        "waiting_for_input": null,
+        "usage": {
+          "prompt_tokens": 15860,
+          "response_tokens": 206,
+          "thought_tokens": 56,
+          "total_tokens": 16066
+        }
+      }
+    ],
+    "in_progress_count": 0,
+    "audio_send_calls": 268,
+    "audio_bytes_sent": 256506,
+    "silence_send_calls": 438,
+    "silence_bytes_sent": 420480,
+    "maximum_send_ms": 0.697835,
+    "history_messages": 0,
+    "sample_rate": 24000,
+    "wav_bytes": 246906,
+    "terminal_signal": "REQUIRES_ACTION",
+    "first_output_ms": 695.446256,
+    "terminal_ms": 8893.37418,
+    "output_transcription": "We have a variety of workshops across 5 tracks on Tuesday, June 3rd, spanning all levels of experience in AI Engineering.",
+    "input_transcription": "I'm trying to decide whether to come for workshop day one of the workshops.",
+    "audio_output_bytes": 392640,
+    "tool_calls": [],
+    "outcome": "terminal",
+    "finished_unix": 1785906078.1658206
+  }
+]

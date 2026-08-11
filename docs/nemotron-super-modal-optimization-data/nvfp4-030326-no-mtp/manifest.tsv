@@ -1,0 +1,7 @@
+cell	attempt	run_rc	strict_complete	judge_status	outcome	run_dir
+nvfp4_030326_no_mtp	1	0	true	ok	complete	runs/aiwf_medium_context/20260720T192247_nemotron-3-super-120b_6e6b26b8
+nvfp4_030326_no_mtp	2	0	true	ok	complete	runs/aiwf_medium_context/20260720T192546_nemotron-3-super-120b_8965fd53
+nvfp4_030326_no_mtp	3	0	true	ok	complete	runs/aiwf_medium_context/20260720T192750_nemotron-3-super-120b_97ff33da
+nvfp4_030326_no_mtp	4	0	true	ok	complete	runs/aiwf_medium_context/20260720T193013_nemotron-3-super-120b_e2d67ed6
+nvfp4_030326_no_mtp	5	0	true	ok	complete	runs/aiwf_medium_context/20260720T193321_nemotron-3-super-120b_c5c13df0
+nvfp4_030326_no_mtp	6	0	true	ok	complete	runs/aiwf_medium_context/20260720T193546_nemotron-3-super-120b_39c95d89

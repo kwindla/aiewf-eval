@@ -1,0 +1,8 @@
+{
+  "first_token_pending": false,
+  "output_text": "\nYes! There are two Gemini\u2011focused workshops on Workshop Day (June\u202f3):\n\n| Time | Speaker | Title | Track |\n|------|---------|-------|-------|\n| 10:40\u202fam | Shrestha\u202fBasu\u202fMallick (Developer Advocate, Gemini API) | **Building Voice Agents with Gemini and Pipecat** | Voice |\n| 1:00\u202fpm | Philipp\u202fSchmid (AI Developer Experience) | **AI Engineering with the Google Gemini\u202f2.5 Model Family** | AI in Action |\n\nBoth sessions are hands\u2011on workshops, so you\u2019ll get practical experience building with Gemini. Let me know if you\u2019d like more details about any of them or help fitting them into your schedule!",
+  "phase": "client-response",
+  "timestamp": 1778692346.7794006,
+  "tool_calls": [],
+  "trace_id": "nemotron-mte-d7ca0fb5ae3f42b4a02251a7f490797d-turn-002-attempt-01"
+}

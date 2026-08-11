@@ -1,0 +1,17 @@
+{
+  "first_token_pending": false,
+  "output_text": "\n",
+  "phase": "client-response",
+  "timestamp": 1778690286.6786568,
+  "tool_calls": [
+    {
+      "function": {
+        "arguments": "{\"name\": \"Jennifer Smith\", \"session_id\": \"914821\"}",
+        "name": "vote_for_session"
+      },
+      "id": "call_7738d5d643e24fd9813305cf",
+      "type": "function"
+    }
+  ],
+  "trace_id": "nemotron-mte-d6f755bd4d034ea5afe6ba293e4371be-turn-024-attempt-01"
+}

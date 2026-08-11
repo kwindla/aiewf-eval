@@ -1,0 +1,644 @@
+{
+  "analysis_date": "2026-08-04",
+  "turns_per_conversation": 30,
+  "bootstrap_samples": 100000,
+  "bootstrap_seed": 20260804,
+  "cohorts": [
+    {
+      "key": "gemini25",
+      "display": "Gemini 2.5 Flash Native Audio",
+      "provider": "AI Studio",
+      "configuration": "provider default",
+      "runs": 10,
+      "turns": 300,
+      "strict_passes": 266,
+      "strict_pass_rate_pct": 88.66666666666667,
+      "strict_pass_ci95": [
+        86.66666666666669,
+        90.66666666666669
+      ],
+      "dimension_passes": {
+        "tool_use_correct": 268,
+        "instruction_following": 267,
+        "kb_grounding": 300,
+        "turn_taking": 298
+      },
+      "retry_events": {
+        "no response": 2
+      },
+      "retry_event_count": 2,
+      "retry_turn_count": 2,
+      "retry_turn_rate_pct": 0.6666666666666666,
+      "top_strict_failure_turns": [
+        {
+          "turn": 24,
+          "strict_failures": 10,
+          "tool_failures": 10,
+          "instruction_failures": 10,
+          "kb_failures": 0,
+          "turn_taking_failures": 0,
+          "retry_conversations": 0
+        },
+        {
+          "turn": 12,
+          "strict_failures": 8,
+          "tool_failures": 8,
+          "instruction_failures": 8,
+          "kb_failures": 0,
+          "turn_taking_failures": 0,
+          "retry_conversations": 0
+        },
+        {
+          "turn": 17,
+          "strict_failures": 7,
+          "tool_failures": 7,
+          "instruction_failures": 7,
+          "kb_failures": 0,
+          "turn_taking_failures": 0,
+          "retry_conversations": 0
+        },
+        {
+          "turn": 15,
+          "strict_failures": 6,
+          "tool_failures": 6,
+          "instruction_failures": 6,
+          "kb_failures": 0,
+          "turn_taking_failures": 0,
+          "retry_conversations": 0
+        },
+        {
+          "turn": 29,
+          "strict_failures": 1,
+          "tool_failures": 1,
+          "instruction_failures": 0,
+          "kb_failures": 0,
+          "turn_taking_failures": 0,
+          "retry_conversations": 0
+        },
+        {
+          "turn": 25,
+          "strict_failures": 1,
+          "tool_failures": 0,
+          "instruction_failures": 1,
+          "kb_failures": 0,
+          "turn_taking_failures": 0,
+          "retry_conversations": 0
+        },
+        {
+          "turn": 26,
+          "strict_failures": 1,
+          "tool_failures": 0,
+          "instruction_failures": 1,
+          "kb_failures": 0,
+          "turn_taking_failures": 0,
+          "retry_conversations": 0
+        }
+      ],
+      "strict_passes_by_conversation": [
+        26,
+        26,
+        26,
+        28,
+        25,
+        26,
+        28,
+        26,
+        28,
+        27
+      ],
+      "judge_models": [
+        "claude-opus-4-5"
+      ],
+      "judge_versions": [
+        "claude-agent-sdk-v4-turn-taking"
+      ],
+      "run_dirs": [
+        "runs/aiwf_medium_context/20260328T063232_gemini-2.5-flash-native-audio-preview-12-2025_91f6710e",
+        "runs/aiwf_medium_context/20260328T064240_gemini-2.5-flash-native-audio-preview-12-2025_8a0370ea",
+        "runs/aiwf_medium_context/20260328T065316_gemini-2.5-flash-native-audio-preview-12-2025_f386d80c",
+        "runs/aiwf_medium_context/20260328T070339_gemini-2.5-flash-native-audio-preview-12-2025_a60f6d85",
+        "runs/aiwf_medium_context/20260328T071338_gemini-2.5-flash-native-audio-preview-12-2025_6048a357",
+        "runs/aiwf_medium_context/20260328T072332_gemini-2.5-flash-native-audio-preview-12-2025_6914e6ed",
+        "runs/aiwf_medium_context/20260328T073347_gemini-2.5-flash-native-audio-preview-12-2025_a1eb9715",
+        "runs/aiwf_medium_context/20260328T074401_gemini-2.5-flash-native-audio-preview-12-2025_0744fe86",
+        "runs/aiwf_medium_context/20260328T075326_gemini-2.5-flash-native-audio-preview-12-2025_c2aa7645",
+        "runs/aiwf_medium_context/20260328T080335_gemini-2.5-flash-native-audio-preview-12-2025_258571b1"
+      ],
+      "latency": {
+        "non_tool_v2v_p50_ms": 1504.0,
+        "non_tool_v2v_max_ms": 2944.0,
+        "tool_v2v_mean_ms": 1761.4545454545455,
+        "silence_pad_mean_ms": 51.42342342342342,
+        "non_tool_observations": 200,
+        "tool_observations": 22
+      }
+    },
+    {
+      "key": "gemini31",
+      "display": "Gemini 3.1 Flash Live Preview",
+      "provider": "AI Studio",
+      "configuration": "minimal thinking",
+      "runs": 10,
+      "turns": 300,
+      "strict_passes": 275,
+      "strict_pass_rate_pct": 91.66666666666667,
+      "strict_pass_ci95": [
+        89.0,
+        94.0
+      ],
+      "dimension_passes": {
+        "tool_use_correct": 276,
+        "instruction_following": 277,
+        "kb_grounding": 300,
+        "turn_taking": 300
+      },
+      "retry_events": {},
+      "retry_event_count": 0,
+      "retry_turn_count": 0,
+      "retry_turn_rate_pct": 0.0,
+      "top_strict_failure_turns": [
+        {
+          "turn": 24,
+          "strict_failures": 7,
+          "tool_failures": 7,
+          "instruction_failures": 7,
+          "kb_failures": 0,
+          "turn_taking_failures": 0,
+          "retry_conversations": 0
+        },
+        {
+          "turn": 15,
+          "strict_failures": 7,
+          "tool_failures": 7,
+          "instruction_failures": 7,
+          "kb_failures": 0,
+          "turn_taking_failures": 0,
+          "retry_conversations": 0
+        },
+        {
+          "turn": 10,
+          "strict_failures": 2,
+          "tool_failures": 2,
+          "instruction_failures": 2,
+          "kb_failures": 0,
+          "turn_taking_failures": 0,
+          "retry_conversations": 0
+        },
+        {
+          "turn": 11,
+          "strict_failures": 2,
+          "tool_failures": 2,
+          "instruction_failures": 2,
+          "kb_failures": 0,
+          "turn_taking_failures": 0,
+          "retry_conversations": 0
+        },
+        {
+          "turn": 12,
+          "strict_failures": 2,
+          "tool_failures": 2,
+          "instruction_failures": 2,
+          "kb_failures": 0,
+          "turn_taking_failures": 0,
+          "retry_conversations": 0
+        },
+        {
+          "turn": 17,
+          "strict_failures": 2,
+          "tool_failures": 2,
+          "instruction_failures": 2,
+          "kb_failures": 0,
+          "turn_taking_failures": 0,
+          "retry_conversations": 0
+        },
+        {
+          "turn": 9,
+          "strict_failures": 1,
+          "tool_failures": 1,
+          "instruction_failures": 0,
+          "kb_failures": 0,
+          "turn_taking_failures": 0,
+          "retry_conversations": 0
+        },
+        {
+          "turn": 19,
+          "strict_failures": 1,
+          "tool_failures": 0,
+          "instruction_failures": 1,
+          "kb_failures": 0,
+          "turn_taking_failures": 0,
+          "retry_conversations": 0
+        },
+        {
+          "turn": 7,
+          "strict_failures": 1,
+          "tool_failures": 1,
+          "instruction_failures": 0,
+          "kb_failures": 0,
+          "turn_taking_failures": 0,
+          "retry_conversations": 0
+        }
+      ],
+      "strict_passes_by_conversation": [
+        29,
+        27,
+        28,
+        27,
+        29,
+        25,
+        28,
+        26,
+        28,
+        28
+      ],
+      "judge_models": [
+        "claude-opus-4-5"
+      ],
+      "judge_versions": [
+        "claude-agent-sdk-v4-turn-taking"
+      ],
+      "run_dirs": [
+        "runs/aiwf_medium_context/20260328T081548_gemini-3.1-flash-live-preview_87832df8",
+        "runs/aiwf_medium_context/20260328T082612_gemini-3.1-flash-live-preview_b888556b",
+        "runs/aiwf_medium_context/20260328T083641_gemini-3.1-flash-live-preview_cd576ec5",
+        "runs/aiwf_medium_context/20260328T084748_gemini-3.1-flash-live-preview_29c12994",
+        "runs/aiwf_medium_context/20260328T085811_gemini-3.1-flash-live-preview_1b83c485",
+        "runs/aiwf_medium_context/20260328T090837_gemini-3.1-flash-live-preview_e91d0b95",
+        "runs/aiwf_medium_context/20260328T091922_gemini-3.1-flash-live-preview_9085c20e",
+        "runs/aiwf_medium_context/20260328T093115_gemini-3.1-flash-live-preview_dae187c4",
+        "runs/aiwf_medium_context/20260328T094147_gemini-3.1-flash-live-preview_7ff9d58f",
+        "runs/aiwf_medium_context/20260328T095220_gemini-3.1-flash-live-preview_13b87fe3"
+      ],
+      "latency": {
+        "non_tool_v2v_p50_ms": 1632.0,
+        "non_tool_v2v_max_ms": 5664.0,
+        "tool_v2v_mean_ms": 3172.1290322580644,
+        "silence_pad_mean_ms": 100.28947368421052,
+        "non_tool_observations": 197,
+        "tool_observations": 31
+      }
+    },
+    {
+      "key": "clever",
+      "display": "Clever Chatter",
+      "provider": "AI Studio",
+      "configuration": "minimal thinking",
+      "runs": 15,
+      "turns": 450,
+      "strict_passes": 266,
+      "strict_pass_rate_pct": 59.111111111111114,
+      "strict_pass_ci95": [
+        54.8888888888889,
+        63.11111111111111
+      ],
+      "dimension_passes": {
+        "tool_use_correct": 365,
+        "instruction_following": 306,
+        "kb_grounding": 439,
+        "turn_taking": 218
+      },
+      "retry_events": {
+        "no response": 217,
+        "reconnection": 1
+      },
+      "retry_event_count": 218,
+      "retry_turn_count": 124,
+      "retry_turn_rate_pct": 27.555555555555557,
+      "top_strict_failure_turns": [
+        {
+          "turn": 11,
+          "strict_failures": 15,
+          "tool_failures": 15,
+          "instruction_failures": 7,
+          "kb_failures": 0,
+          "turn_taking_failures": 12,
+          "retry_conversations": 2
+        },
+        {
+          "turn": 12,
+          "strict_failures": 15,
+          "tool_failures": 15,
+          "instruction_failures": 4,
+          "kb_failures": 0,
+          "turn_taking_failures": 14,
+          "retry_conversations": 8
+        },
+        {
+          "turn": 15,
+          "strict_failures": 15,
+          "tool_failures": 15,
+          "instruction_failures": 5,
+          "kb_failures": 0,
+          "turn_taking_failures": 14,
+          "retry_conversations": 0
+        },
+        {
+          "turn": 17,
+          "strict_failures": 15,
+          "tool_failures": 15,
+          "instruction_failures": 5,
+          "kb_failures": 0,
+          "turn_taking_failures": 13,
+          "retry_conversations": 2
+        },
+        {
+          "turn": 24,
+          "strict_failures": 15,
+          "tool_failures": 15,
+          "instruction_failures": 15,
+          "kb_failures": 0,
+          "turn_taking_failures": 0,
+          "retry_conversations": 8
+        },
+        {
+          "turn": 23,
+          "strict_failures": 12,
+          "tool_failures": 0,
+          "instruction_failures": 12,
+          "kb_failures": 0,
+          "turn_taking_failures": 0,
+          "retry_conversations": 2
+        },
+        {
+          "turn": 21,
+          "strict_failures": 11,
+          "tool_failures": 0,
+          "instruction_failures": 11,
+          "kb_failures": 1,
+          "turn_taking_failures": 5,
+          "retry_conversations": 8
+        },
+        {
+          "turn": 26,
+          "strict_failures": 11,
+          "tool_failures": 0,
+          "instruction_failures": 11,
+          "kb_failures": 1,
+          "turn_taking_failures": 0,
+          "retry_conversations": 0
+        },
+        {
+          "turn": 28,
+          "strict_failures": 11,
+          "tool_failures": 0,
+          "instruction_failures": 11,
+          "kb_failures": 1,
+          "turn_taking_failures": 0,
+          "retry_conversations": 1
+        },
+        {
+          "turn": 29,
+          "strict_failures": 10,
+          "tool_failures": 10,
+          "instruction_failures": 10,
+          "kb_failures": 0,
+          "turn_taking_failures": 0,
+          "retry_conversations": 10
+        },
+        {
+          "turn": 20,
+          "strict_failures": 8,
+          "tool_failures": 0,
+          "instruction_failures": 8,
+          "kb_failures": 4,
+          "turn_taking_failures": 8,
+          "retry_conversations": 6
+        },
+        {
+          "turn": 27,
+          "strict_failures": 8,
+          "tool_failures": 0,
+          "instruction_failures": 8,
+          "kb_failures": 1,
+          "turn_taking_failures": 0,
+          "retry_conversations": 2
+        }
+      ],
+      "strict_passes_by_conversation": [
+        17,
+        21,
+        20,
+        19,
+        22,
+        15,
+        15,
+        13,
+        18,
+        19,
+        18,
+        20,
+        17,
+        15,
+        17
+      ],
+      "judge_models": [
+        "claude-opus-4-5"
+      ],
+      "judge_versions": [
+        "claude-agent-sdk-v4-turn-taking"
+      ],
+      "run_dirs": [
+        "runs/aiwf_medium_context/20260804T145352_clever-chatter_9554f41d",
+        "runs/aiwf_medium_context/20260804T151359_clever-chatter_164c0996",
+        "runs/aiwf_medium_context/20260804T151359_clever-chatter_d2d5a6af",
+        "runs/aiwf_medium_context/20260804T152634_clever-chatter_4672837b",
+        "runs/aiwf_medium_context/20260804T152806_clever-chatter_cc4b14ee",
+        "runs/aiwf_medium_context/20260804T154024_clever-chatter_9e319b32",
+        "runs/aiwf_medium_context/20260804T155321_clever-chatter_bd56746d",
+        "runs/aiwf_medium_context/20260804T160134_clever-chatter_4a5dedba",
+        "runs/aiwf_medium_context/20260804T160244_clever-chatter_88760ff7",
+        "runs/aiwf_medium_context/20260804T161034_clever-chatter_ac6c121f",
+        "runs/aiwf_medium_context/20260804T161419_clever-chatter_da429573",
+        "runs/aiwf_medium_context/20260804T162756_clever-chatter_49a91917",
+        "runs/aiwf_medium_context/20260804T163048_clever-chatter_f5dba751",
+        "runs/aiwf_medium_context/20260804T163124_clever-chatter_598eb41d",
+        "runs/aiwf_medium_context/20260804T163155_clever-chatter_d3ba5b3a"
+      ],
+      "latency": {
+        "non_tool_v2v_p50_ms": 7104.0,
+        "non_tool_v2v_max_ms": 365178.9999996945,
+        "tool_v2v_mean_ms": 121812.99999983422,
+        "silence_pad_mean_ms": 111.70588235294117,
+        "non_tool_observations": 282,
+        "tool_observations": 2
+      }
+    },
+    {
+      "key": "openai21",
+      "display": "GPT-Realtime-2.1",
+      "provider": "OpenAI",
+      "configuration": "low reasoning",
+      "runs": 30,
+      "turns": 900,
+      "strict_passes": 875,
+      "strict_pass_rate_pct": 97.22222222222223,
+      "strict_pass_ci95": [
+        95.77777777777777,
+        98.44444444444444
+      ],
+      "dimension_passes": {
+        "tool_use_correct": 876,
+        "instruction_following": 876,
+        "kb_grounding": 900,
+        "turn_taking": 899
+      },
+      "retry_events": {},
+      "retry_event_count": 0,
+      "retry_turn_count": 0,
+      "retry_turn_rate_pct": 0.0,
+      "top_strict_failure_turns": [
+        {
+          "turn": 12,
+          "strict_failures": 11,
+          "tool_failures": 11,
+          "instruction_failures": 11,
+          "kb_failures": 0,
+          "turn_taking_failures": 0,
+          "retry_conversations": 0
+        },
+        {
+          "turn": 17,
+          "strict_failures": 4,
+          "tool_failures": 4,
+          "instruction_failures": 3,
+          "kb_failures": 0,
+          "turn_taking_failures": 0,
+          "retry_conversations": 0
+        },
+        {
+          "turn": 15,
+          "strict_failures": 3,
+          "tool_failures": 3,
+          "instruction_failures": 3,
+          "kb_failures": 0,
+          "turn_taking_failures": 0,
+          "retry_conversations": 0
+        },
+        {
+          "turn": 16,
+          "strict_failures": 3,
+          "tool_failures": 3,
+          "instruction_failures": 3,
+          "kb_failures": 0,
+          "turn_taking_failures": 0,
+          "retry_conversations": 0
+        },
+        {
+          "turn": 24,
+          "strict_failures": 3,
+          "tool_failures": 3,
+          "instruction_failures": 3,
+          "kb_failures": 0,
+          "turn_taking_failures": 0,
+          "retry_conversations": 0
+        },
+        {
+          "turn": 21,
+          "strict_failures": 1,
+          "tool_failures": 0,
+          "instruction_failures": 1,
+          "kb_failures": 0,
+          "turn_taking_failures": 0,
+          "retry_conversations": 0
+        }
+      ],
+      "strict_passes_by_conversation": [
+        30,
+        29,
+        26,
+        30,
+        30,
+        29,
+        30,
+        30,
+        29,
+        28,
+        29,
+        27,
+        30,
+        30,
+        28,
+        26,
+        29,
+        30,
+        30,
+        30,
+        30,
+        29,
+        28,
+        29,
+        30,
+        30,
+        30,
+        30,
+        29,
+        30
+      ],
+      "judge_models": [
+        "claude-opus-4-5"
+      ],
+      "judge_versions": [
+        "claude-agent-sdk-v4-turn-taking"
+      ],
+      "run_dirs": [
+        "runs/aiwf_medium_context/20260804T151359_gpt-realtime-2.1_df469e2c",
+        "runs/aiwf_medium_context/20260804T152412_gpt-realtime-2.1_932ce5e5",
+        "runs/aiwf_medium_context/20260804T153428_gpt-realtime-2.1_ccaaf740",
+        "runs/aiwf_medium_context/20260804T154452_gpt-realtime-2.1_4926c238",
+        "runs/aiwf_medium_context/20260804T155511_gpt-realtime-2.1_a09218c2",
+        "runs/aiwf_medium_context/20260804T151359_gpt-realtime-2.1_9727553e",
+        "runs/aiwf_medium_context/20260804T152603_gpt-realtime-2.1_c7aaf20d",
+        "runs/aiwf_medium_context/20260804T153635_gpt-realtime-2.1_ef5610fd",
+        "runs/aiwf_medium_context/20260804T154636_gpt-realtime-2.1_792bee7e",
+        "runs/aiwf_medium_context/20260804T155731_gpt-realtime-2.1_37ff135d",
+        "runs/aiwf_medium_context/20260804T164511_gpt-realtime-2.1_8b3f53a1",
+        "runs/aiwf_medium_context/20260804T165527_gpt-realtime-2.1_97f8e57a",
+        "runs/aiwf_medium_context/20260804T170612_gpt-realtime-2.1_68a05a6f",
+        "runs/aiwf_medium_context/20260804T171608_gpt-realtime-2.1_fd085c4c",
+        "runs/aiwf_medium_context/20260804T172640_gpt-realtime-2.1_1760fbe4",
+        "runs/aiwf_medium_context/20260804T164511_gpt-realtime-2.1_ca115762",
+        "runs/aiwf_medium_context/20260804T165528_gpt-realtime-2.1_3ed4779d",
+        "runs/aiwf_medium_context/20260804T170601_gpt-realtime-2.1_b2b0447a",
+        "runs/aiwf_medium_context/20260804T171642_gpt-realtime-2.1_d4e15d11",
+        "runs/aiwf_medium_context/20260804T172714_gpt-realtime-2.1_e639d69a",
+        "runs/aiwf_medium_context/20260804T164511_gpt-realtime-2.1_2ec9b314",
+        "runs/aiwf_medium_context/20260804T165428_gpt-realtime-2.1_7439c9c6",
+        "runs/aiwf_medium_context/20260804T170537_gpt-realtime-2.1_fbf91036",
+        "runs/aiwf_medium_context/20260804T171538_gpt-realtime-2.1_06dedff1",
+        "runs/aiwf_medium_context/20260804T172619_gpt-realtime-2.1_9d4f50e4",
+        "runs/aiwf_medium_context/20260804T164511_gpt-realtime-2.1_ede659d0",
+        "runs/aiwf_medium_context/20260804T165521_gpt-realtime-2.1_12fbb346",
+        "runs/aiwf_medium_context/20260804T170536_gpt-realtime-2.1_dab517c7",
+        "runs/aiwf_medium_context/20260804T171519_gpt-realtime-2.1_16d2e630",
+        "runs/aiwf_medium_context/20260804T172552_gpt-realtime-2.1_30d896eb"
+      ],
+      "latency": {
+        "non_tool_v2v_p50_ms": 1504.0,
+        "non_tool_v2v_max_ms": 4288.0,
+        "tool_v2v_mean_ms": 1536.5925925925926,
+        "silence_pad_mean_ms": 74.56714761376249,
+        "non_tool_observations": 738,
+        "tool_observations": 162
+      }
+    }
+  ],
+  "attempts": {
+    "clever": {
+      "attempts": 25,
+      "valid": 14,
+      "valid_pct": 56.0,
+      "invalid_attempt_causes": {
+        "end_session at turn 10": 3,
+        "end_session at turn 13": 6,
+        "end_session at turn 5": 1,
+        "terminated stalled attempt after 15 turns": 1
+      }
+    },
+    "openai21": {
+      "attempts": 30,
+      "valid": 30,
+      "valid_pct": 100.0,
+      "invalid_attempt_causes": {}
+    }
+  }
+}

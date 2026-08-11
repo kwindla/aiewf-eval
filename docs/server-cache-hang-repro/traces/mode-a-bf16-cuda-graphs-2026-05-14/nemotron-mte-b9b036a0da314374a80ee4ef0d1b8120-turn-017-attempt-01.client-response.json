@@ -1,0 +1,17 @@
+{
+  "first_token_pending": false,
+  "output_text": "\n",
+  "phase": "client-response",
+  "timestamp": 1778767317.137284,
+  "tool_calls": [
+    {
+      "function": {
+        "arguments": "{\"name\": \"Jennifer Smith\", \"dietary_preference\": \"vegan\"}",
+        "name": "submit_dietary_request"
+      },
+      "id": "call_ece02877e7b3487eaa00e5ef",
+      "type": "function"
+    }
+  ],
+  "trace_id": "nemotron-mte-b9b036a0da314374a80ee4ef0d1b8120-turn-017-attempt-01"
+}

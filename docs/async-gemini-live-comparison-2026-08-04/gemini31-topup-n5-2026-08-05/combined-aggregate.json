@@ -1,0 +1,217 @@
+{
+  "model": "gemini-3.1-flash-live-preview",
+  "configuration": "minimal thinking",
+  "old_frozen_cohort": {
+    "conversations": 10,
+    "turns": 300,
+    "strict_passes": 275,
+    "strict_pass_rate_pct": 91.66666666666667,
+    "strict_pass_bootstrap_ci95_pct": [
+      89.0,
+      94.0
+    ],
+    "dimension_passes": {
+      "tool_use_correct": 276,
+      "instruction_following": 277,
+      "kb_grounding": 300,
+      "turn_taking": 300
+    },
+    "dimension_pass_rates_pct": {
+      "tool_use_correct": 92.0,
+      "instruction_following": 92.33333333333333,
+      "kb_grounding": 100.0,
+      "turn_taking": 100.0
+    },
+    "per_conversation_strict_passes": [
+      29,
+      27,
+      28,
+      27,
+      29,
+      25,
+      28,
+      26,
+      28,
+      28
+    ],
+    "per_conversation_strict_passes_median": 28.0,
+    "judge_models": [
+      "claude-opus-4-5"
+    ],
+    "judge_versions": [
+      "claude-agent-sdk-v4-turn-taking"
+    ],
+    "run_dirs": [
+      "runs/aiwf_medium_context/20260328T081548_gemini-3.1-flash-live-preview_87832df8",
+      "runs/aiwf_medium_context/20260328T082612_gemini-3.1-flash-live-preview_b888556b",
+      "runs/aiwf_medium_context/20260328T083641_gemini-3.1-flash-live-preview_cd576ec5",
+      "runs/aiwf_medium_context/20260328T084748_gemini-3.1-flash-live-preview_29c12994",
+      "runs/aiwf_medium_context/20260328T085811_gemini-3.1-flash-live-preview_1b83c485",
+      "runs/aiwf_medium_context/20260328T090837_gemini-3.1-flash-live-preview_e91d0b95",
+      "runs/aiwf_medium_context/20260328T091922_gemini-3.1-flash-live-preview_9085c20e",
+      "runs/aiwf_medium_context/20260328T093115_gemini-3.1-flash-live-preview_dae187c4",
+      "runs/aiwf_medium_context/20260328T094147_gemini-3.1-flash-live-preview_7ff9d58f",
+      "runs/aiwf_medium_context/20260328T095220_gemini-3.1-flash-live-preview_13b87fe3"
+    ]
+  },
+  "new_topup_cohort": {
+    "conversations": 5,
+    "turns": 150,
+    "strict_passes": 144,
+    "strict_pass_rate_pct": 96.0,
+    "strict_pass_bootstrap_ci95_pct": [
+      92.66666666666667,
+      98.66666666666667
+    ],
+    "dimension_passes": {
+      "tool_use_correct": 144,
+      "instruction_following": 145,
+      "kb_grounding": 150,
+      "turn_taking": 70
+    },
+    "dimension_pass_rates_pct": {
+      "tool_use_correct": 96.0,
+      "instruction_following": 96.66666666666667,
+      "kb_grounding": 100.0,
+      "turn_taking": 46.666666666666664
+    },
+    "per_conversation_strict_passes": [
+      29,
+      29,
+      29,
+      27,
+      30
+    ],
+    "per_conversation_strict_passes_median": 29,
+    "judge_models": [
+      "claude-opus-4-5"
+    ],
+    "judge_versions": [
+      "claude-agent-sdk-v4-turn-taking"
+    ],
+    "run_dirs": [
+      "runs/aiwf_medium_context/20260805T092804_gemini-3.1-flash-live-preview_f6cc4d80",
+      "runs/aiwf_medium_context/20260805T094606_gemini-3.1-flash-live-preview_af105fe5",
+      "runs/aiwf_medium_context/20260805T095505_gemini-3.1-flash-live-preview_e36cc80f",
+      "runs/aiwf_medium_context/20260805T100359_gemini-3.1-flash-live-preview_7841a1a7",
+      "runs/aiwf_medium_context/20260805T101308_gemini-3.1-flash-live-preview_70267479"
+    ]
+  },
+  "combined_cohort": {
+    "conversations": 15,
+    "turns": 450,
+    "strict_passes": 419,
+    "strict_pass_rate_pct": 93.11111111111111,
+    "strict_pass_bootstrap_ci95_pct": [
+      90.88888888888889,
+      95.11111111111111
+    ],
+    "dimension_passes": {
+      "tool_use_correct": 420,
+      "instruction_following": 422,
+      "kb_grounding": 450,
+      "turn_taking": 370
+    },
+    "dimension_pass_rates_pct": {
+      "tool_use_correct": 93.33333333333333,
+      "instruction_following": 93.77777777777777,
+      "kb_grounding": 100.0,
+      "turn_taking": 82.22222222222223
+    },
+    "per_conversation_strict_passes": [
+      29,
+      27,
+      28,
+      27,
+      29,
+      25,
+      28,
+      26,
+      28,
+      28,
+      29,
+      29,
+      29,
+      27,
+      30
+    ],
+    "per_conversation_strict_passes_median": 28,
+    "judge_models": [
+      "claude-opus-4-5"
+    ],
+    "judge_versions": [
+      "claude-agent-sdk-v4-turn-taking"
+    ],
+    "run_dirs": [
+      "runs/aiwf_medium_context/20260328T081548_gemini-3.1-flash-live-preview_87832df8",
+      "runs/aiwf_medium_context/20260328T082612_gemini-3.1-flash-live-preview_b888556b",
+      "runs/aiwf_medium_context/20260328T083641_gemini-3.1-flash-live-preview_cd576ec5",
+      "runs/aiwf_medium_context/20260328T084748_gemini-3.1-flash-live-preview_29c12994",
+      "runs/aiwf_medium_context/20260328T085811_gemini-3.1-flash-live-preview_1b83c485",
+      "runs/aiwf_medium_context/20260328T090837_gemini-3.1-flash-live-preview_e91d0b95",
+      "runs/aiwf_medium_context/20260328T091922_gemini-3.1-flash-live-preview_9085c20e",
+      "runs/aiwf_medium_context/20260328T093115_gemini-3.1-flash-live-preview_dae187c4",
+      "runs/aiwf_medium_context/20260328T094147_gemini-3.1-flash-live-preview_7ff9d58f",
+      "runs/aiwf_medium_context/20260328T095220_gemini-3.1-flash-live-preview_13b87fe3",
+      "runs/aiwf_medium_context/20260805T092804_gemini-3.1-flash-live-preview_f6cc4d80",
+      "runs/aiwf_medium_context/20260805T094606_gemini-3.1-flash-live-preview_af105fe5",
+      "runs/aiwf_medium_context/20260805T095505_gemini-3.1-flash-live-preview_e36cc80f",
+      "runs/aiwf_medium_context/20260805T100359_gemini-3.1-flash-live-preview_7841a1a7",
+      "runs/aiwf_medium_context/20260805T101308_gemini-3.1-flash-live-preview_70267479"
+    ]
+  },
+  "no_response_no_replay_reliability": {
+    "historical_complete": 11,
+    "historical_attempts": 12,
+    "historical_run_dirs": [
+      "runs/aiwf_medium_context/20260328T081548_gemini-3.1-flash-live-preview_87832df8",
+      "runs/aiwf_medium_context/20260328T082612_gemini-3.1-flash-live-preview_b888556b",
+      "runs/aiwf_medium_context/20260328T083641_gemini-3.1-flash-live-preview_cd576ec5",
+      "runs/aiwf_medium_context/20260328T084748_gemini-3.1-flash-live-preview_29c12994",
+      "runs/aiwf_medium_context/20260328T085811_gemini-3.1-flash-live-preview_1b83c485",
+      "runs/aiwf_medium_context/20260328T090837_gemini-3.1-flash-live-preview_e91d0b95",
+      "runs/aiwf_medium_context/20260328T091922_gemini-3.1-flash-live-preview_9085c20e",
+      "runs/aiwf_medium_context/20260328T093115_gemini-3.1-flash-live-preview_dae187c4",
+      "runs/aiwf_medium_context/20260328T094147_gemini-3.1-flash-live-preview_7ff9d58f",
+      "runs/aiwf_medium_context/20260328T095220_gemini-3.1-flash-live-preview_13b87fe3",
+      "runs/aiwf_medium_context/20260804T141323_gemini-3.1-flash-live-preview_a9e08bb1",
+      "runs/aiwf_medium_context/20260804T175455_gemini-3.1-flash-live-preview_f79bd81e"
+    ],
+    "historical_no_response_runs": [
+      "runs/aiwf_medium_context/20260804T141323_gemini-3.1-flash-live-preview_a9e08bb1"
+    ],
+    "historical_no_response_events": 2,
+    "historical_first_no_response_turns": [
+      25
+    ],
+    "historical_reconnection_runs": [
+      "runs/aiwf_medium_context/20260804T141323_gemini-3.1-flash-live-preview_a9e08bb1"
+    ],
+    "current_complete": 7,
+    "current_attempts": 8,
+    "current_run_dirs": [
+      "runs/aiwf_medium_context/20260805T092804_gemini-3.1-flash-live-preview_f6cc4d80",
+      "runs/aiwf_medium_context/20260805T093702_gemini-3.1-flash-live-preview_4c623e20",
+      "runs/aiwf_medium_context/20260805T094606_gemini-3.1-flash-live-preview_af105fe5",
+      "runs/aiwf_medium_context/20260805T095505_gemini-3.1-flash-live-preview_e36cc80f",
+      "runs/aiwf_medium_context/20260805T100359_gemini-3.1-flash-live-preview_7841a1a7",
+      "runs/aiwf_medium_context/20260805T101308_gemini-3.1-flash-live-preview_70267479",
+      "runs/aiwf_medium_context/20260805T105408_gemini-3.1-flash-live-preview_c2aafa67",
+      "runs/aiwf_medium_context/20260805T105814_gemini-3.1-flash-live-preview_8802a358"
+    ],
+    "current_no_response_attempts": [
+      7
+    ],
+    "current_no_response_events": 1,
+    "current_first_no_response_turns": [
+      12
+    ],
+    "current_reconnection_attempts": [
+      2
+    ],
+    "current_completion_rate_pct": 87.5,
+    "combined_complete": 18,
+    "combined_attempts": 20,
+    "combined_completion_rate_pct": 90.0
+  }
+}

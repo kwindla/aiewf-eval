@@ -1,0 +1,23 @@
+{
+  "schema_version": 2,
+  "token_hash_gate": null,
+  "result_gate": {
+    "paths": [
+      "results/v2-primary-2048-block3-bf16-second.jsonl"
+    ],
+    "rows": 2048,
+    "expected_rows": 2048,
+    "duplicate_request_ids": [],
+    "duplicate_logical_cells": [],
+    "missing_request_ids": [],
+    "unexpected_request_ids": [],
+    "identity_errors": [],
+    "source_errors": [],
+    "integrity_errors": [],
+    "repeat_groups_checked": 0,
+    "repeat_mismatches": [],
+    "passed": true
+  },
+  "strict_repeatability_gate": null,
+  "passed": true
+}

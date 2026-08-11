@@ -1,0 +1,38 @@
+Preflight timestamp: 2026-07-20 America/Los_Angeles
+
+Deployment source
+  serve_b200_super_bf16_030326_mtp_only.py
+  sha256 a38a83c9eba9640235376e77cda69cf57728919cd0768e327d195ded57b60891
+  vLLM 0.25.1; B200:2; TP2; MTP 1 token; explicit APC off;
+  FlashInfer autotune off; max_containers=1; startup timeout 35 minutes.
+
+Bundled inputs
+  super_v3_reasoning_parser.py
+  sha256 fff4f5c253e3db0f5c7707f3c62ecc89949afb7a909b4fbbaed5bd8b11501f44
+  chat_template_nano.jinja
+  sha256 ab7813c3abdd9cb655905a410728b26c7884eca45ddfab8d9f931553485a7862
+
+NGC package identities used to populate the Modal volume
+  ea_final_nvidia_nemotron_3_super_120b_a12b_bf16_030326:v0.1
+  ea_final_nvidia_nemotron_3_super_120b_a12b_nvfp475_030326:v0.1
+
+Checkpoint metadata comparison
+  generation_config.json: identical, sha256
+    27d520b2df55efe6b978d06fbfe8213ae93288d063d462f40b4ed94637c019bf
+  tokenizer_config.json: identical, sha256
+    10f93eabcb9b1602fbb991d6308e787ce1df28ee9cd7a1c6d1e8c3f338b957bc
+  special_tokens_map.json: identical, sha256
+    e9435fefd6d838fd9fcbbc44b97a8e3ff322be7f6dfb7e4fd2468586574bb52b
+  BF16 config.json sha256
+    96cbe0f64f680700def6cc609d99767b7b820306ba3afe7efc63bc284e21e475
+  NVFP4 config.json sha256
+    8e482d68a113dffb5e37334cb10f0da9b3399c50a5104ede7c913f42885c2bef
+  Excluding NVFP4 quantization_config, the only config difference is that BF16
+  contains hybrid_override_pattern while NVFP4 omits that field. Therefore the
+  future comparison is snapshot-matched and operationally matched, but this
+  metadata difference prevents calling it a pure quantization-only comparison.
+
+State gate
+  Result manifest absent/empty before launch.
+  Prior same-name Modal apps stopped with zero tasks.
+  No Nemotron-Super app had a positive task count before launch.

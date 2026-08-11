@@ -1,0 +1,21 @@
+attempt	exit_code	classification	turns	failure_turn	raw_events	in_progress	terminal	audio_bytes	run_dir	log
+1	1	no_audio_timeout	8	8	659	0	9	12718280	runs/aiwf_medium_context/20260804T202005_clever-chatter_4352814f	docs/clever-chatter-comparison-2026-08-04/no-replay-n20-2026-08-04/logs/attempt-01.log
+2	1	no_audio_timeout	6	6	428	0	7	8951220	runs/aiwf_medium_context/20260804T202219_clever-chatter_ce8b4547	docs/clever-chatter-comparison-2026-08-04/no-replay-n20-2026-08-04/logs/attempt-02.log
+3	1	no_audio_timeout	1	1	109	0	2	3594720	runs/aiwf_medium_context/20260804T202354_clever-chatter_125f8f38	docs/clever-chatter-comparison-2026-08-04/no-replay-n20-2026-08-04/logs/attempt-03.log
+4	1	no_audio_timeout	0	0	54	0	1	3053188	runs/aiwf_medium_context/20260804T202434_clever-chatter_4c09451b	docs/clever-chatter-comparison-2026-08-04/no-replay-n20-2026-08-04/logs/attempt-04.log
+5	1	no_audio_timeout	6	6	615	0	7	11907188	runs/aiwf_medium_context/20260804T202507_clever-chatter_4ef9fdcf	docs/clever-chatter-comparison-2026-08-04/no-replay-n20-2026-08-04/logs/attempt-05.log
+6	1	no_audio_timeout	1	1	186	0	2	4494088	runs/aiwf_medium_context/20260804T202714_clever-chatter_a22e75fc	docs/clever-chatter-comparison-2026-08-04/no-replay-n20-2026-08-04/logs/attempt-06.log
+7	1	no_audio_timeout	8	8	538	0	9	14225464	runs/aiwf_medium_context/20260804T202802_clever-chatter_b9d81f43	docs/clever-chatter-comparison-2026-08-04/no-replay-n20-2026-08-04/logs/attempt-07.log
+8	0	model_ended_early	6		480	1	6	15615116	runs/aiwf_medium_context/20260804T203033_clever-chatter_7a9a663f	docs/clever-chatter-comparison-2026-08-04/no-replay-n20-2026-08-04/logs/attempt-08.log
+9	1	no_audio_timeout	6	6	585	0	7	13989276	runs/aiwf_medium_context/20260804T203317_clever-chatter_ea926c03	docs/clever-chatter-comparison-2026-08-04/no-replay-n20-2026-08-04/logs/attempt-09.log
+10	1	no_audio_timeout	1	1	118	0	2	3719704	runs/aiwf_medium_context/20260804T203545_clever-chatter_82c7b375	docs/clever-chatter-comparison-2026-08-04/no-replay-n20-2026-08-04/logs/attempt-10.log
+11	1	no_audio_timeout	0	0	59	0	1	3006572	runs/aiwf_medium_context/20260804T203626_clever-chatter_27f825f5	docs/clever-chatter-comparison-2026-08-04/no-replay-n20-2026-08-04/logs/attempt-11.log
+12	1	no_audio_timeout	6	6	441	0	7	9235376	runs/aiwf_medium_context/20260804T203659_clever-chatter_96b84722	docs/clever-chatter-comparison-2026-08-04/no-replay-n20-2026-08-04/logs/attempt-12.log
+13	1	no_audio_timeout	7	7	470	0	8	9954140	runs/aiwf_medium_context/20260804T203837_clever-chatter_6e63bfc2	docs/clever-chatter-comparison-2026-08-04/no-replay-n20-2026-08-04/logs/attempt-13.log
+14	1	no_audio_timeout	4	4	361	0	6	10054460	runs/aiwf_medium_context/20260804T204023_clever-chatter_fd3e4d63	docs/clever-chatter-comparison-2026-08-04/no-replay-n20-2026-08-04/logs/attempt-14.log
+15	1	no_audio_timeout	1	1	93	0	2	3479372	runs/aiwf_medium_context/20260804T204210_clever-chatter_a2399fc7	docs/clever-chatter-comparison-2026-08-04/no-replay-n20-2026-08-04/logs/attempt-15.log
+16	1	no_audio_timeout	6	6	674	0	7	12920956	runs/aiwf_medium_context/20260804T204248_clever-chatter_0c9436b2	docs/clever-chatter-comparison-2026-08-04/no-replay-n20-2026-08-04/logs/attempt-16.log
+17	1	no_audio_timeout	1	1	88	0	2	3312340	runs/aiwf_medium_context/20260804T204504_clever-chatter_f23df297	docs/clever-chatter-comparison-2026-08-04/no-replay-n20-2026-08-04/logs/attempt-17.log
+18	1	no_audio_timeout	5	5	495	0	6	12208636	runs/aiwf_medium_context/20260804T204541_clever-chatter_9cc461e9	docs/clever-chatter-comparison-2026-08-04/no-replay-n20-2026-08-04/logs/attempt-18.log
+19	1	no_audio_timeout	8	8	619	0	9	11927308	runs/aiwf_medium_context/20260804T204750_clever-chatter_7c46d079	docs/clever-chatter-comparison-2026-08-04/no-replay-n20-2026-08-04/logs/attempt-19.log
+20	1	no_audio_timeout	7	7	809	0	9	22232836	runs/aiwf_medium_context/20260804T204956_clever-chatter_35999e17	docs/clever-chatter-comparison-2026-08-04/no-replay-n20-2026-08-04/logs/attempt-20.log

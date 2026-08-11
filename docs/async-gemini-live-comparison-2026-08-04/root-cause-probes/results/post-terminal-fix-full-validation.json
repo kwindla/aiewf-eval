@@ -1,0 +1,21 @@
+{
+  "activity_starts": 30,
+  "activity_ends": 30,
+  "activity_open_at_eof": false,
+  "boundary_errors": [],
+  "model_audio_during_input": [],
+  "terminal_during_input": [
+    {
+      "line": 9640,
+      "sequence": 1363
+    }
+  ],
+  "interruption_during_input": [
+    {
+      "line": 9630,
+      "sequence": 1361
+    }
+  ],
+  "nonempty_transcript_missing_ttfb_turns": [],
+  "valid": false
+}

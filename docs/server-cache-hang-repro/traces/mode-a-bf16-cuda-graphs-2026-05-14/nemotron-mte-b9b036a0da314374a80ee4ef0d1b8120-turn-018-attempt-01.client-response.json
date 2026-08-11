@@ -1,0 +1,17 @@
+{
+  "first_token_pending": false,
+  "output_text": "\n",
+  "phase": "client-response",
+  "timestamp": 1778767319.1848161,
+  "tool_calls": [
+    {
+      "function": {
+        "arguments": "{\"name\": \"Jennifer Smith\", \"issue_description\": \"Having trouble with the mobile app\"}",
+        "name": "request_tech_support"
+      },
+      "id": "call_f4e77ec96d8d48e89f5f6c5a",
+      "type": "function"
+    }
+  ],
+  "trace_id": "nemotron-mte-b9b036a0da314374a80ee4ef0d1b8120-turn-018-attempt-01"
+}

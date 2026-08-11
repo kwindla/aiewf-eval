@@ -1,0 +1,1214 @@
+{
+  "attempts": 20,
+  "classifications": {
+    "model_ended_early": 1,
+    "no_audio_timeout": 19
+  },
+  "complete_conversations": 0,
+  "completion_rate": 0.0,
+  "completion_rate_wilson_95": [
+    0.0,
+    0.16112515805281938
+  ],
+  "recorded_partial_turns": 88,
+  "timeout_turns": {
+    "values": [
+      8,
+      6,
+      1,
+      0,
+      6,
+      1,
+      8,
+      6,
+      1,
+      0,
+      6,
+      7,
+      4,
+      1,
+      6,
+      1,
+      5,
+      8,
+      7
+    ],
+    "counts": {
+      "0": 2,
+      "1": 5,
+      "4": 1,
+      "5": 1,
+      "6": 5,
+      "7": 2,
+      "8": 3
+    },
+    "minimum": 0,
+    "median": 6,
+    "maximum": 8
+  },
+  "raw_trace": {
+    "events": 7881,
+    "empty_json_events": 4400,
+    "top_level_key_occurrences": {
+      "serverContent": 3460,
+      "sessionResumptionUpdate": 20,
+      "toolCall": 1,
+      "usageMetadata": 110
+    },
+    "server_content_key_occurrences": {
+      "generationComplete": 107,
+      "inputTranscription": 88,
+      "interactionStatus": 110,
+      "interrupted": 3,
+      "modelTurn": 3041,
+      "outputTranscription": 832,
+      "turnComplete": 110
+    },
+    "model_part_type_occurrences": {
+      "inline_data": 3041
+    },
+    "interaction_status_occurrences": {
+      "IN_PROGRESS": 1,
+      "REQUIRES_ACTION": 109
+    },
+    "tool_call_events": 1,
+    "error_events": 0,
+    "go_away_events": 0,
+    "socket_close_logs": 0,
+    "decode_errors": 0,
+    "sequence_gaps": []
+  },
+  "timeout_boundaries": [
+    {
+      "attempt": 1,
+      "turn": 8,
+      "after_audio_send_finished": {
+        "all_raw_events": 0,
+        "empty_json_events": 0,
+        "structured_events": 0,
+        "audio_events": 0,
+        "text_events": 0,
+        "tool_call_events": 0,
+        "status_events": 0,
+        "error_events": 0,
+        "go_away_events": 0
+      },
+      "after_last_local_vad_stop": {
+        "all_raw_events": 0,
+        "empty_json_events": 0,
+        "structured_events": 0,
+        "audio_events": 0,
+        "text_events": 0,
+        "tool_call_events": 0,
+        "status_events": 0,
+        "error_events": 0,
+        "go_away_events": 0
+      },
+      "last_raw_event_before_timeout": {
+        "generation_complete": null,
+        "interaction_status": "REQUIRES_ACTION",
+        "interrupted": null,
+        "model_turn_parts": [],
+        "raw_length": 535,
+        "sequence": 659,
+        "server_content_keys": [
+          "interactionStatus",
+          "turnComplete"
+        ],
+        "top_level_keys": [
+          "serverContent",
+          "usageMetadata"
+        ],
+        "turn_complete": true,
+        "usage": {
+          "promptTokenCount": 18363,
+          "responseTokenCount": 127,
+          "thoughtsTokenCount": 62,
+          "totalTokenCount": 18490
+        },
+        "waiting_for_input": null
+      }
+    },
+    {
+      "attempt": 2,
+      "turn": 6,
+      "after_audio_send_finished": {
+        "all_raw_events": 0,
+        "empty_json_events": 0,
+        "structured_events": 0,
+        "audio_events": 0,
+        "text_events": 0,
+        "tool_call_events": 0,
+        "status_events": 0,
+        "error_events": 0,
+        "go_away_events": 0
+      },
+      "after_last_local_vad_stop": {
+        "all_raw_events": 0,
+        "empty_json_events": 0,
+        "structured_events": 0,
+        "audio_events": 0,
+        "text_events": 0,
+        "tool_call_events": 0,
+        "status_events": 0,
+        "error_events": 0,
+        "go_away_events": 0
+      },
+      "last_raw_event_before_timeout": {
+        "generation_complete": null,
+        "interaction_status": "REQUIRES_ACTION",
+        "interrupted": null,
+        "model_turn_parts": [],
+        "raw_length": 535,
+        "sequence": 428,
+        "server_content_keys": [
+          "interactionStatus",
+          "turnComplete"
+        ],
+        "top_level_keys": [
+          "serverContent",
+          "usageMetadata"
+        ],
+        "turn_complete": true,
+        "usage": {
+          "promptTokenCount": 17290,
+          "responseTokenCount": 136,
+          "thoughtsTokenCount": 45,
+          "totalTokenCount": 17426
+        },
+        "waiting_for_input": null
+      }
+    },
+    {
+      "attempt": 3,
+      "turn": 1,
+      "after_audio_send_finished": {
+        "all_raw_events": 0,
+        "empty_json_events": 0,
+        "structured_events": 0,
+        "audio_events": 0,
+        "text_events": 0,
+        "tool_call_events": 0,
+        "status_events": 0,
+        "error_events": 0,
+        "go_away_events": 0
+      },
+      "after_last_local_vad_stop": {
+        "all_raw_events": 0,
+        "empty_json_events": 0,
+        "structured_events": 0,
+        "audio_events": 0,
+        "text_events": 0,
+        "tool_call_events": 0,
+        "status_events": 0,
+        "error_events": 0,
+        "go_away_events": 0
+      },
+      "last_raw_event_before_timeout": {
+        "generation_complete": null,
+        "interaction_status": "REQUIRES_ACTION",
+        "interrupted": null,
+        "model_turn_parts": [],
+        "raw_length": 534,
+        "sequence": 109,
+        "server_content_keys": [
+          "interactionStatus",
+          "turnComplete"
+        ],
+        "top_level_keys": [
+          "serverContent",
+          "usageMetadata"
+        ],
+        "turn_complete": true,
+        "usage": {
+          "promptTokenCount": 15917,
+          "responseTokenCount": 132,
+          "thoughtsTokenCount": 62,
+          "totalTokenCount": 16049
+        },
+        "waiting_for_input": null
+      }
+    },
+    {
+      "attempt": 4,
+      "turn": 0,
+      "after_audio_send_finished": {
+        "all_raw_events": 0,
+        "empty_json_events": 0,
+        "structured_events": 0,
+        "audio_events": 0,
+        "text_events": 0,
+        "tool_call_events": 0,
+        "status_events": 0,
+        "error_events": 0,
+        "go_away_events": 0
+      },
+      "after_last_local_vad_stop": {
+        "all_raw_events": 0,
+        "empty_json_events": 0,
+        "structured_events": 0,
+        "audio_events": 0,
+        "text_events": 0,
+        "tool_call_events": 0,
+        "status_events": 0,
+        "error_events": 0,
+        "go_away_events": 0
+      },
+      "last_raw_event_before_timeout": {
+        "generation_complete": null,
+        "interaction_status": "REQUIRES_ACTION",
+        "interrupted": null,
+        "model_turn_parts": [],
+        "raw_length": 534,
+        "sequence": 54,
+        "server_content_keys": [
+          "interactionStatus",
+          "turnComplete"
+        ],
+        "top_level_keys": [
+          "serverContent",
+          "usageMetadata"
+        ],
+        "turn_complete": true,
+        "usage": {
+          "promptTokenCount": 15683,
+          "responseTokenCount": 145,
+          "thoughtsTokenCount": 60,
+          "totalTokenCount": 15828
+        },
+        "waiting_for_input": null
+      }
+    },
+    {
+      "attempt": 5,
+      "turn": 6,
+      "after_audio_send_finished": {
+        "all_raw_events": 0,
+        "empty_json_events": 0,
+        "structured_events": 0,
+        "audio_events": 0,
+        "text_events": 0,
+        "tool_call_events": 0,
+        "status_events": 0,
+        "error_events": 0,
+        "go_away_events": 0
+      },
+      "after_last_local_vad_stop": {
+        "all_raw_events": 0,
+        "empty_json_events": 0,
+        "structured_events": 0,
+        "audio_events": 0,
+        "text_events": 0,
+        "tool_call_events": 0,
+        "status_events": 0,
+        "error_events": 0,
+        "go_away_events": 0
+      },
+      "last_raw_event_before_timeout": {
+        "generation_complete": null,
+        "interaction_status": "REQUIRES_ACTION",
+        "interrupted": null,
+        "model_turn_parts": [],
+        "raw_length": 533,
+        "sequence": 615,
+        "server_content_keys": [
+          "interactionStatus",
+          "turnComplete"
+        ],
+        "top_level_keys": [
+          "serverContent",
+          "usageMetadata"
+        ],
+        "turn_complete": true,
+        "usage": {
+          "promptTokenCount": 18280,
+          "responseTokenCount": 99,
+          "thoughtsTokenCount": 61,
+          "totalTokenCount": 18379
+        },
+        "waiting_for_input": null
+      }
+    },
+    {
+      "attempt": 6,
+      "turn": 1,
+      "after_audio_send_finished": {
+        "all_raw_events": 0,
+        "empty_json_events": 0,
+        "structured_events": 0,
+        "audio_events": 0,
+        "text_events": 0,
+        "tool_call_events": 0,
+        "status_events": 0,
+        "error_events": 0,
+        "go_away_events": 0
+      },
+      "after_last_local_vad_stop": {
+        "all_raw_events": 0,
+        "empty_json_events": 0,
+        "structured_events": 0,
+        "audio_events": 0,
+        "text_events": 0,
+        "tool_call_events": 0,
+        "status_events": 0,
+        "error_events": 0,
+        "go_away_events": 0
+      },
+      "last_raw_event_before_timeout": {
+        "generation_complete": null,
+        "input_transcription": {
+          "finished": null,
+          "present": true,
+          "text_chars": 13
+        },
+        "interaction_status": null,
+        "interrupted": null,
+        "model_turn_parts": [],
+        "raw_length": 93,
+        "sequence": 186,
+        "server_content_keys": [
+          "inputTranscription"
+        ],
+        "top_level_keys": [
+          "serverContent"
+        ],
+        "turn_complete": null,
+        "waiting_for_input": null
+      }
+    },
+    {
+      "attempt": 7,
+      "turn": 8,
+      "after_audio_send_finished": {
+        "all_raw_events": 0,
+        "empty_json_events": 0,
+        "structured_events": 0,
+        "audio_events": 0,
+        "text_events": 0,
+        "tool_call_events": 0,
+        "status_events": 0,
+        "error_events": 0,
+        "go_away_events": 0
+      },
+      "after_last_local_vad_stop": {
+        "all_raw_events": 0,
+        "empty_json_events": 0,
+        "structured_events": 0,
+        "audio_events": 0,
+        "text_events": 0,
+        "tool_call_events": 0,
+        "status_events": 0,
+        "error_events": 0,
+        "go_away_events": 0
+      },
+      "last_raw_event_before_timeout": {
+        "generation_complete": null,
+        "interaction_status": "REQUIRES_ACTION",
+        "interrupted": null,
+        "model_turn_parts": [],
+        "raw_length": 534,
+        "sequence": 538,
+        "server_content_keys": [
+          "interactionStatus",
+          "turnComplete"
+        ],
+        "top_level_keys": [
+          "serverContent",
+          "usageMetadata"
+        ],
+        "turn_complete": true,
+        "usage": {
+          "promptTokenCount": 18109,
+          "responseTokenCount": 67,
+          "thoughtsTokenCount": 508,
+          "totalTokenCount": 18176
+        },
+        "waiting_for_input": null
+      }
+    },
+    {
+      "attempt": 9,
+      "turn": 6,
+      "after_audio_send_finished": {
+        "all_raw_events": 0,
+        "empty_json_events": 0,
+        "structured_events": 0,
+        "audio_events": 0,
+        "text_events": 0,
+        "tool_call_events": 0,
+        "status_events": 0,
+        "error_events": 0,
+        "go_away_events": 0
+      },
+      "after_last_local_vad_stop": {
+        "all_raw_events": 0,
+        "empty_json_events": 0,
+        "structured_events": 0,
+        "audio_events": 0,
+        "text_events": 0,
+        "tool_call_events": 0,
+        "status_events": 0,
+        "error_events": 0,
+        "go_away_events": 0
+      },
+      "last_raw_event_before_timeout": {
+        "generation_complete": null,
+        "interaction_status": "REQUIRES_ACTION",
+        "interrupted": null,
+        "model_turn_parts": [],
+        "raw_length": 533,
+        "sequence": 585,
+        "server_content_keys": [
+          "interactionStatus",
+          "turnComplete"
+        ],
+        "top_level_keys": [
+          "serverContent",
+          "usageMetadata"
+        ],
+        "turn_complete": true,
+        "usage": {
+          "promptTokenCount": 18146,
+          "responseTokenCount": 99,
+          "thoughtsTokenCount": 63,
+          "totalTokenCount": 18245
+        },
+        "waiting_for_input": null
+      }
+    },
+    {
+      "attempt": 10,
+      "turn": 1,
+      "after_audio_send_finished": {
+        "all_raw_events": 0,
+        "empty_json_events": 0,
+        "structured_events": 0,
+        "audio_events": 0,
+        "text_events": 0,
+        "tool_call_events": 0,
+        "status_events": 0,
+        "error_events": 0,
+        "go_away_events": 0
+      },
+      "after_last_local_vad_stop": {
+        "all_raw_events": 0,
+        "empty_json_events": 0,
+        "structured_events": 0,
+        "audio_events": 0,
+        "text_events": 0,
+        "tool_call_events": 0,
+        "status_events": 0,
+        "error_events": 0,
+        "go_away_events": 0
+      },
+      "last_raw_event_before_timeout": {
+        "generation_complete": null,
+        "interaction_status": "REQUIRES_ACTION",
+        "interrupted": null,
+        "model_turn_parts": [],
+        "raw_length": 534,
+        "sequence": 118,
+        "server_content_keys": [
+          "interactionStatus",
+          "turnComplete"
+        ],
+        "top_level_keys": [
+          "serverContent",
+          "usageMetadata"
+        ],
+        "turn_complete": true,
+        "usage": {
+          "promptTokenCount": 15981,
+          "responseTokenCount": 107,
+          "thoughtsTokenCount": 49,
+          "totalTokenCount": 16088
+        },
+        "waiting_for_input": null
+      }
+    },
+    {
+      "attempt": 11,
+      "turn": 0,
+      "after_audio_send_finished": {
+        "all_raw_events": 0,
+        "empty_json_events": 0,
+        "structured_events": 0,
+        "audio_events": 0,
+        "text_events": 0,
+        "tool_call_events": 0,
+        "status_events": 0,
+        "error_events": 0,
+        "go_away_events": 0
+      },
+      "after_last_local_vad_stop": {
+        "all_raw_events": 0,
+        "empty_json_events": 0,
+        "structured_events": 0,
+        "audio_events": 0,
+        "text_events": 0,
+        "tool_call_events": 0,
+        "status_events": 0,
+        "error_events": 0,
+        "go_away_events": 0
+      },
+      "last_raw_event_before_timeout": {
+        "generation_complete": null,
+        "interaction_status": "REQUIRES_ACTION",
+        "interrupted": null,
+        "model_turn_parts": [],
+        "raw_length": 534,
+        "sequence": 59,
+        "server_content_keys": [
+          "interactionStatus",
+          "turnComplete"
+        ],
+        "top_level_keys": [
+          "serverContent",
+          "usageMetadata"
+        ],
+        "turn_complete": true,
+        "usage": {
+          "promptTokenCount": 15683,
+          "responseTokenCount": 139,
+          "thoughtsTokenCount": 19,
+          "totalTokenCount": 15822
+        },
+        "waiting_for_input": null
+      }
+    },
+    {
+      "attempt": 12,
+      "turn": 6,
+      "after_audio_send_finished": {
+        "all_raw_events": 0,
+        "empty_json_events": 0,
+        "structured_events": 0,
+        "audio_events": 0,
+        "text_events": 0,
+        "tool_call_events": 0,
+        "status_events": 0,
+        "error_events": 0,
+        "go_away_events": 0
+      },
+      "after_last_local_vad_stop": {
+        "all_raw_events": 0,
+        "empty_json_events": 0,
+        "structured_events": 0,
+        "audio_events": 0,
+        "text_events": 0,
+        "tool_call_events": 0,
+        "status_events": 0,
+        "error_events": 0,
+        "go_away_events": 0
+      },
+      "last_raw_event_before_timeout": {
+        "generation_complete": null,
+        "interaction_status": "REQUIRES_ACTION",
+        "interrupted": null,
+        "model_turn_parts": [],
+        "raw_length": 535,
+        "sequence": 441,
+        "server_content_keys": [
+          "interactionStatus",
+          "turnComplete"
+        ],
+        "top_level_keys": [
+          "serverContent",
+          "usageMetadata"
+        ],
+        "turn_complete": true,
+        "usage": {
+          "promptTokenCount": 17423,
+          "responseTokenCount": 103,
+          "thoughtsTokenCount": 58,
+          "totalTokenCount": 17526
+        },
+        "waiting_for_input": null
+      }
+    },
+    {
+      "attempt": 13,
+      "turn": 7,
+      "after_audio_send_finished": {
+        "all_raw_events": 0,
+        "empty_json_events": 0,
+        "structured_events": 0,
+        "audio_events": 0,
+        "text_events": 0,
+        "tool_call_events": 0,
+        "status_events": 0,
+        "error_events": 0,
+        "go_away_events": 0
+      },
+      "after_last_local_vad_stop": {
+        "all_raw_events": 0,
+        "empty_json_events": 0,
+        "structured_events": 0,
+        "audio_events": 0,
+        "text_events": 0,
+        "tool_call_events": 0,
+        "status_events": 0,
+        "error_events": 0,
+        "go_away_events": 0
+      },
+      "last_raw_event_before_timeout": {
+        "generation_complete": null,
+        "interaction_status": "REQUIRES_ACTION",
+        "interrupted": null,
+        "model_turn_parts": [],
+        "raw_length": 534,
+        "sequence": 470,
+        "server_content_keys": [
+          "interactionStatus",
+          "turnComplete"
+        ],
+        "top_level_keys": [
+          "serverContent",
+          "usageMetadata"
+        ],
+        "turn_complete": true,
+        "usage": {
+          "promptTokenCount": 17699,
+          "responseTokenCount": 64,
+          "thoughtsTokenCount": 162,
+          "totalTokenCount": 17763
+        },
+        "waiting_for_input": null
+      }
+    },
+    {
+      "attempt": 14,
+      "turn": 4,
+      "after_audio_send_finished": {
+        "all_raw_events": 0,
+        "empty_json_events": 0,
+        "structured_events": 0,
+        "audio_events": 0,
+        "text_events": 0,
+        "tool_call_events": 0,
+        "status_events": 0,
+        "error_events": 0,
+        "go_away_events": 0
+      },
+      "after_last_local_vad_stop": {
+        "all_raw_events": 0,
+        "empty_json_events": 0,
+        "structured_events": 0,
+        "audio_events": 0,
+        "text_events": 0,
+        "tool_call_events": 0,
+        "status_events": 0,
+        "error_events": 0,
+        "go_away_events": 0
+      },
+      "last_raw_event_before_timeout": {
+        "generation_complete": null,
+        "interaction_status": "REQUIRES_ACTION",
+        "interrupted": null,
+        "model_turn_parts": [],
+        "raw_length": 535,
+        "sequence": 361,
+        "server_content_keys": [
+          "interactionStatus",
+          "turnComplete"
+        ],
+        "top_level_keys": [
+          "serverContent",
+          "usageMetadata"
+        ],
+        "turn_complete": true,
+        "usage": {
+          "promptTokenCount": 16823,
+          "responseTokenCount": 295,
+          "thoughtsTokenCount": 82,
+          "totalTokenCount": 17118
+        },
+        "waiting_for_input": null
+      }
+    },
+    {
+      "attempt": 15,
+      "turn": 1,
+      "after_audio_send_finished": {
+        "all_raw_events": 0,
+        "empty_json_events": 0,
+        "structured_events": 0,
+        "audio_events": 0,
+        "text_events": 0,
+        "tool_call_events": 0,
+        "status_events": 0,
+        "error_events": 0,
+        "go_away_events": 0
+      },
+      "after_last_local_vad_stop": {
+        "all_raw_events": 0,
+        "empty_json_events": 0,
+        "structured_events": 0,
+        "audio_events": 0,
+        "text_events": 0,
+        "tool_call_events": 0,
+        "status_events": 0,
+        "error_events": 0,
+        "go_away_events": 0
+      },
+      "last_raw_event_before_timeout": {
+        "generation_complete": null,
+        "interaction_status": "REQUIRES_ACTION",
+        "interrupted": null,
+        "model_turn_parts": [],
+        "raw_length": 532,
+        "sequence": 93,
+        "server_content_keys": [
+          "interactionStatus",
+          "turnComplete"
+        ],
+        "top_level_keys": [
+          "serverContent",
+          "usageMetadata"
+        ],
+        "turn_complete": true,
+        "usage": {
+          "promptTokenCount": 15925,
+          "responseTokenCount": 95,
+          "thoughtsTokenCount": 96,
+          "totalTokenCount": 16020
+        },
+        "waiting_for_input": null
+      }
+    },
+    {
+      "attempt": 16,
+      "turn": 6,
+      "after_audio_send_finished": {
+        "all_raw_events": 0,
+        "empty_json_events": 0,
+        "structured_events": 0,
+        "audio_events": 0,
+        "text_events": 0,
+        "tool_call_events": 0,
+        "status_events": 0,
+        "error_events": 0,
+        "go_away_events": 0
+      },
+      "after_last_local_vad_stop": {
+        "all_raw_events": 0,
+        "empty_json_events": 0,
+        "structured_events": 0,
+        "audio_events": 0,
+        "text_events": 0,
+        "tool_call_events": 0,
+        "status_events": 0,
+        "error_events": 0,
+        "go_away_events": 0
+      },
+      "last_raw_event_before_timeout": {
+        "generation_complete": null,
+        "interaction_status": "REQUIRES_ACTION",
+        "interrupted": null,
+        "model_turn_parts": [],
+        "raw_length": 534,
+        "sequence": 674,
+        "server_content_keys": [
+          "interactionStatus",
+          "turnComplete"
+        ],
+        "top_level_keys": [
+          "serverContent",
+          "usageMetadata"
+        ],
+        "turn_complete": true,
+        "usage": {
+          "promptTokenCount": 18575,
+          "responseTokenCount": 29,
+          "thoughtsTokenCount": 198,
+          "totalTokenCount": 18604
+        },
+        "waiting_for_input": null
+      }
+    },
+    {
+      "attempt": 17,
+      "turn": 1,
+      "after_audio_send_finished": {
+        "all_raw_events": 0,
+        "empty_json_events": 0,
+        "structured_events": 0,
+        "audio_events": 0,
+        "text_events": 0,
+        "tool_call_events": 0,
+        "status_events": 0,
+        "error_events": 0,
+        "go_away_events": 0
+      },
+      "after_last_local_vad_stop": {
+        "all_raw_events": 0,
+        "empty_json_events": 0,
+        "structured_events": 0,
+        "audio_events": 0,
+        "text_events": 0,
+        "tool_call_events": 0,
+        "status_events": 0,
+        "error_events": 0,
+        "go_away_events": 0
+      },
+      "last_raw_event_before_timeout": {
+        "generation_complete": null,
+        "interaction_status": "REQUIRES_ACTION",
+        "interrupted": null,
+        "model_turn_parts": [],
+        "raw_length": 532,
+        "sequence": 88,
+        "server_content_keys": [
+          "interactionStatus",
+          "turnComplete"
+        ],
+        "top_level_keys": [
+          "serverContent",
+          "usageMetadata"
+        ],
+        "turn_complete": true,
+        "usage": {
+          "promptTokenCount": 15892,
+          "responseTokenCount": 38,
+          "thoughtsTokenCount": 30,
+          "totalTokenCount": 15930
+        },
+        "waiting_for_input": null
+      }
+    },
+    {
+      "attempt": 18,
+      "turn": 5,
+      "after_audio_send_finished": {
+        "all_raw_events": 0,
+        "empty_json_events": 0,
+        "structured_events": 0,
+        "audio_events": 0,
+        "text_events": 0,
+        "tool_call_events": 0,
+        "status_events": 0,
+        "error_events": 0,
+        "go_away_events": 0
+      },
+      "after_last_local_vad_stop": {
+        "all_raw_events": 0,
+        "empty_json_events": 0,
+        "structured_events": 0,
+        "audio_events": 0,
+        "text_events": 0,
+        "tool_call_events": 0,
+        "status_events": 0,
+        "error_events": 0,
+        "go_away_events": 0
+      },
+      "last_raw_event_before_timeout": {
+        "generation_complete": null,
+        "interaction_status": "REQUIRES_ACTION",
+        "interrupted": null,
+        "model_turn_parts": [],
+        "raw_length": 536,
+        "sequence": 495,
+        "server_content_keys": [
+          "interactionStatus",
+          "turnComplete"
+        ],
+        "top_level_keys": [
+          "serverContent",
+          "usageMetadata"
+        ],
+        "turn_complete": true,
+        "usage": {
+          "promptTokenCount": 17550,
+          "responseTokenCount": 303,
+          "thoughtsTokenCount": 111,
+          "totalTokenCount": 17853
+        },
+        "waiting_for_input": null
+      }
+    },
+    {
+      "attempt": 19,
+      "turn": 8,
+      "after_audio_send_finished": {
+        "all_raw_events": 0,
+        "empty_json_events": 0,
+        "structured_events": 0,
+        "audio_events": 0,
+        "text_events": 0,
+        "tool_call_events": 0,
+        "status_events": 0,
+        "error_events": 0,
+        "go_away_events": 0
+      },
+      "after_last_local_vad_stop": {
+        "all_raw_events": 0,
+        "empty_json_events": 0,
+        "structured_events": 0,
+        "audio_events": 0,
+        "text_events": 0,
+        "tool_call_events": 0,
+        "status_events": 0,
+        "error_events": 0,
+        "go_away_events": 0
+      },
+      "last_raw_event_before_timeout": {
+        "generation_complete": null,
+        "interaction_status": "REQUIRES_ACTION",
+        "interrupted": null,
+        "model_turn_parts": [],
+        "raw_length": 535,
+        "sequence": 619,
+        "server_content_keys": [
+          "interactionStatus",
+          "turnComplete"
+        ],
+        "top_level_keys": [
+          "serverContent",
+          "usageMetadata"
+        ],
+        "turn_complete": true,
+        "usage": {
+          "promptTokenCount": 18238,
+          "responseTokenCount": 119,
+          "thoughtsTokenCount": 73,
+          "totalTokenCount": 18357
+        },
+        "waiting_for_input": null
+      }
+    },
+    {
+      "attempt": 20,
+      "turn": 7,
+      "after_audio_send_finished": {
+        "all_raw_events": 0,
+        "empty_json_events": 0,
+        "structured_events": 0,
+        "audio_events": 0,
+        "text_events": 0,
+        "tool_call_events": 0,
+        "status_events": 0,
+        "error_events": 0,
+        "go_away_events": 0
+      },
+      "after_last_local_vad_stop": {
+        "all_raw_events": 0,
+        "empty_json_events": 0,
+        "structured_events": 0,
+        "audio_events": 0,
+        "text_events": 0,
+        "tool_call_events": 0,
+        "status_events": 0,
+        "error_events": 0,
+        "go_away_events": 0
+      },
+      "last_raw_event_before_timeout": {
+        "generation_complete": null,
+        "interaction_status": "REQUIRES_ACTION",
+        "interrupted": null,
+        "model_turn_parts": [],
+        "raw_length": 535,
+        "sequence": 809,
+        "server_content_keys": [
+          "interactionStatus",
+          "turnComplete"
+        ],
+        "top_level_keys": [
+          "serverContent",
+          "usageMetadata"
+        ],
+        "turn_complete": true,
+        "usage": {
+          "promptTokenCount": 19133,
+          "responseTokenCount": 107,
+          "thoughtsTokenCount": 83,
+          "totalTokenCount": 19240
+        },
+        "waiting_for_input": null
+      }
+    }
+  ],
+  "no_replay_validation": {
+    "runtime_rows_with_replayed_false": 20,
+    "replay_log_lines": 0
+  },
+  "runtime_warning_lines": 0,
+  "partial_turn_timing": {
+    "ttfb_samples": 76,
+    "ttfb_median_ms": 475.0,
+    "ttfb_p90_ms": 5781.5,
+    "response_latency_samples": 88,
+    "response_latency_median_ms": 12551.0,
+    "response_latency_p90_ms": 36955.49999999999
+  },
+  "audio": {
+    "files": 20,
+    "all_stereo": true,
+    "all_24khz": true,
+    "total_bytes": 190600240,
+    "duration_seconds": {
+      "minimum": 31.318,
+      "median": 104.21100000000001,
+      "maximum": 231.59158333333335
+    },
+    "files_detail": [
+      {
+        "attempt": 1,
+        "channels": 2,
+        "sample_rate": 24000,
+        "duration_seconds": 132.481625,
+        "bytes": 12718280
+      },
+      {
+        "attempt": 2,
+        "channels": 2,
+        "sample_rate": 24000,
+        "duration_seconds": 93.24141666666667,
+        "bytes": 8951220
+      },
+      {
+        "attempt": 3,
+        "channels": 2,
+        "sample_rate": 24000,
+        "duration_seconds": 37.444541666666666,
+        "bytes": 3594720
+      },
+      {
+        "attempt": 4,
+        "channels": 2,
+        "sample_rate": 24000,
+        "duration_seconds": 31.803583333333332,
+        "bytes": 3053188
+      },
+      {
+        "attempt": 5,
+        "channels": 2,
+        "sample_rate": 24000,
+        "duration_seconds": 124.03275,
+        "bytes": 11907188
+      },
+      {
+        "attempt": 6,
+        "channels": 2,
+        "sample_rate": 24000,
+        "duration_seconds": 46.812958333333334,
+        "bytes": 4494088
+      },
+      {
+        "attempt": 7,
+        "channels": 2,
+        "sample_rate": 24000,
+        "duration_seconds": 148.18145833333332,
+        "bytes": 14225464
+      },
+      {
+        "attempt": 8,
+        "channels": 2,
+        "sample_rate": 24000,
+        "duration_seconds": 162.657,
+        "bytes": 15615116
+      },
+      {
+        "attempt": 9,
+        "channels": 2,
+        "sample_rate": 24000,
+        "duration_seconds": 145.72116666666668,
+        "bytes": 13989276
+      },
+      {
+        "attempt": 10,
+        "channels": 2,
+        "sample_rate": 24000,
+        "duration_seconds": 38.74645833333334,
+        "bytes": 3719704
+      },
+      {
+        "attempt": 11,
+        "channels": 2,
+        "sample_rate": 24000,
+        "duration_seconds": 31.318,
+        "bytes": 3006572
+      },
+      {
+        "attempt": 12,
+        "channels": 2,
+        "sample_rate": 24000,
+        "duration_seconds": 96.201375,
+        "bytes": 9235376
+      },
+      {
+        "attempt": 13,
+        "channels": 2,
+        "sample_rate": 24000,
+        "duration_seconds": 103.6885,
+        "bytes": 9954140
+      },
+      {
+        "attempt": 14,
+        "channels": 2,
+        "sample_rate": 24000,
+        "duration_seconds": 104.7335,
+        "bytes": 10054460
+      },
+      {
+        "attempt": 15,
+        "channels": 2,
+        "sample_rate": 24000,
+        "duration_seconds": 36.243,
+        "bytes": 3479372
+      },
+      {
+        "attempt": 16,
+        "channels": 2,
+        "sample_rate": 24000,
+        "duration_seconds": 134.59283333333335,
+        "bytes": 12920956
+      },
+      {
+        "attempt": 17,
+        "channels": 2,
+        "sample_rate": 24000,
+        "duration_seconds": 34.503083333333336,
+        "bytes": 3312340
+      },
+      {
+        "attempt": 18,
+        "channels": 2,
+        "sample_rate": 24000,
+        "duration_seconds": 127.17283333333333,
+        "bytes": 12208636
+      },
+      {
+        "attempt": 19,
+        "channels": 2,
+        "sample_rate": 24000,
+        "duration_seconds": 124.24233333333333,
+        "bytes": 11927308
+      },
+      {
+        "attempt": 20,
+        "channels": 2,
+        "sample_rate": 24000,
+        "duration_seconds": 231.59158333333335,
+        "bytes": 22232836
+      }
+    ]
+  },
+  "outbound_validation": {
+    "run_dir": "runs/aiwf_medium_context/20260804T210138_clever-chatter_0b5a6d58",
+    "benchmark_sample": false,
+    "classification": "no_audio_timeout",
+    "failure_turn": 5,
+    "successful_real_audio_sends": 278,
+    "successful_real_audio_bytes": 266880,
+    "successful_post_audio_sends": 998,
+    "successful_post_audio_bytes": 957942,
+    "maximum_send_wait_ms": 0.436258,
+    "raw_receives_after_audio_finished": 0,
+    "send_errors": 0,
+    "send_cancellations": 0,
+    "receive_cancellations": 1,
+    "receive_wait_at_cancellation_ms": 26038.103,
+    "last_successful_send_log_timestamp": "2026-08-04 21:03:44.080",
+    "timeout_log_timestamp": "2026-08-04 21:03:44.081"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "activity_starts": 30,
+  "activity_ends": 30,
+  "activity_open_at_eof": false,
+  "boundary_errors": [],
+  "model_audio_during_input": [],
+  "terminal_during_input": [
+    {
+      "line": 8783,
+      "sequence": 1156
+    }
+  ],
+  "interruption_during_input": [
+    {
+      "line": 8770,
+      "sequence": 1154
+    }
+  ],
+  "tool_calls_during_input": [],
+  "nonempty_transcript_missing_ttfb_turns": [],
+  "valid": true
+}

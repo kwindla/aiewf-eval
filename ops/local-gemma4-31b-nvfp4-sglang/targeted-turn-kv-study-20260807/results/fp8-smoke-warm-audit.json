@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "token_hash_gate": null,
+  "result_gate": {
+    "paths": [
+      "results/fp8-smoke-warm.jsonl"
+    ],
+    "rows": 4,
+    "duplicate_request_ids": [],
+    "errors": [],
+    "warm_cache_failures": [],
+    "cold_requests_with_more_than_one_cached_token": [],
+    "repeat_groups_checked": 2,
+    "repeat_mismatches": [
+      {
+        "key": [
+          "fp8-compact",
+          "warm",
+          "turn12-golden",
+          0
+        ],
+        "request_ids": [
+          "fp8-compact:warm:turn12-golden:0:0",
+          "fp8-compact:warm:turn12-golden:0:1"
+        ]
+      },
+      {
+        "key": [
+          "fp8-compact",
+          "warm",
+          "turn12-golden",
+          1
+        ],
+        "request_ids": [
+          "fp8-compact:warm:turn12-golden:1:0",
+          "fp8-compact:warm:turn12-golden:1:1"
+        ]
+      }
+    ],
+    "passed": false
+  },
+  "passed": false
+}

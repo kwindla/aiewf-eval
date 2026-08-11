@@ -1,0 +1,421 @@
+model	arm	source_kind	lane	slot	attempt	run_dir
+gpt54	nofiller	historical	existing-included			runs/aiwf_medium_context/20260718T204517_gpt-5.4_4304593b
+gpt54	nofiller	historical	existing-included			runs/aiwf_medium_context/20260718T204932_gpt-5.4_e005d4b2
+gpt54	nofiller	historical	existing-included			runs/aiwf_medium_context/20260718T205406_gpt-5.4_e436a409
+gpt54	nofiller	historical	existing-included			runs/aiwf_medium_context/20260718T205757_gpt-5.4_567846a3
+gpt54	nofiller	historical	existing-included			runs/aiwf_medium_context/20260718T210212_gpt-5.4_1f7590bb
+gpt54	nofiller	historical	existing-included			runs/aiwf_medium_context/20260718T210651_gpt-5.4_f0d8eac7
+gpt54	nofiller	historical	existing-included			runs/aiwf_medium_context/20260718T211118_gpt-5.4_b4ba1f5b
+gpt54	nofiller	historical	existing-included			runs/aiwf_medium_context/20260718T211600_gpt-5.4_7624b42c
+gpt54	nofiller	historical	existing-included			runs/aiwf_medium_context/20260718T221419_gpt-5.4_7f1a2cc8
+gpt54	nofiller	historical	existing-included			runs/aiwf_medium_context/20260718T221948_gpt-5.4_2dc2fbef
+gpt54	dots96	historical	existing-included			runs/aiwf_medium_context/20260718T204735_gpt-5.4_53a7cdf3
+gpt54	dots96	historical	existing-included			runs/aiwf_medium_context/20260718T205129_gpt-5.4_d59039c5
+gpt54	dots96	historical	existing-included			runs/aiwf_medium_context/20260718T205605_gpt-5.4_e2b9c6ba
+gpt54	dots96	historical	existing-included			runs/aiwf_medium_context/20260718T210010_gpt-5.4_dc2804af
+gpt54	dots96	historical	existing-included			runs/aiwf_medium_context/20260718T210455_gpt-5.4_878c6c80
+gpt54	dots96	historical	existing-included			runs/aiwf_medium_context/20260718T210904_gpt-5.4_4e651c2d
+gpt54	dots96	historical	existing-included			runs/aiwf_medium_context/20260718T211404_gpt-5.4_7d808aff
+gpt54	dots96	historical	existing-included			runs/aiwf_medium_context/20260718T211829_gpt-5.4_31eb14d3
+gpt54	dots96	historical	existing-included			runs/aiwf_medium_context/20260718T221716_gpt-5.4_9a830590
+gpt54	dots96	historical	existing-included			runs/aiwf_medium_context/20260718T222247_gpt-5.4_6bc13523
+gpt55	nofiller	historical	existing-included			runs/aiwf_medium_context/20260720T102731_gpt-5.5_ce3e937e
+gpt55	nofiller	historical	existing-included			runs/aiwf_medium_context/20260720T103206_gpt-5.5_f0166057
+gpt55	nofiller	historical	existing-included			runs/aiwf_medium_context/20260720T103716_gpt-5.5_f30ef39d
+gpt55	nofiller	historical	existing-included			runs/aiwf_medium_context/20260720T104210_gpt-5.5_9598ee39
+gpt55	nofiller	historical	existing-included			runs/aiwf_medium_context/20260720T104643_gpt-5.5_868539a7
+gpt55	nofiller	historical	existing-included			runs/aiwf_medium_context/20260720T105049_gpt-5.5_a0cdbc07
+gpt55	nofiller	historical	existing-included			runs/aiwf_medium_context/20260720T105518_gpt-5.5_bcd82b49
+gpt55	nofiller	historical	existing-included			runs/aiwf_medium_context/20260720T105943_gpt-5.5_d04fe202
+gpt55	dots96	historical	existing-included			runs/aiwf_medium_context/20260720T102957_gpt-5.5_9e0583c5
+gpt55	dots96	historical	existing-included			runs/aiwf_medium_context/20260720T103517_gpt-5.5_37651c37
+gpt55	dots96	historical	existing-included			runs/aiwf_medium_context/20260720T104005_gpt-5.5_072e1d8f
+gpt55	dots96	historical	existing-included			runs/aiwf_medium_context/20260720T104427_gpt-5.5_1f8e4975
+gpt55	dots96	historical	existing-included			runs/aiwf_medium_context/20260720T104846_gpt-5.5_a9adada4
+gpt55	dots96	historical	existing-included			runs/aiwf_medium_context/20260720T105306_gpt-5.5_d1e7b503
+gpt55	dots96	historical	existing-included			runs/aiwf_medium_context/20260720T105726_gpt-5.5_9340db0d
+gpt55	dots96	historical	existing-included			runs/aiwf_medium_context/20260720T110224_gpt-5.5_c7a44850
+terra	nofiller	historical	existing-included			runs/aiwf_medium_context/20260716T100228_gpt-5.6-terra_4bdc9f2a
+terra	nofiller	historical	existing-included			runs/aiwf_medium_context/20260716T100727_gpt-5.6-terra_ea4fad1c
+terra	nofiller	historical	existing-included			runs/aiwf_medium_context/20260716T101147_gpt-5.6-terra_e3ad20a5
+terra	nofiller	historical	existing-included			runs/aiwf_medium_context/20260716T101542_gpt-5.6-terra_568d5969
+terra	nofiller	historical	existing-included			runs/aiwf_medium_context/20260716T102003_gpt-5.6-terra_b81ed3d7
+terra	nofiller	historical	existing-included			runs/aiwf_medium_context/20260716T102435_gpt-5.6-terra_6e956952
+terra	nofiller	historical	existing-included			runs/aiwf_medium_context/20260716T102904_gpt-5.6-terra_59ce6596
+terra	nofiller	historical	existing-included			runs/aiwf_medium_context/20260716T103330_gpt-5.6-terra_9778a41d
+terra	nofiller	historical	existing-included			runs/aiwf_medium_context/20260716T103809_gpt-5.6-terra_ae2d4d56
+terra	nofiller	historical	existing-included			runs/aiwf_medium_context/20260716T104227_gpt-5.6-terra_b4696ed1
+terra	nofiller	historical	existing-included			runs/aiwf_medium_context/20260719T090154_gpt-5.6-terra_f5f2d0e0
+terra	nofiller	historical	existing-included			runs/aiwf_medium_context/20260719T091556_gpt-5.6-terra_9786f6bf
+terra	nofiller	historical	existing-included			runs/aiwf_medium_context/20260719T093157_gpt-5.6-terra_bc67d1b5
+terra	nofiller	historical	existing-included			runs/aiwf_medium_context/20260719T094633_gpt-5.6-terra_f6ffdb8a
+terra	nofiller	historical	existing-included			runs/aiwf_medium_context/20260719T100118_gpt-5.6-terra_de57b3c8
+terra	nofiller	historical	existing-included			runs/aiwf_medium_context/20260719T101446_gpt-5.6-terra_8d1cc736
+terra	nofiller	historical	existing-included			runs/aiwf_medium_context/20260719T131820_gpt-5.6-terra_848db695
+terra	nofiller	historical	existing-included			runs/aiwf_medium_context/20260719T132053_gpt-5.6-terra_13d53e0a
+terra	nofiller	historical	existing-included			runs/aiwf_medium_context/20260719T132340_gpt-5.6-terra_fab69a95
+terra	nofiller	historical	existing-included			runs/aiwf_medium_context/20260719T132540_gpt-5.6-terra_ecc6b379
+terra	dots96	historical	existing-included			runs/aiwf_medium_context/20260719T090348_gpt-5.6-terra_4515b9b3
+terra	dots96	historical	existing-included			runs/aiwf_medium_context/20260719T090407_gpt-5.6-terra_a9f7d41d
+terra	dots96	historical	existing-included			runs/aiwf_medium_context/20260719T091910_gpt-5.6-terra_788dfd1b
+terra	dots96	historical	existing-included			runs/aiwf_medium_context/20260719T091931_gpt-5.6-terra_8d001a0e
+terra	dots96	historical	existing-included			runs/aiwf_medium_context/20260719T091952_gpt-5.6-terra_35b96f4f
+terra	dots96	historical	existing-included			runs/aiwf_medium_context/20260719T092013_gpt-5.6-terra_536fc42e
+terra	dots96	historical	existing-included			runs/aiwf_medium_context/20260719T093356_gpt-5.6-terra_7bd02599
+terra	dots96	historical	existing-included			runs/aiwf_medium_context/20260719T094855_gpt-5.6-terra_6e9a46ca
+terra	dots96	historical	existing-included			runs/aiwf_medium_context/20260719T094913_gpt-5.6-terra_7f118d15
+terra	dots96	historical	existing-included			runs/aiwf_medium_context/20260719T100311_gpt-5.6-terra_6d5fda4b
+terra	dots96	historical	existing-included			runs/aiwf_medium_context/20260719T101732_gpt-5.6-terra_a1a66116
+terra	dots96	historical	existing-included			runs/aiwf_medium_context/20260719T101748_gpt-5.6-terra_e2b0590b
+terra	dots96	historical	existing-included			runs/aiwf_medium_context/20260719T101856_gpt-5.6-terra_746bed10
+terra	dots96	historical	existing-included			runs/aiwf_medium_context/20260719T102005_gpt-5.6-terra_39743e0a
+terra	dots96	historical	existing-included			runs/aiwf_medium_context/20260719T132826_gpt-5.6-terra_a435ce93
+terra	dots96	historical	existing-included			runs/aiwf_medium_context/20260719T132843_gpt-5.6-terra_b58bb799
+terra	dots96	historical	existing-included			runs/aiwf_medium_context/20260719T133027_gpt-5.6-terra_e9044498
+terra	dots96	historical	existing-included			runs/aiwf_medium_context/20260719T133223_gpt-5.6-terra_c131ac77
+terra	dots96	historical	existing-included			runs/aiwf_medium_context/20260719T133239_gpt-5.6-terra_42de6dc3
+terra	dots96	historical	existing-included			runs/aiwf_medium_context/20260719T133255_gpt-5.6-terra_fdf7f931
+terra	dots96	historical	existing-included			runs/aiwf_medium_context/20260719T133314_gpt-5.6-terra_7f3e3e49
+terra	dots96	historical	existing-included			runs/aiwf_medium_context/20260719T133331_gpt-5.6-terra_d54f3b06
+terra	dots96	historical	existing-included			runs/aiwf_medium_context/20260719T133352_gpt-5.6-terra_8b4effd5
+terra	dots96	historical	existing-included			runs/aiwf_medium_context/20260719T133700_gpt-5.6-terra_cd0e6cd1
+terra	dots96	historical	existing-included			runs/aiwf_medium_context/20260719T133715_gpt-5.6-terra_fc7dd2dd
+terra	dots96	historical	existing-included			runs/aiwf_medium_context/20260719T133732_gpt-5.6-terra_6c7e4a2f
+terra	dots96	historical	existing-included			runs/aiwf_medium_context/20260719T133749_gpt-5.6-terra_899099bb
+terra	dots96	historical	existing-included			runs/aiwf_medium_context/20260719T133814_gpt-5.6-terra_a57e15e0
+terra	dots96	historical	existing-included			runs/aiwf_medium_context/20260719T133834_gpt-5.6-terra_f67070f5
+terra	dots96	historical	existing-included			runs/aiwf_medium_context/20260719T134037_gpt-5.6-terra_a7f7d1d7
+sol	nofiller	historical	existing-included			runs/aiwf_medium_context/20260719T085708_gpt-5.6-sol_abf97165
+sol	nofiller	historical	existing-included			runs/aiwf_medium_context/20260719T091117_gpt-5.6-sol_09e4ba22
+sol	nofiller	historical	existing-included			runs/aiwf_medium_context/20260719T092714_gpt-5.6-sol_d63da36b
+sol	nofiller	historical	existing-included			runs/aiwf_medium_context/20260719T094219_gpt-5.6-sol_77de886d
+sol	nofiller	historical	existing-included			runs/aiwf_medium_context/20260719T095630_gpt-5.6-sol_7fad7c14
+sol	nofiller	historical	existing-included			runs/aiwf_medium_context/20260719T101005_gpt-5.6-sol_2c3691e8
+sol	nofiller	historical	existing-included			runs/aiwf_medium_context/20260719T124005_gpt-5.6-sol_8babee23
+sol	nofiller	historical	existing-included			runs/aiwf_medium_context/20260719T124229_gpt-5.6-sol_b0138564
+sol	nofiller	historical	existing-included			runs/aiwf_medium_context/20260719T124445_gpt-5.6-sol_4f8564d2
+sol	nofiller	historical	existing-included			runs/aiwf_medium_context/20260719T124723_gpt-5.6-sol_875c4227
+sol	dots96	historical	existing-included			runs/aiwf_medium_context/20260719T085931_gpt-5.6-sol_b061c0cf
+sol	dots96	historical	existing-included			runs/aiwf_medium_context/20260719T091343_gpt-5.6-sol_e9a3f512
+sol	dots96	historical	existing-included			runs/aiwf_medium_context/20260719T092940_gpt-5.6-sol_8692bfc4
+sol	dots96	historical	existing-included			runs/aiwf_medium_context/20260719T094426_gpt-5.6-sol_af6c39f5
+sol	dots96	historical	existing-included			runs/aiwf_medium_context/20260719T095904_gpt-5.6-sol_ef65ce20
+sol	dots96	historical	existing-included			runs/aiwf_medium_context/20260719T101240_gpt-5.6-sol_991b3a84
+sol	dots96	historical	existing-included			runs/aiwf_medium_context/20260719T124945_gpt-5.6-sol_203fd126
+sol	dots96	historical	existing-included			runs/aiwf_medium_context/20260719T125142_gpt-5.6-sol_30762bd9
+sol	dots96	historical	existing-included			runs/aiwf_medium_context/20260719T125408_gpt-5.6-sol_193106f3
+sol	dots96	historical	existing-included			runs/aiwf_medium_context/20260719T125634_gpt-5.6-sol_4528e7db
+gemma431	nofiller	historical	existing-included			runs/aiwf_medium_context/20260615T203631_lilac_gemma-4-31b-it_092aff24
+gemma431	nofiller	historical	existing-included			runs/aiwf_medium_context/20260615T203844_lilac_gemma-4-31b-it_efe7dda2
+gemma431	nofiller	historical	existing-included			runs/aiwf_medium_context/20260615T204051_lilac_gemma-4-31b-it_3e0233b4
+gemma431	nofiller	historical	existing-included			runs/aiwf_medium_context/20260615T204241_lilac_gemma-4-31b-it_b880d213
+gemma431	nofiller	historical	existing-included			runs/aiwf_medium_context/20260615T204433_lilac_gemma-4-31b-it_6026bf9d
+gemma431	nofiller	historical	existing-included			runs/aiwf_medium_context/20260615T204616_lilac_gemma-4-31b-it_391172c2
+gemma431	nofiller	historical	existing-included			runs/aiwf_medium_context/20260615T204751_lilac_gemma-4-31b-it_9c3177b5
+gemma431	nofiller	historical	existing-included			runs/aiwf_medium_context/20260615T204932_lilac_gemma-4-31b-it_9f95f1e5
+gemma431	nofiller	historical	existing-included			runs/aiwf_medium_context/20260615T205116_lilac_gemma-4-31b-it_16a0a20c
+gemma431	nofiller	historical	existing-included			runs/aiwf_medium_context/20260615T205319_lilac_gemma-4-31b-it_9d464af0
+gemma431	nofiller	historical	existing-included			runs/aiwf_medium_context/20260719T032503_lilac_gemma-4-31b-it_7379f65b
+gemma431	nofiller	historical	existing-included			runs/aiwf_medium_context/20260719T033623_lilac_gemma-4-31b-it_17f51340
+gemma431	nofiller	historical	existing-included			runs/aiwf_medium_context/20260719T034709_lilac_gemma-4-31b-it_4355ae1c
+gemma431	nofiller	historical	existing-included			runs/aiwf_medium_context/20260719T035838_lilac_gemma-4-31b-it_e2613ec9
+gemma431	nofiller	historical	existing-included			runs/aiwf_medium_context/20260719T040753_lilac_gemma-4-31b-it_f1a41069
+gemma431	nofiller	historical	existing-included			runs/aiwf_medium_context/20260719T042315_lilac_gemma-4-31b-it_ea65fc8a
+gemma431	nofiller	historical	existing-included			runs/aiwf_medium_context/20260719T052133_lilac_gemma-4-31b-it_e6384224
+gemma431	nofiller	historical	existing-included			runs/aiwf_medium_context/20260719T081205_lilac_gemma-4-31b-it_59688cd3
+gemma431	nofiller	historical	existing-included			runs/aiwf_medium_context/20260719T082537_lilac_gemma-4-31b-it_99cc0104
+gemma431	nofiller	historical	existing-included			runs/aiwf_medium_context/20260719T084018_lilac_gemma-4-31b-it_defcbb8b
+gemma431	dots96	historical	existing-included			runs/aiwf_medium_context/20260719T032927_lilac_gemma-4-31b-it_19186279
+gemma431	dots96	historical	existing-included			runs/aiwf_medium_context/20260719T033926_lilac_gemma-4-31b-it_62f63574
+gemma431	dots96	historical	existing-included			runs/aiwf_medium_context/20260719T035156_lilac_gemma-4-31b-it_a8e8a708
+gemma431	dots96	historical	existing-included			runs/aiwf_medium_context/20260719T040131_lilac_gemma-4-31b-it_792ee9df
+gemma431	dots96	historical	existing-included			runs/aiwf_medium_context/20260719T041608_lilac_gemma-4-31b-it_91678da3
+gemma431	dots96	historical	existing-included			runs/aiwf_medium_context/20260719T042701_lilac_gemma-4-31b-it_d8a2a30e
+gemma431	dots96	historical	existing-included			runs/aiwf_medium_context/20260719T081713_lilac_gemma-4-31b-it_1cd8a6c4
+gemma431	dots96	historical	existing-included			runs/aiwf_medium_context/20260719T082843_lilac_gemma-4-31b-it_24a5b5f2
+gemma431	dots96	historical	existing-included			runs/aiwf_medium_context/20260719T084250_lilac_gemma-4-31b-it_a3779af9
+gemma431	dots96	historical	existing-included			runs/aiwf_medium_context/20260719T085420_lilac_gemma-4-31b-it_6641f0d2
+inkling	nofiller	historical	existing-included			runs/aiwf_medium_context/20260718T221420_thinkingmachines_inkling_a5ebbb11
+inkling	nofiller	historical	existing-included			runs/aiwf_medium_context/20260718T222424_thinkingmachines_inkling_8ec92bd1
+inkling	nofiller	historical	existing-included			runs/aiwf_medium_context/20260718T223337_thinkingmachines_inkling_fc04b9c9
+inkling	nofiller	historical	existing-included			runs/aiwf_medium_context/20260718T224410_thinkingmachines_inkling_16b0a54b
+inkling	nofiller	historical	existing-included			runs/aiwf_medium_context/20260718T225454_thinkingmachines_inkling_28553bcd
+inkling	nofiller	historical	existing-included			runs/aiwf_medium_context/20260718T230434_thinkingmachines_inkling_c8000c6e
+inkling	nofiller	historical	existing-included			runs/aiwf_medium_context/20260718T231518_thinkingmachines_inkling_eac4f3fb
+inkling	nofiller	historical	existing-included			runs/aiwf_medium_context/20260718T232425_thinkingmachines_inkling_8351c57b
+inkling	dots96	historical	existing-included			runs/aiwf_medium_context/20260718T221956_thinkingmachines_inkling_58c64730
+inkling	dots96	historical	existing-included			runs/aiwf_medium_context/20260718T222908_thinkingmachines_inkling_a67e6dc9
+inkling	dots96	historical	existing-included			runs/aiwf_medium_context/20260718T223904_thinkingmachines_inkling_daeee3e8
+inkling	dots96	historical	existing-included			runs/aiwf_medium_context/20260718T225052_thinkingmachines_inkling_870e2d7a
+inkling	dots96	historical	existing-included			runs/aiwf_medium_context/20260718T230123_thinkingmachines_inkling_388aae8a
+inkling	dots96	historical	existing-included			runs/aiwf_medium_context/20260718T231054_thinkingmachines_inkling_eed035eb
+inkling	dots96	historical	existing-included			runs/aiwf_medium_context/20260718T232004_thinkingmachines_inkling_7d4b787b
+inkling	dots96	historical	existing-included			runs/aiwf_medium_context/20260718T233118_thinkingmachines_inkling_73b552b8
+inkling	dots96	historical	existing-included			runs/aiwf_medium_context/20260718T221939_thinkingmachines_inkling_f46cecd8
+inkling	dots96	historical	existing-included			runs/aiwf_medium_context/20260718T225034_thinkingmachines_inkling_dcd5c571
+glm52	nofiller	historical	existing-included			runs/aiwf_medium_context/20260719T032654_zai-org_GLM-5.2_c766c0fb
+glm52	nofiller	historical	existing-included			runs/aiwf_medium_context/20260719T034436_zai-org_GLM-5.2_a1b3d776
+glm52	nofiller	historical	existing-included			runs/aiwf_medium_context/20260719T040515_zai-org_GLM-5.2_7fa0becf
+glm52	nofiller	historical	existing-included			runs/aiwf_medium_context/20260719T042517_zai-org_GLM-5.2_3d918489
+glm52	nofiller	historical	existing-included			runs/aiwf_medium_context/20260719T044358_zai-org_GLM-5.2_1ac3112f
+glm52	nofiller	historical	existing-included			runs/aiwf_medium_context/20260719T050550_zai-org_GLM-5.2_1d9be7e2
+glm52	nofiller	historical	existing-included			runs/aiwf_medium_context/20260719T082027_zai-org_GLM-5.2_8f095801
+glm52	nofiller	historical	existing-included			runs/aiwf_medium_context/20260719T083159_zai-org_GLM-5.2_585d5e02
+glm52	nofiller	historical	existing-included			runs/aiwf_medium_context/20260719T084507_zai-org_GLM-5.2_babf4925
+glm52	nofiller	historical	existing-included			runs/aiwf_medium_context/20260719T085644_zai-org_GLM-5.2_a6de8705
+glm52	dots96	historical	existing-included			runs/aiwf_medium_context/20260719T032920_zai-org_GLM-5.2_7b5ec693
+glm52	dots96	historical	existing-included			runs/aiwf_medium_context/20260719T034702_zai-org_GLM-5.2_0279b9bb
+glm52	dots96	historical	existing-included			runs/aiwf_medium_context/20260719T040732_zai-org_GLM-5.2_5c74101b
+glm52	dots96	historical	existing-included			runs/aiwf_medium_context/20260719T042743_zai-org_GLM-5.2_7c6bb2c7
+glm52	dots96	historical	existing-included			runs/aiwf_medium_context/20260719T044615_zai-org_GLM-5.2_f1751bd9
+glm52	dots96	historical	existing-included			runs/aiwf_medium_context/20260719T050753_zai-org_GLM-5.2_b601b71c
+glm52	dots96	historical	existing-included			runs/aiwf_medium_context/20260719T082245_zai-org_GLM-5.2_af4037bc
+glm52	dots96	historical	existing-included			runs/aiwf_medium_context/20260719T083434_zai-org_GLM-5.2_ec24f5df
+glm52	dots96	historical	existing-included			runs/aiwf_medium_context/20260719T084737_zai-org_GLM-5.2_63912537
+glm52	dots96	historical	existing-included			runs/aiwf_medium_context/20260719T085921_zai-org_GLM-5.2_799ba907
+gpt54	dots96	topup	openai-a	openai-a-001	1	runs/aiwf_medium_context/20260720T210727_gpt-5.4_3173b262
+gpt55	nofiller	topup	openai-a	openai-a-002	1	runs/aiwf_medium_context/20260720T211131_gpt-5.5_e5908691
+gpt54	nofiller	topup	openai-a	openai-a-003	1	runs/aiwf_medium_context/20260720T211805_gpt-5.4_8297f15f
+gpt55	dots96	topup	openai-a	openai-a-004	1	runs/aiwf_medium_context/20260720T212415_gpt-5.5_3be8802a
+gpt54	dots96	topup	openai-a	openai-a-005	1	runs/aiwf_medium_context/20260720T212800_gpt-5.4_bd62e56b
+gpt55	nofiller	topup	openai-a	openai-a-006	1	runs/aiwf_medium_context/20260720T213404_gpt-5.5_2df281f5
+gpt54	dots96	topup	openai-a	openai-a-007	1	runs/aiwf_medium_context/20260720T214151_gpt-5.4_7815d302
+gpt55	dots96	topup	openai-a	openai-a-008	1	runs/aiwf_medium_context/20260720T214744_gpt-5.5_c2d2f317
+gpt54	nofiller	topup	openai-a	openai-a-009	1	runs/aiwf_medium_context/20260720T215305_gpt-5.4_128b5524
+gpt55	dots96	topup	openai-a	openai-a-010	1	runs/aiwf_medium_context/20260720T220017_gpt-5.5_73f53e25
+gpt54	dots96	topup	openai-a	openai-a-011	1	runs/aiwf_medium_context/20260720T220819_gpt-5.4_66db950d
+gpt55	nofiller	topup	openai-a	openai-a-012	1	runs/aiwf_medium_context/20260720T221638_gpt-5.5_5cbd860a
+gpt54	nofiller	topup	openai-a	openai-a-013	1	runs/aiwf_medium_context/20260720T222322_gpt-5.4_9ac8ad74
+gpt55	nofiller	topup	openai-a	openai-a-014	1	runs/aiwf_medium_context/20260720T223035_gpt-5.5_354892da
+gpt54	nofiller	topup	openai-a	openai-a-015	1	runs/aiwf_medium_context/20260720T223754_gpt-5.4_dae2ccf4
+gpt55	nofiller	topup	openai-a	openai-a-016	1	runs/aiwf_medium_context/20260720T224449_gpt-5.5_73e8f0bd
+gpt54	nofiller	topup	openai-a	openai-a-017	1	runs/aiwf_medium_context/20260720T225300_gpt-5.4_64cc1799
+gpt55	dots96	topup	openai-a	openai-a-018	1	runs/aiwf_medium_context/20260720T225851_gpt-5.5_9ad9c4e1
+gpt54	dots96	topup	openai-a	openai-a-019	1	runs/aiwf_medium_context/20260720T230631_gpt-5.4_23b53627
+gpt55	dots96	topup	openai-a	openai-a-020	1	runs/aiwf_medium_context/20260720T231325_gpt-5.5_d27f1280
+gpt54	dots96	topup	openai-a	openai-a-021	1	runs/aiwf_medium_context/20260720T232046_gpt-5.4_a571e56d
+gpt55	nofiller	topup	openai-a	openai-a-022	1	runs/aiwf_medium_context/20260720T232853_gpt-5.5_bcca88b7
+gpt54	dots96	topup	openai-a	openai-a-023	1	runs/aiwf_medium_context/20260720T233440_gpt-5.4_2f09dfd8
+gpt55	dots96	topup	openai-a	openai-a-024	1	runs/aiwf_medium_context/20260720T234447_gpt-5.5_9bb31e85
+gpt54	nofiller	topup	openai-a	openai-a-025	1	runs/aiwf_medium_context/20260720T235143_gpt-5.4_581bd746
+gpt55	nofiller	topup	openai-a	openai-a-026	1	runs/aiwf_medium_context/20260720T235920_gpt-5.5_144642c9
+gpt54	nofiller	topup	openai-a	openai-a-027	1	runs/aiwf_medium_context/20260721T000644_gpt-5.4_72af7487
+gpt55	nofiller	topup	openai-a	openai-a-028	1	runs/aiwf_medium_context/20260721T001306_gpt-5.5_de4a3c0f
+gpt54	nofiller	topup	openai-a	openai-a-029	1	runs/aiwf_medium_context/20260721T001942_gpt-5.4_70e3fbb6
+gpt55	dots96	topup	openai-a	openai-a-030	1	runs/aiwf_medium_context/20260721T002516_gpt-5.5_0fddf4ad
+gpt54	dots96	topup	openai-a	openai-a-031	1	runs/aiwf_medium_context/20260721T003216_gpt-5.4_a6da2b19
+gpt55	nofiller	topup	openai-a	openai-a-032	1	runs/aiwf_medium_context/20260721T003907_gpt-5.5_00775cf8
+gpt54	nofiller	topup	openai-a	openai-a-033	1	runs/aiwf_medium_context/20260721T004527_gpt-5.4_7fa3e2a7
+gpt55	nofiller	topup	openai-a	openai-a-034	1	runs/aiwf_medium_context/20260721T005142_gpt-5.5_716891da
+gpt54	dots96	topup	openai-a	openai-a-035	1	runs/aiwf_medium_context/20260721T005559_gpt-5.4_766b3a6c
+gpt55	nofiller	topup	openai-a	openai-a-036	1	runs/aiwf_medium_context/20260721T010056_gpt-5.5_efb12cc7
+gpt54	nofiller	topup	openai-a	openai-a-037	1	runs/aiwf_medium_context/20260721T010724_gpt-5.4_1770d019
+gpt55	dots96	topup	openai-a	openai-a-038	1	runs/aiwf_medium_context/20260721T011348_gpt-5.5_56998ed4
+gpt54	dots96	topup	openai-a	openai-a-039	1	runs/aiwf_medium_context/20260721T011809_gpt-5.4_90c4adfe
+gpt55	dots96	topup	openai-a	openai-a-040	1	runs/aiwf_medium_context/20260721T012331_gpt-5.5_9b7e0e34
+gpt54	nofiller	topup	openai-a	openai-a-041	1	runs/aiwf_medium_context/20260721T012855_gpt-5.4_55d3e9ad
+gpt55	nofiller	topup	openai-a	openai-a-042	1	runs/aiwf_medium_context/20260721T013226_gpt-5.5_caf50fbc
+gpt54	nofiller	topup	openai-a	openai-a-043	1	runs/aiwf_medium_context/20260721T013746_gpt-5.4_dde72f5d
+gpt55	nofiller	topup	openai-a	openai-a-044	1	runs/aiwf_medium_context/20260721T014253_gpt-5.5_a306ca77
+gpt54	dots96	topup	openai-a	openai-a-045	1	runs/aiwf_medium_context/20260721T014800_gpt-5.4_2d68989b
+gpt55	nofiller	topup	openai-a	openai-a-046	1	runs/aiwf_medium_context/20260721T015232_gpt-5.5_e69ec1d5
+gpt54	dots96	topup	openai-a	openai-a-047	1	runs/aiwf_medium_context/20260721T015748_gpt-5.4_34fa2a65
+gpt55	dots96	topup	openai-a	openai-a-048	1	runs/aiwf_medium_context/20260721T020427_gpt-5.5_dc71b18d
+gpt54	nofiller	topup	openai-a	openai-a-049	1	runs/aiwf_medium_context/20260721T020926_gpt-5.4_db3730ba
+gpt55	nofiller	topup	openai-a	openai-a-050	1	runs/aiwf_medium_context/20260721T021326_gpt-5.5_fcff9c8b
+gpt54	dots96	topup	openai-a	openai-a-051	1	runs/aiwf_medium_context/20260721T021936_gpt-5.4_a63eab10
+gpt55	dots96	topup	openai-a	openai-a-052	1	runs/aiwf_medium_context/20260721T022430_gpt-5.5_b8ae6a27
+gpt54	nofiller	topup	openai-a	openai-a-053	1	runs/aiwf_medium_context/20260721T022848_gpt-5.4_9651d6df
+gpt55	nofiller	topup	openai-a	openai-a-054	1	runs/aiwf_medium_context/20260721T023155_gpt-5.5_29ac60f6
+gpt54	nofiller	topup	openai-a	openai-a-055	1	runs/aiwf_medium_context/20260721T023643_gpt-5.4_0aadb42d
+gpt55	dots96	topup	openai-a	openai-a-056	1	runs/aiwf_medium_context/20260721T024024_gpt-5.5_2f671964
+gpt54	dots96	topup	openai-a	openai-a-057	1	runs/aiwf_medium_context/20260721T024240_gpt-5.4_147a6ca0
+gpt55	dots96	topup	openai-a	openai-a-058	1	runs/aiwf_medium_context/20260721T024647_gpt-5.5_a00e0ae5
+gpt54	nofiller	topup	openai-a	openai-a-059	1	runs/aiwf_medium_context/20260721T024914_gpt-5.4_d105d296
+gpt55	nofiller	topup	openai-a	openai-a-060	1	runs/aiwf_medium_context/20260721T025318_gpt-5.5_53a924b1
+gpt54	dots96	topup	openai-a	openai-a-061	1	runs/aiwf_medium_context/20260721T025541_gpt-5.4_a1f933d6
+gpt55	dots96	topup	openai-a	openai-a-062	1	runs/aiwf_medium_context/20260721T025815_gpt-5.5_b98ee68a
+gpt54	nofiller	topup	openai-a	openai-a-063	1	runs/aiwf_medium_context/20260721T030105_gpt-5.4_759d0f17
+gpt55	dots96	topup	openai-a	openai-a-064	1	runs/aiwf_medium_context/20260721T030507_gpt-5.5_3efdc987
+gpt54	dots96	topup	openai-a	openai-a-065	1	runs/aiwf_medium_context/20260721T030944_gpt-5.4_8bcaba94
+gpt55	nofiller	topup	openai-a	openai-a-066	1	runs/aiwf_medium_context/20260721T031239_gpt-5.5_fd0ee07d
+gpt54	nofiller	topup	openai-a	openai-a-067	1	runs/aiwf_medium_context/20260721T031724_gpt-5.4_841b57ec
+gpt55	nofiller	topup	openai-a	openai-a-068	1	runs/aiwf_medium_context/20260721T032009_gpt-5.5_7aaba752
+gpt54	dots96	topup	openai-a	openai-a-069	1	runs/aiwf_medium_context/20260721T032522_gpt-5.4_bf280e81
+gpt55	nofiller	topup	openai-a	openai-a-070	1	runs/aiwf_medium_context/20260721T033036_gpt-5.5_cae77f7a
+gpt54	dots96	topup	openai-a	openai-a-071	1	runs/aiwf_medium_context/20260721T033456_gpt-5.4_183ba009
+gpt55	dots96	topup	openai-a	openai-a-072	1	runs/aiwf_medium_context/20260721T033944_gpt-5.5_4c267e43
+gpt54	dots96	topup	openai-a	openai-a-073	1	runs/aiwf_medium_context/20260721T034210_gpt-5.4_da25387c
+gpt55	nofiller	topup	openai-a	openai-a-074	1	runs/aiwf_medium_context/20260721T034743_gpt-5.5_ccee9912
+gpt54	nofiller	topup	openai-a	openai-a-075	1	runs/aiwf_medium_context/20260721T035024_gpt-5.4_940da10c
+gpt55	dots96	topup	openai-a	openai-a-076	1	runs/aiwf_medium_context/20260721T035510_gpt-5.5_1cf374d9
+gpt54	nofiller	topup	openai-a	openai-a-077	1	runs/aiwf_medium_context/20260721T035728_gpt-5.4_80e0a558
+gpt55	dots96	topup	openai-a	openai-a-078	1	runs/aiwf_medium_context/20260721T040105_gpt-5.5_e35b580b
+gpt54	dots96	topup	openai-a	openai-a-079	1	runs/aiwf_medium_context/20260721T040318_gpt-5.4_b9259c11
+gpt55	dots96	topup	openai-a	openai-a-080	1	runs/aiwf_medium_context/20260721T040758_gpt-5.5_102b5237
+gpt55	nofiller	topup	openai-a	openai-a-081	1	runs/aiwf_medium_context/20260721T041119_gpt-5.5_815710d0
+gpt55	dots96	topup	openai-a	openai-a-082	1	runs/aiwf_medium_context/20260721T041347_gpt-5.5_3cb0f649
+gpt55	dots96	topup	openai-a	openai-a-083	1	runs/aiwf_medium_context/20260721T041900_gpt-5.5_8c6aad20
+gpt55	dots96	topup	openai-a	openai-a-084	1	runs/aiwf_medium_context/20260721T042137_gpt-5.5_8c2850d3
+terra	nofiller	topup	openai-b	openai-b-001	1	runs/aiwf_medium_context/20260720T210727_gpt-5.6-terra_e3eeffb1
+sol	nofiller	topup	openai-b	openai-b-002	1	runs/aiwf_medium_context/20260720T211321_gpt-5.6-sol_a5b76be5
+terra	nofiller	topup	openai-b	openai-b-003	1	runs/aiwf_medium_context/20260720T211911_gpt-5.6-terra_f0ab268d
+sol	nofiller	topup	openai-b	openai-b-004	1	runs/aiwf_medium_context/20260720T212535_gpt-5.6-sol_d7b7f223
+terra	nofiller	topup	openai-b	openai-b-005	1	runs/aiwf_medium_context/20260720T213142_gpt-5.6-terra_69a438b9
+sol	dots96	topup	openai-b	openai-b-006	1	runs/aiwf_medium_context/20260720T213631_gpt-5.6-sol_84fe8f08
+terra	nofiller	topup	openai-b	openai-b-007	1	runs/aiwf_medium_context/20260720T214300_gpt-5.6-terra_0fd32811
+sol	dots96	topup	openai-b	openai-b-008	1	runs/aiwf_medium_context/20260720T214906_gpt-5.6-sol_ab53442e
+terra	nofiller	topup	openai-b	openai-b-009	1	runs/aiwf_medium_context/20260720T215631_gpt-5.6-terra_aa161512
+sol	nofiller	topup	openai-b	openai-b-010	1	runs/aiwf_medium_context/20260720T220346_gpt-5.6-sol_f499c27f
+terra	nofiller	topup	openai-b	openai-b-011	1	runs/aiwf_medium_context/20260720T221156_gpt-5.6-terra_18b96da1
+sol	dots96	topup	openai-b	openai-b-012	1	runs/aiwf_medium_context/20260720T222014_gpt-5.6-sol_b7840a3f
+terra	nofiller	topup	openai-b	openai-b-013	1	runs/aiwf_medium_context/20260720T222712_gpt-5.6-terra_3f9c2b7d
+sol	nofiller	topup	openai-b	openai-b-014	1	runs/aiwf_medium_context/20260720T223455_gpt-5.6-sol_e1d8309a
+terra	nofiller	topup	openai-b	openai-b-015	1	runs/aiwf_medium_context/20260720T224056_gpt-5.6-terra_5d1677d1
+sol	nofiller	topup	openai-b	openai-b-016	1	runs/aiwf_medium_context/20260720T224820_gpt-5.6-sol_a17e2ebe
+terra	nofiller	topup	openai-b	openai-b-017	1	runs/aiwf_medium_context/20260720T225518_gpt-5.6-terra_6dae3b63
+sol	dots96	topup	openai-b	openai-b-018	1	runs/aiwf_medium_context/20260720T230225_gpt-5.6-sol_08142e2a
+terra	nofiller	topup	openai-b	openai-b-019	1	runs/aiwf_medium_context/20260720T230847_gpt-5.6-terra_69bc5665
+sol	dots96	topup	openai-b	openai-b-020	1	runs/aiwf_medium_context/20260720T231451_gpt-5.6-sol_430fe7cb
+sol	dots96	topup	openai-b	openai-b-021	1	runs/aiwf_medium_context/20260720T232233_gpt-5.6-sol_f223c2aa
+sol	nofiller	topup	openai-b	openai-b-022	1	runs/aiwf_medium_context/20260720T232957_gpt-5.6-sol_e3e7d979
+sol	dots96	topup	openai-b	openai-b-023	1	runs/aiwf_medium_context/20260720T233833_gpt-5.6-sol_b435d464
+sol	nofiller	topup	openai-b	openai-b-024	1	runs/aiwf_medium_context/20260720T234557_gpt-5.6-sol_5a3c0e55
+sol	nofiller	topup	openai-b	openai-b-025	1	runs/aiwf_medium_context/20260720T235309_gpt-5.6-sol_9439fd91
+sol	dots96	topup	openai-b	openai-b-026	1	runs/aiwf_medium_context/20260721T000046_gpt-5.6-sol_dbfd270b
+sol	nofiller	topup	openai-b	openai-b-027	1	runs/aiwf_medium_context/20260721T000746_gpt-5.6-sol_b6d4b5a5
+sol	dots96	topup	openai-b	openai-b-028	1	runs/aiwf_medium_context/20260721T001415_gpt-5.6-sol_2046ddc5
+sol	dots96	topup	openai-b	openai-b-029	1	runs/aiwf_medium_context/20260721T002051_gpt-5.6-sol_2a96ba2e
+sol	nofiller	topup	openai-b	openai-b-030	1	runs/aiwf_medium_context/20260721T002731_gpt-5.6-sol_ed61b53c
+sol	dots96	topup	openai-b	openai-b-031	1	runs/aiwf_medium_context/20260721T003327_gpt-5.6-sol_4d75a9f5
+sol	nofiller	topup	openai-b	openai-b-032	1	runs/aiwf_medium_context/20260721T004023_gpt-5.6-sol_9e245ef8
+sol	dots96	topup	openai-b	openai-b-033	1	runs/aiwf_medium_context/20260721T004638_gpt-5.6-sol_cfe4d158
+sol	dots96	topup	openai-b	openai-b-034	1	runs/aiwf_medium_context/20260721T005246_gpt-5.6-sol_14019770
+sol	dots96	topup	openai-b	openai-b-035	1	runs/aiwf_medium_context/20260721T005832_gpt-5.6-sol_6f24a07e
+sol	nofiller	topup	openai-b	openai-b-036	1	runs/aiwf_medium_context/20260721T010316_gpt-5.6-sol_09b485e1
+sol	dots96	topup	openai-b	openai-b-037	1	runs/aiwf_medium_context/20260721T010957_gpt-5.6-sol_3cc8ed52
+sol	nofiller	topup	openai-b	openai-b-038	1	runs/aiwf_medium_context/20260721T011554_gpt-5.6-sol_9b13df63
+sol	nofiller	topup	openai-b	openai-b-039	1	runs/aiwf_medium_context/20260721T012055_gpt-5.6-sol_1684bfe4
+sol	nofiller	topup	openai-b	openai-b-040	1	runs/aiwf_medium_context/20260721T012447_gpt-5.6-sol_4cd25200
+sol	dots96	topup	openai-b	openai-b-041	1	runs/aiwf_medium_context/20260721T013011_gpt-5.6-sol_81228926
+sol	nofiller	topup	openai-b	openai-b-042	1	runs/aiwf_medium_context/20260721T013526_gpt-5.6-sol_704d409e
+sol	dots96	topup	openai-b	openai-b-043	1	runs/aiwf_medium_context/20260721T013856_gpt-5.6-sol_73fbf1b8
+sol	nofiller	topup	openai-b	openai-b-044	1	runs/aiwf_medium_context/20260721T014405_gpt-5.6-sol_31244759
+sol	nofiller	topup	openai-b	openai-b-045	1	runs/aiwf_medium_context/20260721T014901_gpt-5.6-sol_b1f53728
+sol	dots96	topup	openai-b	openai-b-046	1	runs/aiwf_medium_context/20260721T015527_gpt-5.6-sol_e6908168
+sol	nofiller	topup	openai-b	openai-b-047	1	runs/aiwf_medium_context/20260721T015843_gpt-5.6-sol_3c8f5c4f
+sol	nofiller	topup	openai-b	openai-b-048	1	runs/aiwf_medium_context/20260721T020531_gpt-5.6-sol_c788c2b1
+sol	dots96	topup	openai-b	openai-b-049	1	runs/aiwf_medium_context/20260721T021030_gpt-5.6-sol_27b8e482
+sol	dots96	topup	openai-b	openai-b-050	1	runs/aiwf_medium_context/20260721T021639_gpt-5.6-sol_19bb1f04
+gemma431	nofiller	topup	lilac	lilac-001	2	runs/aiwf_medium_context/20260720T212255_lilac_gemma-4-31b-it_b0a4b8d8
+gemma431	dots96	topup	lilac	lilac-002	4	runs/aiwf_medium_context/20260720T214348_lilac_gemma-4-31b-it_10100d5b
+gemma431	dots96	topup	lilac	lilac-003	1	runs/aiwf_medium_context/20260720T215201_lilac_gemma-4-31b-it_6562749e
+gemma431	nofiller	topup	lilac	lilac-004	3	runs/aiwf_medium_context/20260720T220102_lilac_gemma-4-31b-it_fc8cf06b
+gemma431	dots96	topup	lilac	lilac-005	1	runs/aiwf_medium_context/20260720T221049_lilac_gemma-4-31b-it_bb9fb73b
+gemma431	dots96	topup	lilac	lilac-006	1	runs/aiwf_medium_context/20260720T221841_lilac_gemma-4-31b-it_64174a5f
+gemma431	nofiller	topup	lilac	lilac-007	1	runs/aiwf_medium_context/20260720T222602_lilac_gemma-4-31b-it_4b5495ce
+gemma431	dots96	topup	lilac	lilac-008	2	runs/aiwf_medium_context/20260720T223246_lilac_gemma-4-31b-it_a05b04e0
+gemma431	dots96	topup	lilac	lilac-009	1	runs/aiwf_medium_context/20260720T223854_lilac_gemma-4-31b-it_4e04b686
+gemma431	nofiller	topup	lilac	lilac-010	2	runs/aiwf_medium_context/20260720T224733_lilac_gemma-4-31b-it_888185d7
+gemma431	dots96	topup	lilac	lilac-011	2	runs/aiwf_medium_context/20260720T225455_lilac_gemma-4-31b-it_15b8c1c8
+gemma431	dots96	topup	lilac	lilac-012	1	runs/aiwf_medium_context/20260720T230336_lilac_gemma-4-31b-it_18e98ead
+gemma431	dots96	topup	lilac	lilac-013	1	runs/aiwf_medium_context/20260720T231042_lilac_gemma-4-31b-it_d2377e4b
+gemma431	nofiller	topup	lilac	lilac-014	1	runs/aiwf_medium_context/20260720T231835_lilac_gemma-4-31b-it_bcac935b
+gemma431	dots96	topup	lilac	lilac-015	1	runs/aiwf_medium_context/20260720T232406_lilac_gemma-4-31b-it_0ea25d0a
+gemma431	dots96	topup	lilac	lilac-016	2	runs/aiwf_medium_context/20260720T233226_lilac_gemma-4-31b-it_8b1eb081
+gemma431	dots96	topup	lilac	lilac-017	1	runs/aiwf_medium_context/20260720T234317_lilac_gemma-4-31b-it_9a44f5c0
+gemma431	nofiller	topup	lilac	lilac-018	1	runs/aiwf_medium_context/20260720T235048_lilac_gemma-4-31b-it_400f591f
+gemma431	dots96	topup	lilac	lilac-019	1	runs/aiwf_medium_context/20260720T235750_lilac_gemma-4-31b-it_fcb3eaa9
+gemma431	nofiller	topup	lilac	lilac-020	1	runs/aiwf_medium_context/20260721T000543_lilac_gemma-4-31b-it_485dc75e
+gemma431	dots96	topup	lilac	lilac-021	1	runs/aiwf_medium_context/20260721T001018_lilac_gemma-4-31b-it_6b7aff77
+gemma431	nofiller	topup	lilac	lilac-022	1	runs/aiwf_medium_context/20260721T001641_lilac_gemma-4-31b-it_d79c8b3b
+gemma431	dots96	topup	lilac	lilac-023	1	runs/aiwf_medium_context/20260721T002352_lilac_gemma-4-31b-it_32933698
+gemma431	nofiller	topup	lilac	lilac-024	2	runs/aiwf_medium_context/20260721T003104_lilac_gemma-4-31b-it_64031993
+gemma431	dots96	topup	lilac	lilac-025	1	runs/aiwf_medium_context/20260721T003719_lilac_gemma-4-31b-it_81e3553f
+gemma431	dots96	topup	lilac	lilac-026	2	runs/aiwf_medium_context/20260721T004513_lilac_gemma-4-31b-it_c584f82c
+gemma431	nofiller	topup	lilac	lilac-027	1	runs/aiwf_medium_context/20260721T005023_lilac_gemma-4-31b-it_b1a23eaf
+gemma431	dots96	topup	lilac	lilac-028	1	runs/aiwf_medium_context/20260721T005459_lilac_gemma-4-31b-it_a09bdc6c
+gemma431	dots96	topup	lilac	lilac-029	1	runs/aiwf_medium_context/20260721T010203_lilac_gemma-4-31b-it_7db1d3e8
+gemma431	dots96	topup	lilac	lilac-030	1	runs/aiwf_medium_context/20260721T010835_lilac_gemma-4-31b-it_8f4e994e
+inkling	nofiller	topup	baseten	baseten-001	1	runs/aiwf_medium_context/20260720T210727_thinkingmachines_inkling_00e6e92a
+glm52	dots96	topup	baseten	baseten-002	1	runs/aiwf_medium_context/20260720T210917_zai-org_GLM-5.2_f4860238
+inkling	dots96	topup	baseten	baseten-003	1	runs/aiwf_medium_context/20260720T211659_thinkingmachines_inkling_61162b59
+glm52	nofiller	topup	baseten	baseten-004	1	runs/aiwf_medium_context/20260720T212121_zai-org_GLM-5.2_8f880b6a
+inkling	nofiller	topup	baseten	baseten-005	1	runs/aiwf_medium_context/20260720T212642_thinkingmachines_inkling_368ec2c7
+glm52	dots96	topup	baseten	baseten-006	1	runs/aiwf_medium_context/20260720T213250_zai-org_GLM-5.2_caf09964
+inkling	dots96	topup	baseten	baseten-007	1	runs/aiwf_medium_context/20260720T213947_thinkingmachines_inkling_017ad3b3
+glm52	dots96	topup	baseten	baseten-008	1	runs/aiwf_medium_context/20260720T214419_zai-org_GLM-5.2_1cdc3714
+inkling	nofiller	topup	baseten	baseten-009	1	runs/aiwf_medium_context/20260720T215050_thinkingmachines_inkling_a81d0f94
+glm52	dots96	topup	baseten	baseten-010	1	runs/aiwf_medium_context/20260720T215750_zai-org_GLM-5.2_9a725ff6
+inkling	dots96	topup	baseten	baseten-011	1	runs/aiwf_medium_context/20260720T220648_thinkingmachines_inkling_0ab9ee46
+glm52	nofiller	topup	baseten	baseten-012	1	runs/aiwf_medium_context/20260720T221320_zai-org_GLM-5.2_dccc3687
+inkling	nofiller	topup	baseten	baseten-013	1	runs/aiwf_medium_context/20260720T222125_thinkingmachines_inkling_8b64cbc7
+glm52	nofiller	topup	baseten	baseten-014	1	runs/aiwf_medium_context/20260720T222815_zai-org_GLM-5.2_a15c985b
+inkling	nofiller	topup	baseten	baseten-015	1	runs/aiwf_medium_context/20260720T223648_thinkingmachines_inkling_d2fffc33
+glm52	dots96	topup	baseten	baseten-016	1	runs/aiwf_medium_context/20260720T224328_zai-org_GLM-5.2_48ac0734
+inkling	nofiller	topup	baseten	baseten-017	1	runs/aiwf_medium_context/20260720T224943_thinkingmachines_inkling_4575f305
+glm52	nofiller	topup	baseten	baseten-018	1	runs/aiwf_medium_context/20260720T225651_zai-org_GLM-5.2_e809b768
+inkling	dots96	topup	baseten	baseten-019	1	runs/aiwf_medium_context/20260720T230525_thinkingmachines_inkling_7a931929
+glm52	dots96	topup	baseten	baseten-020	1	runs/aiwf_medium_context/20260720T231157_zai-org_GLM-5.2_af3e0171
+inkling	nofiller	topup	baseten	baseten-021	1	runs/aiwf_medium_context/20260720T231944_thinkingmachines_inkling_fc9dce5e
+glm52	nofiller	topup	baseten	baseten-022	1	runs/aiwf_medium_context/20260720T232525_zai-org_GLM-5.2_512b385e
+inkling	nofiller	topup	baseten	baseten-023	1	runs/aiwf_medium_context/20260720T233220_thinkingmachines_inkling_cc61cecf
+glm52	nofiller	topup	baseten	baseten-024	1	runs/aiwf_medium_context/20260720T233951_zai-org_GLM-5.2_83913b1a
+inkling	nofiller	topup	baseten	baseten-025	1	runs/aiwf_medium_context/20260720T234838_thinkingmachines_inkling_95cd0306
+glm52	dots96	topup	baseten	baseten-026	1	runs/aiwf_medium_context/20260720T235428_zai-org_GLM-5.2_634d2f7d
+inkling	dots96	topup	baseten	baseten-027	1	runs/aiwf_medium_context/20260721T000206_thinkingmachines_inkling_fa640f42
+glm52	dots96	topup	baseten	baseten-028	1	runs/aiwf_medium_context/20260721T000908_zai-org_GLM-5.2_2053c80a
+inkling	dots96	topup	baseten	baseten-029	1	runs/aiwf_medium_context/20260721T001532_thinkingmachines_inkling_7e35d8e0
+glm52	dots96	topup	baseten	baseten-030	1	runs/aiwf_medium_context/20260721T002236_zai-org_GLM-5.2_e61d743c
+inkling	nofiller	topup	baseten	baseten-031	1	runs/aiwf_medium_context/20260721T002852_thinkingmachines_inkling_a3d127c0
+glm52	nofiller	topup	baseten	baseten-032	1	runs/aiwf_medium_context/20260721T003620_zai-org_GLM-5.2_f197535e
+inkling	dots96	topup	baseten	baseten-033	1	runs/aiwf_medium_context/20260721T004132_thinkingmachines_inkling_a26901ff
+glm52	dots96	topup	baseten	baseten-034	1	runs/aiwf_medium_context/20260721T004756_zai-org_GLM-5.2_e986f004
+inkling	nofiller	topup	baseten	baseten-035	1	runs/aiwf_medium_context/20260721T005355_thinkingmachines_inkling_0821e8c2
+glm52	nofiller	topup	baseten	baseten-036	1	runs/aiwf_medium_context/20260721T005952_zai-org_GLM-5.2_650474c1
+inkling	dots96	topup	baseten	baseten-037	1	runs/aiwf_medium_context/20260721T010553_thinkingmachines_inkling_b9fee6f9
+glm52	nofiller	topup	baseten	baseten-038	1	runs/aiwf_medium_context/20260721T011112_zai-org_GLM-5.2_5348dec5
+inkling	nofiller	topup	baseten	baseten-039	1	runs/aiwf_medium_context/20260721T011656_thinkingmachines_inkling_54f1376e
+glm52	dots96	topup	baseten	baseten-040	1	runs/aiwf_medium_context/20260721T012218_zai-org_GLM-5.2_ebdb516b
+inkling	nofiller	topup	baseten	baseten-041	1	runs/aiwf_medium_context/20260721T012610_thinkingmachines_inkling_210e7e5d
+glm52	nofiller	topup	baseten	baseten-042	1	runs/aiwf_medium_context/20260721T013120_zai-org_GLM-5.2_5b7895e1
+inkling	dots96	topup	baseten	baseten-043	1	runs/aiwf_medium_context/20260721T013644_thinkingmachines_inkling_546e16f2
+glm52	dots96	topup	baseten	baseten-044	1	runs/aiwf_medium_context/20260721T014135_zai-org_GLM-5.2_10bc43c1
+inkling	nofiller	topup	baseten	baseten-045	1	runs/aiwf_medium_context/20260721T014528_thinkingmachines_inkling_98bbbea5
+glm52	dots96	topup	baseten	baseten-046	1	runs/aiwf_medium_context/20260721T015018_zai-org_GLM-5.2_e2159828
+inkling	dots96	topup	baseten	baseten-047	1	runs/aiwf_medium_context/20260721T015635_thinkingmachines_inkling_ed3c8f98
+glm52	nofiller	topup	baseten	baseten-048	1	runs/aiwf_medium_context/20260721T020042_zai-org_GLM-5.2_b008c31c
+inkling	nofiller	topup	baseten	baseten-049	1	runs/aiwf_medium_context/20260721T020642_thinkingmachines_inkling_e8db4f92
+glm52	dots96	topup	baseten	baseten-050	1	runs/aiwf_medium_context/20260721T021154_zai-org_GLM-5.2_fc444af2
+inkling	dots96	topup	baseten	baseten-051	1	runs/aiwf_medium_context/20260721T021830_thinkingmachines_inkling_d0da0b78
+glm52	nofiller	topup	baseten	baseten-052	1	runs/aiwf_medium_context/20260721T022308_zai-org_GLM-5.2_e7f12e21
+inkling	nofiller	topup	baseten	baseten-053	1	runs/aiwf_medium_context/20260721T022546_thinkingmachines_inkling_c9d0920c
+glm52	dots96	topup	baseten	baseten-054	1	runs/aiwf_medium_context/20260721T023034_zai-org_GLM-5.2_e4fa6b43
+inkling	dots96	topup	baseten	baseten-055	1	runs/aiwf_medium_context/20260721T023459_thinkingmachines_inkling_52573f32
+glm52	nofiller	topup	baseten	baseten-056	1	runs/aiwf_medium_context/20260721T023748_zai-org_GLM-5.2_75cc4aa5
+inkling	dots96	topup	baseten	baseten-057	1	runs/aiwf_medium_context/20260721T024124_thinkingmachines_inkling_0533db37
+glm52	nofiller	topup	baseten	baseten-058	1	runs/aiwf_medium_context/20260721T024400_zai-org_GLM-5.2_0c7a3760
+inkling	dots96	topup	baseten	baseten-059	1	runs/aiwf_medium_context/20260721T024806_thinkingmachines_inkling_b6a55d6c
+glm52	nofiller	topup	baseten	baseten-060	1	runs/aiwf_medium_context/20260721T025152_zai-org_GLM-5.2_6ba2b569
+inkling	nofiller	topup	baseten	baseten-061	1	runs/aiwf_medium_context/20260721T025428_thinkingmachines_inkling_ee0e124f
+glm52	dots96	topup	baseten	baseten-062	1	runs/aiwf_medium_context/20260721T025651_zai-org_GLM-5.2_d1560f04
+inkling	dots96	topup	baseten	baseten-063	1	runs/aiwf_medium_context/20260721T025937_thinkingmachines_inkling_47ee0a40
+glm52	dots96	topup	baseten	baseten-064	1	runs/aiwf_medium_context/20260721T030243_zai-org_GLM-5.2_862da91a
+inkling	nofiller	topup	baseten	baseten-065	1	runs/aiwf_medium_context/20260721T030626_thinkingmachines_inkling_6bee33ec
+glm52	dots96	topup	baseten	baseten-066	1	runs/aiwf_medium_context/20260721T031133_zai-org_GLM-5.2_5f90fcea
+inkling	nofiller	topup	baseten	baseten-067	1	runs/aiwf_medium_context/20260721T031548_thinkingmachines_inkling_4feb7c92
+glm52	nofiller	topup	baseten	baseten-068	1	runs/aiwf_medium_context/20260721T031847_zai-org_GLM-5.2_64406128
+inkling	dots96	topup	baseten	baseten-069	1	runs/aiwf_medium_context/20260721T032129_thinkingmachines_inkling_8c4cdd14
+glm52	nofiller	topup	baseten	baseten-070	1	runs/aiwf_medium_context/20260721T032711_zai-org_GLM-5.2_5bec215e
+inkling	dots96	topup	baseten	baseten-071	1	runs/aiwf_medium_context/20260721T033252_thinkingmachines_inkling_880a94b4
+glm52	nofiller	topup	baseten	baseten-072	1	runs/aiwf_medium_context/20260721T033656_zai-org_GLM-5.2_0cae3869
+inkling	nofiller	topup	baseten	baseten-073	1	runs/aiwf_medium_context/20260721T034101_thinkingmachines_inkling_9afcb1cc
+glm52	dots96	topup	baseten	baseten-074	1	runs/aiwf_medium_context/20260721T034327_zai-org_GLM-5.2_60ca8c56
+inkling	dots96	topup	baseten	baseten-075	1	runs/aiwf_medium_context/20260721T034911_thinkingmachines_inkling_f865db9c
+glm52	dots96	topup	baseten	baseten-076	1	runs/aiwf_medium_context/20260721T035139_zai-org_GLM-5.2_0c8ce67e
+inkling	dots96	topup	baseten	baseten-077	1	runs/aiwf_medium_context/20260721T035623_thinkingmachines_inkling_49289a5f
+glm52	nofiller	topup	baseten	baseten-078	1	runs/aiwf_medium_context/20260721T035934_zai-org_GLM-5.2_56254328
+inkling	nofiller	topup	baseten	baseten-079	1	runs/aiwf_medium_context/20260721T040214_thinkingmachines_inkling_348f3d53
+glm52	nofiller	topup	baseten	baseten-080	1	runs/aiwf_medium_context/20260721T040633_zai-org_GLM-5.2_5cc4a3ea
+inkling	nofiller	topup	baseten	baseten-081	1	runs/aiwf_medium_context/20260721T040900_thinkingmachines_inkling_cc012a34
+inkling	dots96	topup	baseten	baseten-082	1	runs/aiwf_medium_context/20260721T041239_thinkingmachines_inkling_f81f0b24

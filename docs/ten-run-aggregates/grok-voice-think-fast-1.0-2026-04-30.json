@@ -1,0 +1,32 @@
+{
+  "model": "grok-voice-think-fast-1.0_c03abea2",
+  "total_turns": 300,
+  "num_runs": 10,
+  "num_skipped": 0,
+  "skipped_runs": [],
+  "turn_pass": {
+    "count": 286,
+    "total": 300,
+    "rate": 95.33333333333334
+  },
+  "tool_use": {
+    "count": 288,
+    "total": 300,
+    "rate": 96.0
+  },
+  "instruction": {
+    "count": 289,
+    "total": 300,
+    "rate": 96.33333333333334
+  },
+  "kb_grounding": {
+    "count": 299,
+    "total": 300,
+    "rate": 99.66666666666667
+  },
+  "pass_rate": 95.33333333333334,
+  "median_rate": 96.66666666666667,
+  "ttfb_med": 975.5,
+  "ttfb_p95": 2003.9,
+  "ttfb_max": 3617
+}

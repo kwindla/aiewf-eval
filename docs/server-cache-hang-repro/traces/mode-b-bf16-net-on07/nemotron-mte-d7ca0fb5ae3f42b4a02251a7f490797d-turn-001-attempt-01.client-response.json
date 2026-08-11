@@ -1,0 +1,8 @@
+{
+  "first_token_pending": false,
+  "output_text": "\nWorkshops are scheduled for June\u202f3\u202f\u2014 the workshop day. The day kicks off with a continental breakfast (7:15\u202fam\u202f\u2013\u202f9:45\u202fam) in the Grand Assembly, followed by a morning break (10:15\u202fam\u202f\u2013\u202f10:40\u202fam). Workshops run from 9:00\u202fam onward, with several sessions at 9:00\u202fam, 10:40\u202fam, 1:00\u202fpm, and 3:30\u202fpm across various tracks (Voice, AI in Action, MCP, Voice, Agent Reliability, Infrastructure, etc.). If you let me know which topics interest you most or which day you\u2019ll be attending, I can suggest specific sessions that fit your schedule.",
+  "phase": "client-response",
+  "timestamp": 1778692340.4299011,
+  "tool_calls": [],
+  "trace_id": "nemotron-mte-d7ca0fb5ae3f42b4a02251a7f490797d-turn-001-attempt-01"
+}

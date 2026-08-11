@@ -1,0 +1,16 @@
+run_dir	attempt	exit_code	judged_turns	log
+runs/aiwf_medium_context/20260805T054435_clever-chatter_51f9c9de	1	0	30	docs/clever-chatter-comparison-2026-08-04/exact-boundary-n20-2026-08-05-v2/logs/judge-20260805T054435_clever-chatter_51f9c9de-attempt-1.log
+runs/aiwf_medium_context/20260805T055505_clever-chatter_005d3886	1	0	30	docs/clever-chatter-comparison-2026-08-04/exact-boundary-n20-2026-08-05-v2/logs/judge-20260805T055505_clever-chatter_005d3886-attempt-1.log
+runs/aiwf_medium_context/20260805T060303_clever-chatter_77e43dc1	1	0	30	docs/clever-chatter-comparison-2026-08-04/exact-boundary-n20-2026-08-05-v2/logs/judge-20260805T060303_clever-chatter_77e43dc1-attempt-1.log
+runs/aiwf_medium_context/20260805T061105_clever-chatter_26cd43e4	1	0	30	docs/clever-chatter-comparison-2026-08-04/exact-boundary-n20-2026-08-05-v2/logs/judge-20260805T061105_clever-chatter_26cd43e4-attempt-1.log
+runs/aiwf_medium_context/20260805T061946_clever-chatter_a5e43436	1	0	30	docs/clever-chatter-comparison-2026-08-04/exact-boundary-n20-2026-08-05-v2/logs/judge-20260805T061946_clever-chatter_a5e43436-attempt-1.log
+runs/aiwf_medium_context/20260805T062739_clever-chatter_3fa14890	1	0	30	docs/clever-chatter-comparison-2026-08-04/exact-boundary-n20-2026-08-05-v2/logs/judge-20260805T062739_clever-chatter_3fa14890-attempt-1.log
+runs/aiwf_medium_context/20260805T063606_clever-chatter_7e9d6558	1	0	30	docs/clever-chatter-comparison-2026-08-04/exact-boundary-n20-2026-08-05-v2/logs/judge-20260805T063606_clever-chatter_7e9d6558-attempt-1.log
+runs/aiwf_medium_context/20260805T064651_clever-chatter_6ed5e708	1	0	30	docs/clever-chatter-comparison-2026-08-04/exact-boundary-n20-2026-08-05-v2/logs/judge-20260805T064651_clever-chatter_6ed5e708-attempt-1.log
+runs/aiwf_medium_context/20260805T065438_clever-chatter_54d9271d	1	0	30	docs/clever-chatter-comparison-2026-08-04/exact-boundary-n20-2026-08-05-v2/logs/judge-20260805T065438_clever-chatter_54d9271d-attempt-1.log
+runs/aiwf_medium_context/20260805T070249_clever-chatter_42eb2a60	1	0	30	docs/clever-chatter-comparison-2026-08-04/exact-boundary-n20-2026-08-05-v2/logs/judge-20260805T070249_clever-chatter_42eb2a60-attempt-1.log
+runs/aiwf_medium_context/20260805T071055_clever-chatter_e648725a	1	0	30	docs/clever-chatter-comparison-2026-08-04/exact-boundary-n20-2026-08-05-v2/logs/judge-20260805T071055_clever-chatter_e648725a-attempt-1.log
+runs/aiwf_medium_context/20260805T071847_clever-chatter_08094cbb	1	0	30	docs/clever-chatter-comparison-2026-08-04/exact-boundary-n20-2026-08-05-v2/logs/judge-20260805T071847_clever-chatter_08094cbb-attempt-1.log
+runs/aiwf_medium_context/20260805T073433_clever-chatter_02009ae3	1	0	30	docs/clever-chatter-comparison-2026-08-04/exact-boundary-n20-2026-08-05-v2/logs/judge-20260805T073433_clever-chatter_02009ae3-attempt-1.log
+runs/aiwf_medium_context/20260805T074512_clever-chatter_e1970b7f	1	0	30	docs/clever-chatter-comparison-2026-08-04/exact-boundary-n20-2026-08-05-v2/logs/judge-20260805T074512_clever-chatter_e1970b7f-attempt-1.log
+runs/aiwf_medium_context/20260805T075951_clever-chatter_2c4e2a00	1	0	30	docs/clever-chatter-comparison-2026-08-04/exact-boundary-n20-2026-08-05-v2/logs/judge-20260805T075951_clever-chatter_2c4e2a00-attempt-1.log

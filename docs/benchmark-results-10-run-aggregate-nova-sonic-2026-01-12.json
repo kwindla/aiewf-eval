@@ -1,0 +1,109 @@
+{
+  "model_name": "amazon.nova-2-sonic-v1:0",
+  "total_runs": 10,
+  "total_turns": 300,
+  "aggregates": {
+    "turn_taking": {
+      "passed": 264,
+      "total": 300,
+      "pct": 88.0
+    },
+    "tool_use_correct": {
+      "passed": 249,
+      "total": 300,
+      "pct": 83.0
+    },
+    "instruction_following": {
+      "passed": 170,
+      "total": 300,
+      "pct": 56.666666666666664
+    },
+    "kb_grounding": {
+      "passed": 249,
+      "total": 300,
+      "pct": 83.0
+    }
+  },
+  "per_run_results": [
+    {
+      "run": "20260111T201211_amazon.nova-2-sonic-v1_0_896ab404",
+      "turn_taking": 29,
+      "tool_use": 26,
+      "instruction": 18,
+      "kb_grounding": 21,
+      "turns_scored": 30
+    },
+    {
+      "run": "20260111T210056_amazon.nova-2-sonic-v1_0_52b02456",
+      "turn_taking": 30,
+      "tool_use": 23,
+      "instruction": 10,
+      "kb_grounding": 20,
+      "turns_scored": 30
+    },
+    {
+      "run": "20260111T213014_amazon.nova-2-sonic-v1_0_f6cb1214",
+      "turn_taking": 9,
+      "tool_use": 24,
+      "instruction": 25,
+      "kb_grounding": 29,
+      "turns_scored": 30
+    },
+    {
+      "run": "20260111T213312_amazon.nova-2-sonic-v1_0_163c8c1c",
+      "turn_taking": 30,
+      "tool_use": 24,
+      "instruction": 10,
+      "kb_grounding": 25,
+      "turns_scored": 30
+    },
+    {
+      "run": "20260111T220009_amazon.nova-2-sonic-v1_0_aff7f513",
+      "turn_taking": 30,
+      "tool_use": 27,
+      "instruction": 20,
+      "kb_grounding": 22,
+      "turns_scored": 30
+    },
+    {
+      "run": "20260111T222048_amazon.nova-2-sonic-v1_0_7ae7eb26",
+      "turn_taking": 30,
+      "tool_use": 25,
+      "instruction": 17,
+      "kb_grounding": 27,
+      "turns_scored": 30
+    },
+    {
+      "run": "20260111T224906_amazon.nova-2-sonic-v1_0_8885230a",
+      "turn_taking": 30,
+      "tool_use": 25,
+      "instruction": 21,
+      "kb_grounding": 25,
+      "turns_scored": 30
+    },
+    {
+      "run": "20260111T231123_amazon.nova-2-sonic-v1_0_387dc458",
+      "turn_taking": 30,
+      "tool_use": 26,
+      "instruction": 18,
+      "kb_grounding": 25,
+      "turns_scored": 30
+    },
+    {
+      "run": "20260111T233605_amazon.nova-2-sonic-v1_0_4fdff795",
+      "turn_taking": 30,
+      "tool_use": 23,
+      "instruction": 15,
+      "kb_grounding": 25,
+      "turns_scored": 30
+    },
+    {
+      "run": "20260112T000351_amazon.nova-2-sonic-v1_0_1fd56bc0",
+      "turn_taking": 16,
+      "tool_use": 26,
+      "instruction": 16,
+      "kb_grounding": 30,
+      "turns_scored": 30
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "analysis_date": "2026-08-04",
+  "method": "Assistant transcript word count divided by summed TTSStarted-to-TTSStopped wall-clock spans within each benchmark turn.",
+  "cohorts": [
+    {
+      "name": "Clever Chatter",
+      "selection": "non-tool turns excluding timeout-affected turns",
+      "turn_count": 266,
+      "median_output_seconds": 6.462999939918518,
+      "median_words": 20.0,
+      "median_words_per_minute": 180.15442330843993,
+      "multi_segment_turn_count": 12
+    },
+    {
+      "name": "Gemini 3.1 Flash Live Preview",
+      "selection": "non-tool turns",
+      "turn_count": 264,
+      "median_output_seconds": 11.28849995136261,
+      "median_words": 40.0,
+      "median_words_per_minute": 205.9860056639314,
+      "multi_segment_turn_count": 0
+    }
+  ]
+}

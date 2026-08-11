@@ -1,0 +1,61 @@
+2026-05-13 10:12:10.775 INFO multi_turn_eval.pipelines.base: Recovery nudges enabled=True
+2026-05-13 10:12:10.775 INFO multi_turn_eval.pipelines.base: Tool call dedupe enabled=True
+2026-05-13 10:12:10.775 INFO multi_turn_eval.pipelines.base: Tool result run_llm enabled=False
+2026-05-13 10:12:10.776 DEBUG pipecat.audio.turn.smart_turn.local_smart_turn_v3: Loading Local Smart Turn v3.x model from /home/khkramer/src/aiewf-eval/.venv/lib/python3.12/site-packages/pipecat/audio/turn/smart_turn/data/smart-turn-v3.2-cpu.onnx...
+2026-05-13 10:12:10.797 DEBUG pipecat.audio.turn.smart_turn.local_smart_turn_v3: Loaded Local Smart Turn v3.x
+2026-05-13 10:12:10.797 DEBUG pipecat.processors.frame_processor: Linking Pipeline#0::Source -> LLMUserAggregator#0
+2026-05-13 10:12:10.797 DEBUG pipecat.processors.frame_processor: Linking LLMUserAggregator#0 -> NemotronOmniAudioLLMService#0
+2026-05-13 10:12:10.797 DEBUG pipecat.processors.frame_processor: Linking NemotronOmniAudioLLMService#0 -> ToolCallRecorder#0
+2026-05-13 10:12:10.797 DEBUG pipecat.processors.frame_processor: Linking ToolCallRecorder#0 -> NemotronAssistantAggregator#0
+2026-05-13 10:12:10.797 DEBUG pipecat.processors.frame_processor: Linking NemotronAssistantAggregator#0 -> NextTurn#0
+2026-05-13 10:12:10.797 DEBUG pipecat.processors.frame_processor: Linking NextTurn#0 -> Pipeline#0::Sink
+2026-05-13 10:12:10.797 INFO multi_turn_eval.pipelines.text: Text pipeline idle_timeout_secs=45.0
+2026-05-13 10:12:10.797 DEBUG pipecat.processors.frame_processor: Linking PipelineTask#0::Source -> RTVIProcessor#0
+2026-05-13 10:12:10.797 DEBUG pipecat.processors.frame_processor: Linking RTVIProcessor#0 -> Pipeline#0
+2026-05-13 10:12:10.797 DEBUG pipecat.processors.frame_processor: Linking Pipeline#0 -> PipelineTask#0::Sink
+2026-05-13 10:12:10.797 DEBUG multi_turn_eval.pipelines.text: queue_turn: reason=first turn_idx=0 user="I'm trying to decide whether to come for workshop day. When are the workshops?"
+2026-05-13 10:12:10.798 DEBUG pipecat.pipeline.runner: Runner PipelineRunner#0 started running PipelineTask#0
+2026-05-13 10:12:10.798 DEBUG pipecat.pipeline.task: PipelineTask#0: Starting. Waiting for StartFrame#0 to reach the end of the pipeline...
+2026-05-13 10:12:10.798 DEBUG pipecat.pipeline.task: PipelineTask#0: StartFrame#0 reached the end of the pipeline, pipeline is now ready.
+2026-05-13 10:12:10.799 DEBUG multi_turn_eval.recording.transcript_recorder: TranscriptRecorder: record_ttfb called with 0.000s (0ms), current=None
+2026-05-13 10:12:10.799 DEBUG multi_turn_eval.recording.transcript_recorder: TranscriptRecorder: set turn_ttfb_ms = 0
+2026-05-13 10:12:10.800 DEBUG multi_turn_eval.vendor.nemotron_omni: NemotronOmniAudioLLMService#0: sending context with 2 messages and 1 audio parts with conversation_id=mte-d7ca0fb5ae3f42b4a02251a7f490797d
+2026-05-13 10:12:10.800 DEBUG multi_turn_eval.vendor.nemotron_omni: NemotronOmniAudioLLMService#0: completion attempt 1 messages=2 roles=system,user[audio=1] audio_parts=1 require_cache=False
+2026-05-13 10:12:14.286 DEBUG pipecat.processors.metrics.frame_processor_metrics: NemotronOmniAudioLLMService#0 TTFB: 3.486s
+2026-05-13 10:12:14.302 DEBUG multi_turn_eval.recording.transcript_recorder: TranscriptRecorder: record_ttfb called with 3.486s (3486ms), current=0
+2026-05-13 10:12:14.302 DEBUG multi_turn_eval.recording.transcript_recorder: TranscriptRecorder: replaced initial 0ms TTFB with first positive sample 3486ms
+2026-05-13 10:12:20.328 DEBUG pipecat.processors.metrics.frame_processor_metrics: NemotronOmniAudioLLMService#0 prompt tokens: 13483, completion tokens: 170
+2026-05-13 10:12:20.430 DEBUG multi_turn_eval.vendor.nemotron_omni: NemotronOmniAudioLLMService#0: completed response in 9.630s: '\nWorkshops are scheduled for June\u202f3\u202f— the workshop day. The day kicks off with a continental breakfast (7:15\u202fam\u202f–\u202f9:45\u202fam) in the Grand Assembly, followed by a morning break (10:15\u202fam\u202f–\u202f10:40\u202fam). Workshops run from 9:00\u202fam onward, with several sessions at 9:00\u202fam, 10:40\u202fam, 1:00\u202fpm, and 3:30\u202fpm across various tracks (Voice, AI in Action, MCP, Voice, Agent Reliability, Infrastructure, etc.). If you let me know which topics interest you most or which day you’ll be attending, I can suggest specific sessions that fit your schedule.'
+2026-05-13 10:12:20.430 DEBUG pipecat.processors.metrics.frame_processor_metrics: NemotronOmniAudioLLMService#0 processing time: 9.630s
+2026-05-13 10:12:20.431 INFO multi_turn_eval.pipelines.text: EOT (timestamp)
+2026-05-13 10:12:20.431 DEBUG multi_turn_eval.pipelines.base: on_turn_end start: turn_idx=0 recovery=False tool_calls=0 tool_results=0
+2026-05-13 10:12:20.431 INFO multi_turn_eval.recording.transcript_recorder: Recorded turn 0: Workshops are scheduled for June 3 — the workshop day. The day kicks off with a continental breakfas...
+2026-05-13 10:12:20.431 DEBUG multi_turn_eval.pipelines.base: on_turn_end decision: turn_idx=0 should_recover=False
+2026-05-13 10:12:20.431 DEBUG multi_turn_eval.pipelines.audio_in: queue_turn: reason=next turn_idx=1 context_messages=4
+2026-05-13 10:12:20.432 DEBUG multi_turn_eval.vendor.nemotron_omni: NemotronOmniAudioLLMService#0: sending context with 2 messages and 1 audio parts with conversation_id=mte-d7ca0fb5ae3f42b4a02251a7f490797d
+2026-05-13 10:12:20.432 DEBUG multi_turn_eval.vendor.nemotron_omni: NemotronOmniAudioLLMService#0: completion attempt 1 messages=2 roles=assistant,user[audio=1] audio_parts=1 require_cache=True
+2026-05-13 10:12:20.942 DEBUG pipecat.processors.metrics.frame_processor_metrics: NemotronOmniAudioLLMService#0 TTFB: 0.510s
+2026-05-13 10:12:20.943 DEBUG multi_turn_eval.recording.transcript_recorder: TranscriptRecorder: record_ttfb called with 0.510s (509ms), current=None
+2026-05-13 10:12:20.943 DEBUG multi_turn_eval.recording.transcript_recorder: TranscriptRecorder: set turn_ttfb_ms = 509
+2026-05-13 10:12:26.779 DEBUG pipecat.processors.metrics.frame_processor_metrics: NemotronOmniAudioLLMService#0 prompt tokens: 13714, completion tokens: 162
+2026-05-13 10:12:26.779 DEBUG multi_turn_eval.vendor.nemotron_omni: NemotronOmniAudioLLMService#0: completed response in 6.347s: '\nYes! There are two Gemini‑focused workshops on Workshop Day (June\u202f3):\n\n| Time | Speaker | Title | Track |\n|------|---------|-------|-------|\n| 10:40\u202fam | Shrestha\u202fBasu\u202fMallick (Developer Advocate, Gemini API) | **Building Voice Agents with Gemini and Pipecat** | Voice |\n| 1:00\u202fpm | Philipp\u202fSchmid (AI Developer Experience) | **AI Engineering with the Google Gemini\u202f2.5 Model Family** | AI in Action |\n\nBoth sessions are hands‑on workshops, so you’ll get practical experience building with Gemini. Let me know if you’d like more details about any of them or help fitting them into your schedule!'
+2026-05-13 10:12:26.779 DEBUG pipecat.processors.metrics.frame_processor_metrics: NemotronOmniAudioLLMService#0 processing time: 6.347s
+2026-05-13 10:12:26.780 INFO multi_turn_eval.pipelines.text: EOT (timestamp)
+2026-05-13 10:12:26.780 DEBUG multi_turn_eval.pipelines.base: on_turn_end start: turn_idx=1 recovery=False tool_calls=0 tool_results=0
+2026-05-13 10:12:26.780 INFO multi_turn_eval.recording.transcript_recorder: Recorded turn 1: Yes! There are two Gemini‑focused workshops on Workshop Day (June 3):
+
+| Time | Speaker | Title | Tr...
+2026-05-13 10:12:26.780 DEBUG multi_turn_eval.pipelines.base: on_turn_end decision: turn_idx=1 should_recover=False
+2026-05-13 10:12:26.780 DEBUG multi_turn_eval.pipelines.audio_in: queue_turn: reason=next turn_idx=2 context_messages=6
+2026-05-13 10:12:26.782 DEBUG multi_turn_eval.vendor.nemotron_omni: NemotronOmniAudioLLMService#0: sending context with 2 messages and 1 audio parts with conversation_id=mte-d7ca0fb5ae3f42b4a02251a7f490797d
+2026-05-13 10:12:26.782 DEBUG multi_turn_eval.vendor.nemotron_omni: NemotronOmniAudioLLMService#0: completion attempt 1 messages=2 roles=assistant,user[audio=1] audio_parts=1 require_cache=True
+2026-05-13 10:13:11.781 WARNING pipecat.pipeline.task: Idle timeout detected.
+2026-05-13 10:13:11.782 WARNING pipecat.pipeline.task: Idle pipeline detected, cancelling pipeline task...
+2026-05-13 10:13:11.782 DEBUG pipecat.pipeline.task: Cancelling pipeline task PipelineTask#0
+2026-05-13 10:13:11.782 DEBUG pipecat.pipeline.task: PipelineTask#0: Closing. Waiting for CancelFrame#0(reason: None) to reach the end of the pipeline...
+2026-05-13 10:13:11.782 DEBUG multi_turn_eval.vendor.nemotron_omni: NemotronOmniAudioLLMService#0: completion cancelled
+2026-05-13 10:13:11.783 DEBUG pipecat.processors.metrics.frame_processor_metrics: NemotronOmniAudioLLMService#0 processing time: 45.002s
+2026-05-13 10:13:11.783 DEBUG pipecat.pipeline.task: PipelineTask#0: CancelFrame#0(reason: None) reached the end of the pipeline.
+2026-05-13 10:13:11.783 DEBUG pipecat.pipeline.task: Pipeline task PipelineTask#0 is finishing...
+2026-05-13 10:13:11.783 DEBUG pipecat.pipeline.task: Pipeline task PipelineTask#0 has finished
+2026-05-13 10:13:11.783 DEBUG pipecat.pipeline.runner: Runner PipelineRunner#0 finished running PipelineTask#0

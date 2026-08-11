@@ -1,0 +1,4 @@
+attempt	exit_code	turns	run_dir	log
+1	0	30	runs/aiwf_medium_context/20260804T161034_clever-chatter_ac6c121f	docs/clever-chatter-comparison-2026-08-04/logs/clever-c-attempt-01.log
+2	0	14	runs/aiwf_medium_context/20260804T162155_clever-chatter_f4addd1f	docs/clever-chatter-comparison-2026-08-04/logs/clever-c-attempt-02.log
+3	0	30	runs/aiwf_medium_context/20260804T162756_clever-chatter_49a91917	docs/clever-chatter-comparison-2026-08-04/logs/clever-c-attempt-03.log

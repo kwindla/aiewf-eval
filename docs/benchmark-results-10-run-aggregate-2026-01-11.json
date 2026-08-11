@@ -1,0 +1,104 @@
+{
+  "date": "2026-01-11",
+  "benchmark": "aiwf_medium_context",
+  "turns_per_run": 30,
+  "runs_per_model": 10,
+  "total_turns_per_model": 300,
+  "models": {
+    "ultravox-v0.7": {
+      "scores": {
+        "tool_use": {"pass": 293, "total": 300, "pct": 97.7},
+        "instruction": {"pass": 294, "total": 300, "pct": 98.0},
+        "kb_grounding": {"pass": 298, "total": 300, "pct": 99.3},
+        "turn_taking": {"pass": 300, "total": 300, "pct": 100.0}
+      },
+      "overall_pass_rate": 97.7,
+      "latency": {
+        "non_tool_v2v_median_ms": 864,
+        "non_tool_v2v_max_ms": 1888,
+        "tool_v2v_mean_ms": 2406,
+        "silence_pad_mean_ms": 82
+      },
+      "ranking": 1,
+      "notes": ["Best overall performer", "100% turn-taking success", "Fastest median V2V"]
+    },
+    "gpt-realtime": {
+      "scores": {
+        "tool_use": {"pass": 271, "total": 300, "pct": 90.3},
+        "instruction": {"pass": 260, "total": 300, "pct": 86.7},
+        "kb_grounding": {"pass": 300, "total": 300, "pct": 100.0},
+        "turn_taking": {"pass": 296, "total": 300, "pct": 98.7}
+      },
+      "overall_pass_rate": 86.7,
+      "latency": {
+        "non_tool_v2v_median_ms": 1536,
+        "non_tool_v2v_max_ms": 4672,
+        "tool_v2v_mean_ms": 2199,
+        "silence_pad_mean_ms": 341
+      },
+      "ranking": 3,
+      "notes": ["Perfect KB grounding", "Consistent latency", "Weaker tool use"]
+    },
+    "grok-realtime": {
+      "scores": {
+        "tool_use": {"pass": 267, "total": 300, "pct": 89.0},
+        "instruction": {"pass": 275, "total": 300, "pct": 91.7},
+        "kb_grounding": {"pass": 295, "total": 300, "pct": 98.3},
+        "turn_taking": {"pass": 279, "total": 300, "pct": 93.0}
+      },
+      "overall_pass_rate": 89.0,
+      "latency": {
+        "non_tool_v2v_median_ms": 1184,
+        "non_tool_v2v_max_ms": 2016,
+        "tool_v2v_mean_ms": 1472,
+        "silence_pad_mean_ms": 478
+      },
+      "ranking": 2,
+      "notes": ["Strong instruction following", "Fastest tool V2V", "30-minute session limit"]
+    },
+    "gemini-live": {
+      "scores": {
+        "tool_use": {"pass": 258, "total": 300, "pct": 86.0},
+        "instruction": {"pass": 261, "total": 300, "pct": 87.0},
+        "kb_grounding": {"pass": 293, "total": 300, "pct": 97.7},
+        "turn_taking": {"pass": 278, "total": 300, "pct": 92.7}
+      },
+      "overall_pass_rate": 86.0,
+      "latency": {
+        "non_tool_v2v_median_ms": 2624,
+        "non_tool_v2v_max_ms": 61747,
+        "tool_v2v_mean_ms": 4082,
+        "silence_pad_mean_ms": 90
+      },
+      "ranking": 4,
+      "notes": ["Session instability", "Extreme max latency from reconnections", "Low silence padding when stable"]
+    }
+  },
+  "known_issues": [
+    {
+      "model": "grok-realtime",
+      "issue": "30-minute session limit",
+      "description": "xAI's realtime API disconnects after 30 minutes, causing error loops"
+    },
+    {
+      "model": "gemini-live",
+      "issue": "Session instability",
+      "description": "Occasional disconnections requiring up to 9 reconnection attempts"
+    },
+    {
+      "model": "grok-realtime",
+      "issue": "VAD disagreement",
+      "description": "Server-side VAD sometimes fails to detect user speech end"
+    }
+  ],
+  "recommendations": {
+    "production": "ultravox-v0.7",
+    "kb_heavy_apps": "gpt-realtime",
+    "development": "grok-realtime",
+    "pipeline_improvements": [
+      "Add websocket error detection to prevent stuck runs",
+      "Implement session keepalive for Grok (pre-30-minute refresh)",
+      "Improve Gemini reconnection handling"
+    ]
+  }
+}

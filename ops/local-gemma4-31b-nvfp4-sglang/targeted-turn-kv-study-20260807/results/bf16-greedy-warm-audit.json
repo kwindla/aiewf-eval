@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "token_hash_gate": null,
+  "result_gate": {
+    "paths": [
+      "ops/local-gemma4-31b-nvfp4-sglang/targeted-turn-kv-study-20260807/results/bf16-greedy-warm.jsonl"
+    ],
+    "rows": 26,
+    "duplicate_request_ids": [],
+    "errors": [],
+    "warm_cache_failures": [],
+    "cold_requests_with_more_than_one_cached_token": [],
+    "repeat_groups_checked": 0,
+    "repeat_mismatches": [],
+    "passed": true
+  },
+  "passed": true
+}

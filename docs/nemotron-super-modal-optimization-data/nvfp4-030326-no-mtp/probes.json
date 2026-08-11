@@ -1,0 +1,193 @@
+{
+  "endpoint": "https://daily--nemotron-super-nvfp4-030326-no-mtp-serve.modal.run",
+  "model": "nemotron-3-super-120b",
+  "models_smoke": {
+    "wall_ms": 351,
+    "body": {
+      "object": "list",
+      "data": [
+        {
+          "id": "nemotron-3-super-120b",
+          "object": "model",
+          "created": 1784600515,
+          "owned_by": "vllm",
+          "root": "/model/ea_final_nvidia_nemotron_3_super_120b_a12b_nvfp475_030326_vv0.1",
+          "parent": null,
+          "max_model_len": 262144,
+          "permission": [
+            {
+              "id": "modelperm-a55afd9498be6afb",
+              "object": "model_permission",
+              "created": 1784600515,
+              "allow_create_engine": false,
+              "allow_sampling": true,
+              "allow_logprobs": true,
+              "allow_search_indices": false,
+              "allow_view": true,
+              "allow_fine_tuning": false,
+              "organization": "*",
+              "group": null,
+              "is_blocking": false
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "budget_smoke": [
+    {
+      "budget": 32,
+      "wall_ms": 7398,
+      "usage": {
+        "prompt_tokens": 41,
+        "total_tokens": 1241,
+        "completion_tokens": 1200,
+        "prompt_tokens_details": null
+      },
+      "reasoning_chars": 175,
+      "content_chars": 5286,
+      "finish_reason": "length"
+    },
+    {
+      "budget": 128,
+      "wall_ms": 6269,
+      "usage": {
+        "prompt_tokens": 41,
+        "total_tokens": 1241,
+        "completion_tokens": 1200,
+        "prompt_tokens_details": null
+      },
+      "reasoning_chars": 628,
+      "content_chars": 5140,
+      "finish_reason": "length"
+    },
+    {
+      "budget": 512,
+      "wall_ms": 6268,
+      "usage": {
+        "prompt_tokens": 41,
+        "total_tokens": 1241,
+        "completion_tokens": 1200,
+        "prompt_tokens_details": null
+      },
+      "reasoning_chars": 2273,
+      "content_chars": 3085,
+      "finish_reason": "length"
+    },
+    {
+      "budget": "unlimited",
+      "wall_ms": 6187,
+      "usage": {
+        "prompt_tokens": 41,
+        "total_tokens": 1241,
+        "completion_tokens": 1200,
+        "prompt_tokens_details": null
+      },
+      "reasoning_chars": 2501,
+      "content_chars": 3351,
+      "finish_reason": "length"
+    }
+  ],
+  "decode": [
+    {
+      "budget": 32,
+      "ttft_ms": 478,
+      "wall_ms": 4038,
+      "prompt_tokens": 41,
+      "completion_tokens": 768,
+      "reasoning_chars": 175,
+      "content_chars": 3509,
+      "decode_tps_usage_grounded": 215.7
+    },
+    {
+      "budget": 128,
+      "ttft_ms": 460,
+      "wall_ms": 4016,
+      "prompt_tokens": 41,
+      "completion_tokens": 768,
+      "reasoning_chars": 628,
+      "content_chars": 3028,
+      "decode_tps_usage_grounded": 216.0
+    }
+  ],
+  "prefill": [
+    {
+      "target_words": 100,
+      "observations": [
+        {
+          "sequence": 1,
+          "prompt_tokens": 164,
+          "ttft_ms_endpoint_observed": 452,
+          "prompt_tokens_per_ttft_second": 363,
+          "wall_ms": 452
+        },
+        {
+          "sequence": 2,
+          "prompt_tokens": 164,
+          "ttft_ms_endpoint_observed": 458,
+          "prompt_tokens_per_ttft_second": 358,
+          "wall_ms": 458
+        },
+        {
+          "sequence": 3,
+          "prompt_tokens": 164,
+          "ttft_ms_endpoint_observed": 461,
+          "prompt_tokens_per_ttft_second": 356,
+          "wall_ms": 461
+        }
+      ]
+    },
+    {
+      "target_words": 9000,
+      "observations": [
+        {
+          "sequence": 1,
+          "prompt_tokens": 12638,
+          "ttft_ms_endpoint_observed": 1016,
+          "prompt_tokens_per_ttft_second": 12444,
+          "wall_ms": 1082
+        },
+        {
+          "sequence": 2,
+          "prompt_tokens": 12638,
+          "ttft_ms_endpoint_observed": 726,
+          "prompt_tokens_per_ttft_second": 17411,
+          "wall_ms": 787
+        },
+        {
+          "sequence": 3,
+          "prompt_tokens": 12638,
+          "ttft_ms_endpoint_observed": 739,
+          "prompt_tokens_per_ttft_second": 17097,
+          "wall_ms": 800
+        }
+      ]
+    },
+    {
+      "target_words": 18000,
+      "observations": [
+        {
+          "sequence": 1,
+          "prompt_tokens": 25238,
+          "ttft_ms_endpoint_observed": 1113,
+          "prompt_tokens_per_ttft_second": 22670,
+          "wall_ms": 1174
+        },
+        {
+          "sequence": 2,
+          "prompt_tokens": 25238,
+          "ttft_ms_endpoint_observed": 1073,
+          "prompt_tokens_per_ttft_second": 23511,
+          "wall_ms": 1135
+        },
+        {
+          "sequence": 3,
+          "prompt_tokens": 25238,
+          "ttft_ms_endpoint_observed": 1066,
+          "prompt_tokens_per_ttft_second": 23664,
+          "wall_ms": 1128
+        }
+      ]
+    }
+  ]
+}

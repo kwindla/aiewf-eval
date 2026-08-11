@@ -1,0 +1,55 @@
+2026-05-14 07:01:55.067 INFO multi_turn_eval.recording.transcript_recorder: Recorded turn 14: Yes, vegan options will be available at the conference. You can submit a dietary request for vegan m...
+2026-05-14 07:01:55.067 DEBUG multi_turn_eval.pipelines.base: on_turn_end decision: turn_idx=14 should_recover=False
+2026-05-14 07:01:55.067 DEBUG multi_turn_eval.pipelines.audio_in: queue_turn: reason=next turn_idx=15 context_messages=37
+2026-05-14 07:01:55.069 DEBUG multi_turn_eval.vendor.nemotron_omni: NemotronOmniAudioLLMService#0: sending context with 2 messages and 1 audio parts with conversation_id=mte-b9b036a0da314374a80ee4ef0d1b8120
+2026-05-14 07:01:55.070 DEBUG multi_turn_eval.vendor.nemotron_omni: NemotronOmniAudioLLMService#0: completion attempt 1 messages=2 roles=assistant,user[audio=1] audio_parts=1 require_cache=True
+2026-05-14 07:01:55.658 DEBUG pipecat.processors.metrics.frame_processor_metrics: NemotronOmniAudioLLMService#0 TTFB: 0.588s
+2026-05-14 07:01:55.659 DEBUG multi_turn_eval.recording.transcript_recorder: TranscriptRecorder: record_ttfb called with 0.588s (588ms), current=None
+2026-05-14 07:01:55.659 DEBUG multi_turn_eval.recording.transcript_recorder: TranscriptRecorder: set turn_ttfb_ms = 588
+2026-05-14 07:01:57.136 DEBUG pipecat.processors.metrics.frame_processor_metrics: NemotronOmniAudioLLMService#0 prompt tokens: 15846, completion tokens: 43
+2026-05-14 07:01:57.137 DEBUG multi_turn_eval.vendor.nemotron_omni: NemotronOmniAudioLLMService#0: completed response in 2.067s: '\n'
+2026-05-14 07:01:57.138 DEBUG pipecat.processors.metrics.frame_processor_metrics: NemotronOmniAudioLLMService#0 processing time: 2.069s
+2026-05-14 07:01:57.138 DEBUG pipecat.processors.aggregators.llm_response_universal: NemotronAssistantAggregator#0 FunctionCallsStartedFrame: ['submit_dietary_request:call_ece02877e7b3487eaa00e5ef']
+2026-05-14 07:01:57.138 DEBUG pipecat.services.llm_service: NemotronOmniAudioLLMService#0 Calling function [submit_dietary_request:call_ece02877e7b3487eaa00e5ef] with arguments {'name': 'Jennifer Smith', 'dietary_preference': 'vegan'}
+2026-05-14 07:01:57.138 INFO multi_turn_eval.processors.tool_call_recorder: [TOOL_RECORDER] FunctionCallInProgressFrame name=submit_dietary_request args={'name': 'Jennifer Smith', 'dietary_preference': 'vegan'} tool_call_id=call_ece02877e7b3487eaa00e5ef
+2026-05-14 07:01:57.139 INFO multi_turn_eval.processors.tool_call_recorder: [TOOL_RECORDER] FunctionCallResultFrame name=submit_dietary_request tool_call_id=call_ece02877e7b3487eaa00e5ef result_keys=['status']
+2026-05-14 07:01:57.139 DEBUG multi_turn_eval.vendor.nemotron_omni: NemotronAssistantAggregator#0 FunctionCallInProgressFrame: [submit_dietary_request:call_ece02877e7b3487eaa00e5ef]
+2026-05-14 07:01:57.139 DEBUG pipecat.processors.aggregators.llm_response_universal: NemotronAssistantAggregator#0 FunctionCallResultFrame: [submit_dietary_request:call_ece02877e7b3487eaa00e5ef]
+2026-05-14 07:01:57.139 INFO multi_turn_eval.pipelines.text: EOT (timestamp)
+2026-05-14 07:01:57.139 DEBUG multi_turn_eval.pipelines.base: on_turn_end start: turn_idx=15 recovery=False tool_calls=1 tool_results=1
+2026-05-14 07:01:57.139 INFO multi_turn_eval.recording.transcript_recorder: Recorded turn 15: ...
+2026-05-14 07:01:57.139 DEBUG multi_turn_eval.pipelines.base: on_turn_end decision: turn_idx=15 should_recover=False
+2026-05-14 07:01:57.139 DEBUG multi_turn_eval.pipelines.audio_in: queue_turn: reason=next turn_idx=16 context_messages=40
+2026-05-14 07:01:57.139 DEBUG multi_turn_eval.pipelines.text: Ignoring stale tool-complete signal (frame_sig=(15, 259346.196683417), current_sig=(16, 259348.268738335))
+2026-05-14 07:01:57.148 DEBUG multi_turn_eval.vendor.nemotron_omni: NemotronOmniAudioLLMService#0: sending context with 3 messages and 1 audio parts with conversation_id=mte-b9b036a0da314374a80ee4ef0d1b8120
+2026-05-14 07:01:57.148 DEBUG multi_turn_eval.vendor.nemotron_omni: NemotronOmniAudioLLMService#0: completion attempt 1 messages=3 roles=assistant[tool_calls],tool[result],user[audio=1] audio_parts=1 require_cache=True
+2026-05-14 07:01:57.751 DEBUG pipecat.processors.metrics.frame_processor_metrics: NemotronOmniAudioLLMService#0 TTFB: 0.604s
+2026-05-14 07:01:57.752 DEBUG multi_turn_eval.recording.transcript_recorder: TranscriptRecorder: record_ttfb called with 0.604s (603ms), current=None
+2026-05-14 07:01:57.752 DEBUG multi_turn_eval.recording.transcript_recorder: TranscriptRecorder: set turn_ttfb_ms = 603
+2026-05-14 07:01:59.082 DEBUG pipecat.processors.metrics.frame_processor_metrics: NemotronOmniAudioLLMService#0 prompt tokens: 15973, completion tokens: 43
+2026-05-14 07:01:59.185 DEBUG multi_turn_eval.vendor.nemotron_omni: NemotronOmniAudioLLMService#0: completed response in 2.037s: '\n'
+2026-05-14 07:01:59.185 DEBUG pipecat.processors.metrics.frame_processor_metrics: NemotronOmniAudioLLMService#0 processing time: 2.044s
+2026-05-14 07:01:59.185 DEBUG pipecat.processors.aggregators.llm_response_universal: NemotronAssistantAggregator#0 FunctionCallsStartedFrame: ['request_tech_support:call_f4e77ec96d8d48e89f5f6c5a']
+2026-05-14 07:01:59.185 DEBUG pipecat.services.llm_service: NemotronOmniAudioLLMService#0 Calling function [request_tech_support:call_f4e77ec96d8d48e89f5f6c5a] with arguments {'name': 'Jennifer Smith', 'issue_description': 'Having trouble with the mobile app'}
+2026-05-14 07:01:59.186 INFO multi_turn_eval.processors.tool_call_recorder: [TOOL_RECORDER] FunctionCallInProgressFrame name=request_tech_support args={'name': 'Jennifer Smith', 'issue_description': 'Having trouble with the mobile app'} tool_call_id=call_f4e77ec96d8d48e89f5f6c5a
+2026-05-14 07:01:59.186 INFO multi_turn_eval.processors.tool_call_recorder: [TOOL_RECORDER] FunctionCallResultFrame name=request_tech_support tool_call_id=call_f4e77ec96d8d48e89f5f6c5a result_keys=['status']
+2026-05-14 07:01:59.186 DEBUG multi_turn_eval.vendor.nemotron_omni: NemotronAssistantAggregator#0 FunctionCallInProgressFrame: [request_tech_support:call_f4e77ec96d8d48e89f5f6c5a]
+2026-05-14 07:01:59.186 DEBUG pipecat.processors.aggregators.llm_response_universal: NemotronAssistantAggregator#0 FunctionCallResultFrame: [request_tech_support:call_f4e77ec96d8d48e89f5f6c5a]
+2026-05-14 07:01:59.186 INFO multi_turn_eval.pipelines.text: EOT (timestamp)
+2026-05-14 07:01:59.186 DEBUG multi_turn_eval.pipelines.base: on_turn_end start: turn_idx=16 recovery=False tool_calls=1 tool_results=1
+2026-05-14 07:01:59.186 INFO multi_turn_eval.recording.transcript_recorder: Recorded turn 16: ...
+2026-05-14 07:01:59.186 DEBUG multi_turn_eval.pipelines.base: on_turn_end decision: turn_idx=16 should_recover=False
+2026-05-14 07:01:59.187 DEBUG multi_turn_eval.pipelines.audio_in: queue_turn: reason=next turn_idx=17 context_messages=43
+2026-05-14 07:01:59.187 DEBUG multi_turn_eval.pipelines.text: Ignoring stale tool-complete signal (frame_sig=(16, 259348.268738335), current_sig=(17, 259350.316106305))
+2026-05-14 07:01:59.195 DEBUG multi_turn_eval.vendor.nemotron_omni: NemotronOmniAudioLLMService#0: sending context with 6 messages and 2 audio parts with conversation_id=mte-b9b036a0da314374a80ee4ef0d1b8120
+2026-05-14 07:01:59.196 DEBUG multi_turn_eval.vendor.nemotron_omni: NemotronOmniAudioLLMService#0: completion attempt 1 messages=6 roles=assistant[tool_calls],tool[result],user[audio=1],assistant[tool_calls],tool[result],user[audio=1] audio_parts=2 require_cache=True
+2026-05-14 07:02:44.191 WARNING pipecat.pipeline.task: Idle timeout detected.
+2026-05-14 07:02:44.191 WARNING pipecat.pipeline.task: Idle pipeline detected, cancelling pipeline task...
+2026-05-14 07:02:44.191 DEBUG pipecat.pipeline.task: Cancelling pipeline task PipelineTask#0
+2026-05-14 07:02:44.191 DEBUG pipecat.pipeline.task: PipelineTask#0: Closing. Waiting for CancelFrame#0(reason: None) to reach the end of the pipeline...
+2026-05-14 07:02:44.192 DEBUG multi_turn_eval.vendor.nemotron_omni: NemotronOmniAudioLLMService#0: completion cancelled
+2026-05-14 07:02:44.192 DEBUG pipecat.processors.metrics.frame_processor_metrics: NemotronOmniAudioLLMService#0 processing time: 45.004s
+2026-05-14 07:02:44.193 DEBUG pipecat.pipeline.task: PipelineTask#0: CancelFrame#0(reason: None) reached the end of the pipeline.
+2026-05-14 07:02:44.193 DEBUG pipecat.pipeline.task: Pipeline task PipelineTask#0 is finishing...
+2026-05-14 07:02:44.193 DEBUG pipecat.pipeline.task: Pipeline task PipelineTask#0 has finished
+2026-05-14 07:02:44.193 DEBUG pipecat.pipeline.runner: Runner PipelineRunner#0 finished running PipelineTask#0

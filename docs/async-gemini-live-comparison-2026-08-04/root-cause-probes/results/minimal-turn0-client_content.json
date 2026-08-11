@@ -1,0 +1,37 @@
+[
+  {
+    "trial": 1,
+    "model": "clever-chatter",
+    "boundary": "client_content",
+    "turn": 0,
+    "system": "minimal",
+    "tools": "none",
+    "history": "none",
+    "deadline_seconds": 45.0,
+    "started_unix": 1785905817.2051725,
+    "raw_typed_messages": 1,
+    "empty_typed_messages": 0,
+    "events": [
+      {
+        "received_monotonic_ns": 3298552551079779,
+        "session_resumption": true
+      }
+    ],
+    "in_progress_count": 0,
+    "audio_send_calls": 0,
+    "audio_bytes_sent": 0,
+    "silence_send_calls": 0,
+    "silence_bytes_sent": 0,
+    "maximum_send_ms": 0.0,
+    "history_messages": 0,
+    "deadline_expired": true,
+    "first_output_ms": null,
+    "terminal_ms": null,
+    "output_transcription": "",
+    "input_transcription": "",
+    "audio_output_bytes": 0,
+    "tool_calls": [],
+    "outcome": "timeout_no_output",
+    "finished_unix": 1785905862.5093822
+  }
+]
