@@ -1,5 +1,8 @@
 """Targeted coverage for OpenAI Responses routing in ``BasePipeline``."""
 
+import asyncio
+from types import SimpleNamespace
+
 import pytest
 from pipecat.services.openai.llm import OpenAILLMService
 
@@ -70,3 +73,92 @@ def test_factory_rejects_namespaced_openai_pro_on_openrouter(monkeypatch):
 
     with pytest.raises(ValueError, match="Pro models are excluded"):
         pipeline._create_llm(OpenAILLMService, "openai/o3-pro")
+
+
+class _ResponseStream:
+    def __init__(self, events):
+        self._events = events
+
+    async def __aenter__(self):
+        return self
+
+    async def __aexit__(self, exc_type, exc, tb):
+        return False
+
+    def __aiter__(self):
+        async def iterate():
+            for event in self._events:
+                yield event
+
+        return iterate()
+
+
+def test_tool_callback_runs_after_completed_usage_metrics():
+    """Tool turns must persist usage before their callback advances the turn."""
+
+    item = SimpleNamespace(
+        type="function_call",
+        id="item-1",
+        call_id="call-1",
+        name="end_session",
+        arguments="{}",
+    )
+    usage = SimpleNamespace(
+        input_tokens=123,
+        output_tokens=17,
+        total_tokens=140,
+        input_tokens_details=SimpleNamespace(cached_tokens=100),
+        output_tokens_details=SimpleNamespace(reasoning_tokens=3),
+    )
+    events = [
+        SimpleNamespace(type="response.output_item.added", item=item),
+        SimpleNamespace(
+            type="response.function_call_arguments.done",
+            item_id="item-1",
+            name="end_session",
+            arguments="{}",
+        ),
+        SimpleNamespace(
+            type="response.completed",
+            response=SimpleNamespace(model="gpt-5.5", usage=usage),
+        ),
+    ]
+
+    service = object.__new__(OpenAIResponsesLLMService)
+    service._name = "OpenAIResponsesLLMService#test"
+    service._client = SimpleNamespace(
+        responses=SimpleNamespace(stream=lambda **kwargs: _ResponseStream(events))
+    )
+    service._responses_request_params = lambda context: {}
+    service.get_full_model_name = lambda: "gpt-5.5"
+    service.set_full_model_name = lambda model: None
+
+    order = []
+
+    async def start_ttfb_metrics():
+        return None
+
+    async def stop_ttfb_metrics():
+        return None
+
+    async def start_usage_metrics(tokens):
+        order.append(("usage", tokens.prompt_tokens, tokens.completion_tokens))
+
+    async def run_function_calls(calls):
+        order.append(("function", calls[0].function_name, calls[0].tool_call_id))
+
+    async def push_error(*args, **kwargs):
+        raise AssertionError("unexpected response error")
+
+    service.start_ttfb_metrics = start_ttfb_metrics
+    service.stop_ttfb_metrics = stop_ttfb_metrics
+    service.start_llm_usage_metrics = start_usage_metrics
+    service.run_function_calls = run_function_calls
+    service.push_error = push_error
+
+    asyncio.run(service._process_context(SimpleNamespace()))
+
+    assert order == [
+        ("usage", 123, 17),
+        ("function", "end_session", "call-1"),
+    ]

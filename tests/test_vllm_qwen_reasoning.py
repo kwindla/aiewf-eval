@@ -89,6 +89,16 @@ def test_non_qwen_vllm_request_shape_is_unchanged(monkeypatch):
     assert chat_template_kwargs == {"enable_thinking": True}
 
 
+def test_tool_index_normalization_factory_option_is_explicit(monkeypatch):
+    monkeypatch.setenv("MTE_VLLM_NORMALIZE_TOOL_CALL_INDICES", "1")
+
+    service = vllm_pipeline_stub()._create_llm(
+        CapturingService, "google/gemma-4-31B-it"
+    )
+
+    assert service.kwargs["normalize_tool_call_indices"] is True
+
+
 class FakeStream:
     def __init__(self, chunks):
         self._chunks = iter(chunks)
@@ -114,7 +124,7 @@ def _chunk(*, reasoning=None, reasoning_content=None, content=None, tool_calls=N
         content=content,
         tool_calls=tool_calls,
     )
-    return SimpleNamespace(choices=[SimpleNamespace(delta=delta)])
+    return SimpleNamespace(choices=[SimpleNamespace(index=0, delta=delta)])
 
 
 def test_qwen_stream_captures_reasoning_and_arms_ttfat_on_tool_call(monkeypatch):
@@ -214,6 +224,71 @@ def test_qwen_stream_accepts_baseten_reasoning_alias(monkeypatch):
         LLMThoughtTextFrame,
         LLMThoughtEndFrame,
     ]
+
+
+def test_opt_in_normalizes_schema_position_tool_indices(monkeypatch):
+    """Map nonconforming schema positions to response-local call ordinals."""
+
+    first_call = SimpleNamespace(index=2)
+    first_arguments = SimpleNamespace(index=2)
+    second_call = SimpleNamespace(index=7)
+    stream = FakeStream(
+        [
+            _chunk(tool_calls=[first_call]),
+            _chunk(tool_calls=[first_arguments]),
+            _chunk(tool_calls=[second_call]),
+        ]
+    )
+
+    async def fake_parent_get_chat_completions(self, params_from_context):
+        return stream
+
+    monkeypatch.setattr(
+        OpenAILLMService,
+        "get_chat_completions",
+        fake_parent_get_chat_completions,
+    )
+    service = VLLMOpenAILLMService(
+        model="google/gemma-4-31B-it",
+        api_key="test-key",
+        base_url="http://localhost:8000/v1",
+        normalize_tool_call_indices=True,
+    )
+
+    async def consume():
+        indices = []
+        wrapped = await service.get_chat_completions({})
+        async for chunk in wrapped:
+            indices.append(chunk.choices[0].delta.tool_calls[0].index)
+        return indices
+
+    assert asyncio.run(consume()) == [0, 0, 1]
+
+
+def test_tool_index_normalization_is_disabled_by_default(monkeypatch):
+    tool_call = SimpleNamespace(index=2)
+    stream = FakeStream([_chunk(tool_calls=[tool_call])])
+
+    async def fake_parent_get_chat_completions(self, params_from_context):
+        return stream
+
+    monkeypatch.setattr(
+        OpenAILLMService,
+        "get_chat_completions",
+        fake_parent_get_chat_completions,
+    )
+    service = VLLMOpenAILLMService(
+        model="google/gemma-4-31B-it",
+        api_key="test-key",
+        base_url="http://localhost:8000/v1",
+    )
+
+    async def consume():
+        wrapped = await service.get_chat_completions({})
+        async for chunk in wrapped:
+            return chunk.choices[0].delta.tool_calls[0].index
+
+    assert asyncio.run(consume()) == 2
 
 
 def test_reasoning_is_attached_to_assistant_tool_call_history():

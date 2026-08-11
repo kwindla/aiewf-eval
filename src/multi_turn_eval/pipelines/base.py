@@ -393,24 +393,41 @@ class BasePipeline(ABC):
                     f"expected one of {sorted(allowed_efforts)}"
                 )
             # Open models (Qwen3/GLM/Kimi/Nemotron/DeepSeek on vLLM/SGLang) toggle
-            # thinking via chat_template_kwargs.enable_thinking rather than
-            # reasoning_effort. {pfx}_ENABLE_THINKING=0/false disables it.
+            # thinking through a provider-specific chat-template argument rather
+            # than ``reasoning_effort``. BaseTen's Model API calls this request
+            # object ``chat_template_args``; Together uses the vLLM-style
+            # ``chat_template_kwargs`` spelling.
             et = os.getenv(f"{pfx}_ENABLE_THINKING", "").strip().lower()
             # Reasoning tokens count against max_tokens; keep generous headroom so
             # a long chain-of-thought can't truncate the answer.
-            max_tokens = int(os.getenv(f"{pfx}_MAX_TOKENS", "8192"))
+            max_tokens_raw = os.getenv(f"{pfx}_MAX_TOKENS", "8192").strip()
+            max_tokens = int(max_tokens_raw) if max_tokens_raw else None
             temperature = float(os.getenv(f"{pfx}_TEMPERATURE", "1.0"))
             params_kwargs: Dict[str, Any] = {
-                "max_tokens": max_tokens,
                 "temperature": temperature,
             }
+            if max_tokens is not None:
+                params_kwargs["max_tokens"] = max_tokens
+            top_p_value = os.getenv(f"{pfx}_TOP_P")
+            if top_p_value is not None and top_p_value.strip():
+                top_p = float(top_p_value)
+                if not 0.0 < top_p <= 1.0:
+                    raise ValueError(
+                        f"Invalid {pfx}_TOP_P='{top_p_value}'; expected 0 < top_p <= 1"
+                    )
+                params_kwargs["top_p"] = top_p
             extra_body: Dict[str, Any] = {}
             if effort and effort != "omit":
                 extra_body["reasoning_effort"] = effort
+            template_argument_name = (
+                "chat_template_args"
+                if service_name_lower == "baseten"
+                else "chat_template_kwargs"
+            )
             if et in {"0", "false", "off", "no"}:
-                extra_body["chat_template_kwargs"] = {"enable_thinking": False}
+                extra_body[template_argument_name] = {"enable_thinking": False}
             elif et in {"1", "true", "on", "yes"}:
-                extra_body["chat_template_kwargs"] = {"enable_thinking": True}
+                extra_body[template_argument_name] = {"enable_thinking": True}
             if extra_body:
                 params_kwargs["extra"] = {"extra_body": extra_body}
             kwargs["params"] = OpenAILLMService.InputParams(**params_kwargs)
@@ -418,7 +435,8 @@ class BasePipeline(ABC):
                 f"Using {prov_label} with base_url={base_url}, model={model}, "
                 f"reasoning_effort={effort or '(model default)'}, "
                 f"enable_thinking={et or '(unset)'}, "
-                f"max_tokens={max_tokens}, temperature={temperature}"
+                f"max_tokens={max_tokens}, temperature={temperature}, "
+                f"top_p={params_kwargs.get('top_p', '(model default)')}"
             )
             return service_class(**kwargs)
 
@@ -518,13 +536,18 @@ class BasePipeline(ABC):
                             30 if (g := _opt_int("MTE_VLLM_GRACE", "30")) is None else g
                         ),
                     }
+            kwargs["normalize_tool_call_indices"] = _env_bool(
+                "MTE_VLLM_NORMALIZE_TOOL_CALL_INDICES", False
+            )
             params_kwargs["extra"] = {"extra_body": extra_body}
             kwargs["params"] = OpenAILLMService.InputParams(**params_kwargs)
             logger.info(
                 f"Using vllm-openai with base_url={base_url}, model={model}, "
                 f"thinking={enable_thinking}, thinking_budget={thinking_budget}"
                 f"{' (NATIVE thinking_token_budget)' if native_budget else ''}, "
-                f"T={temperature}, top_p={top_p}, top_k={top_k}, max_tokens={max_tokens}"
+                f"T={temperature}, top_p={top_p}, top_k={top_k}, "
+                f"max_tokens={max_tokens}, normalize_tool_call_indices="
+                f"{kwargs['normalize_tool_call_indices']}"
             )
             return service_class(**kwargs)
 

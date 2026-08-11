@@ -165,6 +165,15 @@ class VLLMOpenAILLMService(OpenAILLMService):
     """
 
     def __init__(self, *args: Any, **kwargs: Any) -> None:
+        # Some OpenAI-compatible servers expose a parser bug where the streamed
+        # ``tool_calls[].index`` is the called tool's position in the request's
+        # tool schema rather than the call's zero-based position in the model
+        # response. Pipecat (correctly) uses the latter to coalesce streaming
+        # fragments. Keep this compatibility behavior opt-in so conforming
+        # vLLM/OpenAI streams remain untouched.
+        self._normalize_tool_call_indices = bool(
+            kwargs.pop("normalize_tool_call_indices", False)
+        )
         model = kwargs.get("model")
         settings = kwargs.get("settings")
         if settings is not None and getattr(settings, "model", None):
@@ -201,9 +210,29 @@ class VLLMOpenAILLMService(OpenAILLMService):
 
         async def _armed_stream() -> Any:
             thought_active = False
+            tool_index_maps: dict[int, dict[int, int]] = {}
             try:
                 async for chunk in stream:
                     choices = getattr(chunk, "choices", None)
+                    if self._normalize_tool_call_indices and choices:
+                        for choice_position, choice in enumerate(choices):
+                            choice_delta = getattr(choice, "delta", None)
+                            tool_calls = (
+                                getattr(choice_delta, "tool_calls", None)
+                                if choice_delta
+                                else None
+                            )
+                            if not tool_calls:
+                                continue
+                            choice_index = getattr(choice, "index", choice_position)
+                            index_map = tool_index_maps.setdefault(choice_index, {})
+                            for tool_call in tool_calls:
+                                raw_index = getattr(tool_call, "index", None)
+                                if raw_index is None:
+                                    continue
+                                if raw_index not in index_map:
+                                    index_map[raw_index] = len(index_map)
+                                tool_call.index = index_map[raw_index]
                     delta = getattr(choices[0], "delta", None) if choices else None
                     if delta is not None:
                         # vLLM/OpenAI-compatible routes expose the same Qwen

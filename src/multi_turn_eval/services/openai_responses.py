@@ -265,6 +265,25 @@ class OpenAIResponsesLLMService(OpenAILLMService):
         ttfb_stopped = False
         function_call_map: Dict[str, Dict[str, str]] = {}
         processed_call_ids: set[str] = set()
+        pending_function_calls: List[FunctionCallFromLLM] = []
+        response_completed = False
+        terminal_error = False
+
+        async def run_pending_function_calls() -> None:
+            """Run tool callbacks only after response usage has been emitted.
+
+            Responses streams report a function call before ``response.completed``,
+            while the latter is the event that carries billable token usage. The
+            benchmark's tool callback writes and advances the transcript turn. If
+            it runs immediately, the turn is persisted with ``tokens: null`` and
+            the later usage frame is attributed to transient next-turn state.
+            """
+
+            if not pending_function_calls:
+                return
+            calls = list(pending_function_calls)
+            pending_function_calls.clear()
+            await self.run_function_calls(calls)
 
         params = self._responses_request_params(context)
 
@@ -330,15 +349,13 @@ class OpenAIResponsesLLMService(OpenAILLMService):
                         ttfb_stopped = True
 
                     processed_call_ids.add(call_id)
-                    await self.run_function_calls(
-                        [
-                            FunctionCallFromLLM(
-                                context=context,
-                                tool_call_id=call_id,
-                                function_name=function_name,
-                                arguments=arguments,
-                            )
-                        ]
+                    pending_function_calls.append(
+                        FunctionCallFromLLM(
+                            context=context,
+                            tool_call_id=call_id,
+                            function_name=function_name,
+                            arguments=arguments,
+                        )
                     )
                     continue
 
@@ -363,15 +380,13 @@ class OpenAIResponsesLLMService(OpenAILLMService):
                             ttfb_stopped = True
 
                         processed_call_ids.add(call_id)
-                        await self.run_function_calls(
-                            [
-                                FunctionCallFromLLM(
-                                    context=context,
-                                    tool_call_id=call_id,
-                                    function_name=function_name,
-                                    arguments=arguments,
-                                )
-                            ]
+                        pending_function_calls.append(
+                            FunctionCallFromLLM(
+                                context=context,
+                                tool_call_id=call_id,
+                                function_name=function_name,
+                                arguments=arguments,
+                            )
                         )
                     continue
 
@@ -402,10 +417,24 @@ class OpenAIResponsesLLMService(OpenAILLMService):
                                 ),
                             )
                             await self.start_llm_usage_metrics(tokens)
+                    response_completed = True
+                    await run_pending_function_calls()
                     continue
 
                 if event_type in {"response.failed", "response.error"}:
+                    terminal_error = True
                     await self.push_error(error_msg=f"Responses API error event: {event}")
+
+        # Defensive compatibility fallback for a provider stream that closes after
+        # a complete function-call item but omits response.completed. Do not execute
+        # a tool from an explicitly failed response.
+        if pending_function_calls and not terminal_error:
+            if not response_completed:
+                logger.warning(
+                    f"{self}: Responses stream ended without response.completed; "
+                    "running completed function calls without usage metrics"
+                )
+            await run_pending_function_calls()
 
         if not ttfb_stopped:
             await self.stop_ttfb_metrics()
