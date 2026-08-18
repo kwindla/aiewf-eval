@@ -18,16 +18,28 @@ def test_current_readme_rows_are_ranked_by_pass_rate_then_p50():
     rows = chart.load_rows(chart.DEFAULT_README)
     keys = [(-row.pass_rate, row.p50_ms, row.model) for row in rows]
     assert keys == sorted(keys)
-    assert len(rows) == 39
+    assert len(rows) == 45
     assert [row.model for row in rows[:4]] == [
         "nemotron-3-ultra (128)",
         "claude-sonnet-4-6",
         "claude-fable-5 (low)",
         "claude-fable-5 (default)",
     ]
-    nemotron_rows = [row for row in rows if row.model.startswith("nemotron-3-")]
-    assert len(nemotron_rows) == 4
-    assert {row.provider for row in nemotron_rows} == {"Baseten"}
+    historical_nemotron_rows = [
+        row for row in rows if row.model.startswith("nemotron-3-")
+    ]
+    assert len(historical_nemotron_rows) == 4
+    assert {row.provider for row in historical_nemotron_rows} == {"Baseten"}
+    lightning_rows = [
+        row for row in rows if row.model.startswith("nemotron-3.5-lightning")
+    ]
+    assert len(lightning_rows) == 2
+    assert {row.provider for row in lightning_rows} == {"Local RTX 5090"}
+
+
+def test_standalone_leaderboard_matches_readme_table():
+    standalone = REPO_ROOT / "leaderboard-medium-context.md"
+    assert chart.load_rows(standalone) == chart.load_rows(chart.DEFAULT_README)
 
 
 def test_chart_has_one_p50_and_p95_mark_per_model():
@@ -37,7 +49,13 @@ def test_chart_has_one_p50_and_p95_mark_per_model():
     assert svg.count('class="p95"') == len(rows)
     assert "~700ms voice guideline" in svg
     assert "muse-glimmer-30b" in svg
-    assert "232ms P50 / 2.80s P95" in svg
+    assert "231ms P50 / 1.75s P95" in svg
+    assert "nemotron-3.5-lightning (thinking on, NVFP4)" in svg
+    assert "93.6% pass · 1.46s P50 / 5.8s P95 · Local RTX 5090" in svg
+    assert "nemotron-3.5-lightning (thinking off, NVFP4)" in svg
+    assert "50.9% pass · 62ms P50 / 70ms P95 · Local RTX 5090" in svg
+    assert "qwen3.8-27b (thinking off, NVFP4)" in svg
+    assert "97.8% pass · 101ms P50 / 318ms P95 · Local RTX 5090" in svg
     assert "qwen3-8b" not in svg
 
 
@@ -45,8 +63,8 @@ def test_current_speed_accuracy_frontier_is_stable():
     rows = chart.load_rows(chart.DEFAULT_README)
     assert {row.model for row in chart.pareto_efficient(rows)} == {
         "gpt-oss-120b (groq)",
-        "inkling (none)",
-        "gemma-4-31b-it (thinking off)",
+        "nemotron-3.5-lightning (thinking off, NVFP4)",
+        "qwen3.8-27b (thinking off, NVFP4)",
         "nemotron-3-ultra (96)",
         "nemotron-3-ultra (128)",
     }
