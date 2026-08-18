@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 2050" role="img" aria-labelledby="title desc">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 2091" role="img" aria-labelledby="title desc">
   <title id="title">Text models: TTFAT P50 and P95</title>
   <desc id="desc">Text models ranked by descending pass rate and ascending median time to first answer token. A solid dot shows TTFAT P50 and an open dot shows P95 on a logarithmic latency axis. Dark dots identify speed and accuracy efficient rows.</desc>
   <style>
@@ -23,23 +23,23 @@
   <text class="title" x="38" y="38">Text models: TTFAT P50 and P95</text>
   <text class="subtitle" x="38" y="64">Rows ranked by pass rate, then P50 · solid dot P50 · open dot P95 · logarithmic latency scale</text>
   <text class="axis-label" x="1166" y="82" text-anchor="end">Time to first answer token</text>
-  <line class="guide" x1="445.0" y1="110" x2="445.0" y2="1968"/>
+  <line class="guide" x1="445.0" y1="110" x2="445.0" y2="2009"/>
   <text class="tick" x="445.0" y="103" text-anchor="middle">50ms</text>
-  <line class="guide" x1="543.5" y1="110" x2="543.5" y2="1968"/>
+  <line class="guide" x1="543.5" y1="110" x2="543.5" y2="2009"/>
   <text class="tick" x="543.5" y="103" text-anchor="middle">100ms</text>
-  <line class="guide" x1="673.6" y1="110" x2="673.6" y2="1968"/>
+  <line class="guide" x1="673.6" y1="110" x2="673.6" y2="2009"/>
   <text class="tick" x="673.6" y="103" text-anchor="middle">250ms</text>
-  <line class="guide" x1="772.1" y1="110" x2="772.1" y2="1968"/>
+  <line class="guide" x1="772.1" y1="110" x2="772.1" y2="2009"/>
   <text class="tick" x="772.1" y="103" text-anchor="middle">500ms</text>
-  <line class="guide" x1="870.6" y1="110" x2="870.6" y2="1968"/>
+  <line class="guide" x1="870.6" y1="110" x2="870.6" y2="2009"/>
   <text class="tick" x="870.6" y="103" text-anchor="middle">1s</text>
-  <line class="guide" x1="969.1" y1="110" x2="969.1" y2="1968"/>
+  <line class="guide" x1="969.1" y1="110" x2="969.1" y2="2009"/>
   <text class="tick" x="969.1" y="103" text-anchor="middle">2s</text>
-  <line class="guide" x1="1067.5" y1="110" x2="1067.5" y2="1968"/>
+  <line class="guide" x1="1067.5" y1="110" x2="1067.5" y2="2009"/>
   <text class="tick" x="1067.5" y="103" text-anchor="middle">4s</text>
-  <line class="guide" x1="1166.0" y1="110" x2="1166.0" y2="1968"/>
+  <line class="guide" x1="1166.0" y1="110" x2="1166.0" y2="2009"/>
   <text class="tick" x="1166.0" y="103" text-anchor="middle">8s</text>
-  <line class="target" x1="819.9" y1="109" x2="819.9" y2="1968"/>
+  <line class="target" x1="819.9" y1="109" x2="819.9" y2="2009"/>
   <text class="target-label" x="813.9" y="90" text-anchor="end">~700ms voice guideline</text>
   <text class="model" x="38" y="145">nemotron-3-ultra (128)</text>
   <text class="meta" x="38" y="161">100.0% pass · 541ms P50 / 712ms P95 · Baseten</text>
@@ -76,195 +76,200 @@
   <line class="range" x1="933.8" y1="394" x2="1110.3" y2="394"/>
   <circle class="p50" cx="933.8" cy="394" r="4.3"><title>kimi-k2.6 (thinking on): 98.3% pass rate; TTFAT 1.56s P50 and 5.4s P95; Baseten</title></circle>
   <circle class="p95" cx="1110.3" cy="394" r="3.6"><title>kimi-k2.6 (thinking on): 98.3% pass rate; TTFAT 1.56s P50 and 5.4s P95; Baseten</title></circle>
-  <text class="model" x="38" y="432">claude-haiku-4-5</text>
-  <text class="meta" x="38" y="448">98.0% pass · 637ms P50 / 1.61s P95 · Anthropic</text>
-  <line class="range" x1="806.5" y1="435" x2="938.7" y2="435"/>
-  <circle class="p50" cx="806.5" cy="435" r="4.3"><title>claude-haiku-4-5: 98.0% pass rate; TTFAT 637ms P50 and 1.61s P95; Anthropic</title></circle>
-  <circle class="p95" cx="938.7" cy="435" r="3.6"><title>claude-haiku-4-5: 98.0% pass rate; TTFAT 637ms P50 and 1.61s P95; Anthropic</title></circle>
-  <text class="model" x="38" y="473">gpt-5.1</text>
-  <text class="meta" x="38" y="489">98.0% pass · 739ms P50 / 1.49s P95 · OpenAI</text>
-  <line class="range" x1="827.6" y1="476" x2="927.4" y2="476"/>
-  <circle class="p50" cx="827.6" cy="476" r="4.3"><title>gpt-5.1: 98.0% pass rate; TTFAT 739ms P50 and 1.49s P95; OpenAI</title></circle>
-  <circle class="p95" cx="927.4" cy="476" r="3.6"><title>gpt-5.1: 98.0% pass rate; TTFAT 739ms P50 and 1.49s P95; OpenAI</title></circle>
-  <text class="model" x="38" y="514">qwen3.8-27b (thinking off, NVFP4)</text>
-  <text class="meta" x="38" y="530">97.8% pass · 101ms P50 / 318ms P95 · Local RTX 5090</text>
-  <line class="range" x1="544.9" y1="517" x2="707.8" y2="517"/>
-  <circle class="p50 frontier" cx="544.9" cy="517" r="4.3"><title>qwen3.8-27b (thinking off, NVFP4): 97.8% pass rate; TTFAT 101ms P50 and 318ms P95; Local RTX 5090</title></circle>
-  <circle class="p95" cx="707.8" cy="517" r="3.6"><title>qwen3.8-27b (thinking off, NVFP4): 97.8% pass rate; TTFAT 101ms P50 and 318ms P95; Local RTX 5090</title></circle>
-  <text class="model" x="38" y="555">gpt-5.6-terra (medium)</text>
-  <text class="meta" x="38" y="571">97.8% pass · 927ms P50 / 2.15s P95 · OpenAI</text>
-  <line class="range" x1="859.8" y1="558" x2="979.3" y2="558"/>
-  <circle class="p50" cx="859.8" cy="558" r="4.3"><title>gpt-5.6-terra (medium): 97.8% pass rate; TTFAT 927ms P50 and 2.15s P95; OpenAI</title></circle>
-  <circle class="p95" cx="979.3" cy="558" r="3.6"><title>gpt-5.6-terra (medium): 97.8% pass rate; TTFAT 927ms P50 and 2.15s P95; OpenAI</title></circle>
-  <text class="model" x="38" y="596">gpt-5.5 (none)</text>
-  <text class="meta" x="38" y="612">97.4% pass · 875ms P50 / 2.18s P95 · OpenAI</text>
-  <line class="range" x1="851.6" y1="599" x2="981.1" y2="599"/>
-  <circle class="p50" cx="851.6" cy="599" r="4.3"><title>gpt-5.5 (none): 97.4% pass rate; TTFAT 875ms P50 and 2.18s P95; OpenAI</title></circle>
-  <circle class="p95" cx="981.1" cy="599" r="3.6"><title>gpt-5.5 (none): 97.4% pass rate; TTFAT 875ms P50 and 2.18s P95; OpenAI</title></circle>
-  <text class="model" x="38" y="637">qwen3.6-27b (thinking off)</text>
-  <text class="meta" x="38" y="653">97.3% pass · 667ms P50 / 769ms P95 · Baseten</text>
-  <line class="range" x1="813.1" y1="640" x2="833.3" y2="640"/>
-  <circle class="p50" cx="813.1" cy="640" r="4.3"><title>qwen3.6-27b (thinking off): 97.3% pass rate; TTFAT 667ms P50 and 769ms P95; Baseten</title></circle>
-  <circle class="p95" cx="833.3" cy="640" r="3.6"><title>qwen3.6-27b (thinking off): 97.3% pass rate; TTFAT 667ms P50 and 769ms P95; Baseten</title></circle>
-  <text class="model" x="38" y="678">deepseek-v4-pro-0813 (low)</text>
-  <text class="meta" x="38" y="694">97.3% pass · 752ms P50 / 1.48s P95 · Baseten</text>
-  <line class="range" x1="830.1" y1="681" x2="926.0" y2="681"/>
-  <circle class="p50" cx="830.1" cy="681" r="4.3"><title>deepseek-v4-pro-0813 (low): 97.3% pass rate; TTFAT 752ms P50 and 1.48s P95; Baseten</title></circle>
-  <circle class="p95" cx="926.0" cy="681" r="3.6"><title>deepseek-v4-pro-0813 (low): 97.3% pass rate; TTFAT 752ms P50 and 1.48s P95; Baseten</title></circle>
-  <text class="model" x="38" y="719">gemini-3.6-flash (minimal)</text>
-  <text class="meta" x="38" y="735">97.1% pass · 798ms P50 / 984ms P95 · AI Studio</text>
-  <line class="range" x1="838.5" y1="722" x2="868.3" y2="722"/>
-  <circle class="p50" cx="838.5" cy="722" r="4.3"><title>gemini-3.6-flash (minimal): 97.1% pass rate; TTFAT 798ms P50 and 984ms P95; AI Studio</title></circle>
-  <circle class="p95" cx="868.3" cy="722" r="3.6"><title>gemini-3.6-flash (minimal): 97.1% pass rate; TTFAT 798ms P50 and 984ms P95; AI Studio</title></circle>
-  <text class="model" x="38" y="760">nemotron-3-super-120b (512)</text>
-  <text class="meta" x="38" y="776">97.0% pass · 687ms P50 / 1.21s P95 · Baseten</text>
-  <line class="range" x1="817.3" y1="763" x2="897.7" y2="763"/>
-  <circle class="p50" cx="817.3" cy="763" r="4.3"><title>nemotron-3-super-120b (512): 97.0% pass rate; TTFAT 687ms P50 and 1.21s P95; Baseten</title></circle>
-  <circle class="p95" cx="897.7" cy="763" r="3.6"><title>nemotron-3-super-120b (512): 97.0% pass rate; TTFAT 687ms P50 and 1.21s P95; Baseten</title></circle>
-  <text class="model" x="38" y="801">gpt-5.4 (low)</text>
-  <text class="meta" x="38" y="817">97.0% pass · 782ms P50 / 1.71s P95 · OpenAI</text>
-  <line class="range" x1="835.7" y1="804" x2="946.5" y2="804"/>
-  <circle class="p50" cx="835.7" cy="804" r="4.3"><title>gpt-5.4 (low): 97.0% pass rate; TTFAT 782ms P50 and 1.71s P95; OpenAI</title></circle>
-  <circle class="p95" cx="946.5" cy="804" r="3.6"><title>gpt-5.4 (low): 97.0% pass rate; TTFAT 782ms P50 and 1.71s P95; OpenAI</title></circle>
-  <text class="model" x="38" y="842">deepseek-v4-flash-0731 (low)</text>
-  <text class="meta" x="38" y="858">96.7% pass · 677ms P50 / 1.45s P95 · Baseten</text>
-  <line class="range" x1="815.2" y1="845" x2="923.6" y2="845"/>
-  <circle class="p50" cx="815.2" cy="845" r="4.3"><title>deepseek-v4-flash-0731 (low): 96.7% pass rate; TTFAT 677ms P50 and 1.45s P95; Baseten</title></circle>
-  <circle class="p95" cx="923.6" cy="845" r="3.6"><title>deepseek-v4-flash-0731 (low): 96.7% pass rate; TTFAT 677ms P50 and 1.45s P95; Baseten</title></circle>
-  <text class="model" x="38" y="883">gemma-4-31b-it (thinking off)</text>
-  <text class="meta" x="38" y="899">96.6% pass · 489ms P50 / 609ms P95 · Baseten</text>
-  <line class="range" x1="769.0" y1="886" x2="800.1" y2="886"/>
-  <circle class="p50" cx="769.0" cy="886" r="4.3"><title>gemma-4-31b-it (thinking off): 96.6% pass rate; TTFAT 489ms P50 and 609ms P95; Baseten</title></circle>
-  <circle class="p95" cx="800.1" cy="886" r="3.6"><title>gemma-4-31b-it (thinking off): 96.6% pass rate; TTFAT 489ms P50 and 609ms P95; Baseten</title></circle>
-  <text class="model" x="38" y="924">gpt-5.6-sol (none)</text>
-  <text class="meta" x="38" y="940">96.6% pass · 1.10s P50 / 2.62s P95 · OpenAI</text>
-  <line class="range" x1="883.9" y1="927" x2="1007.7" y2="927"/>
-  <circle class="p50" cx="883.9" cy="927" r="4.3"><title>gpt-5.6-sol (none): 96.6% pass rate; TTFAT 1.10s P50 and 2.62s P95; OpenAI</title></circle>
-  <circle class="p95" cx="1007.7" cy="927" r="3.6"><title>gpt-5.6-sol (none): 96.6% pass rate; TTFAT 1.10s P50 and 2.62s P95; OpenAI</title></circle>
-  <text class="model" x="38" y="965">gpt-4.1</text>
-  <text class="meta" x="38" y="981">96.3% pass · 536ms P50 / 1.77s P95 · OpenAI</text>
-  <line class="range" x1="782.0" y1="968" x2="951.8" y2="968"/>
-  <circle class="p50" cx="782.0" cy="968" r="4.3"><title>gpt-4.1: 96.3% pass rate; TTFAT 536ms P50 and 1.77s P95; OpenAI</title></circle>
-  <circle class="p95" cx="951.8" cy="968" r="3.6"><title>gpt-4.1: 96.3% pass rate; TTFAT 536ms P50 and 1.77s P95; OpenAI</title></circle>
-  <text class="model" x="38" y="1006">gpt-5.4 (none, +96 dots)</text>
-  <text class="meta" x="38" y="1022">95.2% pass · 694ms P50 / 2.27s P95 · OpenAI</text>
-  <line class="range" x1="818.7" y1="1009" x2="987.2" y2="1009"/>
-  <circle class="p50" cx="818.7" cy="1009" r="4.3"><title>gpt-5.4 (none, +96 dots): 95.2% pass rate; TTFAT 694ms P50 and 2.27s P95; OpenAI</title></circle>
-  <circle class="p95" cx="987.2" cy="1009" r="3.6"><title>gpt-5.4 (none, +96 dots): 95.2% pass rate; TTFAT 694ms P50 and 2.27s P95; OpenAI</title></circle>
-  <text class="model" x="38" y="1047">inkling (none)</text>
-  <text class="meta" x="38" y="1063">94.8% pass · 447ms P50 / 727ms P95 · Baseten</text>
-  <line class="range" x1="756.2" y1="1050" x2="825.3" y2="1050"/>
-  <circle class="p50" cx="756.2" cy="1050" r="4.3"><title>inkling (none): 94.8% pass rate; TTFAT 447ms P50 and 727ms P95; Baseten</title></circle>
-  <circle class="p95" cx="825.3" cy="1050" r="3.6"><title>inkling (none): 94.8% pass rate; TTFAT 447ms P50 and 727ms P95; Baseten</title></circle>
-  <text class="model" x="38" y="1088">gpt-4o</text>
-  <text class="meta" x="38" y="1104">94.7% pass · 546ms P50 / 1.37s P95 · OpenAI</text>
-  <line class="range" x1="784.6" y1="1091" x2="915.2" y2="1091"/>
-  <circle class="p50" cx="784.6" cy="1091" r="4.3"><title>gpt-4o: 94.7% pass rate; TTFAT 546ms P50 and 1.37s P95; OpenAI</title></circle>
-  <circle class="p95" cx="915.2" cy="1091" r="3.6"><title>gpt-4o: 94.7% pass rate; TTFAT 546ms P50 and 1.37s P95; OpenAI</title></circle>
-  <text class="model" x="38" y="1129">kimi-k2.6 (thinking off)</text>
-  <text class="meta" x="38" y="1145">93.9% pass · 475ms P50 / 842ms P95 · Baseten</text>
-  <line class="range" x1="764.8" y1="1132" x2="846.2" y2="1132"/>
-  <circle class="p50" cx="764.8" cy="1132" r="4.3"><title>kimi-k2.6 (thinking off): 93.9% pass rate; TTFAT 475ms P50 and 842ms P95; Baseten</title></circle>
-  <circle class="p95" cx="846.2" cy="1132" r="3.6"><title>kimi-k2.6 (thinking off): 93.9% pass rate; TTFAT 475ms P50 and 842ms P95; Baseten</title></circle>
-  <text class="model" x="38" y="1170">deepseek-v4-flash-0731 (high)</text>
-  <text class="meta" x="38" y="1186">93.9% pass · 763ms P50 / 1.87s P95 · Baseten</text>
-  <line class="range" x1="832.2" y1="1173" x2="959.6" y2="1173"/>
-  <circle class="p50" cx="832.2" cy="1173" r="4.3"><title>deepseek-v4-flash-0731 (high): 93.9% pass rate; TTFAT 763ms P50 and 1.87s P95; Baseten</title></circle>
-  <circle class="p95" cx="959.6" cy="1173" r="3.6"><title>deepseek-v4-flash-0731 (high): 93.9% pass rate; TTFAT 763ms P50 and 1.87s P95; Baseten</title></circle>
-  <text class="model" x="38" y="1211">nemotron-3.5-lightning (thinking on, NVFP4)</text>
-  <text class="meta" x="38" y="1227">93.6% pass · 1.46s P50 / 5.8s P95 · Local RTX 5090</text>
-  <line class="range" x1="924.7" y1="1214" x2="1120.0" y2="1214"/>
-  <circle class="p50" cx="924.7" cy="1214" r="4.3"><title>nemotron-3.5-lightning (thinking on, NVFP4): 93.6% pass rate; TTFAT 1.46s P50 and 5.8s P95; Local RTX 5090</title></circle>
-  <circle class="p95" cx="1120.0" cy="1214" r="3.6"><title>nemotron-3.5-lightning (thinking on, NVFP4): 93.6% pass rate; TTFAT 1.46s P50 and 5.8s P95; Local RTX 5090</title></circle>
-  <text class="model" x="38" y="1252">gemini-3.5-flash (minimal)</text>
-  <text class="meta" x="38" y="1268">93.3% pass · 892ms P50 / 1.18s P95 · AI Studio</text>
-  <line class="range" x1="854.3" y1="1255" x2="894.5" y2="1255"/>
-  <circle class="p50" cx="854.3" cy="1255" r="4.3"><title>gemini-3.5-flash (minimal): 93.3% pass rate; TTFAT 892ms P50 and 1.18s P95; AI Studio</title></circle>
-  <circle class="p95" cx="894.5" cy="1255" r="3.6"><title>gemini-3.5-flash (minimal): 93.3% pass rate; TTFAT 892ms P50 and 1.18s P95; AI Studio</title></circle>
-  <text class="model" x="38" y="1293">claude-sonnet-5</text>
-  <text class="meta" x="38" y="1309">93.0% pass · 1.20s P50 / 2.46s P95 · Anthropic</text>
-  <line class="range" x1="897.0" y1="1296" x2="998.8" y2="1296"/>
-  <circle class="p50" cx="897.0" cy="1296" r="4.3"><title>claude-sonnet-5: 93.0% pass rate; TTFAT 1.20s P50 and 2.46s P95; Anthropic</title></circle>
-  <circle class="p95" cx="998.8" cy="1296" r="3.6"><title>claude-sonnet-5: 93.0% pass rate; TTFAT 1.20s P50 and 2.46s P95; Anthropic</title></circle>
-  <text class="model" x="38" y="1334">qwen3.6-35b-a3b (thinking off, FP8)</text>
-  <text class="meta" x="38" y="1350">91.6% pass · 764ms P50 / 1.23s P95 · Baseten</text>
-  <line class="range" x1="832.3" y1="1337" x2="900.3" y2="1337"/>
-  <circle class="p50" cx="832.3" cy="1337" r="4.3"><title>qwen3.6-35b-a3b (thinking off, FP8): 91.6% pass rate; TTFAT 764ms P50 and 1.23s P95; Baseten</title></circle>
-  <circle class="p95" cx="900.3" cy="1337" r="3.6"><title>qwen3.6-35b-a3b (thinking off, FP8): 91.6% pass rate; TTFAT 764ms P50 and 1.23s P95; Baseten</title></circle>
-  <text class="model" x="38" y="1375">gpt-5.6-terra (none)</text>
-  <text class="meta" x="38" y="1391">91.3% pass · 621ms P50 / 1.87s P95 · OpenAI</text>
-  <line class="range" x1="802.9" y1="1378" x2="959.5" y2="1378"/>
-  <circle class="p50" cx="802.9" cy="1378" r="4.3"><title>gpt-5.6-terra (none): 91.3% pass rate; TTFAT 621ms P50 and 1.87s P95; OpenAI</title></circle>
-  <circle class="p95" cx="959.5" cy="1378" r="3.6"><title>gpt-5.6-terra (none): 91.3% pass rate; TTFAT 621ms P50 and 1.87s P95; OpenAI</title></circle>
-  <text class="model" x="38" y="1416">nemotron-3-nano-30b (512)</text>
-  <text class="meta" x="38" y="1432">90.6% pass · 940ms P50 / 1.91s P95 · Baseten</text>
-  <line class="range" x1="861.8" y1="1419" x2="962.7" y2="1419"/>
-  <circle class="p50" cx="861.8" cy="1419" r="4.3"><title>nemotron-3-nano-30b (512): 90.6% pass rate; TTFAT 940ms P50 and 1.91s P95; Baseten</title></circle>
-  <circle class="p95" cx="962.7" cy="1419" r="3.6"><title>nemotron-3-nano-30b (512): 90.6% pass rate; TTFAT 940ms P50 and 1.91s P95; Baseten</title></circle>
-  <text class="model" x="38" y="1457">gpt-5.4 (none)</text>
-  <text class="meta" x="38" y="1473">90.2% pass · 689ms P50 / 1.72s P95 · OpenAI</text>
-  <line class="range" x1="817.7" y1="1460" x2="947.9" y2="1460"/>
-  <circle class="p50" cx="817.7" cy="1460" r="4.3"><title>gpt-5.4 (none): 90.2% pass rate; TTFAT 689ms P50 and 1.72s P95; OpenAI</title></circle>
-  <circle class="p95" cx="947.9" cy="1460" r="3.6"><title>gpt-5.4 (none): 90.2% pass rate; TTFAT 689ms P50 and 1.72s P95; OpenAI</title></circle>
-  <text class="model" x="38" y="1498">gemini-2.5-flash (thinking off)</text>
-  <text class="meta" x="38" y="1514">89.9% pass · 550ms P50 / 850ms P95 · AI Studio</text>
-  <line class="range" x1="785.7" y1="1501" x2="847.5" y2="1501"/>
-  <circle class="p50" cx="785.7" cy="1501" r="4.3"><title>gemini-2.5-flash (thinking off): 89.9% pass rate; TTFAT 550ms P50 and 850ms P95; AI Studio</title></circle>
-  <circle class="p95" cx="847.5" cy="1501" r="3.6"><title>gemini-2.5-flash (thinking off): 89.9% pass rate; TTFAT 550ms P50 and 850ms P95; AI Studio</title></circle>
-  <text class="model" x="38" y="1539">gpt-5.2</text>
-  <text class="meta" x="38" y="1555">89.3% pass · 624ms P50 / 1.17s P95 · OpenAI</text>
-  <line class="range" x1="803.6" y1="1542" x2="893.0" y2="1542"/>
-  <circle class="p50" cx="803.6" cy="1542" r="4.3"><title>gpt-5.2: 89.3% pass rate; TTFAT 624ms P50 and 1.17s P95; OpenAI</title></circle>
-  <circle class="p95" cx="893.0" cy="1542" r="3.6"><title>gpt-5.2: 89.3% pass rate; TTFAT 624ms P50 and 1.17s P95; OpenAI</title></circle>
-  <text class="model" x="38" y="1580">gpt-5.6-luna (none)</text>
-  <text class="meta" x="38" y="1596">88.3% pass · 671ms P50 / 2.30s P95 · OpenAI</text>
-  <line class="range" x1="813.9" y1="1583" x2="989.2" y2="1583"/>
-  <circle class="p50" cx="813.9" cy="1583" r="4.3"><title>gpt-5.6-luna (none): 88.3% pass rate; TTFAT 671ms P50 and 2.30s P95; OpenAI</title></circle>
-  <circle class="p95" cx="989.2" cy="1583" r="3.6"><title>gpt-5.6-luna (none): 88.3% pass rate; TTFAT 671ms P50 and 2.30s P95; OpenAI</title></circle>
-  <text class="model" x="38" y="1621">gpt-oss-120b (groq)</text>
-  <text class="meta" x="38" y="1637">86.3% pass · 98ms P50 / 217ms P95 · Groq</text>
-  <line class="range" x1="540.6" y1="1624" x2="653.5" y2="1624"/>
-  <circle class="p50 frontier" cx="540.6" cy="1624" r="4.3"><title>gpt-oss-120b (groq): 86.3% pass rate; TTFAT 98ms P50 and 217ms P95; Groq</title></circle>
-  <circle class="p95" cx="653.5" cy="1624" r="3.6"><title>gpt-oss-120b (groq): 86.3% pass rate; TTFAT 98ms P50 and 217ms P95; Groq</title></circle>
-  <text class="model" x="38" y="1662">muse-glimmer-30b (thinking low, GGUF)</text>
-  <text class="meta" x="38" y="1678">86.1% pass · 231ms P50 / 1.75s P95 · Local RTX 5090</text>
-  <line class="range" x1="662.4" y1="1665" x2="950.2" y2="1665"/>
-  <circle class="p50" cx="662.4" cy="1665" r="4.3"><title>muse-glimmer-30b (thinking low, GGUF): 86.1% pass rate; TTFAT 231ms P50 and 1.75s P95; Local RTX 5090</title></circle>
-  <circle class="p95" cx="950.2" cy="1665" r="3.6"><title>muse-glimmer-30b (thinking low, GGUF): 86.1% pass rate; TTFAT 231ms P50 and 1.75s P95; Local RTX 5090</title></circle>
-  <text class="model" x="38" y="1703">poolside/laguna-s-2.1 (thinking off)</text>
-  <text class="meta" x="38" y="1719">85.6% pass · 295ms P50 / 620ms P95 · OpenRouter</text>
-  <line class="range" x1="697.2" y1="1706" x2="802.7" y2="1706"/>
-  <circle class="p50" cx="697.2" cy="1706" r="4.3"><title>poolside/laguna-s-2.1 (thinking off): 85.6% pass rate; TTFAT 295ms P50 and 620ms P95; OpenRouter</title></circle>
-  <circle class="p95" cx="802.7" cy="1706" r="3.6"><title>poolside/laguna-s-2.1 (thinking off): 85.6% pass rate; TTFAT 295ms P50 and 620ms P95; OpenRouter</title></circle>
-  <text class="model" x="38" y="1744">gpt-4.1-mini</text>
-  <text class="meta" x="38" y="1760">85.3% pass · 851ms P50 / 2.13s P95 · OpenAI</text>
-  <line class="range" x1="847.7" y1="1747" x2="978.3" y2="1747"/>
-  <circle class="p50" cx="847.7" cy="1747" r="4.3"><title>gpt-4.1-mini: 85.3% pass rate; TTFAT 851ms P50 and 2.13s P95; OpenAI</title></circle>
-  <circle class="p95" cx="978.3" cy="1747" r="3.6"><title>gpt-4.1-mini: 85.3% pass rate; TTFAT 851ms P50 and 2.13s P95; OpenAI</title></circle>
-  <text class="model" x="38" y="1785">gpt-5-mini</text>
-  <text class="meta" x="38" y="1801">83.7% pass · 682ms P50 / 1.13s P95 · OpenAI</text>
-  <line class="range" x1="816.2" y1="1788" x2="888.2" y2="1788"/>
-  <circle class="p50" cx="816.2" cy="1788" r="4.3"><title>gpt-5-mini: 83.7% pass rate; TTFAT 682ms P50 and 1.13s P95; OpenAI</title></circle>
-  <circle class="p95" cx="888.2" cy="1788" r="3.6"><title>gpt-5-mini: 83.7% pass rate; TTFAT 682ms P50 and 1.13s P95; OpenAI</title></circle>
-  <text class="model" x="38" y="1826">gpt-4o-mini</text>
-  <text class="meta" x="38" y="1842">82.7% pass · 553ms P50 / 1.95s P95 · OpenAI</text>
-  <line class="range" x1="786.4" y1="1829" x2="965.2" y2="1829"/>
-  <circle class="p50" cx="786.4" cy="1829" r="4.3"><title>gpt-4o-mini: 82.7% pass rate; TTFAT 553ms P50 and 1.95s P95; OpenAI</title></circle>
-  <circle class="p95" cx="965.2" cy="1829" r="3.6"><title>gpt-4o-mini: 82.7% pass rate; TTFAT 553ms P50 and 1.95s P95; OpenAI</title></circle>
-  <text class="model" x="38" y="1867">gemma-4-26b-a4b-it (thinking off)</text>
-  <text class="meta" x="38" y="1883">80.7% pass · 578ms P50 / 634ms P95 · Baseten</text>
-  <line class="range" x1="792.7" y1="1870" x2="805.8" y2="1870"/>
-  <circle class="p50" cx="792.7" cy="1870" r="4.3"><title>gemma-4-26b-a4b-it (thinking off): 80.7% pass rate; TTFAT 578ms P50 and 634ms P95; Baseten</title></circle>
-  <circle class="p95" cx="805.8" cy="1870" r="3.6"><title>gemma-4-26b-a4b-it (thinking off): 80.7% pass rate; TTFAT 578ms P50 and 634ms P95; Baseten</title></circle>
-  <text class="model" x="38" y="1908">gemini-3.5-flash-lite (minimal)</text>
-  <text class="meta" x="38" y="1924">68.6% pass · 591ms P50 / 679ms P95 · AI Studio</text>
-  <line class="range" x1="795.9" y1="1911" x2="815.6" y2="1911"/>
-  <circle class="p50" cx="795.9" cy="1911" r="4.3"><title>gemini-3.5-flash-lite (minimal): 68.6% pass rate; TTFAT 591ms P50 and 679ms P95; AI Studio</title></circle>
-  <circle class="p95" cx="815.6" cy="1911" r="3.6"><title>gemini-3.5-flash-lite (minimal): 68.6% pass rate; TTFAT 591ms P50 and 679ms P95; AI Studio</title></circle>
-  <text class="model" x="38" y="1949">nemotron-3.5-lightning (thinking off, NVFP4)</text>
-  <text class="meta" x="38" y="1965">50.9% pass · 62ms P50 / 70ms P95 · Local RTX 5090</text>
-  <line class="range" x1="475.6" y1="1952" x2="492.8" y2="1952"/>
-  <circle class="p50 frontier" cx="475.6" cy="1952" r="4.3"><title>nemotron-3.5-lightning (thinking off, NVFP4): 50.9% pass rate; TTFAT 62ms P50 and 70ms P95; Local RTX 5090</title></circle>
-  <circle class="p95" cx="492.8" cy="1952" r="3.6"><title>nemotron-3.5-lightning (thinking off, NVFP4): 50.9% pass rate; TTFAT 62ms P50 and 70ms P95; Local RTX 5090</title></circle>
-  <text class="note" x="38" y="2008">Dark P50 dots mark rows for which no model is both faster and at least as accurate. Historical Nemotron 3 rows retain legacy TTFT; see README.</text>
+  <text class="model" x="38" y="432">qwen3.8-27b (thinking off, FP8)</text>
+  <text class="meta" x="38" y="448">98.2% pass · 649ms P50 / 801ms P95 · Baseten</text>
+  <line class="range" x1="809.2" y1="435" x2="839.1" y2="435"/>
+  <circle class="p50" cx="809.2" cy="435" r="4.3"><title>qwen3.8-27b (thinking off, FP8): 98.2% pass rate; TTFAT 649ms P50 and 801ms P95; Baseten</title></circle>
+  <circle class="p95" cx="839.1" cy="435" r="3.6"><title>qwen3.8-27b (thinking off, FP8): 98.2% pass rate; TTFAT 649ms P50 and 801ms P95; Baseten</title></circle>
+  <text class="model" x="38" y="473">claude-haiku-4-5</text>
+  <text class="meta" x="38" y="489">98.0% pass · 637ms P50 / 1.61s P95 · Anthropic</text>
+  <line class="range" x1="806.5" y1="476" x2="938.7" y2="476"/>
+  <circle class="p50" cx="806.5" cy="476" r="4.3"><title>claude-haiku-4-5: 98.0% pass rate; TTFAT 637ms P50 and 1.61s P95; Anthropic</title></circle>
+  <circle class="p95" cx="938.7" cy="476" r="3.6"><title>claude-haiku-4-5: 98.0% pass rate; TTFAT 637ms P50 and 1.61s P95; Anthropic</title></circle>
+  <text class="model" x="38" y="514">gpt-5.1</text>
+  <text class="meta" x="38" y="530">98.0% pass · 739ms P50 / 1.49s P95 · OpenAI</text>
+  <line class="range" x1="827.6" y1="517" x2="927.4" y2="517"/>
+  <circle class="p50" cx="827.6" cy="517" r="4.3"><title>gpt-5.1: 98.0% pass rate; TTFAT 739ms P50 and 1.49s P95; OpenAI</title></circle>
+  <circle class="p95" cx="927.4" cy="517" r="3.6"><title>gpt-5.1: 98.0% pass rate; TTFAT 739ms P50 and 1.49s P95; OpenAI</title></circle>
+  <text class="model" x="38" y="555">qwen3.8-27b (thinking off, NVFP4)</text>
+  <text class="meta" x="38" y="571">97.8% pass · 101ms P50 / 318ms P95 · Local RTX 5090</text>
+  <line class="range" x1="544.9" y1="558" x2="707.8" y2="558"/>
+  <circle class="p50 frontier" cx="544.9" cy="558" r="4.3"><title>qwen3.8-27b (thinking off, NVFP4): 97.8% pass rate; TTFAT 101ms P50 and 318ms P95; Local RTX 5090</title></circle>
+  <circle class="p95" cx="707.8" cy="558" r="3.6"><title>qwen3.8-27b (thinking off, NVFP4): 97.8% pass rate; TTFAT 101ms P50 and 318ms P95; Local RTX 5090</title></circle>
+  <text class="model" x="38" y="596">gpt-5.6-terra (medium)</text>
+  <text class="meta" x="38" y="612">97.8% pass · 927ms P50 / 2.15s P95 · OpenAI</text>
+  <line class="range" x1="859.8" y1="599" x2="979.3" y2="599"/>
+  <circle class="p50" cx="859.8" cy="599" r="4.3"><title>gpt-5.6-terra (medium): 97.8% pass rate; TTFAT 927ms P50 and 2.15s P95; OpenAI</title></circle>
+  <circle class="p95" cx="979.3" cy="599" r="3.6"><title>gpt-5.6-terra (medium): 97.8% pass rate; TTFAT 927ms P50 and 2.15s P95; OpenAI</title></circle>
+  <text class="model" x="38" y="637">gpt-5.5 (none)</text>
+  <text class="meta" x="38" y="653">97.4% pass · 875ms P50 / 2.18s P95 · OpenAI</text>
+  <line class="range" x1="851.6" y1="640" x2="981.1" y2="640"/>
+  <circle class="p50" cx="851.6" cy="640" r="4.3"><title>gpt-5.5 (none): 97.4% pass rate; TTFAT 875ms P50 and 2.18s P95; OpenAI</title></circle>
+  <circle class="p95" cx="981.1" cy="640" r="3.6"><title>gpt-5.5 (none): 97.4% pass rate; TTFAT 875ms P50 and 2.18s P95; OpenAI</title></circle>
+  <text class="model" x="38" y="678">qwen3.6-27b (thinking off)</text>
+  <text class="meta" x="38" y="694">97.3% pass · 667ms P50 / 769ms P95 · Baseten</text>
+  <line class="range" x1="813.1" y1="681" x2="833.3" y2="681"/>
+  <circle class="p50" cx="813.1" cy="681" r="4.3"><title>qwen3.6-27b (thinking off): 97.3% pass rate; TTFAT 667ms P50 and 769ms P95; Baseten</title></circle>
+  <circle class="p95" cx="833.3" cy="681" r="3.6"><title>qwen3.6-27b (thinking off): 97.3% pass rate; TTFAT 667ms P50 and 769ms P95; Baseten</title></circle>
+  <text class="model" x="38" y="719">deepseek-v4-pro-0813 (low)</text>
+  <text class="meta" x="38" y="735">97.3% pass · 752ms P50 / 1.48s P95 · Baseten</text>
+  <line class="range" x1="830.1" y1="722" x2="926.0" y2="722"/>
+  <circle class="p50" cx="830.1" cy="722" r="4.3"><title>deepseek-v4-pro-0813 (low): 97.3% pass rate; TTFAT 752ms P50 and 1.48s P95; Baseten</title></circle>
+  <circle class="p95" cx="926.0" cy="722" r="3.6"><title>deepseek-v4-pro-0813 (low): 97.3% pass rate; TTFAT 752ms P50 and 1.48s P95; Baseten</title></circle>
+  <text class="model" x="38" y="760">gemini-3.6-flash (minimal)</text>
+  <text class="meta" x="38" y="776">97.1% pass · 798ms P50 / 984ms P95 · AI Studio</text>
+  <line class="range" x1="838.5" y1="763" x2="868.3" y2="763"/>
+  <circle class="p50" cx="838.5" cy="763" r="4.3"><title>gemini-3.6-flash (minimal): 97.1% pass rate; TTFAT 798ms P50 and 984ms P95; AI Studio</title></circle>
+  <circle class="p95" cx="868.3" cy="763" r="3.6"><title>gemini-3.6-flash (minimal): 97.1% pass rate; TTFAT 798ms P50 and 984ms P95; AI Studio</title></circle>
+  <text class="model" x="38" y="801">nemotron-3-super-120b (512)</text>
+  <text class="meta" x="38" y="817">97.0% pass · 687ms P50 / 1.21s P95 · Baseten</text>
+  <line class="range" x1="817.3" y1="804" x2="897.7" y2="804"/>
+  <circle class="p50" cx="817.3" cy="804" r="4.3"><title>nemotron-3-super-120b (512): 97.0% pass rate; TTFAT 687ms P50 and 1.21s P95; Baseten</title></circle>
+  <circle class="p95" cx="897.7" cy="804" r="3.6"><title>nemotron-3-super-120b (512): 97.0% pass rate; TTFAT 687ms P50 and 1.21s P95; Baseten</title></circle>
+  <text class="model" x="38" y="842">gpt-5.4 (low)</text>
+  <text class="meta" x="38" y="858">97.0% pass · 782ms P50 / 1.71s P95 · OpenAI</text>
+  <line class="range" x1="835.7" y1="845" x2="946.5" y2="845"/>
+  <circle class="p50" cx="835.7" cy="845" r="4.3"><title>gpt-5.4 (low): 97.0% pass rate; TTFAT 782ms P50 and 1.71s P95; OpenAI</title></circle>
+  <circle class="p95" cx="946.5" cy="845" r="3.6"><title>gpt-5.4 (low): 97.0% pass rate; TTFAT 782ms P50 and 1.71s P95; OpenAI</title></circle>
+  <text class="model" x="38" y="883">deepseek-v4-flash-0731 (low)</text>
+  <text class="meta" x="38" y="899">96.7% pass · 677ms P50 / 1.45s P95 · Baseten</text>
+  <line class="range" x1="815.2" y1="886" x2="923.6" y2="886"/>
+  <circle class="p50" cx="815.2" cy="886" r="4.3"><title>deepseek-v4-flash-0731 (low): 96.7% pass rate; TTFAT 677ms P50 and 1.45s P95; Baseten</title></circle>
+  <circle class="p95" cx="923.6" cy="886" r="3.6"><title>deepseek-v4-flash-0731 (low): 96.7% pass rate; TTFAT 677ms P50 and 1.45s P95; Baseten</title></circle>
+  <text class="model" x="38" y="924">gemma-4-31b-it (thinking off)</text>
+  <text class="meta" x="38" y="940">96.6% pass · 489ms P50 / 609ms P95 · Baseten</text>
+  <line class="range" x1="769.0" y1="927" x2="800.1" y2="927"/>
+  <circle class="p50" cx="769.0" cy="927" r="4.3"><title>gemma-4-31b-it (thinking off): 96.6% pass rate; TTFAT 489ms P50 and 609ms P95; Baseten</title></circle>
+  <circle class="p95" cx="800.1" cy="927" r="3.6"><title>gemma-4-31b-it (thinking off): 96.6% pass rate; TTFAT 489ms P50 and 609ms P95; Baseten</title></circle>
+  <text class="model" x="38" y="965">gpt-5.6-sol (none)</text>
+  <text class="meta" x="38" y="981">96.6% pass · 1.10s P50 / 2.62s P95 · OpenAI</text>
+  <line class="range" x1="883.9" y1="968" x2="1007.7" y2="968"/>
+  <circle class="p50" cx="883.9" cy="968" r="4.3"><title>gpt-5.6-sol (none): 96.6% pass rate; TTFAT 1.10s P50 and 2.62s P95; OpenAI</title></circle>
+  <circle class="p95" cx="1007.7" cy="968" r="3.6"><title>gpt-5.6-sol (none): 96.6% pass rate; TTFAT 1.10s P50 and 2.62s P95; OpenAI</title></circle>
+  <text class="model" x="38" y="1006">gpt-4.1</text>
+  <text class="meta" x="38" y="1022">96.3% pass · 536ms P50 / 1.77s P95 · OpenAI</text>
+  <line class="range" x1="782.0" y1="1009" x2="951.8" y2="1009"/>
+  <circle class="p50" cx="782.0" cy="1009" r="4.3"><title>gpt-4.1: 96.3% pass rate; TTFAT 536ms P50 and 1.77s P95; OpenAI</title></circle>
+  <circle class="p95" cx="951.8" cy="1009" r="3.6"><title>gpt-4.1: 96.3% pass rate; TTFAT 536ms P50 and 1.77s P95; OpenAI</title></circle>
+  <text class="model" x="38" y="1047">gpt-5.4 (none, +96 dots)</text>
+  <text class="meta" x="38" y="1063">95.2% pass · 694ms P50 / 2.27s P95 · OpenAI</text>
+  <line class="range" x1="818.7" y1="1050" x2="987.2" y2="1050"/>
+  <circle class="p50" cx="818.7" cy="1050" r="4.3"><title>gpt-5.4 (none, +96 dots): 95.2% pass rate; TTFAT 694ms P50 and 2.27s P95; OpenAI</title></circle>
+  <circle class="p95" cx="987.2" cy="1050" r="3.6"><title>gpt-5.4 (none, +96 dots): 95.2% pass rate; TTFAT 694ms P50 and 2.27s P95; OpenAI</title></circle>
+  <text class="model" x="38" y="1088">inkling (none)</text>
+  <text class="meta" x="38" y="1104">94.8% pass · 447ms P50 / 727ms P95 · Baseten</text>
+  <line class="range" x1="756.2" y1="1091" x2="825.3" y2="1091"/>
+  <circle class="p50" cx="756.2" cy="1091" r="4.3"><title>inkling (none): 94.8% pass rate; TTFAT 447ms P50 and 727ms P95; Baseten</title></circle>
+  <circle class="p95" cx="825.3" cy="1091" r="3.6"><title>inkling (none): 94.8% pass rate; TTFAT 447ms P50 and 727ms P95; Baseten</title></circle>
+  <text class="model" x="38" y="1129">gpt-4o</text>
+  <text class="meta" x="38" y="1145">94.7% pass · 546ms P50 / 1.37s P95 · OpenAI</text>
+  <line class="range" x1="784.6" y1="1132" x2="915.2" y2="1132"/>
+  <circle class="p50" cx="784.6" cy="1132" r="4.3"><title>gpt-4o: 94.7% pass rate; TTFAT 546ms P50 and 1.37s P95; OpenAI</title></circle>
+  <circle class="p95" cx="915.2" cy="1132" r="3.6"><title>gpt-4o: 94.7% pass rate; TTFAT 546ms P50 and 1.37s P95; OpenAI</title></circle>
+  <text class="model" x="38" y="1170">kimi-k2.6 (thinking off)</text>
+  <text class="meta" x="38" y="1186">93.9% pass · 475ms P50 / 842ms P95 · Baseten</text>
+  <line class="range" x1="764.8" y1="1173" x2="846.2" y2="1173"/>
+  <circle class="p50" cx="764.8" cy="1173" r="4.3"><title>kimi-k2.6 (thinking off): 93.9% pass rate; TTFAT 475ms P50 and 842ms P95; Baseten</title></circle>
+  <circle class="p95" cx="846.2" cy="1173" r="3.6"><title>kimi-k2.6 (thinking off): 93.9% pass rate; TTFAT 475ms P50 and 842ms P95; Baseten</title></circle>
+  <text class="model" x="38" y="1211">deepseek-v4-flash-0731 (high)</text>
+  <text class="meta" x="38" y="1227">93.9% pass · 763ms P50 / 1.87s P95 · Baseten</text>
+  <line class="range" x1="832.2" y1="1214" x2="959.6" y2="1214"/>
+  <circle class="p50" cx="832.2" cy="1214" r="4.3"><title>deepseek-v4-flash-0731 (high): 93.9% pass rate; TTFAT 763ms P50 and 1.87s P95; Baseten</title></circle>
+  <circle class="p95" cx="959.6" cy="1214" r="3.6"><title>deepseek-v4-flash-0731 (high): 93.9% pass rate; TTFAT 763ms P50 and 1.87s P95; Baseten</title></circle>
+  <text class="model" x="38" y="1252">nemotron-3.5-lightning (thinking on, NVFP4)</text>
+  <text class="meta" x="38" y="1268">93.6% pass · 1.46s P50 / 5.8s P95 · Local RTX 5090</text>
+  <line class="range" x1="924.7" y1="1255" x2="1120.0" y2="1255"/>
+  <circle class="p50" cx="924.7" cy="1255" r="4.3"><title>nemotron-3.5-lightning (thinking on, NVFP4): 93.6% pass rate; TTFAT 1.46s P50 and 5.8s P95; Local RTX 5090</title></circle>
+  <circle class="p95" cx="1120.0" cy="1255" r="3.6"><title>nemotron-3.5-lightning (thinking on, NVFP4): 93.6% pass rate; TTFAT 1.46s P50 and 5.8s P95; Local RTX 5090</title></circle>
+  <text class="model" x="38" y="1293">gemini-3.5-flash (minimal)</text>
+  <text class="meta" x="38" y="1309">93.3% pass · 892ms P50 / 1.18s P95 · AI Studio</text>
+  <line class="range" x1="854.3" y1="1296" x2="894.5" y2="1296"/>
+  <circle class="p50" cx="854.3" cy="1296" r="4.3"><title>gemini-3.5-flash (minimal): 93.3% pass rate; TTFAT 892ms P50 and 1.18s P95; AI Studio</title></circle>
+  <circle class="p95" cx="894.5" cy="1296" r="3.6"><title>gemini-3.5-flash (minimal): 93.3% pass rate; TTFAT 892ms P50 and 1.18s P95; AI Studio</title></circle>
+  <text class="model" x="38" y="1334">claude-sonnet-5</text>
+  <text class="meta" x="38" y="1350">93.0% pass · 1.20s P50 / 2.46s P95 · Anthropic</text>
+  <line class="range" x1="897.0" y1="1337" x2="998.8" y2="1337"/>
+  <circle class="p50" cx="897.0" cy="1337" r="4.3"><title>claude-sonnet-5: 93.0% pass rate; TTFAT 1.20s P50 and 2.46s P95; Anthropic</title></circle>
+  <circle class="p95" cx="998.8" cy="1337" r="3.6"><title>claude-sonnet-5: 93.0% pass rate; TTFAT 1.20s P50 and 2.46s P95; Anthropic</title></circle>
+  <text class="model" x="38" y="1375">qwen3.6-35b-a3b (thinking off, FP8)</text>
+  <text class="meta" x="38" y="1391">91.6% pass · 764ms P50 / 1.23s P95 · Baseten</text>
+  <line class="range" x1="832.3" y1="1378" x2="900.3" y2="1378"/>
+  <circle class="p50" cx="832.3" cy="1378" r="4.3"><title>qwen3.6-35b-a3b (thinking off, FP8): 91.6% pass rate; TTFAT 764ms P50 and 1.23s P95; Baseten</title></circle>
+  <circle class="p95" cx="900.3" cy="1378" r="3.6"><title>qwen3.6-35b-a3b (thinking off, FP8): 91.6% pass rate; TTFAT 764ms P50 and 1.23s P95; Baseten</title></circle>
+  <text class="model" x="38" y="1416">gpt-5.6-terra (none)</text>
+  <text class="meta" x="38" y="1432">91.3% pass · 621ms P50 / 1.87s P95 · OpenAI</text>
+  <line class="range" x1="802.9" y1="1419" x2="959.5" y2="1419"/>
+  <circle class="p50" cx="802.9" cy="1419" r="4.3"><title>gpt-5.6-terra (none): 91.3% pass rate; TTFAT 621ms P50 and 1.87s P95; OpenAI</title></circle>
+  <circle class="p95" cx="959.5" cy="1419" r="3.6"><title>gpt-5.6-terra (none): 91.3% pass rate; TTFAT 621ms P50 and 1.87s P95; OpenAI</title></circle>
+  <text class="model" x="38" y="1457">nemotron-3-nano-30b (512)</text>
+  <text class="meta" x="38" y="1473">90.6% pass · 940ms P50 / 1.91s P95 · Baseten</text>
+  <line class="range" x1="861.8" y1="1460" x2="962.7" y2="1460"/>
+  <circle class="p50" cx="861.8" cy="1460" r="4.3"><title>nemotron-3-nano-30b (512): 90.6% pass rate; TTFAT 940ms P50 and 1.91s P95; Baseten</title></circle>
+  <circle class="p95" cx="962.7" cy="1460" r="3.6"><title>nemotron-3-nano-30b (512): 90.6% pass rate; TTFAT 940ms P50 and 1.91s P95; Baseten</title></circle>
+  <text class="model" x="38" y="1498">gpt-5.4 (none)</text>
+  <text class="meta" x="38" y="1514">90.2% pass · 689ms P50 / 1.72s P95 · OpenAI</text>
+  <line class="range" x1="817.7" y1="1501" x2="947.9" y2="1501"/>
+  <circle class="p50" cx="817.7" cy="1501" r="4.3"><title>gpt-5.4 (none): 90.2% pass rate; TTFAT 689ms P50 and 1.72s P95; OpenAI</title></circle>
+  <circle class="p95" cx="947.9" cy="1501" r="3.6"><title>gpt-5.4 (none): 90.2% pass rate; TTFAT 689ms P50 and 1.72s P95; OpenAI</title></circle>
+  <text class="model" x="38" y="1539">gemini-2.5-flash (thinking off)</text>
+  <text class="meta" x="38" y="1555">89.9% pass · 550ms P50 / 850ms P95 · AI Studio</text>
+  <line class="range" x1="785.7" y1="1542" x2="847.5" y2="1542"/>
+  <circle class="p50" cx="785.7" cy="1542" r="4.3"><title>gemini-2.5-flash (thinking off): 89.9% pass rate; TTFAT 550ms P50 and 850ms P95; AI Studio</title></circle>
+  <circle class="p95" cx="847.5" cy="1542" r="3.6"><title>gemini-2.5-flash (thinking off): 89.9% pass rate; TTFAT 550ms P50 and 850ms P95; AI Studio</title></circle>
+  <text class="model" x="38" y="1580">gpt-5.2</text>
+  <text class="meta" x="38" y="1596">89.3% pass · 624ms P50 / 1.17s P95 · OpenAI</text>
+  <line class="range" x1="803.6" y1="1583" x2="893.0" y2="1583"/>
+  <circle class="p50" cx="803.6" cy="1583" r="4.3"><title>gpt-5.2: 89.3% pass rate; TTFAT 624ms P50 and 1.17s P95; OpenAI</title></circle>
+  <circle class="p95" cx="893.0" cy="1583" r="3.6"><title>gpt-5.2: 89.3% pass rate; TTFAT 624ms P50 and 1.17s P95; OpenAI</title></circle>
+  <text class="model" x="38" y="1621">gpt-5.6-luna (none)</text>
+  <text class="meta" x="38" y="1637">88.3% pass · 671ms P50 / 2.30s P95 · OpenAI</text>
+  <line class="range" x1="813.9" y1="1624" x2="989.2" y2="1624"/>
+  <circle class="p50" cx="813.9" cy="1624" r="4.3"><title>gpt-5.6-luna (none): 88.3% pass rate; TTFAT 671ms P50 and 2.30s P95; OpenAI</title></circle>
+  <circle class="p95" cx="989.2" cy="1624" r="3.6"><title>gpt-5.6-luna (none): 88.3% pass rate; TTFAT 671ms P50 and 2.30s P95; OpenAI</title></circle>
+  <text class="model" x="38" y="1662">gpt-oss-120b (groq)</text>
+  <text class="meta" x="38" y="1678">86.3% pass · 98ms P50 / 217ms P95 · Groq</text>
+  <line class="range" x1="540.6" y1="1665" x2="653.5" y2="1665"/>
+  <circle class="p50 frontier" cx="540.6" cy="1665" r="4.3"><title>gpt-oss-120b (groq): 86.3% pass rate; TTFAT 98ms P50 and 217ms P95; Groq</title></circle>
+  <circle class="p95" cx="653.5" cy="1665" r="3.6"><title>gpt-oss-120b (groq): 86.3% pass rate; TTFAT 98ms P50 and 217ms P95; Groq</title></circle>
+  <text class="model" x="38" y="1703">muse-glimmer-30b (thinking low, GGUF)</text>
+  <text class="meta" x="38" y="1719">86.1% pass · 231ms P50 / 1.75s P95 · Local RTX 5090</text>
+  <line class="range" x1="662.4" y1="1706" x2="950.2" y2="1706"/>
+  <circle class="p50" cx="662.4" cy="1706" r="4.3"><title>muse-glimmer-30b (thinking low, GGUF): 86.1% pass rate; TTFAT 231ms P50 and 1.75s P95; Local RTX 5090</title></circle>
+  <circle class="p95" cx="950.2" cy="1706" r="3.6"><title>muse-glimmer-30b (thinking low, GGUF): 86.1% pass rate; TTFAT 231ms P50 and 1.75s P95; Local RTX 5090</title></circle>
+  <text class="model" x="38" y="1744">poolside/laguna-s-2.1 (thinking off)</text>
+  <text class="meta" x="38" y="1760">85.6% pass · 295ms P50 / 620ms P95 · OpenRouter</text>
+  <line class="range" x1="697.2" y1="1747" x2="802.7" y2="1747"/>
+  <circle class="p50" cx="697.2" cy="1747" r="4.3"><title>poolside/laguna-s-2.1 (thinking off): 85.6% pass rate; TTFAT 295ms P50 and 620ms P95; OpenRouter</title></circle>
+  <circle class="p95" cx="802.7" cy="1747" r="3.6"><title>poolside/laguna-s-2.1 (thinking off): 85.6% pass rate; TTFAT 295ms P50 and 620ms P95; OpenRouter</title></circle>
+  <text class="model" x="38" y="1785">gpt-4.1-mini</text>
+  <text class="meta" x="38" y="1801">85.3% pass · 851ms P50 / 2.13s P95 · OpenAI</text>
+  <line class="range" x1="847.7" y1="1788" x2="978.3" y2="1788"/>
+  <circle class="p50" cx="847.7" cy="1788" r="4.3"><title>gpt-4.1-mini: 85.3% pass rate; TTFAT 851ms P50 and 2.13s P95; OpenAI</title></circle>
+  <circle class="p95" cx="978.3" cy="1788" r="3.6"><title>gpt-4.1-mini: 85.3% pass rate; TTFAT 851ms P50 and 2.13s P95; OpenAI</title></circle>
+  <text class="model" x="38" y="1826">gpt-5-mini</text>
+  <text class="meta" x="38" y="1842">83.7% pass · 682ms P50 / 1.13s P95 · OpenAI</text>
+  <line class="range" x1="816.2" y1="1829" x2="888.2" y2="1829"/>
+  <circle class="p50" cx="816.2" cy="1829" r="4.3"><title>gpt-5-mini: 83.7% pass rate; TTFAT 682ms P50 and 1.13s P95; OpenAI</title></circle>
+  <circle class="p95" cx="888.2" cy="1829" r="3.6"><title>gpt-5-mini: 83.7% pass rate; TTFAT 682ms P50 and 1.13s P95; OpenAI</title></circle>
+  <text class="model" x="38" y="1867">gpt-4o-mini</text>
+  <text class="meta" x="38" y="1883">82.7% pass · 553ms P50 / 1.95s P95 · OpenAI</text>
+  <line class="range" x1="786.4" y1="1870" x2="965.2" y2="1870"/>
+  <circle class="p50" cx="786.4" cy="1870" r="4.3"><title>gpt-4o-mini: 82.7% pass rate; TTFAT 553ms P50 and 1.95s P95; OpenAI</title></circle>
+  <circle class="p95" cx="965.2" cy="1870" r="3.6"><title>gpt-4o-mini: 82.7% pass rate; TTFAT 553ms P50 and 1.95s P95; OpenAI</title></circle>
+  <text class="model" x="38" y="1908">gemma-4-26b-a4b-it (thinking off)</text>
+  <text class="meta" x="38" y="1924">80.7% pass · 578ms P50 / 634ms P95 · Baseten</text>
+  <line class="range" x1="792.7" y1="1911" x2="805.8" y2="1911"/>
+  <circle class="p50" cx="792.7" cy="1911" r="4.3"><title>gemma-4-26b-a4b-it (thinking off): 80.7% pass rate; TTFAT 578ms P50 and 634ms P95; Baseten</title></circle>
+  <circle class="p95" cx="805.8" cy="1911" r="3.6"><title>gemma-4-26b-a4b-it (thinking off): 80.7% pass rate; TTFAT 578ms P50 and 634ms P95; Baseten</title></circle>
+  <text class="model" x="38" y="1949">gemini-3.5-flash-lite (minimal)</text>
+  <text class="meta" x="38" y="1965">68.6% pass · 591ms P50 / 679ms P95 · AI Studio</text>
+  <line class="range" x1="795.9" y1="1952" x2="815.6" y2="1952"/>
+  <circle class="p50" cx="795.9" cy="1952" r="4.3"><title>gemini-3.5-flash-lite (minimal): 68.6% pass rate; TTFAT 591ms P50 and 679ms P95; AI Studio</title></circle>
+  <circle class="p95" cx="815.6" cy="1952" r="3.6"><title>gemini-3.5-flash-lite (minimal): 68.6% pass rate; TTFAT 591ms P50 and 679ms P95; AI Studio</title></circle>
+  <text class="model" x="38" y="1990">nemotron-3.5-lightning (thinking off, NVFP4)</text>
+  <text class="meta" x="38" y="2006">50.9% pass · 62ms P50 / 70ms P95 · Local RTX 5090</text>
+  <line class="range" x1="475.6" y1="1993" x2="492.8" y2="1993"/>
+  <circle class="p50 frontier" cx="475.6" cy="1993" r="4.3"><title>nemotron-3.5-lightning (thinking off, NVFP4): 50.9% pass rate; TTFAT 62ms P50 and 70ms P95; Local RTX 5090</title></circle>
+  <circle class="p95" cx="492.8" cy="1993" r="3.6"><title>nemotron-3.5-lightning (thinking off, NVFP4): 50.9% pass rate; TTFAT 62ms P50 and 70ms P95; Local RTX 5090</title></circle>
+  <text class="note" x="38" y="2049">Dark P50 dots mark rows for which no model is both faster and at least as accurate. Historical Nemotron 3 rows retain legacy TTFT; see README.</text>
 </svg>

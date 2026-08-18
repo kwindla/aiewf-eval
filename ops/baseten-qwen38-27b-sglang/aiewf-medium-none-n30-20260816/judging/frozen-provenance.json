@@ -1,0 +1,9 @@
+{
+  "inputs_manifest_sha256": "0c5cc9d6cbc847f03ee37c1118a2fe9b4e8033127d0cbc50d4067bd816c1fbbb",
+  "judge_model": "claude-opus-4-5",
+  "judge_source_sha256": "3f5d2372959d7e9a30f6e426742cc9cb8ff662227c4769c3c8090bd5e5776e18",
+  "judge_version": "claude-agent-sdk-v4-turn-taking",
+  "max_attempts_per_transcript": 3,
+  "shared_lock": "/home/khkramer/src/aiewf-eval/ops/.shared-claude-opus-4-5-judge.lock",
+  "workers": 2
+}

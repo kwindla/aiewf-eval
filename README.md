@@ -28,6 +28,7 @@ Rows are ordered by pass rate descending, then TTFAT P50 ascending. The solid do
 | glm-5.2 (none) | 99.7% | 0.3% | 0.2% | 0.2% | 0.0% | 936ms | 2140ms | 7567ms | Baseten |
 | **nemotron-3-ultra (96)** | **98.3%** | **1.7%** | **1.3%** | **1.3%** | **0.3%** | **529ms** | **655ms** | **1259ms** | **Baseten** |
 | kimi-k2.6 (thinking on) | 98.3% | 1.7% | 1.4% | 1.7% | 0.0% | 1560ms | 5404ms | 13622ms | Baseten |
+| **qwen3.8-27b (thinking off, FP8)** | **98.2%** | **1.8%** | **1.8%** | **1.8%** | **0.0%** | **649ms** | **801ms** | **2161ms** | **Baseten** |
 | **claude-haiku-4-5** | **98.0%** | **2.0%** | **0.7%** | **2.0%** | **0.0%** | **637ms** | **1615ms** | **3152ms** | **Anthropic** |
 | gpt-5.1 | 98.0% | 2.0% | 2.0% | 2.0% | 0.0% | 739ms | 1492ms | 4244ms | OpenAI |
 | **qwen3.8-27b (thinking off, NVFP4)** | **97.8%** | **2.2%** | **1.9%** | **2.2%** | **0.1%** | **101ms** | **318ms** | **592ms** | **Local RTX 5090** |
