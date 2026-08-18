@@ -1,0 +1,18 @@
+{
+  "endpoint_called": false,
+  "filesystem_output_created": false,
+  "fixed_score_denominator": 900,
+  "gpu_used": false,
+  "input_count": 30,
+  "inputs_manifest_sha256": "9a6892805881373ae779c623272b77149bcc5a69ff3bb4f055f8a18d8cd7f96b",
+  "judge_called": false,
+  "judge_model": "claude-opus-4-5",
+  "judge_source_sha256": "3f5d2372959d7e9a30f6e426742cc9cb8ff662227c4769c3c8090bd5e5776e18",
+  "judge_version": "claude-agent-sdk-v4-turn-taking",
+  "kind": "qwen38_local_aiewf_judge_fixed900_cpu_validation_v1",
+  "observed_scripted_turns": 899,
+  "passed": true,
+  "pooled_post_first_ttfat_count": 882,
+  "runner_sha256": "4b2cd499479b9eed71c077c982ba49b5fc2bce5a16c477964e6daeac51292804",
+  "source_outputs_absent": true
+}

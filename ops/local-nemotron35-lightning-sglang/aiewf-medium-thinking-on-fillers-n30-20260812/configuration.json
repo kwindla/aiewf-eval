@@ -1,0 +1,123 @@
+{
+  "schema_version": 1,
+  "campaign_id": "aiewf-medium-nemotron35-lightning-thinking-on-fillers-n30-20260812",
+  "benchmark": "aiwf_medium_context",
+  "model": "nemotron-3.5-lightning",
+  "accepted_response_model_ids": [
+    "nemotron-3.5-lightning"
+  ],
+  "service": "together",
+  "pipeline": "text",
+  "endpoint": {
+    "url": "http://127.0.0.1:8000/v1",
+    "request_env": "TOGETHER_BASE_URL"
+  },
+  "credential": {
+    "request_env": "TOGETHER_API_KEY",
+    "source_env": "LOCAL_NEMOTRON_API_KEY",
+    "source_file": "",
+    "source_file_key": "LOCAL_NEMOTRON_API_KEY"
+  },
+  "pre_conversation_http": {
+    "url": "http://127.0.0.1:8000/flush_cache",
+    "method": "POST",
+    "timeout_seconds": 10
+  },
+  "paths": {
+    "campaign_artifact_dir": "ops/local-nemotron35-lightning-sglang/aiewf-medium-thinking-on-fillers-n30-20260812/artifacts",
+    "run_output_root": "runs/aiwf_medium_context"
+  },
+  "schedule_path": "ops/local-nemotron35-lightning-sglang/aiewf-medium-thinking-on-fillers-n30-20260812/schedule.tsv",
+  "source_integrity_paths": [
+    "ops/local-nemotron35-lightning-sglang/aiewf-medium-thinking-on-fillers-n30-20260812/README.md",
+    "ops/local-nemotron35-lightning-sglang/aiewf-medium-thinking-on-fillers-n30-20260812/judge.sh",
+    "ops/local-nemotron35-lightning-sglang/aiewf-medium-thinking-on-fillers-n30-20260812/analyze.py",
+    "ops/local-nemotron35-lightning-sglang/aiewf-medium-binary-n30-20260811/analyze.py",
+    "ops/local-nemotron35-lightning-sglang/aiewf-medium-binary-n30-20260811/artifacts/canonical.tsv",
+    "benchmarks/_shared/__init__.py",
+    "benchmarks/_shared/tools.py",
+    "benchmarks/_shared/turns.py",
+    "benchmarks/aiwf_medium_context/prompts/system.py",
+    "benchmarks/aiwf_medium_context/data/knowledge_base.txt",
+    "src/multi_turn_eval/metrics.py",
+    "src/multi_turn_eval/services/filler.py",
+    "src/multi_turn_eval/services/lilac_logged.py",
+    "src/multi_turn_eval/services/together_logged.py",
+    "src/multi_turn_eval/judging/claude_judge.py"
+  ],
+  "target_eligible_runs": 60,
+  "fixed_scheduled_turns_per_conversation": 30,
+  "serving": {
+    "verified": true,
+    "notes": "Reuses the exact healthy SGLang endpoint and thinking-on/unbounded request configuration admitted by the completed binary N=30 campaign. Filler injection is covered by the Together/Lilac service path and verified per canonical run from its provenance marker."
+  },
+  "eligibility": {
+    "policy": "first_valid_response",
+    "missing_future_turns": "retain_as_fixed_denominator_failures",
+    "notes": "Retain model-caused aborts, timeouts, and short conversations after the first valid response. Replace only attempts with no valid response or invalid model/provenance."
+  },
+  "collection": {
+    "provider_endpoint_concurrency": 1,
+    "max_attempts_per_slot_default": 3,
+    "timeout_seconds_default": 1800
+  },
+  "unset_environment_prefixes": [
+    "MTE_FILLER_"
+  ],
+  "unset_environment": [
+    "MTE_TOGETHER_REASONING_STRENGTH"
+  ],
+  "common_environment": {
+    "MTE_ENABLE_RECOVERY": "1",
+    "MTE_DEDUPE_TOOL_CALLS": "1",
+    "MTE_TOOL_RESULT_RUN_LLM": "0",
+    "MTE_TEXT_IDLE_TIMEOUT_SECS": "900",
+    "MTE_TOGETHER_REASONING_EFFORT": "omit",
+    "MTE_TOGETHER_ENABLE_THINKING": "true",
+    "MTE_TOGETHER_MAX_TOKENS": "",
+    "MTE_TOGETHER_TEMPERATURE": "1.0",
+    "MTE_TOGETHER_TOP_P": "0.95"
+  },
+  "arms": {
+    "dots96": {
+      "environment": {
+        "MTE_FILLER_DOTS": "96",
+        "MTE_FILLER_TOKEN": ".",
+        "MTE_FILLER_POSITION": "suffix"
+      },
+      "provenance_log_needles": [
+        "reasoning_effort=omit",
+        "enable_thinking=true",
+        "reasoning_strength=(unset)",
+        "force_nonempty_content=True",
+        "max_tokens=None",
+        "temperature=1.0",
+        "top_p=0.95",
+        "MTE_FILLER_DOTS active: 96 x '.' filler tokens, position=suffix (history left filler-free)"
+      ],
+      "forbidden_log_needles": [
+        "enable_thinking=false"
+      ]
+    },
+    "dashes96": {
+      "environment": {
+        "MTE_FILLER_DOTS": "96",
+        "MTE_FILLER_TOKEN": "-",
+        "MTE_FILLER_POSITION": "suffix"
+      },
+      "provenance_log_needles": [
+        "reasoning_effort=omit",
+        "enable_thinking=true",
+        "reasoning_strength=(unset)",
+        "force_nonempty_content=True",
+        "max_tokens=None",
+        "temperature=1.0",
+        "top_p=0.95",
+        "MTE_FILLER_DOTS active: 96 x '-' filler tokens, position=suffix (history left filler-free)"
+      ],
+      "forbidden_log_needles": [
+        "enable_thinking=false"
+      ]
+    }
+  }
+}

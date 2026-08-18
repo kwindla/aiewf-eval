@@ -1,0 +1,8 @@
+{
+  "aggregates_json_sha256": "5925926cfea6a98f7226d7965e998c1f169ecbead400cb23b9ccb2907b0d3245",
+  "aggregates_tsv_sha256": "5fcb29018f61fbe96786f4a497fc3937ed4a0098192fd40f3c5453775e624548",
+  "fixed_score_denominator": 900,
+  "observed_judged_scripted_turns": 899,
+  "report_sha256": "22d9c237fa19762f1067bea6d469f00ca49ebf52a4c405e4f00c7a8150e8657e",
+  "schema_version": "qwen38_local_aiewf_analysis_complete.v1"
+}
