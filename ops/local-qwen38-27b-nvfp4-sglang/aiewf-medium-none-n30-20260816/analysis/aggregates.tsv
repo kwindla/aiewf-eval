@@ -1,0 +1,2 @@
+model	runs	fixed_turns	observed_judged_turns	strict_pass_percent	tool_error_percent	instruction_error_percent	kb_error_percent	ttfat_p50_ms	ttfat_p95_ms	provider
+qwen3.8-27b-nvfp4-unsloth	30	900	899	97.7778	1.8889	2.2222	0.1111	101	318	Local RTX 5090

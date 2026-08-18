@@ -1,0 +1,12 @@
+{
+  "fixed_denominator": true,
+  "inputs": true,
+  "judge_identity": true,
+  "judge_model": "claude-opus-4-5",
+  "judge_version": "claude-agent-sdk-v4-turn-taking",
+  "observed_turns": 899,
+  "package": true,
+  "review_agree": true,
+  "root_absent": true,
+  "target_model_endpoint_called": false
+}

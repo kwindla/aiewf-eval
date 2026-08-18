@@ -1,0 +1,4 @@
+label	model_id	reasoning_effort	n_conversations	fixed_turn_denominator	full_scripted_conversations	strict_pass	strict_pass_rate_pct	tool_error_pct	instruction_error_pct	kb_error_pct	turn_taking_error_pct	ttfat_observations	ttfat_p50_ms	ttfat_p95_ms	ttfat_max_ms
+deepseek-v4-flash-0731 (low)	deepseek-ai/DeepSeek-V4-Flash-0731	low	30	900	29	870	96.6667	2.7778	3.2222	0.6667	0.4444	887	677.0	1444.0	4687.0
+deepseek-v4-flash-0731 (high)	deepseek-ai/DeepSeek-V4-Flash-0731	high	30	900	28	845	93.8889	5.8889	6.1111	4.7778	4.7778	836	762.5	1871.0	8702.0
+deepseek-v4-pro-0813 (low)	deepseek-ai/DeepSeek-V4-Pro-0813	low	30	900	28	876	97.3333	2.6667	2.5556	2.0	2.0	857	752.0	1477.0	3545.0
