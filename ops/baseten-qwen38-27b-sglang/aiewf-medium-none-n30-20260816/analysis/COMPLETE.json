@@ -1,0 +1,8 @@
+{
+  "aggregates_json_sha256": "a4901a2692bbb1e3d9828181b1cbd2004ec39b799773af93a7054a73966d62c9",
+  "aggregates_tsv_sha256": "67eb09570c7bc11ed3732e0d77bfcf0ea349949df02b0595be3e3f05c2af11b3",
+  "fixed_score_denominator": 900,
+  "observed_judged_scripted_turns": 900,
+  "report_sha256": "8fc9594cd809ff1ae6d211006d2716c99ca8a6bcacb80c064ceff69d794b0572",
+  "schema_version": "qwen38_baseten_fp8_aiewf_analysis_complete.v1"
+}

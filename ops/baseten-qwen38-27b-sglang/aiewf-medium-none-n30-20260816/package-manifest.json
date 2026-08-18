@@ -1,0 +1,158 @@
+{
+  "authorization": "manifest alone authorizes no judge, endpoint, inference, or input freeze",
+  "files": [
+    {
+      "path": "/home/khkramer/src/aiewf-eval/benchmarks/aiwf_medium_context/config.py",
+      "sha256": "ebab4cc8f8465a844adc0c9542ef60e16400fdd5528b91eceed042486560e164",
+      "size_bytes": 842
+    },
+    {
+      "path": "/home/khkramer/src/aiewf-eval/benchmarks/aiwf_medium_context/data/knowledge_base.txt",
+      "sha256": "4fd37f8bfe733810a6cf246fa6e37372d225f6c60342a495f8177fa8a62f9593",
+      "size_bytes": 36863
+    },
+    {
+      "path": "/home/khkramer/src/aiewf-eval/benchmarks/aiwf_medium_context/prompts/system.py",
+      "sha256": "6003f0f482c757a9bec6ed01e2993c7192112984e2037cf79d830bd46d76e9a6",
+      "size_bytes": 8461
+    },
+    {
+      "path": "/home/khkramer/src/aiewf-eval/pyproject.toml",
+      "sha256": "f4abd956c48fcf6326684ee3a03bc6203fe8325ca001884e7a6daaacac2b0a06",
+      "size_bytes": 1973
+    },
+    {
+      "path": "/home/khkramer/src/aiewf-eval/src/multi_turn_eval/judging/claude_judge.py",
+      "sha256": "3f5d2372959d7e9a30f6e426742cc9cb8ff662227c4769c3c8090bd5e5776e18",
+      "size_bytes": 32575
+    },
+    {
+      "path": "/home/khkramer/src/aiewf-eval/uv.lock",
+      "sha256": "476b1f4591d750a7b49ad560a5ea0652ce3e9dc999fd284a3165953a18c6f64b",
+      "size_bytes": 525238
+    },
+    {
+      "path": "/home/khkramer/src/gb-benchmarks/port-to-port/proj-2026-08-14-qwen38-27b-fp8-baseten/local-rtx5090-nvfp4/FABLE_LOCAL_SGLANG_MAX12_AIEWF_JUDGE_V1_PRELAUNCH_VERDICT.md",
+      "sha256": "5f6d32b9f01c9e704b7593337ec6b46e8179316c53051d245c1f5f3f60c68bb4",
+      "size_bytes": 7055
+    },
+    {
+      "path": "/home/khkramer/src/gb-benchmarks/port-to-port/proj-2026-08-14-qwen38-27b-fp8-baseten/local-rtx5090-nvfp4/aiewf_judge_aggregate_v1/results/analysis/aggregates.json",
+      "sha256": "5925926cfea6a98f7226d7965e998c1f169ecbead400cb23b9ccb2907b0d3245",
+      "size_bytes": 94793
+    },
+    {
+      "path": "/home/khkramer/src/gb-benchmarks/port-to-port/proj-2026-08-14-qwen38-27b-fp8-baseten/local-rtx5090-nvfp4/analyze_local_sglang_max12_aiewf_judge_v1.py",
+      "sha256": "5a9a4ddb94a6c989647baede8f543bf56b1a10b4b5b65b83242674b8c7c2f6cd",
+      "size_bytes": 9785
+    },
+    {
+      "path": "/home/khkramer/src/gb-benchmarks/port-to-port/proj-2026-08-14-qwen38-27b-fp8-baseten/local-rtx5090-nvfp4/generate_local_sglang_max12_aiewf_judge_inputs_v1.py",
+      "sha256": "f8affe0c25b820316530c91584e9e2ae24c91f849b4ee8f89eb2b5178feee042",
+      "size_bytes": 3531
+    },
+    {
+      "path": "/home/khkramer/src/gb-benchmarks/port-to-port/proj-2026-08-14-qwen38-27b-fp8-baseten/local-rtx5090-nvfp4/run_local_sglang_max12_aiewf_judge_v1.py",
+      "sha256": "4b2cd499479b9eed71c077c982ba49b5fc2bce5a16c477964e6daeac51292804",
+      "size_bytes": 11214
+    },
+    {
+      "path": "/home/khkramer/src/gb-benchmarks/port-to-port/proj-2026-08-14-qwen38-27b-fp8-baseten/step6/BASETEN_SGLANG_AIEWF_JUDGE_V1_FREEZE_INCIDENT.md",
+      "sha256": "9cd05dc0ed930beab49841944fc255d6e5f784b7b29516c73807cf104e5032dc",
+      "size_bytes": 1221
+    },
+    {
+      "path": "/home/khkramer/src/gb-benchmarks/port-to-port/proj-2026-08-14-qwen38-27b-fp8-baseten/step6/BASETEN_SGLANG_AIEWF_JUDGE_V1_PRELAUNCH.md",
+      "sha256": "bc51b618caa231e0690040906b4e93b31c5411b041e68684c69f2c5a4c85846a",
+      "size_bytes": 2838
+    },
+    {
+      "path": "/home/khkramer/src/gb-benchmarks/port-to-port/proj-2026-08-14-qwen38-27b-fp8-baseten/step6/FABLE_BASETEN_SGLANG_AIEWF_JUDGE_V1_PRELAUNCH_VERDICT.md",
+      "sha256": "8db47ce46b5bb4a37967d04370ec2932ff1206fb9c7ac7fbb008185a70e5b568",
+      "size_bytes": 7772
+    },
+    {
+      "path": "/home/khkramer/src/gb-benchmarks/port-to-port/proj-2026-08-14-qwen38-27b-fp8-baseten/step6/FABLE_BASETEN_SGLANG_AIEWF_JUDGE_V1_R2_PRELAUNCH_REVIEW.md",
+      "sha256": "c82022b821c68e2ca659fb90bac14f37cdb0bfcd52203547d2071aadd703321c",
+      "size_bytes": 6449
+    },
+    {
+      "path": "/home/khkramer/src/gb-benchmarks/port-to-port/proj-2026-08-14-qwen38-27b-fp8-baseten/step6/FABLE_BASETEN_SGLANG_PRODUCTION_PRELAUNCH_REVIEW.md",
+      "sha256": "2681762636b92a73e5e12382f97f460e4d6001a66f482aea94e5e826054c8da3",
+      "size_bytes": 7410
+    },
+    {
+      "path": "/home/khkramer/src/gb-benchmarks/port-to-port/proj-2026-08-14-qwen38-27b-fp8-baseten/step6/FABLE_BASETEN_SGLANG_PRODUCTION_RESUME_V1_PRELAUNCH_REVIEW.md",
+      "sha256": "5ee666ac2ec5ada40dbd7377a70ec4c3c596ccfb195f84d972111fffe1ec2e8b",
+      "size_bytes": 8165
+    },
+    {
+      "path": "/home/khkramer/src/gb-benchmarks/port-to-port/proj-2026-08-14-qwen38-27b-fp8-baseten/step6/analyze_baseten_sglang_aiewf_judge_v1.py",
+      "sha256": "4219c6659f3d4ab08f3754444a8bf0a6307e7e61d023e929dd238ffccbe097c0",
+      "size_bytes": 11955
+    },
+    {
+      "path": "/home/khkramer/src/gb-benchmarks/port-to-port/proj-2026-08-14-qwen38-27b-fp8-baseten/step6/baseten_sglang_aiewf_judge_v1/cpu-validation-r2.json",
+      "sha256": "513c234bb936ac94428838deb6058f1a65b2f743cb82ea5d9582079af28a7005",
+      "size_bytes": 740
+    },
+    {
+      "path": "/home/khkramer/src/gb-benchmarks/port-to-port/proj-2026-08-14-qwen38-27b-fp8-baseten/step6/baseten_sglang_aiewf_judge_v1/cpu-validation-r3.json",
+      "sha256": "68008d0e8ffa869c358740fd3988a6fb79a66123b264d7ef9cf26e4fa8b09ee3",
+      "size_bytes": 740
+    },
+    {
+      "path": "/home/khkramer/src/gb-benchmarks/port-to-port/proj-2026-08-14-qwen38-27b-fp8-baseten/step6/baseten_sglang_production.py",
+      "sha256": "26758a43b68f0bd5eb9db4cc481de671b6f7890e458297bda4d9d1b96cdf263f",
+      "size_bytes": 27866
+    },
+    {
+      "path": "/home/khkramer/src/gb-benchmarks/port-to-port/proj-2026-08-14-qwen38-27b-fp8-baseten/step6/baseten_sglang_production_manifest.json",
+      "sha256": "45497b5d4f923631428de8fe0fb34e6279693d088d507689ca236a65f10e1303",
+      "size_bytes": 4196
+    },
+    {
+      "path": "/home/khkramer/src/gb-benchmarks/port-to-port/proj-2026-08-14-qwen38-27b-fp8-baseten/step6/baseten_sglang_production_resume_v1.py",
+      "sha256": "5db035327f4220988a5c36b63d9101f856f5fe8a1cdb0e33a5ae229c050ccd63",
+      "size_bytes": 20292
+    },
+    {
+      "path": "/home/khkramer/src/gb-benchmarks/port-to-port/proj-2026-08-14-qwen38-27b-fp8-baseten/step6/baseten_sglang_production_resume_v1_package_manifest.json",
+      "sha256": "7b012e134443e4984b311c01b58c54abfa444436b14c413f5ed0a7a1ffa62b83",
+      "size_bytes": 8876
+    },
+    {
+      "path": "/home/khkramer/src/gb-benchmarks/port-to-port/proj-2026-08-14-qwen38-27b-fp8-baseten/step6/generate_baseten_sglang_aiewf_judge_inputs_v1.py",
+      "sha256": "76c9984dd039195512260df56a11b8b43ef743e03c299f373326abd42e0fc08c",
+      "size_bytes": 9370
+    },
+    {
+      "path": "/home/khkramer/src/gb-benchmarks/port-to-port/proj-2026-08-14-qwen38-27b-fp8-baseten/step6/generate_baseten_sglang_aiewf_judge_v1_package.py",
+      "sha256": "216b23af60933b14aee2b3f05c3176d15a0e6d82cd568576296fafce1b5a2246",
+      "size_bytes": 3198
+    },
+    {
+      "path": "/home/khkramer/src/gb-benchmarks/port-to-port/proj-2026-08-14-qwen38-27b-fp8-baseten/step6/run_baseten_sglang_aiewf_judge_v1.py",
+      "sha256": "f73247e502b9d4892bc9158ca85c1051b9a7243cef0e814bacb48d72a834a78c",
+      "size_bytes": 14702
+    },
+    {
+      "path": "/home/khkramer/src/gb-benchmarks/port-to-port/proj-2026-08-14-qwen38-27b-fp8-baseten/step6/test_baseten_sglang_aiewf_judge_v1.py",
+      "sha256": "a40d0085ee2e9f13e048ff0b7af62367758a7da94ebaf4e33ba2e6ea2333584e",
+      "size_bytes": 12759
+    },
+    {
+      "path": "/home/khkramer/src/gb-benchmarks/port-to-port/proj-2026-08-14-qwen38-27b-fp8-baseten/step6/validate_baseten_sglang_aiewf_judge_v1.py",
+      "sha256": "0ca86b589128bf9cfc909ae9f447d8b2601d7e156ec84647406a61907dcce5db",
+      "size_bytes": 1973
+    }
+  ],
+  "fixed_score_denominator": 900,
+  "judge_model": "claude-opus-4-5",
+  "judge_version": "claude-agent-sdk-v4-turn-taking",
+  "max_attempts_per_transcript": 3,
+  "model": "Qwen/Qwen3.8-27B-FP8",
+  "provider": "Baseten H100 SGLang",
+  "schema_version": "qwen38.baseten_fp8_aiewf_judge_package.v1",
+  "workers": 2
+}

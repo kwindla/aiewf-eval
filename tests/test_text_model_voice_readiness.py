@@ -18,7 +18,7 @@ def test_current_readme_rows_are_ranked_by_pass_rate_then_p50():
     rows = chart.load_rows(chart.DEFAULT_README)
     keys = [(-row.pass_rate, row.p50_ms, row.model) for row in rows]
     assert keys == sorted(keys)
-    assert len(rows) == 45
+    assert len(rows) == 46
     assert [row.model for row in rows[:4]] == [
         "nemotron-3-ultra (128)",
         "claude-sonnet-4-6",

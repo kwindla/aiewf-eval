@@ -1,0 +1,2 @@
+model	runs	fixed_turns	observed_judged_turns	strict_pass_percent	tool_error_percent	instruction_error_percent	kb_error_percent	ttfat_p50_ms	ttfat_p95_ms	provider
+Qwen/Qwen3.8-27B-FP8	30	900	900	98.2222	1.7778	1.7778	0.0000	649	801	Baseten H100 SGLang
