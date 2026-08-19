@@ -15,6 +15,7 @@ conversation's first scripted response; historical exceptions are noted below.
 | claude-fable-5 (low) | 100.0% | 0.0% | 0.0% | 0.0% | 0.0% | 3535ms | 5148ms | 8815ms | Anthropic |
 | claude-fable-5 (default) | 100.0% | 0.0% | 0.0% | 0.0% | 0.0% | 3956ms | 6496ms | 13602ms | Anthropic |
 | glm-5.2 (none) | 99.7% | 0.3% | 0.2% | 0.2% | 0.0% | 936ms | 2140ms | 7567ms | Baseten |
+| glm-5.3 (low reasoning) | 98.7% | 1.3% | 1.3% | 1.3% | 0.0% | 2376ms | 4761ms | 8007ms | Z.AI |
 | nemotron-3-ultra (96) | 98.3% | 1.7% | 1.3% | 1.3% | 0.3% | 529ms | 655ms | 1259ms | Baseten |
 | kimi-k2.6 (thinking on) | 98.3% | 1.7% | 1.4% | 1.7% | 0.0% | 1560ms | 5404ms | 13622ms | Baseten |
 | qwen3.8-27b (thinking off, FP8) | 98.2% | 1.8% | 1.8% | 1.8% | 0.0% | 649ms | 801ms | 2161ms | Baseten |

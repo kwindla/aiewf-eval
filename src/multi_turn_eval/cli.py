@@ -51,6 +51,7 @@ SERVICE_ALIASES = {
     "bedrock": "pipecat.services.aws.llm.AWSBedrockLLMService",
     "groq": "pipecat.services.groq.llm.GroqLLMService",
     "cerebras": "multi_turn_eval.services.cerebras_logged.LoggedCerebrasLLMService",
+    "zai": "multi_turn_eval.services.zai_logged.LoggedZaiLLMService",  # Z.AI first-party API (OpenAI-compatible); GLM-5.3 always reasons, so TTFAT excludes reasoning_content deltas and thinking history is replayed on tool calls
     "ultravox-realtime": "pipecat.services.ultravox.llm.UltravoxRealtimeLLMService",
 }
 
