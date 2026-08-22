@@ -13,6 +13,8 @@ class ModelCapabilities:
     thinking_levels: bool = False
     allow_turn_replay: bool = True
     default_thinking_mode: str = "default"
+    explicit_audio_activity: bool = False
+    requires_interaction_status: bool = False
 
 
 _MODEL_CAPABILITY_OVERRIDES = {
@@ -25,6 +27,26 @@ _MODEL_CAPABILITY_OVERRIDES = {
         thinking_levels=True,
         allow_turn_replay=False,
         default_thinking_mode="minimal",
+    ),
+    "clever-chatter": ModelCapabilities(
+        realtime=True,
+        gemini_live=True,
+        gemini_3=True,
+        thinking_levels=True,
+        allow_turn_replay=False,
+        default_thinking_mode="minimal",
+        explicit_audio_activity=True,
+        requires_interaction_status=True,
+    ),
+    # This model has no asynchronous reasoning and never sends interactionStatus.
+    "walkie-talkie": ModelCapabilities(
+        realtime=True,
+        gemini_live=True,
+        gemini_3=True,
+        thinking_levels=True,
+        allow_turn_replay=False,
+        default_thinking_mode="minimal",
+        explicit_audio_activity=True,
     ),
 }
 

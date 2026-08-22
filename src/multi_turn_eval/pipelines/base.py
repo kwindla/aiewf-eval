@@ -177,7 +177,7 @@ class BasePipeline(ABC):
         backends reject empty assistant content outright.
         """
         service_name = (self.service_name or "").lower()
-        if service_name not in {"openai", "openrouter", "nemotron", "nemotron-audio-in", "modal", "baseten", "together"}:
+        if service_name not in {"openai", "openrouter", "nemotron", "nemotron-audio-in", "modal", "baseten", "together", "zai"}:
             return
         if self.context is None:
             return
@@ -349,6 +349,52 @@ class BasePipeline(ABC):
             kwargs["params"] = OpenAILLMService.InputParams(extra=extra)
             logger.info(
                 f"Using Lilac with base_url={base_url}, model={model}, thinking={enable_thinking}"
+            )
+            return service_class(**kwargs)
+
+        # Handle Z.AI (first-party GLM API, OpenAI-compatible at /api/paas/v4).
+        # GLM-5.3 always reasons: `thinking` must be "enabled" and
+        # `reasoning_effort` accepts only low|high|max — every other value
+        # (none/minimal/medium/xhigh) returns HTTP 400 code 1210.
+        if service_name_lower == "zai":
+            api_key = os.getenv("ZAI_API_KEY")
+            if not api_key:
+                raise EnvironmentError("ZAI_API_KEY environment variable is required")
+            base_url = os.getenv("ZAI_BASE_URL", "https://api.z.ai/api/paas/v4")
+            kwargs["api_key"] = api_key
+            kwargs["base_url"] = base_url
+
+            from pipecat.services.openai.llm import OpenAILLMService
+
+            effort = os.getenv("MTE_ZAI_REASONING_EFFORT", "low").strip().lower()
+            allowed_efforts = {"low", "high", "max"}
+            if effort not in allowed_efforts:
+                raise ValueError(
+                    f"Invalid MTE_ZAI_REASONING_EFFORT='{effort}'; expected one of "
+                    f"{sorted(allowed_efforts)}. GLM-5.3 cannot disable thinking."
+                )
+            # Reasoning tokens count against max_tokens; a max-effort turn was
+            # measured at 5.2k reasoning tokens, so keep generous headroom.
+            max_tokens_raw = os.getenv("MTE_ZAI_MAX_TOKENS", "16384").strip()
+            max_tokens = int(max_tokens_raw) if max_tokens_raw else None
+            params_kwargs: Dict[str, Any] = {
+                "temperature": float(os.getenv("MTE_ZAI_TEMPERATURE", "1.0")),
+            }
+            if max_tokens is not None:
+                params_kwargs["max_tokens"] = max_tokens
+            # Neither field is a named argument of the OpenAI SDK's
+            # completions.create() ("max" is also outside its reasoning_effort
+            # literals), so both must travel in extra_body to reach the wire.
+            params_kwargs["extra"] = {
+                "extra_body": {
+                    "thinking": {"type": "enabled"},
+                    "reasoning_effort": effort,
+                }
+            }
+            kwargs["params"] = OpenAILLMService.InputParams(**params_kwargs)
+            logger.info(
+                f"Using Z.AI with base_url={base_url}, model={model}, "
+                f"reasoning_effort={effort}, max_tokens={max_tokens}"
             )
             return service_class(**kwargs)
 

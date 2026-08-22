@@ -19,7 +19,9 @@ from pipecat.frames.frames import (
 from pipecat.processors.frame_processor import FrameDirection
 from pipecat.services.google.gemini_live.llm import GeminiLiveLLMService
 
+from multi_turn_eval.model_capabilities import get_model_capabilities
 from multi_turn_eval.pipelines.realtime import (
+    TERMINAL_INTERACTION_STATUSES,
     GeminiLiveLLMServiceWithReconnection,
     RealtimePipeline,
     TurnGate,
@@ -55,6 +57,33 @@ def _async_live_pipeline() -> RealtimePipeline:
     )
     pipeline.service_name = "gemini-live"
     return pipeline
+
+
+@pytest.mark.parametrize(
+    ("model", "requires_interaction_status"),
+    [
+        ("clever-chatter", True),
+        ("walkie-talkie", False),
+    ],
+)
+def test_opaque_live_model_capability_overrides(model, requires_interaction_status):
+    capabilities = get_model_capabilities(model)
+
+    assert capabilities.realtime is True
+    assert capabilities.gemini_live is True
+    assert capabilities.gemini_3 is True
+    assert capabilities.thinking_levels is True
+    assert capabilities.allow_turn_replay is False
+    assert capabilities.default_thinking_mode == "minimal"
+    assert capabilities.explicit_audio_activity is True
+    assert capabilities.requires_interaction_status is requires_interaction_status
+
+
+def test_opaque_live_model_pipeline_uses_capability_defaults():
+    pipeline = _pipeline("clever-chatter")
+
+    assert pipeline._uses_explicit_audio_activity() is True
+    assert pipeline._requires_async_interaction_status() is True
 
 
 def _enable_interaction_status_sdk(monkeypatch):
@@ -139,7 +168,8 @@ def test_required_interaction_status_rejects_incompatible_sdk(monkeypatch):
         )
 
 
-def test_async_turn_completion_waits_for_requires_action(monkeypatch):
+@pytest.mark.parametrize("terminal_status", sorted(TERMINAL_INTERACTION_STATUSES))
+def test_async_turn_completion_waits_for_terminal_status(monkeypatch, terminal_status):
     parent_messages = []
 
     async def record_parent_completion(_service, message):
@@ -169,7 +199,7 @@ def test_async_turn_completion_waits_for_requires_action(monkeypatch):
             server_content=SimpleNamespace(interaction_status="IN_PROGRESS")
         )
         terminal = SimpleNamespace(
-            server_content=SimpleNamespace(interaction_status="REQUIRES_ACTION")
+            server_content=SimpleNamespace(interaction_status=terminal_status)
         )
 
         await service._handle_msg_turn_complete(first_phase)
@@ -188,7 +218,10 @@ def test_async_turn_completion_waits_for_requires_action(monkeypatch):
     asyncio.run(scenario())
 
 
-def test_async_live_ignores_terminal_while_explicit_input_is_open(monkeypatch):
+@pytest.mark.parametrize("terminal_status", sorted(TERMINAL_INTERACTION_STATUSES))
+def test_async_live_ignores_terminal_while_explicit_input_is_open(
+    monkeypatch, terminal_status
+):
     parent_messages = []
 
     async def record_parent_completion(_service, message):
@@ -207,7 +240,7 @@ def test_async_live_ignores_terminal_while_explicit_input_is_open(monkeypatch):
             OPAQUE_LIVE_MODEL,
         )
         terminal = SimpleNamespace(
-            server_content=SimpleNamespace(interaction_status="REQUIRES_ACTION")
+            server_content=SimpleNamespace(interaction_status=terminal_status)
         )
 
         service._explicit_input_activity_open = True
@@ -219,6 +252,15 @@ def test_async_live_ignores_terminal_while_explicit_input_is_open(monkeypatch):
         assert parent_messages == [terminal]
 
     asyncio.run(scenario())
+
+
+def test_terminal_statuses_cover_both_ea_spellings():
+    """The EA Live API renamed REQUIRES_ACTION to IDLE on 2026-08-19.
+
+    Both must stay terminal: dropping either silently mis-segments turns for
+    whichever build the service happens to be running.
+    """
+    assert TERMINAL_INTERACTION_STATUSES == {"REQUIRES_ACTION", "IDLE"}
 
 
 @pytest.mark.parametrize(
