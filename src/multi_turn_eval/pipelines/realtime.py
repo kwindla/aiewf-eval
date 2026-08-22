@@ -721,11 +721,19 @@ class RealtimePipeline(BasePipeline):
 
     def _uses_explicit_audio_activity(self) -> bool:
         """Whether scripted WAV boundaries must delimit provider audio turns."""
-        return bool(self._explicit_audio_activity)
+        if self._explicit_audio_activity is not None:
+            return self._explicit_audio_activity
+        if not self.model_name:
+            return False
+        return get_model_capabilities(self.model_name).explicit_audio_activity
 
     def _requires_async_interaction_status(self) -> bool:
         """Whether provider interaction status is the authoritative turn end."""
-        return bool(self._require_interaction_status)
+        if self._require_interaction_status is not None:
+            return self._require_interaction_status
+        if not self.model_name:
+            return False
+        return get_model_capabilities(self.model_name).requires_interaction_status
 
     def _uses_gemini_3_protocol(self) -> bool:
         """Whether to force Gemini 3 protocol behavior for an opaque model ID."""

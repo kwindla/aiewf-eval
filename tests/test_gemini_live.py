@@ -19,6 +19,7 @@ from pipecat.frames.frames import (
 from pipecat.processors.frame_processor import FrameDirection
 from pipecat.services.google.gemini_live.llm import GeminiLiveLLMService
 
+from multi_turn_eval.model_capabilities import get_model_capabilities
 from multi_turn_eval.pipelines.realtime import (
     TERMINAL_INTERACTION_STATUSES,
     GeminiLiveLLMServiceWithReconnection,
@@ -56,6 +57,33 @@ def _async_live_pipeline() -> RealtimePipeline:
     )
     pipeline.service_name = "gemini-live"
     return pipeline
+
+
+@pytest.mark.parametrize(
+    ("model", "requires_interaction_status"),
+    [
+        ("clever-chatter", True),
+        ("walkie-talkie", False),
+    ],
+)
+def test_opaque_live_model_capability_overrides(model, requires_interaction_status):
+    capabilities = get_model_capabilities(model)
+
+    assert capabilities.realtime is True
+    assert capabilities.gemini_live is True
+    assert capabilities.gemini_3 is True
+    assert capabilities.thinking_levels is True
+    assert capabilities.allow_turn_replay is False
+    assert capabilities.default_thinking_mode == "minimal"
+    assert capabilities.explicit_audio_activity is True
+    assert capabilities.requires_interaction_status is requires_interaction_status
+
+
+def test_opaque_live_model_pipeline_uses_capability_defaults():
+    pipeline = _pipeline("clever-chatter")
+
+    assert pipeline._uses_explicit_audio_activity() is True
+    assert pipeline._requires_async_interaction_status() is True
 
 
 def _enable_interaction_status_sdk(monkeypatch):
