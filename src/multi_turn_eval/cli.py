@@ -227,9 +227,14 @@ def cli():
     help="Require interaction_status to confirm Gemini Live turn completion.",
 )
 @click.option(
-    "--gemini-explicit-audio-activity",
-    is_flag=True,
-    help="Use exact WAV boundaries and disable Gemini server-side VAD.",
+    "--gemini-explicit-audio-activity/--gemini-server-vad",
+    "gemini_explicit_audio_activity",
+    default=None,
+    help=(
+        "Use exact WAV boundaries and disable Gemini server-side VAD, or force "
+        "the standard acoustic-VAD path used by every other speech-to-speech "
+        "model. Omit both to take the model's configured default."
+    ),
 )
 @click.option(
     "--no-turn-replay",
@@ -246,7 +251,7 @@ def run(
     thinking: Optional[str],
     gemini_3_protocol: bool,
     gemini_require_interaction_status: bool,
-    gemini_explicit_audio_activity: bool,
+    gemini_explicit_audio_activity: Optional[bool],
     no_turn_replay: bool,
     verbose: bool,
 ):
@@ -284,7 +289,7 @@ async def _run(
     verbose: bool,
     gemini_3_protocol: bool = False,
     gemini_require_interaction_status: bool = False,
-    gemini_explicit_audio_activity: bool = False,
+    gemini_explicit_audio_activity: Optional[bool] = None,
     no_turn_replay: bool = False,
 ):
     """Async implementation of the run command."""
@@ -352,9 +357,7 @@ async def _run(
                 "require_interaction_status": (
                     True if gemini_require_interaction_status else None
                 ),
-                "explicit_audio_activity": (
-                    True if gemini_explicit_audio_activity else None
-                ),
+                "explicit_audio_activity": gemini_explicit_audio_activity,
                 "allow_turn_replay": False if no_turn_replay else None,
             }
         pipeline_instance = pipeline_cls(benchmark, **pipeline_kwargs)

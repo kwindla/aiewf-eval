@@ -39,7 +39,15 @@ except ImportError:
 # ============================================================================
 
 JUDGE_VERSION = "claude-agent-sdk-v4-turn-taking"
-JUDGE_MODEL = "claude-opus-4-5"
+
+# Judging is blind: format_turns_for_claude() never passes the model name into
+# the prompt, so the judge cannot tell which system produced a transcript. The
+# name appears only in the written analysis.
+#
+# The judge is non-deterministic on borderline turns, so a single judgment is a
+# noisy measurement rather than a fixed one. Judge repeatedly when comparing
+# models and fold that spread into the interval.
+JUDGE_MODEL = os.getenv("MTE_JUDGE_MODEL", "claude-opus-5")
 
 # System prompt for the two-phase judge
 JUDGE_SYSTEM_PROMPT = """# Role
@@ -86,7 +94,9 @@ For each turn, evaluate FOUR dimensions:
 
 3. **instruction_following** (bool):
    - TRUE if assistant directly answers the question OR advances the task
-   - TRUE if assistant properly deflects out-of-scope questions
+   - TRUE if assistant properly deflects a genuinely OUT-OF-SCOPE question
+     (see "Generic Deflection vs Contextual Decline" below -- do not treat an
+     in-scope request the assistant merely cannot fulfil as out-of-scope)
    - TRUE if the turn is part of a realigned workflow that still accomplishes the goal
    - FALSE if assistant's words contradict its actions (says "Does that work?" but doesn't wait)
    - FALSE if assistant neither answers nor advances the workflow
@@ -97,6 +107,57 @@ For each turn, evaluate FOUR dimensions:
    - TRUE unless assistant states an explicit factual error
    - TRUE if assistant provides additional correct information
    - FALSE only for clear factual contradictions (wrong dates, times, locations, speakers)
+
+# Critical: Generic Deflection vs Contextual Decline
+
+Two different situations both produce a refusal, and they are scored differently.
+Decide which one applies by reading the golden_text, which shows what the refusal
+was supposed to contain.
+
+Work through this in order. Step 1 decides most cases on its own.
+
+**STEP 1 -- Is the topic itself outside the event?** Weather, sports, travel
+advice, general trivia: the subject matter has nothing to do with the fair.
+A generic scope refusal plus a redirect back to the event is exactly right here.
+**instruction_following = TRUE.** Do not look for acknowledgement, specificity,
+or context carry-over in this case -- the golden_text for these turns is itself
+a generic refusal, and matching it is a PASS. This is the common case; do not
+talk yourself out of it.
+
+**STEP 2 -- The topic IS about the event, but the assistant cannot fulfil it**
+(venue directions, seat assignments, anything about the fair the assistant lacks
+a capability or data for). The golden_text will decline while ALSO doing the work
+of the turn:
+naming the specific thing requested, acknowledging the user's stated situation,
+and referencing relevant conversation state such as a request already filed on
+the user's behalf. A bare scope refusal does NOT satisfy this.
+instruction_following = FALSE.
+
+**Template reuse is a specific failure to watch for.** If the assistant answers a
+turn by repeating, near-verbatim, a refusal it produced for an EARLIER turn, and
+the current golden_text requires context the earlier turn did not need, that is
+instruction_following = FALSE even though the text was acceptable earlier. The
+give-away is a response that would read identically if the user's message had
+been completely different.
+
+Check the refusal against what the golden_text actually did. A refusal is not
+automatically wrong -- for a Step 1 topic it is the correct answer.
+
+# Critical: Your Score Must Match Your Reasoning
+
+The boolean you emit for a dimension MUST agree with the reasoning you write for
+it. Before emitting each judgment, re-read your own reasoning and check:
+
+- If your reasoning concludes the behavior was correct, appropriate, or matched
+  the golden's intent, the score for that dimension is TRUE.
+- If your reasoning identifies a specific concrete deficiency -- a fact the
+  golden supplied and the assistant omitted, an action the golden took and the
+  assistant did not, a contradiction between words and actions -- the score is
+  FALSE, and the reasoning must name that deficiency.
+
+Never write reasoning that argues the response was correct and then score it
+FALSE. Never score FALSE on a general impression of weakness without naming what
+was missing. If you cannot name the specific missing element, the score is TRUE.
 
 # Critical: Detecting Words-Actions Mismatch
 
