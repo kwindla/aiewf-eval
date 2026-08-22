@@ -74,6 +74,13 @@ from pipecat.turns.user_turn_strategies import UserTurnStrategies
 
 from multi_turn_eval.pipelines.base import BasePipeline
 
+# Interaction statuses that mean the server has finished all processing and
+# background reasoning for the current turn. The EA Live API originally spelled
+# this ``REQUIRES_ACTION``; as of 2026-08-19 it sends ``IDLE`` instead. Both are
+# accepted so runs stay reproducible across the rename. Anything else is treated
+# as non-definitive and raises rather than guessing at a turn boundary.
+TERMINAL_INTERACTION_STATUSES = frozenset({"REQUIRES_ACTION", "IDLE"})
+
 
 class ResamplingSileroVAD(SileroVADAnalyzer):
     """SileroVADAnalyzer that resamples audio from input rate to 16kHz.
@@ -506,9 +513,10 @@ class GeminiLiveLLMServiceWithReconnection(GeminiLiveLLMService):
         Async-reasoning models use ``turn_complete`` as a phase boundary. An
         ``IN_PROGRESS`` phase can be followed by more model audio or tool calls,
         so clearing the response buffers or emitting TTSStoppedFrame here would
-        advance the benchmark too early. ``REQUIRES_ACTION`` is the definitive
-        terminal state. Models without the new field retain Pipecat's legacy
-        turn-complete behavior.
+        advance the benchmark too early. ``TERMINAL_INTERACTION_STATUSES`` holds
+        the definitive terminal states (``REQUIRES_ACTION``, and ``IDLE`` after
+        the 2026-08-19 EA rename). Models without the new field retain Pipecat's
+        legacy turn-complete behavior.
         """
         interaction_status = self._get_interaction_status(message)
 
@@ -521,21 +529,21 @@ class GeminiLiveLLMServiceWithReconnection(GeminiLiveLLMService):
             self._interaction_in_progress = True
             return
 
-        if interaction_status == "REQUIRES_ACTION":
+        if interaction_status in TERMINAL_INTERACTION_STATUSES:
             if self._requires_interaction_status and self._explicit_input_activity_open:
                 # The Live API can acknowledge interruption of the previous
-                # response with a zero-output REQUIRES_ACTION just after the
+                # response with a zero-output terminal status just after the
                 # next explicit activity_start. It is protocol housekeeping,
                 # not completion of the still-streaming user turn. Forwarding
                 # it would let the turn gate attribute stale state to new input.
                 logger.warning(
-                    "[GEMINI_IGNORED_TERMINAL_DURING_INPUT] Ignoring "
-                    "REQUIRES_ACTION while explicit user activity is open"
+                    f"[GEMINI_IGNORED_TERMINAL_DURING_INPUT] Ignoring "
+                    f"{interaction_status} while explicit user activity is open"
                 )
                 self._interaction_in_progress = False
                 return
             logger.debug(
-                "Gemini Live reported interaction_status=REQUIRES_ACTION; "
+                f"Gemini Live reported interaction_status={interaction_status}; "
                 "emitting terminal response frames"
             )
             self._interaction_in_progress = False
