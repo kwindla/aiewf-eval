@@ -65,7 +65,7 @@ def main() -> None:
             model_audio_during_input.append(
                 {"line": line_number, "sequence": event.get("sequence")}
             )
-        if event.get("interaction_status") == "REQUIRES_ACTION":
+        if event.get("interaction_status") in ("REQUIRES_ACTION", "IDLE"):
             terminal_during_input.append(
                 {"line": line_number, "sequence": event.get("sequence")}
             )
