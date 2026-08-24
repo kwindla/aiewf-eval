@@ -93,3 +93,77 @@ def test_openrouter_filler_modifies_only_outgoing_request_copy(monkeypatch):
     assert request["messages"][-1] is not messages[-1]
     assert request["messages"][-1]["content"] == "Book the appointment. . . ."
     assert messages[-1]["content"] == "Book the appointment."
+
+
+def test_openrouter_reasoning_effort_is_passed(monkeypatch):
+    monkeypatch.setenv("OPENROUTER_API_KEY", "test-key")
+    monkeypatch.setenv("MTE_OPENROUTER_REASONING_EFFORT", "low")
+    monkeypatch.delenv("MTE_OPENROUTER_REASONING_OFF", raising=False)
+
+    service = openrouter_pipeline_stub()._create_llm(CapturingService, "stealth/some-model")
+    extra = service.kwargs["params"].extra
+    assert extra == {"extra_body": {"reasoning": {"effort": "low"}}}
+
+
+def test_openrouter_effort_and_off_are_mutually_exclusive(monkeypatch):
+    monkeypatch.setenv("OPENROUTER_API_KEY", "test-key")
+    monkeypatch.setenv("MTE_OPENROUTER_REASONING_EFFORT", "low")
+    monkeypatch.setenv("MTE_OPENROUTER_REASONING_OFF", "1")
+
+    import pytest as _pytest
+    with _pytest.raises(ValueError, match="mutually exclusive"):
+        openrouter_pipeline_stub()._create_llm(CapturingService, "stealth/some-model")
+
+
+def test_first_chunk_guard_reissues_on_stall(monkeypatch):
+    """A stream that stalls before its first chunk is closed and reissued once."""
+    import asyncio
+
+    from multi_turn_eval.services.openrouter_logged import LoggedOpenRouterLLMService
+
+    class StalledStream:
+        closed = False
+
+        def __aiter__(self):
+            return self
+
+        async def __anext__(self):
+            await asyncio.sleep(999)
+
+        async def close(self):
+            StalledStream.closed = True
+
+    class GoodStream:
+        def __init__(self):
+            self.chunks = ["a", "b"]
+
+        def __aiter__(self):
+            return self
+
+        async def __anext__(self):
+            if self.chunks:
+                return self.chunks.pop(0)
+            raise StopAsyncIteration
+
+    service = object.__new__(LoggedOpenRouterLLMService)
+    service._name = "test-openrouter"
+    streams = [StalledStream(), GoodStream()]
+    calls = {"n": 0}
+
+    async def fake_super(context):
+        calls["n"] += 1
+        return streams.pop(0)
+
+    async def scenario():
+        guarded = service._first_chunk_guard(await fake_super(None), None, 0.05)
+        # Patch the reissue path to hand out the good stream.
+        monkeypatch.setattr(
+            "multi_turn_eval.services.lilac_logged.LoggedLilacLLMService.get_chat_completions",
+            lambda self, context: fake_super(context),
+        )
+        return [c async for c in guarded]
+
+    out = asyncio.run(scenario())
+    assert out == ["a", "b"]
+    assert StalledStream.closed is True
+    assert calls["n"] == 2
