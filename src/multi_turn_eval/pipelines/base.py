@@ -310,13 +310,24 @@ class BasePipeline(ABC):
             tp = os.getenv("MTE_OPENROUTER_TEMPERATURE")
             if tp:
                 params_kwargs["temperature"] = float(tp)
+            effort = os.getenv("MTE_OPENROUTER_REASONING_EFFORT")
+            if reasoning_off and effort:
+                raise ValueError(
+                    "MTE_OPENROUTER_REASONING_OFF and MTE_OPENROUTER_REASONING_EFFORT "
+                    "are mutually exclusive"
+                )
             if reasoning_off:
                 params_kwargs["extra"] = {"extra_body": {"reasoning": {"enabled": False}}}
+            elif effort:
+                # OpenRouter's unified reasoning-effort control (low|medium|high).
+                # Models without effort support ignore it harmlessly.
+                params_kwargs["extra"] = {"extra_body": {"reasoning": {"effort": effort}}}
             if params_kwargs:
                 kwargs["params"] = OpenAILLMService.InputParams(**params_kwargs)
             logger.info(
                 f"Using OpenRouter with base_url={kwargs['base_url']}, "
                 f"reasoning_off={reasoning_off}, "
+                f"reasoning_effort={effort or '(default)'}, "
                 f"max_tokens={mt or '(default)'}"
             )
             return service_class(**kwargs)
