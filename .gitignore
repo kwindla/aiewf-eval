@@ -95,3 +95,5 @@ htmlcov/
 /openai.md
 /tmp-review-001.md
 /tmp.png
+
+*.local.json

@@ -5,13 +5,22 @@ description = "Multi-turn LLM evaluation framework"
 requires-python = ">=3.12"
 dependencies = [
   "click>=8.3",
-  "pipecat-ai[anthropic,aws,aws-nova-sonic,azure,cerebras,google,groq,openai,silero]==1.3.0",
-  "google-genai>=2.16.0,<2.17.0",
+  # Resolved from pipecat main via [tool.uv.sources] below — the Gemini Live
+  # interaction_status turn gating landed after 1.10.0. Revert to a plain PyPI
+  # floor once the next release ships.
+  "pipecat-ai[anthropic,aws,aws-nova-sonic,azure,cerebras,google,groq,openai,silero]>=1.10.0",
+  # Matches what pipecat main pulls. 2.18.1+ exposes
+  # LiveServerContent.interaction_status, required to read Gemini Live
+  # async-reasoning turn ends (older SDKs silently strip the field).
+  "google-genai==2.19.0",
   "python-dotenv",
   "loguru",
   "sounddevice>=0.4.6",
   "soundfile>=0.12.1",
   "numpy>=1.26",
+  # Used directly by scripts/analyze_turn_metrics.py (was previously an undeclared
+  # transitive dep of pipecat 1.3; pipecat 1.7 no longer pulls it).
+  "scipy>=1.14",
   "claude-agent-sdk>=0.1.73",
   "torch>=2.9.1",
   "torchaudio>=2.9.1",
@@ -48,13 +57,15 @@ packages = ["src/multi_turn_eval", "scripts", "benchmarks"]
 only-include = ["src", "scripts", "benchmarks", "turns.py", "tools_schema.py", "system_instruction.py", "system_instruction_short.py"]
 
 [tool.uv]
-# Override pipecat-ai's google-genai<2 cap so current Gemini text and Live
-# model support is available. Re-evaluate after each Pipecat upgrade.
-override-dependencies = ["google-genai>=2.16.0,<2.17.0"]
+# Keep google-genai pinned to the version pipecat main pulls; the Gemini Live
+# interaction_status code requires >=2.18.1 (older SDKs silently strip the
+# field with only a one-time warning). Re-evaluate after each Pipecat upgrade.
+override-dependencies = ["google-genai==2.19.0"]
 
 [tool.uv.sources]
-# Use github branch of pipecat instead of PyPI (commented out to use PyPI versions)
-# pipecat-ai = { git = "https://github.com/pipecat-ai/pipecat.git", rev = "main" }
+# pipecat main, pending the next release (carries Gemini Live interaction_status
+# turn gating). Remove to fall back to PyPI versions.
+pipecat-ai = { git = "https://github.com/pipecat-ai/pipecat.git", rev = "main" }
 
 # [tool.uv.sources]
 # Use local checkout of pipecat instead of PyPI (commented out to use PyPI versions)

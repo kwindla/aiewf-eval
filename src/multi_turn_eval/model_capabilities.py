@@ -1,6 +1,9 @@
 """Central model capability classification for routing and provider behavior."""
 
-from dataclasses import dataclass
+import json
+import os
+from dataclasses import dataclass, fields
+from pathlib import Path
 
 
 @dataclass(frozen=True)
@@ -51,6 +54,35 @@ _MODEL_CAPABILITY_OVERRIDES = {
 }
 
 
+# Local overrides file MTE_MODEL_CAPABILITIES_FILE > _MODEL_CAPABILITY_OVERRIDES
+# Cached per (path, mtime) since lookups happen in frame hot paths.
+_local_overrides_cache: tuple[str, float, dict] | None = None
+
+_VALID_FIELDS = {f.name for f in fields(ModelCapabilities)}
+
+
+def _get_local_overrides() -> dict[str, ModelCapabilities]:
+    global _local_overrides_cache
+    path = os.getenv("MTE_MODEL_CAPABILITIES_FILE")
+    if not path:
+        return {}
+    mtime = Path(path).stat().st_mtime  # missing file raises FileNotFoundError
+    if _local_overrides_cache and _local_overrides_cache[:2] == (path, mtime):
+        return _local_overrides_cache[2]
+    raw = json.loads(Path(path).read_text(encoding="utf-8"))
+    overrides = {}
+    for model_id, caps in raw.items():
+        unknown = set(caps) - _VALID_FIELDS
+        if unknown:
+            raise ValueError(
+                f"Unknown capability field(s) {sorted(unknown)} for "
+                f"{model_id!r} in {path}; valid fields: {sorted(_VALID_FIELDS)}"
+            )
+        overrides[normalize_model_id(model_id)] = ModelCapabilities(**caps)
+    _local_overrides_cache = (path, mtime, overrides)
+    return overrides
+
+
 def normalize_model_id(model: str) -> str:
     """Normalize provider resource prefixes used by Google model listings."""
     normalized = model.strip().lower()
@@ -62,7 +94,9 @@ def normalize_model_id(model: str) -> str:
 def get_model_capabilities(model: str) -> ModelCapabilities:
     """Return explicit or pattern-derived capabilities for ``model``."""
     normalized = normalize_model_id(model)
-    override = _MODEL_CAPABILITY_OVERRIDES.get(normalized)
+    override = _get_local_overrides().get(normalized) or _MODEL_CAPABILITY_OVERRIDES.get(
+        normalized
+    )
     if override is not None:
         return override
 

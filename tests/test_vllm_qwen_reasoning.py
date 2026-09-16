@@ -5,7 +5,7 @@ from types import SimpleNamespace
 
 import pytest
 
-from openai import NOT_GIVEN
+
 from pipecat.frames.frames import (
     FunctionCallInProgressFrame,
     LLMThoughtEndFrame,
@@ -386,7 +386,10 @@ def test_same_reasoning_is_attached_to_each_tool_call_in_one_response():
 class BenchmarkStub:
     system_instruction = "Use tools."
     turns = [{"input": "Hello"}]
-    tools_schema = NOT_GIVEN
+    # No tools for this benchmark. None is the harness spelling; pipelines/base.py
+    # benchmark_tools() maps it to pipecat's NOT_GIVEN sentinel (pipecat >= 1.7's
+    # LLMContext rejects both None and openai's NOT_GIVEN).
+    tools_schema = None
 
 
 def test_text_pipeline_uses_qwen_service_aggregator_and_non_qwen_falls_back():
