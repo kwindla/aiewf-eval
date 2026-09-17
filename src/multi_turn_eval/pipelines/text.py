@@ -28,7 +28,7 @@ from pipecat.processors.aggregators.llm_context import LLMContext
 from pipecat.processors.aggregators.llm_response_universal import LLMContextAggregatorPair
 from pipecat.processors.frame_processor import FrameDirection, FrameProcessor
 
-from multi_turn_eval.pipelines.base import BasePipeline
+from multi_turn_eval.pipelines.base import benchmark_tools, BasePipeline
 from multi_turn_eval.frames import ToolResultTurnCompleteFrame
 from multi_turn_eval.processors.tool_call_recorder import ToolCallRecorder
 
@@ -322,7 +322,7 @@ class TextPipeline(BasePipeline):
         ]
 
         # Get tools schema from benchmark
-        tools = getattr(self.benchmark, "tools_schema", None)
+        tools = benchmark_tools(self.benchmark)
 
         self.context = LLMContext(messages, tools=tools)
         # Reasoning-aware services can provide a universal aggregator pair that

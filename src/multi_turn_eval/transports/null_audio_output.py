@@ -22,6 +22,7 @@
 
 import asyncio
 import time
+from typing import Optional
 
 import numpy as np
 from loguru import logger
@@ -50,7 +51,10 @@ BOT_SPEECH_RMS_THRESHOLD_DB = -30.0
 # Tags are 2kHz sine bursts mixed into the first frame of each bot turn
 # (User tags removed - they triggered on small timing gaps, not real turn boundaries)
 AUDIO_TAG_FREQUENCY_HZ = 2000  # 2kHz sine wave - above typical speech fundamentals
-AUDIO_TAG_DURATION_MS = 15    # 15ms duration - long enough to detect, short enough to not interfere
+# 25ms: must exceed the analyzer's 20ms STFT detection window (analyze_turn_metrics.py)
+# with margin. At 15ms the tag could never fill a single analysis window, so any
+# further truncation into a short frame pushed it under the detection threshold.
+AUDIO_TAG_DURATION_MS = 25
 AUDIO_TAG_AMPLITUDE_DB = -12  # -12dB relative to full scale - clear but avoids clipping
 
 
@@ -115,6 +119,7 @@ class NullAudioOutputTransport(BaseOutputTransport):
         self._bot_silence_frames_inserted: int = 0
         self._bot_silence_samples_inserted: int = 0
         self._bot_frame_count: int = 0
+
         # Bot speech onset detection (RMS-based)
         self._bot_audio_start_time: float = 0.0  # When first bot audio byte arrived for current turn
         self._bot_first_speech_logged: bool = False  # Whether we've logged speech onset for current turn
@@ -123,11 +128,8 @@ class NullAudioOutputTransport(BaseOutputTransport):
         # Turn-based audio tagging (triggered by VADUserStoppedSpeakingFrame)
         # Tag is injected on first bot audio frame after user turn ends
         self._tag_next_bot_audio: bool = False  # Only tag after VAD event
-        self._pending_bot_tag: np.ndarray | None = None
-        # A tag is logged only after this bounded detector finds its waveform
-        # in MediaSender's emitted stream. This avoids ratio-math drift when
-        # SOXR produces a different number of output samples than expected.
-        self._pending_tag_detection: dict[str, object] | None = None
+        # Unmixed tail of a tag whose first frame was too short to hold it all.
+        self._tag_remainder: Optional[np.ndarray] = None
         # Wall-clock time of the last bot audio frame, used to suppress
         # duplicate user-stop events (pipecat 1.x: a server-VAD plain stop and
         # a late local-VAD stop can both arrive for one user turn).
@@ -163,13 +165,13 @@ class NullAudioOutputTransport(BaseOutputTransport):
         self._bot_silence_frames_inserted = 0
         self._bot_silence_samples_inserted = 0
         self._bot_frame_count = 0
+
         # Reset bot speech onset tracking
         self._bot_audio_start_time = 0.0
         self._bot_first_speech_logged = False
         self._bot_skip_rms_samples = 0
         self._tag_next_bot_audio = False  # Only tag after VAD event
-        self._pending_bot_tag = None
-        self._pending_tag_detection = None
+        self._tag_remainder = None
 
         # Reset user audio tracking
         self._user_actual_samples = 0
@@ -230,7 +232,6 @@ class NullAudioOutputTransport(BaseOutputTransport):
                     # Convert to recording sample rate
                     actual_samples = round(raw_samples * self._recording_sample_rate / frame.sample_rate)
                 self._bot_actual_samples += actual_samples
-                self._detect_emitted_tag(frame, self._bot_actual_samples - actual_samples)
 
             # Track user audio samples
             elif isinstance(frame, InputAudioRawFrame):
@@ -384,36 +385,45 @@ class NullAudioOutputTransport(BaseOutputTransport):
             self._bot_audio_start_time = current_time
             self._bot_first_speech_logged = False
 
-            self._pending_bot_tag = self._generate_audio_tag(frame.sample_rate)
-            self._start_tag_detection()
+            tag = self._generate_audio_tag(frame.sample_rate)
+            tagged_audio = self._mix_tag_into_frame(frame.audio, tag)
+            frame = OutputAudioRawFrame(
+                audio=tagged_audio,
+                sample_rate=frame.sample_rate,
+                num_channels=frame.num_channels,
+            )
+            sample_pos_ms = (self._bot_actual_samples / self._recording_sample_rate) * 1000
+            # "emitted" is this transport's *estimate*, taken before the frame is paced
+            # downstream; after a large silence fill it can be seconds from where the
+            # audio lands. Analysis therefore anchors turns on the tag detected in
+            # conversation.wav, never on this number (see analyze_turn_metrics.py).
+            logger.info(
+                f"[NullAudioOutput] Bot turn tag (emitted): sample_pos={sample_pos_ms:.0f}ms, "
+                f"freq={AUDIO_TAG_FREQUENCY_HZ}Hz, duration={AUDIO_TAG_DURATION_MS}ms"
+            )
             # Skip RMS check for tag duration to avoid false speech onset detection
             # The tag is at -12dB which would exceed the -30dB speech threshold
             tag_samples_at_recording_rate = int(AUDIO_TAG_DURATION_MS * self._recording_sample_rate / 1000)
             self._bot_skip_rms_samples = tag_samples_at_recording_rate
             self._tag_next_bot_audio = False  # Only tag once per turn
 
-        if self._pending_bot_tag is not None:
-            tagged_audio = self._mix_tag_into_frame(
-                frame.audio,
-                self._pending_bot_tag,
-                frame.num_channels,
-            )
+        elif self._tag_remainder is not None:
+            # First frame was shorter than the tag - finish it here so the burst is
+            # long enough for the analyzer to detect.
             frame = OutputAudioRawFrame(
-                audio=tagged_audio,
+                audio=self._continue_tag_if_pending(frame.audio),
                 sample_rate=frame.sample_rate,
                 num_channels=frame.num_channels,
             )
-
-        frame_samples = len(frame.audio) // (frame.num_channels * 2)
-        frame_samples_at_recording_rate = round(
-            frame_samples * self._recording_sample_rate / frame.sample_rate
-        )
 
         # Now process the actual frame through normal BaseOutputTransport path
         # This handles pacing and BotStarted/StoppedSpeakingFrame logic
         await super().process_frame(frame, direction)
 
         # Check for speech onset using RMS threshold (skip tag window)
+        frame_samples = len(frame.audio) // (frame.num_channels * 2)
+        frame_samples_at_recording_rate = round(frame_samples * self._recording_sample_rate / frame.sample_rate)
+
         if self._bot_skip_rms_samples > 0:
             # Still in tag window, decrement skip counter
             self._bot_skip_rms_samples -= frame_samples_at_recording_rate
@@ -652,16 +662,6 @@ class NullAudioOutputTransport(BaseOutputTransport):
 
             logger.info(f"[NullAudioOutput] Recording wall-clock elapsed: {elapsed:.1f}s")
 
-        if self._pending_tag_detection is not None:
-            logger.warning(
-                "[NullAudioOutput] Bot turn tag remains pending at recording end; "
-                "its audio was not emitted downstream"
-            )
-        elif self._pending_bot_tag is not None:
-            logger.warning(
-                "[NullAudioOutput] Bot turn tag remains partially unwritten at recording end"
-            )
-
     def _calculate_rms_db(self, audio_bytes: bytes) -> float:
         """Calculate RMS level in dB for an audio frame.
 
@@ -714,119 +714,44 @@ class NullAudioOutputTransport(BaseOutputTransport):
 
         return sine_wave.astype(np.int16)
 
-    def _mix_tag_into_frame(
-        self, frame_audio: bytes, tag: np.ndarray, num_channels: int
-    ) -> bytes:
+    def _mix_tag_into_frame(self, frame_audio: bytes, tag: np.ndarray) -> bytes:
         """Mix audio tag into the beginning of a frame.
 
         Adds the tag samples to the beginning of the frame audio, with clipping
-        protection to prevent overflow. Any portion that does not fit remains
-        pending and is mixed into subsequent bot frames.
+        protection to prevent overflow. If the frame is shorter than the tag, the
+        unmixed remainder is retained and carried into subsequent frames by
+        ``_continue_tag_if_pending``. Truncating instead (the previous behavior)
+        silently produced tags too short for the analyzer's 20ms detection window,
+        so the turn appeared untagged in the WAV even though the log recorded one.
 
         Args:
             frame_audio: Original frame audio bytes (int16 PCM).
-            tag: Pending mono audio tag samples (int16 array).
-            num_channels: Number of interleaved channels in ``frame_audio``.
+            tag: Audio tag samples (int16 array).
 
         Returns:
-            Mixed audio bytes with tag at the beginning.
+            Mixed audio bytes with the tag (or its leading portion) at the start.
         """
         frame = np.frombuffer(frame_audio, dtype=np.int16).copy()
-        frame_samples = len(frame) // num_channels
-        tag_len = min(len(tag), frame_samples)
+        tag_len = min(len(tag), len(frame))
 
         if tag_len > 0:
-            # Mix the mono tag into every channel. ``frame`` is interleaved, so
-            # comparing its flattened length to a mono tag would be incorrect.
-            channels = frame.reshape(-1, num_channels)
-            mixed = channels[:tag_len].astype(np.int32) + tag[:tag_len, None].astype(np.int32)
-            channels[:tag_len] = np.clip(mixed, -32768, 32767).astype(np.int16)
-            remaining = tag[tag_len:]
-            self._pending_bot_tag = remaining if len(remaining) else None
+            # Mix by adding, clip to int16 range to prevent overflow
+            mixed = frame[:tag_len].astype(np.int32) + tag[:tag_len].astype(np.int32)
+            frame[:tag_len] = np.clip(mixed, -32768, 32767).astype(np.int16)
+
+        remainder = tag[tag_len:]
+        self._tag_remainder = remainder if len(remainder) > 0 else None
 
         return frame.tobytes()
 
-    def _start_tag_detection(self) -> None:
-        """Prepare to locate one known tag in MediaSender's emitted audio."""
-        if self._pending_tag_detection is not None:
-            logger.warning(
-                "[NullAudioOutput] Replacing an undetected pending bot turn tag"
-            )
-        self._pending_tag_detection = {
-            "sample_rate": 0,
-            "tag": np.empty(0, dtype=np.int16),
-            "tail": np.empty(0, dtype=np.int16),
-        }
+    def _continue_tag_if_pending(self, frame_audio: bytes) -> bytes:
+        """Mix any retained tag remainder into the start of the next frame.
 
-    def _detect_emitted_tag(
-        self, frame: OutputAudioRawFrame, frame_start_sample: int
-    ) -> None:
-        """Log a pending tag when its waveform reaches the recorded stream.
-
-        The detector runs only from tag injection until that tag is found. It
-        checks the current emitted frame plus at most one tag-length of prior
-        samples, so it follows MediaSender's real resampled/chunked stream
-        rather than estimating positions from the source stream.
+        Returns ``frame_audio`` unchanged when no remainder is pending, so this is
+        safe to call for every bot frame.
         """
-        detection = self._pending_tag_detection
-        if detection is None:
-            return
+        remainder = getattr(self, "_tag_remainder", None)
+        if remainder is None:
+            return frame_audio
 
-        sample_rate = frame.sample_rate
-        tag_sample_rate = detection["sample_rate"]
-        if tag_sample_rate != sample_rate:
-            detection["sample_rate"] = sample_rate
-            detection["tag"] = self._generate_audio_tag(sample_rate)
-            detection["tail"] = np.empty(0, dtype=np.int16)
-
-        tag = detection["tag"]
-        tail = detection["tail"]
-        assert isinstance(tag, np.ndarray)
-        assert isinstance(tail, np.ndarray)
-        if not len(tag):
-            return
-
-        audio = np.frombuffer(frame.audio, dtype=np.int16)
-        if frame.num_channels > 1:
-            audio = audio.reshape(-1, frame.num_channels)[:, 0]
-        combined = np.concatenate((tail, audio))
-        if len(combined) < len(tag):
-            detection["tail"] = combined
-            return
-
-        # The tag is mixed into normal model audio, so compare normalized
-        # correlation rather than expecting an exact PCM match. A 0.8 score is
-        # comfortably above speech/noise correlation while allowing the source
-        # tag to survive SOXR resampling and clipping.
-        tag_float = tag.astype(np.float64)
-        combined_float = combined.astype(np.float64)
-        correlation = np.correlate(combined_float, tag_float, mode="valid")
-        window_energy = np.convolve(
-            combined_float * combined_float,
-            np.ones(len(tag_float)),
-            mode="valid",
-        )
-        tag_energy = np.dot(tag_float, tag_float)
-        scores = correlation / np.sqrt(window_energy * tag_energy + 1.0)
-        best_index = int(np.argmax(scores))
-
-        if scores[best_index] >= 0.8:
-            tail_samples_at_recording_rate = round(
-                len(tail) * self._recording_sample_rate / sample_rate
-            )
-            stream_start_sample = frame_start_sample - tail_samples_at_recording_rate
-            tag_start_sample = stream_start_sample + round(
-                best_index * self._recording_sample_rate / sample_rate
-            )
-            sample_pos_ms = (
-                tag_start_sample / self._recording_sample_rate
-            ) * 1000
-            logger.info(
-                f"[NullAudioOutput] Bot turn tag: sample_pos={sample_pos_ms:.0f}ms, "
-                f"freq={AUDIO_TAG_FREQUENCY_HZ}Hz, "
-                f"duration={AUDIO_TAG_DURATION_MS}ms"
-            )
-            self._pending_tag_detection = None
-            return
-
-        detection["tail"] = combined[-(len(tag) - 1) :]
+        return self._mix_tag_into_frame(frame_audio, remainder)

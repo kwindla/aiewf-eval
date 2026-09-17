@@ -25,6 +25,7 @@ from pipecat.frames.frames import (
     TTSTextFrame,
 )
 from multi_turn_eval.processors.audio_buffer import WallClockAlignedAudioBufferProcessor
+from multi_turn_eval.pipelines.base import benchmark_tools
 from pipecat.processors.frame_processor import FrameDirection, FrameProcessor
 from pipecat.services.aws.nova_sonic.llm import AWSNovaSonicLLMService
 from pipecat.transports.base_transport import TransportParams
@@ -893,7 +894,7 @@ class NovaSonicPipeline:
 
         # Get system instruction and tools from benchmark
         system_instruction = getattr(self.benchmark, "system_instruction", "")
-        tools = getattr(self.benchmark, "tools_schema", None)
+        tools = benchmark_tools(self.benchmark)
 
         # For the old Nova Sonic model, we'd need to append AWAIT_TRIGGER_ASSISTANT_RESPONSE_INSTRUCTION.
         # For Nova 2 Sonic, this is not needed - LLMRunFrame triggers response directly.

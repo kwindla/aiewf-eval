@@ -35,6 +35,20 @@ def _env_bool(name: str, default: bool) -> bool:
     return value.strip().lower() in {"1", "true", "yes", "on"}
 
 
+def benchmark_tools(benchmark):
+    """Return the benchmark's tools schema in the form pipecat expects.
+
+    pipecat >= 1.7's ``LLMContext`` validates ``tools`` strictly: it accepts a
+    ``ToolsSchema``, a list, or its own ``NOT_GIVEN`` sentinel — ``None`` (and
+    openai's ``NOT_GIVEN``) now raise ``TypeError``. Benchmarks without tools
+    therefore map to pipecat's sentinel.
+    """
+    from pipecat.utils.types import NOT_GIVEN
+
+    tools = getattr(benchmark, "tools_schema", None)
+    return NOT_GIVEN if tools is None else tools
+
+
 class BasePipeline(ABC):
     """Base class for all pipelines. Owns all execution state and logic.
 

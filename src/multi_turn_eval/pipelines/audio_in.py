@@ -23,6 +23,7 @@ from pipecat.processors.aggregators.llm_response_universal import (
 from pipecat.processors.frame_processor import FrameProcessor
 
 from multi_turn_eval.pipelines.text import TextPipeline
+from multi_turn_eval.pipelines.base import benchmark_tools
 from multi_turn_eval.vendor.nemotron_omni import (
     NEMOTRON_OMNI_INSTRUCT_DEFAULT_MAX_TOKENS,
     NEMOTRON_OMNI_INSTRUCT_DEFAULT_TEMPERATURE,
@@ -101,7 +102,7 @@ class AudioInPipeline(TextPipeline):
             self._build_audio_user_message(0),
         ]
 
-        tools = getattr(self.benchmark, "tools_schema", None)
+        tools = benchmark_tools(self.benchmark)
 
         self.context = LLMContext(messages, tools=tools)
         self.context_aggregator = LLMContextAggregatorPair(self.context)

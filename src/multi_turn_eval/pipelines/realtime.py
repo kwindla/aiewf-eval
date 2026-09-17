@@ -72,11 +72,11 @@ from pipecat.turns.user_stop.external_user_turn_stop_strategy import (
 )
 from pipecat.turns.user_turn_strategies import UserTurnStrategies
 
-from multi_turn_eval.pipelines.base import BasePipeline
+from multi_turn_eval.pipelines.base import benchmark_tools, BasePipeline
 
 # Interaction statuses that mean the server has finished all processing and
-# background reasoning for the current turn. The EA Live API originally spelled
-# this ``REQUIRES_ACTION``; as of 2026-08-19 it sends ``IDLE`` instead. Both are
+# background reasoning for the current turn. The Live API originally spelled
+# this ``REQUIRES_ACTION``; current builds send ``IDLE`` instead. Both are
 # accepted so runs stay reproducible across the rename. Anything else is treated
 # as non-definitive and raises rather than guessing at a turn boundary.
 TERMINAL_INTERACTION_STATUSES = frozenset({"REQUIRES_ACTION", "IDLE"})
@@ -433,6 +433,29 @@ class GeminiLiveLLMServiceWithReconnection(GeminiLiveLLMService):
         """Whether this model needs ``interaction_status`` to delimit a turn."""
         return self._require_interaction_status
 
+    @property
+    def _gemini_version(self) -> Optional[tuple]:
+        """Give opaque Gemini 3 aliases the 3.7 version gates.
+
+        Version-derived behavior (e.g. ``_supports_non_blocking_tools``) parses the
+        model id; an opaque alias parses to None. The opaque Gemini 3 aliases this
+        harness registers via MTE_MODEL_CAPABILITIES_FILE are the 3.7 Live family,
+        so classify them as (3, 7) rather than falling back to pre-3 behavior.
+        """
+        version = super()._gemini_version
+        if version is None and self._is_gemini_3:
+            return (3, 7)
+        return version
+
+    @property
+    def _expects_interaction_status(self) -> bool:
+        """Extend pipecat's model-name detection with the harness strict flag.
+
+        Ensures the base service's protocol handling (e.g. the unsupported-SDK
+        warning) engages for opaque strict models it cannot infer by name.
+        """
+        return self._require_interaction_status or super()._expects_interaction_status
+
     def __init__(
         self,
         on_reconnecting: Optional[Callable[[], None]] = None,
@@ -461,7 +484,7 @@ class GeminiLiveLLMServiceWithReconnection(GeminiLiveLLMService):
         self._on_reconnecting = on_reconnecting
         self._on_reconnected = on_reconnected
         self._reconnecting = False
-        self._interaction_in_progress = False
+        self._applying_initial_context = False
         self._explicit_input_activity_open = False
 
         # Async-reasoning models can send turn_complete=True while they are
@@ -477,8 +500,8 @@ class GeminiLiveLLMServiceWithReconnection(GeminiLiveLLMService):
             raise RuntimeError(
                 f"Gemini Live model {self._settings.model!r} requires a google-genai "
                 "SDK build that exposes LiveServerContent.interaction_status; the "
-                "loaded SDK does not. Install the Google EAP interaction-status SDK "
-                "before running this model."
+                "loaded SDK does not. Install google-genai>=2.19.0 before running "
+                "this model."
             )
 
     async def process_frame(self, frame: Frame, direction: FrameDirection):
@@ -495,8 +518,12 @@ class GeminiLiveLLMServiceWithReconnection(GeminiLiveLLMService):
         return self._reconnecting
 
     def is_interaction_in_progress(self) -> bool:
-        """Return whether the server says background processing is still active."""
-        return self._interaction_in_progress
+        """Return whether the base service is holding a turn open (server busy)."""
+        return getattr(self, "_turn_complete_pending_idle", None) is not None
+
+    # Wire statuses that mean the session is idle / the turn is terminal.
+    # "IDLE" is the current protocol value; "REQUIRES_ACTION" the legacy spelling.
+    _IDLE_STATUSES = ("IDLE", "REQUIRES_ACTION")
 
     @staticmethod
     def _get_interaction_status(message: Any) -> Optional[str]:
@@ -508,59 +535,67 @@ class GeminiLiveLLMServiceWithReconnection(GeminiLiveLLMService):
         return str(getattr(status, "value", status)).upper()
 
     async def _handle_msg_turn_complete(self, message):
-        """Finalize only when Gemini Live is idle and requires client action.
+        """Harness checks layered on pipecat-native async turn gating.
 
-        Async-reasoning models use ``turn_complete`` as a phase boundary. An
-        ``IN_PROGRESS`` phase can be followed by more model audio or tool calls,
-        so clearing the response buffers or emitting TTSStoppedFrame here would
-        advance the benchmark too early. ``TERMINAL_INTERACTION_STATUSES`` holds
-        the definitive terminal states (``REQUIRES_ACTION``, and ``IDLE`` after
-        the 2026-08-19 EA rename). Models without the new field retain Pipecat's
-        legacy turn-complete behavior.
+        pipecat >= 1.7 gates ``turn_complete`` on ``interaction_status`` itself:
+        an ``IN_PROGRESS`` turn_complete is deferred upstream and re-delivered
+        (with its original status) once the session reports idle, so ANY arrival
+        here is terminal. Two harness-specific checks remain:
+
+        - strict mode (``--gemini-require-interaction-status``): a model
+          registered as status-speaking must actually present a status —
+          silently losing the field mid-conversation invalidates turn
+          boundaries.
+        - activity-open guard: a zero-output idle status arriving just after an
+          explicit activity_start is protocol housekeeping, not completion of
+          the still-streaming user turn; forwarding it would let the turn gate
+          attribute stale state to new input.
         """
-        interaction_status = self._get_interaction_status(message)
-
-        if interaction_status == "IN_PROGRESS":
-            if not self._interaction_in_progress:
-                logger.debug(
-                    "Gemini Live reported turn_complete with interaction_status=IN_PROGRESS; "
-                    "deferring terminal response frames"
-                )
-            self._interaction_in_progress = True
-            return
-
-        if interaction_status in TERMINAL_INTERACTION_STATUSES:
-            if self._requires_interaction_status and self._explicit_input_activity_open:
-                # The Live API can acknowledge interruption of the previous
-                # response with a zero-output terminal status just after the
-                # next explicit activity_start. It is protocol housekeeping,
-                # not completion of the still-streaming user turn. Forwarding
-                # it would let the turn gate attribute stale state to new input.
-                logger.warning(
-                    f"[GEMINI_IGNORED_TERMINAL_DURING_INPUT] Ignoring "
-                    f"{interaction_status} while explicit user activity is open"
-                )
-                self._interaction_in_progress = False
-                return
-            logger.debug(
-                f"Gemini Live reported interaction_status={interaction_status}; "
-                "emitting terminal response frames"
-            )
-            self._interaction_in_progress = False
-            await super()._handle_msg_turn_complete(message)
-            return
+        status = self._get_interaction_status(message)
 
         if self._requires_interaction_status:
-            raise RuntimeError(
-                f"Gemini Live model {self._settings.model!r} returned turn_complete "
-                f"without a usable interaction_status (received {interaction_status!r}); "
-                "cannot determine whether the response is terminal."
-            )
+            # A terminal arrival must carry either an idle status or IN_PROGRESS
+            # (the latter only via the base re-delivering a deferred message).
+            # None, UNSPECIFIED, or unknown values mean the model stopped
+            # speaking the protocol mid-conversation.
+            if status not in self._IDLE_STATUSES and status != "IN_PROGRESS":
+                raise RuntimeError(
+                    f"Gemini Live model {self._settings.model!r} returned turn_complete "
+                    f"without a usable interaction_status (received {status!r}); "
+                    "cannot determine whether the response is terminal."
+                )
+            if status in self._IDLE_STATUSES and self._explicit_input_activity_open:
+                logger.warning(
+                    "[GEMINI_IGNORED_TERMINAL_DURING_INPUT] Ignoring "
+                    f"{status} while explicit user activity is open"
+                )
+                return
 
-        # Existing Gemini Live models do not expose interaction_status and use
-        # turn_complete itself as the terminal signal.
-        self._interaction_in_progress = False
+        if status is not None:
+            logger.debug(
+                f"Gemini Live terminal turn_complete (interaction_status={status}); "
+                "emitting terminal response frames"
+            )
         await super()._handle_msg_turn_complete(message)
+
+    async def _handle_context(self, context):
+        """Mark the initial-context window so setup reconnects are recognizable.
+
+        pipecat applies the first context after connecting and calls
+        ``_reconnect()`` whenever it carries tools or changes the system
+        instruction — a deliberate setup step, not a failure. Inferring that
+        from ``_session is None`` is racy: if the websocket connect completes
+        before the context frame is processed, the session already exists and
+        the setup reconnect would be misread as a mid-run connection loss.
+        """
+        is_initial_context = not self._context
+        if is_initial_context:
+            self._applying_initial_context = True
+        try:
+            await super()._handle_context(context)
+        finally:
+            if is_initial_context:
+                self._applying_initial_context = False
 
     async def _reconnect(self):
         """Override to call callbacks before/after reconnection.
@@ -568,12 +603,13 @@ class GeminiLiveLLMServiceWithReconnection(GeminiLiveLLMService):
         Note: _reconnect() is called both for initial context setup (when setting
         system_instruction or tools) and for actual session timeout reconnections.
         We only want to trigger the callbacks for real reconnections, not initial
-        setup. We detect this by checking if _session exists - if it's None, this
-        is the initial connection, not a reconnection.
+        setup. Setup reconnects happen inside _handle_context's initial-context
+        application (flagged by _applying_initial_context); before the first
+        connect completes _session is also still None.
         """
-        # Only trigger callbacks if we had an existing session (real reconnection)
-        # Not for initial context setup which also calls _reconnect
-        is_real_reconnection = self._session is not None
+        is_real_reconnection = (
+            self._session is not None and not self._applying_initial_context
+        )
 
         self._reconnecting = True
 
@@ -882,7 +918,7 @@ class RealtimePipeline(BasePipeline):
 
         class_name = service_class.__name__
         system_instruction = getattr(self.benchmark, "system_instruction", "")
-        tools = getattr(self.benchmark, "tools_schema", None)
+        tools = benchmark_tools(self.benchmark)
 
         if "OpenAIRealtime" in class_name:
             # OpenAI Realtime: Configure server-side VAD to prevent interruptions
@@ -999,7 +1035,7 @@ class RealtimePipeline(BasePipeline):
         message to trigger the greeting when LLMRunFrame is queued.
         """
         system_instruction = getattr(self.benchmark, "system_instruction", "")
-        tools = getattr(self.benchmark, "tools_schema", None)
+        tools = benchmark_tools(self.benchmark)
 
         # Both OpenAI Realtime and Gemini Live read the system instruction from
         # an LLMContextFrame. The pipecat service extracts the system message

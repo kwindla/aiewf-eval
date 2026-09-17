@@ -41,6 +41,63 @@ torch.set_num_threads(1)
 OVERLAP_THRESHOLD_MS = 100  # Minimum overlap duration to flag (ignore VAD boundary noise)
 UNPROMPTED_GAP_THRESHOLD_MS = 5000  # Max gap from user end to bot start before flagging as unprompted
 
+# Sanity bounds. A turn whose timing falls outside these is not a slow turn, it is a
+# mis-anchored one: the bot tag was paired with the wrong speech segment. Reporting
+# such values as data is how -3549ms TTFB and 181,327ms V2V reached a bug report.
+MAX_PLAUSIBLE_V2V_MS = 10000
+# Fraction of turns that must be anchored to a WAV tag before summary statistics
+# are trustworthy. Below this the run is a measurement failure, not a slow model.
+MIN_TAG_COVERAGE_PCT = 80.0
+# A stall between the tag and speech onset makes silent padding meaningless.
+MAX_PLAUSIBLE_SILENT_PAD_MS = 5000
+
+
+def is_plausible_ttfb(value: Optional[float]) -> bool:
+    """Pipeline TTFB is bot-tag minus user-end; it cannot be negative."""
+    if value is None:
+        return False
+    return value >= 0
+
+
+def is_plausible_v2v(value: Optional[float]) -> bool:
+    """Voice-to-voice latency must be non-negative and within a conversational bound."""
+    if value is None:
+        return False
+    return 0 <= value <= MAX_PLAUSIBLE_V2V_MS
+
+
+def is_plausible_silent_pad(value: Optional[float]) -> bool:
+    """Silent padding beyond a few seconds means a stall intervened, not padding."""
+    if value is None:
+        return False
+    return 0 <= value <= MAX_PLAUSIBLE_SILENT_PAD_MS
+
+
+def suppress_summary_statistics(summary: dict) -> dict:
+    """Strip aggregate statistics from a summary whose coverage failed the gate.
+
+    The human-readable path refuses to print these; the JSON path must refuse too,
+    or a campaign script reading ``--json`` consumes a median computed over whichever
+    turns happened to anchor and treats it as the run's latency.
+    """
+    for key in list(summary):
+        if key.endswith(("_median", "_mean", "_min", "_max", "_p95")):
+            del summary[key]
+    summary["statistics_suppressed"] = True
+    summary["statistics_suppressed_reason"] = (
+        f"tag coverage {summary.get('tag_coverage_pct', 0.0):.0f}% is below the "
+        f"{MIN_TAG_COVERAGE_PCT:.0f}% threshold; latency is not measurable for this run"
+    )
+    return summary
+
+
+def tag_coverage(turns) -> tuple[int, int, float]:
+    """Return (anchored, total, pct) where anchored turns have a WAV-detected tag."""
+    total = len(turns)
+    anchored = sum(1 for t in turns if getattr(t, "bot_tag_wav_ms", None) is not None)
+    pct = (anchored / total * 100) if total else 0.0
+    return anchored, total, pct
+
 
 @dataclass
 class TurnMetrics:
@@ -110,16 +167,32 @@ def load_transcript(run_dir: Path) -> dict[int, dict]:
 
 
 def parse_bot_tags_from_log(log_path: Path) -> list[dict]:
-    """Parse bot turn tag positions from run.log."""
-    tags = []
-    pattern = r"Bot turn tag: sample_pos=(\d+)ms"
+    """Parse bot turn tag positions from run.log.
+
+    Three log shapes exist across run vintages:
+
+    - ``Bot turn tag: ...``            legacy (pre-fix) transport estimate
+    - ``Bot turn tag (emitted): ...``  current transport estimate
+    - ``Bot turn tag (recorded): ...`` position measured on the recording buffer
+
+    "recorded" is authoritative — it is taken where the audio actually lands in
+    ``conversation.wav`` — so it wins whenever present. Note these are only *labels*
+    for turns; the WAV-detected tag is what anchors timing (see ``analyze_run``).
+    """
+    recorded = []
+    estimated = []
+    pattern = r"Bot turn tag(?: \((emitted|recorded)\))?: sample_pos=(\d+)ms"
     if log_path.exists():
         with open(log_path) as f:
             for line in f:
                 match = re.search(pattern, line)
                 if match:
-                    tags.append({"sample_pos_ms": int(match.group(1))})
-    return tags
+                    entry = {"sample_pos_ms": int(match.group(2))}
+                    if match.group(1) == "recorded":
+                        recorded.append(entry)
+                    else:
+                        estimated.append(entry)
+    return recorded if recorded else estimated
 
 
 def parse_user_tags_from_log(log_path: Path) -> list[dict]:
@@ -603,14 +676,19 @@ def analyze_run(run_dir: Path) -> tuple[list[TurnMetrics], AlignmentStats, dict]
         if i < len(rms_onsets):
             m.bot_rms_onset_ms = rms_onsets[i]["sample_pos_ms"]
 
-        # Bot speech start from Silero - find segment closest to bot tag
-        if m.bot_tag_log_ms is not None:
+        # Bot speech start from Silero - find segment closest to the bot tag.
+        # ANCHOR ON THE WAV TAG, never the log tag. The log position is an estimate
+        # that can be seconds away from where the audio landed; anchoring on it
+        # selected a bot segment from a different turn entirely, which is the source
+        # of the negative TTFB and 100s+ V2V values. A turn with no WAV tag is
+        # *unanchored* and gets no timing at all.
+        if m.bot_tag_wav_ms is not None:
             # Find bot segment that starts closest to the tag position
             # Allow up to 500ms before tag (Silero may detect speech before the tag)
             best_bot_seg = None
             best_diff = float('inf')
             for seg in bot_segments:
-                diff = seg["start_ms"] - m.bot_tag_log_ms
+                diff = seg["start_ms"] - m.bot_tag_wav_ms
                 if -500 <= diff < best_diff:
                     best_diff = diff
                     best_bot_seg = seg
@@ -642,8 +720,8 @@ def analyze_run(run_dir: Path) -> tuple[list[TurnMetrics], AlignmentStats, dict]
             print(f"Turn {i}: Skipping timing (reconnection_count={m.reconnection_count})", file=sys.stderr)
             # Leave timing fields as None
         else:
-            if m.bot_tag_log_ms is not None and m.user_end_ms is not None:
-                m.pipeline_ttfb_ms = m.bot_tag_log_ms - m.user_end_ms
+            if m.bot_tag_wav_ms is not None and m.user_end_ms is not None:
+                m.pipeline_ttfb_ms = m.bot_tag_wav_ms - m.user_end_ms
 
             if m.bot_silero_start_ms is not None and m.user_end_ms is not None:
                 # For retried turns, use first_user_end_time (converted to WAV ms) for accurate V2V
@@ -654,11 +732,22 @@ def analyze_run(run_dir: Path) -> tuple[list[TurnMetrics], AlignmentStats, dict]
                 else:
                     m.wav_v2v_ms = m.bot_silero_start_ms - m.user_end_ms
 
-            if m.bot_rms_onset_ms is not None and m.bot_tag_log_ms is not None:
-                m.silent_pad_rms_ms = m.bot_rms_onset_ms - m.bot_tag_log_ms
+            if m.bot_rms_onset_ms is not None and m.bot_tag_wav_ms is not None:
+                m.silent_pad_rms_ms = m.bot_rms_onset_ms - m.bot_tag_wav_ms
 
             if m.bot_silero_start_ms is not None and m.bot_tag_wav_ms is not None:
                 m.silent_pad_silero_ms = m.bot_silero_start_ms - m.bot_tag_wav_ms
+
+            # Drop impossible values rather than reporting them. These indicate a
+            # mis-anchored turn, not a slow one.
+            if not is_plausible_ttfb(m.pipeline_ttfb_ms):
+                m.pipeline_ttfb_ms = None
+            if not is_plausible_v2v(m.wav_v2v_ms):
+                m.wav_v2v_ms = None
+            if not is_plausible_silent_pad(m.silent_pad_rms_ms):
+                m.silent_pad_rms_ms = None
+            if not is_plausible_silent_pad(m.silent_pad_silero_ms):
+                m.silent_pad_silero_ms = None
 
         # Update prev_bot_seg_end for next iteration
         if m.bot_silero_end_ms is not None:
@@ -702,10 +791,27 @@ def analyze_run(run_dir: Path) -> tuple[list[TurnMetrics], AlignmentStats, dict]
                 "gap_from_last_user_ms": gap_ms,
             })
 
+    # Tag coverage drives whether any of this is trustworthy at all.
+    #
+    # The denominator is the number of turns the RUN produced (transcript), not the
+    # number that happened to get tagged. A turn that was never tagged is just as
+    # absent from the latency distribution as one whose tag missed the WAV, and
+    # stalled turns are precisely the ones that lose their tag — so scoring against
+    # tagged turns would report full coverage while silently dropping the slow half
+    # of the run.
+    anchored, tagged_total, _ = tag_coverage(turns)
+    total = max(len(transcript), tagged_total)
+    coverage_pct = (anchored / total * 100) if total else 0.0
+
     # Build summary stats
     summary = {
         "run_dir": str(run_dir),
         "num_turns": n_turns,
+        "transcript_turns": len(transcript),
+        "anchored_turns": anchored,
+        "coverage_denominator": total,
+        "tag_coverage_pct": coverage_pct,
+        "tag_coverage_ok": coverage_pct >= MIN_TAG_COVERAGE_PCT,
         "user_segments": len(user_segments),
         "bot_segments": len(bot_segments),
         "greeting_detected": greeting_detected,
@@ -732,13 +838,26 @@ def analyze_run(run_dir: Path) -> tuple[list[TurnMetrics], AlignmentStats, dict]
     return turns, alignment, summary
 
 
-def print_results(turns: list[TurnMetrics], alignment: AlignmentStats, summary: dict, verbose: bool = False):
+def print_results(
+    turns: list[TurnMetrics],
+    alignment: AlignmentStats,
+    summary: dict,
+    verbose: bool = False,
+    allow_low_coverage: bool = False,
+):
     """Print results in human-readable format."""
     print("=" * 90)
     print("COMPREHENSIVE TURN METRICS ANALYSIS")
     print("=" * 90)
     print(f"Run: {summary['run_dir']}")
     print(f"Turns: {summary['num_turns']}, User segments: {summary['user_segments']}, Bot segments: {summary['bot_segments']}")
+    marker = "✅" if summary.get("tag_coverage_ok") else "❌"
+    denom = summary.get("coverage_denominator", summary["num_turns"])
+    print(
+        f"{marker} Tag coverage: {summary.get('anchored_turns', 0)}/{denom} turns in the run "
+        f"anchored to a WAV tag ({summary.get('tag_coverage_pct', 0.0):.0f}%) "
+        f"— only anchored turns carry timing"
+    )
 
     # Greeting info
     if summary.get("greeting_detected"):
@@ -800,6 +919,20 @@ def print_results(turns: list[TurnMetrics], alignment: AlignmentStats, summary: 
     print("-" * 90)
     print("SUMMARY STATISTICS")
     print("-" * 90)
+
+    # Below the coverage gate, aggregate statistics describe whichever turns happened
+    # to anchor — a biased sample, not the run. Withhold them entirely; the per-turn
+    # table above stays visible for debugging.
+    if not summary.get("tag_coverage_ok", True) and not allow_low_coverage:
+        print(
+            f"SUPPRESSED — only {summary.get('anchored_turns', 0)}/{summary.get('coverage_denominator', summary['num_turns'])} turns "
+            f"({summary.get('tag_coverage_pct', 0.0):.0f}%) anchored to a WAV tag, "
+            f"below the {MIN_TAG_COVERAGE_PCT:.0f}% threshold."
+        )
+        print("Latency for this run is NOT measurable. Do not quote these turns as a distribution.")
+        print("Re-run with --allow-low-coverage to compute statistics anyway (forensics only).")
+        return
+
     metrics = [
         ("Server TTFB", "server_ttfb_ms"),
         ("Raw TTFB", "raw_ttfb_ms"),
@@ -835,6 +968,14 @@ It also verifies log/WAV alignment using audio tags.
     parser.add_argument("run_dir", type=Path, help="Path to the run directory")
     parser.add_argument("--json", action="store_true", help="Output as JSON")
     parser.add_argument("-v", "--verbose", action="store_true", help="Show per-turn breakdown")
+    parser.add_argument(
+        "--allow-low-coverage",
+        action="store_true",
+        help=(
+            "Compute summary statistics even when too few turns are anchored to a WAV "
+            "tag. Forensics only — the resulting distribution is not trustworthy."
+        ),
+    )
 
     args = parser.parse_args()
 
@@ -901,6 +1042,9 @@ It also verifies log/WAV alignment using audio tags.
         print(f"Error: {e}", file=sys.stderr)
         sys.exit(1)
 
+    if not summary.get("tag_coverage_ok", True) and not args.allow_low_coverage:
+        summary = suppress_summary_statistics(summary)
+
     if args.json:
         output = {
             "summary": summary,
@@ -948,7 +1092,23 @@ It also verifies log/WAV alignment using audio tags.
         }
         print(json.dumps(output, indent=2))
     else:
-        print_results(turns, alignment, summary, verbose=args.verbose)
+        print_results(
+            turns,
+            alignment,
+            summary,
+            verbose=args.verbose,
+            allow_low_coverage=args.allow_low_coverage,
+        )
+
+    # Exit non-zero when the run's timing is not measurable, so campaign scripts and
+    # CI cannot silently consume a broken run as if it were data.
+    if not summary.get("tag_coverage_ok", True) and not args.allow_low_coverage:
+        print(
+            f"\nFAILED: tag coverage {summary.get('tag_coverage_pct', 0.0):.0f}% is below "
+            f"the {MIN_TAG_COVERAGE_PCT:.0f}% threshold; latency is not measurable for this run.",
+            file=sys.stderr,
+        )
+        sys.exit(2)
 
 
 if __name__ == "__main__":

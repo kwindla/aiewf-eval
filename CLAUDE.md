@@ -29,6 +29,26 @@ Or grep the output file for progress markers:
   conversational target. Requests to cover every model size do not include
   `*-pro` variants.
 
+## V2V latency is gated on tag coverage
+
+`analyze_turn_metrics.py` anchors each turn on the 2kHz tag **detected in
+`conversation.wav`**, never on the `Bot turn tag (emitted)` position in `run.log` — that
+line is the transport's estimate and drifts seconds away from the real position after a
+large silence fill (i.e. after a stall). Turns with no detected WAV tag are *unanchored*
+and report `N/A`; they are never given computed timing.
+
+- Runs print `Tag coverage: N/M turns anchored (X%)`. Below **80%** the script suppresses
+  all summary statistics and **exits 2** — latency for that run is not measurable. Use
+  `--allow-low-coverage` for forensics only.
+- Impossible values are dropped, not printed: negative pipeline TTFB, V2V outside
+  0–10s (`MAX_PLAUSIBLE_V2V_MS`), silent padding beyond 5s.
+- A stall-heavy run legitimately fails this gate. That is the point: before this gate,
+  such runs printed medians over a biased sample of whichever turns happened to anchor.
+
+Regression coverage lives in `tests/test_audio_tagging.py`. The tag is 25ms so it exceeds
+the detector's 20ms STFT window; if you shorten `AUDIO_TAG_DURATION_MS` below that, tags
+become undetectable and every run silently loses its latency data.
+
 After the run completes, judge and analyze can run in parallel (~1-2 minutes each):
 
 ```
@@ -42,6 +62,7 @@ uv run python scripts/analyze_turn_metrics.py <run_dir> -v
 |-------|---------|-------|
 | gpt-realtime* | openai-realtime | Pipeline auto-detected as `realtime` |
 | gemini-*-native-audio-* | gemini-live | Pipeline auto-detected as `realtime` |
+| gemini-3.8-live* | gemini-live | Pipeline auto-detected as `realtime` |
 | ultravox-* | ultravox-realtime | Pipeline auto-detected as `realtime` |
 | grok-realtime | (auto) | Pipeline auto-detected as `realtime` |
 | amazon.nova-*-sonic-* | (built-in) | Use `--pipeline nova-sonic` |
@@ -54,8 +75,8 @@ check for new silence/sync methods that need overriding to prevent double-counti
 `NullAudioOutputTransport`. (History: `_compute_silence` ≤0.0.98, `_sync_buffer_to_position`
 ≥0.0.99, `_fill_buffer_silence_gap` ≥1.3.0 — all three are no-op overridden.)
 
-Current pipecat: 1.3.0. The 1.3.0 `PipelineTask`/`PipelineRunner` → `PipelineWorker`/`WorkerRunner`
-renames are deprecation shims for now; migrate our pipelines before the shims are removed.
+Current pipecat: **git main via `[tool.uv.sources]`** (uv.lock pins the commit; swap to
+a plain PyPI floor once the next release ships). 
 
 The `anthropic` package is pinned in `pyproject.toml` above pipecat's `>=0.49` floor for
 claude-fable-5 support (adaptive thinking, `output_config.effort`). Re-evaluate the pin after

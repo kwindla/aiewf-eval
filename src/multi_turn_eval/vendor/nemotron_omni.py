@@ -63,7 +63,12 @@ from pipecat.services.llm_service import (
     FunctionCallRunnerItem,
     LLMService,
 )
-from pipecat.services.settings import NOT_GIVEN, LLMSettings, _NotGiven
+from pipecat.services.settings import NOT_GIVEN, LLMSettings
+
+try:  # pipecat >= 1.7: the sentinel type is public
+    from pipecat.utils.types import NotGiven as _NotGiven
+except ImportError:  # pipecat <= 1.3 fallback
+    from pipecat.services.settings import _NotGiven
 from pipecat.utils.time import time_now_iso8601
 
 _TRACE_NAME_RE = re.compile(r"[^A-Za-z0-9._-]")

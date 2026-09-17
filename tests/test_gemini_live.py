@@ -16,8 +16,10 @@ from pipecat.frames.frames import (
     UserStartedSpeakingFrame,
     UserStoppedSpeakingFrame,
 )
-from pipecat.processors.frame_processor import FrameDirection
+from pipecat.clocks.system_clock import SystemClock
+from pipecat.processors.frame_processor import FrameDirection, FrameProcessorSetup
 from pipecat.services.google.gemini_live.llm import GeminiLiveLLMService
+from pipecat.utils.asyncio.task_manager import TaskManager
 
 from multi_turn_eval.model_capabilities import get_model_capabilities
 from multi_turn_eval.pipelines.realtime import (
@@ -87,7 +89,7 @@ def test_opaque_live_model_pipeline_uses_capability_defaults():
 
 
 def _enable_interaction_status_sdk(monkeypatch):
-    """Make public-SDK unit tests advertise the private EAP field."""
+    """Make unit tests advertise the interaction_status field regardless of SDK build."""
     monkeypatch.setitem(
         genai_types.LiveServerContent.model_fields,
         "interaction_status",
@@ -147,6 +149,10 @@ def test_explicit_behavior_configures_opaque_async_gemini_live_model(monkeypatch
 
     assert pipeline._is_gemini_live() is True
     assert service._is_gemini_3 is True
+    # Opaque Gemini 3 aliases are classified as the 3.7 Live family (see
+    # GeminiLiveLLMServiceWithReconnection._gemini_version). pipecat restricts
+    # NON_BLOCKING tool declarations to the 3.8+ Live family, so a
+    # 3.7-classified alias does not get them.
     assert service._supports_non_blocking_tools is False
     assert service._settings.thinking.thinking_level == genai_types.ThinkingLevel.MINIMAL
     assert service._settings.vad.disabled is True
@@ -168,8 +174,55 @@ def test_required_interaction_status_rejects_incompatible_sdk(monkeypatch):
         )
 
 
-@pytest.mark.parametrize("terminal_status", sorted(TERMINAL_INTERACTION_STATUSES))
-def test_async_turn_completion_waits_for_terminal_status(monkeypatch, terminal_status):
+def _live_server_message(status_value=None, *, turn_complete=True):
+    """Fabricate the LiveServerMessage shape the 1.7 receive loop dispatches on."""
+    server_content = SimpleNamespace(
+        model_turn=None,
+        input_transcription=None,
+        output_transcription=None,
+        grounding_metadata=None,
+        turn_complete=turn_complete,
+        interrupted=False,
+        interaction_status=(
+            SimpleNamespace(value=status_value) if status_value is not None else None
+        ),
+    )
+    return SimpleNamespace(
+        server_content=server_content,
+        tool_call=None,
+        usage_metadata=None,
+        session_resumption_update=None,
+    )
+
+
+async def _setup_for_dispatch(service):
+    """Give the service a task manager so the deferral watchdog can start."""
+    await service.setup(
+        FrameProcessorSetup(
+            clock=SystemClock(),
+            task_manager=TaskManager(),
+            pipeline_worker=SimpleNamespace(app_resources=None),
+        )
+    )
+
+
+@pytest.mark.skipif(
+    not hasattr(GeminiLiveLLMService, "_handle_server_message"),
+    reason=(
+        "requires a pipecat release with Gemini Live interaction_status turn "
+        "gating (not yet in 1.10.0); the harness's strict mode fails loudly on "
+        "older releases instead of mis-segmenting turns"
+    ),
+)
+@pytest.mark.parametrize("terminal_status", ["REQUIRES_ACTION", "IDLE"])
+def test_async_turn_completion_waits_for_idle_status(monkeypatch, terminal_status):
+    """pipecat defers IN_PROGRESS turn_completes upstream of our hook.
+
+    Drives the base receive dispatch (``_handle_server_message``) rather than the
+    hook: an IN_PROGRESS turn_complete must be held (nothing forwarded), and a
+    subsequent idle status — the current "IDLE" spelling or the legacy
+    "REQUIRES_ACTION" — must close the turn exactly once.
+    """
     parent_messages = []
 
     async def record_parent_completion(_service, message):
@@ -187,33 +240,64 @@ def test_async_turn_completion_waits_for_terminal_status(monkeypatch, terminal_s
             GeminiLiveLLMServiceWithReconnection,
             OPAQUE_LIVE_MODEL,
         )
-        service._bot_text_buffer = "keep all accumulated response text"
-        service._llm_output_buffer = "keep all accumulated output"
+        await _setup_for_dispatch(service)
 
-        first_phase = SimpleNamespace(
-            server_content=SimpleNamespace(
-                interaction_status=SimpleNamespace(value="IN_PROGRESS")
-            )
-        )
-        second_phase = SimpleNamespace(
-            server_content=SimpleNamespace(interaction_status="IN_PROGRESS")
-        )
-        terminal = SimpleNamespace(
-            server_content=SimpleNamespace(interaction_status=terminal_status)
-        )
-
-        await service._handle_msg_turn_complete(first_phase)
-        await service._handle_msg_turn_complete(second_phase)
+        await service._handle_server_message(_live_server_message("IN_PROGRESS"))
 
         assert service.is_interaction_in_progress() is True
-        assert service._bot_text_buffer == "keep all accumulated response text"
-        assert service._llm_output_buffer == "keep all accumulated output"
         assert parent_messages == []
 
-        await service._handle_msg_turn_complete(terminal)
+        terminal = _live_server_message(terminal_status)
+        await service._handle_server_message(terminal)
 
         assert service.is_interaction_in_progress() is False
         assert parent_messages == [terminal]
+
+    asyncio.run(scenario())
+
+
+def test_initial_context_reconnect_does_not_fire_failure_callbacks(monkeypatch):
+    """A setup reconnect must not be misread as a connection loss.
+
+    pipecat applies the initial context after connecting and reconnects to
+    install its tools/system instruction. If the websocket connect wins the
+    race, ``_session`` is already set when that setup reconnect runs — the
+    old ``_session is None`` heuristic then fired ``on_reconnecting`` and a
+    no-replay model terminated the run at turn 0 before any audio was sent.
+    """
+    events = []
+
+    async def fake_base_reconnect(_service):
+        events.append("base_reconnect")
+
+    async def fake_base_handle_context(service, _context):
+        # Mirrors the base: the initial context application triggers a
+        # reconnect while the connection may already be established.
+        service._session = object()
+        await service._reconnect()
+
+    async def scenario():
+        monkeypatch.setenv("GOOGLE_API_KEY", "test-google-key")
+        _enable_interaction_status_sdk(monkeypatch)
+        monkeypatch.setattr(GeminiLiveLLMService, "_reconnect", fake_base_reconnect)
+        monkeypatch.setattr(
+            GeminiLiveLLMService, "_handle_context", fake_base_handle_context
+        )
+        service = _async_live_pipeline()._create_llm(
+            GeminiLiveLLMServiceWithReconnection,
+            OPAQUE_LIVE_MODEL,
+        )
+        service._on_reconnecting = lambda: events.append("on_reconnecting")
+        service._on_reconnected = lambda: events.append("on_reconnected")
+
+        # Setup reconnect inside the initial context application: no callbacks.
+        await service._handle_context(object())
+        assert events == ["base_reconnect"]
+
+        # A later reconnect with a live session is a real connection loss.
+        events.clear()
+        await service._reconnect()
+        assert events == ["on_reconnecting", "base_reconnect", "on_reconnected"]
 
     asyncio.run(scenario())
 
@@ -254,8 +338,8 @@ def test_async_live_ignores_terminal_while_explicit_input_is_open(
     asyncio.run(scenario())
 
 
-def test_terminal_statuses_cover_both_ea_spellings():
-    """The EA Live API renamed REQUIRES_ACTION to IDLE on 2026-08-19.
+def test_terminal_statuses_cover_both_spellings():
+    """The Live API renamed REQUIRES_ACTION to IDLE.
 
     Both must stay terminal: dropping either silently mis-segments turns for
     whichever build the service happens to be running.
