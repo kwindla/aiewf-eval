@@ -15,6 +15,7 @@ import os
 import time
 
 from loguru import logger
+from openai import NOT_GIVEN as OPENAI_NOT_GIVEN
 
 from pipecat.frames.frames import (
     Frame,
@@ -27,6 +28,7 @@ from pipecat.pipeline.task import PipelineParams, PipelineTask
 from pipecat.processors.aggregators.llm_context import LLMContext
 from pipecat.processors.aggregators.llm_response_universal import LLMContextAggregatorPair
 from pipecat.processors.frame_processor import FrameDirection, FrameProcessor
+from pipecat.utils.types import NOT_GIVEN
 
 from multi_turn_eval.pipelines.base import BasePipeline
 from multi_turn_eval.frames import ToolResultTurnCompleteFrame
@@ -323,6 +325,8 @@ class TextPipeline(BasePipeline):
 
         # Get tools schema from benchmark
         tools = getattr(self.benchmark, "tools_schema", None)
+        if tools is None or tools is OPENAI_NOT_GIVEN:
+            tools = NOT_GIVEN
 
         self.context = LLMContext(messages, tools=tools)
         # Reasoning-aware services can provide a universal aggregator pair that

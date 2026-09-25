@@ -29,6 +29,8 @@ docs/filler-study-data/**/*.lock
 ops/**/judging/logs/
 ops/**/judging/*.lock
 ops/**/*.lock
+# Recorded conversation audio from results campaigns (large; kept locally)
+docs/**/*.wav
 
 # Python
 __pycache__/

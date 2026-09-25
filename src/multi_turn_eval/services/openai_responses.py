@@ -393,6 +393,12 @@ class OpenAIResponsesLLMService(OpenAILLMService):
                 if event_type == "response.completed":
                     response = getattr(event, "response", None)
                     if response is not None:
+                        effective_service_tier = getattr(response, "service_tier", None)
+                        if effective_service_tier:
+                            logger.info(
+                                f"{self}: Responses API effective "
+                                f"service_tier={effective_service_tier}"
+                            )
                         model_name = getattr(response, "model", None)
                         if model_name and self.get_full_model_name() != model_name:
                             self.set_full_model_name(model_name)

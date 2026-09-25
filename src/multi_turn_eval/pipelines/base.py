@@ -459,6 +459,10 @@ class BasePipeline(ABC):
                 f"{pfx}_REASONING_STRENGTH", ""
             ).strip().lower()
             is_muse_glimmer = "muse-glimmer" in model.lower()
+            is_nemotron_35_lightning = (
+                "nemotron-3.5-lightning"
+                in model.lower().replace("_", "-")
+            )
             allowed_reasoning_strengths = {"low", "medium", "high", "xhigh"}
             if (
                 reasoning_strength
@@ -511,6 +515,11 @@ class BasePipeline(ABC):
                 template_arguments["enable_thinking"] = True
             if reasoning_strength:
                 template_arguments["reasoning_strength"] = reasoning_strength
+            # NVIDIA's Nemotron 3.5 Lightning SGLang cookbook requires this
+            # template guard for multi-turn tool histories whose assistant
+            # tool-call messages otherwise have empty content.
+            if is_nemotron_35_lightning:
+                template_arguments["force_nonempty_content"] = True
             if template_arguments:
                 extra_body[template_argument_name] = template_arguments
             if extra_body:
@@ -521,6 +530,7 @@ class BasePipeline(ABC):
                 f"reasoning_effort={effort or '(model default)'}, "
                 f"enable_thinking={et or '(unset)'}, "
                 f"reasoning_strength={reasoning_strength or '(unset)'}, "
+                f"force_nonempty_content={is_nemotron_35_lightning}, "
                 f"max_tokens={max_tokens}, temperature={temperature}, "
                 f"top_p={params_kwargs.get('top_p', '(model default)')}"
             )
@@ -574,10 +584,36 @@ class BasePipeline(ABC):
                 return int(raw) if raw else None
 
             enable_thinking = _env_bool("MTE_VLLM_THINKING", False)
-            temperature = _opt_float("MTE_VLLM_TEMPERATURE", "0.6")
-            top_p = _opt_float("MTE_VLLM_TOP_P", "0.95")
-            top_k = _opt_int("MTE_VLLM_TOP_K", "")  # unset by default
+            normalized_model = "".join(ch for ch in model.lower() if ch.isalnum())
+            is_kimi26 = "kimik26" in normalized_model
+            is_gemma4 = "gemma4" in normalized_model
+            is_nemotron_35_lightning = "nemotron35lightning" in normalized_model
+            is_qwen38 = "qwen38" in "".join(
+                ch for ch in model.lower() if ch.isalnum()
+            )
+            effort = os.getenv("MTE_VLLM_REASONING_EFFORT", "").strip().lower()
+            if effort and effort not in {"low", "medium", "xhigh"}:
+                raise ValueError(
+                    "MTE_VLLM_REASONING_EFFORT must be empty, low, medium, or xhigh"
+                )
+            if is_qwen38 and enable_thinking and not effort:
+                raise ValueError(
+                    "Qwen3.8 thinking runs require explicit "
+                    "MTE_VLLM_REASONING_EFFORT=low|medium|xhigh"
+                )
+            if is_qwen38 and not enable_thinking and effort:
+                raise ValueError(
+                    "Qwen3.8 thinking-off runs must omit MTE_VLLM_REASONING_EFFORT"
+                )
+            temperature = _opt_float(
+                "MTE_VLLM_TEMPERATURE", "1.0" if enable_thinking else "0.7"
+            )
+            top_p = _opt_float(
+                "MTE_VLLM_TOP_P", "0.95" if enable_thinking else "0.80"
+            )
+            top_k = _opt_int("MTE_VLLM_TOP_K", "20" if is_qwen38 else "")
             max_tokens = _opt_int("MTE_VLLM_MAX_TOKENS", "1024")
+            request_seed = _opt_int("MTE_VLLM_SEED", "")
 
             params_kwargs: Dict[str, Any] = {}
             if temperature is not None:
@@ -586,11 +622,25 @@ class BasePipeline(ABC):
                 params_kwargs["top_p"] = top_p
             if top_k is not None:
                 params_kwargs["top_k"] = top_k
+            if is_qwen38:
+                params_kwargs["presence_penalty"] = _opt_float(
+                    "MTE_VLLM_PRESENCE_PENALTY", "0" if enable_thinking else "1.5"
+                )
             if max_tokens is not None:
                 params_kwargs["max_tokens"] = max_tokens
             extra_body: Dict[str, Any] = {
                 "chat_template_kwargs": {"enable_thinking": enable_thinking}
             }
+            # Modal's managed Kimi K2.6 and Gemma 4 recipes ignore
+            # enable_thinking=False by itself. Their templates require the
+            # second native guard as well. Keep this model-specific so other
+            # vLLM/SGLang templates retain their established request shape.
+            if is_kimi26 or is_gemma4:
+                extra_body["chat_template_kwargs"]["thinking"] = enable_thinking
+            if is_nemotron_35_lightning:
+                extra_body["chat_template_kwargs"]["force_nonempty_content"] = _env_bool(
+                    "MTE_VLLM_FORCE_NONEMPTY_CONTENT", True
+                )
             from multi_turn_eval.services.vllm_openai import (
                 is_qwen_reasoning_history_model,
             )
@@ -600,8 +650,11 @@ class BasePipeline(ABC):
                 # alongside the tool call that followed it. Sending both knobs
                 # makes the request behavior explicit for thinking-on and
                 # thinking-off runs.
-                extra_body["chat_template_kwargs"]["preserve_thinking"] = (
-                    enable_thinking
+                extra_body["chat_template_kwargs"]["preserve_thinking"] = True
+            if is_qwen38:
+                extra_body["min_p"] = _opt_float("MTE_VLLM_MIN_P", "0")
+                extra_body["repetition_penalty"] = _opt_float(
+                    "MTE_VLLM_REPETITION_PENALTY", "1"
                 )
             # Optional thinking-budget cap. Two mechanisms:
             #  - default: custom `ThinkingBudgetLogitsProcessor` via vllm_xargs (has a
@@ -625,13 +678,29 @@ class BasePipeline(ABC):
             kwargs["normalize_tool_call_indices"] = _env_bool(
                 "MTE_VLLM_NORMALIZE_TOOL_CALL_INDICES", False
             )
-            params_kwargs["extra"] = {"extra_body": extra_body}
+            request_extra: Dict[str, Any] = {"extra_body": extra_body}
+            if effort:
+                # InputParams.extra is merged into the top-level OpenAI request.
+                request_extra["reasoning_effort"] = effort
+            if request_seed is not None:
+                # Keep one explicit top-level seed on every request in a
+                # conversation. The campaign runner sets this environment
+                # value per child process, so every turn and paired arm uses
+                # the registered conversation seed.
+                request_extra["seed"] = request_seed
+            params_kwargs["extra"] = request_extra
             kwargs["params"] = OpenAILLMService.InputParams(**params_kwargs)
             logger.info(
                 f"Using vllm-openai with base_url={base_url}, model={model}, "
-                f"thinking={enable_thinking}, thinking_budget={thinking_budget}"
+                f"thinking={enable_thinking}, reasoning_effort={effort or '(omitted)'}, "
+                f"seed={request_seed if request_seed is not None else '(omitted)'}, "
+                f"preserve_thinking={extra_body['chat_template_kwargs'].get('preserve_thinking')}, "
+                f"template_thinking={extra_body['chat_template_kwargs'].get('thinking')}, "
+                f"force_nonempty_content={extra_body['chat_template_kwargs'].get('force_nonempty_content')}, "
+                f"thinking_budget={thinking_budget}"
                 f"{' (NATIVE thinking_token_budget)' if native_budget else ''}, "
                 f"T={temperature}, top_p={top_p}, top_k={top_k}, "
+                f"presence_penalty={params_kwargs.get('presence_penalty', '(model default)')}, "
                 f"max_tokens={max_tokens}, normalize_tool_call_indices="
                 f"{kwargs['normalize_tool_call_indices']}"
             )
@@ -836,6 +905,23 @@ class BasePipeline(ABC):
                 class_name = service_class.__name__
                 logger.info(f"Configured {model} to use {class_name}")
 
+            openai_service_tier = os.getenv(
+                "MTE_OPENAI_SERVICE_TIER", "priority"
+            ).strip().lower()
+            allowed_openai_service_tiers = {
+                "auto",
+                "default",
+                "flex",
+                "priority",
+                "fast",
+            }
+            if openai_service_tier not in allowed_openai_service_tiers:
+                raise ValueError(
+                    "Invalid MTE_OPENAI_SERVICE_TIER="
+                    f"'{openai_service_tier}'; expected one of "
+                    f"{sorted(allowed_openai_service_tiers)}"
+                )
+
             # Configure gpt-5 series models: set reasoning effort and priority tier
             if model_lower.startswith("gpt-5"):
                 from pipecat.services.openai.llm import OpenAILLMService
@@ -867,18 +953,27 @@ class BasePipeline(ABC):
                             )
                             reasoning_effort = "low"
                         kwargs["params"] = OpenAILLMService.InputParams(
-                            service_tier="priority",
-                            extra={"reasoning": {"effort": reasoning_effort}},
+                            service_tier=openai_service_tier,
+                            # Pipecat 1.3's deprecated InputParams migration
+                            # drops service_tier from OpenAILLMSettings. Keep it
+                            # in extra as well so the Responses adapter emits the
+                            # field in the actual API request.
+                            extra={
+                                "reasoning": {"effort": reasoning_effort},
+                                "service_tier": openai_service_tier,
+                            },
                         )
                         logger.info(
-                            f"Configured {model} with reasoning.effort={reasoning_effort}, service_tier=priority (Responses API)"
+                            f"Configured {model} with reasoning.effort={reasoning_effort}, "
+                            f"service_tier={openai_service_tier} (Responses API)"
                         )
                     else:
                         kwargs["params"] = OpenAILLMService.InputParams(
-                            service_tier="priority",
+                            service_tier=openai_service_tier,
                         )
                         logger.info(
-                            f"Configured {model} with service_tier=priority (reasoning_effort omitted for chat.completions tools compatibility)"
+                            f"Configured {model} with service_tier={openai_service_tier} "
+                            "(reasoning_effort omitted for chat.completions tools compatibility)"
                         )
                 else:
                     if model_lower.startswith("gpt-5.1") or model_lower.startswith("gpt-5.2"):
@@ -886,12 +981,26 @@ class BasePipeline(ABC):
                     else:
                         reasoning_effort = "minimal"
                     kwargs["params"] = OpenAILLMService.InputParams(
-                        service_tier="priority",
+                        service_tier=openai_service_tier,
                         extra={"reasoning_effort": reasoning_effort},
                     )
                     logger.info(
-                        f"Configured {model} with reasoning_effort={reasoning_effort}, service_tier=priority"
+                        f"Configured {model} with reasoning_effort={reasoning_effort}, "
+                        f"service_tier={openai_service_tier}"
                     )
+            elif service_name_lower == "openai" and class_name == "OpenAIResponsesLLMService":
+                # Non-reasoning Responses models such as GPT-4.1 use the same
+                # request-level Fast mode switch as GPT-5.x.
+                from pipecat.services.openai.llm import OpenAILLMService
+
+                kwargs["params"] = OpenAILLMService.InputParams(
+                    service_tier=openai_service_tier,
+                    extra={"service_tier": openai_service_tier},
+                )
+                logger.info(
+                    f"Configured {model} with service_tier={openai_service_tier} "
+                    "(Responses API)"
+                )
 
         elif "Google" in class_name or "Gemini" in class_name:
             api_key = os.getenv("GOOGLE_API_KEY")
