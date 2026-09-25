@@ -201,7 +201,7 @@ def metric(conversations: list[dict[str, Any]], name: str | None) -> dict[str, A
 def latency_summary(conversations: list[dict[str, Any]]) -> dict[str, Any]:
     values = [value for row in conversations for value in row["latencies"]]
     return {
-        "scope": "observed_scripted_turns_only",
+        "scope": "observed_scripted_turns_excluding_first_response",
         "count": len(values),
         "p50_ms": statistics.median(values),
         "p95_ms": percentile(values, 0.95),
@@ -456,8 +456,8 @@ independent whole-conversation resampling with
 {turn_rows}
 
 Missing future turns after a model-caused early exit count as failures. Latency
-uses observed scripted turns only. Each confidence interval resamples whole
-conversations, not individual turns. Each difference interval resamples its two
+uses observed scripted turns after the first response only. Each confidence
+interval resamples whole conversations, not individual turns. Each difference interval resamples its two
 150-conversation arms independently.
 
 Both arms use the same NVFP4 checkpoint, one RTX 5090, the same SGLang image,

@@ -7,9 +7,9 @@ end-to-end deployment reference.
 
 | Configuration | Strict pass | Whole-conversation bootstrap 95% CI | Tool error | Instruction error | KB error | TTFAT P50 | TTFAT P95 |
 |---|---:|---:|---:|---:|---:|---:|---:|
-| BaseTen BF16 weights/KV + MTP | 4346/4500 (96.58%) | 96.13–97.02% | 3.33% | 3.40% | 0.02% | 490ms | 718ms |
-| Local FP8 KV | 4297/4500 (95.49%) | 94.96–96.00% | 4.47% | 4.51% | 0.00% | 105ms | 309ms |
-| Local BF16 KV | 4327/4500 (96.16%) | 95.62–96.64% | 3.78% | 3.82% | 0.00% | 128ms | 336ms |
+| BaseTen BF16 weights/KV + MTP | 4346/4500 (96.58%) | 96.13–97.02% | 3.33% | 3.40% | 0.02% | 489ms | 609ms |
+| Local FP8 KV | 4297/4500 (95.49%) | 94.96–96.00% | 4.47% | 4.51% | 0.00% | 105ms | 290ms |
+| Local BF16 KV | 4327/4500 (96.16%) | 95.62–96.64% | 3.78% | 3.82% | 0.00% | 127ms | 318ms |
 
 Local BF16 KV minus local FP8 KV is **+0.67 percentage points**
 (independent whole-conversation bootstrap 95% CI **-0.07 to
@@ -32,8 +32,8 @@ independent whole-conversation resampling with
 | 24 | 2/150 | 11/150 | 14/150 | +3 |
 
 Missing future turns after a model-caused early exit count as failures. Latency
-uses observed scripted turns only. Each confidence interval resamples whole
-conversations, not individual turns. Each difference interval resamples its two
+uses observed scripted turns after the first response only. Each confidence
+interval resamples whole conversations, not individual turns. Each difference interval resamples its two
 150-conversation arms independently.
 
 Both arms use the same NVFP4 checkpoint, one RTX 5090, the same SGLang image,

@@ -100,7 +100,7 @@ def load_conversation(manifest: dict[str, str]) -> dict[str, Any]:
     strict = [all(scores[name][turn] for name in COMPONENTS) for turn in range(N_TURNS)]
     latencies = [
         float(row["ttfb_ms"])
-        for row in scheduled
+        for row in scheduled[1:]
         if isinstance(row.get("ttfb_ms"), (int, float))
     ]
     scheduled_end = [
@@ -181,7 +181,7 @@ def main() -> int:
     components = {name: metric(conversations, name) for name in COMPONENTS}
     latencies = [value for conversation in conversations for value in conversation["latencies"]]
     latency = {
-        "scope": "observed_scripted_turns_only",
+        "scope": "observed_scripted_turns_excluding_first_response",
         "count": len(latencies),
         "p50_ms": statistics.median(latencies),
         "p95_ms": percentile(latencies, 0.95),
@@ -258,9 +258,10 @@ Most error-prone scripted turns:
 {worst_rows}
 
 Missing future turns after a model-caused early exit count as failures in all
-four displayed accuracy measures. Latency is reported only where a scripted
-turn produced a measured response. Whole conversations, not individual turns,
-are the bootstrap resampling unit.
+four displayed accuracy measures. Latency excludes each conversation's first
+scripted response and is reported only where a later scripted turn produced a
+measured response. Whole conversations, not individual turns, are the bootstrap
+resampling unit.
 """
     OUTPUT_REPORT.write_text(report)
     print(report)

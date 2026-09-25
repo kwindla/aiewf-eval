@@ -334,14 +334,15 @@ def main() -> int:
                 raw = row.get("raw_ttfb_ms")
                 answer = row.get("ttfb_ms")
                 latency = row.get("latency_ms")
-                if raw is not None:
-                    raw_ttft.append(float(raw))
-                if answer is not None:
-                    ttfat.append(float(answer))
-                if latency is not None:
-                    response_latency.append(float(latency))
-                if raw is not None and answer is not None:
-                    reasoning_delay.append(max(0.0, float(answer) - float(raw)))
+                if int(row["turn"]) != 0:
+                    if raw is not None:
+                        raw_ttft.append(float(raw))
+                    if answer is not None:
+                        ttfat.append(float(answer))
+                    if latency is not None:
+                        response_latency.append(float(latency))
+                    if raw is not None and answer is not None:
+                        reasoning_delay.append(max(0.0, float(answer) - float(raw)))
 
         conversation_scores[arm] = strict_scores
         turn12_redundant[arm] = arm_turn12_redundant
@@ -647,7 +648,8 @@ def main() -> int:
             "- Completion tokens include the model's hidden reasoning and answer output; "
             "the local backend does not expose a separate thinking-token count. TTFAT is "
             "time to the first answer/tool token, while raw TTFT is time to the first "
-            "reasoning token.",
+            "reasoning token. Latency summaries exclude each conversation's first "
+            "scripted response.",
         ]
     )
     lines.extend(["", "## Per-turn strict passes", ""])

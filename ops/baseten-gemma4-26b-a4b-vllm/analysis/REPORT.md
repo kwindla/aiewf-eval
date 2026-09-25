@@ -3,7 +3,8 @@
 This report covers 30 canonical, strictly sequential thinking-off conversations
 on the dedicated BaseTen deployment. Every conversation contributes 30
 scheduled turns. Missing future turns after an early exit are failures; latency
-is summarized only for observed model responses.
+is summarized only for observed model responses after each conversation's first
+scripted response.
 
 | Measure | Result |
 |---|---:|
@@ -14,7 +15,7 @@ is summarized only for observed model responses.
 | KB error | 0.0% |
 | Full scheduled coverage | 30/30 |
 | Strict protocol completion | 30/30 |
-| TTFAT P50 / P95 / max | 597 / 670 / 4583 ms |
+| TTFAT P50 / P95 / max | 596 / 635 / 4583 ms |
 
 ## Candidate README row
 
@@ -22,14 +23,13 @@ The analyzer does not edit `README.md`. After reviewing the result, insert this
 row at the correct score-sorted position:
 
 ```text
-| gemma-4-26b-a4b-it (thinking off) | 81.4% | 18.6% | 13.0% | 18.6% | 0.0% | 597ms | 670ms | 4583ms | BaseTen |
+| gemma-4-26b-a4b-it (thinking off) | 81.4% | 18.6% | 13.0% | 18.6% | 0.0% | 596ms | 635ms | 4583ms | BaseTen |
 ```
 
 ## Provenance
 
 - Model: `google/gemma-4-26B-A4B-it`
-- Provider: dedicated BaseTen vLLM deployment
-- Serving: vLLM 0.26.1 development build, automatic prefix caching, one-token MTP
+- Endpoint: `https://model-qel1y223.api.baseten.co/deployment/qz4zpye/sync/v1`
 - Sampling: temperature 1.0, top-p 0.95, top-k 64, max tokens 8,192
 - Thinking: explicitly disabled
 - Filler: none

@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-07-30T21:52:39+00:00",
+  "generated_at": "2026-08-12T14:31:23+00:00",
   "campaign_id": "aiewf-medium-gemma4-26b-a4b-baseten-vllm-n30-20260730",
   "model": "google/gemma-4-26B-A4B-it",
   "provider": "BaseTen",
@@ -41,7 +41,7 @@
     "judging/COMPLETE.json": "0a265c5e4f0e61edc466b9680acc5046c94e7dd81235fa159a8991118d9c84ec",
     "judging/canonical-inputs.tsv": "c0b547920c8ba508573a42f7a01aac446d1c30925cfae19db4618b29a357e10a",
     "judging/judge-source-sha256.txt": "5de7de91579af2c42c9ed2ae2bf59050a1626432bca6e54d98a3cb99141593c9",
-    "analysis/analyze.py": "4b4c79a6e42fa706e056e7e991a6dbba1367ba2892ab787dbc4c248ed3a68495"
+    "analysis/analyze.py": "bc5d873a7bb3a6cf545621cee790bfcb5ba87c0b25cd2cab543c606b3d5e084b"
   },
   "aggregate": {
     "runs": 30,
@@ -111,13 +111,14 @@
       }
     },
     "ttfat_ms_observed_responses_only": {
-      "count": 900,
-      "p50": 597.0,
-      "p95": 670.0,
+      "scope": "scripted turns 1-29",
+      "count": 870,
+      "p50": 596.0,
+      "p95": 635.0,
       "max": 4583.0
     }
   },
-  "readme_candidate_row": "| gemma-4-26b-a4b-it (thinking off) | 81.4% | 18.6% | 13.0% | 18.6% | 0.0% | 597ms | 670ms | 4583ms | BaseTen |",
+  "readme_candidate_row": "| gemma-4-26b-a4b-it (thinking off) | 81.4% | 18.6% | 13.0% | 18.6% | 0.0% | 596ms | 635ms | 4583ms | BaseTen |",
   "runs": [
     {
       "slot": 1,

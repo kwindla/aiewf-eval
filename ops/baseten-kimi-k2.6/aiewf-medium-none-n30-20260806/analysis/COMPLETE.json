@@ -2,8 +2,8 @@
   "campaign_id": "aiewf-medium-baseten-kimi-k2.6-none-n30-20260806",
   "generated_at": "2026-08-06T17:20:52+00:00",
   "fixed_scripted_turns": 900,
-  "aggregates_json_sha256": "2c2afe5252a67c90138d6348265341e303fd163461c8c25ad0fbb8d22cd3bc89",
-  "aggregates_tsv_sha256": "2f506a48687e2e47ec5f178b67ec78dccf32d1d69f5397d027dcb7080230d91f",
+  "aggregates_json_sha256": "b711792b8dd6486e1a5634a0395dd362f00426b887e8a5c2a23fcfb9d733aae7",
+  "aggregates_tsv_sha256": "97d36c6dedf3084891b827ecd0734ef183f538db99ade6fdea8df8a013e8da96",
   "included_runs_sha256": "5b10e0f813a0b52ee9a12d273478ab7f98c26cee12fd6f7b205ca1ce6c55d863",
-  "report_sha256": "23eb7e63851964f768a75ff6d191f9c50d888ebab70398be6014b95ce2891a33"
+  "report_sha256": "25529d245938c7204d3299eee18b0057c73b76eef24fa3cdbf36a9ab86dcd4c3"
 }

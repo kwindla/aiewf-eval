@@ -298,7 +298,7 @@ def load_conversation(entry: dict[str, Any]) -> Conversation:
             components[component][turn] = value
         strict[turn] = all(components[key][turn] for key in SCORE_COMPONENTS)
         ttfat = transcript[turn].get("ttfb_ms")
-        if isinstance(ttfat, (int, float)) and not isinstance(ttfat, bool):
+        if turn != 0 and isinstance(ttfat, (int, float)) and not isinstance(ttfat, bool):
             if math.isfinite(float(ttfat)) and float(ttfat) >= 0:
                 latency.append(float(ttfat))
 
@@ -432,6 +432,7 @@ def aggregate(conversations: list[Conversation]) -> dict[str, Any]:
             },
         },
         "ttfat_ms_observed_responses_only": {
+            "scope": "scripted turns 1-29",
             "count": len(latencies),
             "p50": statistics.median(latencies) if latencies else None,
             "p95": percentile(latencies, 0.95),
@@ -582,7 +583,8 @@ def write_outputs(
 This report covers 30 canonical, strictly sequential thinking-off conversations
 on the dedicated BaseTen deployment. Every conversation contributes 30
 scheduled turns. Missing future turns after an early exit are failures; latency
-is summarized only for observed model responses.
+is summarized only for observed model responses after each conversation's first
+scripted response.
 
 | Measure | Result |
 |---|---:|

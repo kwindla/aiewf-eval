@@ -20,20 +20,20 @@
         "turn_taking": 900
       },
       "raw_ttft_ms": {
-        "max": 4711.0,
-        "median": 181.0,
-        "p95": 286.0
+        "max": 338.0,
+        "median": 179.0,
+        "p95": 268.0
       },
       "reasoning_delay_ms": {
         "max": 15419.0,
         "median": 30.0,
-        "p95": 6481.0
+        "p95": 6037.0
       },
       "recovery_responses": 128,
       "response_latency_ms": {
-        "max": 18093.0,
-        "median": 861.5,
-        "p95": 8666.0
+        "max": 16971.0,
+        "median": 811.5,
+        "p95": 7354.0
       },
       "strict_pass": 766,
       "strict_pass_by_turn": {
@@ -83,9 +83,9 @@
         "redundant_rate": 0.5666666666666667
       },
       "ttfat_ms": {
-        "max": 16626.0,
-        "median": 236.0,
-        "p95": 7719.0
+        "max": 15594.0,
+        "median": 234.0,
+        "p95": 6176.0
       },
       "turn11": {
         "categories": {
@@ -153,20 +153,20 @@
         "turn_taking": 900
       },
       "raw_ttft_ms": {
-        "max": 4713.0,
-        "median": 177.0,
-        "p95": 275.0
+        "max": 354.0,
+        "median": 176.0,
+        "p95": 252.0
       },
       "reasoning_delay_ms": {
         "max": 5190.0,
         "median": 30.0,
-        "p95": 1906.0
+        "p95": 1732.0
       },
       "recovery_responses": 117,
       "response_latency_ms": {
-        "max": 9017.0,
-        "median": 804.0,
-        "p95": 3976.0
+        "max": 6597.0,
+        "median": 778.5,
+        "p95": 2727.0
       },
       "strict_pass": 775,
       "strict_pass_by_turn": {
@@ -216,9 +216,9 @@
         "redundant_rate": 0.45
       },
       "ttfat_ms": {
-        "max": 7713.0,
-        "median": 231.0,
-        "p95": 3105.0
+        "max": 5474.0,
+        "median": 228.0,
+        "p95": 1938.0
       },
       "turn11": {
         "categories": {
@@ -285,9 +285,9 @@
         "turn_taking": 900
       },
       "raw_ttft_ms": {
-        "max": 4734.0,
-        "median": 181.0,
-        "p95": 290.0
+        "max": 336.0,
+        "median": 179.0,
+        "p95": 274.0
       },
       "reasoning_delay_ms": {
         "max": 7367.0,
@@ -296,9 +296,9 @@
       },
       "recovery_responses": 126,
       "response_latency_ms": {
-        "max": 12059.0,
-        "median": 854.0,
-        "p95": 6910.0
+        "max": 8967.0,
+        "median": 833.0,
+        "p95": 5786.0
       },
       "strict_pass": 769,
       "strict_pass_by_turn": {
@@ -348,9 +348,9 @@
         "redundant_rate": 0.55
       },
       "ttfat_ms": {
-        "max": 9432.0,
-        "median": 236.0,
-        "p95": 5958.0
+        "max": 7510.0,
+        "median": 234.0,
+        "p95": 4632.0
       },
       "turn11": {
         "categories": {
@@ -419,20 +419,20 @@
         "turn_taking": 900
       },
       "raw_ttft_ms": {
-        "max": 4710.0,
-        "median": 179.0,
-        "p95": 285.0
+        "max": 344.0,
+        "median": 178.0,
+        "p95": 268.0
       },
       "reasoning_delay_ms": {
         "max": 13104.0,
         "median": 30.0,
-        "p95": 6147.0
+        "p95": 6138.0
       },
       "recovery_responses": 129,
       "response_latency_ms": {
-        "max": 14635.0,
-        "median": 837.5,
-        "p95": 8781.0
+        "max": 14518.0,
+        "median": 814.5,
+        "p95": 7046.0
       },
       "strict_pass": 764,
       "strict_pass_by_turn": {
@@ -483,8 +483,8 @@
       },
       "ttfat_ms": {
         "max": 13333.0,
-        "median": 234.0,
-        "p95": 7767.0
+        "median": 232.0,
+        "p95": 6358.0
       },
       "turn11": {
         "categories": {
