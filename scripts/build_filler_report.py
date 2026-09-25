@@ -700,6 +700,75 @@ if set(REASONING["none"]) != {"n_per_arm", "nofiller", "dots96", "effect"}:
     raise ValueError("GPT-5.4 reasoning-off comparison schema mismatch")
 if set(REASONING["low"]) != {"n_per_arm", "nofiller", "dots96", "effect"}:
     raise ValueError("GPT-5.4 low-reasoning comparison schema mismatch")
+AUGUST_FOLLOWUPS_PATH = (Path(__file__).resolve().parents[1] /
+                         "docs/filler-study-data/august-open-model-followups-2026-08-13/aggregates.json")
+if not AUGUST_FOLLOWUPS_PATH.is_file():
+    raise RuntimeError(f"August open-model follow-ups are required: {AUGUST_FOLLOWUPS_PATH}")
+AUGUST_FOLLOWUPS = json.loads(AUGUST_FOLLOWUPS_PATH.read_text())
+if (
+    AUGUST_FOLLOWUPS.get("schema_version") != 1
+    or AUGUST_FOLLOWUPS.get("artifact_status") != "FINAL"
+    or AUGUST_FOLLOWUPS.get("benchmark") != "aiwf_medium_context"
+    or AUGUST_FOLLOWUPS.get("turns_per_conversation") != 30
+    or AUGUST_FOLLOWUPS.get("filler") != {
+        "count": 96,
+        "position": "suffix",
+        "history_persisted": False,
+        "tokenizer_normalized": False,
+    }
+):
+    raise ValueError("August open-model follow-up protocol mismatch")
+MUSE_FOLLOWUP = AUGUST_FOLLOWUPS.get("muse_glimmer", {})
+MUSE_DOTS = MUSE_FOLLOWUP.get("dots_screen", {})
+MUSE_DASH = MUSE_FOLLOWUP.get("dash_replication", {})
+NEMOTRON_LIGHTNING = AUGUST_FOLLOWUPS.get("nemotron_35_lightning", {})
+
+
+def validate_followup_arm(arm, *, conversations, denominator):
+    if (
+        arm.get("conversations") != conversations
+        or arm.get("denominator") != denominator
+        or not isinstance(arm.get("strict_pass"), int)
+        or abs(arm.get("rate_pct", float("nan")) - 100 * arm["strict_pass"] / denominator) > 1e-9
+    ):
+        raise ValueError("August open-model follow-up arm mismatch")
+
+
+for arm in MUSE_DOTS.get("arms", {}).values():
+    validate_followup_arm(arm, conversations=30, denominator=900)
+for arm in MUSE_DASH.get("arms", {}).values():
+    validate_followup_arm(arm, conversations=75, denominator=2250)
+for arm in NEMOTRON_LIGHTNING.get("arms", {}).values():
+    validate_followup_arm(arm, conversations=30, denominator=900)
+if (
+    set(MUSE_DOTS.get("arms", {})) != {"nofiller", "dots96"}
+    or set(MUSE_DASH.get("arms", {})) != {"nofiller", "dashes96"}
+    or set(NEMOTRON_LIGHTNING.get("arms", {})) != {"nofiller", "dots96", "dashes96"}
+    or MUSE_DOTS["arms"]["nofiller"].get("complete_conversations") != 30
+    or MUSE_DOTS["arms"]["dots96"].get("complete_conversations") != 30
+    or MUSE_DASH["arms"]["nofiller"].get("complete_conversations") != 75
+    or MUSE_DASH["arms"]["dashes96"].get("complete_conversations") != 75
+    or NEMOTRON_LIGHTNING["arms"]["nofiller"].get("complete_conversations") != 30
+    or NEMOTRON_LIGHTNING["arms"]["dots96"].get("complete_conversations") != 0
+    or NEMOTRON_LIGHTNING["arms"]["dashes96"].get("complete_conversations") != 0
+    or sum(NEMOTRON_LIGHTNING["arms"][name]["observed_scripted_turns"]
+           + NEMOTRON_LIGHTNING["arms"][name]["missing_future_turns"]
+           for name in ("dots96", "dashes96")) != 1800
+):
+    raise ValueError("August open-model follow-up completion mismatch")
+for effect, control, treatment in (
+    (MUSE_DOTS, "nofiller", "dots96"),
+    (MUSE_DASH, "nofiller", "dashes96"),
+):
+    calculated = effect["arms"][treatment]["rate_pct"] - effect["arms"][control]["rate_pct"]
+    if abs(calculated - effect["effect_points"]) > 1e-9:
+        raise ValueError("Muse Glimmer follow-up effect mismatch")
+for effect_name, treatment in (("dots96_minus_nofiller", "dots96"),
+                               ("dashes96_minus_nofiller", "dashes96")):
+    calculated = (NEMOTRON_LIGHTNING["arms"][treatment]["rate_pct"]
+                  - NEMOTRON_LIGHTNING["arms"]["nofiller"]["rate_pct"])
+    if abs(calculated - NEMOTRON_LIGHTNING["effects"][effect_name]["points"]) > 1e-9:
+        raise ValueError("Nemotron 3.5 Lightning follow-up effect mismatch")
 DOSE = [(0,90.3,83,97,677),(24,95.4,93,97,657),(48,91.2,87,97,649),(96,96.3,90,100,658),(192,97.5,90,100,641)]
 ABL = [("no filler (baseline)",90.3,"","base"),
        ("96 dots · suffix",96.3,"p=0.0072","pos"),
@@ -1167,6 +1236,46 @@ def abort_table():
             '<th class="r">rate</th><th></th></tr></thead><tbody>'+''.join(rows)+'</tbody></table>')
 
 
+def recent_followup_table():
+    rows = []
+    specifications = (
+        ("Muse Glimmer 30B · low", MUSE_DOTS, "dots96", "bootstrap_ci95_points",
+         "30 / 30 → 30 / 30", "later treatment; reused control"),
+        ("Muse Glimmer 30B · low", MUSE_DASH, "dashes96", "paired_block_bootstrap_ci95_points",
+         "75 / 75 → 75 / 75", "fresh temporal pairs"),
+    )
+    for name, result, treatment, ci_key, completion, design in specifications:
+        control = result["arms"]["nofiller"]["rate_pct"]
+        treated = result["arms"][treatment]["rate_pct"]
+        ci = result[ci_key]
+        glyph = "+96 dots" if treatment == "dots96" else "+96 dashes"
+        rows.append(
+            f'<tr><td>{esc(name)}</td><td>{glyph}</td><td class="r">{control:.1f}</td>'
+            f'<td class="r">{treated:.1f}</td><td class="r em">{signed(result["effect_points"])} '
+            f'<span class="mut">[{signed(ci[0])}, {signed(ci[1])}]</span></td>'
+            f'<td class="r mut">{completion}</td><td class="mut">{design}</td></tr>'
+        )
+    for treatment, label in (("dots96", "+96 dots"), ("dashes96", "+96 dashes")):
+        control = NEMOTRON_LIGHTNING["arms"]["nofiller"]["rate_pct"]
+        treated = NEMOTRON_LIGHTNING["arms"][treatment]["rate_pct"]
+        effect = NEMOTRON_LIGHTNING["effects"][f'{treatment}_minus_nofiller']
+        ci = effect["bootstrap_ci95_points"]
+        rows.append(
+            f'<tr><td>Nemotron 3.5 Lightning · thinking on</td><td>{label}</td>'
+            f'<td class="r">{control:.1f}</td><td class="r">{treated:.1f}</td>'
+            f'<td class="r em">{signed(effect["points"])} '
+            f'<span class="mut">[{signed(ci[0])}, {signed(ci[1])}]</span></td>'
+            f'<td class="r mut">30 / 30 → 0 / 30</td>'
+            f'<td class="mut">reused control; fresh fillers interleaved</td></tr>'
+        )
+    return (
+        '<table><thead><tr><th>model configuration</th><th>intervention</th>'
+        '<th class="r">no filler</th><th class="r">filler</th>'
+        '<th class="r">Δ pt [95% CI]</th><th class="r">complete conversations</th>'
+        '<th>design</th></tr></thead><tbody>' + ''.join(rows) + '</tbody></table>'
+    )
+
+
 def markdown_primary_section():
     gemini25_method = (
         " Gemini 2.5 Flash is a separate prospective fixed-denominator extension with "
@@ -1432,6 +1541,7 @@ text-align:right;padding-left:.7rem;}
 
 def build():
     f1,f2,f3,f4,f5 = fig_dumbbell(),fig_dose(),fig_abl(),fig_strip(),fig_reasoning()
+    recent_followups = recent_followup_table()
     family_matrix = turn_family_matrix()
     turn_heatmaps = turn_effect_heatmaps()
     contribution_matrix = family_contribution_matrix()
@@ -1539,11 +1649,11 @@ def build():
 <header>
 <div class="eyebrow">aiewf-eval · research report</div>
 <h1>Filler-Token Latent Scratchpad</h1>
-<p class="sub">Appending content-free tokens sometimes improves low-latency accuracy without a
+<p class="sub">Appending nominally content-free glyphs sometimes improves low-latency accuracy without a
 large observed change in median TTFAT. A {len(MODELS)}-model filler screen on a 30-turn voice-agent benchmark,
-with dose-response, mechanism, and failure modes.</p>
+with dose-response, mechanism, failure modes, and two August open-model follow-ups.</p>
 <div class="meta"><span>benchmark aiwf_medium_context · 30 turns · tool-calling voice agent</span>
-<span>{len(FOCUSED)} focused models · 30 conversations/arm</span><span>July 18–28, 2026</span></div>
+<span>{len(FOCUSED)} focused models · 30 conversations/arm</span><span>July 18–August 13, 2026</span></div>
 </header>
 
 <section class="measure">
@@ -1579,6 +1689,17 @@ In 41 fresh conversations per arm on the pinned snapshot, no filler scored 92.44
 scored 95.37%: +2.93 points (95% CI +1.09 to +4.77), with strict completion 41/41 and median
 TTFAT 678&thinsp;ms in both arms. This confirms that selected dash configuration, not dots or a
 general glyph equivalence claim.</li>
+<li><strong>A fresh Muse Glimmer dash replication confirms another bounded positive effect.</strong>
+With its embedded chat template at <code>reasoning_strength=low</code>, 75 fresh temporal pairs
+scored 86.31% without filler and 89.38% with 96 dashes: +3.07 points (pair-block bootstrap 95% CI
++1.38 to +4.71). The gain was almost identical in both order strata. Dashes reduced redundant
+confirmation but also produced immediate post-action transition errors; this is an action-threshold
+shift, not a uniform quality gain.</li>
+<li><strong>Nemotron 3.5 Lightning reveals a different catastrophic failure.</strong> With native
+thinking enabled and unbounded, all 60 filler conversations exhausted the 65,536-token context.
+Fixed-denominator accuracy fell from 93.56% without filler to 19.78% with dots and 28.44% with
+dashes. This was runaway generation and context rejection—not the older turn-0
+<code>end_session</code> failure—and the model visibly reacted to the punctuation.</li>
 </ol>
 </section>
 
@@ -1608,7 +1729,9 @@ separate dose/pattern follow-ups keep their original exploratory analyses</dd>
 <dt>inference scope</dt><dd>Section 3 shows estimates and focused-row confidence intervals without
 a multiple-testing headline or p-values. The prospective GPT-5.4 dash validation is now complete:
 41 fresh conversations per arm, +2.93 points (95% CI +1.09 to +4.77). It confirms the pinned dash
-configuration and is not pooled into the dot screen</dd>
+configuration and is not pooled into the dot screen. The August Muse Glimmer and Nemotron 3.5
+Lightning results are likewise kept outside the primary dot screen because their reasoning modes,
+serving stacks, intervention patterns, and designs differ</dd>
 <dt>limits</dt><dd>Filler counts are nominal (“96 tokens”) and not verified against each provider’s tokenizer.
 The judge check establishes repeatability (90/90 on re-judge), not validity against human
 adjudication. All focused rows and all three Gemini 3 extensions are fixed-denominator,
@@ -1761,8 +1884,57 @@ balanced experiment that randomizes reasoning setting and filler condition toget
 </div>
 </section>
 
+<section id="august-followups">
+<h2><span class="no">7</span>August open-model follow-ups: action threshold and runaway context</h2>
+<p class="measure">These follow-ups answer model-specific questions raised after the original
+screen. They are not appended to fig 1: Muse uses its embedded low-reasoning chat template and
+tests both glyph patterns in sequential campaigns; Nemotron Lightning keeps native thinking on
+and unbounded. Rates use fixed 30-turn-per-conversation denominators: 900 turns for each N=30 arm
+and 2,250 for each N=75 arm.</p>
+<div class="tblwrap">{recent_followups}</div>
+<div class="measure">
+<h3>Muse Glimmer: dashes help overall, but the gain is a behavioral tradeoff</h3>
+<p>The first N=30 comparison produced a negative dot estimate: 86.11% → 83.78% (−2.33 points,
+95% CI −4.67 to −0.11). Transcripts showed a direct punctuation-pragmatics failure: the model
+sometimes treated a complete user request followed by 96 periods as truncated or unfinished.
+That cohort was collected after its frozen control, so the estimate is noncontemporaneous.</p>
+<p>The prospectively pair-blocked dash replication substantially addresses the main timing concern. Across 75 fresh
+temporal pairs, dashes improved strict pass rate from 1942/2250 (86.31%) to 2011/2250 (89.38%):
++3.07 points (pair-block bootstrap 95% CI +1.38 to +4.71). The effect was +2.98 points when no
+filler ran first and +3.15 when dashes ran first. All 150 conversations were first-attempt,
+complete trajectories.</p>
+<p><b>Where it moved behavior.</b> On the six required-tool turns, dashes gained 130 passes
+(153/450 → 283/450), while losing 61 passes across the other 24 turns. Redundant confirmations
+on turns 11–12 fell from 71/150 (47.33%) to 51/150 (34.00%): −13.33 points (95% CI −24.00
+to −2.67). Turns 13, 16, and 25—the immediate transitions after action opportunities where the
+arms differed—lost 55 passes; turn 18 was also an immediate transition and was unchanged at
+75/75 in both arms. Typical errors were falsely claiming an omitted action had completed, making the tool
+call one turn late while ignoring the new question, or acting prematurely on the next task.
+Component scores rose by 116 tool-use and 73 instruction-following passes, fell by 12
+knowledge-grounding passes, and were unchanged on turn taking.</p>
+<p>Median TTFAT rose 233 → 326 ms with the longer current-user input; P95 was similar
+(3113 vs 3056 ms). The stronger conclusion is pattern-sensitive action commitment, not hidden
+computation or general intelligence. The secondary pooled N=105-per-arm dash estimate is +3.27
+points (95% CI +1.97 to +4.54), but the fresh pair-blocked estimate remains primary.</p>
+
+<h3>Nemotron 3.5 Lightning: filler induces runaway generation</h3>
+<p>The successful thinking-on, unbounded no-filler configuration completed 30/30 conversations
+at 842/900 strict passes (93.56%). Neither filler arm completed a conversation. Dots observed only
+206/900 scripted turns before context exhaustion and scored 178/900 (19.78%); dashes observed
+290/900 and scored 256/900 (28.44%). The differences from no filler were −73.78 points (95% CI
+−78.67 to −68.78) and −65.11 (−71.33 to −58.78), respectively.</p>
+<p>Every filler trajectory ended after an explicit SGLang context-length rejection: the terminal
+recorded response brought total tokens to at least 65,000, then the next request exceeded the
+65,536-token context. Conditional on an observed turn, accuracy was still lower than control
+(86.4% dots, 88.3% dashes, 93.6% control), but most fixed-denominator loss came from 694 and 610
+missing future turns. P95 TTFAT exceeded 152 seconds in both filler arms. Some responses explicitly
+discussed the punctuation or exposed internal-style deliberation about it, so this configuration
+does not isolate a content-free latent scratchpad. On average, dashes failed later than dots.</p>
+</div>
+</section>
+
 <section>
-<h2><span class="no">7</span>The failure mode: filler as a stop sign</h2>
+<h2><span class="no">8</span>Failure modes: stop sign and context explosion</h2>
 <div class="measure">
 <p>On some models, trailing dots are associated with early termination. The model’s first action
 is to call <span class="chip">end_session</span> — at turn 0, before answering anything. This was
@@ -1776,6 +1948,10 @@ aborted conversations as total failures, terra + dots yields an expected pass ra
 <b>23%</b> — far below its 91.0% no-filler baseline. On nemotron-super with thinking enabled,
 no aborts occurred in six attempts, but filler scores were lower in the small cells we measured
 (−7.7 dots n=4, −4.4 dashes n=2); no measured filler cell improved that model.</p>
+<p><b>Nemotron 3.5 Lightning adds context explosion, not another stop-sign case.</b> Its 60 filler
+runs did not emit a turn-0 terminal call. They generated until the next request exceeded the
+65,536-token context, producing zero complete conversations and extreme tail latency. A report
+that counts only observed turns would hide most of this harm; the fixed denominator preserves it.</p>
 <p><b>Mini remains completion-limited even with reasoning.</b> In a separate gpt-5.4-mini
 effort-medium screen, observed strict completion was 4/20 without filler and 8/10 with 96 dashes
 (fixed-table Fisher arithmetic p=0.004111, not calibrated for the outcome-dependent stopping
@@ -1785,7 +1961,7 @@ screen needs a fixed-size replication.</p></div>
 </section>
 
 <section class="measure">
-<h2><span class="no">8</span>What this screen does not support</h2>
+<h2><span class="no">9</span>What this screen does not support</h2>
 <ul>
 <li><strong>Baseline headroom</strong> — the displayed rows show no simple monotone relationship
 between row-configuration baseline score and filler response (fig 1).</li>
@@ -1800,31 +1976,42 @@ by construction, but this does not establish validity against human adjudication
 <li><strong>Position-independent prompt lengthening</strong> — the system-prompt cell showed no
 detectable change, while late user-message placements did; role and cache treatment remain
 confounded with position.</li>
+<li><strong>Content-free treatment</strong> — Muse Glimmer interpreted dots as an unfinished
+utterance, and Nemotron 3.5 Lightning explicitly reacted to the punctuation. “Filler” describes
+the experimenter's intent, not necessarily the model's semantics.</li>
+<li><strong>Uniform tool-use improvement</strong> — Muse dashes increased action on required-tool
+turns but also increased false completion claims, delayed actions, and premature next-task actions
+on the following turns.</li>
 </ul>
 </section>
 
 <section class="measure">
-<h2><span class="no">9</span>Practical guidance</h2>
+<h2><span class="no">10</span>Practical guidance</h2>
 <div class="callout"><strong>The selected GPT-5.4 dash configuration is confirmed.</strong>
 The prospective pinned-snapshot run completed 41 fresh conversations per arm: 92.44% without
 filler versus 95.37% with 96 trailing dashes, a +2.93-point effect (95% CI +1.09 to +4.77).
 Strict completion was 41/41 and median TTFAT was 678&thinsp;ms in both arms. This validates that
 specific model/configuration and does not establish dots–dashes equivalence.</div>
 <div class="callout"><strong>If a model responds to filler</strong> (only measurement tells you):
-include <strong>~96 dashes</strong> appended to the final user message as a validation cell,
-with history kept clean. Dashes performed at least as well as dots in the tested gpt-5.4
-configurations (without a direct equivalence test) and had fewer aborts in the terra screen. On gpt-5.4
+include <strong>~96 dashes</strong> appended to the final user message as a validation cell—not a
+deployment default—with history kept clean. Dashes improved both confirmed GPT-5.4 and Muse
+Glimmer configurations, and had fewer aborts than dots in the small Terra screen. But they still
+destroyed completion on Nemotron 3.5 Lightning, so “safer than dots” is not a cross-model claim. On gpt-5.4
 the refreshed dot comparison is {gpt54_control:.1f}% → {gpt54_dots:.1f}%
 ({signed(gpt54_delta)} points) with a no-filler row TTFAT of {gpt54_ttfat}&thinsp;ms; the separate
 (low, +96 dots) = 99.6% @ ~1.1&thinsp;s. These numbers are gpt-5.4’s; other responsive models
 need their own dose/pattern validation.</div>
+<div class="callout"><strong>Evaluate complete trajectories and transition quality.</strong>
+Use fixed conversation-level denominators, retain missing future turns as failures, inspect
+context growth and latency tails, and separately audit the turns after tool opportunities. An
+aggregate gain can coexist with false claims that tools ran or late calls that derail the next task.</div>
 <div class="callout warn"><strong>Never deploy unmeasured.</strong> The study observed silent
 accuracy shifts, majority-rate conversation aborts, and total breakage. A benefit in one tested
 model configuration does not establish a benefit in another.</div>
 </section>
 
 <section class="measure">
-<h2><span class="no">10</span>Provenance</h2>
+<h2><span class="no">11</span>Provenance</h2>
 <p class="fine">The focused refresh contains exactly 480 eligible conversations: 30 per arm for
 eight prespecified models, assembled from 174 frozen historical attempts, 246 original non-Qwen
 scheduled top-ups, and 60 BaseTen Qwen replacement attempts. The focused refresh spans OpenAI,
@@ -1836,12 +2023,18 @@ separate Gemini 2.5 thinking-off extension adds {gemini25_control_total} no-fill
 The nine
 retained historical standard rows keep their original exploratory pools, including the report's
 OpenRouter and Anthropic endpoints. The separate GPT-5.4 dash confirmation contains
-82 fresh conversations.
+82 fresh conversations. The August open-model extension freezes 90 earlier Muse Glimmer
+dot/dash-screen conversations, 150 fresh conversations from the primary pair-blocked Muse dash
+replication, and 90 Nemotron 3.5 Lightning conversations (30 reused no-filler controls and 60
+fresh interleaved filler trajectories). The Muse replication used sequential llama.cpp inference
+with one slot; the Nemotron campaign used SGLang and retained every context-exhausted trajectory.
 Harness: <span class="chip">aiewf-eval</span> multi-turn-eval
 (commit 3e9f805 plus MTE_FILLER_TOKEN / MTE_FILLER_POSITION knobs). Judge: claude-opus-4-5 via
 claude-agent-sdk. Config→run manifests, the permutation-test tool, and the per-cell analyzer are
 archived in <span class="chip">docs/filler-study-data/</span>. Focused rates use fixed 900-turn
 denominators, missing/post-abort turns as failures, and whole-conversation bootstrap intervals.
+The August summary artifact is
+<span class="chip">docs/filler-study-data/august-open-model-followups-2026-08-13/aggregates.json</span>.
 Original dose, placement, and retained historical-screen analyses remain explicitly exploratory.</p>
 </section>
 </div>

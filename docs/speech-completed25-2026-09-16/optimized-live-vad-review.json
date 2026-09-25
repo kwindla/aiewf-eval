@@ -1,0 +1,11 @@
+{
+  "run": "runs/aiwf_medium_context_speech_live_optimized/20260916T131943_gpt-live-1_b298f449",
+  "turn": 21,
+  "classification": "VAD missed brief recorded speech; conversation is complete",
+  "api_transcript": "In Juniper.",
+  "independent_asr": "and Juniper.",
+  "recording_clip": "runs/aiwf_medium_context_speech_live_optimized/20260916T131943_gpt-live-1_b298f449/audio-review/turn-21-1.wav",
+  "conversation_eligible": true,
+  "latency_eligible_for_this_turn": false,
+  "measurement_policy": "Keep missing VAD boundary in coverage. Do not invent a latency or substitute ASR word times."
+}

@@ -1,0 +1,1746 @@
+{
+  "model": "gemini-3.8-live-extended-thinking",
+  "thinking": "medium",
+  "method": "gemini-idle-exchanges-v1",
+  "attempts": 25,
+  "complete": 23,
+  "denominator": 750,
+  "judged_turns": 690,
+  "strict_pass": 644,
+  "strict_percent": 85.86666666666666,
+  "judging_incomplete_attempts": [],
+  "validation_flagged_attempts": [
+    10,
+    23
+  ],
+  "failure_records": [
+    {
+      "attempt": 10,
+      "failure": {
+        "reason": "no_audio_timeout",
+        "turn": 0,
+        "replayed": false,
+        "timeout_seconds": 15.0
+      }
+    },
+    {
+      "attempt": 23,
+      "failure": {
+        "reason": "no_audio_timeout",
+        "turn": 0,
+        "replayed": false,
+        "timeout_seconds": 15.0
+      }
+    }
+  ],
+  "interim_phases": 172,
+  "first_speech_signed": {
+    "n": 690,
+    "mean_ms": 1760.463768115942,
+    "median_ms": 1632.0,
+    "max_ms": 7392.0
+  },
+  "first_speech_positive": {
+    "n": 690,
+    "mean_ms": 1760.463768115942,
+    "median_ms": 1632.0,
+    "max_ms": 7392.0
+  },
+  "non_tool_positive": {
+    "n": 551,
+    "mean_ms": 1730.2649727767696,
+    "median_ms": 1664.0,
+    "max_ms": 5888.0
+  },
+  "tool_positive": {
+    "n": 139,
+    "mean_ms": 1880.1726618705036,
+    "median_ms": 1632.0,
+    "max_ms": 7392.0
+  },
+  "speech_completion": {
+    "n": 690,
+    "mean_ms": 10607.032880434783,
+    "median_ms": 8464.0,
+    "max_ms": 44608.0
+  },
+  "missing_measurements": 60,
+  "nonpositive_measurements": 0,
+  "silent_closing_turns": [],
+  "substantive_answer_latency": null,
+  "runs": [
+    {
+      "attempt": {
+        "index": 1,
+        "run_dir": "runs/aiwf_medium_context_speech_v2/20260916T073851_gemini-3.8-live-extended-thinking_850acace",
+        "exit_code": 0,
+        "turns": 30,
+        "full": true
+      },
+      "validation": {
+        "run": "/home/khkramer/src/aiewf-eval/runs/aiwf_medium_context_speech_v2/20260916T073851_gemini-3.8-live-extended-thinking_850acace",
+        "turns": 30,
+        "full": true,
+        "runtime_failure": null,
+        "reconstruction_exit": 0,
+        "judge_exit": 0,
+        "audio_exit": 0,
+        "alignment_exit": 0,
+        "silent_closing_turns": [],
+        "audio_issues": [],
+        "approved": true
+      },
+      "strict_pass": 27,
+      "interim_phases": 6,
+      "failures": [
+        {
+          "ts": "2026-09-16T14:39:57.350Z",
+          "turn": 4,
+          "model_name": "gemini-3.8-live-extended-thinking",
+          "user_text": "How many sessions are in that track?",
+          "assistant_text": "There are 3 sessions in the Model Context Protocol track.",
+          "tool_calls": [],
+          "tool_results": [],
+          "tokens": null,
+          "ttfb_ms": 2459,
+          "raw_ttfb_ms": null,
+          "latency_ms": 9227,
+          "reconnection_count": 0,
+          "scores": {
+            "turn_taking": true,
+            "tool_use_correct": true,
+            "instruction_following": false,
+            "kb_grounding": true
+          },
+          "claude_reasoning": "The governing policy states: 'Do not calculate or infer total numbers of sessions, speakers, or topics. Describe the available kinds of sessions and their days instead.' The assistant instead asserted a count of '3 sessions', a direct contradiction of that instruction. kb_grounding remains true because three MCP-track sessions are indeed listed for June 4, so the number is not itself a factual contradiction. No tool call expected or made."
+        },
+        {
+          "ts": "2026-09-16T14:44:08.800Z",
+          "turn": 20,
+          "model_name": "gemini-3.8-live-extended-thinking",
+          "user_text": "Is there a talk by Charles Frye?",
+          "assistant_text": "Let me see if Charles Frye has a talk.",
+          "tool_calls": [],
+          "tool_results": [],
+          "tokens": null,
+          "ttfb_ms": 1642,
+          "raw_ttfb_ms": null,
+          "latency_ms": 7273,
+          "reconnection_count": 0,
+          "scores": {
+            "turn_taking": true,
+            "tool_use_correct": true,
+            "instruction_following": false,
+            "kb_grounding": true
+          },
+          "claude_reasoning": "The entire response is 'Let me see if Charles Frye has a talk.' The policy states the assistant must not end a response with only a promise to look something up; it must provide the answer or ask for the specific information needed. The KB contains both Charles Frye sessions (933607 at 11:15 AM and 933615 at 12:45 PM on June 4), so the information was available and nothing was missing. No tool call was expected and none was made, so tool_use_correct holds; no incorrect fact was asserted, so kb_grounding holds."
+        },
+        {
+          "ts": "2026-09-16T14:44:37.013Z",
+          "turn": 23,
+          "model_name": "gemini-3.8-live-extended-thinking",
+          "user_text": "I don't know the session ID, but the talk was by Harald Kirschner.",
+          "assistant_text": "Let me find that session for you.",
+          "tool_calls": [],
+          "tool_results": [],
+          "tokens": null,
+          "ttfb_ms": 2072,
+          "raw_ttfb_ms": null,
+          "latency_ms": 9292,
+          "reconnection_count": 0,
+          "scores": {
+            "turn_taking": true,
+            "tool_use_correct": true,
+            "instruction_following": false,
+            "kb_grounding": true
+          },
+          "claude_reasoning": "The response is only 'Let me find that session for you.' Harald Kirschner has three KB sessions, so the correct move was to list them or ask which one; instead the turn ends on a bare lookup promise, which the governing policy prohibits. No function call was expected at this turn and none was made, and no factual claim was made, so only instruction_following fails."
+        }
+      ]
+    },
+    {
+      "attempt": {
+        "index": 4,
+        "run_dir": "runs/aiwf_medium_context_speech_v2/20260916T073851_gemini-3.8-live-extended-thinking_83dd2f51",
+        "exit_code": 0,
+        "turns": 30,
+        "full": true
+      },
+      "validation": {
+        "run": "/home/khkramer/src/aiewf-eval/runs/aiwf_medium_context_speech_v2/20260916T073851_gemini-3.8-live-extended-thinking_83dd2f51",
+        "turns": 30,
+        "full": true,
+        "runtime_failure": null,
+        "reconstruction_exit": 0,
+        "judge_exit": 0,
+        "audio_exit": 0,
+        "alignment_exit": 0,
+        "silent_closing_turns": [],
+        "audio_issues": [],
+        "approved": true
+      },
+      "strict_pass": 29,
+      "interim_phases": 6,
+      "failures": [
+        {
+          "ts": "2026-09-16T14:39:59.896Z",
+          "turn": 4,
+          "model_name": "gemini-3.8-live-extended-thinking",
+          "user_text": "How many sessions are in that track?",
+          "assistant_text": "There are three sessions in the MCP track on June 4th, covering origins, observability, and the protocol's current state.",
+          "tool_calls": [],
+          "tool_results": [],
+          "tokens": null,
+          "ttfb_ms": 1797,
+          "raw_ttfb_ms": null,
+          "latency_ms": 12281,
+          "reconnection_count": 0,
+          "scores": {
+            "turn_taking": true,
+            "tool_use_correct": true,
+            "instruction_following": false,
+            "kb_grounding": false
+          },
+          "claude_reasoning": "No tool call was expected, so tool use is fine. However, the governing policy states not to calculate or infer total numbers of sessions and to describe the kinds of sessions instead; the assistant asserted a specific count, which is a concrete policy contradiction. The count is also factually wrong against the full KB: besides the three listed MCP sessions on June 4, Harald Kirschner's 3:00 PM talk (914509) is in the MCP track on June 4, making the 'three sessions' claim about the whole track incorrect."
+        }
+      ]
+    },
+    {
+      "attempt": {
+        "index": 5,
+        "run_dir": "runs/aiwf_medium_context_speech_v2/20260916T073851_gemini-3.8-live-extended-thinking_164f3539",
+        "exit_code": 0,
+        "turns": 30,
+        "full": true
+      },
+      "validation": {
+        "run": "/home/khkramer/src/aiewf-eval/runs/aiwf_medium_context_speech_v2/20260916T073851_gemini-3.8-live-extended-thinking_164f3539",
+        "turns": 30,
+        "full": true,
+        "runtime_failure": null,
+        "reconstruction_exit": 0,
+        "judge_exit": 0,
+        "audio_exit": 0,
+        "alignment_exit": 0,
+        "silent_closing_turns": [],
+        "audio_issues": [],
+        "approved": true
+      },
+      "strict_pass": 28,
+      "interim_phases": 7,
+      "failures": [
+        {
+          "ts": "2026-09-16T14:40:02.277Z",
+          "turn": 4,
+          "model_name": "gemini-3.8-live-extended-thinking",
+          "user_text": "How many sessions are in that track?",
+          "assistant_text": "There are 3 sessions in the Model Context Protocol track.",
+          "tool_calls": [],
+          "tool_results": [],
+          "tokens": null,
+          "ttfb_ms": 2285,
+          "raw_ttfb_ms": null,
+          "latency_ms": 8878,
+          "reconnection_count": 0,
+          "scores": {
+            "turn_taking": true,
+            "tool_use_correct": true,
+            "instruction_following": false,
+            "kb_grounding": false
+          },
+          "claude_reasoning": "The assistant produced a hard total ('There are 3 sessions'), which directly contradicts the policy instruction not to calculate or infer total session counts. The count is also factually wrong: the KB's MCP track on June 4 includes the three Salons 7-8 sessions plus Harald Kirschner's 3:00 PM MCP-track talk, with two additional MCP workshops on June 3."
+        },
+        {
+          "ts": "2026-09-16T14:44:43.861Z",
+          "turn": 22,
+          "model_name": "gemini-3.8-live-extended-thinking",
+          "user_text": "I heard that there's some way to vote for our favorite talk of the conference. Is that true?",
+          "assistant_text": "Yes, that is true! To submit your vote, I'll just need to know your name and the session ID for the talk you want to support.",
+          "tool_calls": [],
+          "tool_results": [],
+          "tokens": null,
+          "ttfb_ms": 1545,
+          "raw_ttfb_ms": null,
+          "latency_ms": 12978,
+          "reconnection_count": 0,
+          "scores": {
+            "turn_taking": true,
+            "tool_use_correct": true,
+            "instruction_following": false,
+            "kb_grounding": true
+          },
+          "claude_reasoning": "Confirming that voting exists is fine and asking which session is legitimate since the target is unknown, but the assistant re-requests the user's name, which Jennifer Smith supplied at turn 10 and which the assistant already used in three tool calls. The policy states that if a name is already known it must not be asked for again, so this is a policy contradiction. No tool call was expected at this turn because the session identity was still missing."
+        }
+      ]
+    },
+    {
+      "attempt": {
+        "index": 2,
+        "run_dir": "runs/aiwf_medium_context_speech_v2/20260916T073851_gemini-3.8-live-extended-thinking_3e5ccd5c",
+        "exit_code": 0,
+        "turns": 30,
+        "full": true
+      },
+      "validation": {
+        "run": "/home/khkramer/src/aiewf-eval/runs/aiwf_medium_context_speech_v2/20260916T073851_gemini-3.8-live-extended-thinking_3e5ccd5c",
+        "turns": 30,
+        "full": true,
+        "runtime_failure": null,
+        "reconstruction_exit": 0,
+        "judge_exit": 0,
+        "audio_exit": 0,
+        "alignment_exit": 0,
+        "silent_closing_turns": [],
+        "audio_issues": [],
+        "approved": true
+      },
+      "strict_pass": 29,
+      "interim_phases": 8,
+      "failures": [
+        {
+          "ts": "2026-09-16T14:40:30.591Z",
+          "turn": 6,
+          "model_name": "gemini-3.8-live-extended-thinking",
+          "user_text": "I'm particularly interested in Voice AI and in techniques for building reliable agents.",
+          "assistant_text": "Let me see what aligns with those interests.",
+          "tool_calls": [],
+          "tool_results": [],
+          "tokens": null,
+          "ttfb_ms": 3091,
+          "raw_ttfb_ms": null,
+          "latency_ms": 11947,
+          "reconnection_count": 0,
+          "scores": {
+            "turn_taking": true,
+            "tool_use_correct": true,
+            "instruction_following": false,
+            "kb_grounding": true
+          },
+          "claude_reasoning": "The user stated their interests, so the assistant should have asked for the attendance day/part of day or given recommendations. Instead it replied only 'Let me see what aligns with those interests' \u2014 a bare promise to look something up, which the governing policy explicitly prohibits as a complete response. No factual claims, so kb_grounding stands; no tool call was expected."
+        }
+      ]
+    },
+    {
+      "attempt": {
+        "index": 3,
+        "run_dir": "runs/aiwf_medium_context_speech_v2/20260916T073851_gemini-3.8-live-extended-thinking_4ddb8926",
+        "exit_code": 0,
+        "turns": 30,
+        "full": true
+      },
+      "validation": {
+        "run": "/home/khkramer/src/aiewf-eval/runs/aiwf_medium_context_speech_v2/20260916T073851_gemini-3.8-live-extended-thinking_4ddb8926",
+        "turns": 30,
+        "full": true,
+        "runtime_failure": null,
+        "reconstruction_exit": 0,
+        "judge_exit": 0,
+        "audio_exit": 0,
+        "alignment_exit": 0,
+        "silent_closing_turns": [],
+        "audio_issues": [],
+        "approved": true
+      },
+      "strict_pass": 28,
+      "interim_phases": 7,
+      "failures": [
+        {
+          "ts": "2026-09-16T14:40:10.445Z",
+          "turn": 4,
+          "model_name": "gemini-3.8-live-extended-thinking",
+          "user_text": "How many sessions are in that track?",
+          "assistant_text": "There are 3 sessions in the MCP track: two talks and one keynote.",
+          "tool_calls": [],
+          "tool_results": [],
+          "tokens": null,
+          "ttfb_ms": 1815,
+          "raw_ttfb_ms": null,
+          "latency_ms": 9554,
+          "reconnection_count": 0,
+          "scores": {
+            "turn_taking": true,
+            "tool_use_correct": true,
+            "instruction_following": false,
+            "kb_grounding": false
+          },
+          "claude_reasoning": "The governing policy states the assistant must not calculate or infer total numbers of sessions and should instead describe the kinds of sessions and their days; the assistant asserted a computed total ('3 sessions: two talks and one keynote'), a concrete policy contradiction. It is also factually wrong: the MCP track on June 4 additionally includes Harald Kirschner's 3:00 PM talk (914509), plus MCP workshops on June 3, so the stated total contradicts the KB. No tool call was expected or made."
+        },
+        {
+          "ts": "2026-09-16T14:44:59.543Z",
+          "turn": 22,
+          "model_name": "gemini-3.8-live-extended-thinking",
+          "user_text": "I heard that there's some way to vote for our favorite talk of the conference. Is that true?",
+          "assistant_text": "Yes, you can vote for your favorite talk. I'll just need your name and the Session ID of the talk.",
+          "tool_calls": [],
+          "tool_results": [],
+          "tokens": null,
+          "ttfb_ms": 1508,
+          "raw_ttfb_ms": null,
+          "latency_ms": 11805,
+          "reconnection_count": 0,
+          "scores": {
+            "turn_taking": true,
+            "tool_use_correct": true,
+            "instruction_following": false,
+            "kb_grounding": true
+          },
+          "claude_reasoning": "Confirming that voting exists is correct, and asking for the session identity is legitimate since it is genuinely missing. However, the assistant re-requests the name, which was already supplied as Jennifer Smith and reused in three prior tool calls; policy states a known name must not be asked for again. That specific redundant request is the instruction-following failure. No tool call was expected at this turn, so tool use is not penalized."
+        }
+      ]
+    },
+    {
+      "attempt": {
+        "index": 10,
+        "run_dir": "runs/aiwf_medium_context_speech_v2/20260916T074653_gemini-3.8-live-extended-thinking_c2d7a24b",
+        "exit_code": 1,
+        "turns": 0,
+        "full": false
+      },
+      "validation": {
+        "run": "/home/khkramer/src/aiewf-eval/runs/aiwf_medium_context_speech_v2/20260916T074653_gemini-3.8-live-extended-thinking_c2d7a24b",
+        "turns": 0,
+        "full": false,
+        "runtime_failure": {
+          "reason": "no_audio_timeout",
+          "turn": 0,
+          "replayed": false,
+          "timeout_seconds": 15.0
+        },
+        "reconstruction_exit": 0,
+        "judge_exit": 1,
+        "audio_exit": 0,
+        "alignment_exit": 0,
+        "silent_closing_turns": [],
+        "audio_issues": [
+          {
+            "turn": 0,
+            "reason": "missing bot speech"
+          }
+        ],
+        "approved": false
+      },
+      "strict_pass": 0,
+      "interim_phases": 0,
+      "failures": []
+    },
+    {
+      "attempt": {
+        "index": 6,
+        "run_dir": "runs/aiwf_medium_context_speech_v2/20260916T074604_gemini-3.8-live-extended-thinking_101c9ac7",
+        "exit_code": 0,
+        "turns": 30,
+        "full": true
+      },
+      "validation": {
+        "run": "/home/khkramer/src/aiewf-eval/runs/aiwf_medium_context_speech_v2/20260916T074604_gemini-3.8-live-extended-thinking_101c9ac7",
+        "turns": 30,
+        "full": true,
+        "runtime_failure": null,
+        "reconstruction_exit": 0,
+        "judge_exit": 0,
+        "audio_exit": 0,
+        "alignment_exit": 0,
+        "silent_closing_turns": [],
+        "audio_issues": [],
+        "approved": true
+      },
+      "strict_pass": 28,
+      "interim_phases": 7,
+      "failures": [
+        {
+          "ts": "2026-09-16T14:47:06.613Z",
+          "turn": 4,
+          "model_name": "gemini-3.8-live-extended-thinking",
+          "user_text": "How many sessions are in that track?",
+          "assistant_text": "There are 3 sessions listed in the Model Context Protocol track.",
+          "tool_calls": [],
+          "tool_results": [],
+          "tokens": null,
+          "ttfb_ms": 1533,
+          "raw_ttfb_ms": null,
+          "latency_ms": 8473,
+          "reconnection_count": 0,
+          "scores": {
+            "turn_taking": true,
+            "tool_use_correct": true,
+            "instruction_following": false,
+            "kb_grounding": false
+          },
+          "claude_reasoning": "Policy explicitly forbids calculating or inferring total numbers of sessions and directs the assistant to describe the kinds of sessions and their days instead; the assistant instead reported a count. The count is also factually wrong: besides the three MCP-track entries listed under MCP Sessions, the KB lists Harald Kirschner's June 4 MCP-track talk (914509) and two June 3 MCP workshops. No tool was expected or called."
+        },
+        {
+          "ts": "2026-09-16T14:51:54.971Z",
+          "turn": 23,
+          "model_name": "gemini-3.8-live-extended-thinking",
+          "user_text": "I don't know the session ID, but the talk was by Harald Kirschner.",
+          "assistant_text": "Harald Kirchner is listed for 3 different sessions across the conference. Please specify which session you would like to vote for.",
+          "tool_calls": [],
+          "tool_results": [],
+          "tokens": null,
+          "ttfb_ms": 1176,
+          "raw_ttfb_ms": null,
+          "latency_ms": 12497,
+          "reconnection_count": 0,
+          "scores": {
+            "turn_taking": true,
+            "tool_use_correct": true,
+            "instruction_following": false,
+            "kb_grounding": true
+          },
+          "claude_reasoning": "Factually the KB does list three Harald Kirschner sessions, so kb_grounding holds. However, the policy requires including all relevant entries when asked about a speaker's sessions; the assistant reported only a total and told the user to specify without presenting the titles needed to choose, failing to advance the voting workflow. No tool call was expected at this turn."
+        }
+      ]
+    },
+    {
+      "attempt": {
+        "index": 8,
+        "run_dir": "runs/aiwf_medium_context_speech_v2/20260916T074642_gemini-3.8-live-extended-thinking_aceaaf8d",
+        "exit_code": 0,
+        "turns": 30,
+        "full": true
+      },
+      "validation": {
+        "run": "/home/khkramer/src/aiewf-eval/runs/aiwf_medium_context_speech_v2/20260916T074642_gemini-3.8-live-extended-thinking_aceaaf8d",
+        "turns": 30,
+        "full": true,
+        "runtime_failure": null,
+        "reconstruction_exit": 0,
+        "judge_exit": 0,
+        "audio_exit": 0,
+        "alignment_exit": 0,
+        "silent_closing_turns": [],
+        "audio_issues": [],
+        "approved": true
+      },
+      "strict_pass": 29,
+      "interim_phases": 6,
+      "failures": [
+        {
+          "ts": "2026-09-16T14:47:40.291Z",
+          "turn": 4,
+          "model_name": "gemini-3.8-live-extended-thinking",
+          "user_text": "How many sessions are in that track?",
+          "assistant_text": "There are 3 sessions in the MCP track on June 4th.",
+          "tool_calls": [],
+          "tool_results": [],
+          "tokens": null,
+          "ttfb_ms": 1584,
+          "raw_ttfb_ms": null,
+          "latency_ms": 7787,
+          "reconnection_count": 0,
+          "scores": {
+            "turn_taking": true,
+            "tool_use_correct": true,
+            "instruction_following": false,
+            "kb_grounding": false
+          },
+          "claude_reasoning": "The assistant computed a session total ('There are 3 sessions in the MCP track on June 4th'), which directly contradicts the governing policy's instruction not to calculate or infer total numbers of sessions and to describe kinds of sessions and days instead. It is also factually wrong: the KB lists a fourth June 4 MCP-track session, Harald Kirschner's 'Full Spectrum MCP: Uncovering Hidden Servers and Clients Capabilities' (914509, 3:00 PM, Yerba Buena Salons 7-8: MCP). No tool call was expected, so tool use is fine."
+        }
+      ]
+    },
+    {
+      "attempt": {
+        "index": 9,
+        "run_dir": "runs/aiwf_medium_context_speech_v2/20260916T074649_gemini-3.8-live-extended-thinking_ae2d97c1",
+        "exit_code": 0,
+        "turns": 30,
+        "full": true
+      },
+      "validation": {
+        "run": "/home/khkramer/src/aiewf-eval/runs/aiwf_medium_context_speech_v2/20260916T074649_gemini-3.8-live-extended-thinking_ae2d97c1",
+        "turns": 30,
+        "full": true,
+        "runtime_failure": null,
+        "reconstruction_exit": 0,
+        "judge_exit": 0,
+        "audio_exit": 0,
+        "alignment_exit": 0,
+        "silent_closing_turns": [],
+        "audio_issues": [],
+        "approved": true
+      },
+      "strict_pass": 27,
+      "interim_phases": 7,
+      "failures": [
+        {
+          "ts": "2026-09-16T14:47:59.174Z",
+          "turn": 4,
+          "model_name": "gemini-3.8-live-extended-thinking",
+          "user_text": "How many sessions are in that track?",
+          "assistant_text": "There are three sessions in the MCP track: a keynote on origins and RFS, a talk on the current state of MCP, and a talk on MCP observability tools.",
+          "tool_calls": [],
+          "tool_results": [],
+          "tokens": null,
+          "ttfb_ms": 1293,
+          "raw_ttfb_ms": null,
+          "latency_ms": 14079,
+          "reconnection_count": 0,
+          "scores": {
+            "turn_taking": true,
+            "tool_use_correct": true,
+            "instruction_following": false,
+            "kb_grounding": false
+          },
+          "claude_reasoning": "Policy states not to calculate or infer total numbers of sessions and to describe the kinds of sessions instead; the assistant instead asserted a specific total. The total is also wrong: the MCP track on June 4 includes 947165, 914489, 915013 and Harald Kirschner's 914509 (3:00 PM, MCP track), plus June 3 MCP workshops 911821 and 914537. Both the policy compliance and the factual claim fail."
+        },
+        {
+          "ts": "2026-09-16T14:50:48.804Z",
+          "turn": 14,
+          "model_name": "gemini-3.8-live-extended-thinking",
+          "user_text": "Will there be vegan options?",
+          "assistant_text": "Let me check how I can help with those dietary preferences.",
+          "tool_calls": [],
+          "tool_results": [],
+          "tokens": null,
+          "ttfb_ms": 1611,
+          "raw_ttfb_ms": null,
+          "latency_ms": 7569,
+          "reconnection_count": 0,
+          "scores": {
+            "turn_taking": true,
+            "tool_use_correct": true,
+            "instruction_following": false,
+            "kb_grounding": true
+          },
+          "claude_reasoning": "The response consists solely of a promise to check, which the governing policy explicitly prohibits: it neither explains what is known about meals/dietary options nor explicitly offers to submit a dietary request nor asks for specific missing information. No tool call was expected at this turn, so tool use is fine, and no factual claim was made."
+        },
+        {
+          "ts": "2026-09-16T14:52:49.081Z",
+          "turn": 22,
+          "model_name": "gemini-3.8-live-extended-thinking",
+          "user_text": "I heard that there's some way to vote for our favorite talk of the conference. Is that true?",
+          "assistant_text": "Yes, you can vote for your favorite talk. I just need your name and the session you would like to vote for.",
+          "tool_calls": [],
+          "tool_results": [],
+          "tokens": null,
+          "ttfb_ms": 1449,
+          "raw_ttfb_ms": null,
+          "latency_ms": 11672,
+          "reconnection_count": 0,
+          "scores": {
+            "turn_taking": true,
+            "tool_use_correct": true,
+            "instruction_following": false,
+            "kb_grounding": true
+          },
+          "claude_reasoning": "Confirms voting is possible, but asks for the user's name even though 'Jennifer Smith' was supplied at turn 10 and already used in three tool calls; policy states a known name must not be requested again. Requesting the session is legitimate, and no tool call was possible yet, so tool use is not penalized."
+        }
+      ]
+    },
+    {
+      "attempt": {
+        "index": 7,
+        "run_dir": "runs/aiwf_medium_context_speech_v2/20260916T074637_gemini-3.8-live-extended-thinking_9f14d9e9",
+        "exit_code": 0,
+        "turns": 30,
+        "full": true
+      },
+      "validation": {
+        "run": "/home/khkramer/src/aiewf-eval/runs/aiwf_medium_context_speech_v2/20260916T074637_gemini-3.8-live-extended-thinking_9f14d9e9",
+        "turns": 30,
+        "full": true,
+        "runtime_failure": null,
+        "reconstruction_exit": 0,
+        "judge_exit": 0,
+        "audio_exit": 0,
+        "alignment_exit": 0,
+        "silent_closing_turns": [],
+        "audio_issues": [],
+        "approved": true
+      },
+      "strict_pass": 27,
+      "interim_phases": 9,
+      "failures": [
+        {
+          "ts": "2026-09-16T14:47:23.869Z",
+          "turn": 2,
+          "model_name": "gemini-3.8-live-extended-thinking",
+          "user_text": "How many conference tracks are there?",
+          "assistant_text": "I don't calculate the total number of tracks, but there are many tracks covering various topics on June 4th and 5th.",
+          "tool_calls": [],
+          "tool_results": [],
+          "tokens": null,
+          "ttfb_ms": 1313,
+          "raw_ttfb_ms": null,
+          "latency_ms": 11573,
+          "reconnection_count": 0,
+          "scores": {
+            "turn_taking": true,
+            "tool_use_correct": true,
+            "instruction_following": false,
+            "kb_grounding": true
+          },
+          "claude_reasoning": "No tool expected or called. However, the KB explicitly states '19 tracks of talks, panels, and demos' for June 4-5, so no calculation or inference was required; declining to answer withheld a directly available fact and left the user's actual question unanswered. The statement made ('many tracks on June 4th and 5th') is not factually wrong, so grounding stands."
+        },
+        {
+          "ts": "2026-09-16T14:52:42.033Z",
+          "turn": 21,
+          "model_name": "gemini-3.8-live-extended-thinking",
+          "user_text": "Where is the second one?",
+          "assistant_text": "That workshop is in Salon Foothill F, which is part of the Infrastructure track.",
+          "tool_calls": [],
+          "tool_results": [],
+          "tokens": null,
+          "ttfb_ms": 1277,
+          "raw_ttfb_ms": null,
+          "latency_ms": 8317,
+          "reconnection_count": 0,
+          "scores": {
+            "turn_taking": true,
+            "tool_use_correct": true,
+            "instruction_following": true,
+            "kb_grounding": false
+          },
+          "claude_reasoning": "The referenced session (the 12:45 PM talk, the only one the assistant had mentioned, and also the later of Frye's two sessions) is in Juniper: Expo Sessions, but the assistant gave Foothill F / Infrastructure \u2014 the room of the 11:15 AM workshop. That is a clear factual contradiction of the KB location, so kb_grounding fails; no tool was expected and it did attempt to answer the question."
+        },
+        {
+          "ts": "2026-09-16T14:53:04.433Z",
+          "turn": 23,
+          "model_name": "gemini-3.8-live-extended-thinking",
+          "user_text": "I don't know the session ID, but the talk was by Harald Kirschner.",
+          "assistant_text": "There are actually 3 different sessions by Harald Kirschner across the schedule.",
+          "tool_calls": [],
+          "tool_results": [],
+          "tokens": null,
+          "ttfb_ms": 1478,
+          "raw_ttfb_ms": null,
+          "latency_ms": 10971,
+          "reconnection_count": 0,
+          "scores": {
+            "turn_taking": true,
+            "tool_use_correct": true,
+            "instruction_following": false,
+            "kb_grounding": true
+          },
+          "claude_reasoning": "No tool was expected, so tool use is fine, and the claim of three Harald Kirschner sessions matches the KB. But the response neither lists the three candidate sessions nor asks which one the user means, so it fails to provide the answer or request the specific information still needed to identify the session for the vote."
+        }
+      ]
+    },
+    {
+      "attempt": {
+        "index": 11,
+        "run_dir": "runs/aiwf_medium_context_speech_v2/20260916T074723_gemini-3.8-live-extended-thinking_7e84f3e9",
+        "exit_code": 0,
+        "turns": 30,
+        "full": true
+      },
+      "validation": {
+        "run": "/home/khkramer/src/aiewf-eval/runs/aiwf_medium_context_speech_v2/20260916T074723_gemini-3.8-live-extended-thinking_7e84f3e9",
+        "turns": 30,
+        "full": true,
+        "runtime_failure": null,
+        "reconstruction_exit": 0,
+        "judge_exit": 0,
+        "audio_exit": 0,
+        "alignment_exit": 0,
+        "silent_closing_turns": [],
+        "audio_issues": [],
+        "approved": true
+      },
+      "strict_pass": 28,
+      "interim_phases": 8,
+      "failures": [
+        {
+          "ts": "2026-09-16T14:48:38.502Z",
+          "turn": 4,
+          "model_name": "gemini-3.8-live-extended-thinking",
+          "user_text": "How many sessions are in that track?",
+          "assistant_text": "There are 3 scheduled sessions in the MCP track for June 4th. These include an MCP Origins and RFS keynote by Theodora Chu, a talk on MCP issues by David Cramer, and a talk on the state of MCP observability by Alex Volkov.",
+          "tool_calls": [],
+          "tool_results": [],
+          "tokens": null,
+          "ttfb_ms": 1756,
+          "raw_ttfb_ms": null,
+          "latency_ms": 19576,
+          "reconnection_count": 0,
+          "scores": {
+            "turn_taking": true,
+            "tool_use_correct": true,
+            "instruction_following": false,
+            "kb_grounding": false
+          },
+          "claude_reasoning": "The governing policy says not to calculate or infer total numbers of sessions and to describe the kinds of sessions and days instead; the assistant instead asserted a count. That count is also factually wrong: besides 947165, 914489 and 915013, session 914509 (Harald Kirschner, June 4, 3:00 PM) is listed in the MCP track on June 4, so 'there are 3' contradicts the knowledge base."
+        },
+        {
+          "ts": "2026-09-16T14:48:47.562Z",
+          "turn": 5,
+          "model_name": "gemini-3.8-live-extended-thinking",
+          "user_text": "It seems like there are so many great sessions. Can you suggest some sessions for me?",
+          "assistant_text": "Let's find some great sessions for you.",
+          "tool_calls": [],
+          "tool_results": [],
+          "tokens": null,
+          "ttfb_ms": 1076,
+          "raw_ttfb_ms": null,
+          "latency_ms": 9060,
+          "reconnection_count": 0,
+          "scores": {
+            "turn_taking": true,
+            "tool_use_correct": true,
+            "instruction_following": false,
+            "kb_grounding": true
+          },
+          "claude_reasoning": "The reply is only a promise to find sessions. It neither provides recommendations nor asks for the interests/day details needed to produce them, which the policy explicitly prohibits as an ending. No tool call was expected, so tool use is unaffected."
+        }
+      ]
+    },
+    {
+      "attempt": {
+        "index": 12,
+        "run_dir": "runs/aiwf_medium_context_speech_v2/20260916T075334_gemini-3.8-live-extended-thinking_a93e8b26",
+        "exit_code": 0,
+        "turns": 30,
+        "full": true
+      },
+      "validation": {
+        "run": "/home/khkramer/src/aiewf-eval/runs/aiwf_medium_context_speech_v2/20260916T075334_gemini-3.8-live-extended-thinking_a93e8b26",
+        "turns": 30,
+        "full": true,
+        "runtime_failure": null,
+        "reconstruction_exit": 0,
+        "judge_exit": 0,
+        "audio_exit": 0,
+        "alignment_exit": 0,
+        "silent_closing_turns": [],
+        "audio_issues": [],
+        "approved": true
+      },
+      "strict_pass": 27,
+      "interim_phases": 7,
+      "failures": [
+        {
+          "ts": "2026-09-16T14:54:43.688Z",
+          "turn": 4,
+          "model_name": "gemini-3.8-live-extended-thinking",
+          "user_text": "How many sessions are in that track?",
+          "assistant_text": "There are exactly 4 sessions in the MCP track on June 4.",
+          "tool_calls": [],
+          "tool_results": [],
+          "tokens": null,
+          "ttfb_ms": 1160,
+          "raw_ttfb_ms": null,
+          "latency_ms": 8208,
+          "reconnection_count": 0,
+          "scores": {
+            "turn_taking": true,
+            "tool_use_correct": true,
+            "instruction_following": false,
+            "kb_grounding": true
+          },
+          "claude_reasoning": "Instruction failure: the governing policy says not to calculate or infer total numbers of sessions and to describe kinds of sessions and their days instead; the assistant asserted 'exactly 4 sessions.' The count is not clearly contradicted by the KB entries (three MCP-track June 4 sessions plus Harald Kirschner's June 4 MCP talk), so kb_grounding stands. No tool call expected."
+        },
+        {
+          "ts": "2026-09-16T14:55:50.064Z",
+          "turn": 8,
+          "model_name": "gemini-3.8-live-extended-thinking",
+          "user_text": "Actually, I made a mistake. I will only be at the conference on June 5th.",
+          "assistant_text": "I understand. For June 5, you can catch the session Serving Voice AI at Scale at 1:15 PM, followed by Ship it! Building Production-Ready Agents at 12:15 PM.",
+          "tool_calls": [],
+          "tool_results": [],
+          "tokens": null,
+          "ttfb_ms": 1323,
+          "raw_ttfb_ms": null,
+          "latency_ms": 18718,
+          "reconnection_count": 0,
+          "scores": {
+            "turn_taking": true,
+            "tool_use_correct": true,
+            "instruction_following": false,
+            "kb_grounding": true
+          },
+          "claude_reasoning": "Instruction failure: after the date correction the policy requires two suggestions with title, speaker, date and time, but the speakers (Arjun Desai/Rohit Talluri and Mike Chambers) were omitted, and 'followed by' presents the 12:15 PM talk as coming after the 1:15 PM one. The stated titles and times themselves match the KB, so kb_grounding is true."
+        },
+        {
+          "ts": "2026-09-16T14:59:11.967Z",
+          "turn": 22,
+          "model_name": "gemini-3.8-live-extended-thinking",
+          "user_text": "I heard that there's some way to vote for our favorite talk of the conference. Is that true?",
+          "assistant_text": "Yes, you can vote for your favorite session. Please provide the session ID and your name so I can submit your vote.",
+          "tool_calls": [],
+          "tool_results": [],
+          "tokens": null,
+          "ttfb_ms": 1400,
+          "raw_ttfb_ms": null,
+          "latency_ms": 12173,
+          "reconnection_count": 0,
+          "scores": {
+            "turn_taking": true,
+            "tool_use_correct": true,
+            "instruction_following": false,
+            "kb_grounding": true
+          },
+          "claude_reasoning": "Instruction failure: the assistant asks for the user's name even though Jennifer Smith supplied it at turn 10 and it was used in three prior tool calls, and it places the internal session-ID lookup on the user when policy says the user need not know the ID. No tool call was expected at this turn, so tool_use_correct stands."
+        }
+      ]
+    },
+    {
+      "attempt": {
+        "index": 13,
+        "run_dir": "runs/aiwf_medium_context_speech_v2/20260916T075344_gemini-3.8-live-extended-thinking_b68a5dd7",
+        "exit_code": 0,
+        "turns": 30,
+        "full": true
+      },
+      "validation": {
+        "run": "/home/khkramer/src/aiewf-eval/runs/aiwf_medium_context_speech_v2/20260916T075344_gemini-3.8-live-extended-thinking_b68a5dd7",
+        "turns": 30,
+        "full": true,
+        "runtime_failure": null,
+        "reconstruction_exit": 0,
+        "judge_exit": 0,
+        "audio_exit": 0,
+        "alignment_exit": 0,
+        "silent_closing_turns": [],
+        "audio_issues": [],
+        "approved": true
+      },
+      "strict_pass": 28,
+      "interim_phases": 6,
+      "failures": [
+        {
+          "ts": "2026-09-16T14:54:50.767Z",
+          "turn": 4,
+          "model_name": "gemini-3.8-live-extended-thinking",
+          "user_text": "How many sessions are in that track?",
+          "assistant_text": "There are 3 sessions scheduled in the MCP track on June 4th.",
+          "tool_calls": [],
+          "tool_results": [],
+          "tokens": null,
+          "ttfb_ms": 1309,
+          "raw_ttfb_ms": null,
+          "latency_ms": 8344,
+          "reconnection_count": 0,
+          "scores": {
+            "turn_taking": true,
+            "tool_use_correct": true,
+            "instruction_following": false,
+            "kb_grounding": false
+          },
+          "claude_reasoning": "The policy explicitly forbids calculating or inferring total numbers of sessions and directs the assistant to describe the kinds of sessions and their days instead; the assistant instead asserted a count, a concrete policy contradiction. The count is also factually wrong: besides 947165, 914489, and 915013, the KB lists Harald Kirschner's 914509 as an MCP-track talk on June 4 at 3:00 PM, making four. No tool was expected or called."
+        },
+        {
+          "ts": "2026-09-16T14:55:44.057Z",
+          "turn": 8,
+          "model_name": "gemini-3.8-live-extended-thinking",
+          "user_text": "Actually, I made a mistake. I will only be at the conference on June 5th.",
+          "assistant_text": "I'll find new sessions for you.",
+          "tool_calls": [],
+          "tool_results": [],
+          "tokens": null,
+          "ttfb_ms": 1597,
+          "raw_ttfb_ms": null,
+          "latency_ms": 10707,
+          "reconnection_count": 0,
+          "scores": {
+            "turn_taking": true,
+            "tool_use_correct": true,
+            "instruction_following": false,
+            "kb_grounding": true
+          },
+          "claude_reasoning": "The user changed the constraint to June 5, which requires updated recommendations. The assistant replied only with 'I'll find new sessions for you', ending on a bare promise to look something up without delivering any recommendation \u2014 a direct violation of the policy against promise-only responses. No tool was expected, and no factual claim was made."
+        }
+      ]
+    },
+    {
+      "attempt": {
+        "index": 14,
+        "run_dir": "runs/aiwf_medium_context_speech_v2/20260916T075445_gemini-3.8-live-extended-thinking_10b900d4",
+        "exit_code": 0,
+        "turns": 30,
+        "full": true
+      },
+      "validation": {
+        "run": "/home/khkramer/src/aiewf-eval/runs/aiwf_medium_context_speech_v2/20260916T075445_gemini-3.8-live-extended-thinking_10b900d4",
+        "turns": 30,
+        "full": true,
+        "runtime_failure": null,
+        "reconstruction_exit": 0,
+        "judge_exit": 0,
+        "audio_exit": 0,
+        "alignment_exit": 0,
+        "silent_closing_turns": [],
+        "audio_issues": [],
+        "approved": true
+      },
+      "strict_pass": 29,
+      "interim_phases": 6,
+      "failures": [
+        {
+          "ts": "2026-09-16T14:55:43.414Z",
+          "turn": 4,
+          "model_name": "gemini-3.8-live-extended-thinking",
+          "user_text": "How many sessions are in that track?",
+          "assistant_text": "There are 3 sessions in the MCP track.",
+          "tool_calls": [],
+          "tool_results": [],
+          "tokens": null,
+          "ttfb_ms": 989,
+          "raw_ttfb_ms": null,
+          "latency_ms": 6993,
+          "reconnection_count": 0,
+          "scores": {
+            "turn_taking": true,
+            "tool_use_correct": true,
+            "instruction_following": false,
+            "kb_grounding": false
+          },
+          "claude_reasoning": "The governing policy explicitly says not to calculate or infer total numbers of sessions and to describe the kinds of sessions and their days instead; the assistant instead gave a hard count, so instruction_following fails. The count is also factually wrong: beyond 947165, 914489 and 915013, the KB lists Harald Kirschner's 914509 on the MCP track June 4, plus two June 3 MCP workshops, so 'three sessions' contradicts the knowledge base."
+        }
+      ]
+    },
+    {
+      "attempt": {
+        "index": 15,
+        "run_dir": "runs/aiwf_medium_context_speech_v2/20260916T075456_gemini-3.8-live-extended-thinking_453bef25",
+        "exit_code": 0,
+        "turns": 30,
+        "full": true
+      },
+      "validation": {
+        "run": "/home/khkramer/src/aiewf-eval/runs/aiwf_medium_context_speech_v2/20260916T075456_gemini-3.8-live-extended-thinking_453bef25",
+        "turns": 30,
+        "full": true,
+        "runtime_failure": null,
+        "reconstruction_exit": 0,
+        "judge_exit": 0,
+        "audio_exit": 0,
+        "alignment_exit": 0,
+        "silent_closing_turns": [],
+        "audio_issues": [],
+        "approved": true
+      },
+      "strict_pass": 28,
+      "interim_phases": 9,
+      "failures": [
+        {
+          "ts": "2026-09-16T14:55:59.870Z",
+          "turn": 4,
+          "model_name": "gemini-3.8-live-extended-thinking",
+          "user_text": "How many sessions are in that track?",
+          "assistant_text": "There are 3 sessions listed in the MCP track.",
+          "tool_calls": [],
+          "tool_results": [],
+          "tokens": null,
+          "ttfb_ms": 1050,
+          "raw_ttfb_ms": null,
+          "latency_ms": 7509,
+          "reconnection_count": 0,
+          "scores": {
+            "turn_taking": true,
+            "tool_use_correct": true,
+            "instruction_following": false,
+            "kb_grounding": false
+          },
+          "claude_reasoning": "Instruction following fails: the governing policy explicitly says not to calculate or infer total numbers of sessions and to describe the kinds of sessions and their days instead, yet the assistant returned a count. KB grounding also fails: the MCP track includes 947165, 914489, 915013 and Harald Kirschner's 914509 (Track: MCP) on June 4, plus two June 3 MCP workshops, so the unqualified claim of '3 sessions listed in the MCP track' contradicts the knowledge base. No tool was expected or called, so tool use is correct."
+        },
+        {
+          "ts": "2026-09-16T15:01:15.714Z",
+          "turn": 23,
+          "model_name": "gemini-3.8-live-extended-thinking",
+          "user_text": "I don't know the session ID, but the talk was by Harald Kirschner.",
+          "assistant_text": "Let me identify the correct session for you.",
+          "tool_calls": [],
+          "tool_results": [],
+          "tokens": null,
+          "ttfb_ms": 1292,
+          "raw_ttfb_ms": null,
+          "latency_ms": 9247,
+          "reconnection_count": 0,
+          "scores": {
+            "turn_taking": true,
+            "tool_use_correct": true,
+            "instruction_following": false,
+            "kb_grounding": true
+          },
+          "claude_reasoning": "Instruction following fails: the response is only 'Let me identify the correct session for you' \u2014 it neither answers, performs an action, nor asks for the specific information needed, which the policy prohibits. Harald Kirschner has three KB sessions (914821, 914509, 936902), so disambiguation was required before voting. No tool call was expected at this turn, and no factual claim was made, so tool use and KB grounding stand."
+        }
+      ]
+    },
+    {
+      "attempt": {
+        "index": 16,
+        "run_dir": "runs/aiwf_medium_context_speech_v2/20260916T075511_gemini-3.8-live-extended-thinking_5dc71460",
+        "exit_code": 0,
+        "turns": 30,
+        "full": true
+      },
+      "validation": {
+        "run": "/home/khkramer/src/aiewf-eval/runs/aiwf_medium_context_speech_v2/20260916T075511_gemini-3.8-live-extended-thinking_5dc71460",
+        "turns": 30,
+        "full": true,
+        "runtime_failure": null,
+        "reconstruction_exit": 0,
+        "judge_exit": 0,
+        "audio_exit": 0,
+        "alignment_exit": 0,
+        "silent_closing_turns": [],
+        "audio_issues": [],
+        "approved": true
+      },
+      "strict_pass": 28,
+      "interim_phases": 8,
+      "failures": [
+        {
+          "ts": "2026-09-16T14:56:12.707Z",
+          "turn": 4,
+          "model_name": "gemini-3.8-live-extended-thinking",
+          "user_text": "How many sessions are in that track?",
+          "assistant_text": "There are 3 sessions in the MCP track on June 4.",
+          "tool_calls": [],
+          "tool_results": [],
+          "tokens": null,
+          "ttfb_ms": 1313,
+          "raw_ttfb_ms": null,
+          "latency_ms": 7815,
+          "reconnection_count": 0,
+          "scores": {
+            "turn_taking": true,
+            "tool_use_correct": true,
+            "instruction_following": false,
+            "kb_grounding": false
+          },
+          "claude_reasoning": "Policy explicitly forbids calculating or inferring total numbers of sessions and directs describing the kinds of sessions and their days instead; the assistant instead asserted a count. The count is also wrong: beyond the three listed MCP Sessions, the KB lists Harald Kirschner's June 4, 3:00 PM 'Full Spectrum MCP' talk in the MCP track, making four June 4 MCP-track sessions. This is an unqualified claim about the whole track, so it contradicts the KB."
+        },
+        {
+          "ts": "2026-09-16T15:00:30.696Z",
+          "turn": 20,
+          "model_name": "gemini-3.8-live-extended-thinking",
+          "user_text": "Is there a talk by Charles Frye?",
+          "assistant_text": "Yes, Charles Frye is giving a talk titled How fast are LLM inference engines anyway? on June 4 at 12:45 PM.",
+          "tool_calls": [],
+          "tool_results": [],
+          "tokens": null,
+          "ttfb_ms": 984,
+          "raw_ttfb_ms": null,
+          "latency_ms": 12074,
+          "reconnection_count": 0,
+          "scores": {
+            "turn_taking": true,
+            "tool_use_correct": true,
+            "instruction_following": false,
+            "kb_grounding": true
+          },
+          "claude_reasoning": "Policy requires including all relevant entries when asked about a speaker's sessions, but the assistant mentioned only 'How fast are LLM inference engines anyway?' and omitted Charles Frye's other June 4 session, 'What every AI engineer needs to know about GPUs' at 11:15 AM (933607). The missing action is listing that second session. Nothing stated is false, so grounding stands."
+        }
+      ]
+    },
+    {
+      "attempt": {
+        "index": 17,
+        "run_dir": "runs/aiwf_medium_context_speech_v2/20260916T080112_gemini-3.8-live-extended-thinking_0d853430",
+        "exit_code": 0,
+        "turns": 30,
+        "full": true
+      },
+      "validation": {
+        "run": "/home/khkramer/src/aiewf-eval/runs/aiwf_medium_context_speech_v2/20260916T080112_gemini-3.8-live-extended-thinking_0d853430",
+        "turns": 30,
+        "full": true,
+        "runtime_failure": null,
+        "reconstruction_exit": 0,
+        "judge_exit": 0,
+        "audio_exit": 0,
+        "alignment_exit": 0,
+        "silent_closing_turns": [],
+        "audio_issues": [],
+        "approved": true
+      },
+      "strict_pass": 30,
+      "interim_phases": 6,
+      "failures": []
+    },
+    {
+      "attempt": {
+        "index": 19,
+        "run_dir": "runs/aiwf_medium_context_speech_v2/20260916T080158_gemini-3.8-live-extended-thinking_c32c56a6",
+        "exit_code": 0,
+        "turns": 30,
+        "full": true
+      },
+      "validation": {
+        "run": "/home/khkramer/src/aiewf-eval/runs/aiwf_medium_context_speech_v2/20260916T080158_gemini-3.8-live-extended-thinking_c32c56a6",
+        "turns": 30,
+        "full": true,
+        "runtime_failure": null,
+        "reconstruction_exit": 0,
+        "judge_exit": 0,
+        "audio_exit": 0,
+        "alignment_exit": 0,
+        "silent_closing_turns": [],
+        "audio_issues": [],
+        "approved": true
+      },
+      "strict_pass": 28,
+      "interim_phases": 8,
+      "failures": [
+        {
+          "ts": "2026-09-16T15:03:00.998Z",
+          "turn": 4,
+          "model_name": "gemini-3.8-live-extended-thinking",
+          "user_text": "How many sessions are in that track?",
+          "assistant_text": "There are 3 sessions in the MCP track, covering origins, observability, and current limitations.",
+          "tool_calls": [],
+          "tool_results": [],
+          "tokens": null,
+          "ttfb_ms": 1178,
+          "raw_ttfb_ms": null,
+          "latency_ms": 10310,
+          "reconnection_count": 0,
+          "scores": {
+            "turn_taking": true,
+            "tool_use_correct": true,
+            "instruction_following": false,
+            "kb_grounding": false
+          },
+          "claude_reasoning": "Policy explicitly forbids calculating or inferring total session counts and directs a qualitative description instead; the assistant asserted a total of 3. The number is also factually wrong: the KB lists four June 4 MCP-track sessions (947165, 914489, 915013, and Kirschner's 914509), plus two June 3 MCP workshops. No tool was expected or called."
+        },
+        {
+          "ts": "2026-09-16T15:03:23.664Z",
+          "turn": 6,
+          "model_name": "gemini-3.8-live-extended-thinking",
+          "user_text": "I'm particularly interested in Voice AI and in techniques for building reliable agents.",
+          "assistant_text": "I have some excellent recommendations for those specific topics.",
+          "tool_calls": [],
+          "tool_results": [],
+          "tokens": null,
+          "ttfb_ms": 992,
+          "raw_ttfb_ms": null,
+          "latency_ms": 10900,
+          "reconnection_count": 0,
+          "scores": {
+            "turn_taking": true,
+            "tool_use_correct": true,
+            "instruction_following": false,
+            "kb_grounding": true
+          },
+          "claude_reasoning": "The reply is a bare promise ('I have some excellent recommendations') that neither delivers recommendations nor asks for the still-missing attendance date, violating the rule against ending with only a promise to look something up. No tool was expected, so tool use is unaffected."
+        }
+      ]
+    },
+    {
+      "attempt": {
+        "index": 18,
+        "run_dir": "runs/aiwf_medium_context_speech_v2/20260916T080135_gemini-3.8-live-extended-thinking_b1877c4a",
+        "exit_code": 0,
+        "turns": 30,
+        "full": true
+      },
+      "validation": {
+        "run": "/home/khkramer/src/aiewf-eval/runs/aiwf_medium_context_speech_v2/20260916T080135_gemini-3.8-live-extended-thinking_b1877c4a",
+        "turns": 30,
+        "full": true,
+        "runtime_failure": null,
+        "reconstruction_exit": 0,
+        "judge_exit": 0,
+        "audio_exit": 0,
+        "alignment_exit": 0,
+        "silent_closing_turns": [],
+        "audio_issues": [],
+        "approved": true
+      },
+      "strict_pass": 29,
+      "interim_phases": 9,
+      "failures": [
+        {
+          "ts": "2026-09-16T15:02:52.530Z",
+          "turn": 4,
+          "model_name": "gemini-3.8-live-extended-thinking",
+          "user_text": "How many sessions are in that track?",
+          "assistant_text": "The MCP track features 3 sessions on June 4th, covering origins and implementation standards.",
+          "tool_calls": [],
+          "tool_results": [],
+          "tokens": null,
+          "ttfb_ms": 1488,
+          "raw_ttfb_ms": null,
+          "latency_ms": 10644,
+          "reconnection_count": 0,
+          "scores": {
+            "turn_taking": true,
+            "tool_use_correct": true,
+            "instruction_following": false,
+            "kb_grounding": false
+          },
+          "claude_reasoning": "Two problems. First, the governing policy explicitly says not to calculate or infer total numbers of sessions and to describe the kinds of sessions and their days instead; the assistant asserted '3 sessions', a direct policy contradiction. Second, the count is factually wrong against the full KB: besides 947165, 914489, and 915013, Harald Kirschner's session 914509 (June 4, 3:00 PM, Yerba Buena Salons 7-8) is also listed in the MCP track, making four. No tool call was expected, so tool_use_correct remains true."
+        }
+      ]
+    },
+    {
+      "attempt": {
+        "index": 23,
+        "run_dir": "runs/aiwf_medium_context_speech_v2/20260916T080944_gemini-3.8-live-extended-thinking_bd55a0b2",
+        "exit_code": 1,
+        "turns": 0,
+        "full": false
+      },
+      "validation": {
+        "run": "/home/khkramer/src/aiewf-eval/runs/aiwf_medium_context_speech_v2/20260916T080944_gemini-3.8-live-extended-thinking_bd55a0b2",
+        "turns": 0,
+        "full": false,
+        "runtime_failure": {
+          "reason": "no_audio_timeout",
+          "turn": 0,
+          "replayed": false,
+          "timeout_seconds": 15.0
+        },
+        "reconstruction_exit": 0,
+        "judge_exit": 1,
+        "audio_exit": 0,
+        "alignment_exit": 0,
+        "silent_closing_turns": [],
+        "audio_issues": [
+          {
+            "turn": 0,
+            "reason": "missing bot speech"
+          }
+        ],
+        "approved": false
+      },
+      "strict_pass": 0,
+      "interim_phases": 0,
+      "failures": []
+    },
+    {
+      "attempt": {
+        "index": 20,
+        "run_dir": "runs/aiwf_medium_context_speech_v2/20260916T080304_gemini-3.8-live-extended-thinking_0ef6da4c",
+        "exit_code": 0,
+        "turns": 30,
+        "full": true
+      },
+      "validation": {
+        "run": "/home/khkramer/src/aiewf-eval/runs/aiwf_medium_context_speech_v2/20260916T080304_gemini-3.8-live-extended-thinking_0ef6da4c",
+        "turns": 30,
+        "full": true,
+        "runtime_failure": null,
+        "reconstruction_exit": 0,
+        "judge_exit": 0,
+        "audio_exit": 0,
+        "alignment_exit": 0,
+        "silent_closing_turns": [],
+        "audio_issues": [],
+        "approved": true
+      },
+      "strict_pass": 29,
+      "interim_phases": 8,
+      "failures": [
+        {
+          "ts": "2026-09-16T15:04:14.229Z",
+          "turn": 4,
+          "model_name": "gemini-3.8-live-extended-thinking",
+          "user_text": "How many sessions are in that track?",
+          "assistant_text": "There are 3 sessions in the MCP track on June 4.",
+          "tool_calls": [],
+          "tool_results": [],
+          "tokens": null,
+          "ttfb_ms": 1034,
+          "raw_ttfb_ms": null,
+          "latency_ms": 7672,
+          "reconnection_count": 0,
+          "scores": {
+            "turn_taking": true,
+            "tool_use_correct": true,
+            "instruction_following": false,
+            "kb_grounding": false
+          },
+          "claude_reasoning": "The governing policy states: 'Do not calculate or infer total numbers of sessions, speakers, or topics. Describe the available kinds of sessions and their days instead.' The assistant instead asserted a count ('There are 3 sessions'), which directly contradicts that instruction. The count is also factually wrong: the KB lists four June 4 MCP-track entries \u2014 947165 (11:15 AM keynote), 914489 (12:15 PM), 915013 (2:20 PM), and Harald Kirschner's 914509 (3:00 PM, MCP track, Yerba Buena Salons 7-8). No tool call was expected."
+        }
+      ]
+    },
+    {
+      "attempt": {
+        "index": 21,
+        "run_dir": "runs/aiwf_medium_context_speech_v2/20260916T080309_gemini-3.8-live-extended-thinking_9385091a",
+        "exit_code": 0,
+        "turns": 30,
+        "full": true
+      },
+      "validation": {
+        "run": "/home/khkramer/src/aiewf-eval/runs/aiwf_medium_context_speech_v2/20260916T080309_gemini-3.8-live-extended-thinking_9385091a",
+        "turns": 30,
+        "full": true,
+        "runtime_failure": null,
+        "reconstruction_exit": 0,
+        "judge_exit": 0,
+        "audio_exit": 0,
+        "alignment_exit": 0,
+        "silent_closing_turns": [],
+        "audio_issues": [],
+        "approved": true
+      },
+      "strict_pass": 28,
+      "interim_phases": 11,
+      "failures": [
+        {
+          "ts": "2026-09-16T15:04:18.398Z",
+          "turn": 4,
+          "model_name": "gemini-3.8-live-extended-thinking",
+          "user_text": "How many sessions are in that track?",
+          "assistant_text": "There are 3 sessions in the MCP track listed in the conference schedule.",
+          "tool_calls": [],
+          "tool_results": [],
+          "tokens": null,
+          "ttfb_ms": 1123,
+          "raw_ttfb_ms": null,
+          "latency_ms": 8203,
+          "reconnection_count": 0,
+          "scores": {
+            "turn_taking": true,
+            "tool_use_correct": true,
+            "instruction_following": false,
+            "kb_grounding": false
+          },
+          "claude_reasoning": "No tool call was expected or made, so tool use is fine. However the governing policy forbids calculating or inferring total numbers of sessions and asks the assistant to describe the kinds of sessions and their days instead; the assistant gave a hard count. The count is also wrong: besides the three June 4 MCP sessions, Harald Kirschner's 3:00 PM June 4 talk (914509) is in the MCP track and there are two June 3 MCP workshops, so 'there are 3 sessions in the MCP track listed in the conference schedule' contradicts the knowledge base."
+        },
+        {
+          "ts": "2026-09-16T15:09:56.344Z",
+          "turn": 23,
+          "model_name": "gemini-3.8-live-extended-thinking",
+          "user_text": "I don't know the session ID, but the talk was by Harald Kirschner.",
+          "assistant_text": "I can help you submit that vote.I'm reviewing Harald Kirschner's sessions to identify the specific one for your vote.Let me just take a moment to look into those details.I've submitted your vote for Harald Kirschner's session, \"Full Spectrum MCP: Uncovering Hidden Servers and Clients Capabilities,\" Jennifer. Is there anything else I can assist you with?",
+          "tool_calls": [
+            {
+              "name": "vote_for_session",
+              "args": {
+                "name": "Jennifer Smith",
+                "session_id": "914509"
+              }
+            }
+          ],
+          "tool_results": [
+            {
+              "name": "vote_for_session",
+              "response": {
+                "tool_call_id": "call_171384_fc_0_0",
+                "result": {
+                  "status": "success"
+                },
+                "properties": null,
+                "is_duplicate": false
+              }
+            }
+          ],
+          "tokens": null,
+          "ttfb_ms": 1401,
+          "raw_ttfb_ms": null,
+          "latency_ms": 35702,
+          "reconnection_count": 0,
+          "scores": {
+            "turn_taking": true,
+            "tool_use_correct": false,
+            "instruction_following": false,
+            "kb_grounding": true
+          },
+          "claude_reasoning": "The user named only the speaker, and Harald Kirschner has three sessions in the KB, so the required behavior was to list them and ask which one. Instead the assistant called vote_for_session for 914509 and asserted the vote was submitted, acting on a genuinely ambiguous reference without clarification \u2014 an unexpected call and a workflow violation. The session title it named does exist, so no factual KB contradiction."
+        }
+      ]
+    },
+    {
+      "attempt": {
+        "index": 22,
+        "run_dir": "runs/aiwf_medium_context_speech_v2/20260916T080830_gemini-3.8-live-extended-thinking_4f2ebc98",
+        "exit_code": 0,
+        "turns": 30,
+        "full": true
+      },
+      "validation": {
+        "run": "/home/khkramer/src/aiewf-eval/runs/aiwf_medium_context_speech_v2/20260916T080830_gemini-3.8-live-extended-thinking_4f2ebc98",
+        "turns": 30,
+        "full": true,
+        "runtime_failure": null,
+        "reconstruction_exit": 0,
+        "judge_exit": 0,
+        "audio_exit": 0,
+        "alignment_exit": 0,
+        "silent_closing_turns": [],
+        "audio_issues": [],
+        "approved": true
+      },
+      "strict_pass": 27,
+      "interim_phases": 6,
+      "failures": [
+        {
+          "ts": "2026-09-16T15:09:34.272Z",
+          "turn": 4,
+          "model_name": "gemini-3.8-live-extended-thinking",
+          "user_text": "How many sessions are in that track?",
+          "assistant_text": "There are 3 sessions listed under the MCP track for June 4.",
+          "tool_calls": [],
+          "tool_results": [],
+          "tokens": null,
+          "ttfb_ms": 1558,
+          "raw_ttfb_ms": null,
+          "latency_ms": 8613,
+          "reconnection_count": 0,
+          "scores": {
+            "turn_taking": true,
+            "tool_use_correct": true,
+            "instruction_following": false,
+            "kb_grounding": false
+          },
+          "claude_reasoning": "The governing policy states not to calculate or infer total numbers of sessions and to describe the kinds of sessions and their days instead; the assistant instead asserted a total of 3. That total also contradicts the KB taken as a whole, which lists a fourth June 4 MCP-track session (914509, Harald Kirschner, 3:00 PM, Yerba Buena Ballroom Salons 7-8: MCP). No tool call was expected or made."
+        },
+        {
+          "ts": "2026-09-16T15:13:58.545Z",
+          "turn": 21,
+          "model_name": "gemini-3.8-live-extended-thinking",
+          "user_text": "Where is the second one?",
+          "assistant_text": "The workshop \"What every AI engineer needs to know about GPUs\" is at 11:15 AM in Foothill F.",
+          "tool_calls": [],
+          "tool_results": [],
+          "tokens": null,
+          "ttfb_ms": 1172,
+          "raw_ttfb_ms": null,
+          "latency_ms": 10439,
+          "reconnection_count": 0,
+          "scores": {
+            "turn_taking": true,
+            "tool_use_correct": true,
+            "instruction_following": false,
+            "kb_grounding": true
+          },
+          "claude_reasoning": "The user asked where 'the second one' is, referring to the session the assistant had just cited \u2014 the 12:45 PM talk, which the KB places in Juniper: Expo Sessions. Instead the assistant described the 11:15 AM GPU workshop, a session it had never mentioned, so the user's actual question about location went unanswered. The room it quoted (Foothill F) is itself accurate for that workshop, so there is no factual contradiction."
+        },
+        {
+          "ts": "2026-09-16T15:14:20.541Z",
+          "turn": 23,
+          "model_name": "gemini-3.8-live-extended-thinking",
+          "user_text": "I don't know the session ID, but the talk was by Harald Kirschner.",
+          "assistant_text": "Let me find that specific session for you.",
+          "tool_calls": [],
+          "tool_results": [],
+          "tokens": null,
+          "ttfb_ms": 2087,
+          "raw_ttfb_ms": null,
+          "latency_ms": 9966,
+          "reconnection_count": 0,
+          "scores": {
+            "turn_taking": true,
+            "tool_use_correct": true,
+            "instruction_following": false,
+            "kb_grounding": true
+          },
+          "claude_reasoning": "The response ends with only a promise to look something up, which the governing policy explicitly forbids. Harald Kirschner has three KB sessions, so the assistant needed to list them or ask which one the user meant; it neither answered nor advanced the vote. No tool call was expected at this turn, so tool use is not penalized."
+        }
+      ]
+    },
+    {
+      "attempt": {
+        "index": 25,
+        "run_dir": "runs/aiwf_medium_context_speech_v2/20260916T081014_gemini-3.8-live-extended-thinking_0b02f667",
+        "exit_code": 0,
+        "turns": 30,
+        "full": true
+      },
+      "validation": {
+        "run": "/home/khkramer/src/aiewf-eval/runs/aiwf_medium_context_speech_v2/20260916T081014_gemini-3.8-live-extended-thinking_0b02f667",
+        "turns": 30,
+        "full": true,
+        "runtime_failure": null,
+        "reconstruction_exit": 0,
+        "judge_exit": 0,
+        "audio_exit": 0,
+        "alignment_exit": 0,
+        "silent_closing_turns": [],
+        "audio_issues": [],
+        "approved": true
+      },
+      "strict_pass": 26,
+      "interim_phases": 6,
+      "failures": [
+        {
+          "ts": "2026-09-16T15:11:26.854Z",
+          "turn": 4,
+          "model_name": "gemini-3.8-live-extended-thinking",
+          "user_text": "How many sessions are in that track?",
+          "assistant_text": "The MCP track features 3 sessions on June 4th.",
+          "tool_calls": [],
+          "tool_results": [],
+          "tokens": null,
+          "ttfb_ms": 840,
+          "raw_ttfb_ms": null,
+          "latency_ms": 7743,
+          "reconnection_count": 0,
+          "scores": {
+            "turn_taking": true,
+            "tool_use_correct": true,
+            "instruction_following": false,
+            "kb_grounding": false
+          },
+          "claude_reasoning": "The assistant asserted a computed count ('3 sessions'), which the governing policy explicitly forbids ('Do not calculate or infer total numbers of sessions'); the golden instead describes the kinds of sessions. The count is also factually wrong: beyond the three listed under MCP TRACK (June 4), the KB lists Harald Kirschner's June 4, 3:00 PM MCP-track talk (914509), so there are four. No tool was expected or called."
+        },
+        {
+          "ts": "2026-09-16T15:12:20.286Z",
+          "turn": 8,
+          "model_name": "gemini-3.8-live-extended-thinking",
+          "user_text": "Actually, I made a mistake. I will only be at the conference on June 5th.",
+          "assistant_text": "Let me adjust those recommendations for you.",
+          "tool_calls": [],
+          "tool_results": [],
+          "tokens": null,
+          "ttfb_ms": 1314,
+          "raw_ttfb_ms": null,
+          "latency_ms": 10834,
+          "reconnection_count": 0,
+          "scores": {
+            "turn_taking": true,
+            "tool_use_correct": true,
+            "instruction_following": false,
+            "kb_grounding": true
+          },
+          "claude_reasoning": "The user changed the constraint to June 5, and the policy requires updating the recommendations with the new constraint. The response is only 'Let me adjust those recommendations for you' \u2014 a bare promise to look something up with no answer, which the policy prohibits. No factual claims were made, and no tool was expected."
+        },
+        {
+          "ts": "2026-09-16T15:14:12.315Z",
+          "turn": 15,
+          "model_name": "gemini-3.8-live-extended-thinking",
+          "user_text": "Yes.",
+          "assistant_text": "To submit the request, what dietary preference should I include?",
+          "tool_calls": [],
+          "tool_results": [],
+          "tokens": null,
+          "ttfb_ms": 2063,
+          "raw_ttfb_ms": null,
+          "latency_ms": 9445,
+          "reconnection_count": 0,
+          "scores": {
+            "turn_taking": true,
+            "tool_use_correct": false,
+            "instruction_following": false,
+            "kb_grounding": true
+          },
+          "claude_reasoning": "The user's 'Yes' accepted the dietary-request offer, and both required arguments were already known (name Jennifer Smith from turn 10, vegan from turn 14). submit_dietary_request should have been called here; instead the assistant asked for the preference the user had just stated, which is a redundant request for known information and a workflow error. The call arrived late at turn 17. No factual errors."
+        },
+        {
+          "ts": "2026-09-16T15:15:55.072Z",
+          "turn": 22,
+          "model_name": "gemini-3.8-live-extended-thinking",
+          "user_text": "I heard that there's some way to vote for our favorite talk of the conference. Is that true?",
+          "assistant_text": "Yes, attendees can cast their vote. What is your name and which session ID would you like to vote for?",
+          "tool_calls": [],
+          "tool_results": [],
+          "tokens": null,
+          "ttfb_ms": 1674,
+          "raw_ttfb_ms": null,
+          "latency_ms": 12031,
+          "reconnection_count": 0,
+          "scores": {
+            "turn_taking": true,
+            "tool_use_correct": true,
+            "instruction_following": false,
+            "kb_grounding": true
+          },
+          "claude_reasoning": "Correctly confirms voting is possible, but it re-asked for the user's name despite Jennifer Smith having been supplied at turn 10 and used in three prior tool calls \u2014 the policy states a known name must not be requested again. No tool call was expected at this turn, so tool use is unaffected, and no facts were misstated."
+        }
+      ]
+    },
+    {
+      "attempt": {
+        "index": 24,
+        "run_dir": "runs/aiwf_medium_context_speech_v2/20260916T080951_gemini-3.8-live-extended-thinking_1281e9d6",
+        "exit_code": 0,
+        "turns": 30,
+        "full": true
+      },
+      "validation": {
+        "run": "/home/khkramer/src/aiewf-eval/runs/aiwf_medium_context_speech_v2/20260916T080951_gemini-3.8-live-extended-thinking_1281e9d6",
+        "turns": 30,
+        "full": true,
+        "runtime_failure": null,
+        "reconstruction_exit": 0,
+        "judge_exit": 0,
+        "audio_exit": 0,
+        "alignment_exit": 0,
+        "silent_closing_turns": [],
+        "audio_issues": [],
+        "approved": true
+      },
+      "strict_pass": 27,
+      "interim_phases": 11,
+      "failures": [
+        {
+          "ts": "2026-09-16T15:10:16.508Z",
+          "turn": 1,
+          "model_name": "gemini-3.8-live-extended-thinking",
+          "user_text": "Are there any workshops about Gemini?",
+          "assistant_text": "Yes, there are 2 Gemini workshops scheduled for Tuesday, June 3.",
+          "tool_calls": [],
+          "tool_results": [],
+          "tokens": null,
+          "ttfb_ms": 1102,
+          "raw_ttfb_ms": null,
+          "latency_ms": 8572,
+          "reconnection_count": 0,
+          "scores": {
+            "turn_taking": true,
+            "tool_use_correct": true,
+            "instruction_following": false,
+            "kb_grounding": true
+          },
+          "claude_reasoning": "The Gemini workshop count of two is consistent with the KB, so there is no factual contradiction. However, the governing policy explicitly forbids calculating or inferring total numbers of sessions and instead asks for a description of the available sessions; the assistant supplied a derived count and no titles or times, so it did not advance the user's request in the policy-compliant way."
+        },
+        {
+          "ts": "2026-09-16T15:15:32.878Z",
+          "turn": 21,
+          "model_name": "gemini-3.8-live-extended-thinking",
+          "user_text": "Where is the second one?",
+          "assistant_text": "His workshop titled \"What every AI engineer needs to know about GPUs\" is in Foothill F: Infrastructure at 11:15 AM on June 4.",
+          "tool_calls": [],
+          "tool_results": [],
+          "tokens": null,
+          "ttfb_ms": 1764,
+          "raw_ttfb_ms": null,
+          "latency_ms": 12784,
+          "reconnection_count": 0,
+          "scores": {
+            "turn_taking": true,
+            "tool_use_correct": true,
+            "instruction_following": false,
+            "kb_grounding": true
+          },
+          "claude_reasoning": "The user asked for the location of the session just discussed, but the assistant answered about a different session (the 11:15 AM GPU workshop) that it had never mentioned, and never gave the requested room \u2014 the talk is in Juniper: Expo Sessions. It neither answered the question nor asked a clarifying question about the ambiguous reference. The facts it did state about the workshop are KB-accurate, so this is a responsiveness failure rather than a factual error."
+        },
+        {
+          "ts": "2026-09-16T15:16:11.468Z",
+          "turn": 23,
+          "model_name": "gemini-3.8-live-extended-thinking",
+          "user_text": "I don't know the session ID, but the talk was by Harald Kirschner.",
+          "assistant_text": "I'll get your vote registered for Harald's MCP talk.Checking the schedule for Harald's presentations.Now going back to your vote, I have submitted your vote for Harald Kirschner's session, Full Spectrum MCP: Uncovering Hidden Servers and Clients Capabilities.",
+          "tool_calls": [
+            {
+              "name": "vote_for_session",
+              "args": {
+                "name": "Jennifer Smith",
+                "session_id": "914509"
+              }
+            }
+          ],
+          "tool_results": [
+            {
+              "name": "vote_for_session",
+              "response": {
+                "tool_call_id": "call_117442_fc_0_0",
+                "result": {
+                  "status": "success"
+                },
+                "properties": null,
+                "is_duplicate": false
+              }
+            }
+          ],
+          "tokens": null,
+          "ttfb_ms": 1516,
+          "raw_ttfb_ms": null,
+          "latency_ms": 26010,
+          "reconnection_count": 0,
+          "scores": {
+            "turn_taking": true,
+            "tool_use_correct": false,
+            "instruction_following": false,
+            "kb_grounding": true
+          },
+          "claude_reasoning": "Harald Kirschner has three sessions in the KB (914821, 914509, 936902), so the request was genuinely ambiguous and required a clarifying question. Instead the assistant guessed the June 4 MCP talk and submitted an unauthorized vote_for_session call that was not expected at this turn, then reported it as done. The session title and ID it cited are KB-correct, so there is no factual contradiction."
+        }
+      ]
+    }
+  ]
+}

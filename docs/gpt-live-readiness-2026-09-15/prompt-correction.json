@@ -1,0 +1,6 @@
+{
+  "excluded_capture_log": "full-validation-2.log",
+  "reason": "Assistant changed frontend prompt without authorization; user prohibited prompt changes. Capture interrupted and excluded. Original frontend restored byte-for-byte.",
+  "retained_baseline_failure": "runs/aiwf_medium_context_speech_live/20260915T145617_gpt-live-1_21687537",
+  "next_steps": "Use the unchanged original prompt; investigate model/API/harness behavior without prompt modifications."
+}

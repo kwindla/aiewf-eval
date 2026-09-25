@@ -1,0 +1,241 @@
+{
+  "summary": {
+    "openai21": {
+      "attempts_finished": 0,
+      "complete": 0,
+      "failure_reasons": {},
+      "attempts_with_error_evidence": {
+        "api_error": 0,
+        "rate_limit": 0,
+        "adapter_error": 0,
+        "reconnect": 0
+      }
+    },
+    "grok": {
+      "attempts_finished": 1,
+      "complete": 1,
+      "failure_reasons": {},
+      "attempts_with_error_evidence": {
+        "api_error": 0,
+        "rate_limit": 0,
+        "adapter_error": 0,
+        "reconnect": 0
+      }
+    },
+    "openai15": {
+      "attempts_finished": 1,
+      "complete": 1,
+      "failure_reasons": {},
+      "attempts_with_error_evidence": {
+        "api_error": 0,
+        "rate_limit": 0,
+        "adapter_error": 0,
+        "reconnect": 0
+      }
+    },
+    "gemini31": {
+      "attempts_finished": 2,
+      "complete": 0,
+      "failure_reasons": {
+        "no_audio_timeout": 2
+      },
+      "attempts_with_error_evidence": {
+        "api_error": 0,
+        "rate_limit": 0,
+        "adapter_error": 0,
+        "reconnect": 0
+      }
+    },
+    "gemini38": {
+      "attempts_finished": 2,
+      "complete": 2,
+      "failure_reasons": {},
+      "attempts_with_error_evidence": {
+        "api_error": 0,
+        "rate_limit": 0,
+        "adapter_error": 0,
+        "reconnect": 0
+      }
+    }
+  },
+  "attempts": [
+    {
+      "arm": "gemini31",
+      "index": 3,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T125341_gemini-3.1-flash-live-preview_2e321b4a",
+      "complete": false,
+      "recorded_turns": 10,
+      "missing_turns": [
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29
+      ],
+      "failure_reason": "no_audio_timeout",
+      "runtime": {
+        "model_name": "gemini-3.1-flash-live-preview",
+        "turns": 10,
+        "status": "failed",
+        "valid": false,
+        "note": "runtime-only; scoring is performed post-run",
+        "failure": {
+          "reason": "no_audio_timeout",
+          "turn": 10,
+          "replayed": false,
+          "timeout_seconds": 15.0
+        }
+      },
+      "evidence": {
+        "rate_limit": [],
+        "api_error": [],
+        "adapter_error": [],
+        "reconnect": []
+      },
+      "transcript_reconnections": 0
+    },
+    {
+      "arm": "grok",
+      "index": 1,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T125341_grok-voice-think-fast-1.0_0fcb2ea8",
+      "complete": true,
+      "recorded_turns": 30,
+      "missing_turns": [],
+      "failure_reason": null,
+      "runtime": {
+        "model_name": "grok-voice-think-fast-1.0",
+        "turns": 30,
+        "status": "completed",
+        "valid": true,
+        "note": "runtime-only; scoring is performed post-run"
+      },
+      "evidence": {
+        "rate_limit": [],
+        "api_error": [],
+        "adapter_error": [],
+        "reconnect": []
+      },
+      "transcript_reconnections": 0
+    },
+    {
+      "arm": "gemini31",
+      "index": 2,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T125341_gemini-3.1-flash-live-preview_303944bf",
+      "complete": false,
+      "recorded_turns": 24,
+      "missing_turns": [
+        24,
+        25,
+        26,
+        27,
+        28,
+        29
+      ],
+      "failure_reason": "no_audio_timeout",
+      "runtime": {
+        "model_name": "gemini-3.1-flash-live-preview",
+        "turns": 24,
+        "status": "failed",
+        "valid": false,
+        "note": "runtime-only; scoring is performed post-run",
+        "failure": {
+          "reason": "no_audio_timeout",
+          "turn": 24,
+          "replayed": false,
+          "timeout_seconds": 15.0
+        }
+      },
+      "evidence": {
+        "rate_limit": [],
+        "api_error": [],
+        "adapter_error": [],
+        "reconnect": []
+      },
+      "transcript_reconnections": 0
+    },
+    {
+      "arm": "openai15",
+      "index": 1,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T125341_gpt-realtime-1.5_a1afe33b",
+      "complete": true,
+      "recorded_turns": 30,
+      "missing_turns": [],
+      "failure_reason": null,
+      "runtime": {
+        "model_name": "gpt-realtime-1.5",
+        "turns": 30,
+        "status": "completed",
+        "valid": true,
+        "note": "runtime-only; scoring is performed post-run"
+      },
+      "evidence": {
+        "rate_limit": [],
+        "api_error": [],
+        "adapter_error": [],
+        "reconnect": []
+      },
+      "transcript_reconnections": 0
+    },
+    {
+      "arm": "gemini38",
+      "index": 2,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T125341_gemini-3.8-live-extended-thinking_d9e80640",
+      "complete": true,
+      "recorded_turns": 30,
+      "missing_turns": [],
+      "failure_reason": null,
+      "runtime": {
+        "model_name": "gemini-3.8-live-extended-thinking",
+        "turns": 30,
+        "status": "completed",
+        "valid": true,
+        "note": "runtime-only; scoring is performed post-run"
+      },
+      "evidence": {
+        "rate_limit": [],
+        "api_error": [],
+        "adapter_error": [],
+        "reconnect": []
+      },
+      "transcript_reconnections": 0
+    },
+    {
+      "arm": "gemini38",
+      "index": 1,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T125341_gemini-3.8-live-extended-thinking_996bf056",
+      "complete": true,
+      "recorded_turns": 30,
+      "missing_turns": [],
+      "failure_reason": null,
+      "runtime": {
+        "model_name": "gemini-3.8-live-extended-thinking",
+        "turns": 30,
+        "status": "completed",
+        "valid": true,
+        "note": "runtime-only; scoring is performed post-run"
+      },
+      "evidence": {
+        "rate_limit": [],
+        "api_error": [],
+        "adapter_error": [],
+        "reconnect": []
+      },
+      "transcript_reconnections": 0
+    }
+  ]
+}

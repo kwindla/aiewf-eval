@@ -1,0 +1,13 @@
+{
+  "run": "/home/khkramer/src/aiewf-eval/runs/aiwf_medium_context_speech_v2/20260916T071942_gemini-3.8-live-extended-thinking_c745344d",
+  "turns": 30,
+  "full": true,
+  "runtime_failure": null,
+  "reconstruction_exit": 1,
+  "judge_exit": null,
+  "audio_exit": 0,
+  "alignment_exit": 0,
+  "silent_closing_turns": [],
+  "audio_issues": [],
+  "approved": false
+}

@@ -1,0 +1,5 @@
+{
+  "benchmarks/aiwf_medium_context_speech_v2/judge.py": "b783a1104b00fbb5d394e4081e915c2e1d6de9af054f219ebb20ed6cd4b8fcf2",
+  "src/multi_turn_eval/judging/claude_judge.py": "8be85956e1571c36d5bf76a0140bcc104b6f1015d4db42c94df85469186477f7",
+  "docs/speech-v2-canonical-2026-09-15/rejudge.py": "93ebc1050d35bd2c163de67fc6e0ce0ae7eb17e53ae48b0ef678276cb2ed84b2"
+}

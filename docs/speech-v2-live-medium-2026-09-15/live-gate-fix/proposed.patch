@@ -1,0 +1,24 @@
+--- a/src/multi_turn_eval/pipelines/openai_live.py
++++ b/src/multi_turn_eval/pipelines/openai_live.py
+@@ -73,6 +73,12 @@
+                 not self.active and not self.speaking and
+                 now - self.last_activity >= self.quiet_seconds)
+ 
++    def finish_input(self, now):
++        # A backchannel can finish while the user is still speaking. Start a
++        # fresh quiet interval at input end so it cannot commit that turn early.
++        self.input_finished = True
++        self.last_activity = max(self.last_activity, now)
++
+     def begin(self, now):
+         if self.active or self.speaking:
+             raise RuntimeError('Cannot advance while backend or playback is active')
+@@ -174,7 +180,7 @@
+         while True:
+             if position >= len(pcm):
+                 if complete is not None:
+-                    self.state.input_finished = True
++                    self.state.finish_input(time.monotonic())
+                     self.log('input_end')
+                     complete.set(); complete = None
+                 if not self.audio_queue.empty():

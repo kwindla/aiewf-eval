@@ -1,0 +1,152 @@
+[
+  {
+    "log": "docs/speech-v2-canonical-2026-09-15/interrupted-pre-tool-followup-fix/capture/gemini31-01.log",
+    "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T131050_gemini-3.1-flash-live-preview_a4b3e62e",
+    "disposition": "excluded: cohort invalidated by confirmed premature tool-followup turn completion"
+  },
+  {
+    "log": "docs/speech-v2-canonical-2026-09-15/interrupted-pre-tool-followup-fix/capture/gemini31-02.log",
+    "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T131050_gemini-3.1-flash-live-preview_b053316b",
+    "disposition": "excluded: cohort invalidated by confirmed premature tool-followup turn completion"
+  },
+  {
+    "log": "docs/speech-v2-canonical-2026-09-15/interrupted-pre-tool-followup-fix/capture/gemini31-03.log",
+    "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T131050_gemini-3.1-flash-live-preview_40903458",
+    "disposition": "excluded: cohort invalidated by confirmed premature tool-followup turn completion"
+  },
+  {
+    "log": "docs/speech-v2-canonical-2026-09-15/interrupted-pre-tool-followup-fix/capture/gemini31-04.log",
+    "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T131834_gemini-3.1-flash-live-preview_2bca7549",
+    "disposition": "excluded: cohort invalidated by confirmed premature tool-followup turn completion"
+  },
+  {
+    "log": "docs/speech-v2-canonical-2026-09-15/interrupted-pre-tool-followup-fix/capture/gemini31-05.log",
+    "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T131911_gemini-3.1-flash-live-preview_b801be1a",
+    "disposition": "excluded: cohort invalidated by confirmed premature tool-followup turn completion"
+  },
+  {
+    "log": "docs/speech-v2-canonical-2026-09-15/interrupted-pre-tool-followup-fix/capture/gemini38-01.log",
+    "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T131050_gemini-3.8-live-extended-thinking_42423dab",
+    "disposition": "excluded: cohort invalidated by confirmed premature tool-followup turn completion"
+  },
+  {
+    "log": "docs/speech-v2-canonical-2026-09-15/interrupted-pre-tool-followup-fix/capture/gemini38-02.log",
+    "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T131050_gemini-3.8-live-extended-thinking_67b37e6a",
+    "disposition": "excluded: cohort invalidated by confirmed premature tool-followup turn completion"
+  },
+  {
+    "log": "docs/speech-v2-canonical-2026-09-15/interrupted-pre-tool-followup-fix/capture/gemini38-03.log",
+    "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T131800_gemini-3.8-live-extended-thinking_7e1e8d1d",
+    "disposition": "excluded: cohort invalidated by confirmed premature tool-followup turn completion"
+  },
+  {
+    "log": "docs/speech-v2-canonical-2026-09-15/interrupted-pre-tool-followup-fix/capture/gemini38-04.log",
+    "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T131900_gemini-3.8-live-extended-thinking_ce01310e",
+    "disposition": "excluded: cohort invalidated by confirmed premature tool-followup turn completion"
+  },
+  {
+    "log": "docs/speech-v2-canonical-2026-09-15/interrupted-pre-tool-followup-fix/capture/gemini38-05.log",
+    "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T131920_gemini-3.8-live-extended-thinking_9cf2800a",
+    "disposition": "excluded: cohort invalidated by confirmed premature tool-followup turn completion"
+  },
+  {
+    "log": "docs/speech-v2-canonical-2026-09-15/interrupted-pre-tool-followup-fix/capture/grok-01.log",
+    "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T131050_grok-voice-think-fast-1.0_7b8e1f9b",
+    "disposition": "excluded: cohort invalidated by confirmed premature tool-followup turn completion"
+  },
+  {
+    "log": "docs/speech-v2-canonical-2026-09-15/interrupted-pre-tool-followup-fix/capture/grok-02.log",
+    "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T131050_grok-voice-think-fast-1.0_1d09db2d",
+    "disposition": "excluded: cohort invalidated by confirmed premature tool-followup turn completion"
+  },
+  {
+    "log": "docs/speech-v2-canonical-2026-09-15/interrupted-pre-tool-followup-fix/capture/grok-03.log",
+    "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T131050_grok-voice-think-fast-1.0_7ee223c8",
+    "disposition": "excluded: cohort invalidated by confirmed premature tool-followup turn completion"
+  },
+  {
+    "log": "docs/speech-v2-canonical-2026-09-15/interrupted-pre-tool-followup-fix/capture/grok-04.log",
+    "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T131050_grok-voice-think-fast-1.0_d1718011",
+    "disposition": "excluded: cohort invalidated by confirmed premature tool-followup turn completion"
+  },
+  {
+    "log": "docs/speech-v2-canonical-2026-09-15/interrupted-pre-tool-followup-fix/capture/grok-05.log",
+    "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T131050_grok-voice-think-fast-1.0_9f50850a",
+    "disposition": "excluded: cohort invalidated by confirmed premature tool-followup turn completion"
+  },
+  {
+    "log": "docs/speech-v2-canonical-2026-09-15/interrupted-pre-tool-followup-fix/capture/grok-06.log",
+    "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T131831_grok-voice-think-fast-1.0_476a1656",
+    "disposition": "excluded: cohort invalidated by confirmed premature tool-followup turn completion"
+  },
+  {
+    "log": "docs/speech-v2-canonical-2026-09-15/interrupted-pre-tool-followup-fix/capture/grok-07.log",
+    "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T131859_grok-voice-think-fast-1.0_b83eeec7",
+    "disposition": "excluded: cohort invalidated by confirmed premature tool-followup turn completion"
+  },
+  {
+    "log": "docs/speech-v2-canonical-2026-09-15/interrupted-pre-tool-followup-fix/capture/grok-08.log",
+    "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T131919_grok-voice-think-fast-1.0_8c36364c",
+    "disposition": "excluded: cohort invalidated by confirmed premature tool-followup turn completion"
+  },
+  {
+    "log": "docs/speech-v2-canonical-2026-09-15/interrupted-pre-tool-followup-fix/capture/grok-09.log",
+    "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T131934_grok-voice-think-fast-1.0_dc91a7c9",
+    "disposition": "excluded: cohort invalidated by confirmed premature tool-followup turn completion"
+  },
+  {
+    "log": "docs/speech-v2-canonical-2026-09-15/interrupted-pre-tool-followup-fix/capture/grok-10.log",
+    "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T131946_grok-voice-think-fast-1.0_59b9b871",
+    "disposition": "excluded: cohort invalidated by confirmed premature tool-followup turn completion"
+  },
+  {
+    "log": "docs/speech-v2-canonical-2026-09-15/interrupted-pre-tool-followup-fix/capture/openai15-01.log",
+    "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T131050_gpt-realtime-1.5_f1517dc3",
+    "disposition": "excluded: cohort invalidated by confirmed premature tool-followup turn completion"
+  },
+  {
+    "log": "docs/speech-v2-canonical-2026-09-15/interrupted-pre-tool-followup-fix/capture/openai15-02.log",
+    "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T131050_gpt-realtime-1.5_7dceb739",
+    "disposition": "excluded: cohort invalidated by confirmed premature tool-followup turn completion"
+  },
+  {
+    "log": "docs/speech-v2-canonical-2026-09-15/interrupted-pre-tool-followup-fix/capture/openai15-03.log",
+    "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T132132_gpt-realtime-1.5_e254c107",
+    "disposition": "excluded: cohort invalidated by confirmed premature tool-followup turn completion"
+  },
+  {
+    "log": "docs/speech-v2-canonical-2026-09-15/interrupted-pre-tool-followup-fix/capture/openai15-04.log",
+    "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T132144_gpt-realtime-1.5_c61bd194",
+    "disposition": "excluded: cohort invalidated by confirmed premature tool-followup turn completion"
+  },
+  {
+    "log": "docs/speech-v2-canonical-2026-09-15/interrupted-pre-tool-followup-fix/capture/openai15-05.log",
+    "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T132211_gpt-realtime-1.5_5de45af1",
+    "disposition": "excluded: cohort invalidated by confirmed premature tool-followup turn completion"
+  },
+  {
+    "log": "docs/speech-v2-canonical-2026-09-15/interrupted-pre-tool-followup-fix/capture/openai21-01.log",
+    "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T131050_gpt-realtime-2.1_3cf20de2",
+    "disposition": "excluded: cohort invalidated by confirmed premature tool-followup turn completion"
+  },
+  {
+    "log": "docs/speech-v2-canonical-2026-09-15/interrupted-pre-tool-followup-fix/capture/openai21-02.log",
+    "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T131050_gpt-realtime-2.1_8a766ad4",
+    "disposition": "excluded: cohort invalidated by confirmed premature tool-followup turn completion"
+  },
+  {
+    "log": "docs/speech-v2-canonical-2026-09-15/interrupted-pre-tool-followup-fix/capture/openai21-03.log",
+    "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T131050_gpt-realtime-2.1_ead912cb",
+    "disposition": "excluded: cohort invalidated by confirmed premature tool-followup turn completion"
+  },
+  {
+    "log": "docs/speech-v2-canonical-2026-09-15/interrupted-pre-tool-followup-fix/capture/openai21-04.log",
+    "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T132135_gpt-realtime-2.1_6844bd70",
+    "disposition": "excluded: cohort invalidated by confirmed premature tool-followup turn completion"
+  },
+  {
+    "log": "docs/speech-v2-canonical-2026-09-15/interrupted-pre-tool-followup-fix/capture/openai21-05.log",
+    "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T132154_gpt-realtime-2.1_6bd26297",
+    "disposition": "excluded: cohort invalidated by confirmed premature tool-followup turn completion"
+  }
+]

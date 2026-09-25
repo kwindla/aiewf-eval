@@ -1,0 +1,150 @@
+[
+  {
+    "case": "progress",
+    "user": "When are the workshops?",
+    "assistant": "Let me check the program for you.",
+    "expected_ready": false,
+    "actual_ready": false,
+    "events": [
+      {
+        "type": "coordinator_started",
+        "model": "gpt-5.6-luna",
+        "observed_transcript": "Let me check the program for you."
+      },
+      {
+        "type": "coordinator_result",
+        "model": "gpt-5.6-luna",
+        "decision": {
+          "ready": false,
+          "kind": "progress_only",
+          "reason": "The assistant only said it would check and has not provided the workshop times."
+        },
+        "observed_transcript": "Let me check the program for you.",
+        "elapsed_ms": 2148.963410058059,
+        "usage": {
+          "input_tokens": 290,
+          "input_tokens_details": {
+            "cache_write_tokens": 0,
+            "cached_tokens": 0
+          },
+          "output_tokens": 36,
+          "output_tokens_details": {
+            "reasoning_tokens": 0
+          },
+          "total_tokens": 326
+        }
+      }
+    ]
+  },
+  {
+    "case": "incorrect_answer",
+    "user": "When are the workshops?",
+    "assistant": "The workshops are on February 30.",
+    "expected_ready": true,
+    "actual_ready": true,
+    "events": [
+      {
+        "type": "coordinator_started",
+        "model": "gpt-5.6-luna",
+        "observed_transcript": "The workshops are on February 30."
+      },
+      {
+        "type": "coordinator_result",
+        "model": "gpt-5.6-luna",
+        "decision": {
+          "ready": true,
+          "kind": "answer",
+          "reason": "The assistant provided a direct answer to the question, even though the date is invalid."
+        },
+        "observed_transcript": "The workshops are on February 30.",
+        "elapsed_ms": 2305.1738740177825,
+        "usage": {
+          "input_tokens": 290,
+          "input_tokens_details": {
+            "cache_write_tokens": 0,
+            "cached_tokens": 0
+          },
+          "output_tokens": 37,
+          "output_tokens_details": {
+            "reasoning_tokens": 0
+          },
+          "total_tokens": 327
+        }
+      }
+    ]
+  },
+  {
+    "case": "clarification",
+    "user": "Can you recommend a session?",
+    "assistant": "What topics interest you?",
+    "expected_ready": true,
+    "actual_ready": true,
+    "events": [
+      {
+        "type": "coordinator_started",
+        "model": "gpt-5.6-luna",
+        "observed_transcript": "What topics interest you?"
+      },
+      {
+        "type": "coordinator_result",
+        "model": "gpt-5.6-luna",
+        "decision": {
+          "ready": true,
+          "kind": "clarification",
+          "reason": "The assistant asks for the user's interests to narrow down a session recommendation."
+        },
+        "observed_transcript": "What topics interest you?",
+        "elapsed_ms": 1700.948938028887,
+        "usage": {
+          "input_tokens": 288,
+          "input_tokens_details": {
+            "cache_write_tokens": 0,
+            "cached_tokens": 0
+          },
+          "output_tokens": 35,
+          "output_tokens_details": {
+            "reasoning_tokens": 0
+          },
+          "total_tokens": 323
+        }
+      }
+    ]
+  },
+  {
+    "case": "social",
+    "user": "Thanks!",
+    "assistant": "You are welcome.",
+    "expected_ready": true,
+    "actual_ready": true,
+    "events": [
+      {
+        "type": "coordinator_started",
+        "model": "gpt-5.6-luna",
+        "observed_transcript": "You are welcome."
+      },
+      {
+        "type": "coordinator_result",
+        "model": "gpt-5.6-luna",
+        "decision": {
+          "ready": true,
+          "kind": "social",
+          "reason": "The assistant appropriately completed the user's acknowledgment with a brief social reply."
+        },
+        "observed_transcript": "You are welcome.",
+        "elapsed_ms": 1490.4516220558435,
+        "usage": {
+          "input_tokens": 283,
+          "input_tokens_details": {
+            "cache_write_tokens": 0,
+            "cached_tokens": 0
+          },
+          "output_tokens": 33,
+          "output_tokens_details": {
+            "reasoning_tokens": 0
+          },
+          "total_tokens": 316
+        }
+      }
+    ]
+  }
+]

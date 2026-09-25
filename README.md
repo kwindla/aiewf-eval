@@ -121,38 +121,53 @@ The Qwen3.6 rows use official `Qwen/Qwen3.6-27B` BF16 and `Qwen/Qwen3.6-35B-A3B-
 
 Speech-to-speech models:
 
-| Model             | Pass Rate | Tool Use | Instruction | KB Ground | Turn Ok | Non-Tool V2V Med | Non-Tool V2V Max | Tool V2V Mean | Silence Pad Mean |
-|-------------------|-----------|----------|-------------|-----------|---------|------------------|------------------|---------------|------------------|
-| gpt-realtime-2.1 (low) | 97.2% | 876/900 | 876/900 | 900/900 | 899/900 | 1504ms | 4288ms | 1537ms | 75ms |
-| grok-voice-think-fast-1.0 | 95.3% | 288/300 | 289/300 | 299/300 | 296/300 | 2336ms | 4800ms | 2753ms | 239ms |
-| gpt-realtime-1.5 | 93.3% | 282/300 | 280/300 | 300/300 | 299/300 | 1152ms | 2304ms | 2251ms | 96ms |
-| gemini-3.1-flash-live (minimal) | 91.7% | 276/300 | 277/300 | 300/300 | 300/300 | 1632ms | 5664ms | 3172ms | 100ms |
-| gpt-realtime | 86.7% | 271/300 | 260/300 | 300/300 | 296/300 | 1536ms | 4672ms | 2199ms | 341ms |
-| gemini-live | 86.0% | 258/300 | 261/300 | 293/300 | 278/300 | 2624ms | 30000ms | 4082ms | 90ms |
-| nova-2-sonic | * | 278/300 | 265/300 | 296/300 | * | 1280ms | 3232ms | 1689ms | 79ms |
+**Completed-conversation speech results, September 16, 2026.** Each row scores the first **25 complete, harness-valid conversations (750 turns)** with the shared Opus 5 rubric. Standard-prompt rows use the shared speech-v2 prompt; the prompt-optimized configuration is marked with an asterisk. Accuracy is conditional on conversation completion. Incomplete conversations, including their observed prefixes, are excluded from accuracy and reported separately as failed conversations. Every attempt is preserved; failures are not erased by top-ups.
 
-For speech-to-speech models, we measure voice-to-voice latency by analyzing the conversation recording. We measure the overall time from the end of the user's speech to the beginning of the model's speech response.
+Failure rate is incomplete model/service conversations divided by harness-valid attempts. Harness-invalid captures are excluded from that denominator and disclosed separately. No prompts or judge rubric changed for this policy update; text-model scores remain unchanged. See the [completed-conversation report](docs/speech-completed25-2026-09-16/REPORT.md) and [sampling policy](docs/speech-completed25-2026-09-16/PROTOCOL.md).
 
-For voice agent use cases, voice-to-voice latency needs to be under 1,500ms.
+| Model | Scored | Failed conversations | Pass Rate | Tool Use | Instruction | KB Ground | Turn Ok | Non-Tool V2V Med | Non-Tool V2V Max | Tool V2V Mean | Silence Pad Mean |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| GPT-Live prompt-optimized + Terra medium* | 25 | 2/27 (7.4%) | 98.5% | 749/750 | 739/750 | 746/750 | — | 2144ms | 29056ms | 2471ms | — |
+| Grok Voice Think Fast | 25 | 0/25 (0.0%) | 97.7% | 742/750 | 734/750 | 750/750 | 730/750 | 2496ms | 5984ms | 2689ms | 88ms |
+| GPT-Realtime-2.1 low | 25 | 0/25 (0.0%) | 94.4% | 733/750 | 712/750 | 731/750 | 750/750 | 1568ms | 9568ms | 1499ms | 75ms |
+| GPT-Live standard + Terra medium | 25 | 0/25 (0.0%) | 94.3% | 723/750 | 715/750 | 746/750 | 749/750 | 1696ms | 11072ms | 2169ms | — |
+| GPT-Realtime-1.5 | 25 | 0/25 (0.0%) | 94.0% | 739/750 | 708/750 | 725/750 | 737/750 | 1120ms | 3424ms | 1890ms | 160ms |
+| Gemini 3.8 Live (regular; default) | 25 | 1/26 (3.8%) | 92.9% | 733/750 | 700/750 | 732/750 | 749/750 | 1440ms | 12288ms | 2112ms | — |
+| Gemini 3.8 Extended Thinking low | 25 | 0/25 (0.0%) | 92.9% | 747/750 | 698/750 | 729/750 | 750/750 | 1440ms | 8896ms | 1509ms | — |
+| Gemini 3.1 minimal | 25 | 1/26 (3.8%) | 87.5% | 717/750 | 663/750 | 729/750 | 750/750 | 1344ms | 3936ms | 1661ms | 98ms |
 
-The voice-to-voice latency measured here is different from the TTFB reported by the Pipecat service for these models, because all of these models were tested in server-side VAD mode (the server-side turn delay is opaque to the Pipecat pipeline), and all of the models send initial silence bytes before actual speech audio. (Text-to-speech models do this, too. The initial silence segments are typically between 150ms and 250ms for standalone TTS models.)
+*GPT-Live prompt-optimized uses a different prompt structure: the frontend contains voice-agent behavior and delegation instructions; the backend contains the full knowledge base and answering instructions. It uses Terra medium and a five-second quiet/playback completion gate. It is evaluated on the same benchmark questions with the shared Opus 5 rubric. Turn-taking is not scored by its reconstructed-transcript judge (shown as —); waveform audio metrics are measured separately. First-speech V2V mean is 2686ms, median 2112ms, with 748/750 positive measurable latencies.*
 
-We also include a "Turn Ok" column for these models, which counts how often the model does not respond at all when we expect it or responds with control characters, API refusals, or generic errors.
+### Additional speech experiments
 
-The Nova 2 Sonic model performs very well on instruction following and tool calling but has a high rate of safety refusals for normal content. It also has a connection limit of 8 minutes. Fixes for both of these issues are in flight from AWS.
+Gemini medium also contains 25 completed conversations and uses the interaction-aware harness with the standard prompt. The earlier-harness Gemini medium cohort is superseded and retained only in the historical reports. No runtime transcript classifier is used.
 
-gemini-3.1-flash-live-preview is a reasoning model. We show the results with minimal thinking enabled, above. Here are the results all thinking levels. Even minimal is too slow for voice agent use cases, today. With additional reasoning, the model's benchmark results improve, but latency increases. Note the tool use and instruction following regression from medium to high. This is something we see regularly in multi-turn testing of thinking models. The model is not always "smartest" at the highest thinking setting.
+| Model / configuration | Scored | Failed conversations | Pass Rate | First-speech V2V mean | Median | Positive latency coverage |
+|---|---:|---:|---:|---:|---:|---:|
+| Gemini 3.8 Extended Thinking medium (interaction-aware) | 25 | 2/27 (7.4%) | 93.1% | 1752ms | 1632ms | 750/750 |
 
-| Thinking | Pass Rate | Tool Use | Instruction | KB Ground | Turn Ok | Non-Tool V2V Med | Non-Tool V2V Max | Tool V2V Mean | Silence Pad Mean |
-|----------|-----------|----------|-------------|-----------|---------|------------------|------------------|---------------|------------------|
-| high | 91.0% | 281/300 | 273/300 | 300/300 | 297/300 | 2368ms | 15872ms | 3665ms | 119ms |
-| medium | 96.0% | 291/300 | 288/300 | 300/300 | 296/300 | 2400ms | 10208ms | 3903ms | 113ms |
-| low | 90.3% | 282/300 | 271/300 | 299/300 | 297/300 | 2176ms | 4672ms | 3602ms | 97ms |
-| minimal | 91.7% | 276/300 | 277/300 | 300/300 | 300/300 | 1632ms | 5664ms | 3172ms | 100ms |
+**Failed-conversation details:** turn numbers below are **one-based, out of 30**. No-response timeouts are not labeled explicit API errors.
+
+- **Gemini 3.8 Live (regular)**: 1 failure, `no_audio_timeout` on turn **1**, after 0 completed turns.
+- **Gemini 3.1 minimal**: 1 failure, `no_audio_timeout` on turn **25**, after 24 completed turns.
+- **Gemini 3.8 Extended Thinking medium (interaction-aware)**: 2 failures, `no_audio_timeout` on turn **1**, after 0 completed turns.
+- **GPT-Live prompt-optimized**: 2 failures, `no-response timeout (90s)` on turn **11**, after 10 completed turns.
+
+**Harness and measurement notes:**
+
+- Gemini 3.8 Live (regular): 25 completed conversations, 697/750 strict passes. First-speech V2V mean 1616ms, median 1536ms, 749/750 positive measurements (one missing). Thinking configuration is omitted, as required by this model. Thirteen attempts were excluded for a harness defect that suppressed duplicate-tool acknowledgments; the 21 earlier completed conversations had no such suppression and were retained, then four validated completions were added after the capture-local fix. Failures are 1/26 eligible attempts, not 14/39 total captures. See the [regular-model report](docs/gemini38-standard-n25-2026-09-16/REPORT.md) and [harness review](docs/gemini38-standard-n25-2026-09-16/harness-review.json).
+
+- Gemini 3.8 Extended Thinking low: one original capture recorded a startup greeting instead of the first scripted exchange. It is excluded as a harness defect and replaced; the old dagger no longer applies to the scored set. It is not counted as a provider failure.
+- GPT-Live standard: waveform landmark alignment resolved the late input-window offset in one recording without changing its measured latencies. The original broken-gate cohort remains diagnostic and excluded.
+- GPT-Live optimized: canonical VAD missed one brief recorded answer. The conversation is complete; its unmeasurable latency remains missing. Full missing/nonpositive coverage is retained in the report.
+- First-speech V2V includes acknowledgments and is conditional on measurable speech. It is not latency to the substantive answer. Metrics use actual recorded speech, not packet arrival. Missing audio boundaries do not become zero-latency observations.
+- The earlier Gemini cohorts retain their documented silent-closing audio limitations. The newer medium cohort waits for provider IDLE and closing playback.
+- Gemini 3.1 historical reliability: the [August investigation](docs/async-gemini-live-comparison-2026-08-04/root-cause-probes/README.md) reported 18/20 no-response-free conversations and a WebSocket 1006 reconnect in another attempt. Those historical observations are separate from current counts.
+- Historical diagnostic campaigns are not pooled into current failure rates. Original [attempt-based results](docs/speech-v2-canonical-2026-09-15/rejudge-policy-compliance-1/REPORT.md) and the [old speech table](docs/speech-v2-canonical-2026-09-15/historical-speech-results.md) remain archived. The original gpt-realtime model remains omitted.
 
 ### Sample Recordings
 
-Listen to full 30-turn benchmark conversations from each speech-to-speech model:
+Historical recordings using the original prompt (not the speech-v2 cohort above):
 
 | Model         | Recording                                      |
 |---------------|------------------------------------------------|
@@ -167,6 +182,26 @@ In the recordings, the left channel is the user's speech and the right channel i
 ![Visually inspecting silence padding by looking at the audio waveform](samples/silence-padding-measurement.png)
 
 *Visually inspecting silence padding by looking at the audio waveform. Here we're using the [Descript](https://descript.com/) editor.*
+
+### GPT-Live validation notes
+
+GPT-Live (`gpt-live-1`) was validated with the **exact same full speech-v2
+frontend prompt, knowledge base, tools, and judging criteria** as the other
+speech-to-speech models. Its delegated backend is `gpt-5.6-terra` with medium
+reasoning and receives the same prompt. Results must name both models.
+
+OpenAI's [prompting guide](https://developers.openai.com/api/docs/guides/live-prompting)
+recommends a shorter conversational frontend prompt and detailed backend procedures.
+That is a possible production optimization, not a change to this benchmark.
+With the revised shared judge, the first standard-prompt 30-turn validation scored 28/30. The closing
+utterance stayed in the frontend with no backend delegation, so `end_session` was
+never called. Explicit delegation guidance for closing requests could be worth a
+production experiment; it has not been applied to this benchmark. Custom-frontend
+probes are diagnostic only and are excluded from standard-prompt results.
+
+GPT-Live has **25 captured conversations** (five pilot plus 20 additions), with 25/25 reaching all 30 transcript turns. A turn-gate defect can advance immediately after input ends when an early backchannel has already gone quiet. These captures are retained as **diagnostics**, not a canonical score. See the [capture report](docs/speech-v2-live-medium-2026-09-15/REPORT.md) and [isolated gate fix](docs/speech-v2-live-medium-2026-09-15/live-gate-fix/README.md). The [fresh corrected-gate cohort](docs/gpt-live-fixed-gate-n25-2026-09-15/REPORT.md) completed 25/25 conversations and scored 707/750 (94.3%). Its gate audit passed. The [completed-conversation review](docs/speech-completed25-2026-09-16/REPORT.md) resolved the recording offset by waveform alignment without changing its measured latencies.
+
+The separate **GPT-Live prompt-optimized** experiment follows the [design document](docs/gpt-live-prompt-optimized-design-2026-09-15/DESIGN.md). Its original runtime-classifier cohort is preserved as diagnostics. The [five-second protocol](docs/gpt-live-optimized-quiet5-2026-09-16/PROTOCOL.md) uses backend lifecycle, speech after backend content availability, and playback; it has no runtime text classifier. The [completed-conversation report](docs/speech-completed25-2026-09-16/REPORT.md) includes the validated 25-completion cohort and separately retained no-response failure. Smoke tests are excluded. Its split prompts remain separate from the standard speech prompt.
 
 ## Quick Start
 
@@ -237,16 +272,18 @@ uv run multi-turn-eval run aiwf_medium_context --model claude-sonnet-4-5 --servi
 uv run multi-turn-eval run aiwf_medium_context --model gpt-4o --service openai
 uv run multi-turn-eval run aiwf_medium_context --model gemini-2.5-flash --service google
 
-# Realtime audio models 
-uv run multi-turn-eval run aiwf_medium_context --model gpt-realtime --service openai-realtime
-uv run multi-turn-eval run aiwf_medium_context --model gemini-3.1-flash-live-preview --service gemini-live --thinking minimal
+# Realtime audio models use the separate speech-v2 prompt and rubric
+MTE_OPENAI_REALTIME_REASONING_EFFORT=low uv run multi-turn-eval run aiwf_medium_context_speech_v2 --model gpt-realtime-2.1 --service openai-realtime
+uv run multi-turn-eval run aiwf_medium_context_speech_v2 --model gemini-3.1-flash-live-preview --service gemini-live --thinking minimal
+uv run multi-turn-eval run aiwf_medium_context_speech_v2 --model gemini-3.8-live --service gemini-live
+uv run multi-turn-eval run aiwf_medium_context_speech_v2 --model gemini-3.8-live-extended-thinking --service gemini-live
 uv run multi-turn-eval run aiwf_medium_context --model ultravox-v0.7 --service ultravox-realtime
 
 # Nova Sonic (no --service needed, pipeline creates its own LLM)
 uv run multi-turn-eval run aiwf_medium_context --model amazon.nova-2-sonic-v1:0 --pipeline nova-sonic
 
 # Grok (xAI) Realtime
-uv run multi-turn-eval run aiwf_medium_context --model grok-voice-think-fast-1.0 --pipeline grok-realtime
+uv run multi-turn-eval run aiwf_medium_context_speech_v2 --model grok-voice-think-fast-1.0 --pipeline grok-realtime
 
 # Debug with limited turns
 uv run multi-turn-eval run aiwf_medium_context --model gpt-4o --service openai --only-turns 0,1,2
@@ -298,10 +335,7 @@ When turn-taking failures occur, the judge is more lenient on `instruction_follo
 
 ```bash
 # Judge a speech-to-speech run (turn-taking analysis runs automatically)
-uv run multi-turn-eval judge runs/aiwf_medium_context/20260111T123456_gpt-realtime_abc123
-
-# Skip turn-taking analysis
-uv run multi-turn-eval judge runs/aiwf_medium_context/20260111T123456_gpt-realtime_abc123 --skip-turn-taking
+uv run multi-turn-eval judge runs/aiwf_medium_context_speech_v2/<run-directory> --judge-model claude-opus-5
 ```
 
 Additional outputs for speech-to-speech runs:
@@ -393,6 +427,8 @@ runs/
 | `gpt-realtime` | realtime | openai-realtime |
 | `gemini-2.5-flash` | text | google |
 | `gemini-3.1-flash-live-preview` | realtime | gemini-live |
+| `gemini-3.8-live` | realtime | gemini-live |
+| `gemini-3.8-live-extended-thinking` | realtime | gemini-live |
 | `gemini-2.5-flash-native-audio-preview-12-2025` | realtime | gemini-live |
 | `ultravox-v0.7` | realtime | ultravox-realtime |
 | `claude-sonnet-4-5` | text | anthropic |
@@ -510,20 +546,31 @@ uv run python scripts/analyze_turn_metrics.py runs/aiwf_medium_context/<timestam
 Use this prompt with Claude Code to run comprehensive benchmarks across multiple speech-to-speech models:
 
 ```
-Run a full 30-turn test with all four speech-to-speech models: ultravox-v0.7,
-gpt-realtime, grok-realtime, gemini-2.5-flash-native-audio-preview-12-2025.
+Collect 25 complete, harness-valid 30-turn conversations per model with aiwf_medium_context_speech_v2:
+- gpt-realtime-2.1 (low reasoning)
+- grok-voice-think-fast-1.0
+- gpt-realtime-1.5
+- gemini-3.1-flash-live-preview (minimal thinking)
+- gemini-3.8-live-extended-thinking (low thinking)
+
+Use at most five concurrent sessions per provider. Preserve every attempt, including
+failures. Add new attempts until 25 valid conversations complete; never select by score.
+Exclude incomplete conversations from accuracy and report failure rates separately.
+Exclude confirmed harness defects separately from model/service failures. Use a fresh campaign directory.
 
 For each model:
-1. Run the 30-turn benchmark
+1. Run the voice benchmark and record completion/errors for every attempt
 2. Analyze using scripts/analyze_turn_metrics.py and save turn_metrics.json
-3. Judge the model performance using the Claude judge
+3. Judge once with claude-opus-5 and the benchmark-specific voice rubric
 
 After completing all models, create a summary comparison table with these columns:
 - Model
-- Tool Use (X/30)
-- Instruction (X/30)
-- KB Ground (X/30)
-- Turn Ok (X/30)
+- Scored conversations (25)
+- Failed conversations / eligible attempts, percentage, failure reason and stopping turn
+- Tool Use (X/750)
+- Instruction (X/750)
+- KB Ground (X/750)
+- Turn Ok (X/750)
 - Pass Rate
 - Non-Tool V2V Median
 - Non-Tool V2V Max
@@ -531,9 +578,13 @@ After completing all models, create a summary comparison table with these column
 - Silence Pad Mean
 
 Separate metrics for tool-call turns vs non-tool-call turns in the analysis.
+Score the 750 turns from completed conversations. Preserve partial failed transcripts as
+diagnostics; report each failure with its one-based stopping turn and completed-turn count.
+Preserve all text-model prompts and README scores.
 ```
 
-This will run all four models (which takes approximately 15-20 minutes each), analyze their timing metrics, judge their responses, and produce a comparison table.
+See the [completed-conversation protocol](docs/speech-completed25-2026-09-16/PROTOCOL.md)
+for sampling, failure accounting, and links to preserved capture artifacts.
 
 ## License
 

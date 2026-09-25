@@ -4,9 +4,10 @@
 message improve a reasoning model's accuracy when visible reasoning is disabled,
 without a large change in time to first answer token (TTFAT)?
 
-**Scope:** Twenty-six standard filler comparisons plus one separate Nemotron
-thinking-toggle contrast across six serving categories on the
-30-turn `aiwf_medium_context` conversational tool-use benchmark. The screen is
+**Scope:** Twenty-six standard filler comparisons and one separate Nemotron
+thinking-toggle contrast across six serving categories, plus two August open-model
+follow-ups on local llama.cpp and SGLang. All use the 30-turn
+`aiwf_medium_context` conversational tool-use benchmark. The screen is
 exploratory. “Latent compute” is a mechanism hypothesis motivated by arXiv
 2607.03502 and Pfau et al. (2024), not something these API-level experiments observe
 directly.
@@ -83,8 +84,8 @@ directly.
 | gemini-3.6-flash | Google | 97.1 | 89.3 | −7.8 [−13.3, −2.9] | 90% → 90% | 798 | 30 / 30 | decrease |
 | gemini-2.5-flash | Google | 89.9 | 90.6 | +0.7 | 100% → 100% | 550 | 30 / 6 | no detectable effect |
 | laguna-s-2.1 | OpenRouter | 85.6 | 83.3 | −2.2 [−8.3, +5.1] | 13% → 13% | 295 | 30 / 30 | uncertain |
-| qwen3.6-27b | BaseTen | 97.3 | 97.2 | −0.1 | 100% → 100% | 668 | 30 / 6 | no detectable effect |
-| qwen3.6-35b-a3b (FP8) | BaseTen | 91.6 | 78.0 | −13.6 | 90% → 73% | 765 | 30 / 30 | decrease |
+| qwen3.6-27b | BaseTen | 97.3 | 97.2 | −0.1 | 100% → 100% | 667 | 30 / 6 | no detectable effect |
+| qwen3.6-35b-a3b (FP8) | BaseTen | 91.6 | 78.0 | −13.6 | 90% → 73% | 764 | 30 / 30 | decrease |
 | inkling-small | BaseTen | 75.1 | 76.9 | +1.8 [−9.0, +13.1] | 57% → 33% | 279 | 30 / 30 | no detectable effect |
 | gemma-4-26b-a4b | BaseTen | 80.7 | 79.8 | −0.9 [−4.6, +1.8] | 97% → 97% | 580 | 30 / 30 | no detectable effect |
 
@@ -194,6 +195,36 @@ filler together in a joint 2×2 experiment. These results therefore do not estab
 whether filler substitutes for or complements reasoning. That question requires a
 new balanced factorial experiment.
 
+## August open-model follow-ups
+
+These results remain outside the 26-model dot screen because their reasoning modes,
+serving stacks, glyph patterns, and designs differ.
+
+| model configuration | intervention | no filler | filler | Δ points [95% CI] | complete conversations | design / interval |
+|---|---|---:|---:|---:|---:|---|
+| Muse Glimmer 30B, `reasoning_strength=low` | 96 dots | 86.1% | 83.8% | −2.33 [−4.67, −0.11] | 30/30 → 30/30 | later treatment vs reused control; independent bootstrap |
+| Muse Glimmer 30B, `reasoning_strength=low` | 96 dashes | 86.3% | 89.4% | +3.07 [+1.38, +4.71] | 75/75 → 75/75 | fresh temporal pairs; pair-block bootstrap |
+| Nemotron 3.5 Lightning, thinking on/unbounded | 96 dots | 93.6% | 19.8% | −73.78 [−78.67, −68.78] | 30/30 → 0/30 | reused control; fresh filler; conversation bootstrap |
+| Nemotron 3.5 Lightning, thinking on/unbounded | 96 dashes | 93.6% | 28.4% | −65.11 [−71.33, −58.78] | 30/30 → 0/30 | reused control; fresh fillers interleaved; conversation bootstrap |
+
+The Muse dash result is the primary fresh replication: 75 temporal pairs with
+alternating order and sequential inference. The effect was +2.98 points when no
+filler ran first and +3.15 when dashes ran first. Dashes gained 130 passes across
+the six required-tool turns, lost 61 across the other 24 turns, and reduced
+redundant confirmations on turns 11–12 by 13.33 points [−24.00, −2.67]. The
+tradeoff was concentrated immediately after action opportunities: turns 13, 16,
+and 25 lost 55 passes, while the fourth such transition, turn 18, was unchanged at
+75/75 in both arms. Failures included false completion claims, late calls that displaced
+the new question, and premature action on the next task. This supports a
+pattern-sensitive action-threshold account, not a uniform quality or knowledge gain.
+
+The Nemotron Lightning failure was not a turn-0 `end_session` abort. All 60 filler
+conversations generated until the next SGLang request exceeded the 65,536-token
+context. Dots left 694 missing scripted turns and dashes left 610; P95 TTFAT
+exceeded 152 seconds in both arms. Some responses explicitly reacted to the
+punctuation, so “content-free” describes the experimenter's intent, not the
+model's interpretation.
+
 ## Failure modes and deployment implications
 
 - The refreshed fixed-denominator GLM-5.2 and Terra estimates are reported in the
@@ -205,6 +236,9 @@ new balanced factorial experiment.
 - `nemotron-super` with thinking disabled aborts at turn 0 on all 24 dot-treated
   attempts. Small thinking-enabled filler cells did not reproduce the abort, but
   were too small and negative to support a broad recommendation.
+- `nemotron-3.5-lightning` with thinking enabled and unbounded exhibits a separate
+  context-explosion failure: 0/60 filler conversations completed, despite 30/30
+  completion without filler.
 - `gpt-5.4-mini` is excluded from the master accuracy screen because strict
   completion at effort none is sparse: 0/17 without filler, 1/17 with dots, and
   3/14 with dashes. At effort medium, an adaptively stopped screen observed strict
@@ -221,11 +255,12 @@ trailing dashes, +2.93 points (95% CI +1.09 to +4.77). Strict completion was
 This result validates that configuration; it does not establish dots–dashes
 equivalence or transfer to other models.
 
-The practical rule is model-specific validation with strict completion and aborts as
-primary outcomes. If testing a responsive model, include dashes as a candidate pattern
-because they performed at least as well as dots in the measured gpt-5.4 cells and had
-fewer observed terra aborts. Do not infer equivalence or generalize the pattern without
-a model-specific factorial screen.
+The practical rule is model-specific validation with strict completion, missing
+future turns, latency tails, and post-action transition quality as primary outcomes.
+If testing a responsive model, include dashes as a candidate validation pattern—not
+a deployment default. Dashes improved the confirmed GPT-5.4 and Muse configurations,
+but still destroyed completion on Nemotron 3.5 Lightning. Do not infer equivalence,
+safety, or transfer without a model-specific screen.
 
 ## What this screen does and does not support
 
@@ -250,7 +285,9 @@ fixed-denominator pools at Google's `minimal` reasoning floor; the separate Gemi
 2.5 Flash extension explicitly disables thinking with `thinking_budget=0`. Dot-arm
 top-ups and possible 30-per-arm promotion are governed by prespecified rules. Nine other standard
 rows retain their original exploratory pools; the separate GPT-5.4 dash confirmation
-contains 82 fresh conversations. Config-to-run manifests and the fixed-denominator
+contains 82 fresh conversations. The August extension summarizes 90 earlier Muse
+screen conversations, 150 fresh Muse dash-replication conversations, and 90 Nemotron
+3.5 Lightning conversations. Config-to-run manifests and the fixed-denominator
 analyzers are in
 `docs/filler-study-data/`. The self-contained rendered report is
 `docs/filler-token-latent-scratchpad-study.html`, generated by

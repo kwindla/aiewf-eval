@@ -1,0 +1,10 @@
+[project]
+name = "aiewf-gpt-live-smoke"
+version = "0.1.0"
+requires-python = ">=3.12"
+dependencies = [
+  "pipecat-ai[openai]==1.10.0",
+  "openai[realtime]==3.14.0",
+  "python-dotenv",
+  "scipy>=1.16.3",
+]

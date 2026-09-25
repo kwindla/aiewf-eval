@@ -1,0 +1,33 @@
+{
+  "label": "GPT-Live prompt-optimized",
+  "method": "live-exchange-v1",
+  "attempts": 25,
+  "planned_turns": 750,
+  "concurrency": 5,
+  "replace_failures": false,
+  "model": "gpt-live-1",
+  "backend": "gpt-5.6-terra",
+  "reasoning": "medium",
+  "voice": "marin",
+  "coordinator": "gpt-5.6-luna low",
+  "source_hashes": {
+    "src/multi_turn_eval/pipelines/openai_live.py": "247eace55a518556a647439a007eadeaca3803e378e52223c6ee0de905eea58f",
+    "docs/gpt-live-optimized-2026-09-16/capture.py": "2228b643a89a4a2d3bab41363167392f35a12f8e4aff527dbd566a8ced5dc9fe",
+    "docs/gpt-live-optimized-2026-09-16/coordinator.py": "d3e6784b15ce5b75a8bc8ce4011a1ae06fb39f47efca44c09e0898331f39d931",
+    "docs/gpt-live-optimized-2026-09-16/disk_audio.py": "80829c9b48599c93f0f7e144926bd306f8d7269d39b9316dd5ee9f427cbbddae",
+    "docs/gpt-live-optimized-2026-09-16/reconstruct.py": "fd2b7a4378217d400b141dd7f0855bc39327d8033d3b51d467428e0c3cfca756",
+    "docs/gpt-live-optimized-2026-09-16/judge_reconstructed.py": "02e3bbf14c02ac79de2bf81fddf7b75e5d61d0abb7c3294d858fb0d7d9bd0d26",
+    "docs/gpt-live-optimized-2026-09-16/process_run.py": "4fd4e96354495abd494b70a9f1e569335639e7f203203a06cce01be2663ccca3",
+    "benchmarks/aiwf_medium_context_speech_live_optimized/config.py": "9c5fad58a22aa3642f29a54c0660150403056c8828f42e45b3568259dee7a65d",
+    "benchmarks/aiwf_medium_context_speech_live_optimized/prompts/frontend.txt": "332a125c8fbc1a98be1302cf0dc10de22fb24004d56105d75990a9b96ed74ce0",
+    "benchmarks/aiwf_medium_context_speech_live_optimized/prompts/backend.txt": "26a768b2c8faf9e4a27ade00b4f111a4a4e9c5cbdc27bd5a4a9992b0ba712c71"
+  },
+  "frontend_sha256": "332a125c8fbc1a98be1302cf0dc10de22fb24004d56105d75990a9b96ed74ce0",
+  "backend_sha256": "26a768b2c8faf9e4a27ade00b4f111a4a4e9c5cbdc27bd5a4a9992b0ba712c71",
+  "judge_sha256": "c5a8a3b3c3240172cc392529a1784b59d2913a32e2ec2ba843a456415b75ef27",
+  "versions": {
+    "openai": "3.14.0",
+    "pipecat-ai": "1.10.0"
+  },
+  "substantive_latency": "Not validated; first-speech metrics include acknowledgments. Report limitation."
+}

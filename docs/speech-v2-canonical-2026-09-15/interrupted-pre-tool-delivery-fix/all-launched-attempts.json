@@ -1,0 +1,230 @@
+[
+  {
+    "log": "docs/speech-v2-canonical-2026-09-15/interrupted-pre-tool-delivery-fix/capture/gemini31-01.log",
+    "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T125341_gemini-3.1-flash-live-preview_fa5ac37c",
+    "runtime": {
+      "model_name": "gemini-3.1-flash-live-preview",
+      "turns": 30,
+      "status": "completed",
+      "valid": true,
+      "note": "runtime-only; scoring is performed post-run"
+    },
+    "disposition": "excluded: cohort invalidated by confirmed tool-result delivery bug"
+  },
+  {
+    "log": "docs/speech-v2-canonical-2026-09-15/interrupted-pre-tool-delivery-fix/capture/gemini31-02.log",
+    "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T125341_gemini-3.1-flash-live-preview_303944bf",
+    "runtime": {
+      "model_name": "gemini-3.1-flash-live-preview",
+      "turns": 24,
+      "status": "failed",
+      "valid": false,
+      "note": "runtime-only; scoring is performed post-run",
+      "failure": {
+        "reason": "no_audio_timeout",
+        "turn": 24,
+        "replayed": false,
+        "timeout_seconds": 15.0
+      }
+    },
+    "disposition": "excluded: cohort invalidated by confirmed tool-result delivery bug"
+  },
+  {
+    "log": "docs/speech-v2-canonical-2026-09-15/interrupted-pre-tool-delivery-fix/capture/gemini31-03.log",
+    "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T125341_gemini-3.1-flash-live-preview_2e321b4a",
+    "runtime": {
+      "model_name": "gemini-3.1-flash-live-preview",
+      "turns": 10,
+      "status": "failed",
+      "valid": false,
+      "note": "runtime-only; scoring is performed post-run",
+      "failure": {
+        "reason": "no_audio_timeout",
+        "turn": 10,
+        "replayed": false,
+        "timeout_seconds": 15.0
+      }
+    },
+    "disposition": "excluded: cohort invalidated by confirmed tool-result delivery bug"
+  },
+  {
+    "log": "docs/speech-v2-canonical-2026-09-15/interrupted-pre-tool-delivery-fix/capture/gemini31-04.log",
+    "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T130054_gemini-3.1-flash-live-preview_e8ff3451",
+    "runtime": null,
+    "disposition": "excluded: cohort invalidated by confirmed tool-result delivery bug"
+  },
+  {
+    "log": "docs/speech-v2-canonical-2026-09-15/interrupted-pre-tool-delivery-fix/capture/gemini31-05.log",
+    "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T130132_gemini-3.1-flash-live-preview_4ad19d12",
+    "runtime": null,
+    "disposition": "excluded: cohort invalidated by confirmed tool-result delivery bug"
+  },
+  {
+    "log": "docs/speech-v2-canonical-2026-09-15/interrupted-pre-tool-delivery-fix/capture/gemini38-01.log",
+    "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T125341_gemini-3.8-live-extended-thinking_996bf056",
+    "runtime": {
+      "model_name": "gemini-3.8-live-extended-thinking",
+      "turns": 30,
+      "status": "completed",
+      "valid": true,
+      "note": "runtime-only; scoring is performed post-run"
+    },
+    "disposition": "excluded: cohort invalidated by confirmed tool-result delivery bug"
+  },
+  {
+    "log": "docs/speech-v2-canonical-2026-09-15/interrupted-pre-tool-delivery-fix/capture/gemini38-02.log",
+    "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T125341_gemini-3.8-live-extended-thinking_d9e80640",
+    "runtime": {
+      "model_name": "gemini-3.8-live-extended-thinking",
+      "turns": 30,
+      "status": "completed",
+      "valid": true,
+      "note": "runtime-only; scoring is performed post-run"
+    },
+    "disposition": "excluded: cohort invalidated by confirmed tool-result delivery bug"
+  },
+  {
+    "log": "docs/speech-v2-canonical-2026-09-15/interrupted-pre-tool-delivery-fix/capture/gemini38-03.log",
+    "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T125717_gemini-3.8-live-extended-thinking_3209011c",
+    "runtime": null,
+    "disposition": "excluded: cohort invalidated by confirmed tool-result delivery bug"
+  },
+  {
+    "log": "docs/speech-v2-canonical-2026-09-15/interrupted-pre-tool-delivery-fix/capture/gemini38-04.log",
+    "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T130101_gemini-3.8-live-extended-thinking_e52bf1c6",
+    "runtime": null,
+    "disposition": "excluded: cohort invalidated by confirmed tool-result delivery bug"
+  },
+  {
+    "log": "docs/speech-v2-canonical-2026-09-15/interrupted-pre-tool-delivery-fix/capture/gemini38-05.log",
+    "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T130224_gemini-3.8-live-extended-thinking_44bf1fde",
+    "runtime": null,
+    "disposition": "excluded: cohort invalidated by confirmed tool-result delivery bug"
+  },
+  {
+    "log": "docs/speech-v2-canonical-2026-09-15/interrupted-pre-tool-delivery-fix/capture/grok-01.log",
+    "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T125341_grok-voice-think-fast-1.0_0fcb2ea8",
+    "runtime": {
+      "model_name": "grok-voice-think-fast-1.0",
+      "turns": 30,
+      "status": "completed",
+      "valid": true,
+      "note": "runtime-only; scoring is performed post-run"
+    },
+    "disposition": "excluded: cohort invalidated by confirmed tool-result delivery bug"
+  },
+  {
+    "log": "docs/speech-v2-canonical-2026-09-15/interrupted-pre-tool-delivery-fix/capture/grok-02.log",
+    "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T125341_grok-voice-think-fast-1.0_24c7ab38",
+    "runtime": {
+      "model_name": "grok-voice-think-fast-1.0",
+      "turns": 30,
+      "status": "completed",
+      "valid": true,
+      "note": "runtime-only; scoring is performed post-run"
+    },
+    "disposition": "excluded: cohort invalidated by confirmed tool-result delivery bug"
+  },
+  {
+    "log": "docs/speech-v2-canonical-2026-09-15/interrupted-pre-tool-delivery-fix/capture/grok-03.log",
+    "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T125341_grok-voice-think-fast-1.0_03dbdb7a",
+    "runtime": null,
+    "disposition": "excluded: cohort invalidated by confirmed tool-result delivery bug"
+  },
+  {
+    "log": "docs/speech-v2-canonical-2026-09-15/interrupted-pre-tool-delivery-fix/capture/grok-04.log",
+    "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T125341_grok-voice-think-fast-1.0_7e1f9c74",
+    "runtime": {
+      "model_name": "grok-voice-think-fast-1.0",
+      "turns": 30,
+      "status": "completed",
+      "valid": true,
+      "note": "runtime-only; scoring is performed post-run"
+    },
+    "disposition": "excluded: cohort invalidated by confirmed tool-result delivery bug"
+  },
+  {
+    "log": "docs/speech-v2-canonical-2026-09-15/interrupted-pre-tool-delivery-fix/capture/grok-05.log",
+    "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T125341_grok-voice-think-fast-1.0_e515a74b",
+    "runtime": {
+      "model_name": "grok-voice-think-fast-1.0",
+      "turns": 30,
+      "status": "completed",
+      "valid": true,
+      "note": "runtime-only; scoring is performed post-run"
+    },
+    "disposition": "excluded: cohort invalidated by confirmed tool-result delivery bug"
+  },
+  {
+    "log": "docs/speech-v2-canonical-2026-09-15/interrupted-pre-tool-delivery-fix/capture/grok-06.log",
+    "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T130047_grok-voice-think-fast-1.0_d8635872",
+    "runtime": null,
+    "disposition": "excluded: cohort invalidated by confirmed tool-result delivery bug"
+  },
+  {
+    "log": "docs/speech-v2-canonical-2026-09-15/interrupted-pre-tool-delivery-fix/capture/grok-07.log",
+    "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T130154_grok-voice-think-fast-1.0_f79a1a21",
+    "runtime": null,
+    "disposition": "excluded: cohort invalidated by confirmed tool-result delivery bug"
+  },
+  {
+    "log": "docs/speech-v2-canonical-2026-09-15/interrupted-pre-tool-delivery-fix/capture/grok-08.log",
+    "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T130210_grok-voice-think-fast-1.0_7209f561",
+    "runtime": null,
+    "disposition": "excluded: cohort invalidated by confirmed tool-result delivery bug"
+  },
+  {
+    "log": "docs/speech-v2-canonical-2026-09-15/interrupted-pre-tool-delivery-fix/capture/grok-09.log",
+    "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T130218_grok-voice-think-fast-1.0_ca1b8838",
+    "runtime": null,
+    "disposition": "excluded: cohort invalidated by confirmed tool-result delivery bug"
+  },
+  {
+    "log": "docs/speech-v2-canonical-2026-09-15/interrupted-pre-tool-delivery-fix/capture/openai15-01.log",
+    "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T125341_gpt-realtime-1.5_a1afe33b",
+    "runtime": {
+      "model_name": "gpt-realtime-1.5",
+      "turns": 30,
+      "status": "completed",
+      "valid": true,
+      "note": "runtime-only; scoring is performed post-run"
+    },
+    "disposition": "excluded: cohort invalidated by confirmed tool-result delivery bug"
+  },
+  {
+    "log": "docs/speech-v2-canonical-2026-09-15/interrupted-pre-tool-delivery-fix/capture/openai15-02.log",
+    "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T125341_gpt-realtime-1.5_266cad57",
+    "runtime": {
+      "model_name": "gpt-realtime-1.5",
+      "turns": 30,
+      "status": "completed",
+      "valid": true,
+      "note": "runtime-only; scoring is performed post-run"
+    },
+    "disposition": "excluded: cohort invalidated by confirmed tool-result delivery bug"
+  },
+  {
+    "log": "docs/speech-v2-canonical-2026-09-15/interrupted-pre-tool-delivery-fix/capture/openai15-03.log",
+    "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T130101_gpt-realtime-1.5_fb0aeee7",
+    "runtime": null,
+    "disposition": "excluded: cohort invalidated by confirmed tool-result delivery bug"
+  },
+  {
+    "log": "docs/speech-v2-canonical-2026-09-15/interrupted-pre-tool-delivery-fix/capture/openai21-01.log",
+    "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T125341_gpt-realtime-2.1_4f21c753",
+    "runtime": null,
+    "disposition": "excluded: cohort invalidated by confirmed tool-result delivery bug"
+  },
+  {
+    "log": "docs/speech-v2-canonical-2026-09-15/interrupted-pre-tool-delivery-fix/capture/openai21-02.log",
+    "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T125341_gpt-realtime-2.1_323b8503",
+    "runtime": null,
+    "disposition": "excluded: cohort invalidated by confirmed tool-result delivery bug"
+  },
+  {
+    "log": "docs/speech-v2-canonical-2026-09-15/interrupted-pre-tool-delivery-fix/capture/openai21-03.log",
+    "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T125341_gpt-realtime-2.1_0e5fcf5f",
+    "runtime": null,
+    "disposition": "excluded: cohort invalidated by confirmed tool-result delivery bug"
+  }
+]

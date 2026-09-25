@@ -1,0 +1,204 @@
+{
+  "started": 12,
+  "finalized": 12,
+  "planned": 25,
+  "unattempted": 13,
+  "attempts": [
+    {
+      "attempt": 1,
+      "run_dir": "runs/aiwf_medium_context_speech_live_optimized/20260916T070356_gpt-live-1_72237592",
+      "finalized": true,
+      "runtime": {
+        "model_name": "gpt-live-1",
+        "turns": 30,
+        "status": "completed",
+        "valid": true,
+        "note": "runtime-only; scoring is performed post-run"
+      },
+      "classification": "diagnostic: external coordinator invalidated this cohort"
+    },
+    {
+      "attempt": 2,
+      "run_dir": "runs/aiwf_medium_context_speech_live_optimized/20260916T070356_gpt-live-1_ea589f44",
+      "finalized": true,
+      "runtime": {
+        "model_name": "gpt-live-1",
+        "turns": 20,
+        "status": "failed",
+        "valid": false,
+        "note": "runtime-only; scoring is performed post-run",
+        "failure": {
+          "reason": "TimeoutError",
+          "detail": "No completed Live answer within 90 seconds",
+          "turn": 20
+        }
+      },
+      "classification": "diagnostic: external coordinator invalidated this cohort"
+    },
+    {
+      "attempt": 3,
+      "run_dir": "runs/aiwf_medium_context_speech_live_optimized/20260916T070356_gpt-live-1_8225e690",
+      "finalized": true,
+      "runtime": {
+        "model_name": "gpt-live-1",
+        "turns": 20,
+        "status": "failed",
+        "valid": false,
+        "note": "runtime-only; scoring is performed post-run",
+        "failure": {
+          "reason": "TimeoutError",
+          "detail": "No completed Live answer within 90 seconds",
+          "turn": 20
+        }
+      },
+      "classification": "diagnostic: external coordinator invalidated this cohort"
+    },
+    {
+      "attempt": 4,
+      "run_dir": "runs/aiwf_medium_context_speech_live_optimized/20260916T070356_gpt-live-1_79e808c2",
+      "finalized": true,
+      "runtime": {
+        "model_name": "gpt-live-1",
+        "turns": 6,
+        "status": "failed",
+        "valid": false,
+        "note": "runtime-only; scoring is performed post-run",
+        "failure": {
+          "reason": "TimeoutError",
+          "detail": "No completed Live answer within 90 seconds",
+          "turn": 6
+        }
+      },
+      "classification": "diagnostic: external coordinator invalidated this cohort"
+    },
+    {
+      "attempt": 5,
+      "run_dir": "runs/aiwf_medium_context_speech_live_optimized/20260916T070356_gpt-live-1_4a184622",
+      "finalized": true,
+      "runtime": {
+        "model_name": "gpt-live-1",
+        "turns": 4,
+        "status": "failed",
+        "valid": false,
+        "note": "runtime-only; scoring is performed post-run",
+        "failure": {
+          "reason": "TimeoutError",
+          "detail": "No completed Live answer within 90 seconds",
+          "turn": 4
+        }
+      },
+      "classification": "diagnostic: external coordinator invalidated this cohort"
+    },
+    {
+      "attempt": 6,
+      "run_dir": "runs/aiwf_medium_context_speech_live_optimized/20260916T070736_gpt-live-1_5a7eabde",
+      "finalized": true,
+      "runtime": {
+        "model_name": "gpt-live-1",
+        "turns": 4,
+        "status": "failed",
+        "valid": false,
+        "note": "runtime-only; scoring is performed post-run",
+        "failure": {
+          "reason": "TimeoutError",
+          "detail": "No completed Live answer within 90 seconds",
+          "turn": 4
+        }
+      },
+      "classification": "diagnostic: external coordinator invalidated this cohort"
+    },
+    {
+      "attempt": 7,
+      "run_dir": "runs/aiwf_medium_context_speech_live_optimized/20260916T070821_gpt-live-1_517a8307",
+      "finalized": true,
+      "runtime": {
+        "model_name": "gpt-live-1",
+        "turns": 30,
+        "status": "completed",
+        "valid": true,
+        "note": "runtime-only; scoring is performed post-run"
+      },
+      "classification": "diagnostic: external coordinator invalidated this cohort"
+    },
+    {
+      "attempt": 8,
+      "run_dir": "runs/aiwf_medium_context_speech_live_optimized/20260916T071106_gpt-live-1_8b8d1a44",
+      "finalized": true,
+      "runtime": {
+        "model_name": "gpt-live-1",
+        "turns": 20,
+        "status": "failed",
+        "valid": false,
+        "note": "runtime-only; scoring is performed post-run",
+        "failure": {
+          "reason": "TimeoutError",
+          "detail": "No completed Live answer within 90 seconds",
+          "turn": 20
+        }
+      },
+      "classification": "diagnostic: external coordinator invalidated this cohort"
+    },
+    {
+      "attempt": 9,
+      "run_dir": "runs/aiwf_medium_context_speech_live_optimized/20260916T071337_gpt-live-1_0ba4db09",
+      "finalized": true,
+      "runtime": {
+        "model_name": "gpt-live-1",
+        "turns": 21,
+        "status": "failed",
+        "valid": false,
+        "note": "runtime-only; scoring is performed post-run",
+        "failure": {
+          "reason": "TimeoutError",
+          "detail": "No completed Live answer within 90 seconds",
+          "turn": 21
+        }
+      },
+      "classification": "diagnostic: external coordinator invalidated this cohort"
+    },
+    {
+      "attempt": 10,
+      "run_dir": "runs/aiwf_medium_context_speech_live_optimized/20260916T071356_gpt-live-1_bb5a6bf7",
+      "finalized": true,
+      "runtime": {
+        "model_name": "gpt-live-1",
+        "turns": 6,
+        "status": "failed",
+        "valid": false,
+        "note": "runtime-only; scoring is performed post-run",
+        "failure": {
+          "reason": "TimeoutError",
+          "detail": "No completed Live answer within 90 seconds",
+          "turn": 6
+        }
+      },
+      "classification": "diagnostic: external coordinator invalidated this cohort"
+    },
+    {
+      "attempt": 11,
+      "run_dir": "runs/aiwf_medium_context_speech_live_optimized/20260916T071558_gpt-live-1_97209261",
+      "finalized": true,
+      "runtime": {
+        "model_name": "gpt-live-1",
+        "turns": 30,
+        "status": "completed",
+        "valid": true,
+        "note": "runtime-only; scoring is performed post-run"
+      },
+      "classification": "diagnostic: external coordinator invalidated this cohort"
+    },
+    {
+      "attempt": 12,
+      "run_dir": "runs/aiwf_medium_context_speech_live_optimized/20260916T071747_gpt-live-1_bbe23032",
+      "finalized": true,
+      "runtime": {
+        "model_name": "gpt-live-1",
+        "turns": 30,
+        "status": "completed",
+        "valid": true,
+        "note": "runtime-only; scoring is performed post-run"
+      },
+      "classification": "diagnostic: external coordinator invalidated this cohort"
+    }
+  ]
+}

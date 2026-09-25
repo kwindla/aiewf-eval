@@ -1,0 +1,64 @@
+[
+  {
+    "event_id": "event_EOUny4h2fWGAgdSFQkGVy",
+    "session": {
+      "id": "live_u7_EOUnxp3oMvOmblWK1TsXFJFB4j7XY1WA",
+      "expires_at": 1789514193,
+      "model": "gpt-live-1",
+      "status": "active",
+      "audio": {
+        "format": {
+          "rate": 24000,
+          "type": "audio/pcm"
+        },
+        "output": {
+          "voice": "marin"
+        }
+      },
+      "delegation": {
+        "responses": {
+          "model": "gpt-5.6-terra",
+          "tool_choice": "auto",
+          "tools": []
+        },
+        "type": "responses"
+      },
+      "input": [],
+      "instructions": "Be concise."
+    },
+    "type": "session.started"
+  },
+  {
+    "event_id": "event_EOUnykeQfwspRcGd3qDTE",
+    "reason": "close_requested",
+    "session": {
+      "id": "live_u7_EOUnxp3oMvOmblWK1TsXFJFB4j7XY1WA",
+      "expires_at": 1789514193,
+      "model": "gpt-live-1",
+      "status": "active",
+      "audio": {
+        "format": {
+          "rate": 24000,
+          "type": "audio/pcm"
+        },
+        "output": {
+          "voice": "marin"
+        }
+      },
+      "delegation": {
+        "responses": {
+          "model": "gpt-5.6-terra",
+          "tool_choice": "auto",
+          "tools": []
+        },
+        "type": "responses"
+      },
+      "input": [],
+      "instructions": "Be concise."
+    },
+    "type": "session.closed",
+    "usage": {
+      "seconds": 0.0
+    }
+  }
+]

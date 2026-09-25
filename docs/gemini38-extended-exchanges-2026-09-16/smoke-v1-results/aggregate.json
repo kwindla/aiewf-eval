@@ -1,0 +1,75 @@
+{
+  "model": "gemini-3.8-live-extended-thinking",
+  "thinking": "medium",
+  "method": "gemini-idle-exchanges-v1",
+  "attempts": 1,
+  "complete": 1,
+  "denominator": 30,
+  "judged_turns": 0,
+  "strict_pass": 0,
+  "strict_percent": 0.0,
+  "validation_flagged_attempts": [
+    1
+  ],
+  "failure_records": [],
+  "interim_phases": 10,
+  "first_speech_signed": {
+    "n": 30,
+    "mean_ms": 1633.0666666666666,
+    "median_ms": 1648.0,
+    "max_ms": 2240.0
+  },
+  "first_speech_positive": {
+    "n": 30,
+    "mean_ms": 1633.0666666666666,
+    "median_ms": 1648.0,
+    "max_ms": 2240.0
+  },
+  "non_tool_positive": {
+    "n": 24,
+    "mean_ms": 1614.6666666666667,
+    "median_ms": 1616.0,
+    "max_ms": 2208.0
+  },
+  "tool_positive": {
+    "n": 6,
+    "mean_ms": 1706.6666666666667,
+    "median_ms": 1664.0,
+    "max_ms": 2240.0
+  },
+  "speech_completion": {
+    "n": 30,
+    "mean_ms": 11172.88125,
+    "median_ms": 7968.0,
+    "max_ms": 33216.0
+  },
+  "missing_measurements": 0,
+  "nonpositive_measurements": 0,
+  "silent_closing_turns": [],
+  "substantive_answer_latency": null,
+  "runs": [
+    {
+      "attempt": {
+        "index": 1,
+        "run_dir": "/home/khkramer/src/aiewf-eval/runs/aiwf_medium_context_speech_v2/20260916T071942_gemini-3.8-live-extended-thinking_c745344d",
+        "full": true
+      },
+      "validation": {
+        "run": "/home/khkramer/src/aiewf-eval/runs/aiwf_medium_context_speech_v2/20260916T071942_gemini-3.8-live-extended-thinking_c745344d",
+        "turns": 30,
+        "full": true,
+        "runtime_failure": null,
+        "reconstruction_exit": 1,
+        "judge_exit": null,
+        "audio_exit": 0,
+        "alignment_exit": 0,
+        "silent_closing_turns": [],
+        "audio_issues": [],
+        "approved": false
+      },
+      "strict_pass": 0,
+      "interim_phases": 10,
+      "failures": []
+    }
+  ]
+}

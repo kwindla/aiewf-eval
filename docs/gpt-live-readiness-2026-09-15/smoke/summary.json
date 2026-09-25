@@ -1,0 +1,34 @@
+{
+  "model": "gpt-live-1",
+  "backend": "gpt-5.6-terra",
+  "openai": "3.14.0",
+  "tools": [
+    {
+      "name": "submit_session_suggestion",
+      "arguments": {
+        "name": "Jennifer Smith",
+        "suggestion_text": "A session about OpenTelemetry tracing"
+      }
+    }
+  ],
+  "turns": [
+    {
+      "turn": 0,
+      "input_end": 7.650231732055545
+    },
+    {
+      "turn": 9,
+      "input_end": 41.0348640170414
+    },
+    {
+      "turn": 10,
+      "input_end": 69.90995265706442
+    },
+    {
+      "turn": 11,
+      "input_end": 100.24214404902887
+    }
+  ],
+  "audio_chunks": 1196,
+  "duration": 128.62502454803325
+}

@@ -31,6 +31,11 @@ ops/**/judging/*.lock
 ops/**/*.lock
 # Recorded conversation audio from results campaigns (large; kept locally)
 docs/**/*.wav
+# Per-conversation judge and metrics outputs from results campaigns (local-only;
+# commit reports, aggregates, and cohort summaries instead)
+docs/**/processed/*/
+docs/**/rejudge-policy-compliance-*/*/
+docs/**/audio-audit/*-[0-9]*.json
 
 # Python
 __pycache__/

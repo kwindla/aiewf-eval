@@ -1,0 +1,10 @@
+Using CPython 3.12.13
+  × No solution found when resolving dependencies for split (markers:
+  │ python_full_version >= '3.14'):
+  ╰─▶ Because livekit-agents>=1.7.0 depends on openai>=2,<3 and your project
+      depends on livekit-agents>=1.7.0, we can conclude that your project
+      depends on openai>=2,<3.
+      And because your project depends on openai>=3.14.0, we can conclude that
+      your project's requirements are unsatisfiable.
+
+hint: While the active Python version is 3.12, the resolution failed for other Python versions supported by your project. Consider limiting your project's supported Python versions using `requires-python`.

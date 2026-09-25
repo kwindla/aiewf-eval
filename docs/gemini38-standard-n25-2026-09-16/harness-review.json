@@ -1,0 +1,111 @@
+{
+  "reason": "Duplicate tool results filtered before provider delivery; distinct repeated call IDs left unanswered.",
+  "excluded_attempts": [
+    {
+      "index": 4,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260916T150014_gemini-3.8-live_1d7b6edb",
+      "unanswered_duplicate_call_ids": [
+        "call_101051"
+      ],
+      "failed_turn_one_based": 13
+    },
+    {
+      "index": 3,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260916T150014_gemini-3.8-live_32b7f0fb",
+      "unanswered_duplicate_call_ids": [
+        "call_157850"
+      ],
+      "failed_turn_one_based": 13
+    },
+    {
+      "index": 7,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260916T150854_gemini-3.8-live_3853072f",
+      "unanswered_duplicate_call_ids": [
+        "call_225315"
+      ],
+      "failed_turn_one_based": 13
+    },
+    {
+      "index": 11,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260916T150854_gemini-3.8-live_b4b7d5d3",
+      "unanswered_duplicate_call_ids": [
+        "call_166994"
+      ],
+      "failed_turn_one_based": 13
+    },
+    {
+      "index": 10,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260916T150854_gemini-3.8-live_8d40220b",
+      "unanswered_duplicate_call_ids": [
+        "call_184659"
+      ],
+      "failed_turn_one_based": 16
+    },
+    {
+      "index": 12,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260916T151738_gemini-3.8-live_f748a8c6",
+      "unanswered_duplicate_call_ids": [
+        "call_196081"
+      ],
+      "failed_turn_one_based": 13
+    },
+    {
+      "index": 19,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260916T152637_gemini-3.8-live_1f9db640",
+      "unanswered_duplicate_call_ids": [
+        "call_174387"
+      ],
+      "failed_turn_one_based": 13
+    },
+    {
+      "index": 17,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260916T152637_gemini-3.8-live_ee6a33e2",
+      "unanswered_duplicate_call_ids": [
+        "call_144323"
+      ],
+      "failed_turn_one_based": 13
+    },
+    {
+      "index": 23,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260916T153515_gemini-3.8-live_ec6fa2d1",
+      "unanswered_duplicate_call_ids": [
+        "call_172762"
+      ],
+      "failed_turn_one_based": 13
+    },
+    {
+      "index": 31,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260916T154358_gemini-3.8-live_b0e008c9",
+      "unanswered_duplicate_call_ids": [
+        "call_134860"
+      ],
+      "failed_turn_one_based": 13
+    },
+    {
+      "index": 33,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260916T155249_gemini-3.8-live_a8bdaf15",
+      "unanswered_duplicate_call_ids": [
+        "call_292475"
+      ],
+      "failed_turn_one_based": 13
+    },
+    {
+      "index": 32,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260916T155249_gemini-3.8-live_a8bfddfb",
+      "unanswered_duplicate_call_ids": [
+        "call_161590"
+      ],
+      "failed_turn_one_based": 25
+    },
+    {
+      "index": 34,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260916T155249_gemini-3.8-live_cc161f49",
+      "unanswered_duplicate_call_ids": [
+        "call_188459"
+      ],
+      "failed_turn_one_based": 25
+    }
+  ],
+  "retained_complete_conversations": 21,
+  "retained_complete_duplicate_drops": 0
+}

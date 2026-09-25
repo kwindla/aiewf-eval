@@ -1,0 +1,20 @@
+{
+  "status": "draft-for-review; not registered or active",
+  "proposed_dataset_label": "GPT-Live prompt-optimized",
+  "model": "gpt-live-1",
+  "backend_model": "gpt-5.6-terra",
+  "backend_reasoning": "medium",
+  "voice": "marin",
+  "delegation": "responses",
+  "knowledge_base_sha256": "4fd37f8bfe733810a6cf246fa6e37372d225f6c60342a495f8177fa8a62f9593",
+  "frontend_sha256": "c7a67500a19bedf21aa1afb2577b133f5b199962f5141df7ad721738b8670199",
+  "backend_sha256": "26a768b2c8faf9e4a27ade00b4f111a4a4e9c5cbdc27bd5a4a9992b0ba712c71",
+  "frontend_words": 330,
+  "backend_instruction_words": 685,
+  "backend_total_words": 6031,
+  "sources": [
+    "https://developers.openai.com/api/docs/guides/live-prompting",
+    "https://developers.openai.com/api/docs/guides/live-delegation"
+  ],
+  "source_review_date": "2026-09-15"
+}

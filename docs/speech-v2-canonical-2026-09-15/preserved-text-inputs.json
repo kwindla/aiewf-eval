@@ -1,0 +1,8 @@
+{
+  "benchmarks/aiwf_medium_context/prompts/system.py": "6003f0f482c757a9bec6ed01e2993c7192112984e2037cf79d830bd46d76e9a6",
+  "benchmarks/aiwf_medium_context/config.py": "ebab4cc8f8465a844adc0c9542ef60e16400fdd5528b91eceed042486560e164",
+  "benchmarks/_shared/turns.py": "c88da69f8ade0e04e943b7493629ff96481d2779c001be7f77f0de82fbdc456b",
+  "benchmarks/_shared/tools.py": "d301926f6c272a344142a8e5fe83cf59bb28e265aff2f9e31bf18e4cfa177ed3",
+  "benchmarks/aiwf_medium_context/data/knowledge_base.txt": "4fd37f8bfe733810a6cf246fa6e37372d225f6c60342a495f8177fa8a62f9593",
+  "README_text_section": "9c39a4b671a9db152909fc1ec015d1fb799cce32ad117e50e140348fc809bf89"
+}

@@ -1,0 +1,158 @@
+{
+  "model": "gemini-3.8-live-extended-thinking",
+  "thinking": "medium",
+  "method": "gemini-idle-exchanges-v1",
+  "attempts": 1,
+  "complete": 1,
+  "denominator": 30,
+  "judged_turns": 30,
+  "strict_pass": 27,
+  "strict_percent": 90.0,
+  "judging_incomplete_attempts": [],
+  "validation_flagged_attempts": [],
+  "failure_records": [],
+  "interim_phases": 10,
+  "first_speech_signed": {
+    "n": 30,
+    "mean_ms": 1733.3333333333333,
+    "median_ms": 1552.0,
+    "max_ms": 5664.0
+  },
+  "first_speech_positive": {
+    "n": 30,
+    "mean_ms": 1733.3333333333333,
+    "median_ms": 1552.0,
+    "max_ms": 5664.0
+  },
+  "non_tool_positive": {
+    "n": 24,
+    "mean_ms": 1632.0,
+    "median_ms": 1552.0,
+    "max_ms": 2976.0
+  },
+  "tool_positive": {
+    "n": 6,
+    "mean_ms": 2138.6666666666665,
+    "median_ms": 1552.0,
+    "max_ms": 5664.0
+  },
+  "speech_completion": {
+    "n": 30,
+    "mean_ms": 10758.679166666667,
+    "median_ms": 7456.0,
+    "max_ms": 33152.0
+  },
+  "missing_measurements": 0,
+  "nonpositive_measurements": 0,
+  "silent_closing_turns": [],
+  "substantive_answer_latency": null,
+  "runs": [
+    {
+      "attempt": {
+        "index": 1,
+        "run_dir": "/home/khkramer/src/aiewf-eval/runs/aiwf_medium_context_speech_v2/20260916T072923_gemini-3.8-live-extended-thinking_365d531e",
+        "full": true
+      },
+      "validation": {
+        "run": "/home/khkramer/src/aiewf-eval/runs/aiwf_medium_context_speech_v2/20260916T072923_gemini-3.8-live-extended-thinking_365d531e",
+        "turns": 30,
+        "full": true,
+        "runtime_failure": null,
+        "reconstruction_exit": 0,
+        "judge_exit": 0,
+        "audio_exit": 0,
+        "alignment_exit": 0,
+        "silent_closing_turns": [],
+        "audio_issues": [],
+        "approved": true
+      },
+      "strict_pass": 27,
+      "interim_phases": 10,
+      "failures": [
+        {
+          "ts": "2026-09-16T14:30:24.390Z",
+          "turn": 4,
+          "model_name": "gemini-3.8-live-extended-thinking",
+          "user_text": "How many sessions are in that track?",
+          "assistant_text": "There are 3 sessions in the Model Context Protocol track.",
+          "tool_calls": [],
+          "tool_results": [],
+          "tokens": null,
+          "ttfb_ms": 1408,
+          "raw_ttfb_ms": null,
+          "latency_ms": 7948,
+          "reconnection_count": 0,
+          "scores": {
+            "turn_taking": true,
+            "tool_use_correct": true,
+            "instruction_following": false,
+            "kb_grounding": false
+          },
+          "claude_reasoning": "The governing policy explicitly forbids calculating or inferring total numbers of sessions and directs the assistant to describe the kinds of sessions and their days instead; the assistant instead asserted a count, which is the specific policy conflict. The count is also wrong: the June 4 MCP track lists four sessions (947165, 914489, 915013, and Harald Kirschner's 914509 in Yerba Buena Salons 7-8: MCP), plus two MCP workshops on June 3. No tool was expected or called."
+        },
+        {
+          "ts": "2026-09-16T14:33:27.422Z",
+          "turn": 15,
+          "model_name": "gemini-3.8-live-extended-thinking",
+          "user_text": "Yes.",
+          "assistant_text": "Certainly. May I please have your specific dietary preference so I can submit the request for you?",
+          "tool_calls": [],
+          "tool_results": [],
+          "tokens": null,
+          "ttfb_ms": 1412,
+          "raw_ttfb_ms": null,
+          "latency_ms": 10359,
+          "reconnection_count": 0,
+          "scores": {
+            "turn_taking": true,
+            "tool_use_correct": false,
+            "instruction_following": false,
+            "kb_grounding": true
+          },
+          "claude_reasoning": "The user's 'Yes' accepted the offered dietary request, which authorizes the action. Both required arguments were already known \u2014 the name Jennifer Smith from turn 10 and the vegan preference from the user's own turn-14 question \u2014 so submit_dietary_request should have been called. Instead the assistant asked for the dietary preference again, requesting information it already had, and the call was never made anywhere later in the conversation."
+        },
+        {
+          "ts": "2026-09-16T14:35:46.514Z",
+          "turn": 23,
+          "model_name": "gemini-3.8-live-extended-thinking",
+          "user_text": "I don't know the session ID, but the talk was by Harald Kirschner.",
+          "assistant_text": "Let me check that session for you.I have successfully located the details for Harald Kirschner's session.I've submitted your vote for Harald Kirschner's session, \"Full Spectrum MCP: Uncovering Hidden Servers and Clients Capabilities.\"",
+          "tool_calls": [
+            {
+              "name": "vote_for_session",
+              "args": {
+                "name": "Jennifer Smith",
+                "session_id": "914509"
+              }
+            }
+          ],
+          "tool_results": [
+            {
+              "name": "vote_for_session",
+              "response": {
+                "tool_call_id": "call_99774_fc_0_0",
+                "result": {
+                  "status": "success"
+                },
+                "properties": null,
+                "is_duplicate": false
+              }
+            }
+          ],
+          "tokens": null,
+          "ttfb_ms": 1204,
+          "raw_ttfb_ms": null,
+          "latency_ms": 38532,
+          "reconnection_count": 0,
+          "scores": {
+            "turn_taking": true,
+            "tool_use_correct": false,
+            "instruction_following": false,
+            "kb_grounding": true
+          },
+          "claude_reasoning": "Harald Kirschner has three sessions in the knowledge base (914821, 914509, 936902), so the target was genuinely ambiguous and the assistant should have listed them and asked which one. Instead it fired vote_for_session for 914509 \u2014 an action the user never requested or confirmed \u2014 and announced the vote as done; the user then had to correct it to the vibe-coding talk at turn 24. The session title it quoted is a real Kirschner session, so there is no factual contradiction."
+        }
+      ]
+    }
+  ]
+}

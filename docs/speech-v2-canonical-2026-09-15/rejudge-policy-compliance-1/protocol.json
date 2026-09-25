@@ -1,0 +1,1583 @@
+{
+  "revision": "speech-v2-policy-compliance-1",
+  "judge_model": "claude-opus-5",
+  "judge_prompt_sha256": "c5a8a3b3c3240172cc392529a1784b59d2913a32e2ec2ba843a456415b75ef27",
+  "original_judge_prompt_sha256": "2a719ad8f84c3b4ac117c50939ff14aca0f2947039d30206f943e040e1a1c634",
+  "model_prompt_sha256": "0ff3ba3519554c8743095841a93af92c25d76ec2243d7abb4d1451578a701f9f",
+  "runs": [
+    {
+      "key": "gemini38-02",
+      "arm": "gemini38",
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T133854_gemini-3.8-live-extended-thinking_b68a4d37",
+      "original_hashes": {
+        "transcript.jsonl": "715a9d2585361f01db6a4e915cc24ecca5614e57ef53bb1f996999ef6e23d3f0",
+        "claude_judged.jsonl": "7e303c2b2922ab14b9b8ef6d6d66f33f0b035ba951e2b9ea8fe451a95834b44d",
+        "claude_summary.json": "0e52554583d9cee93bbc8a60d450f96ba171ac24b4ac7affc7a92f7a4900149f",
+        "claude_analysis.md": "f4c14b6cadb5e884a412de6caf8c7c0f378de2de12065c8f78181d440249d47c",
+        "benchmark-provenance.json": "7ff971bd548fcc429e8348b4c1f0d5673cd587b11211ac369ba0fe7ace2a8147"
+      }
+    },
+    {
+      "key": "gemini38-01",
+      "arm": "gemini38",
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T133854_gemini-3.8-live-extended-thinking_cfcf320c",
+      "original_hashes": {
+        "transcript.jsonl": "198408edf290f61bb2952f9d2497c6ad9db026590e9feda7a83d9fc3983cb7ed",
+        "claude_judged.jsonl": "29e2ff28eb3b8395718deab2da0b5925f5d24e5f3a74dc358a33071e812e7fa1",
+        "claude_summary.json": "927b7ab42f1fcfd517dfa63100bb29cb82c4a97119429ecaf05ceae6861799b8",
+        "claude_analysis.md": "9214b85fc4e0c84cdf866b9035f2274367b562ba6717447c69228ca747b9ce56",
+        "benchmark-provenance.json": "7ff971bd548fcc429e8348b4c1f0d5673cd587b11211ac369ba0fe7ace2a8147"
+      }
+    },
+    {
+      "key": "gemini31-02",
+      "arm": "gemini31",
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T133854_gemini-3.1-flash-live-preview_03507c18",
+      "original_hashes": {
+        "transcript.jsonl": "6e8de7efdc1f9da153e94ae414958d34858e030ce4238ce394d412dba7569488",
+        "claude_judged.jsonl": "caf67ea00894eb71247321f4fdc9545f153c812faac1168e087873ba68b43efe",
+        "claude_summary.json": "31a204ee41c9b119694b8881f396b101c35d5a21b2fbc09aefdb43b5909139f4",
+        "claude_analysis.md": "349554e45a2ecaaca1c0e4a4e62f421ccf0e114fd022c150d8ffbca670b15fc4",
+        "benchmark-provenance.json": "d966a40697a150665c5b6ea4dd831c15c29827ac2acc6b2339efa37dedf528f4"
+      }
+    },
+    {
+      "key": "gemini31-03",
+      "arm": "gemini31",
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T133854_gemini-3.1-flash-live-preview_ecd5ae6d",
+      "original_hashes": {
+        "transcript.jsonl": "a86914546deea0fd225488c3e8f90a8c9b42f8942026fced7dd0c7fcdcfa7e6b",
+        "claude_judged.jsonl": "f864ad5b280a7c2acdfe51f06d24ea884a9ec62b38b14a8f0177e1cb1c1bea10",
+        "claude_summary.json": "c00e228f5684591847330cdf3b9845f947399822e950deb89c77cb22d3cdb925",
+        "claude_analysis.md": "821148c8d76f553f7600c098dd2e077e4b48b2dcc4dd1f5396cef72c6c67fb62",
+        "benchmark-provenance.json": "d966a40697a150665c5b6ea4dd831c15c29827ac2acc6b2339efa37dedf528f4"
+      }
+    },
+    {
+      "key": "grok-03",
+      "arm": "grok",
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T133854_grok-voice-think-fast-1.0_22ae863f",
+      "original_hashes": {
+        "transcript.jsonl": "fb3aae91c1d5900e1832db075217b8e2d70e231b6146df01da3fe776043314cf",
+        "claude_judged.jsonl": "ddc70171b030d8e71fc7146e3eb6e04d03980efd2cee68b9ce1491113b04339d",
+        "claude_summary.json": "7a5053468672ed6e59e2ddadcf67a2f5c4541102bd8416e9f90b4e2b9453069c",
+        "claude_analysis.md": "1f78413b7509ced96486e7f3a02763cd9cde8066d837ebcf50cee4b81b515d85",
+        "benchmark-provenance.json": "847f33376850285a753c6801420f0f170e753e78a3bf74f87d144aec246be155"
+      }
+    },
+    {
+      "key": "gemini31-01",
+      "arm": "gemini31",
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T133854_gemini-3.1-flash-live-preview_fb904290",
+      "original_hashes": {
+        "transcript.jsonl": "2d1f7d82a6d8fede770425257c69057e7e2702b1219a7c0a4c22b876f7f325db",
+        "claude_judged.jsonl": "07cf3d303a2706ec43ef2edd3571a9abf1e0081c0438f745612c5f49effd188a",
+        "claude_summary.json": "8a581ddc82cb5c52001cba6e3ce3890e600547b8b31044cc89d00324ad62c16a",
+        "claude_analysis.md": "c51df66819abc274539900ce5eaa3e7e8f4086d3b59663198c340abfca7c03e4",
+        "benchmark-provenance.json": "d966a40697a150665c5b6ea4dd831c15c29827ac2acc6b2339efa37dedf528f4"
+      }
+    },
+    {
+      "key": "grok-01",
+      "arm": "grok",
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T133854_grok-voice-think-fast-1.0_c4d6ab6e",
+      "original_hashes": {
+        "transcript.jsonl": "7e4a9da0196e15eb4a6dee373254546f79403dea94d3bafc76c6ca8cc65ad114",
+        "claude_judged.jsonl": "07849a89e90f4f7d7b15cf4497a2913c620c10ebdaff7b0c3a8a9f65ec339fbd",
+        "claude_summary.json": "76e3d97162a810472d241f6530447f4738daadbffeb727a422ae42b0421a31c7",
+        "claude_analysis.md": "6d40d9165c8e822c60d19a5de7a072de59c0e598ee5d7d85bd25480f7df65fc6",
+        "benchmark-provenance.json": "847f33376850285a753c6801420f0f170e753e78a3bf74f87d144aec246be155"
+      }
+    },
+    {
+      "key": "grok-05",
+      "arm": "grok",
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T133854_grok-voice-think-fast-1.0_d024c854",
+      "original_hashes": {
+        "transcript.jsonl": "80cda79ca0271aed5ff385ff6c36866ff1801f10daa0d3ff5a3b74b7387280c9",
+        "claude_judged.jsonl": "9c6eab88019cdd2e3e2f2debbc23cbc0be1b0bad9183b862685ca8acbe4c6848",
+        "claude_summary.json": "8c5e472fb32018582edde5e5095533f84e2007591b856212e25e4d6d5d95b470",
+        "claude_analysis.md": "6625447edb2710fe37bd6526270e4dcf3617d579812d9cce13edaa296a77b9a5",
+        "benchmark-provenance.json": "847f33376850285a753c6801420f0f170e753e78a3bf74f87d144aec246be155"
+      }
+    },
+    {
+      "key": "grok-04",
+      "arm": "grok",
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T133854_grok-voice-think-fast-1.0_bc3d1cad",
+      "original_hashes": {
+        "transcript.jsonl": "af5d1ca86e120a7be03dde85fd4377f94e74c018974ac70e2b93a51432d4f3db",
+        "claude_judged.jsonl": "e1b36c4d0f4363e1687602f4dcdf2d9d5891bb8ec02249ed432fbe72e57d4886",
+        "claude_summary.json": "79f0c5800f6e058d65b6f814b8714c0767cf1678f031b5bc8f019fa31d9dcd51",
+        "claude_analysis.md": "e777a1e0aac10afd3abc9b26875120df01baf291bf945ada1d7f9887b9a766ec",
+        "benchmark-provenance.json": "847f33376850285a753c6801420f0f170e753e78a3bf74f87d144aec246be155"
+      }
+    },
+    {
+      "key": "grok-02",
+      "arm": "grok",
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T133854_grok-voice-think-fast-1.0_7afe9c9d",
+      "original_hashes": {
+        "transcript.jsonl": "831201734090c2f7435361bd5998e52db2d13f6c0d494d636c7416f8e9252b40",
+        "claude_judged.jsonl": "42114e5bde90b465656129fec80ad604724355fefdb93b4e564856b8019de293",
+        "claude_summary.json": "9424d2ea7dca8e8dedd8934995ea9c8139498fb5a92561e6735cdc2967bead02",
+        "claude_analysis.md": "f934d2977f698d73dbfb17562c40a4215d0a0ee2d9f82f5560a889f9d3c82742",
+        "benchmark-provenance.json": "847f33376850285a753c6801420f0f170e753e78a3bf74f87d144aec246be155"
+      }
+    },
+    {
+      "key": "openai15-01",
+      "arm": "openai15",
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T133854_gpt-realtime-1.5_dbbec089",
+      "original_hashes": {
+        "transcript.jsonl": "ceaeeabadcd6170aa5438898425967ec3ab64a0345dd40127446ba658bcdeb54",
+        "claude_judged.jsonl": "522ec27c3cf374cb6ea4947741e9da16f0533d98962ecf763b86365b79710c84",
+        "claude_summary.json": "ae584f0caa3758b8404903acc0f85d32bb5316b86d5012c2aa4cd58588a489df",
+        "claude_analysis.md": "543af078c92d04bc563db0723f4986e0cdabaee29f8260eb94bcd8fac0d6f808",
+        "benchmark-provenance.json": "5fb448e9589e0409045533ac310bd2c312c9a2ce1752308a9d1c8e0aca942e18"
+      }
+    },
+    {
+      "key": "openai15-02",
+      "arm": "openai15",
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T133854_gpt-realtime-1.5_c5dd5329",
+      "original_hashes": {
+        "transcript.jsonl": "e16c96791f55ef2b7ecc324aefd93df016c55f71ecbbf945508bd2c70748c0b8",
+        "claude_judged.jsonl": "a285e012800fd3a75a56154323ea286e005b6654767943233da40b3c8e1ae118",
+        "claude_summary.json": "0b99c04dc1992480447cfb50c612a1e85d444821312516a94cfccca6be7fe44a",
+        "claude_analysis.md": "43d0a8ebf4d2fbb626be76db945f2c5c9fab6f165ce16b3dfd0b7d005c896292",
+        "benchmark-provenance.json": "5fb448e9589e0409045533ac310bd2c312c9a2ce1752308a9d1c8e0aca942e18"
+      }
+    },
+    {
+      "key": "openai21-01",
+      "arm": "openai21",
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T133854_gpt-realtime-2.1_0e73c0e8",
+      "original_hashes": {
+        "transcript.jsonl": "34e8a608024000f177427704b75c3b25c93e99038ce23b215c06d3a308b5e5ee",
+        "claude_judged.jsonl": "e4949b8802f4df26dc698f89d10e7d3ecb79b30c8630c70048535e993c52c64f",
+        "claude_summary.json": "738eb996c48833e7387048146d70295062a54ba5992f884bc918f33dc1d98d1b",
+        "claude_analysis.md": "a7edfd29c772762f739e5ef91a7a0ac18f19651b3e8ab32eccefec22f9059b4d",
+        "benchmark-provenance.json": "9473aaa6cdf983463624a1f3c2b1c00f099eb5a16badfcd9b25cb1508551450a"
+      }
+    },
+    {
+      "key": "openai21-03",
+      "arm": "openai21",
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T133854_gpt-realtime-2.1_f1362dfa",
+      "original_hashes": {
+        "transcript.jsonl": "9c0b65d1d6771dffb5c47552b14302082d830e4ad9a0c17cdfc51b0c7c1b4d93",
+        "claude_judged.jsonl": "e2aacacdece5c7a50f1b849e24bd528691544fa0922860eaf98255db016fb9d8",
+        "claude_summary.json": "16cbf2dd9c0d06fc5ecea89ec2665d4854f60bcea72a865aab5a363105ed1d52",
+        "claude_analysis.md": "6e227ca1ec8d3a6e2427ac382979319319da9b861ed77cb8e440d33ffd895f18",
+        "benchmark-provenance.json": "9473aaa6cdf983463624a1f3c2b1c00f099eb5a16badfcd9b25cb1508551450a"
+      }
+    },
+    {
+      "key": "openai21-02",
+      "arm": "openai21",
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T133854_gpt-realtime-2.1_4d6d4f9f",
+      "original_hashes": {
+        "transcript.jsonl": "7b858d5a7054b1c854a69fd073afe39a47622c0466b13f6cf0ac6cf756b9db76",
+        "claude_judged.jsonl": "f4db76e6fc177c04fef60fdc18013eb8ff70bb189d9b4e0ac9eaa84935188cc4",
+        "claude_summary.json": "64b99eee7e6455ae7efe18b4207746d15227d4b43018adc77118b017cabec710",
+        "claude_analysis.md": "e5f37a6759a9f7100ddcdd2621d4360065af219d860d5b27ffdbc3ec8007c7b3",
+        "benchmark-provenance.json": "9473aaa6cdf983463624a1f3c2b1c00f099eb5a16badfcd9b25cb1508551450a"
+      }
+    },
+    {
+      "key": "gemini38-03",
+      "arm": "gemini38",
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T134551_gemini-3.8-live-extended-thinking_d8712bea",
+      "original_hashes": {
+        "transcript.jsonl": "b38bed46f194dd35d6b8fc1c97d255eb2145a3a77d2c65837ce57f9ae542df0c",
+        "claude_judged.jsonl": "0af561dde9cd260ae2d544cef86ff7259e4e92eb68ceb8981884a3b2dd923696",
+        "claude_summary.json": "3ad4d254db59e70936a218f9c4cfd3e75a7bc14fc9b2203503be9ec83ccf08af",
+        "claude_analysis.md": "3ee2b9ea76eb5fd70305bf33a07b5bddc04a42c2a98a61a8f8e850bc626602a2",
+        "benchmark-provenance.json": "7ff971bd548fcc429e8348b4c1f0d5673cd587b11211ac369ba0fe7ace2a8147"
+      }
+    },
+    {
+      "key": "gemini38-05",
+      "arm": "gemini38",
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T134731_gemini-3.8-live-extended-thinking_9c6638d5",
+      "original_hashes": {
+        "transcript.jsonl": "f82ab219765b88c896ddaaf630fc219d64422b61c9ef829d54e811e50e928f4e",
+        "claude_judged.jsonl": "d99c874c8b38f8228de24fc0b134a5889c7e16dc6405668a3c523f2225a3bdad",
+        "claude_summary.json": "31c7939fdaff406253b7b3d94a522090f9cdc273971ab0f53601a87f51e86551",
+        "claude_analysis.md": "57ad7214c0217c8d90dcb301813443af914172d54dc9ecf9ea33330a4bc8db5f",
+        "benchmark-provenance.json": "7ff971bd548fcc429e8348b4c1f0d5673cd587b11211ac369ba0fe7ace2a8147"
+      }
+    },
+    {
+      "key": "gemini38-04",
+      "arm": "gemini38",
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T134707_gemini-3.8-live-extended-thinking_c6a961a1",
+      "original_hashes": {
+        "transcript.jsonl": "9fa38501192c07d84ec905469fd91ded8f80f1f8ea4b95eff1762b850a2f6f85",
+        "claude_judged.jsonl": "19796b6990067f15f77a9c116d529953e85ae81a11a4c0d539ac605f41935cee",
+        "claude_summary.json": "efb587279fa589b850c0d7f0f33c9ee2439d61e3ff5c5e7dab472b6f95ec11b8",
+        "claude_analysis.md": "50f730bf21c3c16a1dcf9a32517347094e3a1cb141b6093642cc0f5a885b1fa0",
+        "benchmark-provenance.json": "7ff971bd548fcc429e8348b4c1f0d5673cd587b11211ac369ba0fe7ace2a8147"
+      }
+    },
+    {
+      "key": "gemini31-04",
+      "arm": "gemini31",
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T134604_gemini-3.1-flash-live-preview_5b457e10",
+      "original_hashes": {
+        "transcript.jsonl": "4ade9456c2e398555b2fd7a2a4794778af42d90f1968304c76695ab46dc5a381",
+        "claude_judged.jsonl": "303fe34c36fd58ef8ce8e4041bf1c1c74e85a76a3dabc5643ab66038787e7b4b",
+        "claude_summary.json": "e5f06901e5940eb2212a032accad13dc23b2776e966b15c7363613eacbe4eb53",
+        "claude_analysis.md": "36b7ec978595e87b178a4450ad4a316f83b980e7e66fef78dadb9ab237a8bcb7",
+        "benchmark-provenance.json": "d966a40697a150665c5b6ea4dd831c15c29827ac2acc6b2339efa37dedf528f4"
+      }
+    },
+    {
+      "key": "grok-09",
+      "arm": "grok",
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T134739_grok-voice-think-fast-1.0_5cb2e5e3",
+      "original_hashes": {
+        "transcript.jsonl": "eaaf6276f6e3c2fd5102cc71e62b95e4ad9ad0f816a89ec8489d7c1dcd2ca298",
+        "claude_judged.jsonl": "d5eac718cf154793af23ddbe0c8366998e6fc59c8151078bc79f4bf873dbae17",
+        "claude_summary.json": "af4b670a389a11633c99e5c111173f8bebc1bec6a1d0089b569d28c479c14847",
+        "claude_analysis.md": "2580ceb81034671f28b3c1bf4961fd6342616b5fe31ccc22ad5faffe89f3201e",
+        "benchmark-provenance.json": "847f33376850285a753c6801420f0f170e753e78a3bf74f87d144aec246be155"
+      }
+    },
+    {
+      "key": "grok-06",
+      "arm": "grok",
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T134729_grok-voice-think-fast-1.0_f0e74e8c",
+      "original_hashes": {
+        "transcript.jsonl": "b72433e2a1c2eab50c34e172911efd1205d0a0bdc90e0149080ab112bd1b6a81",
+        "claude_judged.jsonl": "1975b5b2b27fe2b7bf40369023708d9aeae543a4c0409935f831a9e47a12e69e",
+        "claude_summary.json": "5b35ccfca7a3c3cda0005a5737cab26249caa462b6945db50c575b82d3b5d329",
+        "claude_analysis.md": "5c75f1fc1d46a1c1547d420787bf2504ad352e28626a0b3d0b0f72489e3a72ae",
+        "benchmark-provenance.json": "847f33376850285a753c6801420f0f170e753e78a3bf74f87d144aec246be155"
+      }
+    },
+    {
+      "key": "gemini31-05",
+      "arm": "gemini31",
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T134726_gemini-3.1-flash-live-preview_9390254f",
+      "original_hashes": {
+        "transcript.jsonl": "281e875992c96505e47e81c650846cdba8c6bd65725dc321f3c400b236ca7bb8",
+        "claude_judged.jsonl": "ebf2edc7d0c645c1f92842c9d08102e219deb308127964498c5f76f369a2a47b",
+        "claude_summary.json": "c63a5bf8ff0d1c39b854c53ab759ebef76b2cefd83faf041dc9b43157eb24df9",
+        "claude_analysis.md": "dc219ea8bc61699dfcaccee0f542f2d07906839407a7a2ee196a827ebaf8a2c8",
+        "benchmark-provenance.json": "d966a40697a150665c5b6ea4dd831c15c29827ac2acc6b2339efa37dedf528f4"
+      }
+    },
+    {
+      "key": "grok-07",
+      "arm": "grok",
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T134735_grok-voice-think-fast-1.0_b0e6b455",
+      "original_hashes": {
+        "transcript.jsonl": "0b9c5759fbfd8a50be96abe6d90a74928f7ce6f42845f67855488622d29b41a7",
+        "claude_judged.jsonl": "b1a1e4a836f20cbce35c74184e22412d515a9b1ad706f0944b9eff7bb4085675",
+        "claude_summary.json": "ad3750403e8f7cbaf8a22a9852a61ab80ff2e749776f642884d4f6051a4d5404",
+        "claude_analysis.md": "8e3fc6e6b5f8ebb707c1e14443e02844bdd0679eabdc6e3d8131e27b68b16a69",
+        "benchmark-provenance.json": "847f33376850285a753c6801420f0f170e753e78a3bf74f87d144aec246be155"
+      }
+    },
+    {
+      "key": "grok-10",
+      "arm": "grok",
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T134809_grok-voice-think-fast-1.0_45b01df4",
+      "original_hashes": {
+        "transcript.jsonl": "5e9cf53be71c485bb80649726d6f88bb724c6aab212971fbe7bd173f2e54e903",
+        "claude_judged.jsonl": "729a3594ad7eb2670a842a580cab9b47083918cac772826377423c9ed5d291d8",
+        "claude_summary.json": "b93bc1428d04eda6652f355f33d1125a9af11857d541523127bdf6a7d6eec20e",
+        "claude_analysis.md": "1952d236cd013a064842c7d75d9818b2f8eaa181f3d9527e569c2982af23605d",
+        "benchmark-provenance.json": "847f33376850285a753c6801420f0f170e753e78a3bf74f87d144aec246be155"
+      }
+    },
+    {
+      "key": "grok-08",
+      "arm": "grok",
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T134739_grok-voice-think-fast-1.0_b2d9988e",
+      "original_hashes": {
+        "transcript.jsonl": "4cf3e844700d1735644277a8b8f8644222ed39efcbe5c0ab5f5c0583f9ec6452",
+        "claude_judged.jsonl": "3242969fbdfa734465aa710b886ae3873d552f72d43f48fd2c7a62c1e3bcfbe5",
+        "claude_summary.json": "fc19d529d77c8f395f529585025cfc3ff36e87555ccd55e09c5d2258cca92ab5",
+        "claude_analysis.md": "000b4533d85f669028211ae97e75d9a1fe185d8ed81ecfcb6998ce78c0fd0b22",
+        "benchmark-provenance.json": "847f33376850285a753c6801420f0f170e753e78a3bf74f87d144aec246be155"
+      }
+    },
+    {
+      "key": "openai15-04",
+      "arm": "openai15",
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T134938_gpt-realtime-1.5_ee806789",
+      "original_hashes": {
+        "transcript.jsonl": "92ba19e3497a859a9ed4063486d344c4cb8b3738c7cf6bd0d743bacf879706b9",
+        "claude_judged.jsonl": "8ca9a75babdcb1bcfac663732c1de4dfd6896e3b762bcb4b4077281a7d1b901f",
+        "claude_summary.json": "5c386633c56c19f5e6102eb1ca34393e6b93c13b87d7b031d76cfa065d81f303",
+        "claude_analysis.md": "fa58b59e311602493fc8981846df254717ac86f9dd12decfaa22e549e476c173",
+        "benchmark-provenance.json": "5fb448e9589e0409045533ac310bd2c312c9a2ce1752308a9d1c8e0aca942e18"
+      }
+    },
+    {
+      "key": "openai15-03",
+      "arm": "openai15",
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T134913_gpt-realtime-1.5_5967dc90",
+      "original_hashes": {
+        "transcript.jsonl": "2ddde6e579e55c993ed5ecdd76f93e4ee43ac00d44eac0846eea05074da58a25",
+        "claude_judged.jsonl": "ca96cc7769e1a1ea7c5374c4ca471edd3174ec0bac069187110cb1e794c9d315",
+        "claude_summary.json": "0abe2128f3e873dad28f1db761badb382a82a647e969e84afd21bfc180594c03",
+        "claude_analysis.md": "ad881f3cd2dc261e06df7a1baeefb3659e0d6c40baa4f31e582ad95d36285ff1",
+        "benchmark-provenance.json": "5fb448e9589e0409045533ac310bd2c312c9a2ce1752308a9d1c8e0aca942e18"
+      }
+    },
+    {
+      "key": "openai15-05",
+      "arm": "openai15",
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T135026_gpt-realtime-1.5_340b21e5",
+      "original_hashes": {
+        "transcript.jsonl": "93b85c8a56ad19dd3f473676f6a10ae94bec1e98c6580c5a5a1290c4cbbdc162",
+        "claude_judged.jsonl": "64334be90fbac12df96647195a6de87b6a618185df75807dad47e6ad1988fa3a",
+        "claude_summary.json": "4fb89f006732307b6c333caba5531bc6879ba2f888cdf201e928e378555c45a6",
+        "claude_analysis.md": "6e866116502fc441796164cb240e615b83f73bc8df324caa603182ce2db9487f",
+        "benchmark-provenance.json": "5fb448e9589e0409045533ac310bd2c312c9a2ce1752308a9d1c8e0aca942e18"
+      }
+    },
+    {
+      "key": "openai21-04",
+      "arm": "openai21",
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T134924_gpt-realtime-2.1_221f3b0e",
+      "original_hashes": {
+        "transcript.jsonl": "583177945836ba283b65f470bbcb1ba51fc0841a188122290718e2ace7692f3d",
+        "claude_judged.jsonl": "3faf9a52d11fdd90e73275f323b742f7c5e33add2d1b7f72b25175ebe9ab7930",
+        "claude_summary.json": "d05480a038df521f5c526ab74f0d4387da6b261db6daa86ce393cd98375799f9",
+        "claude_analysis.md": "bfcfe7375ae4c1b0048de04ee7ae4ccebc028f4716570fd477c4bcb5b0cc7c8e",
+        "benchmark-provenance.json": "9473aaa6cdf983463624a1f3c2b1c00f099eb5a16badfcd9b25cb1508551450a"
+      }
+    },
+    {
+      "key": "openai21-05",
+      "arm": "openai21",
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T134948_gpt-realtime-2.1_a6830733",
+      "original_hashes": {
+        "transcript.jsonl": "362fee566b69b51a0c1ad9ea1dfbe2915bb979714b7290176e19e218564ff551",
+        "claude_judged.jsonl": "9c282d6424bd398e8331008b64d73fadb810fb7a60a6aae49a9f28bd60086cac",
+        "claude_summary.json": "dc3b0babd329b01fb094894a481eb88b9deff48ebc254bb74033940c89e02ecd",
+        "claude_analysis.md": "db12849bc66109d85fe7e085135e4415b48752baa6e53fc57bdced730ba1f538",
+        "benchmark-provenance.json": "9473aaa6cdf983463624a1f3c2b1c00f099eb5a16badfcd9b25cb1508551450a"
+      }
+    },
+    {
+      "key": "gemini38-06",
+      "arm": "gemini38",
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T135417_gemini-3.8-live-extended-thinking_e6b6129c",
+      "original_hashes": {
+        "transcript.jsonl": "ee99100dbfb1d12fa3eeeb025e5dd4dd850382b5ce7d2e924c23486a0ef7c527",
+        "claude_judged.jsonl": "adcb047de2922e0543eccb3c4e86263cc6f4483aa3f2a1e2b9bf1bb5af9adb4d",
+        "claude_summary.json": "8bc6fa90becc85bf6fc0cde03981e395ff569e95814ab48efc3794e5eedc9baf",
+        "claude_analysis.md": "886d7a4d94d35f5bc7e970a30a7cc29916d859a37c0ddc367f786978c1642b90",
+        "benchmark-provenance.json": "7ff971bd548fcc429e8348b4c1f0d5673cd587b11211ac369ba0fe7ace2a8147"
+      }
+    },
+    {
+      "key": "gemini38-07",
+      "arm": "gemini38",
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T135435_gemini-3.8-live-extended-thinking_084d54b5",
+      "original_hashes": {
+        "transcript.jsonl": "202b56545c190a57a26c1eb24d657950e11aef37de516cb3e312474dc6ca58da",
+        "claude_judged.jsonl": "68f9bce1f229af38eba2393f4234d0990082f347773b8852ba1685bd8fb533fe",
+        "claude_summary.json": "8a28ae9a7f5c1fbf974d044bd51ecc9b8b411cb3d7cf3cfdcb2fd57a098ad988",
+        "claude_analysis.md": "fea5a29ba70c1ffa1b828887e829f73d17521e905121a8ed3d5251b6d5398e97",
+        "benchmark-provenance.json": "7ff971bd548fcc429e8348b4c1f0d5673cd587b11211ac369ba0fe7ace2a8147"
+      }
+    },
+    {
+      "key": "gemini31-06",
+      "arm": "gemini31",
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T135338_gemini-3.1-flash-live-preview_3917b0c0",
+      "original_hashes": {
+        "transcript.jsonl": "e176742bf9dfc09ab153f518aa02eedcd3f82d7b78ed6c78d2a251e268e245e6",
+        "claude_judged.jsonl": "6fc8471a9143df2a5f341291c3cc40120cc7233b597fee9f46bc14087b2ec0dc",
+        "claude_summary.json": "377a62848118d6c9bd9e5fd82df7ac5b1bd659aaae2f94ccab19f9d2cd03e038",
+        "claude_analysis.md": "448cc8e3df9693973099b225f5a79680bbb693ed25bc0fc4f1994669248c3e37",
+        "benchmark-provenance.json": "d966a40697a150665c5b6ea4dd831c15c29827ac2acc6b2339efa37dedf528f4"
+      }
+    },
+    {
+      "key": "gemini31-07",
+      "arm": "gemini31",
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T135427_gemini-3.1-flash-live-preview_be4a2d67",
+      "original_hashes": {
+        "transcript.jsonl": "05644999c2b3088f93d9449d7b9166cefd7bf7d88e10da04a90a94dafa50cd91",
+        "claude_judged.jsonl": "5633d62d1185ecba9682bad2a2fe765b2296f1cae0fb64287e92b4fe5ae4f7e2",
+        "claude_summary.json": "8c2d59c9abc2e8abec16f8a913d598aaec2ee7e31424f18d4302f0f62875614e",
+        "claude_analysis.md": "0a27cc6345a66278f87c1e0a01e04a751e74fd332cfa1b8b580d4d86354837b7",
+        "benchmark-provenance.json": "d966a40697a150665c5b6ea4dd831c15c29827ac2acc6b2339efa37dedf528f4"
+      }
+    },
+    {
+      "key": "grok-11",
+      "arm": "grok",
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T135600_grok-voice-think-fast-1.0_2f713234",
+      "original_hashes": {
+        "transcript.jsonl": "0c8e86634de6c82bb2eac33ea80a9a829b2b95f22ccaa9578bea3a6441ef1470",
+        "claude_judged.jsonl": "35090ccdc89530f231d60f85ea407266cbf2016328467c08709b76177a53f6e9",
+        "claude_summary.json": "5b78d2937a29f4163f71cff3856756479df6218abae26014b02701ac602b2fb1",
+        "claude_analysis.md": "7bd58e88fd33d80574c909526728de8533ad482a02f81c5ff6f31c2e7df953f5",
+        "benchmark-provenance.json": "847f33376850285a753c6801420f0f170e753e78a3bf74f87d144aec246be155"
+      }
+    },
+    {
+      "key": "gemini31-08",
+      "arm": "gemini31",
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T135627_gemini-3.1-flash-live-preview_74e6c92b",
+      "original_hashes": {
+        "transcript.jsonl": "416115c9209462395b0a94ec0f94b80d10c645472f12d726dbe440ee2b06e082",
+        "claude_judged.jsonl": "5487b2b58aa8425b8ea10752d180d1ab6c4e498931cb7dfb9bcbf9aac0c515c8",
+        "claude_summary.json": "1231a60294435321624382edc25d9b79229eb9b60e669a47fa5e5849e177f783",
+        "claude_analysis.md": "90b192620d8252742cc94954850691a1842f656c482bfdfa302f8a6f296610b8",
+        "benchmark-provenance.json": "d966a40697a150665c5b6ea4dd831c15c29827ac2acc6b2339efa37dedf528f4"
+      }
+    },
+    {
+      "key": "grok-12",
+      "arm": "grok",
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T135611_grok-voice-think-fast-1.0_01145f2c",
+      "original_hashes": {
+        "transcript.jsonl": "0acbafde729484bffb739927498138b3abc21f53b394a6d9a3759a922ad241ab",
+        "claude_judged.jsonl": "662f77ce4a2909b2d4f5ce28740ba4b99562ac645da9f24f7a79f35c6176d9dc",
+        "claude_summary.json": "793e4d574d15a6d890f44f7a3d7a54a231c41fa37d378f0c4f1ab47fea318fa2",
+        "claude_analysis.md": "a03619883479d0d387476cbd17bad9f56fd96311f90c86cb7905de8622cda2ba",
+        "benchmark-provenance.json": "847f33376850285a753c6801420f0f170e753e78a3bf74f87d144aec246be155"
+      }
+    },
+    {
+      "key": "grok-14",
+      "arm": "grok",
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T135701_grok-voice-think-fast-1.0_248615b0",
+      "original_hashes": {
+        "transcript.jsonl": "5605e61db19bd489680f64909c0b5b8547bf499ae755021a4d8f84cc23d44a44",
+        "claude_judged.jsonl": "51dd9e2ba9861cec60258557171f9ed17e468b3c30b93c562207dcdd4257fa1c",
+        "claude_summary.json": "efd598251ac428778be09af3df7ae9b2b174ef9253085551be1a92e1443e685f",
+        "claude_analysis.md": "da0842b29a3e68e3d4d1ea7640a054abbf7acb08d85bd371aa586cca4d000d3c",
+        "benchmark-provenance.json": "847f33376850285a753c6801420f0f170e753e78a3bf74f87d144aec246be155"
+      }
+    },
+    {
+      "key": "grok-13",
+      "arm": "grok",
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T135631_grok-voice-think-fast-1.0_98c98110",
+      "original_hashes": {
+        "transcript.jsonl": "1f6df8d89f7ae0ff33d1405872ef86e073db82dbee45cfa2584a138ba8906a4b",
+        "claude_judged.jsonl": "1c381b9064bc516730f1b68580052aceff74c3e878db359305f85d005b6caa5b",
+        "claude_summary.json": "544a022be49bf51ba55554f3d36f49ab0482442f2fda392195f1c94291d4770a",
+        "claude_analysis.md": "1212a75800d30c97e718cc77eba9f862bb749d7ef8fed88a45daf5cc619e38ce",
+        "benchmark-provenance.json": "847f33376850285a753c6801420f0f170e753e78a3bf74f87d144aec246be155"
+      }
+    },
+    {
+      "key": "grok-15",
+      "arm": "grok",
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T135701_grok-voice-think-fast-1.0_9929df50",
+      "original_hashes": {
+        "transcript.jsonl": "09e9d7165bb6d8a1f3c9f2721e298e4a66d38d2e1fa04510dbabe1c8bcce468d",
+        "claude_judged.jsonl": "fdec1e885cb7c2f20b4df709824a33a599b20b1fd0c2564a2083288eff9f059a",
+        "claude_summary.json": "73f27a2bce1a79e206c08ffb818fdceba50d26336b248f5870c67450d47b3d70",
+        "claude_analysis.md": "ce1a4c985b79dee77900aab9ea20586603595c4fe364024b1c62949101b371af",
+        "benchmark-provenance.json": "847f33376850285a753c6801420f0f170e753e78a3bf74f87d144aec246be155"
+      }
+    },
+    {
+      "key": "gemini38-08",
+      "arm": "gemini38",
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T140134_gemini-3.8-live-extended-thinking_a06f3cf9",
+      "original_hashes": {
+        "transcript.jsonl": "455df799458615f7a2594bf34f4191bed593875f7b56647bd21da4208344c0ee",
+        "claude_judged.jsonl": "3578874eca2a5ac5d3299b7a8c7f1cd2ac05afac1fa962317ff7e85e04b6eecc",
+        "claude_summary.json": "31b1c8f886430363d4e3e3e3801a2658bd283e6097b5adcd8c1dc530f91c9938",
+        "claude_analysis.md": "84a96758511fe8d760948c9d640e4d138c4b473a924b52bf0d03e75108e9f2b6",
+        "benchmark-provenance.json": "7ff971bd548fcc429e8348b4c1f0d5673cd587b11211ac369ba0fe7ace2a8147"
+      }
+    },
+    {
+      "key": "gemini38-09",
+      "arm": "gemini38",
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T140219_gemini-3.8-live-extended-thinking_9b52d016",
+      "original_hashes": {
+        "transcript.jsonl": "2849915de79743b0572a368c02e58509a0d3d39dcca5f3ea3391b9c7d9b85734",
+        "claude_judged.jsonl": "f4d56c9c0453395fc8df02116d9b51bf1cf8a8b40ac832373ecb43bd103d94e3",
+        "claude_summary.json": "1bed5d3a221f19e410ec99fec0d24de8abf6758dec01a06d2175ffdcadeeebfe",
+        "claude_analysis.md": "96cd1c420077faf45af44de6604b0cf41e1b3a8ee25534f7df318edec02c5416",
+        "benchmark-provenance.json": "7ff971bd548fcc429e8348b4c1f0d5673cd587b11211ac369ba0fe7ace2a8147"
+      }
+    },
+    {
+      "key": "gemini31-09",
+      "arm": "gemini31",
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T140212_gemini-3.1-flash-live-preview_2a890133",
+      "original_hashes": {
+        "transcript.jsonl": "13701afef992f664ac5c31ad399c27d6345ec39847bd71b69675271cd00b2be6",
+        "claude_judged.jsonl": "8667a9d99f36b1ad5f97726680f1ec5dde35765669105457617bfc545f4c4582",
+        "claude_summary.json": "827d1168dced16b99344bf15be038157ae050c63e3e6a7a5703a72fb67ebee5b",
+        "claude_analysis.md": "9f25c1fa885374dc672f3834121182955ee644c7b5d711a1379b12df79c0bf82",
+        "benchmark-provenance.json": "d966a40697a150665c5b6ea4dd831c15c29827ac2acc6b2339efa37dedf528f4"
+      }
+    },
+    {
+      "key": "openai15-07",
+      "arm": "openai15",
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T140040_gpt-realtime-1.5_dc24bcd3",
+      "original_hashes": {
+        "transcript.jsonl": "f5e25bc11647f851a309aea73c31f21681f208efcaf801b5e16ee024eed02d23",
+        "claude_judged.jsonl": "b0c54df4ea605ab2ae7538e977ff2169b4fc8cb0afd2e25ef1cc1339743747e5",
+        "claude_summary.json": "0ce6dd8209b9e230f6e381aba78f70890b083efc672595faa45af6ac5803e927",
+        "claude_analysis.md": "7e9b16617600b8a36f4a1440d56e61db8f6eff1b57a347bca5f3a223b60fe178",
+        "benchmark-provenance.json": "5fb448e9589e0409045533ac310bd2c312c9a2ce1752308a9d1c8e0aca942e18"
+      }
+    },
+    {
+      "key": "openai15-06",
+      "arm": "openai15",
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T140024_gpt-realtime-1.5_31eae89a",
+      "original_hashes": {
+        "transcript.jsonl": "a266f866f8e6b4fd03d0ffd22595a5eedc9e4a9672388b9fa6bfd372796c5d17",
+        "claude_judged.jsonl": "f16c1d49c5ffda6e93f830bb62b38c8313efeb45dfe3ed86fd4ca54eac26b1c7",
+        "claude_summary.json": "77d1c2e56a87d8410f11242187ee9326d7af9d17ba32e2921715b79401978487",
+        "claude_analysis.md": "383a3d7cf896773353003fe62ec374a90a5b56fc04c2c310ab557757104e17cb",
+        "benchmark-provenance.json": "5fb448e9589e0409045533ac310bd2c312c9a2ce1752308a9d1c8e0aca942e18"
+      }
+    },
+    {
+      "key": "gemini31-10",
+      "arm": "gemini31",
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T140257_gemini-3.1-flash-live-preview_000584aa",
+      "original_hashes": {
+        "transcript.jsonl": "e6576d71a4fa4964218b6093e0702cb20bc7ecf75c7da2753dd62e32f8532f05",
+        "claude_judged.jsonl": "0a0531ac5acb1b7408a73cfbfe45468fd4a151f9a970a65c33ff912b861b932c",
+        "claude_summary.json": "c12453ee525204f862019082521f9fb4d1c27084ac3f4059f2b9665f4aa13cab",
+        "claude_analysis.md": "e1f45f012bf3691a9dd3b9cd9daa99cd262b6dfe1cabf83b0dab6f6a590b35f2",
+        "benchmark-provenance.json": "d966a40697a150665c5b6ea4dd831c15c29827ac2acc6b2339efa37dedf528f4"
+      }
+    },
+    {
+      "key": "openai21-06",
+      "arm": "openai21",
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T140021_gpt-realtime-2.1_e819bc61",
+      "original_hashes": {
+        "transcript.jsonl": "7438857fde33f6cd4803eb732967c9b489dd829ab89ad6111b5d68e3c0164ab1",
+        "claude_judged.jsonl": "d90cc4b3b53eb321e7035b6c601375259b141a257f0cd20d4e546ab02732a639",
+        "claude_summary.json": "60291f837458ca9add14ee630159aecafb208bb6b0f71bbe7653ab14a4b63ff8",
+        "claude_analysis.md": "ba6dccaf5d9d41673e2770400cf4b22c95d7be35969967b008f5d7fe6cb837b1",
+        "benchmark-provenance.json": "9473aaa6cdf983463624a1f3c2b1c00f099eb5a16badfcd9b25cb1508551450a"
+      }
+    },
+    {
+      "key": "openai21-07",
+      "arm": "openai21",
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T140027_gpt-realtime-2.1_d4746f94",
+      "original_hashes": {
+        "transcript.jsonl": "192e7d5eb861e5f7da1ea370190b70cae7ef7055296551614ac56a20b96d6833",
+        "claude_judged.jsonl": "c1e77cfde1b170fed7ba49f471e5d328296eaf84893eb9aaf773047aa7922aac",
+        "claude_summary.json": "6549bfe12680bc2d3f9454812b755c98c74ad7774eccab2b654a69d7dee55cc8",
+        "claude_analysis.md": "af25751f8744444a2300279cebaf5877420bb49f9b0f6b953a70632d6a4ea3bc",
+        "benchmark-provenance.json": "9473aaa6cdf983463624a1f3c2b1c00f099eb5a16badfcd9b25cb1508551450a"
+      }
+    },
+    {
+      "key": "gemini38-10",
+      "arm": "gemini38",
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T140446_gemini-3.8-live-extended-thinking_064d6395",
+      "original_hashes": {
+        "transcript.jsonl": "c9d3d1ea1f4e88117a17c540bc2d2101f8654ad461c1bf468132150690b91863",
+        "claude_judged.jsonl": "c0d1a1ed125e8e0a1bcc5ec29e0c842d44fa66605b990af010f9608d71151a22",
+        "claude_summary.json": "08e6625ed6881657c99087ad263924a806e014afcb4b015098e0e6bc7319c35a",
+        "claude_analysis.md": "0a02afc03e6ef4aeeb5abc4c803021f75cf7257dbc70e03e6fd376ee13ce203e",
+        "benchmark-provenance.json": "7ff971bd548fcc429e8348b4c1f0d5673cd587b11211ac369ba0fe7ace2a8147"
+      }
+    },
+    {
+      "key": "openai21-08",
+      "arm": "openai21",
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T140119_gpt-realtime-2.1_ba954d5d",
+      "original_hashes": {
+        "transcript.jsonl": "09dd590a6ca14eb61a69c713d5e84d66881b2dd34c463272549e990b6f1970c1",
+        "claude_judged.jsonl": "ef314c3cc679d93479f8dd5831449f34b081ac186c09fd9834d3684e47007eed",
+        "claude_summary.json": "0ef2b200b783829172c800861f85898de7ffeb6d409b7fc80a8ad3e7bc1d7d35",
+        "claude_analysis.md": "0d5b8d03a1fb8802392392df51910be955fe601e0dc189d21ea82043c01ee08f",
+        "benchmark-provenance.json": "9473aaa6cdf983463624a1f3c2b1c00f099eb5a16badfcd9b25cb1508551450a"
+      }
+    },
+    {
+      "key": "grok-16",
+      "arm": "grok",
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T140440_grok-voice-think-fast-1.0_2ff5aa45",
+      "original_hashes": {
+        "transcript.jsonl": "cd9cd801cf0c14ea98278d01e43560d895771a31d88e265d9b98d8033bcdefbf",
+        "claude_judged.jsonl": "819974641ee74e83a5f450343b661ecc17d3579aeb01c7acbb144c8435c97811",
+        "claude_summary.json": "3a07b929fadb473a5a3d6d039033d84236f79cdb34e46f0575da04ce874ce040",
+        "claude_analysis.md": "bb587755ec1441aa66bc35d6dddd38347a4f5a30bd481c39a7ebc5e53d48c507",
+        "benchmark-provenance.json": "847f33376850285a753c6801420f0f170e753e78a3bf74f87d144aec246be155"
+      }
+    },
+    {
+      "key": "grok-17",
+      "arm": "grok",
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T140450_grok-voice-think-fast-1.0_5f0889b7",
+      "original_hashes": {
+        "transcript.jsonl": "2e49054c4ce1c68d0e7e78319791cac56685da757645a8d81f5cb7ceabbb73f5",
+        "claude_judged.jsonl": "38459eb514c6c16ca4e49d67d4841e7417da304743b775fbb00aadfa45ba71d3",
+        "claude_summary.json": "b60000a49f0dcacbd6c501ae1298fc49acb58b552b344411c5333dafdb1a2689",
+        "claude_analysis.md": "cd637a1ab9995f63522e97a86b920ea4aea36dcd70b1f1bf38077e633d47197a",
+        "benchmark-provenance.json": "847f33376850285a753c6801420f0f170e753e78a3bf74f87d144aec246be155"
+      }
+    },
+    {
+      "key": "grok-19",
+      "arm": "grok",
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T140535_grok-voice-think-fast-1.0_24d52d33",
+      "original_hashes": {
+        "transcript.jsonl": "6efe39c65a02e79432e98b4eb1f97d3ce9cbc9ffc4b185272b71dddf3e76ef67",
+        "claude_judged.jsonl": "75fa33e7af8741eba4c8bea505d474e6b53af27dc59059daa5ddd9a1918729a0",
+        "claude_summary.json": "ad359ca3a22da75a92aab8a9edf5bff40f7a15b220aaa07342c3fa8e5f02cfbf",
+        "claude_analysis.md": "5633dae5629b4d50388a5f9d92d49ca14fd394e1b46f8b533ef3bf0e44fe940f",
+        "benchmark-provenance.json": "847f33376850285a753c6801420f0f170e753e78a3bf74f87d144aec246be155"
+      }
+    },
+    {
+      "key": "grok-18",
+      "arm": "grok",
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T140534_grok-voice-think-fast-1.0_c1546526",
+      "original_hashes": {
+        "transcript.jsonl": "1ac559f580bcbceed3b5942180f836eab983b8a3827b27a136055cc4be580bf9",
+        "claude_judged.jsonl": "b18025349fe74bff7dcbd8494ab4476587c032ffad81bca98ee51f6069dfffb6",
+        "claude_summary.json": "fdd79134ee4d369089042a2182e4c75f3df1b588d1ce3b0cbb6ea7795a09643a",
+        "claude_analysis.md": "32489c0f62ddb6c3de785c87b61d644b26e98500975c6aa75f8cb24b207966f5",
+        "benchmark-provenance.json": "847f33376850285a753c6801420f0f170e753e78a3bf74f87d144aec246be155"
+      }
+    },
+    {
+      "key": "grok-20",
+      "arm": "grok",
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T140544_grok-voice-think-fast-1.0_1b8b40be",
+      "original_hashes": {
+        "transcript.jsonl": "0a8db8afa305c73600802d6dad04365925cdf47fa9d7f72d5494a2fbfe9a09fc",
+        "claude_judged.jsonl": "37cf7032397dd1ee435638da528c6c4bc9b3ee107f412a4a23ae7149d05115f5",
+        "claude_summary.json": "3ff727ccc1b13b86415f74a445b29b4d0eaba215bb395d3e4a70ede71bf4c6a5",
+        "claude_analysis.md": "01a6946a2a4499ddd72c25ac92f299ab153fe26ca0e4a5b17102057d613a23d6",
+        "benchmark-provenance.json": "847f33376850285a753c6801420f0f170e753e78a3bf74f87d144aec246be155"
+      }
+    },
+    {
+      "key": "gemini38-11",
+      "arm": "gemini38",
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T140918_gemini-3.8-live-extended-thinking_b65c3619",
+      "original_hashes": {
+        "transcript.jsonl": "7f7b8b9369b2c88e4b75fcdc0781e9ba2f0340ed62cbbed95b4c91eb6e348fdd",
+        "claude_judged.jsonl": "4c103c6a138fe860efc62c0d5da07b9614b5167e48cceb7e901c51d73d232ef3",
+        "claude_summary.json": "22252a753a50fc53049db6d0ba05ae6a4d2c0f3dae6a9eeea4eb9230d4713f42",
+        "claude_analysis.md": "cbebe8b83846b84f4dc49ce4952df3efb1e0a5ac54c2255d48047c168787e750",
+        "benchmark-provenance.json": "7ff971bd548fcc429e8348b4c1f0d5673cd587b11211ac369ba0fe7ace2a8147"
+      }
+    },
+    {
+      "key": "gemini31-11",
+      "arm": "gemini31",
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T140900_gemini-3.1-flash-live-preview_2b7fe42e",
+      "original_hashes": {
+        "transcript.jsonl": "5a477e457ee93ad2d538a65b2bbe125b6d22660661cb9dbd3f9a219192a9ba66",
+        "claude_judged.jsonl": "1493392671f87d6dcb4ca948797d9cc7fa1aee34c1464f93472c9aecaf992113",
+        "claude_summary.json": "ff0198858467983690ad8afb518b60e0e9fa11ac9aa117c3a81c0524b14abfcf",
+        "claude_analysis.md": "2d70b7a919f319f2389201124062c0b8ea6ccd88d080edf7d3467edb7d7ab401",
+        "benchmark-provenance.json": "d966a40697a150665c5b6ea4dd831c15c29827ac2acc6b2339efa37dedf528f4"
+      }
+    },
+    {
+      "key": "gemini31-12",
+      "arm": "gemini31",
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T141021_gemini-3.1-flash-live-preview_3f3a2443",
+      "original_hashes": {
+        "transcript.jsonl": "81bfb7abe7df13e670196c434ef801155392bbe39ace54bc341a3e6c5c74ebd2",
+        "claude_judged.jsonl": "14c1ca1b9564211568c03c95b84654f3652c84e45a8555d669acd2bc6a1ea218",
+        "claude_summary.json": "cc8cc9687732c95724f3b2348ac9d82ef19b2140fca0d7ba736f819928157719",
+        "claude_analysis.md": "673759a739913014d44ae260d23904e9d37f2e7823a87f98ab6d8269f604fe91",
+        "benchmark-provenance.json": "d966a40697a150665c5b6ea4dd831c15c29827ac2acc6b2339efa37dedf528f4"
+      }
+    },
+    {
+      "key": "gemini38-12",
+      "arm": "gemini38",
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T141117_gemini-3.8-live-extended-thinking_cf8cd641",
+      "original_hashes": {
+        "transcript.jsonl": "6d8864216208834e5594cce99ce1dea981f2b831d1b80f58c06f3c4a28eed74e",
+        "claude_judged.jsonl": "472eb8912d3b2b1498f9245e15f9f677288c0734b98a4ecb9c7bde24a42033b1",
+        "claude_summary.json": "1f71322b1317209dd6b7fd43c61123aeeda1e004ae4eaf065c47be328eda4bab",
+        "claude_analysis.md": "35673c18012d6143f515da326d2baeb43e5fb3721d843ea93cbd86a9b11891f3",
+        "benchmark-provenance.json": "7ff971bd548fcc429e8348b4c1f0d5673cd587b11211ac369ba0fe7ace2a8147"
+      }
+    },
+    {
+      "key": "gemini31-13",
+      "arm": "gemini31",
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T141203_gemini-3.1-flash-live-preview_0d3b6d98",
+      "original_hashes": {
+        "transcript.jsonl": "e1d4f4e80133980a3821977b8b709f6f0394d0ba19a651068b60594427881e66",
+        "claude_judged.jsonl": "a54ff8353532eb61387935cbf15cfb846a852f241a642c99afc4170a2488d855",
+        "claude_summary.json": "c438fcfd39d92c6fe7ebd5ea6a0a1d4cc2dc795cd5ee35fcc3c374bab4a43a60",
+        "claude_analysis.md": "6581c3eff5c78217bdc9fbc2ff4953312559fb4757e72a0ccd17ac5bcef8e3d6",
+        "benchmark-provenance.json": "d966a40697a150665c5b6ea4dd831c15c29827ac2acc6b2339efa37dedf528f4"
+      }
+    },
+    {
+      "key": "openai15-08",
+      "arm": "openai15",
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T141052_gpt-realtime-1.5_c7408f70",
+      "original_hashes": {
+        "transcript.jsonl": "0ad268502a59303d4a09258b4968a52d5ddd8b95becc3ca6671cc6afa9edc615",
+        "claude_judged.jsonl": "e43803d4492d2ec7805d2556ac00266556256b15896b59dd5067422a163f8a56",
+        "claude_summary.json": "6c7d58fd2ca036da47a1a13612a04081a9c32ea791836508416154a2cb6bc0e6",
+        "claude_analysis.md": "4d352458d6995c2fb5b7778044cf5193deadf6310f2ee02aca013622adec807e",
+        "benchmark-provenance.json": "5fb448e9589e0409045533ac310bd2c312c9a2ce1752308a9d1c8e0aca942e18"
+      }
+    },
+    {
+      "key": "openai21-09",
+      "arm": "openai21",
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T141102_gpt-realtime-2.1_94d07019",
+      "original_hashes": {
+        "transcript.jsonl": "229a5b6d13d8d64d156cacd65e270337eef582ef22565a27c7a72a3aebe38eec",
+        "claude_judged.jsonl": "d4cc1efd753d21dcf9e6a82b3390198d513998f664432a6bcf93a5abcb4122f6",
+        "claude_summary.json": "a1c2fbe774236d7927255cb94aaccd9cc0b1bd843927d5ddd0e85e68ce1b0c14",
+        "claude_analysis.md": "1854b8e492d9a07479ccd19a1959aeae204f5c830bb9e8311d7427c2a1a490da",
+        "benchmark-provenance.json": "9473aaa6cdf983463624a1f3c2b1c00f099eb5a16badfcd9b25cb1508551450a"
+      }
+    },
+    {
+      "key": "grok-22",
+      "arm": "grok",
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T141345_grok-voice-think-fast-1.0_d5416088",
+      "original_hashes": {
+        "transcript.jsonl": "881e78ee48b509228ee5e9621af7c8a299f6fda8bc242015df68edca043e472c",
+        "claude_judged.jsonl": "a6d5ad8d481e6c1832b2a33d0e9c40da402e2d88fdb5d8fe98735d63bc551544",
+        "claude_summary.json": "0ce3fe46e06661829ec2b4e40cbddade4dd9d2d5531b542d8fcb38bb5294c2c0",
+        "claude_analysis.md": "ae464a478794320ff55399d265005a03060e4facb1f79f1ebd178b8713a483e9",
+        "benchmark-provenance.json": "847f33376850285a753c6801420f0f170e753e78a3bf74f87d144aec246be155"
+      }
+    },
+    {
+      "key": "grok-21",
+      "arm": "grok",
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T141328_grok-voice-think-fast-1.0_22f04aca",
+      "original_hashes": {
+        "transcript.jsonl": "ac6a94b9e3a6e41783bff86670e724e2d8eba46210d6c87d56c4bcb66baf69c1",
+        "claude_judged.jsonl": "f87c5e70de20b13de6f10a45918d796d7ee03aa13266764965d5bff8c500d96b",
+        "claude_summary.json": "d0935f87471d46d768921f11b5251cef096d1d468c691b4258c56621b0855497",
+        "claude_analysis.md": "77f6ae2fc49d1d3de5bff6e5b375178a2267f48c1c45588f58800fb03020fdf0",
+        "benchmark-provenance.json": "847f33376850285a753c6801420f0f170e753e78a3bf74f87d144aec246be155"
+      }
+    },
+    {
+      "key": "openai21-10",
+      "arm": "openai21",
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T141142_gpt-realtime-2.1_010970af",
+      "original_hashes": {
+        "transcript.jsonl": "57001348fc49559edbd7ba12d51cf41f105c46ae4a586be0f5c13b56ee31a2b3",
+        "claude_judged.jsonl": "7f875b39035634b531e660a27af0d2bbd10015ba1a54f40fa6be779ffdfa3a57",
+        "claude_summary.json": "941b7581f1b2171bcf686eef471f859d224b2d6f42b9fb89741cca227841fed0",
+        "claude_analysis.md": "bf6fbffcef99197aed38c0f27d2e505621f5a7dae35d0d92bafb38215b31745d",
+        "benchmark-provenance.json": "9473aaa6cdf983463624a1f3c2b1c00f099eb5a16badfcd9b25cb1508551450a"
+      }
+    },
+    {
+      "key": "openai15-09",
+      "arm": "openai15",
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T141140_gpt-realtime-1.5_dd52e96d",
+      "original_hashes": {
+        "transcript.jsonl": "94f52e0c827494ef8b5098af842d44a236fe6cc7d44b614194de8016152d6796",
+        "claude_judged.jsonl": "4bd06d0cdb2baa740225e7e5363758fa53528592825835e0680fe8ed26ca6bf6",
+        "claude_summary.json": "27740b02cc7ef025a35f86dad5c7e7a108d95eb6179546c25a563056b819eafa",
+        "claude_analysis.md": "deb53e5075b6bd8a14988dcaed9f63fd2a23123c77bcae0245e8acc65f0c67c8",
+        "benchmark-provenance.json": "5fb448e9589e0409045533ac310bd2c312c9a2ce1752308a9d1c8e0aca942e18"
+      }
+    },
+    {
+      "key": "grok-25",
+      "arm": "grok",
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T141449_grok-voice-think-fast-1.0_18c2de6c",
+      "original_hashes": {
+        "transcript.jsonl": "612ce1457e573673dde6bed348a43df476d5ee7a47da7bda0fe467e59c629db6",
+        "claude_judged.jsonl": "1543993e3b1bbb2f572ae4dd47a312dbd3bedc2990e7c690164583a48e11bf38",
+        "claude_summary.json": "925b45b447719eb98b985845f06acbf2ca0b77dbd22068b2fed68bcaf7c6e547",
+        "claude_analysis.md": "5f22e23365f56ba1534e3e20a46b4df1eb4347369c171814f25163b438737594",
+        "benchmark-provenance.json": "847f33376850285a753c6801420f0f170e753e78a3bf74f87d144aec246be155"
+      }
+    },
+    {
+      "key": "openai15-10",
+      "arm": "openai15",
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T141223_gpt-realtime-1.5_00c13aba",
+      "original_hashes": {
+        "transcript.jsonl": "b66234d245cbe423fe63fa54540dc7d64e463ba40be2d19f90899dd6fe3dac26",
+        "claude_judged.jsonl": "aaf980b4593cdcfc47553468c92eec3523b0a54f1d498a424233dc9846e9a5ac",
+        "claude_summary.json": "aa98e60dfd62c00ae0d93c5c3b4978a4c0f465db53fb945cd0ac924bf81734c6",
+        "claude_analysis.md": "36660eece85ee86b806a2b32a1cb9f32d745e3a45ae49f5e91738444ddcaf587",
+        "benchmark-provenance.json": "5fb448e9589e0409045533ac310bd2c312c9a2ce1752308a9d1c8e0aca942e18"
+      }
+    },
+    {
+      "key": "grok-24",
+      "arm": "grok",
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T141445_grok-voice-think-fast-1.0_cc271184",
+      "original_hashes": {
+        "transcript.jsonl": "dd6d9f05086d0a0155661adcc13b0fe9a219478fe9ac152991a85cb35ffb2166",
+        "claude_judged.jsonl": "1cd3b40660b7f247f46a1d3544cfc1b6d87fd1008e5ef8e4d14d5c8d35650c20",
+        "claude_summary.json": "176415a3df0150abb47cfc95380fcfad5bd1e8616706e415f6a0518b57baf87c",
+        "claude_analysis.md": "81a29bd452994716ac703e7966ab22b3073bac95e4f73b9947207a2b3195af61",
+        "benchmark-provenance.json": "847f33376850285a753c6801420f0f170e753e78a3bf74f87d144aec246be155"
+      }
+    },
+    {
+      "key": "grok-23",
+      "arm": "grok",
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T141414_grok-voice-think-fast-1.0_ecc03f17",
+      "original_hashes": {
+        "transcript.jsonl": "40de0f8de2ebf34a0525e3b5f431923682e89406608152e101d2dc054e45a916",
+        "claude_judged.jsonl": "2ad771761ab1d0563b6f4c30e8497558869e57e6170ec8344e5a0dfdc5bd5e4d",
+        "claude_summary.json": "d8cc6f4049662cf38c7b9e49e2844849ba1e9fe911817ced82bd060d97e9419e",
+        "claude_analysis.md": "2caa08ddff8bdd70847eddee7e4aba85a1bfded8e0bafd6932569a97de47141d",
+        "benchmark-provenance.json": "847f33376850285a753c6801420f0f170e753e78a3bf74f87d144aec246be155"
+      }
+    },
+    {
+      "key": "gemini38-13",
+      "arm": "gemini38",
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T141636_gemini-3.8-live-extended-thinking_0858c0bc",
+      "original_hashes": {
+        "transcript.jsonl": "abdfed40c8bf7ef93698644ef1ca0dacc636af4c5399c859fc9243c73c96b80e",
+        "claude_judged.jsonl": "801d2479d46b46aa4996822f71c45c0a6711da72a9499bf06cf489be7fdaf055",
+        "claude_summary.json": "a6874e8c8e862fda8a6d045d21e9b7c886bf35a5500881e86ec0e2a58bbbf1e7",
+        "claude_analysis.md": "1c2871e6a6855a3d4c28641bfcf2f6bc47b46614f40b3eb764969494459fc7ef",
+        "benchmark-provenance.json": "7ff971bd548fcc429e8348b4c1f0d5673cd587b11211ac369ba0fe7ace2a8147"
+      }
+    },
+    {
+      "key": "gemini38-14",
+      "arm": "gemini38",
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T141836_gemini-3.8-live-extended-thinking_560b2794",
+      "original_hashes": {
+        "transcript.jsonl": "c6fbcc76b553a999027def3e8d64556793596284697d02832700cc0b75660bb2",
+        "claude_judged.jsonl": "3fc8ae92ff0eb41b1043a6ae176655ef3cea9766d0c0bc7de79f1ef223e0dfbc",
+        "claude_summary.json": "53f8594527f3ab8658cb228d6ccac5191641ac677d211a7025907ace8328bc34",
+        "claude_analysis.md": "be3a78101d13bafe9ec607ed76df532aa5f735f38e36ee71f19835c2a76297e6",
+        "benchmark-provenance.json": "7ff971bd548fcc429e8348b4c1f0d5673cd587b11211ac369ba0fe7ace2a8147"
+      }
+    },
+    {
+      "key": "gemini31-14",
+      "arm": "gemini31",
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T141645_gemini-3.1-flash-live-preview_543e1b5f",
+      "original_hashes": {
+        "transcript.jsonl": "a9b2b62ec16f4452aae9de5b64ca97795ccc7fb76e66365779b02cee87f2fbff",
+        "claude_judged.jsonl": "5c927eed584dc5139eed2de62f0e68e8e220d8e6dc4a2a63354dc79bedef1837",
+        "claude_summary.json": "3e80e443b873d59d3a4facc533c8b8faeb537437e63b5518b353815617fc28b8",
+        "claude_analysis.md": "987c4a941bdb410d94c4af58f5406115da4156c779d3c38dad6248a719d06258",
+        "benchmark-provenance.json": "d966a40697a150665c5b6ea4dd831c15c29827ac2acc6b2339efa37dedf528f4"
+      }
+    },
+    {
+      "key": "gemini31-15",
+      "arm": "gemini31",
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T141845_gemini-3.1-flash-live-preview_cb6de9ca",
+      "original_hashes": {
+        "transcript.jsonl": "76f03739a629c2033b0ecb5146a105407f10d68e5d0e07eb7efb18e514a1e270",
+        "claude_judged.jsonl": "60ceb26bcc77c3a874d17271144c5338f1a2ce3b1b7429c183461f6e5c8b6ac7",
+        "claude_summary.json": "604886f4a1e6d50bda01aab38b0766da1bd330b66cc782d9fc14de75f0d2fe06",
+        "claude_analysis.md": "a131a629d7e6aed184013e981f904338217e38820489ecf06a38f51a4e50b67e",
+        "benchmark-provenance.json": "d966a40697a150665c5b6ea4dd831c15c29827ac2acc6b2339efa37dedf528f4"
+      }
+    },
+    {
+      "key": "gemini38-15",
+      "arm": "gemini38",
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T142004_gemini-3.8-live-extended-thinking_ea9411ab",
+      "original_hashes": {
+        "transcript.jsonl": "e4ea1d97aa0b0ff667d6eb92bc0311fbbdab53004b1511402fe130f20747256d",
+        "claude_judged.jsonl": "7f4986a14d6c68417dd657cbef41b5a6e73e58fc206e01c1fb1a65193efc3462",
+        "claude_summary.json": "c52a0baee59a75111489622d5d4e557ebde19598dfd8eeedeb11522479fa3376",
+        "claude_analysis.md": "b934cd4b69e74438ff4a9aa0b0614cab7b5105175fbdf4119f9a457d73cdb86a",
+        "benchmark-provenance.json": "7ff971bd548fcc429e8348b4c1f0d5673cd587b11211ac369ba0fe7ace2a8147"
+      }
+    },
+    {
+      "key": "gemini38-16",
+      "arm": "gemini38",
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T142527_gemini-3.8-live-extended-thinking_9f9e592d",
+      "original_hashes": {
+        "transcript.jsonl": "aeed3dd1f52baef49409843d8e647b8a89b2da5c854d227d1d3aa2a5d0e6b68a",
+        "claude_judged.jsonl": "be3c0521019d77de10d14368e78d4f7755f49be4ee445c79f671f63c8bd16ef9",
+        "claude_summary.json": "ce273c64764f7b2dc1e5d8d4693079511a74276d1cb8f4b9b709098fdb751cd2",
+        "claude_analysis.md": "398da9d595dca8fb5bf31478a9df818d4571fe628b6fd857ca04c05c4c9db667",
+        "benchmark-provenance.json": "7ff971bd548fcc429e8348b4c1f0d5673cd587b11211ac369ba0fe7ace2a8147"
+      }
+    },
+    {
+      "key": "openai21-11",
+      "arm": "openai21",
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T142107_gpt-realtime-2.1_eccbf633",
+      "original_hashes": {
+        "transcript.jsonl": "abadde83d0fae8f0b6c2d374a940f8ec6bd818648e2dbb3b1768069b9e14071b",
+        "claude_judged.jsonl": "9112efe629c3c81ee8fdeb7a3437ff4061f0cad1655867f0650765756b619e31",
+        "claude_summary.json": "7e10a9a07c344a7069b4ea6c85e1393d663eddced9650cf693e88a8083e6e2d7",
+        "claude_analysis.md": "21516f3c0192321e87921a9b316e1cf96213af6fd384e8b5c078a2a2c0d5f780",
+        "benchmark-provenance.json": "9473aaa6cdf983463624a1f3c2b1c00f099eb5a16badfcd9b25cb1508551450a"
+      }
+    },
+    {
+      "key": "gemini31-16",
+      "arm": "gemini31",
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T142354_gemini-3.1-flash-live-preview_8b3405e3",
+      "original_hashes": {
+        "transcript.jsonl": "ed7d9058d9a5ae4496dc78a17422d1d2d7a59a8284e0907d0dc008243679d753",
+        "claude_judged.jsonl": "5c7aee36784e5a2d3b00d32395bc2ebb677f9287ff9be0fa871805848d8866be",
+        "claude_summary.json": "21adf7cd6b6e2644062785ea2040b52bf0ef6589a36d0f1aecb0d96aac21b1ac",
+        "claude_analysis.md": "da7c857e6cb190d0eeee9914855e7742b9d5c6baacd072d1824b35863ba863a5",
+        "benchmark-provenance.json": "d966a40697a150665c5b6ea4dd831c15c29827ac2acc6b2339efa37dedf528f4"
+      }
+    },
+    {
+      "key": "gemini31-17",
+      "arm": "gemini31",
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T142527_gemini-3.1-flash-live-preview_f0475fac",
+      "original_hashes": {
+        "transcript.jsonl": "37478444dfc0d46251c1b0d0c153dbe94911e3a1d23fe036a342a9cd29e3bb81",
+        "claude_judged.jsonl": "1fe50d35f8e319ab363adb9f80bd550bbdd081d9857bdcf91df55e0f88ae695f",
+        "claude_summary.json": "3d3d0e4e44d883ce1a88dfe455b214f0b4e6e8cd5360fd834a8c93b88ec4bcaa",
+        "claude_analysis.md": "754d9baf1a9479a20105f06530a1881f7354de4250941bcf2b08d604ca423adc",
+        "benchmark-provenance.json": "d966a40697a150665c5b6ea4dd831c15c29827ac2acc6b2339efa37dedf528f4"
+      }
+    },
+    {
+      "key": "openai15-12",
+      "arm": "openai15",
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T142308_gpt-realtime-1.5_82198fcc",
+      "original_hashes": {
+        "transcript.jsonl": "d39e006c5f59ec7ae8ae1db89fa99b8e9e0aff99a1de3100764873b9845fea2c",
+        "claude_judged.jsonl": "6aeb9d8a13c74b662447c326d6d942a648aa2b13c7e117c5f0fd62c73e335d04",
+        "claude_summary.json": "6cf81f3195aaeff5a2f00d108a754516557f99296d78149b6faba679e04419ab",
+        "claude_analysis.md": "26166e3bdb14a8adddaeaa47233cda9f7f71bcde3377dbdc03250250d10f456a",
+        "benchmark-provenance.json": "5fb448e9589e0409045533ac310bd2c312c9a2ce1752308a9d1c8e0aca942e18"
+      }
+    },
+    {
+      "key": "openai15-11",
+      "arm": "openai15",
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T142218_gpt-realtime-1.5_4c66c2f1",
+      "original_hashes": {
+        "transcript.jsonl": "48c2976d91b08929ba38d7e8e5263b54598adece1ee156bdac9a340ddf8b9497",
+        "claude_judged.jsonl": "9a23e165df5eca1974ac5b22c606fd122ee2f712ce259010da6c8b2e20581656",
+        "claude_summary.json": "3a15790497991c1bcb5e3fe52bdecb8d489b27f2c90799bcceb788b3fc0e091b",
+        "claude_analysis.md": "354c6e806c808fe8e955de6ab92d8e215cbb383fe42484f93dd69df13c878e63",
+        "benchmark-provenance.json": "5fb448e9589e0409045533ac310bd2c312c9a2ce1752308a9d1c8e0aca942e18"
+      }
+    },
+    {
+      "key": "openai21-12",
+      "arm": "openai21",
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T142301_gpt-realtime-2.1_c4104455",
+      "original_hashes": {
+        "transcript.jsonl": "b869a42d67b495695dd41590e43bdfa8c90b0154b8f1a6dcef86c4d0305bcac7",
+        "claude_judged.jsonl": "a193928de6359f236c652a2128759aad1d8a121f35bd3107ee90d391ecdbbf1a",
+        "claude_summary.json": "a4ab7edbf31a02dd85801398e00642301019fc3e74fd9c08ca907213ec7167aa",
+        "claude_analysis.md": "659ea348dbbe6f6f426acfce1d86fe688aaf0ff1ff0b07697b2322df9c0ca39f",
+        "benchmark-provenance.json": "9473aaa6cdf983463624a1f3c2b1c00f099eb5a16badfcd9b25cb1508551450a"
+      }
+    },
+    {
+      "key": "gemini38-17",
+      "arm": "gemini38",
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T142709_gemini-3.8-live-extended-thinking_65b656e4",
+      "original_hashes": {
+        "transcript.jsonl": "d6815177a3d6a0e22c75956c919334f2243ccf4cbb84fe26174bde8dadc0b0d1",
+        "claude_judged.jsonl": "a48ae64bfaae9b2e7fca033d42e2277579e60438073bbdca1e5d88b423e7584d",
+        "claude_summary.json": "b28eb5f122b257c291f10fca922d39be0f2c0692e85d9c2e35d704a4ebd2cf77",
+        "claude_analysis.md": "d25c545966934fa82842ddc29c0eb95e43618d93409d5f1bf22a9c297d21f284",
+        "benchmark-provenance.json": "7ff971bd548fcc429e8348b4c1f0d5673cd587b11211ac369ba0fe7ace2a8147"
+      }
+    },
+    {
+      "key": "openai21-13",
+      "arm": "openai21",
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T142319_gpt-realtime-2.1_8c8a6235",
+      "original_hashes": {
+        "transcript.jsonl": "b5a1f2af86df71c51ce8cee5170227a747ff75422b5938ca6281d557c0f6267b",
+        "claude_judged.jsonl": "0e4dc6265d518d56bfb83bab912fd0beed4fa3ba22b70bf8685d07b393f86ca4",
+        "claude_summary.json": "9720a565d08538d3314b63da475005d208708e7da9f2656986f862e201642130",
+        "claude_analysis.md": "34037bd428e6b7ea0a89b8d7969f69f45397af6d998d3683403208cf44f632e1",
+        "benchmark-provenance.json": "9473aaa6cdf983463624a1f3c2b1c00f099eb5a16badfcd9b25cb1508551450a"
+      }
+    },
+    {
+      "key": "gemini31-18",
+      "arm": "gemini31",
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T142716_gemini-3.1-flash-live-preview_4f3cd812",
+      "original_hashes": {
+        "transcript.jsonl": "a6563f4bb49ae97d602d9e84d704677512d7bc14b95b285a72306499a56057e7",
+        "claude_judged.jsonl": "50031b0e1ace2795ab9ffddea82267a92a5e6709a605a431976e0d0e9f94fad0",
+        "claude_summary.json": "3191c92f01e8d35e6e8222223d717eeded21dd74fc3e83df3ecbeba47836fea5",
+        "claude_analysis.md": "6cea161b38d74c3c78e919119b8269128ccff45c9f3efbc369c8f0fc5d85fbbb",
+        "benchmark-provenance.json": "d966a40697a150665c5b6ea4dd831c15c29827ac2acc6b2339efa37dedf528f4"
+      }
+    },
+    {
+      "key": "gemini38-18",
+      "arm": "gemini38",
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T143237_gemini-3.8-live-extended-thinking_956e5094",
+      "original_hashes": {
+        "transcript.jsonl": "ab3384bcaac62fa59325ba0b39c4213a7f21bb78ca4a0876396d28aa35c83a4a",
+        "claude_judged.jsonl": "deaec90196ecaa61d55e7a4a8be51ee228baa4d2dcabe7d0512fcd1504fd6279",
+        "claude_summary.json": "9cd93b02618315293da8c3ab629463d81ce2efa22e106287f158add30febec2b",
+        "claude_analysis.md": "14d1a31591b1d7610a5460ed962133288aae5ac07688074f407fe929715b8965",
+        "benchmark-provenance.json": "7ff971bd548fcc429e8348b4c1f0d5673cd587b11211ac369ba0fe7ace2a8147"
+      }
+    },
+    {
+      "key": "gemini38-19",
+      "arm": "gemini38",
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T143317_gemini-3.8-live-extended-thinking_1d695483",
+      "original_hashes": {
+        "transcript.jsonl": "90e3355c02de6698fbd11d5d9254ff204deb7f5e5e61607e03428858e4817068",
+        "claude_judged.jsonl": "bfd090cafd5d5d2968703a56bf0b965b4d8a118277b6d86cbd0463e399835d55",
+        "claude_summary.json": "3a555565c3f9f8a481f397783c8e2bb000abe9d9909ac0fb43724dcfea58788a",
+        "claude_analysis.md": "b5bd849752355a44519e47152501f6904ade399170f0e7db9b1f6fdf3a21a41e",
+        "benchmark-provenance.json": "7ff971bd548fcc429e8348b4c1f0d5673cd587b11211ac369ba0fe7ace2a8147"
+      }
+    },
+    {
+      "key": "gemini31-19",
+      "arm": "gemini31",
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T143306_gemini-3.1-flash-live-preview_f7d58b1d",
+      "original_hashes": {
+        "transcript.jsonl": "39e3b4fad8c92361b1ddf71bb98668c6ecd6e1543baca295a1c11c712f54b28d",
+        "claude_judged.jsonl": "de2bb29c264f70e408f61ed171a34238d1e5f568f476f7b4a2a9249af4d6cc71",
+        "claude_summary.json": "43bfaead49f950a23283e57e0c4ca1fbc0abb7f97fbae35f62bce37abe9c3544",
+        "claude_analysis.md": "62c3ff6becd6b7c6e6ee8cba765a0c62b30d8865c8dc1316570a2b789e859ed0",
+        "benchmark-provenance.json": "d966a40697a150665c5b6ea4dd831c15c29827ac2acc6b2339efa37dedf528f4"
+      }
+    },
+    {
+      "key": "gemini31-20",
+      "arm": "gemini31",
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T143435_gemini-3.1-flash-live-preview_35ea9d46",
+      "original_hashes": {
+        "transcript.jsonl": "257b28d5025b7cf506016ec5cad22397c24954b497ddbb6e1e7fbcde05d03fc7",
+        "claude_judged.jsonl": "46b7147ed8702baa998454e9bb06696dfa07eb825e0b1075503fe3171894f4ab",
+        "claude_summary.json": "dde356e3f3b13783f0daa321f52cf91d514707031bd0c061ed2477fc0d0a34a4",
+        "claude_analysis.md": "a199d8f3ec788ac3010b339a34d2da9e1ac5505f03223b66e5bf1e9f0f0cd805",
+        "benchmark-provenance.json": "d966a40697a150665c5b6ea4dd831c15c29827ac2acc6b2339efa37dedf528f4"
+      }
+    },
+    {
+      "key": "openai15-13",
+      "arm": "openai15",
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T143247_gpt-realtime-1.5_a09b85ff",
+      "original_hashes": {
+        "transcript.jsonl": "566d441303850ce2938368880b8cc2ed44a4a740f63f34075c83cd2bf4b70517",
+        "claude_judged.jsonl": "43d8639a6b8d9dbea115e4a1c5a1229113f382d7fc281dcb6f11ffa7b6a733af",
+        "claude_summary.json": "e850b7328d9582f39a0f74cf4d59da46b5e97fd4b25e3ca45fd229a5e4fd6372",
+        "claude_analysis.md": "9b6d609d172399734b7a14b1a2b88d98d019d8fb1cd8e396c438ea723df1f675",
+        "benchmark-provenance.json": "5fb448e9589e0409045533ac310bd2c312c9a2ce1752308a9d1c8e0aca942e18"
+      }
+    },
+    {
+      "key": "gemini38-20",
+      "arm": "gemini38",
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T143628_gemini-3.8-live-extended-thinking_942eebb2",
+      "original_hashes": {
+        "transcript.jsonl": "cf9e4c6cc7f1c7031f1ef82356e31e281705e5323c58a1aa5cdb7092d83d5ced",
+        "claude_judged.jsonl": "df7b60d49a0452b792b1164d5e18e9e61f0d3debc13ae53c4546a8ad42bc66cc",
+        "claude_summary.json": "a5a2878a64a956dc92a77a06085b61ee9ded2b66bfa65b3da61f9f2a8c71868f",
+        "claude_analysis.md": "aeebb1de37dec647a8d0168e46ca6fb40403b1fd010dd12099cf0aa7b617a95f",
+        "benchmark-provenance.json": "7ff971bd548fcc429e8348b4c1f0d5673cd587b11211ac369ba0fe7ace2a8147"
+      }
+    },
+    {
+      "key": "openai15-14",
+      "arm": "openai15",
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T143405_gpt-realtime-1.5_f3ba662b",
+      "original_hashes": {
+        "transcript.jsonl": "6089c9618c01114cfa069fcaca90ece3de3fb1906cce4bad6ee65bf31a2c5725",
+        "claude_judged.jsonl": "ee46e4b62c9ad5728001189460fac914f5114322e928f5fa103448c4673f4468",
+        "claude_summary.json": "a754db6c4189fe4b0dd5a59f153fb66baf517beb97c65ce2d6b488d2b2f121a9",
+        "claude_analysis.md": "77c069e9b5e482f1f6e0d29911cff2e43657e8435be4c5bc6e7fdc55251f1a54",
+        "benchmark-provenance.json": "5fb448e9589e0409045533ac310bd2c312c9a2ce1752308a9d1c8e0aca942e18"
+      }
+    },
+    {
+      "key": "openai21-14",
+      "arm": "openai21",
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T143339_gpt-realtime-2.1_429a41fe",
+      "original_hashes": {
+        "transcript.jsonl": "38b1e1a42a86ce4409388d30b6e687185dceb5cdbb8194a117e90f2f2f8fa494",
+        "claude_judged.jsonl": "0ef8f8db66d61483e9d32d6b0f9e6d0891cdee8e2de07069d81c274ebad83896",
+        "claude_summary.json": "73fd8faf85741fcf439d30a0067c50f422c6a7689401695e562cb26fc97393f5",
+        "claude_analysis.md": "2b9902566e8c0cff74dc6dc4a295e45465c4474c6f96b431ff0f2c480b5cbac3",
+        "benchmark-provenance.json": "9473aaa6cdf983463624a1f3c2b1c00f099eb5a16badfcd9b25cb1508551450a"
+      }
+    },
+    {
+      "key": "openai15-15",
+      "arm": "openai15",
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T143438_gpt-realtime-1.5_be0079fd",
+      "original_hashes": {
+        "transcript.jsonl": "2445300f895b28d3a693a7bc5d09b6f127043acd96946b068e7d4dda998f4798",
+        "claude_judged.jsonl": "1e2d5db30be08a019716b8c7bd2afea872f6238b484be89a18c4f2724ffa6d43",
+        "claude_summary.json": "6d191684d6a4159767b7c370f4268828e12319f79c6db2df42852757a1d4db25",
+        "claude_analysis.md": "942a2be886ad7adf9c8485adaaca5a8f114b34877f75f34ecae9e623be219039",
+        "benchmark-provenance.json": "5fb448e9589e0409045533ac310bd2c312c9a2ce1752308a9d1c8e0aca942e18"
+      }
+    },
+    {
+      "key": "openai21-15",
+      "arm": "openai21",
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T143431_gpt-realtime-2.1_0fb9b8f8",
+      "original_hashes": {
+        "transcript.jsonl": "7d0b0ca271be161e9ec1cbb918487549c222c95508a87dee5c16a423b5bc71fa",
+        "claude_judged.jsonl": "b1e5aa53521b6fc9c00e6e3fb6519370b37a3a043166e05053424595f0e114c3",
+        "claude_summary.json": "342e3c75cd285081cffa1cab5cbd2c9c17ce67eaba5be40d0b3fde2cf4289708",
+        "claude_analysis.md": "a6a67a667cbb83d34c5c914e09845f3fbd4e31f15340bfe5b1f42e06aa956faf",
+        "benchmark-provenance.json": "9473aaa6cdf983463624a1f3c2b1c00f099eb5a16badfcd9b25cb1508551450a"
+      }
+    },
+    {
+      "key": "gemini38-21",
+      "arm": "gemini38",
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T143959_gemini-3.8-live-extended-thinking_d66dd609",
+      "original_hashes": {
+        "transcript.jsonl": "28b50d3db6721537d6761afe206317af44a5b923d580f8e39b362e31baa9be8b",
+        "claude_judged.jsonl": "e6a9537d13f85f5c2d5fb2eccee840db8ddcd1f41b9c0a51ec9fea030dc2178b",
+        "claude_summary.json": "4b5dfcad252faf792a53c27f0a550bb63d6bb868c2335e613e37937580033c36",
+        "claude_analysis.md": "8673b37853e6ad07fee4f20258dcf0d6d53f6f6a32fa856f8cab416b25c83078",
+        "benchmark-provenance.json": "7ff971bd548fcc429e8348b4c1f0d5673cd587b11211ac369ba0fe7ace2a8147"
+      }
+    },
+    {
+      "key": "gemini31-21",
+      "arm": "gemini31",
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T143936_gemini-3.1-flash-live-preview_241f277c",
+      "original_hashes": {
+        "transcript.jsonl": "ae8c659aa6ac4895058f7904a9747a8ca11ec4813b857d06d442fc3bf70d9072",
+        "claude_judged.jsonl": "fcd643d519efdd31806475405c59a5a7ea3584ae6aa798ac2e2764f1af5856f5",
+        "claude_summary.json": "960944be8b75d161e6b815513b32c654a9bf56282881601705c95757573bfd92",
+        "claude_analysis.md": "c05299a2e80ced9605a2b8f78ef883214f00fc83bea6ba8697452949e303eeb3",
+        "benchmark-provenance.json": "d966a40697a150665c5b6ea4dd831c15c29827ac2acc6b2339efa37dedf528f4"
+      }
+    },
+    {
+      "key": "gemini31-22",
+      "arm": "gemini31",
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T144118_gemini-3.1-flash-live-preview_6e1c27dd",
+      "original_hashes": {
+        "transcript.jsonl": "4dc75cc8b09df2f930f10bfbfef2b72344348221fb73ac91275593371b439c6a",
+        "claude_judged.jsonl": "e8ea4a9374ef23bd8c6a1af154bd74d41d408f9f0ccdb2d81631c0c9cabc5a01",
+        "claude_summary.json": "6faa21aa5a1778a90766809dd507d5b81f532fc97045a6d6291e2b48cb3747a1",
+        "claude_analysis.md": "f48a5bb767d6106114c1a5192cb919cc2814fd25dea53f1ea0734fbc6d3b600c",
+        "benchmark-provenance.json": "d966a40697a150665c5b6ea4dd831c15c29827ac2acc6b2339efa37dedf528f4"
+      }
+    },
+    {
+      "key": "gemini38-22",
+      "arm": "gemini38",
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T144307_gemini-3.8-live-extended-thinking_c0532da7",
+      "original_hashes": {
+        "transcript.jsonl": "9570d99eec51d4adc1eed41657a103a60bddab8ed3b19360a442132690c8c22b",
+        "claude_judged.jsonl": "61a4982fa732d9570a11b4c552efc0c4fd0256903377312a9d71e488586055bc",
+        "claude_summary.json": "7b8b9b471cfc35849830be5a44d9b5fa57349f23c0dca02de0f6a60537d73e1e",
+        "claude_analysis.md": "97c27820ddd2f5259776cc35a06470bd7ac5153e01d3c0988471ed5d1a01f0e7",
+        "benchmark-provenance.json": "7ff971bd548fcc429e8348b4c1f0d5673cd587b11211ac369ba0fe7ace2a8147"
+      }
+    },
+    {
+      "key": "gemini31-23",
+      "arm": "gemini31",
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T144355_gemini-3.1-flash-live-preview_a4d92e95",
+      "original_hashes": {
+        "transcript.jsonl": "c8b6d513c9e6a66b9df70d2968b85a8b1477e0aa4811725f3146b05c4439d915",
+        "claude_judged.jsonl": "7a1957f7b827c9b8f8627aa21abcd8f3a13792326c7f5cef31475867f87e71c0",
+        "claude_summary.json": "88961ed89882ca4980bbb32ac5e394a4f55e5eb2cad9e8c719b7772c6b68f6a6",
+        "claude_analysis.md": "cc2db8ab48594e7a3d37c93bdabc5d2712e56ccd671af3b25d36436f7c46e692",
+        "benchmark-provenance.json": "d966a40697a150665c5b6ea4dd831c15c29827ac2acc6b2339efa37dedf528f4"
+      }
+    },
+    {
+      "key": "openai15-16",
+      "arm": "openai15",
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T144356_gpt-realtime-1.5_5b4ab504",
+      "original_hashes": {
+        "transcript.jsonl": "41995c854a07f4ffe6e345cee4da69d6b13f9c92ada09471bcdb0753384bc867",
+        "claude_judged.jsonl": "378834c2c8ddc24e5c1c8c531de056ab0959992c9396cabf2f643f4b891c3ff5",
+        "claude_summary.json": "ddc5725b17008e8b1f92c4d51caf4a90255166b470f0d5875165014014c8fded",
+        "claude_analysis.md": "52024054b967c575cb655f872f395538c672c9b86697daae413141eb2c0cb583",
+        "benchmark-provenance.json": "5fb448e9589e0409045533ac310bd2c312c9a2ce1752308a9d1c8e0aca942e18"
+      }
+    },
+    {
+      "key": "openai21-16",
+      "arm": "openai21",
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T144352_gpt-realtime-2.1_d05404c1",
+      "original_hashes": {
+        "transcript.jsonl": "b90555b6b4c296fc214e8c4729b75c811828f70c0002c22becc4abd995584a82",
+        "claude_judged.jsonl": "fba53325750b1610c4e5ca12bf5e92ac71cc61cabcd633810eeae2a904a67a45",
+        "claude_summary.json": "367faebcd6ceaf03f24114739706b3bc3efe4c53d6d557adf34d76c28fd14ada",
+        "claude_analysis.md": "714fb64d1d818b0c5febaed38a48dd3cf707adae9e5faaa1a7425580683bfdbe",
+        "benchmark-provenance.json": "9473aaa6cdf983463624a1f3c2b1c00f099eb5a16badfcd9b25cb1508551450a"
+      }
+    },
+    {
+      "key": "gemini38-23",
+      "arm": "gemini38",
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T144713_gemini-3.8-live-extended-thinking_f71032c2",
+      "original_hashes": {
+        "transcript.jsonl": "2b21e58f807c3c625636b3f05d76bbf21614ad6d0c9945890c07d1b3d27ed486",
+        "claude_judged.jsonl": "9601842f0f4e274bd0a0a8fef1da5bb3c2ec0327c80ba8584114b3aeac2d4111",
+        "claude_summary.json": "89b2d2d1cd3e9d2343e0456bf99844909b2d48cc97100b8bc77fac9bd4ec460b",
+        "claude_analysis.md": "0624ade5f8fbaf6568e0c28fa0284c47c3bd997bdb8998973e5f7c16fbdd5f49",
+        "benchmark-provenance.json": "7ff971bd548fcc429e8348b4c1f0d5673cd587b11211ac369ba0fe7ace2a8147"
+      }
+    },
+    {
+      "key": "openai21-17",
+      "arm": "openai21",
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T144439_gpt-realtime-2.1_713216b5",
+      "original_hashes": {
+        "transcript.jsonl": "b0afc39b2b94c56a632c1476250683c5c1b5baf20ebe9824aa9e4b21b2d8a873",
+        "claude_judged.jsonl": "bb1d2323c37c6e1db95d621430800f44583e57c2500d4b6ebdd33d2794f8ed9c",
+        "claude_summary.json": "648bb886d4a62ab095342f252811f5b8174479bf91010a6e0027166c46ee6fbc",
+        "claude_analysis.md": "0bd71b5ba8407d30c34dd5397fc7741a8855579623158d8c7380385983a1df9f",
+        "benchmark-provenance.json": "9473aaa6cdf983463624a1f3c2b1c00f099eb5a16badfcd9b25cb1508551450a"
+      }
+    },
+    {
+      "key": "gemini31-24",
+      "arm": "gemini31",
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T144826_gemini-3.1-flash-live-preview_8a11ff4e",
+      "original_hashes": {
+        "transcript.jsonl": "53619699c84355cfa1a0594ac00a11131b57af91322f124932c99b2f00436c24",
+        "claude_judged.jsonl": "d9708fbb2107a67927fb2e797d7e1ceea96e9e019cb90a49e6536945cd1d40ea",
+        "claude_summary.json": "cffb09b8cd3905f320490bdf86b6ab3a7421af6ecf13ec2b8220f91f33ad607a",
+        "claude_analysis.md": "d4d36e91b8e0d4c7fe1c6d8a91fdc2aa2b22a29afcd7edfedeb73cc5cd8db5f7",
+        "benchmark-provenance.json": "d966a40697a150665c5b6ea4dd831c15c29827ac2acc6b2339efa37dedf528f4"
+      }
+    },
+    {
+      "key": "openai15-17",
+      "arm": "openai15",
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T144440_gpt-realtime-1.5_bb3dfa4d",
+      "original_hashes": {
+        "transcript.jsonl": "173958e8ebef0785c452db9843aa3058422131af8d284dea4dfbcdd2194bb28a",
+        "claude_judged.jsonl": "babf045f3b1ce9f3102e031e8ebd47358a41c65d7f2e993a31a78d159529810f",
+        "claude_summary.json": "77d1eb0892b41a2d0bfb4b4883809c638eee18f10e841269b08b3edad9dcbca4",
+        "claude_analysis.md": "f0f7fd292f5de0a9abe09f4bae4a4050ade91dab44635e33e2050df9ea25694a",
+        "benchmark-provenance.json": "5fb448e9589e0409045533ac310bd2c312c9a2ce1752308a9d1c8e0aca942e18"
+      }
+    },
+    {
+      "key": "gemini38-24",
+      "arm": "gemini38",
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T144931_gemini-3.8-live-extended-thinking_53892d93",
+      "original_hashes": {
+        "transcript.jsonl": "0feed66614d0635df2e3a78eb7f7483e2713ead792e7fe5e28bd0b74ead6b15c",
+        "claude_judged.jsonl": "4c970105e505ec98c0e1452a2f2f7dcadc201ab8c880d59149abb1fde7cbda54",
+        "claude_summary.json": "f9afed5b11b5321d15c9c67a132a55b5a35ca72a8765b2d35fe125b3686046e4",
+        "claude_analysis.md": "2057c7a6bfcb87eb7f91bfb7e0b1509076d84b91a72cd679b0c21c14c4cf1336",
+        "benchmark-provenance.json": "7ff971bd548fcc429e8348b4c1f0d5673cd587b11211ac369ba0fe7ace2a8147"
+      }
+    },
+    {
+      "key": "openai21-18",
+      "arm": "openai21",
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T144623_gpt-realtime-2.1_fcecefbd",
+      "original_hashes": {
+        "transcript.jsonl": "ba504df2663d9a13149db811d9ae44b0e536cd366a022af55b74be49070d976d",
+        "claude_judged.jsonl": "15b8cff45be0e8d86b74a5d0ffe2f4019ffcf4bdbb3f5fc2cbaf743cc935fe18",
+        "claude_summary.json": "b720784849d32fa304438f21811f89ddc3ccc50529c9532ae0072eb1e6ed3373",
+        "claude_analysis.md": "771d7595243aa0285fd53c1069900a825e8273c5a85c4c4589785d164aed3c90",
+        "benchmark-provenance.json": "9473aaa6cdf983463624a1f3c2b1c00f099eb5a16badfcd9b25cb1508551450a"
+      }
+    },
+    {
+      "key": "gemini31-25",
+      "arm": "gemini31",
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T144946_gemini-3.1-flash-live-preview_ae174ae1",
+      "original_hashes": {
+        "transcript.jsonl": "67f4271bf3f9baae3c6222290e8649d9e5fb4d912e051188e8b7ad77d41c7845",
+        "claude_judged.jsonl": "597dfac2487f6e540e7c217c74ed8d16b408e3ae67fa6f92555f4c3734e3d12b",
+        "claude_summary.json": "e49ff2811be4f9880e27b737ba785c0931bb3c0f95f8dd888bb37a2deddc2867",
+        "claude_analysis.md": "c49ee25191c2a3b24b2b931265470e199c92f256dd5a905308ea55961969204f",
+        "benchmark-provenance.json": "d966a40697a150665c5b6ea4dd831c15c29827ac2acc6b2339efa37dedf528f4"
+      }
+    },
+    {
+      "key": "gemini38-25",
+      "arm": "gemini38",
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T145220_gemini-3.8-live-extended-thinking_e8b45ac6",
+      "original_hashes": {
+        "transcript.jsonl": "ab9c1ca398da821b16505cdcdfdf2ac656e1e2756d296e6b7a79e33fd60f8c74",
+        "claude_judged.jsonl": "533c289d0012440a8ac86406043b07ce1060ca5bd777b0148a31dc3ee5444e4f",
+        "claude_summary.json": "6a93e27fd80425faedee3b77fd6056e8f8d825f968597890f8c41431d3dc3e6b",
+        "claude_analysis.md": "19daf00e80f85dc5f0167277b3ff9f3fb07af35438c85212f90ab2fbf6264c78",
+        "benchmark-provenance.json": "7ff971bd548fcc429e8348b4c1f0d5673cd587b11211ac369ba0fe7ace2a8147"
+      }
+    },
+    {
+      "key": "openai15-18",
+      "arm": "openai15",
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T145425_gpt-realtime-1.5_52670ab6",
+      "original_hashes": {
+        "transcript.jsonl": "8acb73c10bffa7bcd1986a9d076183ef06fe532b045fd6a0f74dbfd9a2eda282",
+        "claude_judged.jsonl": "e02381432983fdb67fea68fc628851e4e9ad9ae7f346dceacd24ef2477da92a0",
+        "claude_summary.json": "9014c9eba4d7f907c8060a6cb4d5fad1e471eb19e0658440cf1ad2b00f7d302c",
+        "claude_analysis.md": "221f142680f1cc28d2c85461e3d45de0590c984b16e2d5eb15523727c6786324",
+        "benchmark-provenance.json": "5fb448e9589e0409045533ac310bd2c312c9a2ce1752308a9d1c8e0aca942e18"
+      }
+    },
+    {
+      "key": "openai21-19",
+      "arm": "openai21",
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T145430_gpt-realtime-2.1_e2cec2f5",
+      "original_hashes": {
+        "transcript.jsonl": "c4f7fa0a6aa3b390e9b816e547482ecef3df05d5928ec8f202fc9ce414f9af45",
+        "claude_judged.jsonl": "b617f024a32ac7d58faa74f900106866fe7438b0a382ef1fa8e5385ab9d1d350",
+        "claude_summary.json": "14b49e3bdd43e43c4e08459e477e47b8c714ec20ad847a6908dd63a9e700e542",
+        "claude_analysis.md": "5c02d81bdee33576b1dde59f9cc13eaba0fe7ae1a0c87d78b1dbe5e3467bdb23",
+        "benchmark-provenance.json": "9473aaa6cdf983463624a1f3c2b1c00f099eb5a16badfcd9b25cb1508551450a"
+      }
+    },
+    {
+      "key": "openai15-19",
+      "arm": "openai15",
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T145527_gpt-realtime-1.5_812a90f6",
+      "original_hashes": {
+        "transcript.jsonl": "9cd1188e109eefcbd562ef2489d1576ba46e0c9ce186a8ccede551e8430c6506",
+        "claude_judged.jsonl": "66e988ba177e5664b3cd866a4d181fc4a2fe959427c7c3d7140dc543851ad5be",
+        "claude_summary.json": "a7ae78e421f4376862200d201e90418bf732bdf7d76f694db6b12ad20490931d",
+        "claude_analysis.md": "ea204fa6e19917739a8ad248ea28fbcba468f90a57f22ac0ce12ae12703b8ef6",
+        "benchmark-provenance.json": "5fb448e9589e0409045533ac310bd2c312c9a2ce1752308a9d1c8e0aca942e18"
+      }
+    },
+    {
+      "key": "openai21-20",
+      "arm": "openai21",
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T145543_gpt-realtime-2.1_e95fd97b",
+      "original_hashes": {
+        "transcript.jsonl": "c4ecd69e888df85ce287bf19342e51315485a5d99c95dca4cf6cde5d2f0109f1",
+        "claude_judged.jsonl": "523f23a5302e9bea91f59177329713889fd6ec464cbd81aa8cc51113097f1f22",
+        "claude_summary.json": "603fac92e54098723504a97befdbcad85bc974c6933a5a3133cfa1a76ce40129",
+        "claude_analysis.md": "39f018d2925cfd09a73f31ef3d097bb451ee11429b73a6231fdb686eef4a8e3f",
+        "benchmark-provenance.json": "9473aaa6cdf983463624a1f3c2b1c00f099eb5a16badfcd9b25cb1508551450a"
+      }
+    },
+    {
+      "key": "openai15-20",
+      "arm": "openai15",
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T145725_gpt-realtime-1.5_f4ad832f",
+      "original_hashes": {
+        "transcript.jsonl": "ac3b21a21e686841d4087903b3e61cc1f41b23aa28ea12848702b3fed115074e",
+        "claude_judged.jsonl": "fee97c1023485024007fd27911f92740a1887bf5877b64e8cf0ceaa09c140be1",
+        "claude_summary.json": "7def925f773cad7f6dc16ca5cea5e0672816c861f159ff7b95891323d3b73055",
+        "claude_analysis.md": "9e963d961d539d98cdd79edfe8856989557366e7a0d978460a390d8928cfd389",
+        "benchmark-provenance.json": "5fb448e9589e0409045533ac310bd2c312c9a2ce1752308a9d1c8e0aca942e18"
+      }
+    },
+    {
+      "key": "openai15-21",
+      "arm": "openai15",
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T150526_gpt-realtime-1.5_0112e6b2",
+      "original_hashes": {
+        "transcript.jsonl": "bfe62e90af3f9d5155f7aaa58b4bb60c625d043ff209c8d4536dcdd5f6df3ffe",
+        "claude_judged.jsonl": "a621b8bb13f211307d20d6754c733a11e2cf92ef6a415acbc47e1ef701f66b87",
+        "claude_summary.json": "84d5a0e0d8c0860dd5325b2dea79d61b908c3070087435f1dc6a34e3003e9623",
+        "claude_analysis.md": "8f80cc171e10ccbea11db35822e4f186d3a6ffb621638752ee7d08397860d3ac",
+        "benchmark-provenance.json": "5fb448e9589e0409045533ac310bd2c312c9a2ce1752308a9d1c8e0aca942e18"
+      }
+    },
+    {
+      "key": "openai21-21",
+      "arm": "openai21",
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T150516_gpt-realtime-2.1_5ea7cfe6",
+      "original_hashes": {
+        "transcript.jsonl": "fa4805e4410b8759cdee7ae93ccb96f45bc9ead74da121cbad6bc0c42acb004e",
+        "claude_judged.jsonl": "a6be4c7bd8b40513e9c7ce6c9f97a0d334e1faf4a26b83d4a080291e15ce2f67",
+        "claude_summary.json": "13d31d9dedbf2837be9b1cfbf54b86ec293e62ca7c759cdcc00d2f2e3a8baaff",
+        "claude_analysis.md": "9191d23ca8fcffd5f4b8062935a742e672fcc9813b2976c2f2db3e292736a189",
+        "benchmark-provenance.json": "9473aaa6cdf983463624a1f3c2b1c00f099eb5a16badfcd9b25cb1508551450a"
+      }
+    },
+    {
+      "key": "openai21-22",
+      "arm": "openai21",
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T150604_gpt-realtime-2.1_24da60b0",
+      "original_hashes": {
+        "transcript.jsonl": "1cf0c95408ed1a596c20b853e5aade0cda751865145b80b9314af68a3092040d",
+        "claude_judged.jsonl": "98067a2a7c11f8b50fdee1e73dffb8c990392585be110e63844fce88198704fd",
+        "claude_summary.json": "1189b19abb277f8b5e5cfadb3688a22dcfc63afc0e7af6f380f0836f8766ffe9",
+        "claude_analysis.md": "d6eb2bbce64db183894eb6785a4dd1e633fbc533aa78e1806a92c6fd0543bcb3",
+        "benchmark-provenance.json": "9473aaa6cdf983463624a1f3c2b1c00f099eb5a16badfcd9b25cb1508551450a"
+      }
+    },
+    {
+      "key": "openai15-22",
+      "arm": "openai15",
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T150711_gpt-realtime-1.5_c5af0dec",
+      "original_hashes": {
+        "transcript.jsonl": "80a238c4d845578a3e5bbba1d416455292b5641d77508334a9d140ad065e583a",
+        "claude_judged.jsonl": "64a82ca35e7a73f3b12631038b6ad8601209d55dac65550c2cfac37e873e50d4",
+        "claude_summary.json": "b8095c1d5204e32810badc611def97732d7aba940f76b964d0e0d4c36720dd49",
+        "claude_analysis.md": "a4af591b9d888bcf10203d382386f2f12ba3bbb4eddae3bb6196919985d7b5a4",
+        "benchmark-provenance.json": "5fb448e9589e0409045533ac310bd2c312c9a2ce1752308a9d1c8e0aca942e18"
+      }
+    },
+    {
+      "key": "openai21-23",
+      "arm": "openai21",
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T150835_gpt-realtime-2.1_8cb8a913",
+      "original_hashes": {
+        "transcript.jsonl": "3e357483b2793119c499dc4e403c31acc7a8b725f37470312631f4200177175f",
+        "claude_judged.jsonl": "b7fa9e46956302f6752a13b347a51d7279efbb4034c96931887f444d9ede7f88",
+        "claude_summary.json": "ac103ea48847997f5bdf6f628291d69d0c1fc95586c5d44b67dfb519e34ab236",
+        "claude_analysis.md": "5815944648b3ca49f558d024084b764c7ecaef2b47a923657e24b7ef039d3e83",
+        "benchmark-provenance.json": "9473aaa6cdf983463624a1f3c2b1c00f099eb5a16badfcd9b25cb1508551450a"
+      }
+    },
+    {
+      "key": "openai15-23",
+      "arm": "openai15",
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T151604_gpt-realtime-1.5_04611f15",
+      "original_hashes": {
+        "transcript.jsonl": "3fe184427a7c70644725d38c69206fc9654e2acc9aa53ad3842c324a64da9da5",
+        "claude_judged.jsonl": "1023c94a69c126ab21227d2053cbff0dfce231543a6c886af56135a7919f2b6c",
+        "claude_summary.json": "c085a5026bea3a615ad8126da5548dec57983a039d321fb3758a925faf1d2968",
+        "claude_analysis.md": "e7c582094840c797a672aa496ca5dae3749a9c0590197d8570547166e79811da",
+        "benchmark-provenance.json": "5fb448e9589e0409045533ac310bd2c312c9a2ce1752308a9d1c8e0aca942e18"
+      }
+    },
+    {
+      "key": "openai21-24",
+      "arm": "openai21",
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T151645_gpt-realtime-2.1_4cb07adb",
+      "original_hashes": {
+        "transcript.jsonl": "405e63fead75cea1cb00ebfa129b8f3a800cbb5afdef77e582a205d39df7ffba",
+        "claude_judged.jsonl": "e51457b9f832a94a18af5af79c40de7212971dad8e02e680ee748a29deb9363d",
+        "claude_summary.json": "5d8194b6127fabf211c16f586f70a8720002c77537b5a7e11f4161f1cd780753",
+        "claude_analysis.md": "906cb608a4f219d60b0dd1452eaa5bdf0f818a05e305c5e5954e4bd578459e4d",
+        "benchmark-provenance.json": "9473aaa6cdf983463624a1f3c2b1c00f099eb5a16badfcd9b25cb1508551450a"
+      }
+    },
+    {
+      "key": "openai15-24",
+      "arm": "openai15",
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T151738_gpt-realtime-1.5_39897026",
+      "original_hashes": {
+        "transcript.jsonl": "510c835e117f600001aecd7b180e93fb3584defa1b088ab7e0dd24f8113d3d5d",
+        "claude_judged.jsonl": "d71bff004809a24a94f9c4041e5babcc8df029c3fd71bb791b08d2a318cf71a1",
+        "claude_summary.json": "2b119b538774ac3302ce7bcbe27bebd73668dea67e6deb1e6e80913c5c657772",
+        "claude_analysis.md": "11c9dcb57d63f13d2e65809c64d485336a722c583504bd6c72ea15e1a6182b0c",
+        "benchmark-provenance.json": "5fb448e9589e0409045533ac310bd2c312c9a2ce1752308a9d1c8e0aca942e18"
+      }
+    },
+    {
+      "key": "openai21-25",
+      "arm": "openai21",
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T151759_gpt-realtime-2.1_796c9a5f",
+      "original_hashes": {
+        "transcript.jsonl": "70a4a7c63f3e008c0c28a958c7b77b991fd62ad0f6cfcb7121f35b7c701c2042",
+        "claude_judged.jsonl": "8ca5bca5da79480b7c4b8497ef2b7211dd9cf117f120ffaf0b0613f64d8d4a8b",
+        "claude_summary.json": "1b042d9f9c96849f7d435d96b2d176d38cea947eb4a597012a7bd17726da694f",
+        "claude_analysis.md": "2b5050f0a1b1f68aa4cbe0d46893106fe8ba4458d4ee317529bfc89e0062078e",
+        "benchmark-provenance.json": "9473aaa6cdf983463624a1f3c2b1c00f099eb5a16badfcd9b25cb1508551450a"
+      }
+    },
+    {
+      "key": "openai15-25",
+      "arm": "openai15",
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T152001_gpt-realtime-1.5_2226ea41",
+      "original_hashes": {
+        "transcript.jsonl": "dba91069c13b34a05099dee7e6b04f6cf36dae658ac126deeb3642b35ebbf7cd",
+        "claude_judged.jsonl": "77d2406ff3fdf3e7c1ed02832262602e8a589a154bb83e7f8dca2b4581469404",
+        "claude_summary.json": "11607dc60064b4e72796acf923931118c4e10187ef74b35c6f525cb0216226a4",
+        "claude_analysis.md": "08d8a26c4a572e483f2c03c494acde8c81f161efefd355d7ac47ba5047f3652f",
+        "benchmark-provenance.json": "5fb448e9589e0409045533ac310bd2c312c9a2ce1752308a9d1c8e0aca942e18"
+      }
+    },
+    {
+      "key": "live-single",
+      "arm": "live",
+      "run_dir": "runs/aiwf_medium_context_speech_live/20260915T150622_gpt-live-1_ba419085",
+      "original_hashes": {
+        "transcript.jsonl": "e0a4eb13fa39ccbfcabf3ec1678482abb6f9115d07bd132363eb120adfa613d3",
+        "claude_judged.jsonl": "ae9a02ca63d0d6bd55add23a582bc08ee628463879060a71a4ec661c41705bce",
+        "claude_summary.json": "57cee783cbafd13d486859689495124234b5f22ccd2fbf26d5ef6d8b11f0dd09",
+        "claude_analysis.md": "826593504eb407724b0a612d89b85851ef8ad79a91a407760da6b56f3319b943",
+        "benchmark-provenance.json": "8487a674ba7421d9eead046c36a6f8d79464a7daa90720d3319e05d18ed70c36"
+      }
+    },
+    {
+      "key": "live-01",
+      "arm": "live",
+      "run_dir": "runs/aiwf_medium_context_speech_live/20260915T151629_gpt-live-1_5ce8aa83",
+      "original_hashes": {
+        "transcript.jsonl": "79d5174ae872bd04b6a7c48805dcca0195b83d6e3d36d1c6125dfa69c950a465",
+        "claude_judged.jsonl": "d3de6679555fa6dddb432c5eec9d2abfca02a14e195c35c4637cffc5b4e41024",
+        "claude_summary.json": "dd713e809f2ce2ad31b500ef243936c916d0003518265c08651192193e92ebdd",
+        "claude_analysis.md": "f58037e6d6d1c64b8f0e4aabc6b99bdff9b487466db92139cb44c15263444e02",
+        "benchmark-provenance.json": "8e59fba9e3c12d8fafc629a2442e5ac30a5f63c817783ccb0c1342b87b4c751a"
+      }
+    },
+    {
+      "key": "live-02",
+      "arm": "live",
+      "run_dir": "runs/aiwf_medium_context_speech_live/20260915T151629_gpt-live-1_4445e564",
+      "original_hashes": {
+        "transcript.jsonl": "89c3af5ae33c7ea57dde29fe0911dbdcd8653275629dbb030338698ddf07c390",
+        "claude_judged.jsonl": "171bff36c06e3a70fce5de72854c7ae16e9015c8e7b36c66f1c4a7ef9b91cd4f",
+        "claude_summary.json": "4cf490be8868b1edd969edff5726898efdfe2fb441bf64edb5eee441a5c9d56f",
+        "claude_analysis.md": "04414bc75cad1a6bab7e0cd96c86d21e4da4b2d689351826d53321ae37dad91c",
+        "benchmark-provenance.json": "15bd7912775d334b4dfaea2043afd748ef450f7664cf1f3a5af46bb976ce70eb"
+      }
+    },
+    {
+      "key": "live-03",
+      "arm": "live",
+      "run_dir": "runs/aiwf_medium_context_speech_live/20260915T151629_gpt-live-1_c8e495d1",
+      "original_hashes": {
+        "transcript.jsonl": "78e78e511366e921626824ae19112cae5e96a30034ea7ab0520e1f2f1465aaaf",
+        "claude_judged.jsonl": "1b002112caeb9bc65ce5e2cd84db64e6dacc8c4d9130bf3896a63986db6fa49e",
+        "claude_summary.json": "e7598f8758aab454a2195d11a403c2bfc2d9c100e0d30a9640d5ef9ec55e025d",
+        "claude_analysis.md": "ca72652f1df73c16db36993e013367a3ccd1219934105d5dfe26e733ee26e7c1",
+        "benchmark-provenance.json": "dc9ae369f324eaa3c956bec828417ac1f790505eb4025078e8e96aa86f595a6c"
+      }
+    },
+    {
+      "key": "live-04",
+      "arm": "live",
+      "run_dir": "runs/aiwf_medium_context_speech_live/20260915T151629_gpt-live-1_9521bb69",
+      "original_hashes": {
+        "transcript.jsonl": "125e752208f59ca6a3c8e08cae25dd81f3d8130648107b48f600e4bd89517e68",
+        "claude_judged.jsonl": "8c6363d7ccb35b930c26a12401ae7aa7544e683509cea9eef9ea9dd6aa9ce1aa",
+        "claude_summary.json": "5ee02960db8a878ba32dc0292d5c4a2324cb5e089ff11a36787f4660885bd01f",
+        "claude_analysis.md": "4032116b9f54d08897dca41330b5cfe6bec2c8acab40d91c0eaf42d64cc5d6e3",
+        "benchmark-provenance.json": "0d2aeb124e7608ae96483dac59cb78f66094dc68afe62edbe5d64ac3999e5925"
+      }
+    },
+    {
+      "key": "live-05",
+      "arm": "live",
+      "run_dir": "runs/aiwf_medium_context_speech_live/20260915T151629_gpt-live-1_a367106f",
+      "original_hashes": {
+        "transcript.jsonl": "3ea1f593d725320ab2dba11ba8657f2ef7ea5117ed0b8c882b1e227d23d2f384",
+        "claude_judged.jsonl": "760db01d32bfe8a41c40d8c34a8f60c147a8a09abb63980a5f4b59f3a7a32e13",
+        "claude_summary.json": "0c12d5a797d4c97ed6eee9ccf6fc5c6c228a77f24dc87604f2a63d1a8e557379",
+        "claude_analysis.md": "546e9b8e603dc88df67c957504370a748382dd35b1eea609665a40a2c1e44d80",
+        "benchmark-provenance.json": "d7f98de7a840c6f3eff5a695444b1ab232bd64e7fe56fe1d913a7637070798ae"
+      }
+    }
+  ],
+  "concurrency": 5,
+  "policy": "One complete successful judgment per conversation; retry execution/parse failures only. No score-based retries or overrides. Reuse original per-turn audio assessment; quantitative audio metrics unchanged."
+}

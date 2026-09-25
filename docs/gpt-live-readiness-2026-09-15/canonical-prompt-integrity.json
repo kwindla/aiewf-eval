@@ -1,0 +1,8 @@
+{
+  "prompt_matches_protocol": true,
+  "judge_matches_protocol": true,
+  "prompt_sha256": "0ff3ba3519554c8743095841a93af92c25d76ec2243d7abb4d1451578a701f9f",
+  "judge_sha256": "2a719ad8f84c3b4ac117c50939ff14aca0f2947039d30206f943e040e1a1c634",
+  "capture_provenance_checked": 125,
+  "mismatches": []
+}

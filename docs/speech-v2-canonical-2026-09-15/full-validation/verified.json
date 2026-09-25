@@ -1,0 +1,32 @@
+[
+  {
+    "arm": "gemini31",
+    "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T132356_gemini-3.1-flash-live-preview_74338a9b",
+    "full": true,
+    "log": "docs/speech-v2-canonical-2026-09-15/full-validation/gemini31.log"
+  },
+  {
+    "arm": "gemini38",
+    "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T132356_gemini-3.8-live-extended-thinking_46335d93",
+    "full": true,
+    "log": "docs/speech-v2-canonical-2026-09-15/full-validation/gemini38.log"
+  },
+  {
+    "arm": "openai15",
+    "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T132356_gpt-realtime-1.5_c8b73a5b",
+    "full": true,
+    "log": "docs/speech-v2-canonical-2026-09-15/full-validation/openai15.log"
+  },
+  {
+    "arm": "openai21",
+    "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T132356_gpt-realtime-2.1_ea9ea75d",
+    "full": true,
+    "log": "docs/speech-v2-canonical-2026-09-15/full-validation/openai21.log"
+  },
+  {
+    "arm": "grok",
+    "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T132915_grok-voice-think-fast-1.0_c88d0443",
+    "full": true,
+    "log": "docs/speech-v2-canonical-2026-09-15/full-validation/grok-provider-fix.log"
+  }
+]

@@ -1,0 +1,39 @@
+................................................................         [100%]
+=============================== warnings summary ===============================
+.venv-gpt-live-project/lib/python3.12/site-packages/pipecat/audio/utils.py:14
+  /home/khkramer/src/aiewf-eval/.venv-gpt-live-project/lib/python3.12/site-packages/pipecat/audio/utils.py:14: DeprecationWarning: 'audioop' is deprecated and slated for removal in Python 3.13
+    import audioop
+
+tests/test_openai_responses_routing.py::test_gpt55_routes_to_responses_with_requested_effort[none]
+tests/test_openai_responses_routing.py::test_gpt55_routes_to_responses_with_requested_effort[medium]
+tests/test_openai_responses_routing.py::test_openai_fast_mode_is_sent_for_ttfat_models[gpt-5.6-terra]
+tests/test_openai_responses_routing.py::test_openai_fast_mode_is_sent_for_ttfat_models[gpt-5.6-luna]
+  /home/khkramer/src/aiewf-eval/src/multi_turn_eval/pipelines/base.py:1009: DeprecationWarning: `BaseOpenAILLMService.InputParams` is deprecated since 0.0.105 and will be removed in 2.0.0. Use `BaseOpenAILLMService.Settings` instead.
+    kwargs["params"] = OpenAILLMService.InputParams(
+
+tests/test_openai_responses_routing.py::test_gpt55_routes_to_responses_with_requested_effort[none]
+tests/test_openai_responses_routing.py::test_gpt55_routes_to_responses_with_requested_effort[medium]
+tests/test_openai_responses_routing.py::test_openai_fast_mode_is_sent_for_ttfat_models[gpt-5.6-terra]
+tests/test_openai_responses_routing.py::test_openai_fast_mode_is_sent_for_ttfat_models[gpt-5.6-luna]
+tests/test_openai_responses_routing.py::test_openai_fast_mode_is_sent_for_ttfat_models[gpt-4.1]
+  /home/khkramer/src/aiewf-eval/src/multi_turn_eval/pipelines/base.py:1181: DeprecationWarning: The `model` parameter is deprecated. Use `settings=OpenAIResponsesLLMService.Settings(model=...)` instead. If both are provided, `settings` takes precedence.
+    return service_class(**kwargs)
+
+tests/test_openai_responses_routing.py::test_gpt55_routes_to_responses_with_requested_effort[none]
+tests/test_openai_responses_routing.py::test_gpt55_routes_to_responses_with_requested_effort[medium]
+tests/test_openai_responses_routing.py::test_openai_fast_mode_is_sent_for_ttfat_models[gpt-5.6-terra]
+tests/test_openai_responses_routing.py::test_openai_fast_mode_is_sent_for_ttfat_models[gpt-5.6-luna]
+tests/test_openai_responses_routing.py::test_openai_fast_mode_is_sent_for_ttfat_models[gpt-4.1]
+  /home/khkramer/src/aiewf-eval/src/multi_turn_eval/pipelines/base.py:1181: DeprecationWarning: The `params` parameter is deprecated. Use `settings=OpenAIResponsesLLMService.Settings(...)` instead. If both are provided, `settings` takes precedence.
+    return service_class(**kwargs)
+
+tests/test_openai_responses_routing.py::test_openai_fast_mode_is_sent_for_ttfat_models[gpt-4.1]
+  /home/khkramer/src/aiewf-eval/src/multi_turn_eval/pipelines/base.py:1050: DeprecationWarning: `BaseOpenAILLMService.InputParams` is deprecated since 0.0.105 and will be removed in 2.0.0. Use `BaseOpenAILLMService.Settings` instead.
+    kwargs["params"] = OpenAILLMService.InputParams(
+
+tests/test_openai_responses_routing.py::test_gpt55_routing_only_applies_to_openai_service
+  /home/khkramer/src/aiewf-eval/src/multi_turn_eval/pipelines/base.py:333: DeprecationWarning: The `model` parameter is deprecated. Use `settings=OpenAILLMService.Settings(model=...)` instead. If both are provided, `settings` takes precedence.
+    return service_class(**kwargs)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+64 passed, 17 warnings in 1.79s

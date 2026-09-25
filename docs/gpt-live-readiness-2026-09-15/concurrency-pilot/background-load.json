@@ -1,0 +1,5 @@
+{
+  "canonical_attempts_finished_at_pilot_start": 116,
+  "canonical_attempts_planned": 125,
+  "note": "The earlier canonical campaign may still have up to five concurrent OpenAI Realtime sessions. This pilot adds five GPT-Live sessions; these are separate captures and models."
+}

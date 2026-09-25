@@ -1,0 +1,39 @@
+{
+  "prompt_sha256": "0ff3ba3519554c8743095841a93af92c25d76ec2243d7abb4d1451578a701f9f",
+  "judge_prompt_sha256": "c5a8a3b3c3240172cc392529a1784b59d2913a32e2ec2ba843a456415b75ef27",
+  "judge_model": "claude-opus-5",
+  "judge_revision": "speech-v2-policy-compliance-1",
+  "attempts_per_arm": 25,
+  "planned_turns_per_arm": 750,
+  "arms": [
+    {
+      "key": "live",
+      "model": "gpt-live-1",
+      "backend": "gpt-5.6-terra",
+      "reasoning": "medium",
+      "voice": "marin",
+      "imported_attempts": 5,
+      "new_attempts": 20
+    },
+    {
+      "key": "gemini38medium",
+      "model": "gemini-3.8-live-extended-thinking",
+      "thinking": "medium",
+      "new_attempts": 25
+    }
+  ],
+  "capture_concurrency_per_provider": 5,
+  "recovery": false,
+  "replace_failed_attempts": false,
+  "excluded_live_single_validation": "20260915T150622_gpt-live-1_ba419085",
+  "versions": {
+    "openai": "3.14.0",
+    "pipecat-ai": "1.10.0",
+    "google-genai": "2.23.0"
+  },
+  "source_hashes": {
+    "src/multi_turn_eval/pipelines/openai_live.py": "201fad9afa54f35b1bb00432dbc84bbb922ef610dcd8a822ce33bd2bf9eb170f",
+    "src/multi_turn_eval/pipelines/realtime.py": "358795d39f3694da79ac4c8fe61e2a91aee02a9d1829ca9b9e0c6d6cd9bd5273",
+    "benchmarks/aiwf_medium_context_speech_v2/judge.py": "b783a1104b00fbb5d394e4081e915c2e1d6de9af054f219ebb20ed6cd4b8fcf2"
+  }
+}

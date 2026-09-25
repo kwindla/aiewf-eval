@@ -1,0 +1,1934 @@
+{
+  "note": "Diagnostic pattern flags for manual review, not score corrections. No prompts, judge outputs, or scores changed.",
+  "summary": {
+    "openai21": {
+      "judged": 25,
+      "categories": {
+        "explicit_session_count": 23,
+        "overview_or_other": 2
+      },
+      "strict_failures": 18,
+      "numeric_answers_passed": 5,
+      "numeric_answers_instruction_passed": 7
+    },
+    "grok": {
+      "judged": 25,
+      "categories": {
+        "overview_or_other": 21,
+        "numeric_breakdown": 1,
+        "explicit_session_count": 3
+      },
+      "strict_failures": 0,
+      "numeric_answers_passed": 4,
+      "numeric_answers_instruction_passed": 4
+    },
+    "openai15": {
+      "judged": 25,
+      "categories": {
+        "explicit_session_count": 25
+      },
+      "strict_failures": 24,
+      "numeric_answers_passed": 1,
+      "numeric_answers_instruction_passed": 4
+    },
+    "gemini31": {
+      "judged": 25,
+      "categories": {
+        "explicit_session_count": 16,
+        "overview_or_other": 4,
+        "numeric_breakdown": 5
+      },
+      "strict_failures": 12,
+      "numeric_answers_passed": 9,
+      "numeric_answers_instruction_passed": 13
+    },
+    "gemini38": {
+      "judged": 25,
+      "categories": {
+        "numeric_breakdown": 1,
+        "overview_or_other": 3,
+        "explicit_session_count": 21
+      },
+      "strict_failures": 20,
+      "numeric_answers_passed": 2,
+      "numeric_answers_instruction_passed": 6
+    }
+  },
+  "answers": [
+    {
+      "arm": "gemini38",
+      "attempt": 2,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T133854_gemini-3.8-live-extended-thinking_b68a4d37",
+      "category": "numeric_breakdown",
+      "assistant": "The Model Context Protocol track features a keynote and two talks on June 4th, plus two workshops on June 3rd.",
+      "scores": {
+        "turn_taking": true,
+        "tool_use_correct": true,
+        "instruction_following": true,
+        "kb_grounding": false
+      },
+      "strict_pass": false,
+      "reason": "The assistant answered the user's question and advanced the conversation, so instruction-following holds, and no tool call was expected. However it produced an explicit count that contradicts the knowledge base: it claims the MCP track has 'a keynote and two talks on June 4th', while the KB lists three June 4 MCP-track talks (914489 at 12:15 PM, 915013 at 2:20 PM, and Harald Kirschner's 914509 at 3:00 PM). That is a concrete factual error, and the policy also directs the assistant to describe kinds of sessions rather than compute totals."
+    },
+    {
+      "arm": "gemini38",
+      "attempt": 1,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T133854_gemini-3.8-live-extended-thinking_cfcf320c",
+      "category": "overview_or_other",
+      "assistant": "The Model Context Protocol track features various keynotes and talks covering its origins, implementation, and future possibilities for agent communication.",
+      "scores": {
+        "turn_taking": true,
+        "tool_use_correct": true,
+        "instruction_following": true,
+        "kb_grounding": true
+      },
+      "strict_pass": true,
+      "reason": "Correctly declines to compute a session total (per policy) and instead describes the kinds of sessions in the track, which is what the golden response does."
+    },
+    {
+      "arm": "gemini31",
+      "attempt": 2,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T133854_gemini-3.1-flash-live-preview_03507c18",
+      "category": "explicit_session_count",
+      "assistant": "There are three sessions in the MCP track on June 4th. Are you interested in the specific topics or speakers?",
+      "scores": {
+        "turn_taking": true,
+        "tool_use_correct": true,
+        "instruction_following": true,
+        "kb_grounding": false
+      },
+      "strict_pass": false,
+      "reason": "Answers the question, so instruction following stands, but the specific claim of 'three sessions' contradicts the KB, which lists four June 4 MCP-track entries (947165, 914489, 915013 and Harald Kirschner's 914509). The policy also directs the assistant not to compute session totals; here the computed total is wrong, which is an explicit factual error."
+    },
+    {
+      "arm": "gemini31",
+      "attempt": 3,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T133854_gemini-3.1-flash-live-preview_ecd5ae6d",
+      "category": "overview_or_other",
+      "assistant": "I can tell you about the specific sessions listed in the schedule, like the keynote and talks I mentioned, but I can't actually count how many there are in total. Would you like me to list out the ones I know about?",
+      "scores": {
+        "turn_taking": true,
+        "tool_use_correct": true,
+        "instruction_following": true,
+        "kb_grounding": true
+      },
+      "strict_pass": true,
+      "reason": "Per policy the assistant should not calculate session totals; it declines the count honestly, explains what it can provide, and offers to list the known sessions, which advances the conversation. No factual error."
+    },
+    {
+      "arm": "grok",
+      "attempt": 3,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T133854_grok-voice-think-fast-1.0_22ae863f",
+      "category": "overview_or_other",
+      "assistant": "I don't have the total count of sessions in the MCP track. I can list the individual sessions if that helps.",
+      "scores": {
+        "turn_taking": true,
+        "tool_use_correct": true,
+        "instruction_following": true,
+        "kb_grounding": true
+      },
+      "strict_pass": true,
+      "reason": "Policy forbids calculating or inferring total session counts. The assistant honestly states it lacks a total and offers to list the individual sessions, which advances the task without fabricating a number. No tool expected or called."
+    },
+    {
+      "arm": "gemini31",
+      "attempt": 1,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T133854_gemini-3.1-flash-live-preview_fb904290",
+      "category": "explicit_session_count",
+      "assistant": "There are three sessions in the MCP track on June 4th, plus Harald Kirschner's talk on that day, and two workshops on June 3rd. Are you interested in the titles and speakers?",
+      "scores": {
+        "turn_taking": true,
+        "tool_use_correct": true,
+        "instruction_following": true,
+        "kb_grounding": true
+      },
+      "strict_pass": true,
+      "reason": "Answers the count question directly. The figures cited (three MCP track sessions June 4, Harald Kirschner's talk, two June 3 MCP workshops) all correspond to actual knowledge-base entries, so there is no factual error, though golden preferred a qualitative overview. The turn still advances the task."
+    },
+    {
+      "arm": "grok",
+      "attempt": 1,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T133854_grok-voice-think-fast-1.0_c4d6ab6e",
+      "category": "overview_or_other",
+      "assistant": "I don't have the total count of sessions for the MCP track. I can list the ones in the knowledge base if that would help.",
+      "scores": {
+        "turn_taking": true,
+        "tool_use_correct": true,
+        "instruction_following": true,
+        "kb_grounding": true
+      },
+      "strict_pass": true,
+      "reason": "The policy explicitly forbids calculating or inferring session totals. The assistant honestly states it lacks a total count and offers the available next step of listing the known MCP sessions, which acknowledges the specific request and keeps the conversation moving. No tool call expected."
+    },
+    {
+      "arm": "grok",
+      "attempt": 5,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T133854_grok-voice-think-fast-1.0_d024c854",
+      "category": "overview_or_other",
+      "assistant": "I don't have the total count of sessions in the MCP track. I can share an overview: it includes a keynote on origins and RFS, talks on observability and practical use, plus workshops on automating business processes and full-spectrum MCP.",
+      "scores": {
+        "turn_taking": true,
+        "tool_use_correct": true,
+        "instruction_following": true,
+        "kb_grounding": true
+      },
+      "strict_pass": true,
+      "reason": "Correctly refuses to produce a session count per policy and instead describes the kinds of MCP sessions available, which is exactly the intended behavior."
+    },
+    {
+      "arm": "grok",
+      "attempt": 4,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T133854_grok-voice-think-fast-1.0_bc3d1cad",
+      "category": "numeric_breakdown",
+      "assistant": "I don't have the total count of sessions in the MCP track. From what's listed, I see three talks on June 4th and two workshops on June 3rd. Would you like me to list the specific sessions?",
+      "scores": {
+        "turn_taking": true,
+        "tool_use_correct": true,
+        "instruction_following": true,
+        "kb_grounding": true
+      },
+      "strict_pass": true,
+      "reason": "Policy forbids computing total session counts. The assistant honestly notes it lacks a total, describes what is listed (three June 4 talks, two June 3 workshops \u2014 accurate to the KB), and offers to enumerate. This advances the conversation appropriately."
+    },
+    {
+      "arm": "grok",
+      "attempt": 2,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T133854_grok-voice-think-fast-1.0_7afe9c9d",
+      "category": "overview_or_other",
+      "assistant": "I don't have the total count of sessions for the MCP track. The knowledge base lists the individual sessions and workshops but doesn't provide a summed total. Would you like me to list the ones that are shown?",
+      "scores": {
+        "turn_taking": true,
+        "tool_use_correct": true,
+        "instruction_following": true,
+        "kb_grounding": true
+      },
+      "strict_pass": true,
+      "reason": "Policy explicitly forbids calculating or inferring total session counts. The assistant honestly stated the limitation and offered the available next step of listing the sessions, which advances the task. No tool call expected."
+    },
+    {
+      "arm": "openai15",
+      "attempt": 1,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T133854_gpt-realtime-1.5_dbbec089",
+      "category": "explicit_session_count",
+      "assistant": "The MCP track on June 4th has three sessions: a keynote at 11:15 AM, and two talks at 12:15 PM and 2:20 PM, all in the Yerba Buena Ballroom Salons 7-8.",
+      "scores": {
+        "turn_taking": true,
+        "tool_use_correct": true,
+        "instruction_following": false,
+        "kb_grounding": true
+      },
+      "strict_pass": false,
+      "reason": "Instruction-following fails on a specific policy requirement: the assistant stated a computed total ('three sessions') when the governing policy directs it not to calculate or infer session counts and instead describe the kinds of sessions and their days, as the golden response does. The individual times quoted are KB-consistent, so grounding stands, and no tool call was expected."
+    },
+    {
+      "arm": "openai15",
+      "attempt": 2,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T133854_gpt-realtime-1.5_c5dd5329",
+      "category": "explicit_session_count",
+      "assistant": "In the MCP track on June 4, there are three sessions: \n\n1. At 11:15 AM, Theodora Chu delivers the keynote, \u201cMCP Origins & RFS.\u201d \n2. At 12:15 PM, David Cramer presents \u201cMCP isn't good, yet.\u201d \n3. At 2:20 PM, Alex Volkov talks on \u201cObservable tools - the state of MCP observability.\u201d\n\nAll of these sessions take place in Yerba Buena Ballroom Salons 7-8. If you have any other questions, feel free to ask!",
+      "scores": {
+        "turn_taking": true,
+        "tool_use_correct": true,
+        "instruction_following": false,
+        "kb_grounding": true
+      },
+      "strict_pass": false,
+      "reason": "The governing policy states 'Do not calculate or infer total numbers of sessions, speakers, or topics. Describe the available kinds of sessions and their days instead.' The assistant instead asserted a total ('there are three sessions'), and that count also excludes the June 3 MCP workshops listed in the KB. Instruction following fails on this specific directive; the enumerated June 4 sessions themselves are accurate, so grounding holds. No tool was expected or called."
+    },
+    {
+      "arm": "openai21",
+      "attempt": 1,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T133854_gpt-realtime-2.1_0e73c0e8",
+      "category": "explicit_session_count",
+      "assistant": "Let me think this through and count what\u2019s explicitly listed for that track.There are three MCP conference sessions listed on June 4 in the MCP track.\n\nThere are also two MCP workshops listed on June 3, but those are separate workshop sessions, not part of the main conference-day track.",
+      "scores": {
+        "turn_taking": true,
+        "tool_use_correct": true,
+        "instruction_following": false,
+        "kb_grounding": true
+      },
+      "strict_pass": false,
+      "reason": "The governing policy states: 'Do not calculate or infer total numbers of sessions, speakers, or topics. Describe the available kinds of sessions and their days instead.' The assistant instead counted and asserted 'three MCP conference sessions' plus 'two MCP workshops', which is the specific prohibited behavior; the golden response deliberately describes session kinds without a total. The counts do match the listed entries, so there is no outright factual contradiction, but the response violates the explicit instruction."
+    },
+    {
+      "arm": "openai21",
+      "attempt": 3,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T133854_gpt-realtime-2.1_f1362dfa",
+      "category": "explicit_session_count",
+      "assistant": "The knowledge base lists three MCP track sessions on June 4: a keynote at 11:15 AM, and two talks at 12:15 PM and 2:20 PM. There are also MCP-related workshops on June 3, but those are separate from the main conference track sessions.",
+      "scores": {
+        "turn_taking": true,
+        "tool_use_correct": true,
+        "instruction_following": false,
+        "kb_grounding": true
+      },
+      "strict_pass": false,
+      "reason": "No tool call was needed, so tool use is fine. However, the governing policy explicitly states 'Do not calculate or infer total numbers of sessions, speakers, or topics. Describe the available kinds of sessions and their days instead.' The assistant answered with an explicit count of three MCP sessions, which is the prohibited behavior and diverges from the golden response's deliberate avoidance of a number. The individual session times quoted are KB-accurate, so there is no factual contradiction."
+    },
+    {
+      "arm": "openai21",
+      "attempt": 2,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T133854_gpt-realtime-2.1_4d6d4f9f",
+      "category": "explicit_session_count",
+      "assistant": "There are three MCP sessions listed on the conference day schedule, on June 4: \u201cMCP Origins and RFS,\u201d \u201cMCP isn't good, yet,\u201d and \u201cObservable tools - the state of MCP observability.\u201d\n\nSeparately, there are two MCP workshops listed on June 3: \u201cA2A and MCP: Automating Business Processes with LLMs\u201d and \u201cFull Spectrum MCP: From Local to Remote.\u201d",
+      "scores": {
+        "turn_taking": true,
+        "tool_use_correct": true,
+        "instruction_following": false,
+        "kb_grounding": true
+      },
+      "strict_pass": false,
+      "reason": "The governing policy states plainly: 'Do not calculate or infer total numbers of sessions, speakers, or topics. Describe the available kinds of sessions and their days instead.' The assistant instead produced counts ('three MCP sessions', 'two MCP workshops'), which is the specific behavior the policy forbids and which the golden response deliberately avoids. The count is also fragile \u2014 Harald Kirschner's June 4 MCP talk (914509) is an MCP-track session not included in the three. No tool was expected, and the individual titles cited are real KB entries, so kb_grounding stands."
+    },
+    {
+      "arm": "gemini38",
+      "attempt": 3,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T134551_gemini-3.8-live-extended-thinking_d8712bea",
+      "category": "overview_or_other",
+      "assistant": "The MCP track includes a keynote on origins and RFS, a talk debating whether MCP is good yet, and a talk covering the state of MCP observability.",
+      "scores": {
+        "turn_taking": true,
+        "tool_use_correct": true,
+        "instruction_following": true,
+        "kb_grounding": true
+      },
+      "strict_pass": true,
+      "reason": "Avoids computing a total count, per policy, and instead describes the kinds of sessions in the MCP track. All listed sessions match the KB."
+    },
+    {
+      "arm": "gemini38",
+      "attempt": 5,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T134731_gemini-3.8-live-extended-thinking_9c6638d5",
+      "category": "explicit_session_count",
+      "assistant": "There are 3 sessions in the MCP track.",
+      "scores": {
+        "turn_taking": true,
+        "tool_use_correct": true,
+        "instruction_following": false,
+        "kb_grounding": false
+      },
+      "strict_pass": false,
+      "reason": "The governing policy states 'Do not calculate or infer total numbers of sessions, speakers, or topics. Describe the available kinds of sessions and their days instead.' The assistant instead produced a bare count, and the count is also factually wrong: the MCP track on June 4 contains 947165, 914489, 915013 and 914509 (Harald Kirschner's 3:00 PM MCP talk), plus two MCP workshops on June 3. Specific violation: emitted a prohibited inferred total, and that total contradicts the knowledge base."
+    },
+    {
+      "arm": "gemini38",
+      "attempt": 4,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T134707_gemini-3.8-live-extended-thinking_c6a961a1",
+      "category": "explicit_session_count",
+      "assistant": "There are 3 sessions in the MCP track on June 4, including keynotes and technical talks.",
+      "scores": {
+        "turn_taking": true,
+        "tool_use_correct": true,
+        "instruction_following": false,
+        "kb_grounding": true
+      },
+      "strict_pass": false,
+      "reason": "The governing policy states: 'Do not calculate or infer total numbers of sessions, speakers, or topics. Describe the available kinds of sessions and their days instead.' The assistant instead asserted a specific total ('There are 3 sessions in the MCP track'), which is the exact behavior the policy prohibits and which the golden response deliberately avoids. That is a concrete policy contradiction, so instruction_following fails. The number does match the KB's MCP-track section listing, so no explicit factual error is charged to grounding. No tool call was expected."
+    },
+    {
+      "arm": "gemini31",
+      "attempt": 4,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T134604_gemini-3.1-flash-live-preview_5b457e10",
+      "category": "explicit_session_count",
+      "assistant": "There are three main conference sessions in the MCP track on June 4th, including a keynote, plus two workshops on June 3rd. Would you like details on any of those?",
+      "scores": {
+        "turn_taking": true,
+        "tool_use_correct": true,
+        "instruction_following": false,
+        "kb_grounding": false
+      },
+      "strict_pass": false,
+      "reason": "The governing policy explicitly says not to calculate or infer totals of sessions and to describe kinds of sessions and days instead; the assistant instead produced a count. The count is also incorrect: the June 4 MCP track includes Harald Kirschner's 'Full Spectrum MCP' talk (ID 914509, 3:00 PM) in addition to 947165, 914489, and 915013, so there are four, not three. Specific failure: asserted a prohibited and factually wrong session total."
+    },
+    {
+      "arm": "grok",
+      "attempt": 9,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T134739_grok-voice-think-fast-1.0_5cb2e5e3",
+      "category": "overview_or_other",
+      "assistant": "I don't have the total count of sessions for the MCP track. I can list the individual sessions if you'd like to see what's offered.",
+      "scores": {
+        "turn_taking": true,
+        "tool_use_correct": true,
+        "instruction_following": true,
+        "kb_grounding": true
+      },
+      "strict_pass": true,
+      "reason": "Policy explicitly forbids calculating or inferring total session counts. The assistant honestly stated it lacks the count and offered to list the sessions \u2014 an acceptable equivalent to the golden overview, and it advances the task with a concrete next step."
+    },
+    {
+      "arm": "grok",
+      "attempt": 6,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T134729_grok-voice-think-fast-1.0_f0e74e8c",
+      "category": "overview_or_other",
+      "assistant": "I don't have the total count of sessions for the MCP track. I can list the specific sessions and workshops if that helps with your planning.",
+      "scores": {
+        "turn_taking": true,
+        "tool_use_correct": true,
+        "instruction_following": true,
+        "kb_grounding": true
+      },
+      "strict_pass": true,
+      "reason": "Consistent with the policy against calculating session totals, it declines the count honestly and offers to list the actual sessions \u2014 an acknowledgement plus an available next step, which advances the task."
+    },
+    {
+      "arm": "gemini31",
+      "attempt": 5,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T134726_gemini-3.1-flash-live-preview_9390254f",
+      "category": "explicit_session_count",
+      "assistant": "There are three sessions listed for the MCP track on June 4th, along with two workshops on June 3rd. Those cover keynotes, talks, and hands-on sessions. Would you like to know the specific titles or speakers for any of those?",
+      "scores": {
+        "turn_taking": true,
+        "tool_use_correct": true,
+        "instruction_following": true,
+        "kb_grounding": false
+      },
+      "strict_pass": false,
+      "reason": "The turn does answer and offers follow-up, so instruction following is credited. Grounding fails on a specific factual error: the assistant asserts 'three sessions' in the June 4 MCP track, but the KB lists four (947165, 914489, 915013, and Harald Kirschner's 914509 at 3:00 PM), and the governing policy directs it to describe kinds of sessions rather than compute totals."
+    },
+    {
+      "arm": "grok",
+      "attempt": 7,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T134735_grok-voice-think-fast-1.0_b0e6b455",
+      "category": "explicit_session_count",
+      "assistant": "I don't have the exact total count for the MCP track. From the schedule I can see three main MCP sessions on June 4th and two MCP workshops on June 3rd. Would you like me to list the titles and times?",
+      "scores": {
+        "turn_taking": true,
+        "tool_use_correct": true,
+        "instruction_following": true,
+        "kb_grounding": true
+      },
+      "strict_pass": true,
+      "reason": "Policy forbids inferring total session counts; the assistant honestly declines the total, describes what it can see, and offers to list titles and times, advancing the conversation."
+    },
+    {
+      "arm": "grok",
+      "attempt": 10,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T134809_grok-voice-think-fast-1.0_45b01df4",
+      "category": "overview_or_other",
+      "assistant": "I don't have the total count of sessions in the MCP track. I can list the specific sessions and workshops if you'd like the details.",
+      "scores": {
+        "turn_taking": true,
+        "tool_use_correct": true,
+        "instruction_following": true,
+        "kb_grounding": true
+      },
+      "strict_pass": true,
+      "reason": "Policy forbids calculating or inferring session totals. The assistant honestly states it lacks a count and offers to list the actual sessions, which is an available and relevant next step, so the turn advances the conversation."
+    },
+    {
+      "arm": "grok",
+      "attempt": 8,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T134739_grok-voice-think-fast-1.0_b2d9988e",
+      "category": "explicit_session_count",
+      "assistant": "I don't have the exact total count of sessions in the MCP track. The schedule lists three main MCP sessions on June 4th plus two MCP workshops on June 3rd, but no combined total is given. Would you like me to list the specific sessions?",
+      "scores": {
+        "turn_taking": true,
+        "tool_use_correct": true,
+        "instruction_following": true,
+        "kb_grounding": true
+      },
+      "strict_pass": true,
+      "reason": "Appropriately declines to assert a definitive total (per the no-inferred-counts policy), describes the kinds of MCP sessions and their days, and offers to enumerate them \u2014 this advances the task. No factual contradiction with the KB."
+    },
+    {
+      "arm": "openai15",
+      "attempt": 4,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T134938_gpt-realtime-1.5_ee806789",
+      "category": "explicit_session_count",
+      "assistant": "The MCP track on June 4 has three sessions: \n\u2022 11:15 AM \u2013 \u201cMCP Origins & RFS\u201d by Theodora Chu \n\u2022 12:15 PM \u2013 \u201cMCP isn't good, yet.\u201d by David Cramer \n\u2022 2:20 PM \u2013 \u201cObservable tools - the state of MCP observability\u201d by Alex Volkov",
+      "scores": {
+        "turn_taking": true,
+        "tool_use_correct": true,
+        "instruction_following": false,
+        "kb_grounding": true
+      },
+      "strict_pass": false,
+      "reason": "The governing policy states plainly: do not calculate or infer total numbers of sessions; describe the kinds of sessions and their days instead. The assistant instead asserted a hard total of 'three sessions', which is the specific prohibited behavior, and the KB also lists Harald Kirschner's June 4 3:00 PM MCP-track talk, so the count is not even reliable. The three individual sessions named are accurate, so grounding is credited, but the response does not follow the instruction."
+    },
+    {
+      "arm": "openai15",
+      "attempt": 3,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T134913_gpt-realtime-1.5_5967dc90",
+      "category": "explicit_session_count",
+      "assistant": "The MCP track on June 4 has three sessions:\n\n1. \u201cMCP Origins & RFS\u201d \u2013 a keynote by Theodora Chu at 11:15 AM.\n2. \u201cMCP isn't good, yet.\u201d \u2013 a talk by David Cramer at 12:15 PM.\n3. \u201cObservable tools \u2013 the state of MCP observability\u201d \u2013 a talk by Alex Volkov at 2:20 PM.\n\nAll of these sessions will be held in Yerba Buena Ballroom Salons 7-8.",
+      "scores": {
+        "turn_taking": true,
+        "tool_use_correct": true,
+        "instruction_following": false,
+        "kb_grounding": true
+      },
+      "strict_pass": false,
+      "reason": "The governing policy explicitly forbids calculating or inferring total numbers of sessions and directs the assistant to describe the kinds of sessions and their days instead; the assistant instead asserted a definitive total ('three sessions'), which is the specific prohibited behavior the golden response avoids. The individual session details it cited are KB-accurate, so grounding stands. No tool call was expected."
+    },
+    {
+      "arm": "openai15",
+      "attempt": 5,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T135026_gpt-realtime-1.5_340b21e5",
+      "category": "explicit_session_count",
+      "assistant": "On June 4th, the MCP track features three sessions: a keynote at 11:15 AM, followed by talks at 12:15 PM and 2:20 PM.\n\nAdditionally, there\u2019s a talk by Harald Kirschner at 3:00 PM in the same track. So, that\u2019s four sessions in total for the MCP track on that day.",
+      "scores": {
+        "turn_taking": true,
+        "tool_use_correct": true,
+        "instruction_following": false,
+        "kb_grounding": true
+      },
+      "strict_pass": false,
+      "reason": "The governing policy states plainly: 'Do not calculate or infer total numbers of sessions, speakers, or topics. Describe the available kinds of sessions and their days instead.' The assistant did exactly the prohibited thing, tallying 'three sessions' and then revising to 'four sessions in total,' rather than giving the qualitative overview the policy and golden response call for. Individual session times are accurate, so kb_grounding holds; no tool call was expected."
+    },
+    {
+      "arm": "openai21",
+      "attempt": 4,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T134924_gpt-realtime-2.1_221f3b0e",
+      "category": "explicit_session_count",
+      "assistant": "I can only use what\u2019s in the schedule I have, and it lists three MCP sessions on June 4: the keynote \u201cMCP Origins & RFS,\u201d \u201cMCP isn't good, yet,\u201d and \u201cObservable tools - the state of MCP observability.\u201d There are also MCP workshops listed on June 3, but those are separate from the June 4 MCP track sessions.",
+      "scores": {
+        "turn_taking": true,
+        "tool_use_correct": true,
+        "instruction_following": true,
+        "kb_grounding": true
+      },
+      "strict_pass": true,
+      "reason": "Advances the request by naming the three June 4 MCP sessions in the KB and correctly separating the June 3 MCP workshops, with an explicit hedge that it can only report what the schedule lists. Providing the listed count leans more numeric than the policy's preferred phrasing, but no fact is invented or wrong and the user's question is answered, so no dimension fails. No tool expected."
+    },
+    {
+      "arm": "openai21",
+      "attempt": 5,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T134948_gpt-realtime-2.1_a6830733",
+      "category": "explicit_session_count",
+      "assistant": "There are three MCP track sessions listed on June 4: the keynote \u201cMCP Origins and RFS,\u201d the talk \u201cMCP isn\u2019t good, yet,\u201d and the talk \u201cObservable tools - the state of MCP observability.\u201d",
+      "scores": {
+        "turn_taking": true,
+        "tool_use_correct": true,
+        "instruction_following": true,
+        "kb_grounding": true
+      },
+      "strict_pass": true,
+      "reason": "Answers by enumerating the three MCP sessions listed for June 4, which is accurate against the KB and directly responsive. No tool call expected."
+    },
+    {
+      "arm": "gemini38",
+      "attempt": 6,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T135417_gemini-3.8-live-extended-thinking_e6b6129c",
+      "category": "explicit_session_count",
+      "assistant": "There are 3 sessions in the MCP track, including a keynote, a talk on observability, and a session discussing the current state of the protocol.",
+      "scores": {
+        "turn_taking": true,
+        "tool_use_correct": true,
+        "instruction_following": false,
+        "kb_grounding": false
+      },
+      "strict_pass": false,
+      "reason": "The governing policy forbids calculating or inferring total session counts and directs describing the kinds of sessions and their days instead; the assistant supplied a count. The count is also wrong: the KB lists four June 4 MCP-track sessions (947165, 914489, 915013, and Harald Kirschner's 914509 at 3:00 PM) plus two June 3 MCP workshops, so 'there are 3 sessions' contradicts the knowledge base."
+    },
+    {
+      "arm": "gemini38",
+      "attempt": 7,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T135435_gemini-3.8-live-extended-thinking_084d54b5",
+      "category": "explicit_session_count",
+      "assistant": "The MCP track on June 4 features 3 sessions: a keynote on MCP Origins and RFS at 11:15 AM, a talk titled \"MCP isn't good, yet.\" at 12:15 PM, and a talk on MCP observability at 2:20 PM.",
+      "scores": {
+        "turn_taking": true,
+        "tool_use_correct": true,
+        "instruction_following": true,
+        "kb_grounding": true
+      },
+      "strict_pass": true,
+      "reason": "Answers with the three June 4 MCP sessions, each with an accurate title and time per the KB. The count is read directly off listed entries rather than inferred, so there is no factual contradiction, and the turn advances the user's question."
+    },
+    {
+      "arm": "gemini31",
+      "attempt": 6,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T135338_gemini-3.1-flash-live-preview_3917b0c0",
+      "category": "explicit_session_count",
+      "assistant": "There are five sessions in the MCP track on June 4th, including a keynote, talks, and a panel. There are also two workshops on June 3rd if you want to dive deeper. Are you interested in the details of any particular session?",
+      "scores": {
+        "turn_taking": true,
+        "tool_use_correct": true,
+        "instruction_following": true,
+        "kb_grounding": false
+      },
+      "strict_pass": false,
+      "reason": "The turn addresses the user's question, so instruction_following holds, but the content is wrong: it asserts 'five sessions... including a keynote, talks, and a panel' when the KB lists three MCP-track sessions on June 4 (four counting Harald Kirschner's MCP talk) and no panel. That is an explicit factual error, and the governing policy also forbids calculating session totals."
+    },
+    {
+      "arm": "gemini31",
+      "attempt": 7,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T135427_gemini-3.1-flash-live-preview_be4a2d67",
+      "category": "explicit_session_count",
+      "assistant": "There are three sessions listed for the MCP track on June 4th, and two workshops on June 3rd. Would you like the details on those sessions?",
+      "scores": {
+        "turn_taking": true,
+        "tool_use_correct": true,
+        "instruction_following": false,
+        "kb_grounding": true
+      },
+      "strict_pass": false,
+      "reason": "The governing policy states: 'Do not calculate or infer total numbers of sessions, speakers, or topics. Describe the available kinds of sessions and their days instead.' The assistant instead counted KB entries ('three sessions... two workshops'), which is exactly the behavior the policy and the golden response avoid. The numbers happen to match the listed entries, so there is no factual contradiction, but the instruction was not followed."
+    },
+    {
+      "arm": "grok",
+      "attempt": 11,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T135600_grok-voice-think-fast-1.0_2f713234",
+      "category": "overview_or_other",
+      "assistant": "I don't have the total count of sessions for the MCP track. It includes a keynote and talks on June 4th, plus workshops on June 3rd.",
+      "scores": {
+        "turn_taking": true,
+        "tool_use_correct": true,
+        "instruction_following": true,
+        "kb_grounding": true
+      },
+      "strict_pass": true,
+      "reason": "Per policy it does not compute a session total; it honestly notes the count is unavailable and describes the kinds of sessions and their days, which advances the user's planning. No factual error."
+    },
+    {
+      "arm": "gemini31",
+      "attempt": 8,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T135627_gemini-3.1-flash-live-preview_74e6c92b",
+      "category": "explicit_session_count",
+      "assistant": "There are three sessions in the MCP track on June 4th, including the keynote and two talks. Would you like to hear the details for each one?",
+      "scores": {
+        "turn_taking": true,
+        "tool_use_correct": true,
+        "instruction_following": true,
+        "kb_grounding": false
+      },
+      "strict_pass": false,
+      "reason": "The assistant answered the question, so the task advanced and no tool was expected. However, it produced an inferred session total, which the policy tells it not to do, and the number is wrong: the KB lists four MCP-track sessions on June 4 (947165, 914489, 915013, and Harald Kirschner's 914509 MCP talk at 3:00 PM), not three. That is an explicit factual error, so kb_grounding fails."
+    },
+    {
+      "arm": "grok",
+      "attempt": 12,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T135611_grok-voice-think-fast-1.0_01145f2c",
+      "category": "overview_or_other",
+      "assistant": "I don't have a total count for the MCP track. The schedule lists several keynotes, talks, and workshops, but no aggregate number. Would you like me to list the MCP sessions for you?",
+      "scores": {
+        "turn_taking": true,
+        "tool_use_correct": true,
+        "instruction_following": true,
+        "kb_grounding": true
+      },
+      "strict_pass": true,
+      "reason": "Policy forbids calculating or inferring session totals. The assistant honestly declines the count, describes the kinds of sessions available, and offers a concrete next step (listing them), which advances the task. No tool expected."
+    },
+    {
+      "arm": "grok",
+      "attempt": 14,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T135701_grok-voice-think-fast-1.0_248615b0",
+      "category": "overview_or_other",
+      "assistant": "I don't have the total count of sessions for the MCP track. I can list the sessions for you if that helps with your planning.",
+      "scores": {
+        "turn_taking": true,
+        "tool_use_correct": true,
+        "instruction_following": true,
+        "kb_grounding": true
+      },
+      "strict_pass": true,
+      "reason": "Policy prohibits calculating session totals; the assistant declined to invent a count and offered to list the track's sessions, which advances the user's planning. No factual error."
+    },
+    {
+      "arm": "grok",
+      "attempt": 13,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T135631_grok-voice-think-fast-1.0_98c98110",
+      "category": "overview_or_other",
+      "assistant": "I don't have the total count of sessions for the MCP track. The knowledge base lists the individual sessions but doesn't provide a summary total. I can share the specific ones if you'd like.",
+      "scores": {
+        "turn_taking": true,
+        "tool_use_correct": true,
+        "instruction_following": true,
+        "kb_grounding": true
+      },
+      "strict_pass": true,
+      "reason": "Policy forbids calculating or inferring session totals. The assistant honestly states it lacks a total and offers to list the specific MCP sessions, which is an available and relevant next step. No factual error."
+    },
+    {
+      "arm": "grok",
+      "attempt": 15,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T135701_grok-voice-think-fast-1.0_9929df50",
+      "category": "overview_or_other",
+      "assistant": "I don't have the total count of sessions for the MCP track. I can list the individual sessions if that helps with your planning.",
+      "scores": {
+        "turn_taking": true,
+        "tool_use_correct": true,
+        "instruction_following": true,
+        "kb_grounding": true
+      },
+      "strict_pass": true,
+      "reason": "The policy forbids computing or inferring session totals. The assistant honestly states it lacks a total and offers to list the sessions, which acknowledges the request and gives an available next step. No factual error."
+    },
+    {
+      "arm": "gemini38",
+      "attempt": 8,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T140134_gemini-3.8-live-extended-thinking_a06f3cf9",
+      "category": "explicit_session_count",
+      "assistant": "There are 3 sessions in the MCP track during the conference days.",
+      "scores": {
+        "turn_taking": true,
+        "tool_use_correct": true,
+        "instruction_following": false,
+        "kb_grounding": true
+      },
+      "strict_pass": false,
+      "reason": "The governing policy states 'Do not calculate or infer total numbers of sessions, speakers, or topics. Describe the available kinds of sessions and their days instead.' The assistant instead returned a total ('3 sessions'), which is the specific behavior the policy and the golden response avoid. The number does match the June 4 MCP listings, so there is no factual contradiction and kb_grounding passes; no tool was expected."
+    },
+    {
+      "arm": "gemini38",
+      "attempt": 9,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T140219_gemini-3.8-live-extended-thinking_9b52d016",
+      "category": "explicit_session_count",
+      "assistant": "There are 3 sessions in the Model Context Protocol track.",
+      "scores": {
+        "turn_taking": true,
+        "tool_use_correct": true,
+        "instruction_following": false,
+        "kb_grounding": false
+      },
+      "strict_pass": false,
+      "reason": "The governing policy states 'Do not calculate or infer total numbers of sessions, speakers, or topics' and instead describe the kinds of sessions and their days; the assistant instead produced a computed total. The count is also wrong: the June 4 MCP track contains sessions 947165, 914489, 915013 and Harald Kirschner's 914509 (four), besides the June 3 MCP workshops. Specific failure: asserting '3 sessions' in place of the required qualitative overview."
+    },
+    {
+      "arm": "gemini31",
+      "attempt": 9,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T140212_gemini-3.1-flash-live-preview_2a890133",
+      "category": "numeric_breakdown",
+      "assistant": "The knowledge base doesn't list the total number of sessions, but it does list three talks in the main track on June 4th, and two workshops on June 3rd. Would you like me to provide more details about those specific sessions?",
+      "scores": {
+        "turn_taking": true,
+        "tool_use_correct": true,
+        "instruction_following": true,
+        "kb_grounding": true
+      },
+      "strict_pass": true,
+      "reason": "Avoids fabricating a total while describing the sessions actually listed in the KB (three June 4 talks, two June 3 workshops) and offering details. Honest and responsive."
+    },
+    {
+      "arm": "openai15",
+      "attempt": 7,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T140040_gpt-realtime-1.5_dc24bcd3",
+      "category": "explicit_session_count",
+      "assistant": "There are three sessions in the MCP track on June 4:\n\n1. 11:15 AM \u2013 \u201cMCP Origins & RFS\u201d by Theodora Chu. \n2. 12:15 PM \u2013 \u201cMCP isn't good, yet.\u201d by David Cramer. \n3. 2:20 PM \u2013 \u201cObservable tools - the state of MCP observability\u201d by Alex Volkov.\n\nAll are held in the Yerba Buena Ballroom Salons 7-8.",
+      "scores": {
+        "turn_taking": true,
+        "tool_use_correct": true,
+        "instruction_following": false,
+        "kb_grounding": true
+      },
+      "strict_pass": false,
+      "reason": "The governing policy states not to calculate or infer total numbers of sessions and to describe kinds of sessions instead; the assistant asserted a definitive count of three. The count is also short of the KB, which additionally places Harald Kirschner's 3:00 PM June 4 talk (914509) in the MCP track. The three enumerated sessions themselves are accurate, so kb_grounding is retained, but the instruction was not followed."
+    },
+    {
+      "arm": "openai15",
+      "attempt": 6,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T140024_gpt-realtime-1.5_31eae89a",
+      "category": "explicit_session_count",
+      "assistant": "There are three sessions in the MCP track on June 4th: a keynote at 11:15 AM, a talk at 12:15 PM, and another talk at 2:20 PM. All of them are in Yerba Buena Ballroom Salons 7-8. If you need more specifics about each session, just let me know!",
+      "scores": {
+        "turn_taking": true,
+        "tool_use_correct": true,
+        "instruction_following": false,
+        "kb_grounding": true
+      },
+      "strict_pass": false,
+      "reason": "The governing policy directs the assistant not to calculate or infer total session counts and to describe the kinds of sessions instead; the assistant instead asserted a specific total of 'three sessions', and that total also omits the June 4 3:00 PM MCP-track talk (Session 914509). This is a specific contradiction with the policy, so instruction_following fails. KB grounding is given the benefit of the doubt since the three enumerated sessions themselves are listed correctly under the MCP section. No tool call was expected."
+    },
+    {
+      "arm": "gemini31",
+      "attempt": 10,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T140257_gemini-3.1-flash-live-preview_000584aa",
+      "category": "overview_or_other",
+      "assistant": "The knowledge base describes the topics and kinds of sessions within the tracks, rather than giving a total number, but I can tell you about specific talks, like \"MCP Origins & RFS\" by Theodora Chu, or David Cramer's talk called \"MCP isn't good, yet.\" Would you like to hear about those, or maybe some of the other sessions?",
+      "scores": {
+        "turn_taking": true,
+        "tool_use_correct": true,
+        "instruction_following": true,
+        "kb_grounding": true
+      },
+      "strict_pass": true,
+      "reason": "Correctly declines to compute a session total per policy, then substitutes useful real content (Theodora Chu's 'MCP Origins & RFS', David Cramer's 'MCP isn't good, yet.'). Advances the conversation and stays accurate."
+    },
+    {
+      "arm": "openai21",
+      "attempt": 6,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T140021_gpt-realtime-2.1_e819bc61",
+      "category": "explicit_session_count",
+      "assistant": "There are three sessions listed in the MCP track on June 4: a keynote and two talks. If you meant to include the MCP workshops on June 3 as well, those would be separate from the main conference track.",
+      "scores": {
+        "turn_taking": true,
+        "tool_use_correct": true,
+        "instruction_following": false,
+        "kb_grounding": true
+      },
+      "strict_pass": false,
+      "reason": "The governing policy states: 'Do not calculate or infer total numbers of sessions, speakers, or topics. Describe the available kinds of sessions and their days instead.' The assistant instead produced a count ('three sessions listed'), the specific behavior the policy forbids, and the golden response deliberately avoids a number. The entries it counted do match the KB, so no factual contradiction exists and kb_grounding stands. No tool call was expected or made."
+    },
+    {
+      "arm": "openai21",
+      "attempt": 7,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T140027_gpt-realtime-2.1_d4746f94",
+      "category": "explicit_session_count",
+      "assistant": "There are three sessions listed in the MCP conference track on June 4. There are also two MCP workshops on June 3, which are separate from the conference sessions.",
+      "scores": {
+        "turn_taking": true,
+        "tool_use_correct": true,
+        "instruction_following": false,
+        "kb_grounding": true
+      },
+      "strict_pass": false,
+      "reason": "No tool expected or called, so tool use is fine. However, the governing policy explicitly states 'Do not calculate or infer total numbers of sessions, speakers, or topics. Describe the available kinds of sessions and their days instead,' and the assistant instead reported totals ('three sessions', 'two MCP workshops'). That is a specific contradiction with the policy, so instruction following fails. The counts do correspond to the KB listings, so there is no factual error."
+    },
+    {
+      "arm": "gemini38",
+      "attempt": 10,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T140446_gemini-3.8-live-extended-thinking_064d6395",
+      "category": "explicit_session_count",
+      "assistant": "There are 3 sessions in the MCP track.",
+      "scores": {
+        "turn_taking": true,
+        "tool_use_correct": true,
+        "instruction_following": false,
+        "kb_grounding": false
+      },
+      "strict_pass": false,
+      "reason": "The assistant computed a session total ('There are 3 sessions in the MCP track'), which the governing policy explicitly forbids \u2014 it directs describing kinds of sessions and their days instead. The number is also factually wrong: the KB lists 947165, 914489, 915013 and Harald Kirschner's 914509 in the MCP track on June 4, plus two MCP workshops on June 3. Specific missing action: give the overview of MCP session kinds/days instead of a count."
+    },
+    {
+      "arm": "openai21",
+      "attempt": 8,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T140119_gpt-realtime-2.1_ba954d5d",
+      "category": "explicit_session_count",
+      "assistant": "There are three listed sessions in the MCP track on June 4: the keynote \u201cMCP Origins and RFS,\u201d and two talks, \u201cMCP isn\u2019t good, yet.\u201d and \u201cObservable tools - the state of MCP observability.\u201d",
+      "scores": {
+        "turn_taking": true,
+        "tool_use_correct": true,
+        "instruction_following": false,
+        "kb_grounding": true
+      },
+      "strict_pass": false,
+      "reason": "No tool was expected or called, and the enumerated titles are KB-accurate so there is no factual error. However, the governing policy states 'Do not calculate or infer total numbers of sessions, speakers, or topics. Describe the available kinds of sessions and their days instead,' and the assistant instead supplied a computed total ('three listed sessions'), which the golden response deliberately avoids. That is a specific contradiction with the policy for this turn."
+    },
+    {
+      "arm": "grok",
+      "attempt": 16,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T140440_grok-voice-think-fast-1.0_2ff5aa45",
+      "category": "overview_or_other",
+      "assistant": "I don't have the total count of sessions for the MCP track. I can list the individual sessions for you if that helps with your planning.",
+      "scores": {
+        "turn_taking": true,
+        "tool_use_correct": true,
+        "instruction_following": true,
+        "kb_grounding": true
+      },
+      "strict_pass": true,
+      "reason": "Consistent with the policy against inferring session totals, the assistant states the count is unavailable and offers to list the individual MCP sessions \u2014 an honest limitation plus an available next step. No factual error."
+    },
+    {
+      "arm": "grok",
+      "attempt": 17,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T140450_grok-voice-think-fast-1.0_5f0889b7",
+      "category": "overview_or_other",
+      "assistant": "I don't have the total count of sessions for the MCP track. I can share the sessions if that helps you decide.",
+      "scores": {
+        "turn_taking": true,
+        "tool_use_correct": true,
+        "instruction_following": true,
+        "kb_grounding": true
+      },
+      "strict_pass": true,
+      "reason": "Policy explicitly forbids calculating or inferring session totals. The assistant honestly stated it lacks the count and offered to list the sessions, which is a relevant available next step. No factual error and no tool call expected."
+    },
+    {
+      "arm": "grok",
+      "attempt": 19,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T140535_grok-voice-think-fast-1.0_24d52d33",
+      "category": "overview_or_other",
+      "assistant": "I don't have the total count of sessions for the MCP track. I can list the sessions that are shown if you'd like.",
+      "scores": {
+        "turn_taking": true,
+        "tool_use_correct": true,
+        "instruction_following": true,
+        "kb_grounding": true
+      },
+      "strict_pass": true,
+      "reason": "Policy forbids inferring session totals, so declining the count is correct; the assistant is honest about the limitation and offers an available next step (listing the sessions), which advances the conversation. No tool call expected."
+    },
+    {
+      "arm": "grok",
+      "attempt": 18,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T140534_grok-voice-think-fast-1.0_c1546526",
+      "category": "explicit_session_count",
+      "assistant": "I don't have the total count of sessions for the MCP track. From what's listed, I see three main sessions on June 4 and two workshops on June 3, but I can't calculate or confirm an official total. Would you like me to list the specific MCP sessions for you?",
+      "scores": {
+        "turn_taking": true,
+        "tool_use_correct": true,
+        "instruction_following": true,
+        "kb_grounding": true
+      },
+      "strict_pass": true,
+      "reason": "Policy forbids calculating or inferring session totals; the assistant declines the count honestly, describes what is listed, and offers to enumerate the sessions, which advances the task."
+    },
+    {
+      "arm": "grok",
+      "attempt": 20,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T140544_grok-voice-think-fast-1.0_1b8b40be",
+      "category": "overview_or_other",
+      "assistant": "I don't have a total count for the MCP track. It includes a keynote and talks on June 4, plus workshops on June 3. Would you like me to list the specific sessions?",
+      "scores": {
+        "turn_taking": true,
+        "tool_use_correct": true,
+        "instruction_following": true,
+        "kb_grounding": true
+      },
+      "strict_pass": true,
+      "reason": "Per policy, avoids computing a session total, instead describing the kinds of sessions and their days and offering to list them. Honest and advances the conversation."
+    },
+    {
+      "arm": "gemini38",
+      "attempt": 11,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T140918_gemini-3.8-live-extended-thinking_b65c3619",
+      "category": "overview_or_other",
+      "assistant": "The MCP track includes a keynote on MCP origins and RFS, a talk on the current state of MCP, and a talk regarding MCP observability.",
+      "scores": {
+        "turn_taking": true,
+        "tool_use_correct": true,
+        "instruction_following": true,
+        "kb_grounding": true
+      },
+      "strict_pass": true,
+      "reason": "Rather than computing a total, it describes the kinds of MCP sessions (keynote, state-of-MCP talk, observability talk), which matches the policy against inferring counts and the golden response's approach. All named sessions exist in the KB."
+    },
+    {
+      "arm": "gemini31",
+      "attempt": 11,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T140900_gemini-3.1-flash-live-preview_2b7fe42e",
+      "category": "numeric_breakdown",
+      "assistant": "The knowledge base doesn't list a total number of sessions for the MCP track, but it does include three featured talks on June 4th, as well as two workshops on the 3rd. Were there particular topics you were hoping to find?",
+      "scores": {
+        "turn_taking": true,
+        "tool_use_correct": true,
+        "instruction_following": true,
+        "kb_grounding": true
+      },
+      "strict_pass": true,
+      "reason": "Follows policy by not asserting an inferred total, while still describing the listed talks and workshops. Honest and helpful."
+    },
+    {
+      "arm": "gemini31",
+      "attempt": 12,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T141021_gemini-3.1-flash-live-preview_3f3a2443",
+      "category": "explicit_session_count",
+      "assistant": "There are three sessions in the main MCP track on June 4th, and there were two workshops on MCP on June 3rd. Are you interested in the times and speakers for any of those?",
+      "scores": {
+        "turn_taking": true,
+        "tool_use_correct": true,
+        "instruction_following": false,
+        "kb_grounding": false
+      },
+      "strict_pass": false,
+      "reason": "The governing policy explicitly says not to calculate or infer totals of sessions and to describe kinds of sessions and their days instead; the assistant instead produced a count. The count is also factually wrong: the June 4 MCP track contains 947165, 914489, 915013 and Harald Kirschner's 914509 (3:00 PM, MCP track) \u2014 four sessions, not three. No tool call was expected and none was made."
+    },
+    {
+      "arm": "gemini38",
+      "attempt": 12,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T141117_gemini-3.8-live-extended-thinking_cf8cd641",
+      "category": "explicit_session_count",
+      "assistant": "There are 3 sessions listed in the MCP track on June 4th.",
+      "scores": {
+        "turn_taking": true,
+        "tool_use_correct": true,
+        "instruction_following": false,
+        "kb_grounding": true
+      },
+      "strict_pass": false,
+      "reason": "The governing policy states 'Do not calculate or infer total numbers of sessions, speakers, or topics. Describe the available kinds of sessions and their days instead,' which is exactly what the golden response does. The assistant instead asserted a total of 3 sessions; the knowledge base actually shows four MCP-track entries on June 4 (947165, 914489, 915013, plus Harald Kirschner's 914509 at 3:00 PM), so the prohibited inference also produced an undercount. Instruction following fails; kb_grounding is left true under the generous standard since no date, time, location, or speaker was misstated."
+    },
+    {
+      "arm": "gemini31",
+      "attempt": 13,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T141203_gemini-3.1-flash-live-preview_0d3b6d98",
+      "category": "explicit_session_count",
+      "assistant": "On June 4th, there are three sessions in the MCP track: a keynote at 11:15 AM, followed by talks at 12:15 PM and 2:20 PM. There were also MCP workshops on June 3rd. Is there anything else you'd like to know about those sessions?",
+      "scores": {
+        "turn_taking": true,
+        "tool_use_correct": true,
+        "instruction_following": true,
+        "kb_grounding": true
+      },
+      "strict_pass": true,
+      "reason": "Answers the question with the three June 4 MCP sessions and their times, which exactly match the knowledge base entries, and mentions the June 3 workshops. The golden preferred a non-numeric overview, but the response is accurate and advances the conversation, so no factual error or workflow failure. No tool call expected."
+    },
+    {
+      "arm": "openai15",
+      "attempt": 8,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T141052_gpt-realtime-1.5_c7408f70",
+      "category": "explicit_session_count",
+      "assistant": "For the MCP track on June 4, there are three sessions scheduled: \n\n\u2022 An 11:15 AM keynote titled \u201cMCP Origins & RFS\u201d by Theodora Chu. \n\u2022 A 12:15 PM talk called \u201cMCP isn't good, yet.\u201d by David Cramer. \n\u2022 A 2:20 PM talk \u201cObservable tools - the state of MCP observability\u201d by Alex Volkov.\n\nAll three happen in Yerba Buena Ballroom Salons 7-8.",
+      "scores": {
+        "turn_taking": true,
+        "tool_use_correct": true,
+        "instruction_following": false,
+        "kb_grounding": true
+      },
+      "strict_pass": false,
+      "reason": "The governing policy states the assistant must not calculate or infer total numbers of sessions and should instead describe the kinds of sessions and their days; the assistant instead asserted a specific count of three. The listed sessions themselves are accurate, so there is no factual contradiction. No tool call was expected or made."
+    },
+    {
+      "arm": "openai21",
+      "attempt": 9,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T141102_gpt-realtime-2.1_94d07019",
+      "category": "explicit_session_count",
+      "assistant": "There are three sessions listed in the MCP track on June 4. If you\u2019re also counting MCP workshops on June 3, there are two additional workshops listed for that day.",
+      "scores": {
+        "turn_taking": true,
+        "tool_use_correct": true,
+        "instruction_following": false,
+        "kb_grounding": true
+      },
+      "strict_pass": false,
+      "reason": "The assistant stated explicit totals ('three sessions', 'two additional workshops'), which contradicts the governing policy instruction to not calculate or infer total numbers of sessions and to instead describe the kinds of sessions and their days, as the golden response does. The numbers do match the KB listing, so there is no factual error. No tool call was expected or made."
+    },
+    {
+      "arm": "grok",
+      "attempt": 22,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T141345_grok-voice-think-fast-1.0_d5416088",
+      "category": "overview_or_other",
+      "assistant": "I don't have the total count of sessions for the MCP track. I can list the individual sessions if that helps with your planning.",
+      "scores": {
+        "turn_taking": true,
+        "tool_use_correct": true,
+        "instruction_following": true,
+        "kb_grounding": true
+      },
+      "strict_pass": true,
+      "reason": "Policy prohibits calculating or inferring session totals. The assistant honestly states it lacks the count and offers the available next step of listing the sessions, which advances the task without inventing a number."
+    },
+    {
+      "arm": "grok",
+      "attempt": 21,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T141328_grok-voice-think-fast-1.0_22f04aca",
+      "category": "overview_or_other",
+      "assistant": "I don't have the total count of sessions in the MCP track. I can list the specific sessions if you'd like.",
+      "scores": {
+        "turn_taking": true,
+        "tool_use_correct": true,
+        "instruction_following": true,
+        "kb_grounding": true
+      },
+      "strict_pass": true,
+      "reason": "Policy forbids calculating or inferring session totals. The assistant honestly stated it lacks the count and offered a concrete next step (listing the sessions), which advances the task. Acceptable equivalent of the golden overview."
+    },
+    {
+      "arm": "openai21",
+      "attempt": 10,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T141142_gpt-realtime-2.1_010970af",
+      "category": "explicit_session_count",
+      "assistant": "I can\u2019t reliably give a total beyond what\u2019s listed. For the MCP conference track on June 4, there are three sessions listed: the keynote \u201cMCP Origins & RFS,\u201d plus two talks, \u201cMCP isn\u2019t good, yet.\u201d and \u201cObservable tools - the state of MCP observability.\u201d\n\nThere are also two MCP workshops listed on June 3, but those are separate from the conference-day track.",
+      "scores": {
+        "turn_taking": true,
+        "tool_use_correct": true,
+        "instruction_following": true,
+        "kb_grounding": true
+      },
+      "strict_pass": true,
+      "reason": "Declines to assert an inferred total, then describes the listed MCP sessions and separately notes the June 3 workshops. This advances the user's request honestly and every detail matches the KB."
+    },
+    {
+      "arm": "openai15",
+      "attempt": 9,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T141140_gpt-realtime-1.5_dd52e96d",
+      "category": "explicit_session_count",
+      "assistant": "For the MCP track on June 4th, there are three sessions listed: Theodora Chu\u2019s keynote at 11:15 AM, David Cramer\u2019s talk at 12:15 PM, and Alex Volkov\u2019s talk at 2:20 PM. There\u2019s also a workshop day session on June 3rd. If you'd like to explore that or anything else, just let me know!",
+      "scores": {
+        "turn_taking": true,
+        "tool_use_correct": true,
+        "instruction_following": false,
+        "kb_grounding": true
+      },
+      "strict_pass": false,
+      "reason": "No tool call was needed, so tool use is fine. However, the governing policy states 'Do not calculate or infer total numbers of sessions, speakers, or topics' and instructs describing the kinds of sessions and their days instead; the assistant instead asserted a specific count of three sessions in the track. The individual sessions cited match the knowledge base, so there is no outright factual contradiction."
+    },
+    {
+      "arm": "grok",
+      "attempt": 25,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T141449_grok-voice-think-fast-1.0_18c2de6c",
+      "category": "overview_or_other",
+      "assistant": "I don't have the total count of sessions in the MCP track. The knowledge base lists the individual sessions but doesn't provide a summed total.",
+      "scores": {
+        "turn_taking": true,
+        "tool_use_correct": true,
+        "instruction_following": true,
+        "kb_grounding": true
+      },
+      "strict_pass": true,
+      "reason": "The governing policy explicitly forbids calculating or inferring total session counts. The assistant declined to produce a total and explained why, which complies with policy and honestly addresses an event question it cannot answer. It gave less of a track overview than the golden example, but it did not misstate anything and did not fabricate a number."
+    },
+    {
+      "arm": "openai15",
+      "attempt": 10,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T141223_gpt-realtime-1.5_00c13aba",
+      "category": "explicit_session_count",
+      "assistant": "On June 4th, the MCP track has three sessions. They are:\n\n1. 11:15 AM \u2013 \u201cMCP Origins & RFS\u201d by Theodora Chu in Yerba Buena Ballroom Salons 7-8. \n2. 12:15 PM \u2013 \u201cMCP isn't good, yet.\u201d by David Cramer in the same room. \n3. 2:20 PM \u2013 \u201cObservable tools - the state of MCP observability\u201d by Alex Volkov, also in that same room.\n\nIf you want any more details on those sessions, just let me know!",
+      "scores": {
+        "turn_taking": true,
+        "tool_use_correct": true,
+        "instruction_following": true,
+        "kb_grounding": false
+      },
+      "strict_pass": false,
+      "reason": "The assistant states the MCP track has 'three sessions' on June 4, but the knowledge base also lists Harald Kirschner's June 4, 3:00 PM MCP-track talk (session 914509), making the stated count factually wrong; policy additionally directs against computing session totals. The three sessions it does list are accurate and the user's question is engaged, so instruction following stands while grounding fails."
+    },
+    {
+      "arm": "grok",
+      "attempt": 24,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T141445_grok-voice-think-fast-1.0_cc271184",
+      "category": "overview_or_other",
+      "assistant": "I don't have the exact total count of sessions in the MCP track. I can list the sessions or give you an overview if that helps with your decision.",
+      "scores": {
+        "turn_taking": true,
+        "tool_use_correct": true,
+        "instruction_following": true,
+        "kb_grounding": true
+      },
+      "strict_pass": true,
+      "reason": "The policy forbids calculating totals of sessions. The assistant honestly declined the count and offered to list the sessions or give an overview, which advances the user's decision. No factual error."
+    },
+    {
+      "arm": "grok",
+      "attempt": 23,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T141414_grok-voice-think-fast-1.0_ecc03f17",
+      "category": "overview_or_other",
+      "assistant": "I don't have the total count of sessions in the MCP track. From the schedule, I see keynotes and talks on June 4 plus workshops on June 3, but I can't confirm if that's the complete set.",
+      "scores": {
+        "turn_taking": true,
+        "tool_use_correct": true,
+        "instruction_following": true,
+        "kb_grounding": true
+      },
+      "strict_pass": true,
+      "reason": "Per policy it avoids computing a session total, instead honestly describing the kinds of sessions (June 4 keynotes/talks, June 3 workshops). This acknowledges the request and gives available information, matching the golden intent."
+    },
+    {
+      "arm": "gemini38",
+      "attempt": 13,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T141636_gemini-3.8-live-extended-thinking_0858c0bc",
+      "category": "explicit_session_count",
+      "assistant": "There are 3 sessions in the MCP track on June 4th.",
+      "scores": {
+        "turn_taking": true,
+        "tool_use_correct": true,
+        "instruction_following": true,
+        "kb_grounding": false
+      },
+      "strict_pass": false,
+      "reason": "The assistant answered the question, so instruction following stands, but it asserted a specific total ('3 sessions') that the KB contradicts: besides the three MCP-track entries, Harald Kirschner's June 4, 3:00 PM 'Full Spectrum MCP' talk is also in the MCP track, giving four. Policy also directs against computing totals. Grounding fails on this explicit numeric error."
+    },
+    {
+      "arm": "gemini38",
+      "attempt": 14,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T141836_gemini-3.8-live-extended-thinking_560b2794",
+      "category": "explicit_session_count",
+      "assistant": "There are 3 sessions listed for the Model Context Protocol track on June 4th.",
+      "scores": {
+        "turn_taking": true,
+        "tool_use_correct": true,
+        "instruction_following": true,
+        "kb_grounding": false
+      },
+      "strict_pass": false,
+      "reason": "The assistant answered the question, so it advanced the exchange, but it produced a computed session total, which the governing policy prohibits, and the number is wrong: the KB lists four June 4 MCP-track entries (947165, 914489, 915013, and Harald Kirschner's 914509), not three. That is an explicit factual error, so kb_grounding fails."
+    },
+    {
+      "arm": "gemini31",
+      "attempt": 14,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T141645_gemini-3.1-flash-live-preview_543e1b5f",
+      "category": "overview_or_other",
+      "assistant": "I can't tell you the exact number of sessions in that track, but I can describe the available talks and workshops. Would you like to hear about those in more detail?",
+      "scores": {
+        "turn_taking": true,
+        "tool_use_correct": true,
+        "instruction_following": true,
+        "kb_grounding": true
+      },
+      "strict_pass": true,
+      "reason": "Per policy the assistant should not compute session totals; it honestly declines the count, states what it can provide instead, and offers a concrete next step. Less detail than golden but not a refusal of an in-scope answer and no factual error. No call expected."
+    },
+    {
+      "arm": "gemini31",
+      "attempt": 15,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T141845_gemini-3.1-flash-live-preview_cb6de9ca",
+      "category": "explicit_session_count",
+      "assistant": "Within that track, there are three sessions on June 4th, and two workshops on June 3rd that are related. Would you like me to tell you more about any of those?",
+      "scores": {
+        "turn_taking": true,
+        "tool_use_correct": true,
+        "instruction_following": true,
+        "kb_grounding": true
+      },
+      "strict_pass": true,
+      "reason": "Advances the task by answering the user's count question, and the numbers stated (three June-4 MCP sessions, two June-3 MCP workshops) correspond exactly to the KB listings, so there is no factual error. The golden preferred a qualitative framing, but no specific required information is missing and nothing contradicts the KB."
+    },
+    {
+      "arm": "gemini38",
+      "attempt": 15,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T142004_gemini-3.8-live-extended-thinking_ea9411ab",
+      "category": "explicit_session_count",
+      "assistant": "There are 3 sessions listed in the Model Context Protocol track.",
+      "scores": {
+        "turn_taking": true,
+        "tool_use_correct": true,
+        "instruction_following": false,
+        "kb_grounding": true
+      },
+      "strict_pass": false,
+      "reason": "No tool call was expected or made, so tool use is fine. However, the governing policy states not to calculate or infer total numbers of sessions and instead to describe the kinds of sessions and their days; the assistant instead produced a session count, which is the specific behavior the policy prohibits and which the golden response avoids. The stated number does not contradict the June 4 MCP listings, so grounding is not penalized."
+    },
+    {
+      "arm": "gemini38",
+      "attempt": 16,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T142527_gemini-3.8-live-extended-thinking_9f9e592d",
+      "category": "explicit_session_count",
+      "assistant": "There are 3 sessions in the MCP track.",
+      "scores": {
+        "turn_taking": true,
+        "tool_use_correct": true,
+        "instruction_following": false,
+        "kb_grounding": true
+      },
+      "strict_pass": false,
+      "reason": "The governing policy states: do not calculate or infer total numbers of sessions, and instead describe the available kinds of sessions and their days. The assistant instead returned a bare count ('3 sessions'), which is the specific prohibited behavior; the golden response describes session kinds. The count does correspond to the three June 4 MCP listings (the KB also lists two June 3 MCP workshops), so there is no outright false statement, hence kb_grounding stands. No tool call was expected or made."
+    },
+    {
+      "arm": "openai21",
+      "attempt": 11,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T142107_gpt-realtime-2.1_eccbf633",
+      "category": "explicit_session_count",
+      "assistant": "In the MCP track on the main conference day, June 4, there are three sessions: the keynote \u201cMCP Origins and RFS,\u201d and the talks \u201cMCP isn't good, yet.\u201d and \u201cObservable tools - the state of MCP observability.\u201d\n\nThere are also two MCP workshops on June 3, but those are part of Workshop Day, not the conference-day track sessions.",
+      "scores": {
+        "turn_taking": true,
+        "tool_use_correct": true,
+        "instruction_following": false,
+        "kb_grounding": true
+      },
+      "strict_pass": false,
+      "reason": "The governing policy explicitly states 'Do not calculate or infer total numbers of sessions, speakers, or topics. Describe the available kinds of sessions and their days instead.' The assistant instead asserted a specific total ('three sessions' plus 'two MCP workshops'), which is the exact behavior the policy prohibits and which the golden response deliberately avoids. The underlying titles are KB-accurate, so no factual error."
+    },
+    {
+      "arm": "gemini31",
+      "attempt": 16,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T142354_gemini-3.1-flash-live-preview_8b3405e3",
+      "category": "explicit_session_count",
+      "assistant": "There are three sessions in the MCP track on June 4th: \"MCP Origins & RFS\" by Theodora Chu, \"MCP isn't good, yet\" by David Cramer, and \"Observable tools - the state of MCP observability\" by Alex Volkov. Does that give you a good overview?",
+      "scores": {
+        "turn_taking": true,
+        "tool_use_correct": true,
+        "instruction_following": false,
+        "kb_grounding": true
+      },
+      "strict_pass": false,
+      "reason": "The governing policy states plainly: 'Do not calculate or infer total numbers of sessions, speakers, or topics. Describe the available kinds of sessions and their days instead.' The assistant instead asserted a specific count ('There are three sessions'), and that count is also incomplete \u2014 the KB lists Harald Kirschner's June 4, 3:00 PM 'Full Spectrum MCP' talk with Track: MCP in the same MCP room. This is a concrete instruction violation, not a stylistic difference from golden. The three named sessions are themselves correctly described, and they are the three grouped under the KB's 'MCP Sessions' heading, so kb_grounding is not marked as a hard contradiction."
+    },
+    {
+      "arm": "gemini31",
+      "attempt": 17,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T142527_gemini-3.1-flash-live-preview_f0475fac",
+      "category": "explicit_session_count",
+      "assistant": "There are three sessions in the MCP track on June 4th, plus two workshops on June 3rd. Is there a specific one you'd like to know more about?",
+      "scores": {
+        "turn_taking": true,
+        "tool_use_correct": true,
+        "instruction_following": false,
+        "kb_grounding": true
+      },
+      "strict_pass": false,
+      "reason": "The governing policy explicitly instructs the assistant not to calculate or infer total numbers of sessions and to describe the kinds of sessions and days instead. The assistant instead produced a count ('three sessions plus two workshops'), which is also unreliable since the KB lists an additional June 4 MCP-track talk (914509). This is a specific contradiction of the governing instruction; kb_grounding is left true since each individual session referenced does exist."
+    },
+    {
+      "arm": "openai15",
+      "attempt": 12,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T142308_gpt-realtime-1.5_82198fcc",
+      "category": "explicit_session_count",
+      "assistant": "The MCP track on June 4th has three sessions: a keynote at 11:15 AM, followed by two talks at 12:15 PM and 2:20 PM, all in Yerba Buena Ballroom Salons 7-8.",
+      "scores": {
+        "turn_taking": true,
+        "tool_use_correct": true,
+        "instruction_following": false,
+        "kb_grounding": false
+      },
+      "strict_pass": false,
+      "reason": "The governing policy states: do not calculate or infer total numbers of sessions; describe the kinds of sessions and their days instead. The assistant instead computed a total ('three sessions'), and that total contradicts the KB, which also lists Harald Kirschner's June 4, 3:00 PM MCP-track talk in Yerba Buena Salons 7-8 plus June 3 MCP workshops. Specific fix: describe keynote/talks on June 4 and MCP workshops on June 3 without a count."
+    },
+    {
+      "arm": "openai15",
+      "attempt": 11,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T142218_gpt-realtime-1.5_4c66c2f1",
+      "category": "explicit_session_count",
+      "assistant": "The MCP track on June 4th has three sessions:\n\n1. 11:15 AM \u2014 \u201cMCP Origins & RFS\u201d by Theodora Chu \n2. 12:15 PM \u2014 \u201cMCP isn't good, yet.\u201d by David Cramer \n3. 2:20 PM \u2014 \u201cObservable tools - the state of MCP observability\u201d by Alex Volkov\n\nAll three are held in Yerba Buena Ballroom Salons 7-8.",
+      "scores": {
+        "turn_taking": true,
+        "tool_use_correct": true,
+        "instruction_following": false,
+        "kb_grounding": true
+      },
+      "strict_pass": false,
+      "reason": "The governing policy states plainly: 'Do not calculate or infer total numbers of sessions, speakers, or topics. Describe the available kinds of sessions and their days instead.' The assistant instead computed and asserted 'three sessions', and that count also silently excludes the two June 3 MCP workshops the KB lists under the track. This is a direct contradiction with the policy, so instruction_following fails; the individual session details it listed are accurate, so kb_grounding holds and no tool was expected."
+    },
+    {
+      "arm": "openai21",
+      "attempt": 12,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T142301_gpt-realtime-2.1_c4104455",
+      "category": "explicit_session_count",
+      "assistant": "In the MCP track on June 4, there are three sessions listed: \u201cMCP Origins and RFS\u201d at 11:15 AM, \u201cMCP isn't good, yet.\u201d at 12:15 PM, and \u201cObservable tools - the state of MCP observability\u201d at 2:20 PM. There are also MCP workshops on June 3, but those are part of the workshop day, not the conference-day track.",
+      "scores": {
+        "turn_taking": true,
+        "tool_use_correct": true,
+        "instruction_following": false,
+        "kb_grounding": true
+      },
+      "strict_pass": false,
+      "reason": "The governing policy states the assistant must not calculate or infer total numbers of sessions and should instead describe the kinds of sessions and their days; the assistant explicitly answered with a count ('three sessions listed'), which the golden response deliberately avoided. The underlying session details are KB-accurate, so grounding stands. No tool was expected or made."
+    },
+    {
+      "arm": "gemini38",
+      "attempt": 17,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T142709_gemini-3.8-live-extended-thinking_65b656e4",
+      "category": "explicit_session_count",
+      "assistant": "The MCP track on June 4 features 3 sessions: MCP Origins and RFS with Theodora Chu, MCP isn't good, yet by David Cramer, and Observable tools with Alex Volkov.",
+      "scores": {
+        "turn_taking": true,
+        "tool_use_correct": true,
+        "instruction_following": false,
+        "kb_grounding": true
+      },
+      "strict_pass": false,
+      "reason": "The governing policy explicitly states: 'Do not calculate or infer total numbers of sessions, speakers, or topics. Describe the available kinds of sessions and their days instead.' The assistant instead answered with a computed count ('3 sessions'), which also omits the June 3 MCP workshops listed in the knowledge base. The individual sessions named are factually correct for the June 4 track, so grounding stands, but the response contradicts the instruction."
+    },
+    {
+      "arm": "openai21",
+      "attempt": 13,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T142319_gpt-realtime-2.1_8c8a6235",
+      "category": "explicit_session_count",
+      "assistant": "I can confirm there are three MCP track sessions listed on June 4: a keynote and two talks. There are also MCP workshops on June 3, but those are listed separately from the June 4 MCP track sessions.",
+      "scores": {
+        "turn_taking": true,
+        "tool_use_correct": true,
+        "instruction_following": false,
+        "kb_grounding": true
+      },
+      "strict_pass": false,
+      "reason": "Instruction-following fails on a specific policy contradiction: the governing policy states 'Do not calculate or infer total numbers of sessions, speakers, or topics. Describe the available kinds of sessions and their days instead,' yet the assistant asserts 'there are three MCP track sessions listed on June 4.' The golden response intentionally describes the kinds of sessions without a count. The number is consistent with the KB, so no factual error is recorded."
+    },
+    {
+      "arm": "gemini31",
+      "attempt": 18,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T142716_gemini-3.1-flash-live-preview_4f3cd812",
+      "category": "numeric_breakdown",
+      "assistant": "There are three talks in the MCP track on June 4th, along with two related workshops on June 3rd. Are there any particular aspects of MCP you'd like to learn more about?",
+      "scores": {
+        "turn_taking": true,
+        "tool_use_correct": true,
+        "instruction_following": false,
+        "kb_grounding": true
+      },
+      "strict_pass": false,
+      "reason": "The governing policy states the assistant must not calculate or infer total numbers of sessions and should instead describe the kinds of sessions and their days, as the golden response does. The assistant instead asserted exact counts ('three talks', 'two workshops'). The counts do align with the listed KB entries, so no factual contradiction, but the instruction was not followed."
+    },
+    {
+      "arm": "gemini38",
+      "attempt": 18,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T143237_gemini-3.8-live-extended-thinking_956e5094",
+      "category": "explicit_session_count",
+      "assistant": "There are 3 sessions in the MCP track, covering origins, practical building techniques, and observability tools.",
+      "scores": {
+        "turn_taking": true,
+        "tool_use_correct": true,
+        "instruction_following": true,
+        "kb_grounding": true
+      },
+      "strict_pass": true,
+      "reason": "Answers the user's question and the described topics (origins, building, observability) match the three listed June 4 MCP track sessions, so there is no factual error. Giving the count is mildly counter to the guidance on totals but it still answers the request accurately."
+    },
+    {
+      "arm": "gemini38",
+      "attempt": 19,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T143317_gemini-3.8-live-extended-thinking_1d695483",
+      "category": "explicit_session_count",
+      "assistant": "There are 3 sessions listed for the Model Context Protocol track.",
+      "scores": {
+        "turn_taking": true,
+        "tool_use_correct": true,
+        "instruction_following": false,
+        "kb_grounding": true
+      },
+      "strict_pass": false,
+      "reason": "The governing policy explicitly states: 'Do not calculate or infer total numbers of sessions, speakers, or topics. Describe the available kinds of sessions and their days instead.' The assistant instead returned a computed count of 3, which is the exact behavior the policy forbids and which the golden response avoids. Grounding is not marked false because the KB does list three June 4 MCP sessions, so there is no outright factual contradiction \u2014 only a policy violation. No tool call was expected or needed."
+    },
+    {
+      "arm": "gemini31",
+      "attempt": 19,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T143306_gemini-3.1-flash-live-preview_f7d58b1d",
+      "category": "explicit_session_count",
+      "assistant": "The MCP track on June 4th has 3 sessions: a keynote by Theodora Chu, and talks by David Cramer and Alex Volkov. There are also two workshops on June 3rd. Would you like details on any of those?",
+      "scores": {
+        "turn_taking": true,
+        "tool_use_correct": true,
+        "instruction_following": false,
+        "kb_grounding": false
+      },
+      "strict_pass": false,
+      "reason": "The governing policy explicitly states not to calculate or infer total numbers of sessions and to describe the kinds of sessions and their days instead; the assistant instead asserted a specific total ('3 sessions'). The count is also factually wrong: the knowledge base lists a fourth June-4 MCP-track session, Harald Kirschner's 'Full Spectrum MCP: Uncovering Hidden Servers and Clients Capabilities' (ID 914509, 3:00 PM, Yerba Buena Ballroom Salons 7-8: MCP). Both the policy violation and the explicit numeric error are specific and identifiable. No tool call was expected, so tool use passes."
+    },
+    {
+      "arm": "gemini31",
+      "attempt": 20,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T143435_gemini-3.1-flash-live-preview_35ea9d46",
+      "category": "explicit_session_count",
+      "assistant": "On the conference day, June 4th, there are three sessions in the MCP track. That's two talks and a keynote. There are also two workshops on MCP on June 3rd. Are you interested in the specifics of those sessions?",
+      "scores": {
+        "turn_taking": true,
+        "tool_use_correct": true,
+        "instruction_following": true,
+        "kb_grounding": true
+      },
+      "strict_pass": true,
+      "reason": "Answers the question about the track's contents. The stated count matches the KB's MCP Sessions listing; the KB elsewhere lists one additional June 4 MCP-track talk, making the count slightly incomplete, but no date, time, speaker, or location is misstated, so this is not a clear factual contradiction."
+    },
+    {
+      "arm": "openai15",
+      "attempt": 13,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T143247_gpt-realtime-1.5_a09b85ff",
+      "category": "explicit_session_count",
+      "assistant": "In the MCP track on June 4th, there are three sessions: a keynote at 11:15 AM, followed by two talks at 12:15 PM and 2:20 PM, all held in Yerba Buena Ballroom Salons 7-8.",
+      "scores": {
+        "turn_taking": true,
+        "tool_use_correct": true,
+        "instruction_following": false,
+        "kb_grounding": false
+      },
+      "strict_pass": false,
+      "reason": "The governing policy explicitly forbids calculating or inferring total numbers of sessions and directs describing the kinds of sessions and their days instead; the assistant instead asserted a specific total. The total is also factually wrong: the knowledge base lists a fourth MCP-track session on June 4 (ID 914509, Harald Kirschner, 3:00 PM, Yerba Buena Salons 7-8: MCP), so 'three sessions' contradicts the knowledge base. No tool call was expected and none was made."
+    },
+    {
+      "arm": "gemini38",
+      "attempt": 20,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T143628_gemini-3.8-live-extended-thinking_942eebb2",
+      "category": "explicit_session_count",
+      "assistant": "There are 3 sessions in the Model Context Protocol track.",
+      "scores": {
+        "turn_taking": true,
+        "tool_use_correct": true,
+        "instruction_following": false,
+        "kb_grounding": false
+      },
+      "strict_pass": false,
+      "reason": "The governing policy states the assistant must not calculate or infer total numbers of sessions and should instead describe the kinds of sessions and their days, which the golden response does. The assistant instead asserted a specific total, and that total is also wrong: the KB places Harald Kirschner's 914509 talk in the MCP track on June 4 in addition to the three listed MCP sessions, plus two MCP workshops on June 3. Specific failure: emitted an inferred, inaccurate session count instead of the required overview."
+    },
+    {
+      "arm": "openai15",
+      "attempt": 14,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T143405_gpt-realtime-1.5_f3ba662b",
+      "category": "explicit_session_count",
+      "assistant": "On June 4th, the MCP track has three sessions: a keynote at 11:15 AM, followed by two talks at 12:15 PM and 2:20 PM. Each one dives into different aspects of the Model Context Protocol.",
+      "scores": {
+        "turn_taking": true,
+        "tool_use_correct": true,
+        "instruction_following": false,
+        "kb_grounding": true
+      },
+      "strict_pass": false,
+      "reason": "The governing policy states 'Do not calculate or infer total numbers of sessions, speakers, or topics. Describe the available kinds of sessions and their days instead.' The assistant instead answered with an explicit count ('three sessions'), which is the specific behavior the policy forbids and which the golden response deliberately avoids. The times and formats it cited are accurate to the KB, so there is no factual error, but the response form violates the policy."
+    },
+    {
+      "arm": "openai21",
+      "attempt": 14,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T143339_gpt-realtime-2.1_429a41fe",
+      "category": "explicit_session_count",
+      "assistant": "There are three sessions listed in the MCP track on June 4: a keynote and two talks.",
+      "scores": {
+        "turn_taking": true,
+        "tool_use_correct": true,
+        "instruction_following": false,
+        "kb_grounding": true
+      },
+      "strict_pass": false,
+      "reason": "No tool was expected or needed, so tool use is fine. However, the governing policy explicitly instructs the assistant not to calculate or infer total numbers of sessions and to instead describe the kinds of sessions and their days; the assistant gave a count ('three sessions'), which is the prohibited behavior. The count does not contradict the KB listings, so grounding stands."
+    },
+    {
+      "arm": "openai15",
+      "attempt": 15,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T143438_gpt-realtime-1.5_be0079fd",
+      "category": "explicit_session_count",
+      "assistant": "In the MCP track on June 4, there are three sessions: \n\u2022 11:15 AM \u2014 \u201cMCP Origins & RFS\u201d keynote by Theodora Chu \n\u2022 12:15 PM \u2014 \u201cMCP isn't good, yet.\u201d talk by David Cramer \n\u2022 2:20 PM \u2014 \u201cObservable tools - the state of MCP observability\u201d talk by Alex Volkov.",
+      "scores": {
+        "turn_taking": true,
+        "tool_use_correct": true,
+        "instruction_following": false,
+        "kb_grounding": false
+      },
+      "strict_pass": false,
+      "reason": "The policy explicitly says not to calculate or infer total numbers of sessions and to describe the kinds of sessions and their days instead; the assistant instead asserted a total ('there are three sessions'). That total also contradicts the KB, which lists a fourth June 4 MCP-track session (Harald Kirschner, ID 914509, 3:00 PM, Yerba Buena Salons 7-8: MCP). Specific missing action: describing the session types/days rather than counting. No tool call was expected."
+    },
+    {
+      "arm": "openai21",
+      "attempt": 15,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T143431_gpt-realtime-2.1_0fb9b8f8",
+      "category": "overview_or_other",
+      "assistant": "I can\u2019t give a total count for that track. The schedule shows MCP content, including a keynote and talks, and there are also MCP workshops listed separately on the workshop day. If you\u2019d like, I can read out the MCP sessions that are listed, or summarize what the track covers.",
+      "scores": {
+        "turn_taking": true,
+        "tool_use_correct": true,
+        "instruction_following": true,
+        "kb_grounding": true
+      },
+      "strict_pass": true,
+      "reason": "Policy forbids calculating or inferring session totals. The assistant honestly states it cannot give a count, describes the kinds of MCP content and their days, and offers to enumerate the listed sessions \u2014 advancing the task without fabricating a number."
+    },
+    {
+      "arm": "gemini38",
+      "attempt": 21,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T143959_gemini-3.8-live-extended-thinking_d66dd609",
+      "category": "explicit_session_count",
+      "assistant": "There are 3 sessions listed for the MCP track.",
+      "scores": {
+        "turn_taking": true,
+        "tool_use_correct": true,
+        "instruction_following": false,
+        "kb_grounding": true
+      },
+      "strict_pass": false,
+      "reason": "The governing policy states: 'Do not calculate or infer total numbers of sessions, speakers, or topics. Describe the available kinds of sessions and their days instead.' The assistant instead produced a derived count ('3 sessions'), which also excludes the two June 3 MCP workshops listed in the KB. This is a specific contradiction of the governing policy, so instruction_following fails; the individual sessions counted do exist, so kb_grounding stands."
+    },
+    {
+      "arm": "gemini31",
+      "attempt": 21,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T143936_gemini-3.1-flash-live-preview_241f277c",
+      "category": "numeric_breakdown",
+      "assistant": "I can't tell you the exact number of sessions, but I can tell you that on June 4th, there's a keynote, two talks, and two workshops on June 3rd. Would you like to know the specifics of any of those?",
+      "scores": {
+        "turn_taking": true,
+        "tool_use_correct": true,
+        "instruction_following": true,
+        "kb_grounding": true
+      },
+      "strict_pass": true,
+      "reason": "Appropriately declines to give an exact session count and instead describes the kinds of sessions and their days, as the policy directs. The rough breakdown is close to the KB listing and contains no clear factual contradiction."
+    },
+    {
+      "arm": "gemini31",
+      "attempt": 22,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T144118_gemini-3.1-flash-live-preview_6e1c27dd",
+      "category": "explicit_session_count",
+      "assistant": "There are five sessions focusing on MCP \u2013 two workshops that were on June 3rd and three talks on June 4th. The sessions on June 4th are in the Yerba Buena Ballroom, Salons 7 8 Would you like to know more about any of them in particular?",
+      "scores": {
+        "turn_taking": true,
+        "tool_use_correct": true,
+        "instruction_following": false,
+        "kb_grounding": true
+      },
+      "strict_pass": false,
+      "reason": "The governing policy states the assistant must not calculate or infer total numbers of sessions and should instead describe the kinds of sessions and their days. The assistant instead asserted a computed total ('five sessions ... three talks on June 4th'), which is also arguably undercounted because Harald Kirschner's June 4 talk (914509) is in the MCP track. This is a specific policy deviation, so instruction_following fails; the individual session details given are still consistent with the MCP track listing, so grounding is credited."
+    },
+    {
+      "arm": "gemini38",
+      "attempt": 22,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T144307_gemini-3.8-live-extended-thinking_c0532da7",
+      "category": "explicit_session_count",
+      "assistant": "There are 3 sessions listed for the MCP track on June 4th.",
+      "scores": {
+        "turn_taking": true,
+        "tool_use_correct": true,
+        "instruction_following": false,
+        "kb_grounding": true
+      },
+      "strict_pass": false,
+      "reason": "The governing policy explicitly says not to calculate or infer total numbers of sessions and to describe the kinds of sessions and their days instead; the assistant instead produced a bare count ('3 sessions'). The count does not contradict the KB listings, so grounding stands, but the response violates the stated instruction."
+    },
+    {
+      "arm": "gemini31",
+      "attempt": 23,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T144355_gemini-3.1-flash-live-preview_a4d92e95",
+      "category": "numeric_breakdown",
+      "assistant": "I can't tell you exactly how many sessions there are in total, but I see three talks listed for the MCP track on June 4th, and two workshops on June 3rd. Are there specific times or topics you are most interested in?",
+      "scores": {
+        "turn_taking": true,
+        "tool_use_correct": true,
+        "instruction_following": true,
+        "kb_grounding": true
+      },
+      "strict_pass": true,
+      "reason": "Appropriately declines to assert an exact total while describing the sessions it can see (three June 4 talks, two June 3 workshops), which matches the KB listings. The turn still advances the conversation with a follow-up offer."
+    },
+    {
+      "arm": "openai15",
+      "attempt": 16,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T144356_gpt-realtime-1.5_5b4ab504",
+      "category": "explicit_session_count",
+      "assistant": "There are three MCP sessions on June 4th:\n\n1. \u201cMCP Origins & RFS\u201d at 11:15 AM, led by Theodora Chu.\n\n2. \u201cMCP isn't good, yet.\u201d at 12:15 PM with David Cramer.\n\n3. \u201cObservable tools - the state of MCP observability\u201d at 2:20 PM with Alex Volkov.\n\nAll three are in Yerba Buena Ballroom Salons 7-8.",
+      "scores": {
+        "turn_taking": true,
+        "tool_use_correct": true,
+        "instruction_following": true,
+        "kb_grounding": false
+      },
+      "strict_pass": false,
+      "reason": "The assistant answers the user's question, so it advances the task, and no tool call was expected or made. However, it asserts 'There are three MCP sessions on June 4th' while the knowledge base also lists session 914509 (Harald Kirschner, 'Full Spectrum MCP: Uncovering Hidden Servers and Clients Capabilities', June 4, 3:00 PM, MCP track). That is a concrete contradiction of the KB, and the governing policy explicitly forbids calculating or stating total session counts, so kb_grounding fails."
+    },
+    {
+      "arm": "openai21",
+      "attempt": 16,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T144352_gpt-realtime-2.1_d05404c1",
+      "category": "explicit_session_count",
+      "assistant": "There are three MCP track sessions listed for the conference: a keynote and two talks. There are also separate MCP workshops on Workshop Day, but those are listed under workshops rather than the conference MCP track sessions.",
+      "scores": {
+        "turn_taking": true,
+        "tool_use_correct": true,
+        "instruction_following": true,
+        "kb_grounding": false
+      },
+      "strict_pass": false,
+      "reason": "No tool call was expected or made, and the assistant did respond to the question, so instruction following stands. However, it asserted 'three MCP track sessions,' while the KB lists four June 4 MCP-track entries (947165, 914489, 915013, and Harald Kirschner's 914509 MCP talk at 3:00 PM). That is an explicit factual contradiction with the knowledge base, compounded by the policy direction not to compute session totals."
+    },
+    {
+      "arm": "gemini38",
+      "attempt": 23,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T144713_gemini-3.8-live-extended-thinking_f71032c2",
+      "category": "explicit_session_count",
+      "assistant": "There are 3 sessions in the MCP track, including a keynote by Theodora Chu, a talk by David Cramer, and a discussion led by Alex Volkov.",
+      "scores": {
+        "turn_taking": true,
+        "tool_use_correct": true,
+        "instruction_following": false,
+        "kb_grounding": true
+      },
+      "strict_pass": false,
+      "reason": "The governing policy states the assistant must not calculate or infer total numbers of sessions and should instead describe the kinds of sessions and their days. The assistant instead asserted a specific count of '3 sessions', which is also incomplete since the KB tags Harald Kirschner's June 4 3:00 PM talk (914509) to the MCP track. Instruction-following fails on the policy violation; the individual speakers named are correct, so KB grounding is not marked as a hard contradiction."
+    },
+    {
+      "arm": "openai21",
+      "attempt": 17,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T144439_gpt-realtime-2.1_713216b5",
+      "category": "explicit_session_count",
+      "assistant": "That depends a bit on what you mean by \u201cthat track.\u201d In the MCP track on the conference day, the knowledge base lists three sessions: a keynote and two talks. There\u2019s also at least one additional talk tagged with the MCP track elsewhere, and separate MCP workshops on June 3, which are not part of the conference-day sessions list. If you want, I can read out the MCP conference-day sessions by title and time.",
+      "scores": {
+        "turn_taking": true,
+        "tool_use_correct": true,
+        "instruction_following": true,
+        "kb_grounding": true
+      },
+      "strict_pass": true,
+      "reason": "Advances the request by clarifying scope and describing the MCP conference-day sessions (keynote plus talks) and the separate June 3 workshops, then offers to enumerate them. The description matches the knowledge base listings, so no factual error."
+    },
+    {
+      "arm": "gemini31",
+      "attempt": 24,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T144826_gemini-3.1-flash-live-preview_8a11ff4e",
+      "category": "overview_or_other",
+      "assistant": "The knowledge base doesn't list the total number of sessions for each track, but I can tell you about three specific talks on June 4th, including one about MCP origins and another on its observability. Would you like details on those?",
+      "scores": {
+        "turn_taking": true,
+        "tool_use_correct": true,
+        "instruction_following": true,
+        "kb_grounding": true
+      },
+      "strict_pass": true,
+      "reason": "Correctly avoids inferring a session total (explicitly disallowed by policy), states the limitation honestly, and offers a concrete overview of the MCP talks instead. Task advanced with no factual error."
+    },
+    {
+      "arm": "openai15",
+      "attempt": 17,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T144440_gpt-realtime-1.5_bb3dfa4d",
+      "category": "explicit_session_count",
+      "assistant": "On June 4, the MCP track has three sessions: \n\n1. At 11:15 AM, Theodora Chu presents \u201cMCP Origins & RFS.\u201d \n2. At 12:15 PM, David Cramer gives a talk titled \u201cMCP isn\u2019t good, yet.\u201d \n3. At 2:20 PM, Alex Volkov discusses \u201cObservable tools - the state of MCP observability.\u201d \n\nEach one dives into different aspects of building and understanding the Model Context Protocol.",
+      "scores": {
+        "turn_taking": true,
+        "tool_use_correct": true,
+        "instruction_following": true,
+        "kb_grounding": false
+      },
+      "strict_pass": false,
+      "reason": "The assistant advanced the conversation by listing sessions, but it asserted the June 4 MCP track has exactly three sessions. The knowledge base also lists Harald Kirschner's June 4, 3:00 PM MCP-track talk (ID 914509), so the stated total contradicts the source material; the governing policy also directs the assistant not to compute session totals. No tool call was expected or made."
+    },
+    {
+      "arm": "gemini38",
+      "attempt": 24,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T144931_gemini-3.8-live-extended-thinking_53892d93",
+      "category": "explicit_session_count",
+      "assistant": "The MCP track features 3 sessions, including an opening keynote about the origins of the protocol, a talk on the current state of observability, and a discussion on its limitations.",
+      "scores": {
+        "turn_taking": true,
+        "tool_use_correct": true,
+        "instruction_following": true,
+        "kb_grounding": false
+      },
+      "strict_pass": false,
+      "reason": "The assistant answered the question, so instruction_following holds, but it asserted the MCP track 'features 3 sessions'. The knowledge base lists four MCP-track sessions on June 4 (947165, 914489, 915013, and Harald Kirschner's 914509) plus two MCP workshops on June 3, so the stated count is an explicit factual error; the governing policy also directs against calculating session totals. kb_grounding fails. No tool call expected or made."
+    },
+    {
+      "arm": "openai21",
+      "attempt": 18,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T144623_gpt-realtime-2.1_fcecefbd",
+      "category": "explicit_session_count",
+      "assistant": "There are three sessions listed in the MCP track: the MCP Origins and RFS keynote, a talk titled \u201cMCP isn't good, yet,\u201d and another on MCP observability.",
+      "scores": {
+        "turn_taking": true,
+        "tool_use_correct": true,
+        "instruction_following": true,
+        "kb_grounding": false
+      },
+      "strict_pass": false,
+      "reason": "The turn answers the user's question, but the claim of 'three sessions' in the MCP track contradicts the KB, which also assigns session 914509 (Harald Kirschner, June 4, 3:00 PM) to the MCP track plus two June 3 MCP workshops. That is a specific factual error, so kb_grounding fails; no tool was expected or needed."
+    },
+    {
+      "arm": "gemini31",
+      "attempt": 25,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T144946_gemini-3.1-flash-live-preview_ae174ae1",
+      "category": "explicit_session_count",
+      "assistant": "There are four sessions listed for the MCP track on June 4th, plus a couple of related workshops on June 3rd. Would you like me to list them for you?",
+      "scores": {
+        "turn_taking": true,
+        "tool_use_correct": true,
+        "instruction_following": true,
+        "kb_grounding": true
+      },
+      "strict_pass": true,
+      "reason": "Answers the count question and offers to list the sessions. The figure matches the KB (three MCP-track entries plus Harald Kirschner's June 4 MCP talk, with two June 3 MCP workshops noted separately), so there is no factual error; the response advances the task."
+    },
+    {
+      "arm": "gemini38",
+      "attempt": 25,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T145220_gemini-3.8-live-extended-thinking_e8b45ac6",
+      "category": "explicit_session_count",
+      "assistant": "There are 3 sessions in the Model Context Protocol track scheduled for June 4th.",
+      "scores": {
+        "turn_taking": true,
+        "tool_use_correct": true,
+        "instruction_following": false,
+        "kb_grounding": false
+      },
+      "strict_pass": false,
+      "reason": "The governing policy directs the assistant not to calculate or infer total session counts and to describe the kinds of sessions and their days instead; the assistant instead answered with only a computed total. That total is also wrong: besides 947165, 914489 and 915013, the KB lists Harald Kirschner's 914509 as an MCP-track talk on June 4. No tool call was expected, so tool use is correct."
+    },
+    {
+      "arm": "openai15",
+      "attempt": 18,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T145425_gpt-realtime-1.5_52670ab6",
+      "category": "explicit_session_count",
+      "assistant": "The MCP track on June 4 includes three sessions: \n1. \u201cMCP Origins & RFS\u201d at 11:15 AM, \n2. \u201cMCP isn't good, yet.\u201d at 12:15 PM, \nand 3. \u201cObservable tools - the state of MCP observability\u201d at 2:20 PM.",
+      "scores": {
+        "turn_taking": true,
+        "tool_use_correct": true,
+        "instruction_following": false,
+        "kb_grounding": false
+      },
+      "strict_pass": false,
+      "reason": "The governing policy states not to calculate or infer total numbers of sessions and to describe the kinds of sessions instead; the assistant instead asserted a specific total of three. The total is also factually wrong against the knowledge base, which additionally lists Harald Kirschner's June 4, 3:00 PM talk in the MCP room/track (plus MCP workshops on June 3). No tool was expected or called."
+    },
+    {
+      "arm": "openai21",
+      "attempt": 19,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T145430_gpt-realtime-2.1_e2cec2f5",
+      "category": "explicit_session_count",
+      "assistant": "In the MCP track on the main conference day, June 4, there are three sessions listed.\n\nThere are also two MCP workshops on June 3, but those are separate workshop-day items, not part of the conference-day track sessions.",
+      "scores": {
+        "turn_taking": true,
+        "tool_use_correct": true,
+        "instruction_following": false,
+        "kb_grounding": true
+      },
+      "strict_pass": false,
+      "reason": "The governing policy explicitly states not to calculate or infer total numbers of sessions and to describe kinds of sessions and days instead; the assistant instead answered with an explicit count of 'three sessions' plus 'two MCP workshops'. That is a direct contradiction of the instruction, so instruction_following fails. The counts match the listed entries, so there is no factual error and kb_grounding holds. No tool was expected."
+    },
+    {
+      "arm": "openai15",
+      "attempt": 19,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T145527_gpt-realtime-1.5_812a90f6",
+      "category": "explicit_session_count",
+      "assistant": "On June 4, the MCP track has three sessions: \n\n1. \u201cMCP Origins & RFS,\u201d a keynote by Theodora Chu at 11:15 AM. \n2. \u201cMCP isn\u2019t good, yet.\u201d a talk by David Cramer at 12:15 PM. \n3. \u201cObservable tools - the state of MCP observability,\u201d a talk by Alex Volkov at 2:20 PM.",
+      "scores": {
+        "turn_taking": true,
+        "tool_use_correct": true,
+        "instruction_following": true,
+        "kb_grounding": true
+      },
+      "strict_pass": true,
+      "reason": "Answers the question by enumerating MCP-track sessions with accurate speakers, titles, and times. It gives a count where the golden gives a qualitative overview, but every fact stated matches the KB's MCP section, so there is no explicit factual contradiction. No tool call expected."
+    },
+    {
+      "arm": "openai21",
+      "attempt": 20,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T145543_gpt-realtime-2.1_e95fd97b",
+      "category": "explicit_session_count",
+      "assistant": "In the MCP conference track on June 4, there are three sessions listed: a keynote and two talks. If you meant the MCP workshops on June 3 instead, I can list those too.",
+      "scores": {
+        "turn_taking": true,
+        "tool_use_correct": true,
+        "instruction_following": false,
+        "kb_grounding": true
+      },
+      "strict_pass": false,
+      "reason": "The governing policy explicitly instructs the assistant not to calculate or infer total numbers of sessions and to describe the kinds of sessions and their days instead; the assistant instead asserted a specific count ('three sessions listed'), which is the exact behavior the policy and the golden response avoid. No tool was expected and none was called, and the count matches the KB entries so there is no factual contradiction."
+    },
+    {
+      "arm": "openai15",
+      "attempt": 20,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T145725_gpt-realtime-1.5_f4ad832f",
+      "category": "explicit_session_count",
+      "assistant": "On June 4, the MCP track has three sessions: \n1. At 11:15 AM, \u201cMCP Origins & RFS\u201d (a keynote) by Theodora Chu. \n2. At 12:15 PM, \u201cMCP isn\u2019t good, yet.\u201d by David Cramer. \n3. At 2:20 PM, \u201cObservable tools - the state of MCP observability\u201d by Alex Volkov.\n\nThose three sessions make up the MCP track for the conference.",
+      "scores": {
+        "turn_taking": true,
+        "tool_use_correct": true,
+        "instruction_following": false,
+        "kb_grounding": false
+      },
+      "strict_pass": false,
+      "reason": "No tool was expected or called, so tool use is fine. However, the governing policy states 'Do not calculate or infer total numbers of sessions, speakers, or topics. Describe the available kinds of sessions and their days instead,' and the golden response follows that by describing the mix rather than counting. The assistant instead asserted a total, and the total is wrong: the KB lists a fourth June 4 MCP-track session, 914509 'Full Spectrum MCP: Uncovering Hidden Servers and Clients Capabilities' by Harald Kirschner at 3:00 PM, plus two June 3 MCP workshops. The claim 'those three sessions make up the MCP track' is a clear factual contradiction of the knowledge base."
+    },
+    {
+      "arm": "openai15",
+      "attempt": 21,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T150526_gpt-realtime-1.5_0112e6b2",
+      "category": "explicit_session_count",
+      "assistant": "There are three sessions in the MCP track on June 4. At 11:15 AM, Theodora Chu delivers the keynote \u201cMCP Origins & RFS.\u201d Then at 12:15 PM, David Cramer presents \u201cMCP isn't good, yet.\u201d Finally, at 2:20 PM, Alex Volkov speaks on \u201cObservable tools - the state of MCP observability.\u201d All take place in Yerba Buena Ballroom Salons 7-8.",
+      "scores": {
+        "turn_taking": true,
+        "tool_use_correct": true,
+        "instruction_following": false,
+        "kb_grounding": false
+      },
+      "strict_pass": false,
+      "reason": "The governing policy directs the assistant not to calculate or infer total session counts and to describe the kinds of sessions instead; the assistant instead asserted a specific total. That total is also wrong: the KB lists Harald Kirschner's 'Full Spectrum MCP: Uncovering Hidden Servers and Clients Capabilities' (914509) at 3:00 PM on June 4 in the MCP track, so there are more than three. Both the policy violation and the factual undercount are concrete."
+    },
+    {
+      "arm": "openai21",
+      "attempt": 21,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T150516_gpt-realtime-2.1_5ea7cfe6",
+      "category": "explicit_session_count",
+      "assistant": "There are three MCP track sessions listed for June 4: a keynote and two talks in Yerba Buena Ballroom Salons 7 and 8. There are also separate MCP workshops on June 3, but those are part of Workshop Day rather than the conference-day track.",
+      "scores": {
+        "turn_taking": true,
+        "tool_use_correct": true,
+        "instruction_following": false,
+        "kb_grounding": true
+      },
+      "strict_pass": false,
+      "reason": "The governing policy states: do not calculate or infer total numbers of sessions, and instead describe the kinds of sessions and their days. The assistant instead asserted a specific total ('three MCP track sessions listed for June 4'), which is exactly the behavior the policy prohibits and which the golden response avoids; the tally also omits Harald Kirschner's June 4 MCP-track talk (914509). No tool was expected or needed, and the individual session details given are consistent with the MCP section, so only instruction following fails here."
+    },
+    {
+      "arm": "openai21",
+      "attempt": 22,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T150604_gpt-realtime-2.1_24da60b0",
+      "category": "explicit_session_count",
+      "assistant": "I can\u2019t give a total beyond what\u2019s listed, but for the conference MCP track on June 4, there are three sessions shown: the keynote \u201cMCP Origins and RFS,\u201d plus two talks, one titled \u201cMCP isn't good, yet.\u201d and another on MCP observability. There are also MCP workshops on June 3, but those are listed separately from the conference-day track.",
+      "scores": {
+        "turn_taking": true,
+        "tool_use_correct": true,
+        "instruction_following": true,
+        "kb_grounding": true
+      },
+      "strict_pass": true,
+      "reason": "Appropriately hedges on totals per policy while describing the listed MCP sessions and separating the June 3 workshops. Titles and formats match the KB, and the user's question is advanced rather than deflected."
+    },
+    {
+      "arm": "openai15",
+      "attempt": 22,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T150711_gpt-realtime-1.5_c5af0dec",
+      "category": "explicit_session_count",
+      "assistant": "On June 4th, the MCP track includes three sessions:\n\n1. 11:15 AM \u2013 \u201cMCP Origins & RFS\u201d by Theodora Chu.\n2. 12:15 PM \u2013 \u201cMCP isn't good, yet.\u201d by David Cramer.\n3. 2:20 PM \u2013 \u201cObservable tools - the state of MCP observability\u201d by Alex Volkov.\n\nSo if you're interested in MCP, you\u2019ll have three sessions to choose from that day.",
+      "scores": {
+        "turn_taking": true,
+        "tool_use_correct": true,
+        "instruction_following": false,
+        "kb_grounding": false
+      },
+      "strict_pass": false,
+      "reason": "The policy explicitly forbids calculating or inferring total numbers of sessions; the assistant instead asserted the MCP track 'includes three sessions.' That count is also incorrect against the KB, which additionally lists Harald Kirschner's June 4 3:00 PM 'Full Spectrum MCP' talk under the MCP track. Both the instruction and the factual claim fail; no tool call was expected so tool use is unaffected."
+    },
+    {
+      "arm": "openai21",
+      "attempt": 23,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T150835_gpt-realtime-2.1_8cb8a913",
+      "category": "overview_or_other",
+      "assistant": "I can\u2019t give a total count beyond what\u2019s listed, since I shouldn\u2019t infer missing schedule data. But here are the MCP sessions in the knowledge base for the conference day.\n\nAt 11:15 AM, \u201cMCP Origins and RFS\u201d with Theodora Chu.\n\nAt 12:15 PM, \u201cMCP isn't good, yet.\u201d with David Cramer.\n\nAt 2:20 PM, \u201cObservable tools - the state of MCP observability\u201d with Alex Volkov.\n\nThere are also MCP workshops on June 3, but those are on Workshop Day rather than the main conference track day.",
+      "scores": {
+        "turn_taking": true,
+        "tool_use_correct": true,
+        "instruction_following": true,
+        "kb_grounding": true
+      },
+      "strict_pass": true,
+      "reason": "Per policy it avoids computing a session total, but it still advances the request by listing the known MCP sessions with correct speakers and times and noting the June 3 MCP workshops. No factual errors."
+    },
+    {
+      "arm": "openai15",
+      "attempt": 23,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T151604_gpt-realtime-1.5_04611f15",
+      "category": "explicit_session_count",
+      "assistant": "The MCP track on June 4 has three sessions:\n\n1. At 11:15 AM, Theodora Chu presents \u201cMCP Origins & RFS.\u201d\n2. At 12:15 PM, David Cramer talks on \u201cMCP isn't good, yet.\u201d\n3. At 2:20 PM, Alex Volkov discusses \u201cObservable tools - the state of MCP observability.\u201d\n\nAll take place in Yerba Buena Ballroom Salons 7-8.",
+      "scores": {
+        "turn_taking": true,
+        "tool_use_correct": true,
+        "instruction_following": false,
+        "kb_grounding": true
+      },
+      "strict_pass": false,
+      "reason": "The governing policy directs the assistant not to calculate or infer total numbers of sessions and to describe kinds of sessions and their days instead. The assistant instead answered with a specific count of three, and that count is also incomplete because the KB lists a fourth MCP-track session on June 4 (Harald Kirschner, 3:00 PM, ID 914509). The specific missing action is describing the session kinds without a total; hence instruction_following is false. The three sessions it did name are individually accurate, so no explicit factual statement is contradicted and kb_grounding stays true. No tool call was expected."
+    },
+    {
+      "arm": "openai21",
+      "attempt": 24,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T151645_gpt-realtime-2.1_4cb07adb",
+      "category": "explicit_session_count",
+      "assistant": "There are three sessions listed in the MCP track on June 4.",
+      "scores": {
+        "turn_taking": true,
+        "tool_use_correct": true,
+        "instruction_following": false,
+        "kb_grounding": true
+      },
+      "strict_pass": false,
+      "reason": "The governing policy explicitly instructs not to calculate or infer total numbers of sessions and to describe the kinds of sessions and their days instead; the assistant instead gave a computed total of 'three sessions'. That is the specific contradiction with policy, so instruction_following fails. The count does match the KB's listed MCP June 4 entries, so there is no explicit factual error and kb_grounding stands. No tool call was expected."
+    },
+    {
+      "arm": "openai15",
+      "attempt": 24,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T151738_gpt-realtime-1.5_39897026",
+      "category": "explicit_session_count",
+      "assistant": "On June 4, the MCP track has three sessions:\n\n\u2022 11:15 AM: \u201cMCP Origins & RFS\u201d keynote by Theodora Chu \n\u2022 12:15 PM: \u201cMCP isn\u2019t good, yet.\u201d talk by David Cramer \n\u2022 2:20 PM: \u201cObservable tools - the state of MCP observability\u201d talk by Alex Volkov\n\nAll are scheduled in Yerba Buena Ballroom Salons 7-8.",
+      "scores": {
+        "turn_taking": true,
+        "tool_use_correct": true,
+        "instruction_following": false,
+        "kb_grounding": true
+      },
+      "strict_pass": false,
+      "reason": "The governing policy explicitly forbids calculating or inferring total numbers of sessions and directs the assistant to describe the kinds of sessions and their days instead, which is what the golden response does. The assistant instead asserted a total ('three sessions'), and that total also omits Harald Kirschner's June 4 MCP-track talk (914509) \u2014 a concrete instruction-following error. kb_grounding remains true because the individual dates, times, speakers, and rooms cited are all accurate."
+    },
+    {
+      "arm": "openai21",
+      "attempt": 25,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T151759_gpt-realtime-2.1_796c9a5f",
+      "category": "explicit_session_count",
+      "assistant": "For the MCP track on June 4, there are three listed sessions: the keynote \u201cMCP Origins and RFS,\u201d and two talks, including one on observability. There are also MCP workshops on June 3, but those are separate from the conference-day track.",
+      "scores": {
+        "turn_taking": true,
+        "tool_use_correct": true,
+        "instruction_following": false,
+        "kb_grounding": true
+      },
+      "strict_pass": false,
+      "reason": "The governing policy states: 'Do not calculate or infer total numbers of sessions, speakers, or topics. Describe the available kinds of sessions and their days instead.' The assistant instead produced a tally ('three listed sessions'), which is the exact behavior the policy forbids and which the golden response deliberately avoids. The underlying facts are consistent with the knowledge base, so kb_grounding stands, but instruction_following fails on this specific policy contradiction. No tool was expected or called."
+    },
+    {
+      "arm": "openai15",
+      "attempt": 25,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T152001_gpt-realtime-1.5_2226ea41",
+      "category": "explicit_session_count",
+      "assistant": "The MCP track on June 4th has three sessions:\n1. MCP Origins & RFS with Theodora Chu at 11:15 AM.\n2. MCP isn't good, yet. with David Cramer at 12:15 PM.\n3. Observable tools - the state of MCP observability with Alex Volkov at 2:20 PM.\n\nAll sessions are in Yerba Buena Ballroom Salons 7-8.",
+      "scores": {
+        "turn_taking": true,
+        "tool_use_correct": true,
+        "instruction_following": false,
+        "kb_grounding": true
+      },
+      "strict_pass": false,
+      "reason": "The assistant stated a total session count ('The MCP track on June 4th has three sessions'), which directly contradicts the governing policy instruction 'Do not calculate or infer total numbers of sessions, speakers, or topics. Describe the available kinds of sessions and their days instead' \u2014 the behavior the golden response models. The individual session details it gave are accurate to the KB, so grounding stands; no tool call was expected."
+    }
+  ]
+}

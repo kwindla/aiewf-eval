@@ -1,0 +1,25 @@
+{
+  "label": "Gemini 3.8 Extended Thinking medium: IDLE exchange audit",
+  "method": "gemini-idle-exchanges-v1",
+  "attempts": 25,
+  "planned_turns": 750,
+  "concurrency": 5,
+  "replace_failures": false,
+  "model": "gemini-3.8-live-extended-thinking",
+  "thinking": "medium",
+  "source_hashes": {
+    "src/multi_turn_eval/pipelines/realtime.py": "358795d39f3694da79ac4c8fe61e2a91aee02a9d1829ca9b9e0c6d6cd9bd5273",
+    "docs/gemini38-extended-exchanges-2026-09-16/adapter.py": "62268855a03797c18416c0547cdd3a9434e5cefb2363927e84095a978582ee44",
+    "docs/gemini38-extended-exchanges-2026-09-16/capture.py": "269a3f5090ff0c8d95534af16ab1996962198a5432f3a158d54865e656b33283",
+    "docs/gemini38-extended-exchanges-2026-09-16/reconstruct.py": "f2d647719833fa2670aa46b0a72ae384225adb948cd6d5079968e69eb82c0197",
+    "docs/gemini38-extended-exchanges-2026-09-16/judge_reconstructed.py": "cb4029009b78d6695cf8d1e8f0fd31443365ed71d4efe7403c3ee623e8c00652",
+    "docs/gemini38-extended-exchanges-2026-09-16/process_run.py": "4b7da1002425097a3191ed33d7da847832896cb72dc8f20982a81ff7d0b1ce3b"
+  },
+  "prompt_sha256": "0ff3ba3519554c8743095841a93af92c25d76ec2243d7abb4d1451578a701f9f",
+  "judge_sha256": "c5a8a3b3c3240172cc392529a1784b59d2913a32e2ec2ba843a456415b75ef27",
+  "versions": {
+    "google-genai": "2.23.0",
+    "pipecat-ai": "1.10.0"
+  },
+  "substantive_latency": "Not claimed; first speech includes acknowledgments."
+}

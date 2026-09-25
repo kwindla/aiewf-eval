@@ -1,0 +1,9 @@
+{
+  "attempts": 25,
+  "complete": 25,
+  "strict_percent": 94.26666666666667,
+  "canonical_eligible": false,
+  "judge_conflict_flags": 0,
+  "report": "/home/khkramer/src/aiewf-eval/docs/gpt-live-fixed-gate-n25-2026-09-15/REPORT.md",
+  "finished_unix": 1789539026.0004249
+}

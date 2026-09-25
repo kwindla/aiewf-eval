@@ -1,0 +1,5 @@
+{"arm": "grok", "exit_code": -15, "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T132356_grok-voice-think-fast-1.0_fd5484c1"}
+{"arm": "gemini38", "exit_code": 0, "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T132356_gemini-3.8-live-extended-thinking_46335d93"}
+{"arm": "gemini31", "exit_code": 0, "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T132356_gemini-3.1-flash-live-preview_74338a9b"}
+{"arm": "openai15", "exit_code": 0, "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T132356_gpt-realtime-1.5_c8b73a5b"}
+{"arm": "openai21", "exit_code": 0, "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T132356_gpt-realtime-2.1_ea9ea75d"}

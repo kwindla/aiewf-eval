@@ -1,0 +1,2851 @@
+{
+  "summary": {
+    "openai21": {
+      "attempts_finished": 20,
+      "complete": 20,
+      "failure_reasons": {},
+      "attempts_with_error_evidence": {
+        "api_error": 0,
+        "rate_limit": 0,
+        "adapter_error": 0,
+        "reconnect": 0
+      }
+    },
+    "grok": {
+      "attempts_finished": 25,
+      "complete": 25,
+      "failure_reasons": {},
+      "attempts_with_error_evidence": {
+        "api_error": 0,
+        "rate_limit": 0,
+        "adapter_error": 0,
+        "reconnect": 0
+      }
+    },
+    "openai15": {
+      "attempts_finished": 20,
+      "complete": 20,
+      "failure_reasons": {},
+      "attempts_with_error_evidence": {
+        "api_error": 0,
+        "rate_limit": 0,
+        "adapter_error": 0,
+        "reconnect": 0
+      }
+    },
+    "gemini31": {
+      "attempts_finished": 25,
+      "complete": 24,
+      "failure_reasons": {
+        "no_audio_timeout": 1
+      },
+      "attempts_with_error_evidence": {
+        "api_error": 0,
+        "rate_limit": 0,
+        "adapter_error": 0,
+        "reconnect": 0
+      }
+    },
+    "gemini38": {
+      "attempts_finished": 25,
+      "complete": 25,
+      "failure_reasons": {},
+      "attempts_with_error_evidence": {
+        "api_error": 0,
+        "rate_limit": 0,
+        "adapter_error": 0,
+        "reconnect": 0
+      }
+    }
+  },
+  "attempts": [
+    {
+      "arm": "gemini38",
+      "index": 2,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T133854_gemini-3.8-live-extended-thinking_b68a4d37",
+      "complete": true,
+      "recorded_turns": 30,
+      "missing_turns": [],
+      "failure_reason": null,
+      "runtime": {
+        "model_name": "gemini-3.8-live-extended-thinking",
+        "turns": 30,
+        "status": "completed",
+        "valid": true,
+        "note": "runtime-only; scoring is performed post-run"
+      },
+      "evidence": {
+        "rate_limit": [],
+        "api_error": [],
+        "adapter_error": [],
+        "reconnect": []
+      },
+      "next_input_queued_before_previous_finished": [],
+      "transcript_reconnections": 0
+    },
+    {
+      "arm": "gemini38",
+      "index": 1,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T133854_gemini-3.8-live-extended-thinking_cfcf320c",
+      "complete": true,
+      "recorded_turns": 30,
+      "missing_turns": [],
+      "failure_reason": null,
+      "runtime": {
+        "model_name": "gemini-3.8-live-extended-thinking",
+        "turns": 30,
+        "status": "completed",
+        "valid": true,
+        "note": "runtime-only; scoring is performed post-run"
+      },
+      "evidence": {
+        "rate_limit": [],
+        "api_error": [],
+        "adapter_error": [],
+        "reconnect": []
+      },
+      "next_input_queued_before_previous_finished": [],
+      "transcript_reconnections": 0
+    },
+    {
+      "arm": "gemini31",
+      "index": 2,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T133854_gemini-3.1-flash-live-preview_03507c18",
+      "complete": true,
+      "recorded_turns": 30,
+      "missing_turns": [],
+      "failure_reason": null,
+      "runtime": {
+        "model_name": "gemini-3.1-flash-live-preview",
+        "turns": 30,
+        "status": "completed",
+        "valid": true,
+        "note": "runtime-only; scoring is performed post-run"
+      },
+      "evidence": {
+        "rate_limit": [],
+        "api_error": [],
+        "adapter_error": [],
+        "reconnect": []
+      },
+      "next_input_queued_before_previous_finished": [],
+      "transcript_reconnections": 0
+    },
+    {
+      "arm": "gemini31",
+      "index": 3,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T133854_gemini-3.1-flash-live-preview_ecd5ae6d",
+      "complete": true,
+      "recorded_turns": 30,
+      "missing_turns": [],
+      "failure_reason": null,
+      "runtime": {
+        "model_name": "gemini-3.1-flash-live-preview",
+        "turns": 30,
+        "status": "completed",
+        "valid": true,
+        "note": "runtime-only; scoring is performed post-run"
+      },
+      "evidence": {
+        "rate_limit": [],
+        "api_error": [],
+        "adapter_error": [],
+        "reconnect": []
+      },
+      "next_input_queued_before_previous_finished": [],
+      "transcript_reconnections": 0
+    },
+    {
+      "arm": "grok",
+      "index": 3,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T133854_grok-voice-think-fast-1.0_22ae863f",
+      "complete": true,
+      "recorded_turns": 30,
+      "missing_turns": [],
+      "failure_reason": null,
+      "runtime": {
+        "model_name": "grok-voice-think-fast-1.0",
+        "turns": 30,
+        "status": "completed",
+        "valid": true,
+        "note": "runtime-only; scoring is performed post-run"
+      },
+      "evidence": {
+        "rate_limit": [],
+        "api_error": [],
+        "adapter_error": [],
+        "reconnect": []
+      },
+      "next_input_queued_before_previous_finished": [],
+      "transcript_reconnections": 0
+    },
+    {
+      "arm": "gemini31",
+      "index": 1,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T133854_gemini-3.1-flash-live-preview_fb904290",
+      "complete": true,
+      "recorded_turns": 30,
+      "missing_turns": [],
+      "failure_reason": null,
+      "runtime": {
+        "model_name": "gemini-3.1-flash-live-preview",
+        "turns": 30,
+        "status": "completed",
+        "valid": true,
+        "note": "runtime-only; scoring is performed post-run"
+      },
+      "evidence": {
+        "rate_limit": [],
+        "api_error": [],
+        "adapter_error": [],
+        "reconnect": []
+      },
+      "next_input_queued_before_previous_finished": [],
+      "transcript_reconnections": 0
+    },
+    {
+      "arm": "grok",
+      "index": 1,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T133854_grok-voice-think-fast-1.0_c4d6ab6e",
+      "complete": true,
+      "recorded_turns": 30,
+      "missing_turns": [],
+      "failure_reason": null,
+      "runtime": {
+        "model_name": "grok-voice-think-fast-1.0",
+        "turns": 30,
+        "status": "completed",
+        "valid": true,
+        "note": "runtime-only; scoring is performed post-run"
+      },
+      "evidence": {
+        "rate_limit": [],
+        "api_error": [],
+        "adapter_error": [],
+        "reconnect": []
+      },
+      "next_input_queued_before_previous_finished": [],
+      "transcript_reconnections": 0
+    },
+    {
+      "arm": "grok",
+      "index": 5,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T133854_grok-voice-think-fast-1.0_d024c854",
+      "complete": true,
+      "recorded_turns": 30,
+      "missing_turns": [],
+      "failure_reason": null,
+      "runtime": {
+        "model_name": "grok-voice-think-fast-1.0",
+        "turns": 30,
+        "status": "completed",
+        "valid": true,
+        "note": "runtime-only; scoring is performed post-run"
+      },
+      "evidence": {
+        "rate_limit": [],
+        "api_error": [],
+        "adapter_error": [],
+        "reconnect": []
+      },
+      "next_input_queued_before_previous_finished": [],
+      "transcript_reconnections": 0
+    },
+    {
+      "arm": "grok",
+      "index": 4,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T133854_grok-voice-think-fast-1.0_bc3d1cad",
+      "complete": true,
+      "recorded_turns": 30,
+      "missing_turns": [],
+      "failure_reason": null,
+      "runtime": {
+        "model_name": "grok-voice-think-fast-1.0",
+        "turns": 30,
+        "status": "completed",
+        "valid": true,
+        "note": "runtime-only; scoring is performed post-run"
+      },
+      "evidence": {
+        "rate_limit": [],
+        "api_error": [],
+        "adapter_error": [],
+        "reconnect": []
+      },
+      "next_input_queued_before_previous_finished": [],
+      "transcript_reconnections": 0
+    },
+    {
+      "arm": "grok",
+      "index": 2,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T133854_grok-voice-think-fast-1.0_7afe9c9d",
+      "complete": true,
+      "recorded_turns": 30,
+      "missing_turns": [],
+      "failure_reason": null,
+      "runtime": {
+        "model_name": "grok-voice-think-fast-1.0",
+        "turns": 30,
+        "status": "completed",
+        "valid": true,
+        "note": "runtime-only; scoring is performed post-run"
+      },
+      "evidence": {
+        "rate_limit": [],
+        "api_error": [],
+        "adapter_error": [],
+        "reconnect": []
+      },
+      "next_input_queued_before_previous_finished": [],
+      "transcript_reconnections": 0
+    },
+    {
+      "arm": "openai15",
+      "index": 1,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T133854_gpt-realtime-1.5_dbbec089",
+      "complete": true,
+      "recorded_turns": 30,
+      "missing_turns": [],
+      "failure_reason": null,
+      "runtime": {
+        "model_name": "gpt-realtime-1.5",
+        "turns": 30,
+        "status": "completed",
+        "valid": true,
+        "note": "runtime-only; scoring is performed post-run"
+      },
+      "evidence": {
+        "rate_limit": [],
+        "api_error": [],
+        "adapter_error": [],
+        "reconnect": []
+      },
+      "next_input_queued_before_previous_finished": [],
+      "transcript_reconnections": 0
+    },
+    {
+      "arm": "openai15",
+      "index": 2,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T133854_gpt-realtime-1.5_c5dd5329",
+      "complete": true,
+      "recorded_turns": 30,
+      "missing_turns": [],
+      "failure_reason": null,
+      "runtime": {
+        "model_name": "gpt-realtime-1.5",
+        "turns": 30,
+        "status": "completed",
+        "valid": true,
+        "note": "runtime-only; scoring is performed post-run"
+      },
+      "evidence": {
+        "rate_limit": [],
+        "api_error": [],
+        "adapter_error": [],
+        "reconnect": []
+      },
+      "next_input_queued_before_previous_finished": [],
+      "transcript_reconnections": 0
+    },
+    {
+      "arm": "openai21",
+      "index": 1,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T133854_gpt-realtime-2.1_0e73c0e8",
+      "complete": true,
+      "recorded_turns": 30,
+      "missing_turns": [],
+      "failure_reason": null,
+      "runtime": {
+        "model_name": "gpt-realtime-2.1",
+        "turns": 30,
+        "status": "completed",
+        "valid": true,
+        "note": "runtime-only; scoring is performed post-run"
+      },
+      "evidence": {
+        "rate_limit": [],
+        "api_error": [],
+        "adapter_error": [],
+        "reconnect": []
+      },
+      "next_input_queued_before_previous_finished": [],
+      "transcript_reconnections": 0
+    },
+    {
+      "arm": "openai21",
+      "index": 3,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T133854_gpt-realtime-2.1_f1362dfa",
+      "complete": true,
+      "recorded_turns": 30,
+      "missing_turns": [],
+      "failure_reason": null,
+      "runtime": {
+        "model_name": "gpt-realtime-2.1",
+        "turns": 30,
+        "status": "completed",
+        "valid": true,
+        "note": "runtime-only; scoring is performed post-run"
+      },
+      "evidence": {
+        "rate_limit": [],
+        "api_error": [],
+        "adapter_error": [],
+        "reconnect": []
+      },
+      "next_input_queued_before_previous_finished": [],
+      "transcript_reconnections": 0
+    },
+    {
+      "arm": "openai21",
+      "index": 2,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T133854_gpt-realtime-2.1_4d6d4f9f",
+      "complete": true,
+      "recorded_turns": 30,
+      "missing_turns": [],
+      "failure_reason": null,
+      "runtime": {
+        "model_name": "gpt-realtime-2.1",
+        "turns": 30,
+        "status": "completed",
+        "valid": true,
+        "note": "runtime-only; scoring is performed post-run"
+      },
+      "evidence": {
+        "rate_limit": [],
+        "api_error": [],
+        "adapter_error": [],
+        "reconnect": []
+      },
+      "next_input_queued_before_previous_finished": [],
+      "transcript_reconnections": 0
+    },
+    {
+      "arm": "gemini38",
+      "index": 3,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T134551_gemini-3.8-live-extended-thinking_d8712bea",
+      "complete": true,
+      "recorded_turns": 30,
+      "missing_turns": [],
+      "failure_reason": null,
+      "runtime": {
+        "model_name": "gemini-3.8-live-extended-thinking",
+        "turns": 30,
+        "status": "completed",
+        "valid": true,
+        "note": "runtime-only; scoring is performed post-run"
+      },
+      "evidence": {
+        "rate_limit": [],
+        "api_error": [],
+        "adapter_error": [],
+        "reconnect": []
+      },
+      "next_input_queued_before_previous_finished": [],
+      "transcript_reconnections": 0
+    },
+    {
+      "arm": "gemini38",
+      "index": 5,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T134731_gemini-3.8-live-extended-thinking_9c6638d5",
+      "complete": true,
+      "recorded_turns": 30,
+      "missing_turns": [],
+      "failure_reason": null,
+      "runtime": {
+        "model_name": "gemini-3.8-live-extended-thinking",
+        "turns": 30,
+        "status": "completed",
+        "valid": true,
+        "note": "runtime-only; scoring is performed post-run"
+      },
+      "evidence": {
+        "rate_limit": [],
+        "api_error": [],
+        "adapter_error": [],
+        "reconnect": []
+      },
+      "next_input_queued_before_previous_finished": [],
+      "transcript_reconnections": 0
+    },
+    {
+      "arm": "gemini38",
+      "index": 4,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T134707_gemini-3.8-live-extended-thinking_c6a961a1",
+      "complete": true,
+      "recorded_turns": 30,
+      "missing_turns": [],
+      "failure_reason": null,
+      "runtime": {
+        "model_name": "gemini-3.8-live-extended-thinking",
+        "turns": 30,
+        "status": "completed",
+        "valid": true,
+        "note": "runtime-only; scoring is performed post-run"
+      },
+      "evidence": {
+        "rate_limit": [],
+        "api_error": [],
+        "adapter_error": [],
+        "reconnect": []
+      },
+      "next_input_queued_before_previous_finished": [],
+      "transcript_reconnections": 0
+    },
+    {
+      "arm": "gemini31",
+      "index": 4,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T134604_gemini-3.1-flash-live-preview_5b457e10",
+      "complete": true,
+      "recorded_turns": 30,
+      "missing_turns": [],
+      "failure_reason": null,
+      "runtime": {
+        "model_name": "gemini-3.1-flash-live-preview",
+        "turns": 30,
+        "status": "completed",
+        "valid": true,
+        "note": "runtime-only; scoring is performed post-run"
+      },
+      "evidence": {
+        "rate_limit": [],
+        "api_error": [],
+        "adapter_error": [],
+        "reconnect": []
+      },
+      "next_input_queued_before_previous_finished": [],
+      "transcript_reconnections": 0
+    },
+    {
+      "arm": "grok",
+      "index": 9,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T134739_grok-voice-think-fast-1.0_5cb2e5e3",
+      "complete": true,
+      "recorded_turns": 30,
+      "missing_turns": [],
+      "failure_reason": null,
+      "runtime": {
+        "model_name": "grok-voice-think-fast-1.0",
+        "turns": 30,
+        "status": "completed",
+        "valid": true,
+        "note": "runtime-only; scoring is performed post-run"
+      },
+      "evidence": {
+        "rate_limit": [],
+        "api_error": [],
+        "adapter_error": [],
+        "reconnect": []
+      },
+      "next_input_queued_before_previous_finished": [],
+      "transcript_reconnections": 0
+    },
+    {
+      "arm": "grok",
+      "index": 6,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T134729_grok-voice-think-fast-1.0_f0e74e8c",
+      "complete": true,
+      "recorded_turns": 30,
+      "missing_turns": [],
+      "failure_reason": null,
+      "runtime": {
+        "model_name": "grok-voice-think-fast-1.0",
+        "turns": 30,
+        "status": "completed",
+        "valid": true,
+        "note": "runtime-only; scoring is performed post-run"
+      },
+      "evidence": {
+        "rate_limit": [],
+        "api_error": [],
+        "adapter_error": [],
+        "reconnect": []
+      },
+      "next_input_queued_before_previous_finished": [],
+      "transcript_reconnections": 0
+    },
+    {
+      "arm": "gemini31",
+      "index": 5,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T134726_gemini-3.1-flash-live-preview_9390254f",
+      "complete": true,
+      "recorded_turns": 30,
+      "missing_turns": [],
+      "failure_reason": null,
+      "runtime": {
+        "model_name": "gemini-3.1-flash-live-preview",
+        "turns": 30,
+        "status": "completed",
+        "valid": true,
+        "note": "runtime-only; scoring is performed post-run"
+      },
+      "evidence": {
+        "rate_limit": [],
+        "api_error": [],
+        "adapter_error": [],
+        "reconnect": []
+      },
+      "next_input_queued_before_previous_finished": [],
+      "transcript_reconnections": 0
+    },
+    {
+      "arm": "grok",
+      "index": 7,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T134735_grok-voice-think-fast-1.0_b0e6b455",
+      "complete": true,
+      "recorded_turns": 30,
+      "missing_turns": [],
+      "failure_reason": null,
+      "runtime": {
+        "model_name": "grok-voice-think-fast-1.0",
+        "turns": 30,
+        "status": "completed",
+        "valid": true,
+        "note": "runtime-only; scoring is performed post-run"
+      },
+      "evidence": {
+        "rate_limit": [],
+        "api_error": [],
+        "adapter_error": [],
+        "reconnect": []
+      },
+      "next_input_queued_before_previous_finished": [],
+      "transcript_reconnections": 0
+    },
+    {
+      "arm": "grok",
+      "index": 10,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T134809_grok-voice-think-fast-1.0_45b01df4",
+      "complete": true,
+      "recorded_turns": 30,
+      "missing_turns": [],
+      "failure_reason": null,
+      "runtime": {
+        "model_name": "grok-voice-think-fast-1.0",
+        "turns": 30,
+        "status": "completed",
+        "valid": true,
+        "note": "runtime-only; scoring is performed post-run"
+      },
+      "evidence": {
+        "rate_limit": [],
+        "api_error": [],
+        "adapter_error": [],
+        "reconnect": []
+      },
+      "next_input_queued_before_previous_finished": [],
+      "transcript_reconnections": 0
+    },
+    {
+      "arm": "grok",
+      "index": 8,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T134739_grok-voice-think-fast-1.0_b2d9988e",
+      "complete": true,
+      "recorded_turns": 30,
+      "missing_turns": [],
+      "failure_reason": null,
+      "runtime": {
+        "model_name": "grok-voice-think-fast-1.0",
+        "turns": 30,
+        "status": "completed",
+        "valid": true,
+        "note": "runtime-only; scoring is performed post-run"
+      },
+      "evidence": {
+        "rate_limit": [],
+        "api_error": [],
+        "adapter_error": [],
+        "reconnect": []
+      },
+      "next_input_queued_before_previous_finished": [],
+      "transcript_reconnections": 0
+    },
+    {
+      "arm": "openai15",
+      "index": 4,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T134938_gpt-realtime-1.5_ee806789",
+      "complete": true,
+      "recorded_turns": 30,
+      "missing_turns": [],
+      "failure_reason": null,
+      "runtime": {
+        "model_name": "gpt-realtime-1.5",
+        "turns": 30,
+        "status": "completed",
+        "valid": true,
+        "note": "runtime-only; scoring is performed post-run"
+      },
+      "evidence": {
+        "rate_limit": [],
+        "api_error": [],
+        "adapter_error": [],
+        "reconnect": []
+      },
+      "next_input_queued_before_previous_finished": [],
+      "transcript_reconnections": 0
+    },
+    {
+      "arm": "openai15",
+      "index": 3,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T134913_gpt-realtime-1.5_5967dc90",
+      "complete": true,
+      "recorded_turns": 30,
+      "missing_turns": [],
+      "failure_reason": null,
+      "runtime": {
+        "model_name": "gpt-realtime-1.5",
+        "turns": 30,
+        "status": "completed",
+        "valid": true,
+        "note": "runtime-only; scoring is performed post-run"
+      },
+      "evidence": {
+        "rate_limit": [],
+        "api_error": [],
+        "adapter_error": [],
+        "reconnect": []
+      },
+      "next_input_queued_before_previous_finished": [],
+      "transcript_reconnections": 0
+    },
+    {
+      "arm": "openai15",
+      "index": 5,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T135026_gpt-realtime-1.5_340b21e5",
+      "complete": true,
+      "recorded_turns": 30,
+      "missing_turns": [],
+      "failure_reason": null,
+      "runtime": {
+        "model_name": "gpt-realtime-1.5",
+        "turns": 30,
+        "status": "completed",
+        "valid": true,
+        "note": "runtime-only; scoring is performed post-run"
+      },
+      "evidence": {
+        "rate_limit": [],
+        "api_error": [],
+        "adapter_error": [],
+        "reconnect": []
+      },
+      "next_input_queued_before_previous_finished": [],
+      "transcript_reconnections": 0
+    },
+    {
+      "arm": "openai21",
+      "index": 4,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T134924_gpt-realtime-2.1_221f3b0e",
+      "complete": true,
+      "recorded_turns": 30,
+      "missing_turns": [],
+      "failure_reason": null,
+      "runtime": {
+        "model_name": "gpt-realtime-2.1",
+        "turns": 30,
+        "status": "completed",
+        "valid": true,
+        "note": "runtime-only; scoring is performed post-run"
+      },
+      "evidence": {
+        "rate_limit": [],
+        "api_error": [],
+        "adapter_error": [],
+        "reconnect": []
+      },
+      "next_input_queued_before_previous_finished": [],
+      "transcript_reconnections": 0
+    },
+    {
+      "arm": "openai21",
+      "index": 5,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T134948_gpt-realtime-2.1_a6830733",
+      "complete": true,
+      "recorded_turns": 30,
+      "missing_turns": [],
+      "failure_reason": null,
+      "runtime": {
+        "model_name": "gpt-realtime-2.1",
+        "turns": 30,
+        "status": "completed",
+        "valid": true,
+        "note": "runtime-only; scoring is performed post-run"
+      },
+      "evidence": {
+        "rate_limit": [],
+        "api_error": [],
+        "adapter_error": [],
+        "reconnect": []
+      },
+      "next_input_queued_before_previous_finished": [],
+      "transcript_reconnections": 0
+    },
+    {
+      "arm": "gemini38",
+      "index": 6,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T135417_gemini-3.8-live-extended-thinking_e6b6129c",
+      "complete": true,
+      "recorded_turns": 30,
+      "missing_turns": [],
+      "failure_reason": null,
+      "runtime": {
+        "model_name": "gemini-3.8-live-extended-thinking",
+        "turns": 30,
+        "status": "completed",
+        "valid": true,
+        "note": "runtime-only; scoring is performed post-run"
+      },
+      "evidence": {
+        "rate_limit": [],
+        "api_error": [],
+        "adapter_error": [],
+        "reconnect": []
+      },
+      "next_input_queued_before_previous_finished": [],
+      "transcript_reconnections": 0
+    },
+    {
+      "arm": "gemini38",
+      "index": 7,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T135435_gemini-3.8-live-extended-thinking_084d54b5",
+      "complete": true,
+      "recorded_turns": 30,
+      "missing_turns": [],
+      "failure_reason": null,
+      "runtime": {
+        "model_name": "gemini-3.8-live-extended-thinking",
+        "turns": 30,
+        "status": "completed",
+        "valid": true,
+        "note": "runtime-only; scoring is performed post-run"
+      },
+      "evidence": {
+        "rate_limit": [],
+        "api_error": [],
+        "adapter_error": [],
+        "reconnect": []
+      },
+      "next_input_queued_before_previous_finished": [],
+      "transcript_reconnections": 0
+    },
+    {
+      "arm": "gemini31",
+      "index": 6,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T135338_gemini-3.1-flash-live-preview_3917b0c0",
+      "complete": true,
+      "recorded_turns": 30,
+      "missing_turns": [],
+      "failure_reason": null,
+      "runtime": {
+        "model_name": "gemini-3.1-flash-live-preview",
+        "turns": 30,
+        "status": "completed",
+        "valid": true,
+        "note": "runtime-only; scoring is performed post-run"
+      },
+      "evidence": {
+        "rate_limit": [],
+        "api_error": [],
+        "adapter_error": [],
+        "reconnect": []
+      },
+      "next_input_queued_before_previous_finished": [],
+      "transcript_reconnections": 0
+    },
+    {
+      "arm": "gemini31",
+      "index": 7,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T135427_gemini-3.1-flash-live-preview_be4a2d67",
+      "complete": true,
+      "recorded_turns": 30,
+      "missing_turns": [],
+      "failure_reason": null,
+      "runtime": {
+        "model_name": "gemini-3.1-flash-live-preview",
+        "turns": 30,
+        "status": "completed",
+        "valid": true,
+        "note": "runtime-only; scoring is performed post-run"
+      },
+      "evidence": {
+        "rate_limit": [],
+        "api_error": [],
+        "adapter_error": [],
+        "reconnect": []
+      },
+      "next_input_queued_before_previous_finished": [],
+      "transcript_reconnections": 0
+    },
+    {
+      "arm": "grok",
+      "index": 11,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T135600_grok-voice-think-fast-1.0_2f713234",
+      "complete": true,
+      "recorded_turns": 30,
+      "missing_turns": [],
+      "failure_reason": null,
+      "runtime": {
+        "model_name": "grok-voice-think-fast-1.0",
+        "turns": 30,
+        "status": "completed",
+        "valid": true,
+        "note": "runtime-only; scoring is performed post-run"
+      },
+      "evidence": {
+        "rate_limit": [],
+        "api_error": [],
+        "adapter_error": [],
+        "reconnect": []
+      },
+      "next_input_queued_before_previous_finished": [],
+      "transcript_reconnections": 0
+    },
+    {
+      "arm": "gemini31",
+      "index": 8,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T135627_gemini-3.1-flash-live-preview_74e6c92b",
+      "complete": true,
+      "recorded_turns": 30,
+      "missing_turns": [],
+      "failure_reason": null,
+      "runtime": {
+        "model_name": "gemini-3.1-flash-live-preview",
+        "turns": 30,
+        "status": "completed",
+        "valid": true,
+        "note": "runtime-only; scoring is performed post-run"
+      },
+      "evidence": {
+        "rate_limit": [],
+        "api_error": [],
+        "adapter_error": [],
+        "reconnect": []
+      },
+      "next_input_queued_before_previous_finished": [],
+      "transcript_reconnections": 0
+    },
+    {
+      "arm": "grok",
+      "index": 12,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T135611_grok-voice-think-fast-1.0_01145f2c",
+      "complete": true,
+      "recorded_turns": 30,
+      "missing_turns": [],
+      "failure_reason": null,
+      "runtime": {
+        "model_name": "grok-voice-think-fast-1.0",
+        "turns": 30,
+        "status": "completed",
+        "valid": true,
+        "note": "runtime-only; scoring is performed post-run"
+      },
+      "evidence": {
+        "rate_limit": [],
+        "api_error": [],
+        "adapter_error": [],
+        "reconnect": []
+      },
+      "next_input_queued_before_previous_finished": [],
+      "transcript_reconnections": 0
+    },
+    {
+      "arm": "grok",
+      "index": 14,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T135701_grok-voice-think-fast-1.0_248615b0",
+      "complete": true,
+      "recorded_turns": 30,
+      "missing_turns": [],
+      "failure_reason": null,
+      "runtime": {
+        "model_name": "grok-voice-think-fast-1.0",
+        "turns": 30,
+        "status": "completed",
+        "valid": true,
+        "note": "runtime-only; scoring is performed post-run"
+      },
+      "evidence": {
+        "rate_limit": [],
+        "api_error": [],
+        "adapter_error": [],
+        "reconnect": []
+      },
+      "next_input_queued_before_previous_finished": [],
+      "transcript_reconnections": 0
+    },
+    {
+      "arm": "grok",
+      "index": 13,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T135631_grok-voice-think-fast-1.0_98c98110",
+      "complete": true,
+      "recorded_turns": 30,
+      "missing_turns": [],
+      "failure_reason": null,
+      "runtime": {
+        "model_name": "grok-voice-think-fast-1.0",
+        "turns": 30,
+        "status": "completed",
+        "valid": true,
+        "note": "runtime-only; scoring is performed post-run"
+      },
+      "evidence": {
+        "rate_limit": [],
+        "api_error": [],
+        "adapter_error": [],
+        "reconnect": []
+      },
+      "next_input_queued_before_previous_finished": [],
+      "transcript_reconnections": 0
+    },
+    {
+      "arm": "grok",
+      "index": 15,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T135701_grok-voice-think-fast-1.0_9929df50",
+      "complete": true,
+      "recorded_turns": 30,
+      "missing_turns": [],
+      "failure_reason": null,
+      "runtime": {
+        "model_name": "grok-voice-think-fast-1.0",
+        "turns": 30,
+        "status": "completed",
+        "valid": true,
+        "note": "runtime-only; scoring is performed post-run"
+      },
+      "evidence": {
+        "rate_limit": [],
+        "api_error": [],
+        "adapter_error": [],
+        "reconnect": []
+      },
+      "next_input_queued_before_previous_finished": [],
+      "transcript_reconnections": 0
+    },
+    {
+      "arm": "gemini38",
+      "index": 8,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T140134_gemini-3.8-live-extended-thinking_a06f3cf9",
+      "complete": true,
+      "recorded_turns": 30,
+      "missing_turns": [],
+      "failure_reason": null,
+      "runtime": {
+        "model_name": "gemini-3.8-live-extended-thinking",
+        "turns": 30,
+        "status": "completed",
+        "valid": true,
+        "note": "runtime-only; scoring is performed post-run"
+      },
+      "evidence": {
+        "rate_limit": [],
+        "api_error": [],
+        "adapter_error": [],
+        "reconnect": []
+      },
+      "next_input_queued_before_previous_finished": [],
+      "transcript_reconnections": 0
+    },
+    {
+      "arm": "gemini38",
+      "index": 9,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T140219_gemini-3.8-live-extended-thinking_9b52d016",
+      "complete": true,
+      "recorded_turns": 30,
+      "missing_turns": [],
+      "failure_reason": null,
+      "runtime": {
+        "model_name": "gemini-3.8-live-extended-thinking",
+        "turns": 30,
+        "status": "completed",
+        "valid": true,
+        "note": "runtime-only; scoring is performed post-run"
+      },
+      "evidence": {
+        "rate_limit": [],
+        "api_error": [],
+        "adapter_error": [],
+        "reconnect": []
+      },
+      "next_input_queued_before_previous_finished": [],
+      "transcript_reconnections": 0
+    },
+    {
+      "arm": "gemini31",
+      "index": 9,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T140212_gemini-3.1-flash-live-preview_2a890133",
+      "complete": true,
+      "recorded_turns": 30,
+      "missing_turns": [],
+      "failure_reason": null,
+      "runtime": {
+        "model_name": "gemini-3.1-flash-live-preview",
+        "turns": 30,
+        "status": "completed",
+        "valid": true,
+        "note": "runtime-only; scoring is performed post-run"
+      },
+      "evidence": {
+        "rate_limit": [],
+        "api_error": [],
+        "adapter_error": [],
+        "reconnect": []
+      },
+      "next_input_queued_before_previous_finished": [],
+      "transcript_reconnections": 0
+    },
+    {
+      "arm": "openai15",
+      "index": 7,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T140040_gpt-realtime-1.5_dc24bcd3",
+      "complete": true,
+      "recorded_turns": 30,
+      "missing_turns": [],
+      "failure_reason": null,
+      "runtime": {
+        "model_name": "gpt-realtime-1.5",
+        "turns": 30,
+        "status": "completed",
+        "valid": true,
+        "note": "runtime-only; scoring is performed post-run"
+      },
+      "evidence": {
+        "rate_limit": [],
+        "api_error": [],
+        "adapter_error": [],
+        "reconnect": []
+      },
+      "next_input_queued_before_previous_finished": [
+        {
+          "line": 12576,
+          "event": "[USER_AUDIO_QUEUED] turn=10 predicted_end=978805.441 duration=3.110"
+        }
+      ],
+      "transcript_reconnections": 0
+    },
+    {
+      "arm": "openai15",
+      "index": 6,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T140024_gpt-realtime-1.5_31eae89a",
+      "complete": true,
+      "recorded_turns": 30,
+      "missing_turns": [],
+      "failure_reason": null,
+      "runtime": {
+        "model_name": "gpt-realtime-1.5",
+        "turns": 30,
+        "status": "completed",
+        "valid": true,
+        "note": "runtime-only; scoring is performed post-run"
+      },
+      "evidence": {
+        "rate_limit": [],
+        "api_error": [],
+        "adapter_error": [],
+        "reconnect": []
+      },
+      "next_input_queued_before_previous_finished": [],
+      "transcript_reconnections": 0
+    },
+    {
+      "arm": "gemini31",
+      "index": 10,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T140257_gemini-3.1-flash-live-preview_000584aa",
+      "complete": true,
+      "recorded_turns": 30,
+      "missing_turns": [],
+      "failure_reason": null,
+      "runtime": {
+        "model_name": "gemini-3.1-flash-live-preview",
+        "turns": 30,
+        "status": "completed",
+        "valid": true,
+        "note": "runtime-only; scoring is performed post-run"
+      },
+      "evidence": {
+        "rate_limit": [],
+        "api_error": [],
+        "adapter_error": [],
+        "reconnect": []
+      },
+      "next_input_queued_before_previous_finished": [],
+      "transcript_reconnections": 0
+    },
+    {
+      "arm": "openai21",
+      "index": 6,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T140021_gpt-realtime-2.1_e819bc61",
+      "complete": true,
+      "recorded_turns": 30,
+      "missing_turns": [],
+      "failure_reason": null,
+      "runtime": {
+        "model_name": "gpt-realtime-2.1",
+        "turns": 30,
+        "status": "completed",
+        "valid": true,
+        "note": "runtime-only; scoring is performed post-run"
+      },
+      "evidence": {
+        "rate_limit": [],
+        "api_error": [],
+        "adapter_error": [],
+        "reconnect": []
+      },
+      "next_input_queued_before_previous_finished": [],
+      "transcript_reconnections": 0
+    },
+    {
+      "arm": "openai21",
+      "index": 7,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T140027_gpt-realtime-2.1_d4746f94",
+      "complete": true,
+      "recorded_turns": 30,
+      "missing_turns": [],
+      "failure_reason": null,
+      "runtime": {
+        "model_name": "gpt-realtime-2.1",
+        "turns": 30,
+        "status": "completed",
+        "valid": true,
+        "note": "runtime-only; scoring is performed post-run"
+      },
+      "evidence": {
+        "rate_limit": [],
+        "api_error": [],
+        "adapter_error": [],
+        "reconnect": []
+      },
+      "next_input_queued_before_previous_finished": [],
+      "transcript_reconnections": 0
+    },
+    {
+      "arm": "gemini38",
+      "index": 10,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T140446_gemini-3.8-live-extended-thinking_064d6395",
+      "complete": true,
+      "recorded_turns": 30,
+      "missing_turns": [],
+      "failure_reason": null,
+      "runtime": {
+        "model_name": "gemini-3.8-live-extended-thinking",
+        "turns": 30,
+        "status": "completed",
+        "valid": true,
+        "note": "runtime-only; scoring is performed post-run"
+      },
+      "evidence": {
+        "rate_limit": [],
+        "api_error": [],
+        "adapter_error": [],
+        "reconnect": []
+      },
+      "next_input_queued_before_previous_finished": [],
+      "transcript_reconnections": 0
+    },
+    {
+      "arm": "openai21",
+      "index": 8,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T140119_gpt-realtime-2.1_ba954d5d",
+      "complete": true,
+      "recorded_turns": 30,
+      "missing_turns": [],
+      "failure_reason": null,
+      "runtime": {
+        "model_name": "gpt-realtime-2.1",
+        "turns": 30,
+        "status": "completed",
+        "valid": true,
+        "note": "runtime-only; scoring is performed post-run"
+      },
+      "evidence": {
+        "rate_limit": [],
+        "api_error": [],
+        "adapter_error": [],
+        "reconnect": []
+      },
+      "next_input_queued_before_previous_finished": [],
+      "transcript_reconnections": 0
+    },
+    {
+      "arm": "grok",
+      "index": 16,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T140440_grok-voice-think-fast-1.0_2ff5aa45",
+      "complete": true,
+      "recorded_turns": 30,
+      "missing_turns": [],
+      "failure_reason": null,
+      "runtime": {
+        "model_name": "grok-voice-think-fast-1.0",
+        "turns": 30,
+        "status": "completed",
+        "valid": true,
+        "note": "runtime-only; scoring is performed post-run"
+      },
+      "evidence": {
+        "rate_limit": [],
+        "api_error": [],
+        "adapter_error": [],
+        "reconnect": []
+      },
+      "next_input_queued_before_previous_finished": [],
+      "transcript_reconnections": 0
+    },
+    {
+      "arm": "grok",
+      "index": 17,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T140450_grok-voice-think-fast-1.0_5f0889b7",
+      "complete": true,
+      "recorded_turns": 30,
+      "missing_turns": [],
+      "failure_reason": null,
+      "runtime": {
+        "model_name": "grok-voice-think-fast-1.0",
+        "turns": 30,
+        "status": "completed",
+        "valid": true,
+        "note": "runtime-only; scoring is performed post-run"
+      },
+      "evidence": {
+        "rate_limit": [],
+        "api_error": [],
+        "adapter_error": [],
+        "reconnect": []
+      },
+      "next_input_queued_before_previous_finished": [],
+      "transcript_reconnections": 0
+    },
+    {
+      "arm": "grok",
+      "index": 19,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T140535_grok-voice-think-fast-1.0_24d52d33",
+      "complete": true,
+      "recorded_turns": 30,
+      "missing_turns": [],
+      "failure_reason": null,
+      "runtime": {
+        "model_name": "grok-voice-think-fast-1.0",
+        "turns": 30,
+        "status": "completed",
+        "valid": true,
+        "note": "runtime-only; scoring is performed post-run"
+      },
+      "evidence": {
+        "rate_limit": [],
+        "api_error": [],
+        "adapter_error": [],
+        "reconnect": []
+      },
+      "next_input_queued_before_previous_finished": [],
+      "transcript_reconnections": 0
+    },
+    {
+      "arm": "grok",
+      "index": 18,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T140534_grok-voice-think-fast-1.0_c1546526",
+      "complete": true,
+      "recorded_turns": 30,
+      "missing_turns": [],
+      "failure_reason": null,
+      "runtime": {
+        "model_name": "grok-voice-think-fast-1.0",
+        "turns": 30,
+        "status": "completed",
+        "valid": true,
+        "note": "runtime-only; scoring is performed post-run"
+      },
+      "evidence": {
+        "rate_limit": [],
+        "api_error": [],
+        "adapter_error": [],
+        "reconnect": []
+      },
+      "next_input_queued_before_previous_finished": [],
+      "transcript_reconnections": 0
+    },
+    {
+      "arm": "grok",
+      "index": 20,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T140544_grok-voice-think-fast-1.0_1b8b40be",
+      "complete": true,
+      "recorded_turns": 30,
+      "missing_turns": [],
+      "failure_reason": null,
+      "runtime": {
+        "model_name": "grok-voice-think-fast-1.0",
+        "turns": 30,
+        "status": "completed",
+        "valid": true,
+        "note": "runtime-only; scoring is performed post-run"
+      },
+      "evidence": {
+        "rate_limit": [],
+        "api_error": [],
+        "adapter_error": [],
+        "reconnect": []
+      },
+      "next_input_queued_before_previous_finished": [],
+      "transcript_reconnections": 0
+    },
+    {
+      "arm": "gemini38",
+      "index": 11,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T140918_gemini-3.8-live-extended-thinking_b65c3619",
+      "complete": true,
+      "recorded_turns": 30,
+      "missing_turns": [],
+      "failure_reason": null,
+      "runtime": {
+        "model_name": "gemini-3.8-live-extended-thinking",
+        "turns": 30,
+        "status": "completed",
+        "valid": true,
+        "note": "runtime-only; scoring is performed post-run"
+      },
+      "evidence": {
+        "rate_limit": [],
+        "api_error": [],
+        "adapter_error": [],
+        "reconnect": []
+      },
+      "next_input_queued_before_previous_finished": [],
+      "transcript_reconnections": 0
+    },
+    {
+      "arm": "gemini31",
+      "index": 11,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T140900_gemini-3.1-flash-live-preview_2b7fe42e",
+      "complete": true,
+      "recorded_turns": 30,
+      "missing_turns": [],
+      "failure_reason": null,
+      "runtime": {
+        "model_name": "gemini-3.1-flash-live-preview",
+        "turns": 30,
+        "status": "completed",
+        "valid": true,
+        "note": "runtime-only; scoring is performed post-run"
+      },
+      "evidence": {
+        "rate_limit": [],
+        "api_error": [],
+        "adapter_error": [],
+        "reconnect": []
+      },
+      "next_input_queued_before_previous_finished": [],
+      "transcript_reconnections": 0
+    },
+    {
+      "arm": "gemini31",
+      "index": 12,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T141021_gemini-3.1-flash-live-preview_3f3a2443",
+      "complete": true,
+      "recorded_turns": 30,
+      "missing_turns": [],
+      "failure_reason": null,
+      "runtime": {
+        "model_name": "gemini-3.1-flash-live-preview",
+        "turns": 30,
+        "status": "completed",
+        "valid": true,
+        "note": "runtime-only; scoring is performed post-run"
+      },
+      "evidence": {
+        "rate_limit": [],
+        "api_error": [],
+        "adapter_error": [],
+        "reconnect": []
+      },
+      "next_input_queued_before_previous_finished": [],
+      "transcript_reconnections": 0
+    },
+    {
+      "arm": "gemini38",
+      "index": 12,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T141117_gemini-3.8-live-extended-thinking_cf8cd641",
+      "complete": true,
+      "recorded_turns": 30,
+      "missing_turns": [],
+      "failure_reason": null,
+      "runtime": {
+        "model_name": "gemini-3.8-live-extended-thinking",
+        "turns": 30,
+        "status": "completed",
+        "valid": true,
+        "note": "runtime-only; scoring is performed post-run"
+      },
+      "evidence": {
+        "rate_limit": [],
+        "api_error": [],
+        "adapter_error": [],
+        "reconnect": []
+      },
+      "next_input_queued_before_previous_finished": [],
+      "transcript_reconnections": 0
+    },
+    {
+      "arm": "gemini31",
+      "index": 13,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T141203_gemini-3.1-flash-live-preview_0d3b6d98",
+      "complete": true,
+      "recorded_turns": 30,
+      "missing_turns": [],
+      "failure_reason": null,
+      "runtime": {
+        "model_name": "gemini-3.1-flash-live-preview",
+        "turns": 30,
+        "status": "completed",
+        "valid": true,
+        "note": "runtime-only; scoring is performed post-run"
+      },
+      "evidence": {
+        "rate_limit": [],
+        "api_error": [],
+        "adapter_error": [],
+        "reconnect": []
+      },
+      "next_input_queued_before_previous_finished": [],
+      "transcript_reconnections": 0
+    },
+    {
+      "arm": "openai15",
+      "index": 8,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T141052_gpt-realtime-1.5_c7408f70",
+      "complete": true,
+      "recorded_turns": 30,
+      "missing_turns": [],
+      "failure_reason": null,
+      "runtime": {
+        "model_name": "gpt-realtime-1.5",
+        "turns": 30,
+        "status": "completed",
+        "valid": true,
+        "note": "runtime-only; scoring is performed post-run"
+      },
+      "evidence": {
+        "rate_limit": [],
+        "api_error": [],
+        "adapter_error": [],
+        "reconnect": []
+      },
+      "next_input_queued_before_previous_finished": [
+        {
+          "line": 13329,
+          "event": "[USER_AUDIO_QUEUED] turn=10 predicted_end=979429.418 duration=3.110"
+        }
+      ],
+      "transcript_reconnections": 0
+    },
+    {
+      "arm": "openai21",
+      "index": 9,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T141102_gpt-realtime-2.1_94d07019",
+      "complete": true,
+      "recorded_turns": 30,
+      "missing_turns": [],
+      "failure_reason": null,
+      "runtime": {
+        "model_name": "gpt-realtime-2.1",
+        "turns": 30,
+        "status": "completed",
+        "valid": true,
+        "note": "runtime-only; scoring is performed post-run"
+      },
+      "evidence": {
+        "rate_limit": [],
+        "api_error": [],
+        "adapter_error": [],
+        "reconnect": []
+      },
+      "next_input_queued_before_previous_finished": [],
+      "transcript_reconnections": 0
+    },
+    {
+      "arm": "grok",
+      "index": 22,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T141345_grok-voice-think-fast-1.0_d5416088",
+      "complete": true,
+      "recorded_turns": 30,
+      "missing_turns": [],
+      "failure_reason": null,
+      "runtime": {
+        "model_name": "grok-voice-think-fast-1.0",
+        "turns": 30,
+        "status": "completed",
+        "valid": true,
+        "note": "runtime-only; scoring is performed post-run"
+      },
+      "evidence": {
+        "rate_limit": [],
+        "api_error": [],
+        "adapter_error": [],
+        "reconnect": []
+      },
+      "next_input_queued_before_previous_finished": [],
+      "transcript_reconnections": 0
+    },
+    {
+      "arm": "grok",
+      "index": 21,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T141328_grok-voice-think-fast-1.0_22f04aca",
+      "complete": true,
+      "recorded_turns": 30,
+      "missing_turns": [],
+      "failure_reason": null,
+      "runtime": {
+        "model_name": "grok-voice-think-fast-1.0",
+        "turns": 30,
+        "status": "completed",
+        "valid": true,
+        "note": "runtime-only; scoring is performed post-run"
+      },
+      "evidence": {
+        "rate_limit": [],
+        "api_error": [],
+        "adapter_error": [],
+        "reconnect": []
+      },
+      "next_input_queued_before_previous_finished": [],
+      "transcript_reconnections": 0
+    },
+    {
+      "arm": "openai21",
+      "index": 10,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T141142_gpt-realtime-2.1_010970af",
+      "complete": true,
+      "recorded_turns": 30,
+      "missing_turns": [],
+      "failure_reason": null,
+      "runtime": {
+        "model_name": "gpt-realtime-2.1",
+        "turns": 30,
+        "status": "completed",
+        "valid": true,
+        "note": "runtime-only; scoring is performed post-run"
+      },
+      "evidence": {
+        "rate_limit": [],
+        "api_error": [],
+        "adapter_error": [],
+        "reconnect": []
+      },
+      "next_input_queued_before_previous_finished": [],
+      "transcript_reconnections": 0
+    },
+    {
+      "arm": "openai15",
+      "index": 9,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T141140_gpt-realtime-1.5_dd52e96d",
+      "complete": true,
+      "recorded_turns": 30,
+      "missing_turns": [],
+      "failure_reason": null,
+      "runtime": {
+        "model_name": "gpt-realtime-1.5",
+        "turns": 30,
+        "status": "completed",
+        "valid": true,
+        "note": "runtime-only; scoring is performed post-run"
+      },
+      "evidence": {
+        "rate_limit": [],
+        "api_error": [],
+        "adapter_error": [],
+        "reconnect": []
+      },
+      "next_input_queued_before_previous_finished": [],
+      "transcript_reconnections": 0
+    },
+    {
+      "arm": "grok",
+      "index": 25,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T141449_grok-voice-think-fast-1.0_18c2de6c",
+      "complete": true,
+      "recorded_turns": 30,
+      "missing_turns": [],
+      "failure_reason": null,
+      "runtime": {
+        "model_name": "grok-voice-think-fast-1.0",
+        "turns": 30,
+        "status": "completed",
+        "valid": true,
+        "note": "runtime-only; scoring is performed post-run"
+      },
+      "evidence": {
+        "rate_limit": [],
+        "api_error": [],
+        "adapter_error": [],
+        "reconnect": []
+      },
+      "next_input_queued_before_previous_finished": [],
+      "transcript_reconnections": 0
+    },
+    {
+      "arm": "openai15",
+      "index": 10,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T141223_gpt-realtime-1.5_00c13aba",
+      "complete": true,
+      "recorded_turns": 30,
+      "missing_turns": [],
+      "failure_reason": null,
+      "runtime": {
+        "model_name": "gpt-realtime-1.5",
+        "turns": 30,
+        "status": "completed",
+        "valid": true,
+        "note": "runtime-only; scoring is performed post-run"
+      },
+      "evidence": {
+        "rate_limit": [],
+        "api_error": [],
+        "adapter_error": [],
+        "reconnect": []
+      },
+      "next_input_queued_before_previous_finished": [],
+      "transcript_reconnections": 0
+    },
+    {
+      "arm": "grok",
+      "index": 24,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T141445_grok-voice-think-fast-1.0_cc271184",
+      "complete": true,
+      "recorded_turns": 30,
+      "missing_turns": [],
+      "failure_reason": null,
+      "runtime": {
+        "model_name": "grok-voice-think-fast-1.0",
+        "turns": 30,
+        "status": "completed",
+        "valid": true,
+        "note": "runtime-only; scoring is performed post-run"
+      },
+      "evidence": {
+        "rate_limit": [],
+        "api_error": [],
+        "adapter_error": [],
+        "reconnect": []
+      },
+      "next_input_queued_before_previous_finished": [],
+      "transcript_reconnections": 0
+    },
+    {
+      "arm": "grok",
+      "index": 23,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T141414_grok-voice-think-fast-1.0_ecc03f17",
+      "complete": true,
+      "recorded_turns": 30,
+      "missing_turns": [],
+      "failure_reason": null,
+      "runtime": {
+        "model_name": "grok-voice-think-fast-1.0",
+        "turns": 30,
+        "status": "completed",
+        "valid": true,
+        "note": "runtime-only; scoring is performed post-run"
+      },
+      "evidence": {
+        "rate_limit": [],
+        "api_error": [],
+        "adapter_error": [],
+        "reconnect": []
+      },
+      "next_input_queued_before_previous_finished": [],
+      "transcript_reconnections": 0
+    },
+    {
+      "arm": "gemini38",
+      "index": 13,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T141636_gemini-3.8-live-extended-thinking_0858c0bc",
+      "complete": true,
+      "recorded_turns": 30,
+      "missing_turns": [],
+      "failure_reason": null,
+      "runtime": {
+        "model_name": "gemini-3.8-live-extended-thinking",
+        "turns": 30,
+        "status": "completed",
+        "valid": true,
+        "note": "runtime-only; scoring is performed post-run"
+      },
+      "evidence": {
+        "rate_limit": [],
+        "api_error": [],
+        "adapter_error": [],
+        "reconnect": []
+      },
+      "next_input_queued_before_previous_finished": [],
+      "transcript_reconnections": 0
+    },
+    {
+      "arm": "gemini38",
+      "index": 14,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T141836_gemini-3.8-live-extended-thinking_560b2794",
+      "complete": true,
+      "recorded_turns": 30,
+      "missing_turns": [],
+      "failure_reason": null,
+      "runtime": {
+        "model_name": "gemini-3.8-live-extended-thinking",
+        "turns": 30,
+        "status": "completed",
+        "valid": true,
+        "note": "runtime-only; scoring is performed post-run"
+      },
+      "evidence": {
+        "rate_limit": [],
+        "api_error": [],
+        "adapter_error": [],
+        "reconnect": []
+      },
+      "next_input_queued_before_previous_finished": [],
+      "transcript_reconnections": 0
+    },
+    {
+      "arm": "gemini31",
+      "index": 14,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T141645_gemini-3.1-flash-live-preview_543e1b5f",
+      "complete": true,
+      "recorded_turns": 30,
+      "missing_turns": [],
+      "failure_reason": null,
+      "runtime": {
+        "model_name": "gemini-3.1-flash-live-preview",
+        "turns": 30,
+        "status": "completed",
+        "valid": true,
+        "note": "runtime-only; scoring is performed post-run"
+      },
+      "evidence": {
+        "rate_limit": [],
+        "api_error": [],
+        "adapter_error": [],
+        "reconnect": []
+      },
+      "next_input_queued_before_previous_finished": [],
+      "transcript_reconnections": 0
+    },
+    {
+      "arm": "gemini31",
+      "index": 15,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T141845_gemini-3.1-flash-live-preview_cb6de9ca",
+      "complete": true,
+      "recorded_turns": 30,
+      "missing_turns": [],
+      "failure_reason": null,
+      "runtime": {
+        "model_name": "gemini-3.1-flash-live-preview",
+        "turns": 30,
+        "status": "completed",
+        "valid": true,
+        "note": "runtime-only; scoring is performed post-run"
+      },
+      "evidence": {
+        "rate_limit": [],
+        "api_error": [],
+        "adapter_error": [],
+        "reconnect": []
+      },
+      "next_input_queued_before_previous_finished": [],
+      "transcript_reconnections": 0
+    },
+    {
+      "arm": "gemini38",
+      "index": 15,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T142004_gemini-3.8-live-extended-thinking_ea9411ab",
+      "complete": true,
+      "recorded_turns": 30,
+      "missing_turns": [],
+      "failure_reason": null,
+      "runtime": {
+        "model_name": "gemini-3.8-live-extended-thinking",
+        "turns": 30,
+        "status": "completed",
+        "valid": true,
+        "note": "runtime-only; scoring is performed post-run"
+      },
+      "evidence": {
+        "rate_limit": [],
+        "api_error": [],
+        "adapter_error": [],
+        "reconnect": []
+      },
+      "next_input_queued_before_previous_finished": [],
+      "transcript_reconnections": 0
+    },
+    {
+      "arm": "gemini38",
+      "index": 16,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T142527_gemini-3.8-live-extended-thinking_9f9e592d",
+      "complete": true,
+      "recorded_turns": 30,
+      "missing_turns": [],
+      "failure_reason": null,
+      "runtime": {
+        "model_name": "gemini-3.8-live-extended-thinking",
+        "turns": 30,
+        "status": "completed",
+        "valid": true,
+        "note": "runtime-only; scoring is performed post-run"
+      },
+      "evidence": {
+        "rate_limit": [],
+        "api_error": [],
+        "adapter_error": [],
+        "reconnect": []
+      },
+      "next_input_queued_before_previous_finished": [],
+      "transcript_reconnections": 0
+    },
+    {
+      "arm": "openai21",
+      "index": 11,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T142107_gpt-realtime-2.1_eccbf633",
+      "complete": true,
+      "recorded_turns": 30,
+      "missing_turns": [],
+      "failure_reason": null,
+      "runtime": {
+        "model_name": "gpt-realtime-2.1",
+        "turns": 30,
+        "status": "completed",
+        "valid": true,
+        "note": "runtime-only; scoring is performed post-run"
+      },
+      "evidence": {
+        "rate_limit": [],
+        "api_error": [],
+        "adapter_error": [],
+        "reconnect": []
+      },
+      "next_input_queued_before_previous_finished": [],
+      "transcript_reconnections": 0
+    },
+    {
+      "arm": "gemini31",
+      "index": 16,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T142354_gemini-3.1-flash-live-preview_8b3405e3",
+      "complete": true,
+      "recorded_turns": 30,
+      "missing_turns": [],
+      "failure_reason": null,
+      "runtime": {
+        "model_name": "gemini-3.1-flash-live-preview",
+        "turns": 30,
+        "status": "completed",
+        "valid": true,
+        "note": "runtime-only; scoring is performed post-run"
+      },
+      "evidence": {
+        "rate_limit": [],
+        "api_error": [],
+        "adapter_error": [],
+        "reconnect": []
+      },
+      "next_input_queued_before_previous_finished": [],
+      "transcript_reconnections": 0
+    },
+    {
+      "arm": "gemini31",
+      "index": 17,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T142527_gemini-3.1-flash-live-preview_f0475fac",
+      "complete": true,
+      "recorded_turns": 30,
+      "missing_turns": [],
+      "failure_reason": null,
+      "runtime": {
+        "model_name": "gemini-3.1-flash-live-preview",
+        "turns": 30,
+        "status": "completed",
+        "valid": true,
+        "note": "runtime-only; scoring is performed post-run"
+      },
+      "evidence": {
+        "rate_limit": [],
+        "api_error": [],
+        "adapter_error": [],
+        "reconnect": []
+      },
+      "next_input_queued_before_previous_finished": [],
+      "transcript_reconnections": 0
+    },
+    {
+      "arm": "openai15",
+      "index": 12,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T142308_gpt-realtime-1.5_82198fcc",
+      "complete": true,
+      "recorded_turns": 30,
+      "missing_turns": [],
+      "failure_reason": null,
+      "runtime": {
+        "model_name": "gpt-realtime-1.5",
+        "turns": 30,
+        "status": "completed",
+        "valid": true,
+        "note": "runtime-only; scoring is performed post-run"
+      },
+      "evidence": {
+        "rate_limit": [],
+        "api_error": [],
+        "adapter_error": [],
+        "reconnect": []
+      },
+      "next_input_queued_before_previous_finished": [],
+      "transcript_reconnections": 0
+    },
+    {
+      "arm": "openai15",
+      "index": 11,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T142218_gpt-realtime-1.5_4c66c2f1",
+      "complete": true,
+      "recorded_turns": 30,
+      "missing_turns": [],
+      "failure_reason": null,
+      "runtime": {
+        "model_name": "gpt-realtime-1.5",
+        "turns": 30,
+        "status": "completed",
+        "valid": true,
+        "note": "runtime-only; scoring is performed post-run"
+      },
+      "evidence": {
+        "rate_limit": [],
+        "api_error": [],
+        "adapter_error": [],
+        "reconnect": []
+      },
+      "next_input_queued_before_previous_finished": [],
+      "transcript_reconnections": 0
+    },
+    {
+      "arm": "openai21",
+      "index": 12,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T142301_gpt-realtime-2.1_c4104455",
+      "complete": true,
+      "recorded_turns": 30,
+      "missing_turns": [],
+      "failure_reason": null,
+      "runtime": {
+        "model_name": "gpt-realtime-2.1",
+        "turns": 30,
+        "status": "completed",
+        "valid": true,
+        "note": "runtime-only; scoring is performed post-run"
+      },
+      "evidence": {
+        "rate_limit": [],
+        "api_error": [],
+        "adapter_error": [],
+        "reconnect": []
+      },
+      "next_input_queued_before_previous_finished": [],
+      "transcript_reconnections": 0
+    },
+    {
+      "arm": "gemini38",
+      "index": 17,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T142709_gemini-3.8-live-extended-thinking_65b656e4",
+      "complete": true,
+      "recorded_turns": 30,
+      "missing_turns": [],
+      "failure_reason": null,
+      "runtime": {
+        "model_name": "gemini-3.8-live-extended-thinking",
+        "turns": 30,
+        "status": "completed",
+        "valid": true,
+        "note": "runtime-only; scoring is performed post-run"
+      },
+      "evidence": {
+        "rate_limit": [],
+        "api_error": [],
+        "adapter_error": [],
+        "reconnect": []
+      },
+      "next_input_queued_before_previous_finished": [],
+      "transcript_reconnections": 0
+    },
+    {
+      "arm": "openai21",
+      "index": 13,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T142319_gpt-realtime-2.1_8c8a6235",
+      "complete": true,
+      "recorded_turns": 30,
+      "missing_turns": [],
+      "failure_reason": null,
+      "runtime": {
+        "model_name": "gpt-realtime-2.1",
+        "turns": 30,
+        "status": "completed",
+        "valid": true,
+        "note": "runtime-only; scoring is performed post-run"
+      },
+      "evidence": {
+        "rate_limit": [],
+        "api_error": [],
+        "adapter_error": [],
+        "reconnect": []
+      },
+      "next_input_queued_before_previous_finished": [],
+      "transcript_reconnections": 0
+    },
+    {
+      "arm": "gemini31",
+      "index": 18,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T142716_gemini-3.1-flash-live-preview_4f3cd812",
+      "complete": true,
+      "recorded_turns": 30,
+      "missing_turns": [],
+      "failure_reason": null,
+      "runtime": {
+        "model_name": "gemini-3.1-flash-live-preview",
+        "turns": 30,
+        "status": "completed",
+        "valid": true,
+        "note": "runtime-only; scoring is performed post-run"
+      },
+      "evidence": {
+        "rate_limit": [],
+        "api_error": [],
+        "adapter_error": [],
+        "reconnect": []
+      },
+      "next_input_queued_before_previous_finished": [],
+      "transcript_reconnections": 0
+    },
+    {
+      "arm": "gemini38",
+      "index": 18,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T143237_gemini-3.8-live-extended-thinking_956e5094",
+      "complete": true,
+      "recorded_turns": 30,
+      "missing_turns": [],
+      "failure_reason": null,
+      "runtime": {
+        "model_name": "gemini-3.8-live-extended-thinking",
+        "turns": 30,
+        "status": "completed",
+        "valid": true,
+        "note": "runtime-only; scoring is performed post-run"
+      },
+      "evidence": {
+        "rate_limit": [],
+        "api_error": [],
+        "adapter_error": [],
+        "reconnect": []
+      },
+      "next_input_queued_before_previous_finished": [],
+      "transcript_reconnections": 0
+    },
+    {
+      "arm": "gemini38",
+      "index": 19,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T143317_gemini-3.8-live-extended-thinking_1d695483",
+      "complete": true,
+      "recorded_turns": 30,
+      "missing_turns": [],
+      "failure_reason": null,
+      "runtime": {
+        "model_name": "gemini-3.8-live-extended-thinking",
+        "turns": 30,
+        "status": "completed",
+        "valid": true,
+        "note": "runtime-only; scoring is performed post-run"
+      },
+      "evidence": {
+        "rate_limit": [],
+        "api_error": [],
+        "adapter_error": [],
+        "reconnect": []
+      },
+      "next_input_queued_before_previous_finished": [],
+      "transcript_reconnections": 0
+    },
+    {
+      "arm": "gemini31",
+      "index": 19,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T143306_gemini-3.1-flash-live-preview_f7d58b1d",
+      "complete": true,
+      "recorded_turns": 30,
+      "missing_turns": [],
+      "failure_reason": null,
+      "runtime": {
+        "model_name": "gemini-3.1-flash-live-preview",
+        "turns": 30,
+        "status": "completed",
+        "valid": true,
+        "note": "runtime-only; scoring is performed post-run"
+      },
+      "evidence": {
+        "rate_limit": [],
+        "api_error": [],
+        "adapter_error": [],
+        "reconnect": []
+      },
+      "next_input_queued_before_previous_finished": [],
+      "transcript_reconnections": 0
+    },
+    {
+      "arm": "gemini31",
+      "index": 20,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T143435_gemini-3.1-flash-live-preview_35ea9d46",
+      "complete": true,
+      "recorded_turns": 30,
+      "missing_turns": [],
+      "failure_reason": null,
+      "runtime": {
+        "model_name": "gemini-3.1-flash-live-preview",
+        "turns": 30,
+        "status": "completed",
+        "valid": true,
+        "note": "runtime-only; scoring is performed post-run"
+      },
+      "evidence": {
+        "rate_limit": [],
+        "api_error": [],
+        "adapter_error": [],
+        "reconnect": []
+      },
+      "next_input_queued_before_previous_finished": [],
+      "transcript_reconnections": 0
+    },
+    {
+      "arm": "openai15",
+      "index": 13,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T143247_gpt-realtime-1.5_a09b85ff",
+      "complete": true,
+      "recorded_turns": 30,
+      "missing_turns": [],
+      "failure_reason": null,
+      "runtime": {
+        "model_name": "gpt-realtime-1.5",
+        "turns": 30,
+        "status": "completed",
+        "valid": true,
+        "note": "runtime-only; scoring is performed post-run"
+      },
+      "evidence": {
+        "rate_limit": [],
+        "api_error": [],
+        "adapter_error": [],
+        "reconnect": []
+      },
+      "next_input_queued_before_previous_finished": [],
+      "transcript_reconnections": 0
+    },
+    {
+      "arm": "gemini38",
+      "index": 20,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T143628_gemini-3.8-live-extended-thinking_942eebb2",
+      "complete": true,
+      "recorded_turns": 30,
+      "missing_turns": [],
+      "failure_reason": null,
+      "runtime": {
+        "model_name": "gemini-3.8-live-extended-thinking",
+        "turns": 30,
+        "status": "completed",
+        "valid": true,
+        "note": "runtime-only; scoring is performed post-run"
+      },
+      "evidence": {
+        "rate_limit": [],
+        "api_error": [],
+        "adapter_error": [],
+        "reconnect": []
+      },
+      "next_input_queued_before_previous_finished": [],
+      "transcript_reconnections": 0
+    },
+    {
+      "arm": "openai15",
+      "index": 14,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T143405_gpt-realtime-1.5_f3ba662b",
+      "complete": true,
+      "recorded_turns": 30,
+      "missing_turns": [],
+      "failure_reason": null,
+      "runtime": {
+        "model_name": "gpt-realtime-1.5",
+        "turns": 30,
+        "status": "completed",
+        "valid": true,
+        "note": "runtime-only; scoring is performed post-run"
+      },
+      "evidence": {
+        "rate_limit": [],
+        "api_error": [],
+        "adapter_error": [],
+        "reconnect": []
+      },
+      "next_input_queued_before_previous_finished": [],
+      "transcript_reconnections": 0
+    },
+    {
+      "arm": "openai21",
+      "index": 14,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T143339_gpt-realtime-2.1_429a41fe",
+      "complete": true,
+      "recorded_turns": 30,
+      "missing_turns": [],
+      "failure_reason": null,
+      "runtime": {
+        "model_name": "gpt-realtime-2.1",
+        "turns": 30,
+        "status": "completed",
+        "valid": true,
+        "note": "runtime-only; scoring is performed post-run"
+      },
+      "evidence": {
+        "rate_limit": [],
+        "api_error": [],
+        "adapter_error": [],
+        "reconnect": []
+      },
+      "next_input_queued_before_previous_finished": [],
+      "transcript_reconnections": 0
+    },
+    {
+      "arm": "openai15",
+      "index": 15,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T143438_gpt-realtime-1.5_be0079fd",
+      "complete": true,
+      "recorded_turns": 30,
+      "missing_turns": [],
+      "failure_reason": null,
+      "runtime": {
+        "model_name": "gpt-realtime-1.5",
+        "turns": 30,
+        "status": "completed",
+        "valid": true,
+        "note": "runtime-only; scoring is performed post-run"
+      },
+      "evidence": {
+        "rate_limit": [],
+        "api_error": [],
+        "adapter_error": [],
+        "reconnect": []
+      },
+      "next_input_queued_before_previous_finished": [
+        {
+          "line": 11565,
+          "event": "[USER_AUDIO_QUEUED] turn=10 predicted_end=980825.006 duration=3.110"
+        }
+      ],
+      "transcript_reconnections": 0
+    },
+    {
+      "arm": "openai21",
+      "index": 15,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T143431_gpt-realtime-2.1_0fb9b8f8",
+      "complete": true,
+      "recorded_turns": 30,
+      "missing_turns": [],
+      "failure_reason": null,
+      "runtime": {
+        "model_name": "gpt-realtime-2.1",
+        "turns": 30,
+        "status": "completed",
+        "valid": true,
+        "note": "runtime-only; scoring is performed post-run"
+      },
+      "evidence": {
+        "rate_limit": [],
+        "api_error": [],
+        "adapter_error": [],
+        "reconnect": []
+      },
+      "next_input_queued_before_previous_finished": [],
+      "transcript_reconnections": 0
+    },
+    {
+      "arm": "gemini38",
+      "index": 21,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T143959_gemini-3.8-live-extended-thinking_d66dd609",
+      "complete": true,
+      "recorded_turns": 30,
+      "missing_turns": [],
+      "failure_reason": null,
+      "runtime": {
+        "model_name": "gemini-3.8-live-extended-thinking",
+        "turns": 30,
+        "status": "completed",
+        "valid": true,
+        "note": "runtime-only; scoring is performed post-run"
+      },
+      "evidence": {
+        "rate_limit": [],
+        "api_error": [],
+        "adapter_error": [],
+        "reconnect": []
+      },
+      "next_input_queued_before_previous_finished": [],
+      "transcript_reconnections": 0
+    },
+    {
+      "arm": "gemini31",
+      "index": 21,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T143936_gemini-3.1-flash-live-preview_241f277c",
+      "complete": true,
+      "recorded_turns": 30,
+      "missing_turns": [],
+      "failure_reason": null,
+      "runtime": {
+        "model_name": "gemini-3.1-flash-live-preview",
+        "turns": 30,
+        "status": "completed",
+        "valid": true,
+        "note": "runtime-only; scoring is performed post-run"
+      },
+      "evidence": {
+        "rate_limit": [],
+        "api_error": [],
+        "adapter_error": [],
+        "reconnect": []
+      },
+      "next_input_queued_before_previous_finished": [],
+      "transcript_reconnections": 0
+    },
+    {
+      "arm": "gemini31",
+      "index": 22,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T144118_gemini-3.1-flash-live-preview_6e1c27dd",
+      "complete": true,
+      "recorded_turns": 30,
+      "missing_turns": [],
+      "failure_reason": null,
+      "runtime": {
+        "model_name": "gemini-3.1-flash-live-preview",
+        "turns": 30,
+        "status": "completed",
+        "valid": true,
+        "note": "runtime-only; scoring is performed post-run"
+      },
+      "evidence": {
+        "rate_limit": [],
+        "api_error": [],
+        "adapter_error": [],
+        "reconnect": []
+      },
+      "next_input_queued_before_previous_finished": [],
+      "transcript_reconnections": 0
+    },
+    {
+      "arm": "gemini38",
+      "index": 22,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T144307_gemini-3.8-live-extended-thinking_c0532da7",
+      "complete": true,
+      "recorded_turns": 30,
+      "missing_turns": [],
+      "failure_reason": null,
+      "runtime": {
+        "model_name": "gemini-3.8-live-extended-thinking",
+        "turns": 30,
+        "status": "completed",
+        "valid": true,
+        "note": "runtime-only; scoring is performed post-run"
+      },
+      "evidence": {
+        "rate_limit": [],
+        "api_error": [],
+        "adapter_error": [],
+        "reconnect": []
+      },
+      "next_input_queued_before_previous_finished": [],
+      "transcript_reconnections": 0
+    },
+    {
+      "arm": "gemini31",
+      "index": 23,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T144355_gemini-3.1-flash-live-preview_a4d92e95",
+      "complete": true,
+      "recorded_turns": 30,
+      "missing_turns": [],
+      "failure_reason": null,
+      "runtime": {
+        "model_name": "gemini-3.1-flash-live-preview",
+        "turns": 30,
+        "status": "completed",
+        "valid": true,
+        "note": "runtime-only; scoring is performed post-run"
+      },
+      "evidence": {
+        "rate_limit": [],
+        "api_error": [],
+        "adapter_error": [],
+        "reconnect": []
+      },
+      "next_input_queued_before_previous_finished": [],
+      "transcript_reconnections": 0
+    },
+    {
+      "arm": "openai15",
+      "index": 16,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T144356_gpt-realtime-1.5_5b4ab504",
+      "complete": true,
+      "recorded_turns": 30,
+      "missing_turns": [],
+      "failure_reason": null,
+      "runtime": {
+        "model_name": "gpt-realtime-1.5",
+        "turns": 30,
+        "status": "completed",
+        "valid": true,
+        "note": "runtime-only; scoring is performed post-run"
+      },
+      "evidence": {
+        "rate_limit": [],
+        "api_error": [],
+        "adapter_error": [],
+        "reconnect": []
+      },
+      "next_input_queued_before_previous_finished": [],
+      "transcript_reconnections": 0
+    },
+    {
+      "arm": "openai21",
+      "index": 16,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T144352_gpt-realtime-2.1_d05404c1",
+      "complete": true,
+      "recorded_turns": 30,
+      "missing_turns": [],
+      "failure_reason": null,
+      "runtime": {
+        "model_name": "gpt-realtime-2.1",
+        "turns": 30,
+        "status": "completed",
+        "valid": true,
+        "note": "runtime-only; scoring is performed post-run"
+      },
+      "evidence": {
+        "rate_limit": [],
+        "api_error": [],
+        "adapter_error": [],
+        "reconnect": []
+      },
+      "next_input_queued_before_previous_finished": [],
+      "transcript_reconnections": 0
+    },
+    {
+      "arm": "gemini38",
+      "index": 23,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T144713_gemini-3.8-live-extended-thinking_f71032c2",
+      "complete": true,
+      "recorded_turns": 30,
+      "missing_turns": [],
+      "failure_reason": null,
+      "runtime": {
+        "model_name": "gemini-3.8-live-extended-thinking",
+        "turns": 30,
+        "status": "completed",
+        "valid": true,
+        "note": "runtime-only; scoring is performed post-run"
+      },
+      "evidence": {
+        "rate_limit": [],
+        "api_error": [],
+        "adapter_error": [],
+        "reconnect": []
+      },
+      "next_input_queued_before_previous_finished": [],
+      "transcript_reconnections": 0
+    },
+    {
+      "arm": "openai21",
+      "index": 17,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T144439_gpt-realtime-2.1_713216b5",
+      "complete": true,
+      "recorded_turns": 30,
+      "missing_turns": [],
+      "failure_reason": null,
+      "runtime": {
+        "model_name": "gpt-realtime-2.1",
+        "turns": 30,
+        "status": "completed",
+        "valid": true,
+        "note": "runtime-only; scoring is performed post-run"
+      },
+      "evidence": {
+        "rate_limit": [],
+        "api_error": [],
+        "adapter_error": [],
+        "reconnect": []
+      },
+      "next_input_queued_before_previous_finished": [],
+      "transcript_reconnections": 0
+    },
+    {
+      "arm": "gemini31",
+      "index": 24,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T144826_gemini-3.1-flash-live-preview_8a11ff4e",
+      "complete": false,
+      "recorded_turns": 24,
+      "missing_turns": [
+        24,
+        25,
+        26,
+        27,
+        28,
+        29
+      ],
+      "failure_reason": "no_audio_timeout",
+      "runtime": {
+        "model_name": "gemini-3.1-flash-live-preview",
+        "turns": 24,
+        "status": "failed",
+        "valid": false,
+        "note": "runtime-only; scoring is performed post-run",
+        "failure": {
+          "reason": "no_audio_timeout",
+          "turn": 24,
+          "replayed": false,
+          "timeout_seconds": 15.0
+        }
+      },
+      "evidence": {
+        "rate_limit": [],
+        "api_error": [],
+        "adapter_error": [],
+        "reconnect": []
+      },
+      "next_input_queued_before_previous_finished": [],
+      "transcript_reconnections": 0
+    },
+    {
+      "arm": "openai15",
+      "index": 17,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T144440_gpt-realtime-1.5_bb3dfa4d",
+      "complete": true,
+      "recorded_turns": 30,
+      "missing_turns": [],
+      "failure_reason": null,
+      "runtime": {
+        "model_name": "gpt-realtime-1.5",
+        "turns": 30,
+        "status": "completed",
+        "valid": true,
+        "note": "runtime-only; scoring is performed post-run"
+      },
+      "evidence": {
+        "rate_limit": [],
+        "api_error": [],
+        "adapter_error": [],
+        "reconnect": []
+      },
+      "next_input_queued_before_previous_finished": [],
+      "transcript_reconnections": 0
+    },
+    {
+      "arm": "gemini38",
+      "index": 24,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T144931_gemini-3.8-live-extended-thinking_53892d93",
+      "complete": true,
+      "recorded_turns": 30,
+      "missing_turns": [],
+      "failure_reason": null,
+      "runtime": {
+        "model_name": "gemini-3.8-live-extended-thinking",
+        "turns": 30,
+        "status": "completed",
+        "valid": true,
+        "note": "runtime-only; scoring is performed post-run"
+      },
+      "evidence": {
+        "rate_limit": [],
+        "api_error": [],
+        "adapter_error": [],
+        "reconnect": []
+      },
+      "next_input_queued_before_previous_finished": [],
+      "transcript_reconnections": 0
+    },
+    {
+      "arm": "openai21",
+      "index": 18,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T144623_gpt-realtime-2.1_fcecefbd",
+      "complete": true,
+      "recorded_turns": 30,
+      "missing_turns": [],
+      "failure_reason": null,
+      "runtime": {
+        "model_name": "gpt-realtime-2.1",
+        "turns": 30,
+        "status": "completed",
+        "valid": true,
+        "note": "runtime-only; scoring is performed post-run"
+      },
+      "evidence": {
+        "rate_limit": [],
+        "api_error": [],
+        "adapter_error": [],
+        "reconnect": []
+      },
+      "next_input_queued_before_previous_finished": [],
+      "transcript_reconnections": 0
+    },
+    {
+      "arm": "gemini31",
+      "index": 25,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T144946_gemini-3.1-flash-live-preview_ae174ae1",
+      "complete": true,
+      "recorded_turns": 30,
+      "missing_turns": [],
+      "failure_reason": null,
+      "runtime": {
+        "model_name": "gemini-3.1-flash-live-preview",
+        "turns": 30,
+        "status": "completed",
+        "valid": true,
+        "note": "runtime-only; scoring is performed post-run"
+      },
+      "evidence": {
+        "rate_limit": [],
+        "api_error": [],
+        "adapter_error": [],
+        "reconnect": []
+      },
+      "next_input_queued_before_previous_finished": [],
+      "transcript_reconnections": 0
+    },
+    {
+      "arm": "gemini38",
+      "index": 25,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T145220_gemini-3.8-live-extended-thinking_e8b45ac6",
+      "complete": true,
+      "recorded_turns": 30,
+      "missing_turns": [],
+      "failure_reason": null,
+      "runtime": {
+        "model_name": "gemini-3.8-live-extended-thinking",
+        "turns": 30,
+        "status": "completed",
+        "valid": true,
+        "note": "runtime-only; scoring is performed post-run"
+      },
+      "evidence": {
+        "rate_limit": [],
+        "api_error": [],
+        "adapter_error": [],
+        "reconnect": []
+      },
+      "next_input_queued_before_previous_finished": [],
+      "transcript_reconnections": 0
+    },
+    {
+      "arm": "openai15",
+      "index": 18,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T145425_gpt-realtime-1.5_52670ab6",
+      "complete": true,
+      "recorded_turns": 30,
+      "missing_turns": [],
+      "failure_reason": null,
+      "runtime": {
+        "model_name": "gpt-realtime-1.5",
+        "turns": 30,
+        "status": "completed",
+        "valid": true,
+        "note": "runtime-only; scoring is performed post-run"
+      },
+      "evidence": {
+        "rate_limit": [],
+        "api_error": [],
+        "adapter_error": [],
+        "reconnect": []
+      },
+      "next_input_queued_before_previous_finished": [],
+      "transcript_reconnections": 0
+    },
+    {
+      "arm": "openai21",
+      "index": 19,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T145430_gpt-realtime-2.1_e2cec2f5",
+      "complete": true,
+      "recorded_turns": 30,
+      "missing_turns": [],
+      "failure_reason": null,
+      "runtime": {
+        "model_name": "gpt-realtime-2.1",
+        "turns": 30,
+        "status": "completed",
+        "valid": true,
+        "note": "runtime-only; scoring is performed post-run"
+      },
+      "evidence": {
+        "rate_limit": [],
+        "api_error": [],
+        "adapter_error": [],
+        "reconnect": []
+      },
+      "next_input_queued_before_previous_finished": [],
+      "transcript_reconnections": 0
+    },
+    {
+      "arm": "openai15",
+      "index": 19,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T145527_gpt-realtime-1.5_812a90f6",
+      "complete": true,
+      "recorded_turns": 30,
+      "missing_turns": [],
+      "failure_reason": null,
+      "runtime": {
+        "model_name": "gpt-realtime-1.5",
+        "turns": 30,
+        "status": "completed",
+        "valid": true,
+        "note": "runtime-only; scoring is performed post-run"
+      },
+      "evidence": {
+        "rate_limit": [],
+        "api_error": [],
+        "adapter_error": [],
+        "reconnect": []
+      },
+      "next_input_queued_before_previous_finished": [],
+      "transcript_reconnections": 0
+    },
+    {
+      "arm": "openai21",
+      "index": 20,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T145543_gpt-realtime-2.1_e95fd97b",
+      "complete": true,
+      "recorded_turns": 30,
+      "missing_turns": [],
+      "failure_reason": null,
+      "runtime": {
+        "model_name": "gpt-realtime-2.1",
+        "turns": 30,
+        "status": "completed",
+        "valid": true,
+        "note": "runtime-only; scoring is performed post-run"
+      },
+      "evidence": {
+        "rate_limit": [],
+        "api_error": [],
+        "adapter_error": [],
+        "reconnect": []
+      },
+      "next_input_queued_before_previous_finished": [],
+      "transcript_reconnections": 0
+    },
+    {
+      "arm": "openai15",
+      "index": 20,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T145725_gpt-realtime-1.5_f4ad832f",
+      "complete": true,
+      "recorded_turns": 30,
+      "missing_turns": [],
+      "failure_reason": null,
+      "runtime": {
+        "model_name": "gpt-realtime-1.5",
+        "turns": 30,
+        "status": "completed",
+        "valid": true,
+        "note": "runtime-only; scoring is performed post-run"
+      },
+      "evidence": {
+        "rate_limit": [],
+        "api_error": [],
+        "adapter_error": [],
+        "reconnect": []
+      },
+      "next_input_queued_before_previous_finished": [],
+      "transcript_reconnections": 0
+    }
+  ]
+}

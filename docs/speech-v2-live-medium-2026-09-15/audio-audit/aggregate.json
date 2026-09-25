@@ -1,0 +1,1076 @@
+{
+  "groups": {
+    "gemini38low": {
+      "latency": {
+        "all": {
+          "n": 742,
+          "mean_ms": 1495.8490566037735,
+          "p50_ms": 1440.0,
+          "p90_ms": 1984.0,
+          "p95_ms": 2112.0,
+          "min_ms": 832.0,
+          "max_ms": 8896.0
+        },
+        "tool": {
+          "n": 143,
+          "mean_ms": 1504.0,
+          "p50_ms": 1376.0,
+          "p90_ms": 2176.0,
+          "p95_ms": 2304.0,
+          "min_ms": 864.0,
+          "max_ms": 3360.0
+        },
+        "non_tool": {
+          "n": 599,
+          "mean_ms": 1493.9031719532554,
+          "p50_ms": 1440.0,
+          "p90_ms": 1952.0,
+          "p95_ms": 2048.0,
+          "min_ms": 832.0,
+          "max_ms": 8896.0
+        }
+      },
+      "signed_latency": {
+        "n": 742,
+        "mean_ms": 1495.8490566037735,
+        "p50_ms": 1440.0,
+        "p90_ms": 1984.0,
+        "p95_ms": 2112.0,
+        "min_ms": 832.0,
+        "max_ms": 8896.0
+      },
+      "missing_turns": 8,
+      "nonpositive": 0,
+      "issue_reasons": {
+        "missing bot speech": 7
+      },
+      "failed_audits": [],
+      "runs": [
+        {
+          "key": "gemini38low-01",
+          "audit": {
+            "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T133854_gemini-3.8-live-extended-thinking_cfcf320c",
+            "audit": true,
+            "codes": [
+              0,
+              0
+            ],
+            "metrics": "/home/khkramer/src/aiewf-eval/docs/speech-v2-live-medium-2026-09-15/audio-audit/gemini38low-01.json",
+            "alignment": "/home/khkramer/src/aiewf-eval/docs/speech-v2-live-medium-2026-09-15/audio-audit/gemini38low-01.alignment.json"
+          },
+          "missing_input_windows": [],
+          "missing_turns": [
+            29
+          ],
+          "issues": [
+            {
+              "turn": 29,
+              "reason": "missing bot speech"
+            }
+          ],
+          "max_user_alignment_offset_ms": 21.083333333333332
+        },
+        {
+          "key": "gemini38low-02",
+          "audit": {
+            "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T133854_gemini-3.8-live-extended-thinking_b68a4d37",
+            "audit": true,
+            "codes": [
+              0,
+              0
+            ],
+            "metrics": "/home/khkramer/src/aiewf-eval/docs/speech-v2-live-medium-2026-09-15/audio-audit/gemini38low-02.json",
+            "alignment": "/home/khkramer/src/aiewf-eval/docs/speech-v2-live-medium-2026-09-15/audio-audit/gemini38low-02.alignment.json"
+          },
+          "missing_input_windows": [],
+          "missing_turns": [],
+          "issues": [],
+          "max_user_alignment_offset_ms": 21.875
+        },
+        {
+          "key": "gemini38low-03",
+          "audit": {
+            "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T134551_gemini-3.8-live-extended-thinking_d8712bea",
+            "audit": true,
+            "codes": [
+              0,
+              0
+            ],
+            "metrics": "/home/khkramer/src/aiewf-eval/docs/speech-v2-live-medium-2026-09-15/audio-audit/gemini38low-03.json",
+            "alignment": "/home/khkramer/src/aiewf-eval/docs/speech-v2-live-medium-2026-09-15/audio-audit/gemini38low-03.alignment.json"
+          },
+          "missing_input_windows": [],
+          "missing_turns": [],
+          "issues": [],
+          "max_user_alignment_offset_ms": 20.666666666666668
+        },
+        {
+          "key": "gemini38low-04",
+          "audit": {
+            "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T134707_gemini-3.8-live-extended-thinking_c6a961a1",
+            "audit": true,
+            "codes": [
+              0,
+              0
+            ],
+            "metrics": "/home/khkramer/src/aiewf-eval/docs/speech-v2-live-medium-2026-09-15/audio-audit/gemini38low-04.json",
+            "alignment": "/home/khkramer/src/aiewf-eval/docs/speech-v2-live-medium-2026-09-15/audio-audit/gemini38low-04.alignment.json"
+          },
+          "missing_input_windows": [],
+          "missing_turns": [
+            29
+          ],
+          "issues": [
+            {
+              "turn": 29,
+              "reason": "missing bot speech"
+            }
+          ],
+          "max_user_alignment_offset_ms": 20.791666666666668
+        },
+        {
+          "key": "gemini38low-05",
+          "audit": {
+            "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T134731_gemini-3.8-live-extended-thinking_9c6638d5",
+            "audit": true,
+            "codes": [
+              0,
+              0
+            ],
+            "metrics": "/home/khkramer/src/aiewf-eval/docs/speech-v2-live-medium-2026-09-15/audio-audit/gemini38low-05.json",
+            "alignment": "/home/khkramer/src/aiewf-eval/docs/speech-v2-live-medium-2026-09-15/audio-audit/gemini38low-05.alignment.json"
+          },
+          "missing_input_windows": [],
+          "missing_turns": [],
+          "issues": [],
+          "max_user_alignment_offset_ms": 18.583333333333332
+        },
+        {
+          "key": "gemini38low-06",
+          "audit": {
+            "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T135417_gemini-3.8-live-extended-thinking_e6b6129c",
+            "audit": true,
+            "codes": [
+              0,
+              0
+            ],
+            "metrics": "/home/khkramer/src/aiewf-eval/docs/speech-v2-live-medium-2026-09-15/audio-audit/gemini38low-06.json",
+            "alignment": "/home/khkramer/src/aiewf-eval/docs/speech-v2-live-medium-2026-09-15/audio-audit/gemini38low-06.alignment.json"
+          },
+          "missing_input_windows": [],
+          "missing_turns": [],
+          "issues": [],
+          "max_user_alignment_offset_ms": 18.708333333333332
+        },
+        {
+          "key": "gemini38low-07",
+          "audit": {
+            "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T135435_gemini-3.8-live-extended-thinking_084d54b5",
+            "audit": true,
+            "codes": [
+              0,
+              0
+            ],
+            "metrics": "/home/khkramer/src/aiewf-eval/docs/speech-v2-live-medium-2026-09-15/audio-audit/gemini38low-07.json",
+            "alignment": "/home/khkramer/src/aiewf-eval/docs/speech-v2-live-medium-2026-09-15/audio-audit/gemini38low-07.alignment.json"
+          },
+          "missing_input_windows": [],
+          "missing_turns": [
+            29
+          ],
+          "issues": [
+            {
+              "turn": 29,
+              "reason": "missing bot speech"
+            }
+          ],
+          "max_user_alignment_offset_ms": 22.041666666666668
+        },
+        {
+          "key": "gemini38low-08",
+          "audit": {
+            "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T140134_gemini-3.8-live-extended-thinking_a06f3cf9",
+            "audit": true,
+            "codes": [
+              0,
+              0
+            ],
+            "metrics": "/home/khkramer/src/aiewf-eval/docs/speech-v2-live-medium-2026-09-15/audio-audit/gemini38low-08.json",
+            "alignment": "/home/khkramer/src/aiewf-eval/docs/speech-v2-live-medium-2026-09-15/audio-audit/gemini38low-08.alignment.json"
+          },
+          "missing_input_windows": [],
+          "missing_turns": [
+            29
+          ],
+          "issues": [
+            {
+              "turn": 29,
+              "reason": "missing bot speech"
+            }
+          ],
+          "max_user_alignment_offset_ms": 21.125
+        },
+        {
+          "key": "gemini38low-09",
+          "audit": {
+            "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T140219_gemini-3.8-live-extended-thinking_9b52d016",
+            "audit": true,
+            "codes": [
+              0,
+              0
+            ],
+            "metrics": "/home/khkramer/src/aiewf-eval/docs/speech-v2-live-medium-2026-09-15/audio-audit/gemini38low-09.json",
+            "alignment": "/home/khkramer/src/aiewf-eval/docs/speech-v2-live-medium-2026-09-15/audio-audit/gemini38low-09.alignment.json"
+          },
+          "missing_input_windows": [],
+          "missing_turns": [
+            29
+          ],
+          "issues": [
+            {
+              "turn": 29,
+              "reason": "missing bot speech"
+            }
+          ],
+          "max_user_alignment_offset_ms": 21.458333333333332
+        },
+        {
+          "key": "gemini38low-10",
+          "audit": {
+            "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T140446_gemini-3.8-live-extended-thinking_064d6395",
+            "audit": true,
+            "codes": [
+              0,
+              0
+            ],
+            "metrics": "/home/khkramer/src/aiewf-eval/docs/speech-v2-live-medium-2026-09-15/audio-audit/gemini38low-10.json",
+            "alignment": "/home/khkramer/src/aiewf-eval/docs/speech-v2-live-medium-2026-09-15/audio-audit/gemini38low-10.alignment.json"
+          },
+          "missing_input_windows": [],
+          "missing_turns": [],
+          "issues": [],
+          "max_user_alignment_offset_ms": 22.333333333333332
+        },
+        {
+          "key": "gemini38low-11",
+          "audit": {
+            "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T140918_gemini-3.8-live-extended-thinking_b65c3619",
+            "audit": true,
+            "codes": [
+              0,
+              0
+            ],
+            "metrics": "/home/khkramer/src/aiewf-eval/docs/speech-v2-live-medium-2026-09-15/audio-audit/gemini38low-11.json",
+            "alignment": "/home/khkramer/src/aiewf-eval/docs/speech-v2-live-medium-2026-09-15/audio-audit/gemini38low-11.alignment.json"
+          },
+          "missing_input_windows": [],
+          "missing_turns": [],
+          "issues": [],
+          "max_user_alignment_offset_ms": 20.666666666666668
+        },
+        {
+          "key": "gemini38low-12",
+          "audit": {
+            "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T141117_gemini-3.8-live-extended-thinking_cf8cd641",
+            "audit": true,
+            "codes": [
+              0,
+              0
+            ],
+            "metrics": "/home/khkramer/src/aiewf-eval/docs/speech-v2-live-medium-2026-09-15/audio-audit/gemini38low-12.json",
+            "alignment": "/home/khkramer/src/aiewf-eval/docs/speech-v2-live-medium-2026-09-15/audio-audit/gemini38low-12.alignment.json"
+          },
+          "missing_input_windows": [],
+          "missing_turns": [],
+          "issues": [],
+          "max_user_alignment_offset_ms": 18.791666666666668
+        },
+        {
+          "key": "gemini38low-13",
+          "audit": {
+            "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T141636_gemini-3.8-live-extended-thinking_0858c0bc",
+            "audit": true,
+            "codes": [
+              0,
+              0
+            ],
+            "metrics": "/home/khkramer/src/aiewf-eval/docs/speech-v2-live-medium-2026-09-15/audio-audit/gemini38low-13.json",
+            "alignment": "/home/khkramer/src/aiewf-eval/docs/speech-v2-live-medium-2026-09-15/audio-audit/gemini38low-13.alignment.json"
+          },
+          "missing_input_windows": [],
+          "missing_turns": [],
+          "issues": [],
+          "max_user_alignment_offset_ms": 20.375
+        },
+        {
+          "key": "gemini38low-14",
+          "audit": {
+            "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T141836_gemini-3.8-live-extended-thinking_560b2794",
+            "audit": true,
+            "codes": [
+              0,
+              0
+            ],
+            "metrics": "/home/khkramer/src/aiewf-eval/docs/speech-v2-live-medium-2026-09-15/audio-audit/gemini38low-14.json",
+            "alignment": "/home/khkramer/src/aiewf-eval/docs/speech-v2-live-medium-2026-09-15/audio-audit/gemini38low-14.alignment.json"
+          },
+          "missing_input_windows": [],
+          "missing_turns": [],
+          "issues": [],
+          "max_user_alignment_offset_ms": 19.666666666666664
+        },
+        {
+          "key": "gemini38low-15",
+          "audit": {
+            "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T142004_gemini-3.8-live-extended-thinking_ea9411ab",
+            "audit": true,
+            "codes": [
+              0,
+              0
+            ],
+            "metrics": "/home/khkramer/src/aiewf-eval/docs/speech-v2-live-medium-2026-09-15/audio-audit/gemini38low-15.json",
+            "alignment": "/home/khkramer/src/aiewf-eval/docs/speech-v2-live-medium-2026-09-15/audio-audit/gemini38low-15.alignment.json"
+          },
+          "missing_input_windows": [],
+          "missing_turns": [],
+          "issues": [],
+          "max_user_alignment_offset_ms": 19.5
+        },
+        {
+          "key": "gemini38low-16",
+          "audit": {
+            "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T142527_gemini-3.8-live-extended-thinking_9f9e592d",
+            "audit": true,
+            "codes": [
+              0,
+              0
+            ],
+            "metrics": "/home/khkramer/src/aiewf-eval/docs/speech-v2-live-medium-2026-09-15/audio-audit/gemini38low-16.json",
+            "alignment": "/home/khkramer/src/aiewf-eval/docs/speech-v2-live-medium-2026-09-15/audio-audit/gemini38low-16.alignment.json"
+          },
+          "missing_input_windows": [],
+          "missing_turns": [],
+          "issues": [],
+          "max_user_alignment_offset_ms": 21.125
+        },
+        {
+          "key": "gemini38low-17",
+          "audit": {
+            "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T142709_gemini-3.8-live-extended-thinking_65b656e4",
+            "audit": true,
+            "codes": [
+              0,
+              0
+            ],
+            "metrics": "/home/khkramer/src/aiewf-eval/docs/speech-v2-live-medium-2026-09-15/audio-audit/gemini38low-17.json",
+            "alignment": "/home/khkramer/src/aiewf-eval/docs/speech-v2-live-medium-2026-09-15/audio-audit/gemini38low-17.alignment.json"
+          },
+          "missing_input_windows": [],
+          "missing_turns": [],
+          "issues": [],
+          "max_user_alignment_offset_ms": 20.625
+        },
+        {
+          "key": "gemini38low-18",
+          "audit": {
+            "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T143237_gemini-3.8-live-extended-thinking_956e5094",
+            "audit": true,
+            "codes": [
+              0,
+              0
+            ],
+            "metrics": "/home/khkramer/src/aiewf-eval/docs/speech-v2-live-medium-2026-09-15/audio-audit/gemini38low-18.json",
+            "alignment": "/home/khkramer/src/aiewf-eval/docs/speech-v2-live-medium-2026-09-15/audio-audit/gemini38low-18.alignment.json"
+          },
+          "missing_input_windows": [],
+          "missing_turns": [],
+          "issues": [],
+          "max_user_alignment_offset_ms": 21.166666666666668
+        },
+        {
+          "key": "gemini38low-19",
+          "audit": {
+            "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T143317_gemini-3.8-live-extended-thinking_1d695483",
+            "audit": true,
+            "codes": [
+              0,
+              0
+            ],
+            "metrics": "/home/khkramer/src/aiewf-eval/docs/speech-v2-live-medium-2026-09-15/audio-audit/gemini38low-19.json",
+            "alignment": "/home/khkramer/src/aiewf-eval/docs/speech-v2-live-medium-2026-09-15/audio-audit/gemini38low-19.alignment.json"
+          },
+          "missing_input_windows": [],
+          "missing_turns": [],
+          "issues": [],
+          "max_user_alignment_offset_ms": 19.458333333333336
+        },
+        {
+          "key": "gemini38low-20",
+          "audit": {
+            "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T143628_gemini-3.8-live-extended-thinking_942eebb2",
+            "audit": true,
+            "codes": [
+              0,
+              0
+            ],
+            "metrics": "/home/khkramer/src/aiewf-eval/docs/speech-v2-live-medium-2026-09-15/audio-audit/gemini38low-20.json",
+            "alignment": "/home/khkramer/src/aiewf-eval/docs/speech-v2-live-medium-2026-09-15/audio-audit/gemini38low-20.alignment.json"
+          },
+          "missing_input_windows": [],
+          "missing_turns": [],
+          "issues": [],
+          "max_user_alignment_offset_ms": 21.666666666666668
+        },
+        {
+          "key": "gemini38low-21",
+          "audit": {
+            "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T143959_gemini-3.8-live-extended-thinking_d66dd609",
+            "audit": true,
+            "codes": [
+              0,
+              0
+            ],
+            "metrics": "/home/khkramer/src/aiewf-eval/docs/speech-v2-live-medium-2026-09-15/audio-audit/gemini38low-21.json",
+            "alignment": "/home/khkramer/src/aiewf-eval/docs/speech-v2-live-medium-2026-09-15/audio-audit/gemini38low-21.alignment.json"
+          },
+          "missing_input_windows": [],
+          "missing_turns": [],
+          "issues": [],
+          "max_user_alignment_offset_ms": 20.458333333333332
+        },
+        {
+          "key": "gemini38low-22",
+          "audit": {
+            "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T144307_gemini-3.8-live-extended-thinking_c0532da7",
+            "audit": true,
+            "codes": [
+              0,
+              0
+            ],
+            "metrics": "/home/khkramer/src/aiewf-eval/docs/speech-v2-live-medium-2026-09-15/audio-audit/gemini38low-22.json",
+            "alignment": "/home/khkramer/src/aiewf-eval/docs/speech-v2-live-medium-2026-09-15/audio-audit/gemini38low-22.alignment.json"
+          },
+          "missing_input_windows": [],
+          "missing_turns": [
+            29
+          ],
+          "issues": [
+            {
+              "turn": 29,
+              "reason": "missing bot speech"
+            }
+          ],
+          "max_user_alignment_offset_ms": 21.333333333333332
+        },
+        {
+          "key": "gemini38low-23",
+          "audit": {
+            "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T144713_gemini-3.8-live-extended-thinking_f71032c2",
+            "audit": true,
+            "codes": [
+              0,
+              0
+            ],
+            "metrics": "/home/khkramer/src/aiewf-eval/docs/speech-v2-live-medium-2026-09-15/audio-audit/gemini38low-23.json",
+            "alignment": "/home/khkramer/src/aiewf-eval/docs/speech-v2-live-medium-2026-09-15/audio-audit/gemini38low-23.alignment.json"
+          },
+          "missing_input_windows": [],
+          "missing_turns": [
+            29
+          ],
+          "issues": [
+            {
+              "turn": 29,
+              "reason": "missing bot speech"
+            }
+          ],
+          "max_user_alignment_offset_ms": 20.791666666666668
+        },
+        {
+          "key": "gemini38low-24",
+          "audit": {
+            "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T144931_gemini-3.8-live-extended-thinking_53892d93",
+            "audit": true,
+            "codes": [
+              0,
+              0
+            ],
+            "metrics": "/home/khkramer/src/aiewf-eval/docs/speech-v2-live-medium-2026-09-15/audio-audit/gemini38low-24.json",
+            "alignment": "/home/khkramer/src/aiewf-eval/docs/speech-v2-live-medium-2026-09-15/audio-audit/gemini38low-24.alignment.json"
+          },
+          "missing_input_windows": [
+            0
+          ],
+          "missing_turns": [
+            0
+          ],
+          "issues": [],
+          "max_user_alignment_offset_ms": 21.333333333333332
+        },
+        {
+          "key": "gemini38low-25",
+          "audit": {
+            "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T145220_gemini-3.8-live-extended-thinking_e8b45ac6",
+            "audit": true,
+            "codes": [
+              0,
+              0
+            ],
+            "metrics": "/home/khkramer/src/aiewf-eval/docs/speech-v2-live-medium-2026-09-15/audio-audit/gemini38low-25.json",
+            "alignment": "/home/khkramer/src/aiewf-eval/docs/speech-v2-live-medium-2026-09-15/audio-audit/gemini38low-25.alignment.json"
+          },
+          "missing_input_windows": [],
+          "missing_turns": [],
+          "issues": [],
+          "max_user_alignment_offset_ms": 20.958333333333332
+        }
+      ]
+    },
+    "gemini38medium": {
+      "latency": {
+        "all": {
+          "n": 743,
+          "mean_ms": 1499.0471063257066,
+          "p50_ms": 1472.0,
+          "p90_ms": 1920.0,
+          "p95_ms": 2112.0,
+          "min_ms": 800.0,
+          "max_ms": 7168.0
+        },
+        "tool": {
+          "n": 142,
+          "mean_ms": 1554.4788732394366,
+          "p50_ms": 1440.0,
+          "p90_ms": 2240.0,
+          "p95_ms": 2336.0,
+          "min_ms": 800.0,
+          "max_ms": 5408.0
+        },
+        "non_tool": {
+          "n": 601,
+          "mean_ms": 1485.9500831946755,
+          "p50_ms": 1472.0,
+          "p90_ms": 1888.0,
+          "p95_ms": 2016.0,
+          "min_ms": 832.0,
+          "max_ms": 7168.0
+        }
+      },
+      "signed_latency": {
+        "n": 743,
+        "mean_ms": 1499.0471063257066,
+        "p50_ms": 1472.0,
+        "p90_ms": 1920.0,
+        "p95_ms": 2112.0,
+        "min_ms": 800.0,
+        "max_ms": 7168.0
+      },
+      "missing_turns": 7,
+      "nonpositive": 0,
+      "issue_reasons": {
+        "missing bot speech": 7
+      },
+      "failed_audits": [],
+      "runs": [
+        {
+          "key": "gemini38medium-01",
+          "audit": {
+            "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T213510_gemini-3.8-live-extended-thinking_8460009d",
+            "audit": true,
+            "codes": [
+              0,
+              0
+            ],
+            "metrics": "/home/khkramer/src/aiewf-eval/docs/speech-v2-live-medium-2026-09-15/audio-audit/gemini38medium-01.json",
+            "alignment": "/home/khkramer/src/aiewf-eval/docs/speech-v2-live-medium-2026-09-15/audio-audit/gemini38medium-01.alignment.json"
+          },
+          "missing_input_windows": [],
+          "missing_turns": [
+            29
+          ],
+          "issues": [
+            {
+              "turn": 29,
+              "reason": "missing bot speech"
+            }
+          ],
+          "max_user_alignment_offset_ms": 21.25
+        },
+        {
+          "key": "gemini38medium-02",
+          "audit": {
+            "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T213510_gemini-3.8-live-extended-thinking_8ab41807",
+            "audit": true,
+            "codes": [
+              0,
+              0
+            ],
+            "metrics": "/home/khkramer/src/aiewf-eval/docs/speech-v2-live-medium-2026-09-15/audio-audit/gemini38medium-02.json",
+            "alignment": "/home/khkramer/src/aiewf-eval/docs/speech-v2-live-medium-2026-09-15/audio-audit/gemini38medium-02.alignment.json"
+          },
+          "missing_input_windows": [],
+          "missing_turns": [
+            29
+          ],
+          "issues": [
+            {
+              "turn": 29,
+              "reason": "missing bot speech"
+            }
+          ],
+          "max_user_alignment_offset_ms": 23.416666666666664
+        },
+        {
+          "key": "gemini38medium-03",
+          "audit": {
+            "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T213510_gemini-3.8-live-extended-thinking_c53c087e",
+            "audit": true,
+            "codes": [
+              0,
+              0
+            ],
+            "metrics": "/home/khkramer/src/aiewf-eval/docs/speech-v2-live-medium-2026-09-15/audio-audit/gemini38medium-03.json",
+            "alignment": "/home/khkramer/src/aiewf-eval/docs/speech-v2-live-medium-2026-09-15/audio-audit/gemini38medium-03.alignment.json"
+          },
+          "missing_input_windows": [],
+          "missing_turns": [],
+          "issues": [],
+          "max_user_alignment_offset_ms": 19.625
+        },
+        {
+          "key": "gemini38medium-04",
+          "audit": {
+            "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T213510_gemini-3.8-live-extended-thinking_3f2e242e",
+            "audit": true,
+            "codes": [
+              0,
+              0
+            ],
+            "metrics": "/home/khkramer/src/aiewf-eval/docs/speech-v2-live-medium-2026-09-15/audio-audit/gemini38medium-04.json",
+            "alignment": "/home/khkramer/src/aiewf-eval/docs/speech-v2-live-medium-2026-09-15/audio-audit/gemini38medium-04.alignment.json"
+          },
+          "missing_input_windows": [],
+          "missing_turns": [],
+          "issues": [],
+          "max_user_alignment_offset_ms": 21.333333333333332
+        },
+        {
+          "key": "gemini38medium-05",
+          "audit": {
+            "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T213510_gemini-3.8-live-extended-thinking_ac19d585",
+            "audit": true,
+            "codes": [
+              0,
+              0
+            ],
+            "metrics": "/home/khkramer/src/aiewf-eval/docs/speech-v2-live-medium-2026-09-15/audio-audit/gemini38medium-05.json",
+            "alignment": "/home/khkramer/src/aiewf-eval/docs/speech-v2-live-medium-2026-09-15/audio-audit/gemini38medium-05.alignment.json"
+          },
+          "missing_input_windows": [],
+          "missing_turns": [],
+          "issues": [],
+          "max_user_alignment_offset_ms": 21.041666666666668
+        },
+        {
+          "key": "gemini38medium-06",
+          "audit": {
+            "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T214224_gemini-3.8-live-extended-thinking_25a533bc",
+            "audit": true,
+            "codes": [
+              0,
+              0
+            ],
+            "metrics": "/home/khkramer/src/aiewf-eval/docs/speech-v2-live-medium-2026-09-15/audio-audit/gemini38medium-06.json",
+            "alignment": "/home/khkramer/src/aiewf-eval/docs/speech-v2-live-medium-2026-09-15/audio-audit/gemini38medium-06.alignment.json"
+          },
+          "missing_input_windows": [],
+          "missing_turns": [
+            29
+          ],
+          "issues": [
+            {
+              "turn": 29,
+              "reason": "missing bot speech"
+            }
+          ],
+          "max_user_alignment_offset_ms": 21.166666666666668
+        },
+        {
+          "key": "gemini38medium-07",
+          "audit": {
+            "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T214226_gemini-3.8-live-extended-thinking_d02af85b",
+            "audit": true,
+            "codes": [
+              0,
+              0
+            ],
+            "metrics": "/home/khkramer/src/aiewf-eval/docs/speech-v2-live-medium-2026-09-15/audio-audit/gemini38medium-07.json",
+            "alignment": "/home/khkramer/src/aiewf-eval/docs/speech-v2-live-medium-2026-09-15/audio-audit/gemini38medium-07.alignment.json"
+          },
+          "missing_input_windows": [],
+          "missing_turns": [],
+          "issues": [],
+          "max_user_alignment_offset_ms": 24.541666666666668
+        },
+        {
+          "key": "gemini38medium-08",
+          "audit": {
+            "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T214227_gemini-3.8-live-extended-thinking_61cd5d15",
+            "audit": true,
+            "codes": [
+              0,
+              0
+            ],
+            "metrics": "/home/khkramer/src/aiewf-eval/docs/speech-v2-live-medium-2026-09-15/audio-audit/gemini38medium-08.json",
+            "alignment": "/home/khkramer/src/aiewf-eval/docs/speech-v2-live-medium-2026-09-15/audio-audit/gemini38medium-08.alignment.json"
+          },
+          "missing_input_windows": [],
+          "missing_turns": [],
+          "issues": [],
+          "max_user_alignment_offset_ms": 22.666666666666668
+        },
+        {
+          "key": "gemini38medium-09",
+          "audit": {
+            "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T214235_gemini-3.8-live-extended-thinking_e9a565b1",
+            "audit": true,
+            "codes": [
+              0,
+              0
+            ],
+            "metrics": "/home/khkramer/src/aiewf-eval/docs/speech-v2-live-medium-2026-09-15/audio-audit/gemini38medium-09.json",
+            "alignment": "/home/khkramer/src/aiewf-eval/docs/speech-v2-live-medium-2026-09-15/audio-audit/gemini38medium-09.alignment.json"
+          },
+          "missing_input_windows": [],
+          "missing_turns": [],
+          "issues": [],
+          "max_user_alignment_offset_ms": 22.583333333333332
+        },
+        {
+          "key": "gemini38medium-10",
+          "audit": {
+            "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T214252_gemini-3.8-live-extended-thinking_4c6ef693",
+            "audit": true,
+            "codes": [
+              0,
+              0
+            ],
+            "metrics": "/home/khkramer/src/aiewf-eval/docs/speech-v2-live-medium-2026-09-15/audio-audit/gemini38medium-10.json",
+            "alignment": "/home/khkramer/src/aiewf-eval/docs/speech-v2-live-medium-2026-09-15/audio-audit/gemini38medium-10.alignment.json"
+          },
+          "missing_input_windows": [],
+          "missing_turns": [
+            29
+          ],
+          "issues": [
+            {
+              "turn": 29,
+              "reason": "missing bot speech"
+            }
+          ],
+          "max_user_alignment_offset_ms": 20.625
+        },
+        {
+          "key": "gemini38medium-11",
+          "audit": {
+            "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T214916_gemini-3.8-live-extended-thinking_56884fb0",
+            "audit": true,
+            "codes": [
+              0,
+              0
+            ],
+            "metrics": "/home/khkramer/src/aiewf-eval/docs/speech-v2-live-medium-2026-09-15/audio-audit/gemini38medium-11.json",
+            "alignment": "/home/khkramer/src/aiewf-eval/docs/speech-v2-live-medium-2026-09-15/audio-audit/gemini38medium-11.alignment.json"
+          },
+          "missing_input_windows": [],
+          "missing_turns": [],
+          "issues": [],
+          "max_user_alignment_offset_ms": 21.458333333333332
+        },
+        {
+          "key": "gemini38medium-12",
+          "audit": {
+            "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T214936_gemini-3.8-live-extended-thinking_34b7f61c",
+            "audit": true,
+            "codes": [
+              0,
+              0
+            ],
+            "metrics": "/home/khkramer/src/aiewf-eval/docs/speech-v2-live-medium-2026-09-15/audio-audit/gemini38medium-12.json",
+            "alignment": "/home/khkramer/src/aiewf-eval/docs/speech-v2-live-medium-2026-09-15/audio-audit/gemini38medium-12.alignment.json"
+          },
+          "missing_input_windows": [],
+          "missing_turns": [],
+          "issues": [],
+          "max_user_alignment_offset_ms": 21.416666666666668
+        },
+        {
+          "key": "gemini38medium-13",
+          "audit": {
+            "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T214943_gemini-3.8-live-extended-thinking_e8c7e530",
+            "audit": true,
+            "codes": [
+              0,
+              0
+            ],
+            "metrics": "/home/khkramer/src/aiewf-eval/docs/speech-v2-live-medium-2026-09-15/audio-audit/gemini38medium-13.json",
+            "alignment": "/home/khkramer/src/aiewf-eval/docs/speech-v2-live-medium-2026-09-15/audio-audit/gemini38medium-13.alignment.json"
+          },
+          "missing_input_windows": [],
+          "missing_turns": [],
+          "issues": [],
+          "max_user_alignment_offset_ms": 20.75
+        },
+        {
+          "key": "gemini38medium-14",
+          "audit": {
+            "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T215022_gemini-3.8-live-extended-thinking_0b6a46df",
+            "audit": true,
+            "codes": [
+              0,
+              0
+            ],
+            "metrics": "/home/khkramer/src/aiewf-eval/docs/speech-v2-live-medium-2026-09-15/audio-audit/gemini38medium-14.json",
+            "alignment": "/home/khkramer/src/aiewf-eval/docs/speech-v2-live-medium-2026-09-15/audio-audit/gemini38medium-14.alignment.json"
+          },
+          "missing_input_windows": [],
+          "missing_turns": [],
+          "issues": [],
+          "max_user_alignment_offset_ms": 21.333333333333332
+        },
+        {
+          "key": "gemini38medium-15",
+          "audit": {
+            "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T215046_gemini-3.8-live-extended-thinking_f0cf2926",
+            "audit": true,
+            "codes": [
+              0,
+              0
+            ],
+            "metrics": "/home/khkramer/src/aiewf-eval/docs/speech-v2-live-medium-2026-09-15/audio-audit/gemini38medium-15.json",
+            "alignment": "/home/khkramer/src/aiewf-eval/docs/speech-v2-live-medium-2026-09-15/audio-audit/gemini38medium-15.alignment.json"
+          },
+          "missing_input_windows": [],
+          "missing_turns": [],
+          "issues": [],
+          "max_user_alignment_offset_ms": 23.25
+        },
+        {
+          "key": "gemini38medium-16",
+          "audit": {
+            "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T215623_gemini-3.8-live-extended-thinking_4a78bdf8",
+            "audit": true,
+            "codes": [
+              0,
+              0
+            ],
+            "metrics": "/home/khkramer/src/aiewf-eval/docs/speech-v2-live-medium-2026-09-15/audio-audit/gemini38medium-16.json",
+            "alignment": "/home/khkramer/src/aiewf-eval/docs/speech-v2-live-medium-2026-09-15/audio-audit/gemini38medium-16.alignment.json"
+          },
+          "missing_input_windows": [],
+          "missing_turns": [],
+          "issues": [],
+          "max_user_alignment_offset_ms": 19.083333333333336
+        },
+        {
+          "key": "gemini38medium-17",
+          "audit": {
+            "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T215630_gemini-3.8-live-extended-thinking_e8b45a8d",
+            "audit": true,
+            "codes": [
+              0,
+              0
+            ],
+            "metrics": "/home/khkramer/src/aiewf-eval/docs/speech-v2-live-medium-2026-09-15/audio-audit/gemini38medium-17.json",
+            "alignment": "/home/khkramer/src/aiewf-eval/docs/speech-v2-live-medium-2026-09-15/audio-audit/gemini38medium-17.alignment.json"
+          },
+          "missing_input_windows": [],
+          "missing_turns": [],
+          "issues": [],
+          "max_user_alignment_offset_ms": 17.375
+        },
+        {
+          "key": "gemini38medium-18",
+          "audit": {
+            "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T215645_gemini-3.8-live-extended-thinking_4c2c3d2c",
+            "audit": true,
+            "codes": [
+              0,
+              0
+            ],
+            "metrics": "/home/khkramer/src/aiewf-eval/docs/speech-v2-live-medium-2026-09-15/audio-audit/gemini38medium-18.json",
+            "alignment": "/home/khkramer/src/aiewf-eval/docs/speech-v2-live-medium-2026-09-15/audio-audit/gemini38medium-18.alignment.json"
+          },
+          "missing_input_windows": [],
+          "missing_turns": [],
+          "issues": [],
+          "max_user_alignment_offset_ms": 21.541666666666668
+        },
+        {
+          "key": "gemini38medium-19",
+          "audit": {
+            "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T215741_gemini-3.8-live-extended-thinking_92a4b391",
+            "audit": true,
+            "codes": [
+              0,
+              0
+            ],
+            "metrics": "/home/khkramer/src/aiewf-eval/docs/speech-v2-live-medium-2026-09-15/audio-audit/gemini38medium-19.json",
+            "alignment": "/home/khkramer/src/aiewf-eval/docs/speech-v2-live-medium-2026-09-15/audio-audit/gemini38medium-19.alignment.json"
+          },
+          "missing_input_windows": [],
+          "missing_turns": [
+            29
+          ],
+          "issues": [
+            {
+              "turn": 29,
+              "reason": "missing bot speech"
+            }
+          ],
+          "max_user_alignment_offset_ms": 20.166666666666664
+        },
+        {
+          "key": "gemini38medium-20",
+          "audit": {
+            "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T215748_gemini-3.8-live-extended-thinking_92d5a25e",
+            "audit": true,
+            "codes": [
+              0,
+              0
+            ],
+            "metrics": "/home/khkramer/src/aiewf-eval/docs/speech-v2-live-medium-2026-09-15/audio-audit/gemini38medium-20.json",
+            "alignment": "/home/khkramer/src/aiewf-eval/docs/speech-v2-live-medium-2026-09-15/audio-audit/gemini38medium-20.alignment.json"
+          },
+          "missing_input_windows": [],
+          "missing_turns": [],
+          "issues": [],
+          "max_user_alignment_offset_ms": 20.5
+        },
+        {
+          "key": "gemini38medium-21",
+          "audit": {
+            "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T220334_gemini-3.8-live-extended-thinking_6452fefe",
+            "audit": true,
+            "codes": [
+              0,
+              0
+            ],
+            "metrics": "/home/khkramer/src/aiewf-eval/docs/speech-v2-live-medium-2026-09-15/audio-audit/gemini38medium-21.json",
+            "alignment": "/home/khkramer/src/aiewf-eval/docs/speech-v2-live-medium-2026-09-15/audio-audit/gemini38medium-21.alignment.json"
+          },
+          "missing_input_windows": [],
+          "missing_turns": [
+            29
+          ],
+          "issues": [
+            {
+              "turn": 29,
+              "reason": "missing bot speech"
+            }
+          ],
+          "max_user_alignment_offset_ms": 21.958333333333332
+        },
+        {
+          "key": "gemini38medium-22",
+          "audit": {
+            "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T220355_gemini-3.8-live-extended-thinking_6084f213",
+            "audit": true,
+            "codes": [
+              0,
+              0
+            ],
+            "metrics": "/home/khkramer/src/aiewf-eval/docs/speech-v2-live-medium-2026-09-15/audio-audit/gemini38medium-22.json",
+            "alignment": "/home/khkramer/src/aiewf-eval/docs/speech-v2-live-medium-2026-09-15/audio-audit/gemini38medium-22.alignment.json"
+          },
+          "missing_input_windows": [],
+          "missing_turns": [],
+          "issues": [],
+          "max_user_alignment_offset_ms": 20.875
+        },
+        {
+          "key": "gemini38medium-23",
+          "audit": {
+            "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T220418_gemini-3.8-live-extended-thinking_b201ee0a",
+            "audit": true,
+            "codes": [
+              0,
+              0
+            ],
+            "metrics": "/home/khkramer/src/aiewf-eval/docs/speech-v2-live-medium-2026-09-15/audio-audit/gemini38medium-23.json",
+            "alignment": "/home/khkramer/src/aiewf-eval/docs/speech-v2-live-medium-2026-09-15/audio-audit/gemini38medium-23.alignment.json"
+          },
+          "missing_input_windows": [],
+          "missing_turns": [
+            29
+          ],
+          "issues": [
+            {
+              "turn": 29,
+              "reason": "missing bot speech"
+            }
+          ],
+          "max_user_alignment_offset_ms": 20.458333333333332
+        },
+        {
+          "key": "gemini38medium-24",
+          "audit": {
+            "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T220455_gemini-3.8-live-extended-thinking_d6a803e9",
+            "audit": true,
+            "codes": [
+              0,
+              0
+            ],
+            "metrics": "/home/khkramer/src/aiewf-eval/docs/speech-v2-live-medium-2026-09-15/audio-audit/gemini38medium-24.json",
+            "alignment": "/home/khkramer/src/aiewf-eval/docs/speech-v2-live-medium-2026-09-15/audio-audit/gemini38medium-24.alignment.json"
+          },
+          "missing_input_windows": [],
+          "missing_turns": [],
+          "issues": [],
+          "max_user_alignment_offset_ms": 18.375
+        },
+        {
+          "key": "gemini38medium-25",
+          "audit": {
+            "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T220526_gemini-3.8-live-extended-thinking_8496805e",
+            "audit": true,
+            "codes": [
+              0,
+              0
+            ],
+            "metrics": "/home/khkramer/src/aiewf-eval/docs/speech-v2-live-medium-2026-09-15/audio-audit/gemini38medium-25.json",
+            "alignment": "/home/khkramer/src/aiewf-eval/docs/speech-v2-live-medium-2026-09-15/audio-audit/gemini38medium-25.alignment.json"
+          },
+          "missing_input_windows": [],
+          "missing_turns": [],
+          "issues": [],
+          "max_user_alignment_offset_ms": 19.666666666666664
+        }
+      ]
+    }
+  },
+  "original_low_latency": {
+    "non_tool": {
+      "n": 598,
+      "p50_ms": 1440.0,
+      "p95_ms": 2016.0,
+      "max_ms": 8896.0,
+      "mean_ms": 1486.1270903010034
+    },
+    "tool": {
+      "n": 143,
+      "p50_ms": 1376.0,
+      "p95_ms": 2304.0,
+      "max_ms": 3360.0,
+      "mean_ms": 1503.7762237762238
+    },
+    "silence": {
+      "n": 742,
+      "p50_ms": 52.0,
+      "p95_ms": 91.0,
+      "max_ms": 4027.0,
+      "mean_ms": 60.16711590296496
+    }
+  },
+  "note": "Audio-only association correction. Same recordings and canonical VAD detector/thresholds; no model prompts, semantic scores, or original artifacts changed."
+}

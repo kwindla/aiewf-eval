@@ -1,0 +1,291 @@
+{
+  "summary": {
+    "openai21": {
+      "attempts_finished": 0,
+      "complete": 0,
+      "failure_reasons": {},
+      "attempts_with_error_evidence": {
+        "api_error": 0,
+        "rate_limit": 0,
+        "adapter_error": 0,
+        "reconnect": 0
+      }
+    },
+    "grok": {
+      "attempts_finished": 5,
+      "complete": 5,
+      "failure_reasons": {},
+      "attempts_with_error_evidence": {
+        "api_error": 0,
+        "rate_limit": 0,
+        "adapter_error": 0,
+        "reconnect": 0
+      }
+    },
+    "openai15": {
+      "attempts_finished": 0,
+      "complete": 0,
+      "failure_reasons": {},
+      "attempts_with_error_evidence": {
+        "api_error": 0,
+        "rate_limit": 0,
+        "adapter_error": 0,
+        "reconnect": 0
+      }
+    },
+    "gemini31": {
+      "attempts_finished": 3,
+      "complete": 3,
+      "failure_reasons": {},
+      "attempts_with_error_evidence": {
+        "api_error": 0,
+        "rate_limit": 0,
+        "adapter_error": 0,
+        "reconnect": 0
+      }
+    },
+    "gemini38": {
+      "attempts_finished": 2,
+      "complete": 2,
+      "failure_reasons": {},
+      "attempts_with_error_evidence": {
+        "api_error": 0,
+        "rate_limit": 0,
+        "adapter_error": 0,
+        "reconnect": 0
+      }
+    }
+  },
+  "attempts": [
+    {
+      "arm": "gemini38",
+      "index": 1,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T131050_gemini-3.8-live-extended-thinking_42423dab",
+      "complete": true,
+      "recorded_turns": 30,
+      "missing_turns": [],
+      "failure_reason": null,
+      "runtime": {
+        "model_name": "gemini-3.8-live-extended-thinking",
+        "turns": 30,
+        "status": "completed",
+        "valid": true,
+        "note": "runtime-only; scoring is performed post-run"
+      },
+      "evidence": {
+        "rate_limit": [],
+        "api_error": [],
+        "adapter_error": [],
+        "reconnect": []
+      },
+      "transcript_reconnections": 0
+    },
+    {
+      "arm": "grok",
+      "index": 4,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T131050_grok-voice-think-fast-1.0_d1718011",
+      "complete": true,
+      "recorded_turns": 30,
+      "missing_turns": [],
+      "failure_reason": null,
+      "runtime": {
+        "model_name": "grok-voice-think-fast-1.0",
+        "turns": 30,
+        "status": "completed",
+        "valid": true,
+        "note": "runtime-only; scoring is performed post-run"
+      },
+      "evidence": {
+        "rate_limit": [],
+        "api_error": [],
+        "adapter_error": [],
+        "reconnect": []
+      },
+      "transcript_reconnections": 0
+    },
+    {
+      "arm": "gemini38",
+      "index": 2,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T131050_gemini-3.8-live-extended-thinking_67b37e6a",
+      "complete": true,
+      "recorded_turns": 30,
+      "missing_turns": [],
+      "failure_reason": null,
+      "runtime": {
+        "model_name": "gemini-3.8-live-extended-thinking",
+        "turns": 30,
+        "status": "completed",
+        "valid": true,
+        "note": "runtime-only; scoring is performed post-run"
+      },
+      "evidence": {
+        "rate_limit": [],
+        "api_error": [],
+        "adapter_error": [],
+        "reconnect": []
+      },
+      "transcript_reconnections": 0
+    },
+    {
+      "arm": "grok",
+      "index": 5,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T131050_grok-voice-think-fast-1.0_9f50850a",
+      "complete": true,
+      "recorded_turns": 30,
+      "missing_turns": [],
+      "failure_reason": null,
+      "runtime": {
+        "model_name": "grok-voice-think-fast-1.0",
+        "turns": 30,
+        "status": "completed",
+        "valid": true,
+        "note": "runtime-only; scoring is performed post-run"
+      },
+      "evidence": {
+        "rate_limit": [],
+        "api_error": [],
+        "adapter_error": [],
+        "reconnect": []
+      },
+      "transcript_reconnections": 0
+    },
+    {
+      "arm": "gemini31",
+      "index": 1,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T131050_gemini-3.1-flash-live-preview_a4b3e62e",
+      "complete": true,
+      "recorded_turns": 30,
+      "missing_turns": [],
+      "failure_reason": null,
+      "runtime": {
+        "model_name": "gemini-3.1-flash-live-preview",
+        "turns": 30,
+        "status": "completed",
+        "valid": true,
+        "note": "runtime-only; scoring is performed post-run"
+      },
+      "evidence": {
+        "rate_limit": [],
+        "api_error": [],
+        "adapter_error": [],
+        "reconnect": []
+      },
+      "transcript_reconnections": 0
+    },
+    {
+      "arm": "gemini31",
+      "index": 3,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T131050_gemini-3.1-flash-live-preview_40903458",
+      "complete": true,
+      "recorded_turns": 30,
+      "missing_turns": [],
+      "failure_reason": null,
+      "runtime": {
+        "model_name": "gemini-3.1-flash-live-preview",
+        "turns": 30,
+        "status": "completed",
+        "valid": true,
+        "note": "runtime-only; scoring is performed post-run"
+      },
+      "evidence": {
+        "rate_limit": [],
+        "api_error": [],
+        "adapter_error": [],
+        "reconnect": []
+      },
+      "transcript_reconnections": 0
+    },
+    {
+      "arm": "grok",
+      "index": 2,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T131050_grok-voice-think-fast-1.0_1d09db2d",
+      "complete": true,
+      "recorded_turns": 30,
+      "missing_turns": [],
+      "failure_reason": null,
+      "runtime": {
+        "model_name": "grok-voice-think-fast-1.0",
+        "turns": 30,
+        "status": "completed",
+        "valid": true,
+        "note": "runtime-only; scoring is performed post-run"
+      },
+      "evidence": {
+        "rate_limit": [],
+        "api_error": [],
+        "adapter_error": [],
+        "reconnect": []
+      },
+      "transcript_reconnections": 0
+    },
+    {
+      "arm": "gemini31",
+      "index": 2,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T131050_gemini-3.1-flash-live-preview_b053316b",
+      "complete": true,
+      "recorded_turns": 30,
+      "missing_turns": [],
+      "failure_reason": null,
+      "runtime": {
+        "model_name": "gemini-3.1-flash-live-preview",
+        "turns": 30,
+        "status": "completed",
+        "valid": true,
+        "note": "runtime-only; scoring is performed post-run"
+      },
+      "evidence": {
+        "rate_limit": [],
+        "api_error": [],
+        "adapter_error": [],
+        "reconnect": []
+      },
+      "transcript_reconnections": 0
+    },
+    {
+      "arm": "grok",
+      "index": 1,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T131050_grok-voice-think-fast-1.0_7b8e1f9b",
+      "complete": true,
+      "recorded_turns": 30,
+      "missing_turns": [],
+      "failure_reason": null,
+      "runtime": {
+        "model_name": "grok-voice-think-fast-1.0",
+        "turns": 30,
+        "status": "completed",
+        "valid": true,
+        "note": "runtime-only; scoring is performed post-run"
+      },
+      "evidence": {
+        "rate_limit": [],
+        "api_error": [],
+        "adapter_error": [],
+        "reconnect": []
+      },
+      "transcript_reconnections": 0
+    },
+    {
+      "arm": "grok",
+      "index": 3,
+      "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T131050_grok-voice-think-fast-1.0_7ee223c8",
+      "complete": true,
+      "recorded_turns": 30,
+      "missing_turns": [],
+      "failure_reason": null,
+      "runtime": {
+        "model_name": "grok-voice-think-fast-1.0",
+        "turns": 30,
+        "status": "completed",
+        "valid": true,
+        "note": "runtime-only; scoring is performed post-run"
+      },
+      "evidence": {
+        "rate_limit": [],
+        "api_error": [],
+        "adapter_error": [],
+        "reconnect": []
+      },
+      "transcript_reconnections": 0
+    }
+  ]
+}

@@ -1,0 +1,131 @@
+{
+  "checked": [
+    {
+      "attempt": 1,
+      "turns": 30,
+      "minimum_gap_ms": 7810.258907964453
+    },
+    {
+      "attempt": 2,
+      "turns": 30,
+      "minimum_gap_ms": 6537.111443001777
+    },
+    {
+      "attempt": 3,
+      "turns": 30,
+      "minimum_gap_ms": 7238.288885098882
+    },
+    {
+      "attempt": 4,
+      "turns": 30,
+      "minimum_gap_ms": 5220.367179019377
+    },
+    {
+      "attempt": 5,
+      "turns": 30,
+      "minimum_gap_ms": 6986.91369604785
+    },
+    {
+      "attempt": 6,
+      "turns": 30,
+      "minimum_gap_ms": 6177.2868550615385
+    },
+    {
+      "attempt": 7,
+      "turns": 30,
+      "minimum_gap_ms": 6941.948072984815
+    },
+    {
+      "attempt": 8,
+      "turns": 30,
+      "minimum_gap_ms": 8705.812613014132
+    },
+    {
+      "attempt": 9,
+      "turns": 30,
+      "minimum_gap_ms": 8559.006528928876
+    },
+    {
+      "attempt": 10,
+      "turns": 30,
+      "minimum_gap_ms": 6939.090576954186
+    },
+    {
+      "attempt": 11,
+      "turns": 30,
+      "minimum_gap_ms": 6783.908435027115
+    },
+    {
+      "attempt": 12,
+      "turns": 30,
+      "minimum_gap_ms": 6841.397757991217
+    },
+    {
+      "attempt": 13,
+      "turns": 30,
+      "minimum_gap_ms": 6997.863436001353
+    },
+    {
+      "attempt": 14,
+      "turns": 30,
+      "minimum_gap_ms": 8207.162867998704
+    },
+    {
+      "attempt": 15,
+      "turns": 30,
+      "minimum_gap_ms": 6639.927759068087
+    },
+    {
+      "attempt": 16,
+      "turns": 30,
+      "minimum_gap_ms": 6529.153852025047
+    },
+    {
+      "attempt": 17,
+      "turns": 30,
+      "minimum_gap_ms": 6332.213156973012
+    },
+    {
+      "attempt": 18,
+      "turns": 30,
+      "minimum_gap_ms": 6682.9717580694705
+    },
+    {
+      "attempt": 19,
+      "turns": 30,
+      "minimum_gap_ms": 5130.001051002182
+    },
+    {
+      "attempt": 20,
+      "turns": 30,
+      "minimum_gap_ms": 6333.317084936425
+    },
+    {
+      "attempt": 21,
+      "turns": 30,
+      "minimum_gap_ms": 6477.192310034297
+    },
+    {
+      "attempt": 22,
+      "turns": 30,
+      "minimum_gap_ms": 8158.178288023919
+    },
+    {
+      "attempt": 23,
+      "turns": 30,
+      "minimum_gap_ms": 6985.710142063908
+    },
+    {
+      "attempt": 24,
+      "turns": 30,
+      "minimum_gap_ms": 5471.124417963438
+    },
+    {
+      "attempt": 25,
+      "turns": 30,
+      "minimum_gap_ms": 7385.14672301244
+    }
+  ],
+  "violations": [],
+  "criterion": "Commit less than 2.95 seconds after input_end violates the intended 3-second post-input quiet interval (50ms tolerance). This is a harness validity audit, not a model/API failure."
+}

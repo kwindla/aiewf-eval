@@ -1,0 +1,3 @@
+These are the dependency manifest and lock used by the active canonical campaign. On September 15, during capture, the root manifest/lock were updated to remove LiveKit and use OpenAI 3.14.0 for GPT-Live prep. The campaign and processor invoke the existing .venv directly; that installed environment remains Pipecat 1.10.0 / OpenAI 2.34.0. Do not run uv sync against the active .venv before both processes finish. The original implementation-hashes.json refers to this archived lock.
+
+After all 125 captures and their processing completed on September 15, the main environment was synced to OpenAI 3.14.0 with LiveKit removed. The archived files above describe the environment actually used during capture.

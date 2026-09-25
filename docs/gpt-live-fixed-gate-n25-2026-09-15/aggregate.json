@@ -1,0 +1,2692 @@
+{
+  "protocol": {
+    "prompt_sha256": "0ff3ba3519554c8743095841a93af92c25d76ec2243d7abb4d1451578a701f9f",
+    "judge_prompt_sha256": "c5a8a3b3c3240172cc392529a1784b59d2913a32e2ec2ba843a456415b75ef27",
+    "judge_model": "claude-opus-5",
+    "judge_revision": "speech-v2-policy-compliance-1",
+    "attempts_per_arm": 25,
+    "planned_turns_per_arm": 750,
+    "arms": [
+      {
+        "key": "live",
+        "model": "gpt-live-1",
+        "backend": "gpt-5.6-terra",
+        "reasoning": "medium",
+        "voice": "marin",
+        "imported_attempts": 0,
+        "new_attempts": 25
+      }
+    ],
+    "capture_concurrency_per_provider": 5,
+    "gate_revision": "post-input-quiet-interval-1",
+    "recovery": false,
+    "replace_failed_attempts": false,
+    "excluded_live_single_validation": "20260915T150622_gpt-live-1_ba419085",
+    "versions": {
+      "openai": "3.14.0",
+      "pipecat-ai": "1.10.0",
+      "google-genai": "2.23.0"
+    },
+    "source_hashes": {
+      "src/multi_turn_eval/pipelines/openai_live.py": "fca65b5d6c17e74c34a1f611742e8d84e099a2ec5daa3864956cbe338b7e58c9",
+      "src/multi_turn_eval/pipelines/realtime.py": "358795d39f3694da79ac4c8fe61e2a91aee02a9d1829ca9b9e0c6d6cd9bd5273",
+      "benchmarks/aiwf_medium_context_speech_v2/judge.py": "b783a1104b00fbb5d394e4081e915c2e1d6de9af054f219ebb20ed6cd4b8fcf2"
+    }
+  },
+  "models": [
+    {
+      "arm": {
+        "key": "live",
+        "model": "gpt-live-1",
+        "backend": "gpt-5.6-terra",
+        "reasoning": "medium",
+        "voice": "marin",
+        "imported_attempts": 0,
+        "new_attempts": 25
+      },
+      "attempts": 25,
+      "complete": 25,
+      "denominator": 750,
+      "observed_turns": 750,
+      "scores": {
+        "tool_use_correct": 723,
+        "instruction_following": 715,
+        "kb_grounding": 746,
+        "turn_taking": 749,
+        "strict": 707
+      },
+      "strict_percent": 94.26666666666667,
+      "strict_ci95": [
+        92.66666666666666,
+        95.73333333333333
+      ],
+      "latency": {
+        "all": {
+          "n": 748,
+          "mean_ms": 1869.9893048128342,
+          "p50_ms": 1728.0,
+          "p90_ms": 2400.0,
+          "p95_ms": 2688.0,
+          "min_ms": 256.0,
+          "max_ms": 11072.0
+        },
+        "non_tool": {
+          "n": 625,
+          "mean_ms": 1811.2,
+          "p50_ms": 1696.0,
+          "p90_ms": 2336.0,
+          "p95_ms": 2560.0,
+          "min_ms": 256.0,
+          "max_ms": 11072.0
+        },
+        "tool": {
+          "n": 123,
+          "mean_ms": 2168.7154471544713,
+          "p50_ms": 1792.0,
+          "p90_ms": 2739.2,
+          "p95_ms": 5280.0,
+          "min_ms": 1280.0,
+          "max_ms": 7040.0
+        },
+        "silence": {
+          "n": 0,
+          "mean_ms": null,
+          "p50_ms": null,
+          "p90_ms": null,
+          "p95_ms": null,
+          "min_ms": null,
+          "max_ms": null
+        }
+      },
+      "signed_latency": {
+        "n": 749,
+        "mean_ms": 1865.4846461949267,
+        "p50_ms": 1728.0,
+        "p90_ms": 2400.0,
+        "p95_ms": 2688.0,
+        "min_ms": -1504.0,
+        "max_ms": 11072.0
+      },
+      "runs": [
+        {
+          "attempt": {
+            "arm": "live",
+            "index": 1,
+            "model": "gpt-live-1",
+            "run_dir": "runs/aiwf_medium_context_speech_live/20260915T222012_gpt-live-1_87e89ec1",
+            "exit_code": 0,
+            "turns": 30,
+            "full": true,
+            "start_unix": 1789536011.1528785,
+            "end_unix": 1789536577.1426697,
+            "log": "docs/gpt-live-fixed-gate-n25-2026-09-15/capture/live-01.log",
+            "imported": false
+          },
+          "strict_pass": 29,
+          "judged_turns": 30,
+          "processing": {
+            "record": {
+              "arm": "live",
+              "index": 1,
+              "model": "gpt-live-1",
+              "run_dir": "runs/aiwf_medium_context_speech_live/20260915T222012_gpt-live-1_87e89ec1",
+              "exit_code": 0,
+              "turns": 30,
+              "full": true,
+              "start_unix": 1789536011.1528785,
+              "end_unix": 1789536577.1426697,
+              "log": "docs/gpt-live-fixed-gate-n25-2026-09-15/capture/live-01.log",
+              "imported": false
+            },
+            "judge": true,
+            "audio": true,
+            "alignment": true,
+            "score_dir": "/home/khkramer/src/aiewf-eval/runs/aiwf_medium_context_speech_live/20260915T222012_gpt-live-1_87e89ec1",
+            "audio_path": "/home/khkramer/src/aiewf-eval/runs/aiwf_medium_context_speech_live/20260915T222012_gpt-live-1_87e89ec1/live-audio-metrics.json",
+            "alignment_path": "/home/khkramer/src/aiewf-eval/runs/aiwf_medium_context_speech_live/20260915T222012_gpt-live-1_87e89ec1/audio-alignment-audit.json",
+            "audio_exit": 0
+          },
+          "latency_missing_or_unrepresented": [],
+          "nonpositive_latencies": [],
+          "audio_issues": []
+        },
+        {
+          "attempt": {
+            "arm": "live",
+            "index": 2,
+            "model": "gpt-live-1",
+            "run_dir": "runs/aiwf_medium_context_speech_live/20260915T222012_gpt-live-1_6b51d8ef",
+            "exit_code": 0,
+            "turns": 30,
+            "full": true,
+            "start_unix": 1789536011.1532626,
+            "end_unix": 1789536536.2490923,
+            "log": "docs/gpt-live-fixed-gate-n25-2026-09-15/capture/live-02.log",
+            "imported": false
+          },
+          "strict_pass": 27,
+          "judged_turns": 30,
+          "processing": {
+            "record": {
+              "arm": "live",
+              "index": 2,
+              "model": "gpt-live-1",
+              "run_dir": "runs/aiwf_medium_context_speech_live/20260915T222012_gpt-live-1_6b51d8ef",
+              "exit_code": 0,
+              "turns": 30,
+              "full": true,
+              "start_unix": 1789536011.1532626,
+              "end_unix": 1789536536.2490923,
+              "log": "docs/gpt-live-fixed-gate-n25-2026-09-15/capture/live-02.log",
+              "imported": false
+            },
+            "judge": true,
+            "audio": true,
+            "alignment": true,
+            "score_dir": "/home/khkramer/src/aiewf-eval/runs/aiwf_medium_context_speech_live/20260915T222012_gpt-live-1_6b51d8ef",
+            "audio_path": "/home/khkramer/src/aiewf-eval/runs/aiwf_medium_context_speech_live/20260915T222012_gpt-live-1_6b51d8ef/live-audio-metrics.json",
+            "alignment_path": "/home/khkramer/src/aiewf-eval/runs/aiwf_medium_context_speech_live/20260915T222012_gpt-live-1_6b51d8ef/audio-alignment-audit.json",
+            "audio_exit": 0
+          },
+          "latency_missing_or_unrepresented": [],
+          "nonpositive_latencies": [],
+          "audio_issues": []
+        },
+        {
+          "attempt": {
+            "arm": "live",
+            "index": 3,
+            "model": "gpt-live-1",
+            "run_dir": "runs/aiwf_medium_context_speech_live/20260915T222012_gpt-live-1_1b18f523",
+            "exit_code": 0,
+            "turns": 30,
+            "full": true,
+            "start_unix": 1789536011.1536117,
+            "end_unix": 1789536568.85932,
+            "log": "docs/gpt-live-fixed-gate-n25-2026-09-15/capture/live-03.log",
+            "imported": false
+          },
+          "strict_pass": 29,
+          "judged_turns": 30,
+          "processing": {
+            "record": {
+              "arm": "live",
+              "index": 3,
+              "model": "gpt-live-1",
+              "run_dir": "runs/aiwf_medium_context_speech_live/20260915T222012_gpt-live-1_1b18f523",
+              "exit_code": 0,
+              "turns": 30,
+              "full": true,
+              "start_unix": 1789536011.1536117,
+              "end_unix": 1789536568.85932,
+              "log": "docs/gpt-live-fixed-gate-n25-2026-09-15/capture/live-03.log",
+              "imported": false
+            },
+            "judge": true,
+            "audio": true,
+            "alignment": true,
+            "score_dir": "/home/khkramer/src/aiewf-eval/runs/aiwf_medium_context_speech_live/20260915T222012_gpt-live-1_1b18f523",
+            "audio_path": "/home/khkramer/src/aiewf-eval/runs/aiwf_medium_context_speech_live/20260915T222012_gpt-live-1_1b18f523/live-audio-metrics.json",
+            "alignment_path": "/home/khkramer/src/aiewf-eval/runs/aiwf_medium_context_speech_live/20260915T222012_gpt-live-1_1b18f523/audio-alignment-audit.json",
+            "audio_exit": 0
+          },
+          "latency_missing_or_unrepresented": [],
+          "nonpositive_latencies": [],
+          "audio_issues": []
+        },
+        {
+          "attempt": {
+            "arm": "live",
+            "index": 4,
+            "model": "gpt-live-1",
+            "run_dir": "runs/aiwf_medium_context_speech_live/20260915T222012_gpt-live-1_e23bff31",
+            "exit_code": 0,
+            "turns": 30,
+            "full": true,
+            "start_unix": 1789536011.1538925,
+            "end_unix": 1789536548.6691384,
+            "log": "docs/gpt-live-fixed-gate-n25-2026-09-15/capture/live-04.log",
+            "imported": false
+          },
+          "strict_pass": 29,
+          "judged_turns": 30,
+          "processing": {
+            "record": {
+              "arm": "live",
+              "index": 4,
+              "model": "gpt-live-1",
+              "run_dir": "runs/aiwf_medium_context_speech_live/20260915T222012_gpt-live-1_e23bff31",
+              "exit_code": 0,
+              "turns": 30,
+              "full": true,
+              "start_unix": 1789536011.1538925,
+              "end_unix": 1789536548.6691384,
+              "log": "docs/gpt-live-fixed-gate-n25-2026-09-15/capture/live-04.log",
+              "imported": false
+            },
+            "judge": true,
+            "audio": true,
+            "alignment": true,
+            "score_dir": "/home/khkramer/src/aiewf-eval/runs/aiwf_medium_context_speech_live/20260915T222012_gpt-live-1_e23bff31",
+            "audio_path": "/home/khkramer/src/aiewf-eval/runs/aiwf_medium_context_speech_live/20260915T222012_gpt-live-1_e23bff31/live-audio-metrics.json",
+            "alignment_path": "/home/khkramer/src/aiewf-eval/runs/aiwf_medium_context_speech_live/20260915T222012_gpt-live-1_e23bff31/audio-alignment-audit.json",
+            "audio_exit": 1
+          },
+          "latency_missing_or_unrepresented": [
+            21
+          ],
+          "nonpositive_latencies": [],
+          "audio_issues": [
+            {
+              "turn": 21,
+              "reason": "missing user or bot speech"
+            }
+          ]
+        },
+        {
+          "attempt": {
+            "arm": "live",
+            "index": 5,
+            "model": "gpt-live-1",
+            "run_dir": "runs/aiwf_medium_context_speech_live/20260915T222012_gpt-live-1_5771d61f",
+            "exit_code": 0,
+            "turns": 30,
+            "full": true,
+            "start_unix": 1789536011.1540942,
+            "end_unix": 1789536570.2492585,
+            "log": "docs/gpt-live-fixed-gate-n25-2026-09-15/capture/live-05.log",
+            "imported": false
+          },
+          "strict_pass": 27,
+          "judged_turns": 30,
+          "processing": {
+            "record": {
+              "arm": "live",
+              "index": 5,
+              "model": "gpt-live-1",
+              "run_dir": "runs/aiwf_medium_context_speech_live/20260915T222012_gpt-live-1_5771d61f",
+              "exit_code": 0,
+              "turns": 30,
+              "full": true,
+              "start_unix": 1789536011.1540942,
+              "end_unix": 1789536570.2492585,
+              "log": "docs/gpt-live-fixed-gate-n25-2026-09-15/capture/live-05.log",
+              "imported": false
+            },
+            "judge": true,
+            "audio": true,
+            "alignment": true,
+            "score_dir": "/home/khkramer/src/aiewf-eval/runs/aiwf_medium_context_speech_live/20260915T222012_gpt-live-1_5771d61f",
+            "audio_path": "/home/khkramer/src/aiewf-eval/runs/aiwf_medium_context_speech_live/20260915T222012_gpt-live-1_5771d61f/live-audio-metrics.json",
+            "alignment_path": "/home/khkramer/src/aiewf-eval/runs/aiwf_medium_context_speech_live/20260915T222012_gpt-live-1_5771d61f/audio-alignment-audit.json",
+            "audio_exit": 0
+          },
+          "latency_missing_or_unrepresented": [],
+          "nonpositive_latencies": [],
+          "audio_issues": []
+        },
+        {
+          "attempt": {
+            "arm": "live",
+            "index": 6,
+            "model": "gpt-live-1",
+            "run_dir": "runs/aiwf_medium_context_speech_live/20260915T222857_gpt-live-1_51471cbc",
+            "exit_code": 0,
+            "turns": 30,
+            "full": true,
+            "start_unix": 1789536536.2494032,
+            "end_unix": 1789537090.9864361,
+            "log": "docs/gpt-live-fixed-gate-n25-2026-09-15/capture/live-06.log",
+            "imported": false
+          },
+          "strict_pass": 29,
+          "judged_turns": 30,
+          "processing": {
+            "record": {
+              "arm": "live",
+              "index": 6,
+              "model": "gpt-live-1",
+              "run_dir": "runs/aiwf_medium_context_speech_live/20260915T222857_gpt-live-1_51471cbc",
+              "exit_code": 0,
+              "turns": 30,
+              "full": true,
+              "start_unix": 1789536536.2494032,
+              "end_unix": 1789537090.9864361,
+              "log": "docs/gpt-live-fixed-gate-n25-2026-09-15/capture/live-06.log",
+              "imported": false
+            },
+            "judge": true,
+            "audio": true,
+            "alignment": true,
+            "score_dir": "/home/khkramer/src/aiewf-eval/runs/aiwf_medium_context_speech_live/20260915T222857_gpt-live-1_51471cbc",
+            "audio_path": "/home/khkramer/src/aiewf-eval/runs/aiwf_medium_context_speech_live/20260915T222857_gpt-live-1_51471cbc/live-audio-metrics.json",
+            "alignment_path": "/home/khkramer/src/aiewf-eval/runs/aiwf_medium_context_speech_live/20260915T222857_gpt-live-1_51471cbc/audio-alignment-audit.json",
+            "audio_exit": 0
+          },
+          "latency_missing_or_unrepresented": [],
+          "nonpositive_latencies": [],
+          "audio_issues": []
+        },
+        {
+          "attempt": {
+            "arm": "live",
+            "index": 7,
+            "model": "gpt-live-1",
+            "run_dir": "runs/aiwf_medium_context_speech_live/20260915T222910_gpt-live-1_ccad809f",
+            "exit_code": 0,
+            "turns": 30,
+            "full": true,
+            "start_unix": 1789536548.6694086,
+            "end_unix": 1789537087.2131183,
+            "log": "docs/gpt-live-fixed-gate-n25-2026-09-15/capture/live-07.log",
+            "imported": false
+          },
+          "strict_pass": 29,
+          "judged_turns": 30,
+          "processing": {
+            "record": {
+              "arm": "live",
+              "index": 7,
+              "model": "gpt-live-1",
+              "run_dir": "runs/aiwf_medium_context_speech_live/20260915T222910_gpt-live-1_ccad809f",
+              "exit_code": 0,
+              "turns": 30,
+              "full": true,
+              "start_unix": 1789536548.6694086,
+              "end_unix": 1789537087.2131183,
+              "log": "docs/gpt-live-fixed-gate-n25-2026-09-15/capture/live-07.log",
+              "imported": false
+            },
+            "judge": true,
+            "audio": true,
+            "alignment": true,
+            "score_dir": "/home/khkramer/src/aiewf-eval/runs/aiwf_medium_context_speech_live/20260915T222910_gpt-live-1_ccad809f",
+            "audio_path": "/home/khkramer/src/aiewf-eval/runs/aiwf_medium_context_speech_live/20260915T222910_gpt-live-1_ccad809f/live-audio-metrics.json",
+            "alignment_path": "/home/khkramer/src/aiewf-eval/runs/aiwf_medium_context_speech_live/20260915T222910_gpt-live-1_ccad809f/audio-alignment-audit.json",
+            "audio_exit": 0
+          },
+          "latency_missing_or_unrepresented": [],
+          "nonpositive_latencies": [],
+          "audio_issues": []
+        },
+        {
+          "attempt": {
+            "arm": "live",
+            "index": 8,
+            "model": "gpt-live-1",
+            "run_dir": "runs/aiwf_medium_context_speech_live/20260915T222930_gpt-live-1_1be0ce74",
+            "exit_code": 0,
+            "turns": 30,
+            "full": true,
+            "start_unix": 1789536568.8596036,
+            "end_unix": 1789537132.8349295,
+            "log": "docs/gpt-live-fixed-gate-n25-2026-09-15/capture/live-08.log",
+            "imported": false
+          },
+          "strict_pass": 28,
+          "judged_turns": 30,
+          "processing": {
+            "record": {
+              "arm": "live",
+              "index": 8,
+              "model": "gpt-live-1",
+              "run_dir": "runs/aiwf_medium_context_speech_live/20260915T222930_gpt-live-1_1be0ce74",
+              "exit_code": 0,
+              "turns": 30,
+              "full": true,
+              "start_unix": 1789536568.8596036,
+              "end_unix": 1789537132.8349295,
+              "log": "docs/gpt-live-fixed-gate-n25-2026-09-15/capture/live-08.log",
+              "imported": false
+            },
+            "judge": true,
+            "audio": true,
+            "alignment": true,
+            "score_dir": "/home/khkramer/src/aiewf-eval/runs/aiwf_medium_context_speech_live/20260915T222930_gpt-live-1_1be0ce74",
+            "audio_path": "/home/khkramer/src/aiewf-eval/runs/aiwf_medium_context_speech_live/20260915T222930_gpt-live-1_1be0ce74/live-audio-metrics.json",
+            "alignment_path": "/home/khkramer/src/aiewf-eval/runs/aiwf_medium_context_speech_live/20260915T222930_gpt-live-1_1be0ce74/audio-alignment-audit.json",
+            "audio_exit": 0
+          },
+          "latency_missing_or_unrepresented": [],
+          "nonpositive_latencies": [],
+          "audio_issues": []
+        },
+        {
+          "attempt": {
+            "arm": "live",
+            "index": 9,
+            "model": "gpt-live-1",
+            "run_dir": "runs/aiwf_medium_context_speech_live/20260915T222932_gpt-live-1_ed69f387",
+            "exit_code": 0,
+            "turns": 30,
+            "full": true,
+            "start_unix": 1789536570.2496364,
+            "end_unix": 1789537138.2632813,
+            "log": "docs/gpt-live-fixed-gate-n25-2026-09-15/capture/live-09.log",
+            "imported": false
+          },
+          "strict_pass": 30,
+          "judged_turns": 30,
+          "processing": {
+            "record": {
+              "arm": "live",
+              "index": 9,
+              "model": "gpt-live-1",
+              "run_dir": "runs/aiwf_medium_context_speech_live/20260915T222932_gpt-live-1_ed69f387",
+              "exit_code": 0,
+              "turns": 30,
+              "full": true,
+              "start_unix": 1789536570.2496364,
+              "end_unix": 1789537138.2632813,
+              "log": "docs/gpt-live-fixed-gate-n25-2026-09-15/capture/live-09.log",
+              "imported": false
+            },
+            "judge": true,
+            "audio": true,
+            "alignment": true,
+            "score_dir": "/home/khkramer/src/aiewf-eval/runs/aiwf_medium_context_speech_live/20260915T222932_gpt-live-1_ed69f387",
+            "audio_path": "/home/khkramer/src/aiewf-eval/runs/aiwf_medium_context_speech_live/20260915T222932_gpt-live-1_ed69f387/live-audio-metrics.json",
+            "alignment_path": "/home/khkramer/src/aiewf-eval/runs/aiwf_medium_context_speech_live/20260915T222932_gpt-live-1_ed69f387/audio-alignment-audit.json",
+            "audio_exit": 0
+          },
+          "latency_missing_or_unrepresented": [],
+          "nonpositive_latencies": [],
+          "audio_issues": []
+        },
+        {
+          "attempt": {
+            "arm": "live",
+            "index": 10,
+            "model": "gpt-live-1",
+            "run_dir": "runs/aiwf_medium_context_speech_live/20260915T222938_gpt-live-1_f91dac5d",
+            "exit_code": 0,
+            "turns": 30,
+            "full": true,
+            "start_unix": 1789536577.1429396,
+            "end_unix": 1789537171.6448445,
+            "log": "docs/gpt-live-fixed-gate-n25-2026-09-15/capture/live-10.log",
+            "imported": false
+          },
+          "strict_pass": 29,
+          "judged_turns": 30,
+          "processing": {
+            "record": {
+              "arm": "live",
+              "index": 10,
+              "model": "gpt-live-1",
+              "run_dir": "runs/aiwf_medium_context_speech_live/20260915T222938_gpt-live-1_f91dac5d",
+              "exit_code": 0,
+              "turns": 30,
+              "full": true,
+              "start_unix": 1789536577.1429396,
+              "end_unix": 1789537171.6448445,
+              "log": "docs/gpt-live-fixed-gate-n25-2026-09-15/capture/live-10.log",
+              "imported": false
+            },
+            "judge": true,
+            "audio": true,
+            "alignment": true,
+            "score_dir": "/home/khkramer/src/aiewf-eval/runs/aiwf_medium_context_speech_live/20260915T222938_gpt-live-1_f91dac5d",
+            "audio_path": "/home/khkramer/src/aiewf-eval/runs/aiwf_medium_context_speech_live/20260915T222938_gpt-live-1_f91dac5d/live-audio-metrics.json",
+            "alignment_path": "/home/khkramer/src/aiewf-eval/runs/aiwf_medium_context_speech_live/20260915T222938_gpt-live-1_f91dac5d/audio-alignment-audit.json",
+            "audio_exit": 0
+          },
+          "latency_missing_or_unrepresented": [],
+          "nonpositive_latencies": [],
+          "audio_issues": []
+        },
+        {
+          "attempt": {
+            "arm": "live",
+            "index": 11,
+            "model": "gpt-live-1",
+            "run_dir": "runs/aiwf_medium_context_speech_live/20260915T223808_gpt-live-1_eaa659f2",
+            "exit_code": 0,
+            "turns": 30,
+            "full": true,
+            "start_unix": 1789537087.2133965,
+            "end_unix": 1789537633.421099,
+            "log": "docs/gpt-live-fixed-gate-n25-2026-09-15/capture/live-11.log",
+            "imported": false
+          },
+          "strict_pass": 25,
+          "judged_turns": 30,
+          "processing": {
+            "record": {
+              "arm": "live",
+              "index": 11,
+              "model": "gpt-live-1",
+              "run_dir": "runs/aiwf_medium_context_speech_live/20260915T223808_gpt-live-1_eaa659f2",
+              "exit_code": 0,
+              "turns": 30,
+              "full": true,
+              "start_unix": 1789537087.2133965,
+              "end_unix": 1789537633.421099,
+              "log": "docs/gpt-live-fixed-gate-n25-2026-09-15/capture/live-11.log",
+              "imported": false
+            },
+            "judge": true,
+            "audio": true,
+            "alignment": true,
+            "score_dir": "/home/khkramer/src/aiewf-eval/runs/aiwf_medium_context_speech_live/20260915T223808_gpt-live-1_eaa659f2",
+            "audio_path": "/home/khkramer/src/aiewf-eval/runs/aiwf_medium_context_speech_live/20260915T223808_gpt-live-1_eaa659f2/live-audio-metrics.json",
+            "alignment_path": "/home/khkramer/src/aiewf-eval/runs/aiwf_medium_context_speech_live/20260915T223808_gpt-live-1_eaa659f2/audio-alignment-audit.json",
+            "audio_exit": 0
+          },
+          "latency_missing_or_unrepresented": [],
+          "nonpositive_latencies": [],
+          "audio_issues": []
+        },
+        {
+          "attempt": {
+            "arm": "live",
+            "index": 12,
+            "model": "gpt-live-1",
+            "run_dir": "runs/aiwf_medium_context_speech_live/20260915T223812_gpt-live-1_88e6d5e8",
+            "exit_code": 0,
+            "turns": 30,
+            "full": true,
+            "start_unix": 1789537090.9867504,
+            "end_unix": 1789537621.7533324,
+            "log": "docs/gpt-live-fixed-gate-n25-2026-09-15/capture/live-12.log",
+            "imported": false
+          },
+          "strict_pass": 28,
+          "judged_turns": 30,
+          "processing": {
+            "record": {
+              "arm": "live",
+              "index": 12,
+              "model": "gpt-live-1",
+              "run_dir": "runs/aiwf_medium_context_speech_live/20260915T223812_gpt-live-1_88e6d5e8",
+              "exit_code": 0,
+              "turns": 30,
+              "full": true,
+              "start_unix": 1789537090.9867504,
+              "end_unix": 1789537621.7533324,
+              "log": "docs/gpt-live-fixed-gate-n25-2026-09-15/capture/live-12.log",
+              "imported": false
+            },
+            "judge": true,
+            "audio": true,
+            "alignment": false,
+            "score_dir": "/home/khkramer/src/aiewf-eval/runs/aiwf_medium_context_speech_live/20260915T223812_gpt-live-1_88e6d5e8",
+            "audio_path": "/home/khkramer/src/aiewf-eval/runs/aiwf_medium_context_speech_live/20260915T223812_gpt-live-1_88e6d5e8/live-audio-metrics.json",
+            "alignment_path": "/home/khkramer/src/aiewf-eval/runs/aiwf_medium_context_speech_live/20260915T223812_gpt-live-1_88e6d5e8/audio-alignment-audit.json",
+            "audio_exit": 0
+          },
+          "latency_missing_or_unrepresented": [],
+          "nonpositive_latencies": [],
+          "audio_issues": []
+        },
+        {
+          "attempt": {
+            "arm": "live",
+            "index": 13,
+            "model": "gpt-live-1",
+            "run_dir": "runs/aiwf_medium_context_speech_live/20260915T223854_gpt-live-1_2cd0af40",
+            "exit_code": 0,
+            "turns": 30,
+            "full": true,
+            "start_unix": 1789537132.835193,
+            "end_unix": 1789537669.7999947,
+            "log": "docs/gpt-live-fixed-gate-n25-2026-09-15/capture/live-13.log",
+            "imported": false
+          },
+          "strict_pass": 27,
+          "judged_turns": 30,
+          "processing": {
+            "record": {
+              "arm": "live",
+              "index": 13,
+              "model": "gpt-live-1",
+              "run_dir": "runs/aiwf_medium_context_speech_live/20260915T223854_gpt-live-1_2cd0af40",
+              "exit_code": 0,
+              "turns": 30,
+              "full": true,
+              "start_unix": 1789537132.835193,
+              "end_unix": 1789537669.7999947,
+              "log": "docs/gpt-live-fixed-gate-n25-2026-09-15/capture/live-13.log",
+              "imported": false
+            },
+            "judge": true,
+            "audio": true,
+            "alignment": true,
+            "score_dir": "/home/khkramer/src/aiewf-eval/runs/aiwf_medium_context_speech_live/20260915T223854_gpt-live-1_2cd0af40",
+            "audio_path": "/home/khkramer/src/aiewf-eval/runs/aiwf_medium_context_speech_live/20260915T223854_gpt-live-1_2cd0af40/live-audio-metrics.json",
+            "alignment_path": "/home/khkramer/src/aiewf-eval/runs/aiwf_medium_context_speech_live/20260915T223854_gpt-live-1_2cd0af40/audio-alignment-audit.json",
+            "audio_exit": 0
+          },
+          "latency_missing_or_unrepresented": [],
+          "nonpositive_latencies": [],
+          "audio_issues": []
+        },
+        {
+          "attempt": {
+            "arm": "live",
+            "index": 14,
+            "model": "gpt-live-1",
+            "run_dir": "runs/aiwf_medium_context_speech_live/20260915T223859_gpt-live-1_14a58a6b",
+            "exit_code": 0,
+            "turns": 30,
+            "full": true,
+            "start_unix": 1789537138.2635865,
+            "end_unix": 1789537704.6586437,
+            "log": "docs/gpt-live-fixed-gate-n25-2026-09-15/capture/live-14.log",
+            "imported": false
+          },
+          "strict_pass": 28,
+          "judged_turns": 30,
+          "processing": {
+            "record": {
+              "arm": "live",
+              "index": 14,
+              "model": "gpt-live-1",
+              "run_dir": "runs/aiwf_medium_context_speech_live/20260915T223859_gpt-live-1_14a58a6b",
+              "exit_code": 0,
+              "turns": 30,
+              "full": true,
+              "start_unix": 1789537138.2635865,
+              "end_unix": 1789537704.6586437,
+              "log": "docs/gpt-live-fixed-gate-n25-2026-09-15/capture/live-14.log",
+              "imported": false
+            },
+            "judge": true,
+            "audio": true,
+            "alignment": true,
+            "score_dir": "/home/khkramer/src/aiewf-eval/runs/aiwf_medium_context_speech_live/20260915T223859_gpt-live-1_14a58a6b",
+            "audio_path": "/home/khkramer/src/aiewf-eval/runs/aiwf_medium_context_speech_live/20260915T223859_gpt-live-1_14a58a6b/live-audio-metrics.json",
+            "alignment_path": "/home/khkramer/src/aiewf-eval/runs/aiwf_medium_context_speech_live/20260915T223859_gpt-live-1_14a58a6b/audio-alignment-audit.json",
+            "audio_exit": 0
+          },
+          "latency_missing_or_unrepresented": [],
+          "nonpositive_latencies": [],
+          "audio_issues": []
+        },
+        {
+          "attempt": {
+            "arm": "live",
+            "index": 15,
+            "model": "gpt-live-1",
+            "run_dir": "runs/aiwf_medium_context_speech_live/20260915T223933_gpt-live-1_7b324a26",
+            "exit_code": 0,
+            "turns": 30,
+            "full": true,
+            "start_unix": 1789537171.6451528,
+            "end_unix": 1789537763.7449796,
+            "log": "docs/gpt-live-fixed-gate-n25-2026-09-15/capture/live-15.log",
+            "imported": false
+          },
+          "strict_pass": 29,
+          "judged_turns": 30,
+          "processing": {
+            "record": {
+              "arm": "live",
+              "index": 15,
+              "model": "gpt-live-1",
+              "run_dir": "runs/aiwf_medium_context_speech_live/20260915T223933_gpt-live-1_7b324a26",
+              "exit_code": 0,
+              "turns": 30,
+              "full": true,
+              "start_unix": 1789537171.6451528,
+              "end_unix": 1789537763.7449796,
+              "log": "docs/gpt-live-fixed-gate-n25-2026-09-15/capture/live-15.log",
+              "imported": false
+            },
+            "judge": true,
+            "audio": true,
+            "alignment": true,
+            "score_dir": "/home/khkramer/src/aiewf-eval/runs/aiwf_medium_context_speech_live/20260915T223933_gpt-live-1_7b324a26",
+            "audio_path": "/home/khkramer/src/aiewf-eval/runs/aiwf_medium_context_speech_live/20260915T223933_gpt-live-1_7b324a26/live-audio-metrics.json",
+            "alignment_path": "/home/khkramer/src/aiewf-eval/runs/aiwf_medium_context_speech_live/20260915T223933_gpt-live-1_7b324a26/audio-alignment-audit.json",
+            "audio_exit": 0
+          },
+          "latency_missing_or_unrepresented": [],
+          "nonpositive_latencies": [],
+          "audio_issues": []
+        },
+        {
+          "attempt": {
+            "arm": "live",
+            "index": 16,
+            "model": "gpt-live-1",
+            "run_dir": "runs/aiwf_medium_context_speech_live/20260915T224703_gpt-live-1_8c80db9f",
+            "exit_code": 0,
+            "turns": 30,
+            "full": true,
+            "start_unix": 1789537621.7536116,
+            "end_unix": 1789538188.2153463,
+            "log": "docs/gpt-live-fixed-gate-n25-2026-09-15/capture/live-16.log",
+            "imported": false
+          },
+          "strict_pass": 29,
+          "judged_turns": 30,
+          "processing": {
+            "record": {
+              "arm": "live",
+              "index": 16,
+              "model": "gpt-live-1",
+              "run_dir": "runs/aiwf_medium_context_speech_live/20260915T224703_gpt-live-1_8c80db9f",
+              "exit_code": 0,
+              "turns": 30,
+              "full": true,
+              "start_unix": 1789537621.7536116,
+              "end_unix": 1789538188.2153463,
+              "log": "docs/gpt-live-fixed-gate-n25-2026-09-15/capture/live-16.log",
+              "imported": false
+            },
+            "judge": true,
+            "audio": true,
+            "alignment": true,
+            "score_dir": "/home/khkramer/src/aiewf-eval/runs/aiwf_medium_context_speech_live/20260915T224703_gpt-live-1_8c80db9f",
+            "audio_path": "/home/khkramer/src/aiewf-eval/runs/aiwf_medium_context_speech_live/20260915T224703_gpt-live-1_8c80db9f/live-audio-metrics.json",
+            "alignment_path": "/home/khkramer/src/aiewf-eval/runs/aiwf_medium_context_speech_live/20260915T224703_gpt-live-1_8c80db9f/audio-alignment-audit.json",
+            "audio_exit": 0
+          },
+          "latency_missing_or_unrepresented": [],
+          "nonpositive_latencies": [],
+          "audio_issues": []
+        },
+        {
+          "attempt": {
+            "arm": "live",
+            "index": 17,
+            "model": "gpt-live-1",
+            "run_dir": "runs/aiwf_medium_context_speech_live/20260915T224715_gpt-live-1_9c899db8",
+            "exit_code": 0,
+            "turns": 30,
+            "full": true,
+            "start_unix": 1789537633.42137,
+            "end_unix": 1789538164.2914948,
+            "log": "docs/gpt-live-fixed-gate-n25-2026-09-15/capture/live-17.log",
+            "imported": false
+          },
+          "strict_pass": 28,
+          "judged_turns": 30,
+          "processing": {
+            "record": {
+              "arm": "live",
+              "index": 17,
+              "model": "gpt-live-1",
+              "run_dir": "runs/aiwf_medium_context_speech_live/20260915T224715_gpt-live-1_9c899db8",
+              "exit_code": 0,
+              "turns": 30,
+              "full": true,
+              "start_unix": 1789537633.42137,
+              "end_unix": 1789538164.2914948,
+              "log": "docs/gpt-live-fixed-gate-n25-2026-09-15/capture/live-17.log",
+              "imported": false
+            },
+            "judge": true,
+            "audio": true,
+            "alignment": true,
+            "score_dir": "/home/khkramer/src/aiewf-eval/runs/aiwf_medium_context_speech_live/20260915T224715_gpt-live-1_9c899db8",
+            "audio_path": "/home/khkramer/src/aiewf-eval/runs/aiwf_medium_context_speech_live/20260915T224715_gpt-live-1_9c899db8/live-audio-metrics.json",
+            "alignment_path": "/home/khkramer/src/aiewf-eval/runs/aiwf_medium_context_speech_live/20260915T224715_gpt-live-1_9c899db8/audio-alignment-audit.json",
+            "audio_exit": 0
+          },
+          "latency_missing_or_unrepresented": [],
+          "nonpositive_latencies": [],
+          "audio_issues": []
+        },
+        {
+          "attempt": {
+            "arm": "live",
+            "index": 18,
+            "model": "gpt-live-1",
+            "run_dir": "runs/aiwf_medium_context_speech_live/20260915T224751_gpt-live-1_0238459a",
+            "exit_code": 0,
+            "turns": 30,
+            "full": true,
+            "start_unix": 1789537669.8002732,
+            "end_unix": 1789538183.7955558,
+            "log": "docs/gpt-live-fixed-gate-n25-2026-09-15/capture/live-18.log",
+            "imported": false
+          },
+          "strict_pass": 27,
+          "judged_turns": 30,
+          "processing": {
+            "record": {
+              "arm": "live",
+              "index": 18,
+              "model": "gpt-live-1",
+              "run_dir": "runs/aiwf_medium_context_speech_live/20260915T224751_gpt-live-1_0238459a",
+              "exit_code": 0,
+              "turns": 30,
+              "full": true,
+              "start_unix": 1789537669.8002732,
+              "end_unix": 1789538183.7955558,
+              "log": "docs/gpt-live-fixed-gate-n25-2026-09-15/capture/live-18.log",
+              "imported": false
+            },
+            "judge": true,
+            "audio": true,
+            "alignment": true,
+            "score_dir": "/home/khkramer/src/aiewf-eval/runs/aiwf_medium_context_speech_live/20260915T224751_gpt-live-1_0238459a",
+            "audio_path": "/home/khkramer/src/aiewf-eval/runs/aiwf_medium_context_speech_live/20260915T224751_gpt-live-1_0238459a/live-audio-metrics.json",
+            "alignment_path": "/home/khkramer/src/aiewf-eval/runs/aiwf_medium_context_speech_live/20260915T224751_gpt-live-1_0238459a/audio-alignment-audit.json",
+            "audio_exit": 0
+          },
+          "latency_missing_or_unrepresented": [],
+          "nonpositive_latencies": [],
+          "audio_issues": []
+        },
+        {
+          "attempt": {
+            "arm": "live",
+            "index": 19,
+            "model": "gpt-live-1",
+            "run_dir": "runs/aiwf_medium_context_speech_live/20260915T224826_gpt-live-1_c48aa5ab",
+            "exit_code": 0,
+            "turns": 30,
+            "full": true,
+            "start_unix": 1789537704.6589875,
+            "end_unix": 1789538236.9068105,
+            "log": "docs/gpt-live-fixed-gate-n25-2026-09-15/capture/live-19.log",
+            "imported": false
+          },
+          "strict_pass": 29,
+          "judged_turns": 30,
+          "processing": {
+            "record": {
+              "arm": "live",
+              "index": 19,
+              "model": "gpt-live-1",
+              "run_dir": "runs/aiwf_medium_context_speech_live/20260915T224826_gpt-live-1_c48aa5ab",
+              "exit_code": 0,
+              "turns": 30,
+              "full": true,
+              "start_unix": 1789537704.6589875,
+              "end_unix": 1789538236.9068105,
+              "log": "docs/gpt-live-fixed-gate-n25-2026-09-15/capture/live-19.log",
+              "imported": false
+            },
+            "judge": true,
+            "audio": true,
+            "alignment": true,
+            "score_dir": "/home/khkramer/src/aiewf-eval/runs/aiwf_medium_context_speech_live/20260915T224826_gpt-live-1_c48aa5ab",
+            "audio_path": "/home/khkramer/src/aiewf-eval/runs/aiwf_medium_context_speech_live/20260915T224826_gpt-live-1_c48aa5ab/live-audio-metrics.json",
+            "alignment_path": "/home/khkramer/src/aiewf-eval/runs/aiwf_medium_context_speech_live/20260915T224826_gpt-live-1_c48aa5ab/audio-alignment-audit.json",
+            "audio_exit": 0
+          },
+          "latency_missing_or_unrepresented": [],
+          "nonpositive_latencies": [],
+          "audio_issues": []
+        },
+        {
+          "attempt": {
+            "arm": "live",
+            "index": 20,
+            "model": "gpt-live-1",
+            "run_dir": "runs/aiwf_medium_context_speech_live/20260915T224925_gpt-live-1_032b1608",
+            "exit_code": 0,
+            "turns": 30,
+            "full": true,
+            "start_unix": 1789537763.7452412,
+            "end_unix": 1789538302.663428,
+            "log": "docs/gpt-live-fixed-gate-n25-2026-09-15/capture/live-20.log",
+            "imported": false
+          },
+          "strict_pass": 28,
+          "judged_turns": 30,
+          "processing": {
+            "record": {
+              "arm": "live",
+              "index": 20,
+              "model": "gpt-live-1",
+              "run_dir": "runs/aiwf_medium_context_speech_live/20260915T224925_gpt-live-1_032b1608",
+              "exit_code": 0,
+              "turns": 30,
+              "full": true,
+              "start_unix": 1789537763.7452412,
+              "end_unix": 1789538302.663428,
+              "log": "docs/gpt-live-fixed-gate-n25-2026-09-15/capture/live-20.log",
+              "imported": false
+            },
+            "judge": true,
+            "audio": true,
+            "alignment": true,
+            "score_dir": "/home/khkramer/src/aiewf-eval/runs/aiwf_medium_context_speech_live/20260915T224925_gpt-live-1_032b1608",
+            "audio_path": "/home/khkramer/src/aiewf-eval/runs/aiwf_medium_context_speech_live/20260915T224925_gpt-live-1_032b1608/live-audio-metrics.json",
+            "alignment_path": "/home/khkramer/src/aiewf-eval/runs/aiwf_medium_context_speech_live/20260915T224925_gpt-live-1_032b1608/audio-alignment-audit.json",
+            "audio_exit": 0
+          },
+          "latency_missing_or_unrepresented": [],
+          "nonpositive_latencies": [
+            {
+              "turn": 5,
+              "v2v_ms": -1504.0
+            }
+          ],
+          "audio_issues": []
+        },
+        {
+          "attempt": {
+            "arm": "live",
+            "index": 21,
+            "model": "gpt-live-1",
+            "run_dir": "runs/aiwf_medium_context_speech_live/20260915T225605_gpt-live-1_63aafa7e",
+            "exit_code": 0,
+            "turns": 30,
+            "full": true,
+            "start_unix": 1789538164.2917619,
+            "end_unix": 1789538693.8641822,
+            "log": "docs/gpt-live-fixed-gate-n25-2026-09-15/capture/live-21.log",
+            "imported": false
+          },
+          "strict_pass": 29,
+          "judged_turns": 30,
+          "processing": {
+            "record": {
+              "arm": "live",
+              "index": 21,
+              "model": "gpt-live-1",
+              "run_dir": "runs/aiwf_medium_context_speech_live/20260915T225605_gpt-live-1_63aafa7e",
+              "exit_code": 0,
+              "turns": 30,
+              "full": true,
+              "start_unix": 1789538164.2917619,
+              "end_unix": 1789538693.8641822,
+              "log": "docs/gpt-live-fixed-gate-n25-2026-09-15/capture/live-21.log",
+              "imported": false
+            },
+            "judge": true,
+            "audio": true,
+            "alignment": true,
+            "score_dir": "/home/khkramer/src/aiewf-eval/runs/aiwf_medium_context_speech_live/20260915T225605_gpt-live-1_63aafa7e",
+            "audio_path": "/home/khkramer/src/aiewf-eval/runs/aiwf_medium_context_speech_live/20260915T225605_gpt-live-1_63aafa7e/live-audio-metrics.json",
+            "alignment_path": "/home/khkramer/src/aiewf-eval/runs/aiwf_medium_context_speech_live/20260915T225605_gpt-live-1_63aafa7e/audio-alignment-audit.json",
+            "audio_exit": 0
+          },
+          "latency_missing_or_unrepresented": [],
+          "nonpositive_latencies": [],
+          "audio_issues": []
+        },
+        {
+          "attempt": {
+            "arm": "live",
+            "index": 22,
+            "model": "gpt-live-1",
+            "run_dir": "runs/aiwf_medium_context_speech_live/20260915T225625_gpt-live-1_14f682fd",
+            "exit_code": 0,
+            "turns": 30,
+            "full": true,
+            "start_unix": 1789538183.7958276,
+            "end_unix": 1789538769.337643,
+            "log": "docs/gpt-live-fixed-gate-n25-2026-09-15/capture/live-22.log",
+            "imported": false
+          },
+          "strict_pass": 30,
+          "judged_turns": 30,
+          "processing": {
+            "record": {
+              "arm": "live",
+              "index": 22,
+              "model": "gpt-live-1",
+              "run_dir": "runs/aiwf_medium_context_speech_live/20260915T225625_gpt-live-1_14f682fd",
+              "exit_code": 0,
+              "turns": 30,
+              "full": true,
+              "start_unix": 1789538183.7958276,
+              "end_unix": 1789538769.337643,
+              "log": "docs/gpt-live-fixed-gate-n25-2026-09-15/capture/live-22.log",
+              "imported": false
+            },
+            "judge": true,
+            "audio": true,
+            "alignment": true,
+            "score_dir": "/home/khkramer/src/aiewf-eval/runs/aiwf_medium_context_speech_live/20260915T225625_gpt-live-1_14f682fd",
+            "audio_path": "/home/khkramer/src/aiewf-eval/runs/aiwf_medium_context_speech_live/20260915T225625_gpt-live-1_14f682fd/live-audio-metrics.json",
+            "alignment_path": "/home/khkramer/src/aiewf-eval/runs/aiwf_medium_context_speech_live/20260915T225625_gpt-live-1_14f682fd/audio-alignment-audit.json",
+            "audio_exit": 0
+          },
+          "latency_missing_or_unrepresented": [],
+          "nonpositive_latencies": [],
+          "audio_issues": []
+        },
+        {
+          "attempt": {
+            "arm": "live",
+            "index": 23,
+            "model": "gpt-live-1",
+            "run_dir": "runs/aiwf_medium_context_speech_live/20260915T225629_gpt-live-1_6a446f85",
+            "exit_code": 0,
+            "turns": 30,
+            "full": true,
+            "start_unix": 1789538188.2157762,
+            "end_unix": 1789538751.5409858,
+            "log": "docs/gpt-live-fixed-gate-n25-2026-09-15/capture/live-23.log",
+            "imported": false
+          },
+          "strict_pass": 29,
+          "judged_turns": 30,
+          "processing": {
+            "record": {
+              "arm": "live",
+              "index": 23,
+              "model": "gpt-live-1",
+              "run_dir": "runs/aiwf_medium_context_speech_live/20260915T225629_gpt-live-1_6a446f85",
+              "exit_code": 0,
+              "turns": 30,
+              "full": true,
+              "start_unix": 1789538188.2157762,
+              "end_unix": 1789538751.5409858,
+              "log": "docs/gpt-live-fixed-gate-n25-2026-09-15/capture/live-23.log",
+              "imported": false
+            },
+            "judge": true,
+            "audio": true,
+            "alignment": true,
+            "score_dir": "/home/khkramer/src/aiewf-eval/runs/aiwf_medium_context_speech_live/20260915T225629_gpt-live-1_6a446f85",
+            "audio_path": "/home/khkramer/src/aiewf-eval/runs/aiwf_medium_context_speech_live/20260915T225629_gpt-live-1_6a446f85/live-audio-metrics.json",
+            "alignment_path": "/home/khkramer/src/aiewf-eval/runs/aiwf_medium_context_speech_live/20260915T225629_gpt-live-1_6a446f85/audio-alignment-audit.json",
+            "audio_exit": 0
+          },
+          "latency_missing_or_unrepresented": [],
+          "nonpositive_latencies": [],
+          "audio_issues": []
+        },
+        {
+          "attempt": {
+            "arm": "live",
+            "index": 24,
+            "model": "gpt-live-1",
+            "run_dir": "runs/aiwf_medium_context_speech_live/20260915T225718_gpt-live-1_c883ac79",
+            "exit_code": 0,
+            "turns": 30,
+            "full": true,
+            "start_unix": 1789538236.9070683,
+            "end_unix": 1789538782.0984085,
+            "log": "docs/gpt-live-fixed-gate-n25-2026-09-15/capture/live-24.log",
+            "imported": false
+          },
+          "strict_pass": 29,
+          "judged_turns": 30,
+          "processing": {
+            "record": {
+              "arm": "live",
+              "index": 24,
+              "model": "gpt-live-1",
+              "run_dir": "runs/aiwf_medium_context_speech_live/20260915T225718_gpt-live-1_c883ac79",
+              "exit_code": 0,
+              "turns": 30,
+              "full": true,
+              "start_unix": 1789538236.9070683,
+              "end_unix": 1789538782.0984085,
+              "log": "docs/gpt-live-fixed-gate-n25-2026-09-15/capture/live-24.log",
+              "imported": false
+            },
+            "judge": true,
+            "audio": true,
+            "alignment": true,
+            "score_dir": "/home/khkramer/src/aiewf-eval/runs/aiwf_medium_context_speech_live/20260915T225718_gpt-live-1_c883ac79",
+            "audio_path": "/home/khkramer/src/aiewf-eval/runs/aiwf_medium_context_speech_live/20260915T225718_gpt-live-1_c883ac79/live-audio-metrics.json",
+            "alignment_path": "/home/khkramer/src/aiewf-eval/runs/aiwf_medium_context_speech_live/20260915T225718_gpt-live-1_c883ac79/audio-alignment-audit.json",
+            "audio_exit": 0
+          },
+          "latency_missing_or_unrepresented": [],
+          "nonpositive_latencies": [],
+          "audio_issues": []
+        },
+        {
+          "attempt": {
+            "arm": "live",
+            "index": 25,
+            "model": "gpt-live-1",
+            "run_dir": "runs/aiwf_medium_context_speech_live/20260915T225824_gpt-live-1_269c9d5b",
+            "exit_code": 0,
+            "turns": 30,
+            "full": true,
+            "start_unix": 1789538302.6637015,
+            "end_unix": 1789538910.7561183,
+            "log": "docs/gpt-live-fixed-gate-n25-2026-09-15/capture/live-25.log",
+            "imported": false
+          },
+          "strict_pass": 26,
+          "judged_turns": 30,
+          "processing": {
+            "record": {
+              "arm": "live",
+              "index": 25,
+              "model": "gpt-live-1",
+              "run_dir": "runs/aiwf_medium_context_speech_live/20260915T225824_gpt-live-1_269c9d5b",
+              "exit_code": 0,
+              "turns": 30,
+              "full": true,
+              "start_unix": 1789538302.6637015,
+              "end_unix": 1789538910.7561183,
+              "log": "docs/gpt-live-fixed-gate-n25-2026-09-15/capture/live-25.log",
+              "imported": false
+            },
+            "judge": true,
+            "audio": true,
+            "alignment": true,
+            "score_dir": "/home/khkramer/src/aiewf-eval/runs/aiwf_medium_context_speech_live/20260915T225824_gpt-live-1_269c9d5b",
+            "audio_path": "/home/khkramer/src/aiewf-eval/runs/aiwf_medium_context_speech_live/20260915T225824_gpt-live-1_269c9d5b/live-audio-metrics.json",
+            "alignment_path": "/home/khkramer/src/aiewf-eval/runs/aiwf_medium_context_speech_live/20260915T225824_gpt-live-1_269c9d5b/audio-alignment-audit.json",
+            "audio_exit": 0
+          },
+          "latency_missing_or_unrepresented": [],
+          "nonpositive_latencies": [],
+          "audio_issues": []
+        }
+      ],
+      "reliability": [
+        {
+          "arm": "live",
+          "index": 1,
+          "run_dir": "runs/aiwf_medium_context_speech_live/20260915T222012_gpt-live-1_87e89ec1",
+          "complete": true,
+          "recorded_turns": 30,
+          "missing_turns": [],
+          "failure_reason": null,
+          "runtime": {
+            "model_name": "gpt-live-1",
+            "turns": 30,
+            "status": "completed",
+            "valid": true,
+            "note": "runtime-only; scoring is performed post-run"
+          },
+          "evidence": {
+            "rate_limit": [],
+            "api_error": [],
+            "adapter_error": [],
+            "reconnect": []
+          },
+          "next_input_queued_before_previous_finished": [],
+          "transcript_reconnections": 0,
+          "live_api_errors": [],
+          "session_closed": true
+        },
+        {
+          "arm": "live",
+          "index": 2,
+          "run_dir": "runs/aiwf_medium_context_speech_live/20260915T222012_gpt-live-1_6b51d8ef",
+          "complete": true,
+          "recorded_turns": 30,
+          "missing_turns": [],
+          "failure_reason": null,
+          "runtime": {
+            "model_name": "gpt-live-1",
+            "turns": 30,
+            "status": "completed",
+            "valid": true,
+            "note": "runtime-only; scoring is performed post-run"
+          },
+          "evidence": {
+            "rate_limit": [],
+            "api_error": [],
+            "adapter_error": [],
+            "reconnect": []
+          },
+          "next_input_queued_before_previous_finished": [],
+          "transcript_reconnections": 0,
+          "live_api_errors": [],
+          "session_closed": true
+        },
+        {
+          "arm": "live",
+          "index": 3,
+          "run_dir": "runs/aiwf_medium_context_speech_live/20260915T222012_gpt-live-1_1b18f523",
+          "complete": true,
+          "recorded_turns": 30,
+          "missing_turns": [],
+          "failure_reason": null,
+          "runtime": {
+            "model_name": "gpt-live-1",
+            "turns": 30,
+            "status": "completed",
+            "valid": true,
+            "note": "runtime-only; scoring is performed post-run"
+          },
+          "evidence": {
+            "rate_limit": [],
+            "api_error": [],
+            "adapter_error": [],
+            "reconnect": []
+          },
+          "next_input_queued_before_previous_finished": [],
+          "transcript_reconnections": 0,
+          "live_api_errors": [],
+          "session_closed": true
+        },
+        {
+          "arm": "live",
+          "index": 4,
+          "run_dir": "runs/aiwf_medium_context_speech_live/20260915T222012_gpt-live-1_e23bff31",
+          "complete": true,
+          "recorded_turns": 30,
+          "missing_turns": [],
+          "failure_reason": null,
+          "runtime": {
+            "model_name": "gpt-live-1",
+            "turns": 30,
+            "status": "completed",
+            "valid": true,
+            "note": "runtime-only; scoring is performed post-run"
+          },
+          "evidence": {
+            "rate_limit": [],
+            "api_error": [],
+            "adapter_error": [],
+            "reconnect": []
+          },
+          "next_input_queued_before_previous_finished": [],
+          "transcript_reconnections": 0,
+          "live_api_errors": [],
+          "session_closed": true
+        },
+        {
+          "arm": "live",
+          "index": 5,
+          "run_dir": "runs/aiwf_medium_context_speech_live/20260915T222012_gpt-live-1_5771d61f",
+          "complete": true,
+          "recorded_turns": 30,
+          "missing_turns": [],
+          "failure_reason": null,
+          "runtime": {
+            "model_name": "gpt-live-1",
+            "turns": 30,
+            "status": "completed",
+            "valid": true,
+            "note": "runtime-only; scoring is performed post-run"
+          },
+          "evidence": {
+            "rate_limit": [],
+            "api_error": [],
+            "adapter_error": [],
+            "reconnect": []
+          },
+          "next_input_queued_before_previous_finished": [],
+          "transcript_reconnections": 0,
+          "live_api_errors": [],
+          "session_closed": true
+        },
+        {
+          "arm": "live",
+          "index": 6,
+          "run_dir": "runs/aiwf_medium_context_speech_live/20260915T222857_gpt-live-1_51471cbc",
+          "complete": true,
+          "recorded_turns": 30,
+          "missing_turns": [],
+          "failure_reason": null,
+          "runtime": {
+            "model_name": "gpt-live-1",
+            "turns": 30,
+            "status": "completed",
+            "valid": true,
+            "note": "runtime-only; scoring is performed post-run"
+          },
+          "evidence": {
+            "rate_limit": [],
+            "api_error": [],
+            "adapter_error": [],
+            "reconnect": []
+          },
+          "next_input_queued_before_previous_finished": [],
+          "transcript_reconnections": 0,
+          "live_api_errors": [],
+          "session_closed": true
+        },
+        {
+          "arm": "live",
+          "index": 7,
+          "run_dir": "runs/aiwf_medium_context_speech_live/20260915T222910_gpt-live-1_ccad809f",
+          "complete": true,
+          "recorded_turns": 30,
+          "missing_turns": [],
+          "failure_reason": null,
+          "runtime": {
+            "model_name": "gpt-live-1",
+            "turns": 30,
+            "status": "completed",
+            "valid": true,
+            "note": "runtime-only; scoring is performed post-run"
+          },
+          "evidence": {
+            "rate_limit": [],
+            "api_error": [],
+            "adapter_error": [],
+            "reconnect": []
+          },
+          "next_input_queued_before_previous_finished": [],
+          "transcript_reconnections": 0,
+          "live_api_errors": [],
+          "session_closed": true
+        },
+        {
+          "arm": "live",
+          "index": 8,
+          "run_dir": "runs/aiwf_medium_context_speech_live/20260915T222930_gpt-live-1_1be0ce74",
+          "complete": true,
+          "recorded_turns": 30,
+          "missing_turns": [],
+          "failure_reason": null,
+          "runtime": {
+            "model_name": "gpt-live-1",
+            "turns": 30,
+            "status": "completed",
+            "valid": true,
+            "note": "runtime-only; scoring is performed post-run"
+          },
+          "evidence": {
+            "rate_limit": [],
+            "api_error": [],
+            "adapter_error": [],
+            "reconnect": []
+          },
+          "next_input_queued_before_previous_finished": [],
+          "transcript_reconnections": 0,
+          "live_api_errors": [],
+          "session_closed": true
+        },
+        {
+          "arm": "live",
+          "index": 9,
+          "run_dir": "runs/aiwf_medium_context_speech_live/20260915T222932_gpt-live-1_ed69f387",
+          "complete": true,
+          "recorded_turns": 30,
+          "missing_turns": [],
+          "failure_reason": null,
+          "runtime": {
+            "model_name": "gpt-live-1",
+            "turns": 30,
+            "status": "completed",
+            "valid": true,
+            "note": "runtime-only; scoring is performed post-run"
+          },
+          "evidence": {
+            "rate_limit": [],
+            "api_error": [],
+            "adapter_error": [],
+            "reconnect": []
+          },
+          "next_input_queued_before_previous_finished": [],
+          "transcript_reconnections": 0,
+          "live_api_errors": [],
+          "session_closed": true
+        },
+        {
+          "arm": "live",
+          "index": 10,
+          "run_dir": "runs/aiwf_medium_context_speech_live/20260915T222938_gpt-live-1_f91dac5d",
+          "complete": true,
+          "recorded_turns": 30,
+          "missing_turns": [],
+          "failure_reason": null,
+          "runtime": {
+            "model_name": "gpt-live-1",
+            "turns": 30,
+            "status": "completed",
+            "valid": true,
+            "note": "runtime-only; scoring is performed post-run"
+          },
+          "evidence": {
+            "rate_limit": [],
+            "api_error": [],
+            "adapter_error": [],
+            "reconnect": []
+          },
+          "next_input_queued_before_previous_finished": [],
+          "transcript_reconnections": 0,
+          "live_api_errors": [],
+          "session_closed": true
+        },
+        {
+          "arm": "live",
+          "index": 11,
+          "run_dir": "runs/aiwf_medium_context_speech_live/20260915T223808_gpt-live-1_eaa659f2",
+          "complete": true,
+          "recorded_turns": 30,
+          "missing_turns": [],
+          "failure_reason": null,
+          "runtime": {
+            "model_name": "gpt-live-1",
+            "turns": 30,
+            "status": "completed",
+            "valid": true,
+            "note": "runtime-only; scoring is performed post-run"
+          },
+          "evidence": {
+            "rate_limit": [],
+            "api_error": [],
+            "adapter_error": [],
+            "reconnect": []
+          },
+          "next_input_queued_before_previous_finished": [],
+          "transcript_reconnections": 0,
+          "live_api_errors": [],
+          "session_closed": true
+        },
+        {
+          "arm": "live",
+          "index": 12,
+          "run_dir": "runs/aiwf_medium_context_speech_live/20260915T223812_gpt-live-1_88e6d5e8",
+          "complete": true,
+          "recorded_turns": 30,
+          "missing_turns": [],
+          "failure_reason": null,
+          "runtime": {
+            "model_name": "gpt-live-1",
+            "turns": 30,
+            "status": "completed",
+            "valid": true,
+            "note": "runtime-only; scoring is performed post-run"
+          },
+          "evidence": {
+            "rate_limit": [],
+            "api_error": [],
+            "adapter_error": [],
+            "reconnect": []
+          },
+          "next_input_queued_before_previous_finished": [],
+          "transcript_reconnections": 0,
+          "live_api_errors": [],
+          "session_closed": true
+        },
+        {
+          "arm": "live",
+          "index": 13,
+          "run_dir": "runs/aiwf_medium_context_speech_live/20260915T223854_gpt-live-1_2cd0af40",
+          "complete": true,
+          "recorded_turns": 30,
+          "missing_turns": [],
+          "failure_reason": null,
+          "runtime": {
+            "model_name": "gpt-live-1",
+            "turns": 30,
+            "status": "completed",
+            "valid": true,
+            "note": "runtime-only; scoring is performed post-run"
+          },
+          "evidence": {
+            "rate_limit": [],
+            "api_error": [],
+            "adapter_error": [],
+            "reconnect": []
+          },
+          "next_input_queued_before_previous_finished": [],
+          "transcript_reconnections": 0,
+          "live_api_errors": [],
+          "session_closed": true
+        },
+        {
+          "arm": "live",
+          "index": 14,
+          "run_dir": "runs/aiwf_medium_context_speech_live/20260915T223859_gpt-live-1_14a58a6b",
+          "complete": true,
+          "recorded_turns": 30,
+          "missing_turns": [],
+          "failure_reason": null,
+          "runtime": {
+            "model_name": "gpt-live-1",
+            "turns": 30,
+            "status": "completed",
+            "valid": true,
+            "note": "runtime-only; scoring is performed post-run"
+          },
+          "evidence": {
+            "rate_limit": [],
+            "api_error": [],
+            "adapter_error": [],
+            "reconnect": []
+          },
+          "next_input_queued_before_previous_finished": [],
+          "transcript_reconnections": 0,
+          "live_api_errors": [],
+          "session_closed": true
+        },
+        {
+          "arm": "live",
+          "index": 15,
+          "run_dir": "runs/aiwf_medium_context_speech_live/20260915T223933_gpt-live-1_7b324a26",
+          "complete": true,
+          "recorded_turns": 30,
+          "missing_turns": [],
+          "failure_reason": null,
+          "runtime": {
+            "model_name": "gpt-live-1",
+            "turns": 30,
+            "status": "completed",
+            "valid": true,
+            "note": "runtime-only; scoring is performed post-run"
+          },
+          "evidence": {
+            "rate_limit": [],
+            "api_error": [],
+            "adapter_error": [],
+            "reconnect": []
+          },
+          "next_input_queued_before_previous_finished": [],
+          "transcript_reconnections": 0,
+          "live_api_errors": [],
+          "session_closed": true
+        },
+        {
+          "arm": "live",
+          "index": 16,
+          "run_dir": "runs/aiwf_medium_context_speech_live/20260915T224703_gpt-live-1_8c80db9f",
+          "complete": true,
+          "recorded_turns": 30,
+          "missing_turns": [],
+          "failure_reason": null,
+          "runtime": {
+            "model_name": "gpt-live-1",
+            "turns": 30,
+            "status": "completed",
+            "valid": true,
+            "note": "runtime-only; scoring is performed post-run"
+          },
+          "evidence": {
+            "rate_limit": [],
+            "api_error": [],
+            "adapter_error": [],
+            "reconnect": []
+          },
+          "next_input_queued_before_previous_finished": [],
+          "transcript_reconnections": 0,
+          "live_api_errors": [],
+          "session_closed": true
+        },
+        {
+          "arm": "live",
+          "index": 17,
+          "run_dir": "runs/aiwf_medium_context_speech_live/20260915T224715_gpt-live-1_9c899db8",
+          "complete": true,
+          "recorded_turns": 30,
+          "missing_turns": [],
+          "failure_reason": null,
+          "runtime": {
+            "model_name": "gpt-live-1",
+            "turns": 30,
+            "status": "completed",
+            "valid": true,
+            "note": "runtime-only; scoring is performed post-run"
+          },
+          "evidence": {
+            "rate_limit": [],
+            "api_error": [],
+            "adapter_error": [],
+            "reconnect": []
+          },
+          "next_input_queued_before_previous_finished": [],
+          "transcript_reconnections": 0,
+          "live_api_errors": [],
+          "session_closed": true
+        },
+        {
+          "arm": "live",
+          "index": 18,
+          "run_dir": "runs/aiwf_medium_context_speech_live/20260915T224751_gpt-live-1_0238459a",
+          "complete": true,
+          "recorded_turns": 30,
+          "missing_turns": [],
+          "failure_reason": null,
+          "runtime": {
+            "model_name": "gpt-live-1",
+            "turns": 30,
+            "status": "completed",
+            "valid": true,
+            "note": "runtime-only; scoring is performed post-run"
+          },
+          "evidence": {
+            "rate_limit": [],
+            "api_error": [],
+            "adapter_error": [],
+            "reconnect": []
+          },
+          "next_input_queued_before_previous_finished": [],
+          "transcript_reconnections": 0,
+          "live_api_errors": [],
+          "session_closed": true
+        },
+        {
+          "arm": "live",
+          "index": 19,
+          "run_dir": "runs/aiwf_medium_context_speech_live/20260915T224826_gpt-live-1_c48aa5ab",
+          "complete": true,
+          "recorded_turns": 30,
+          "missing_turns": [],
+          "failure_reason": null,
+          "runtime": {
+            "model_name": "gpt-live-1",
+            "turns": 30,
+            "status": "completed",
+            "valid": true,
+            "note": "runtime-only; scoring is performed post-run"
+          },
+          "evidence": {
+            "rate_limit": [],
+            "api_error": [],
+            "adapter_error": [],
+            "reconnect": []
+          },
+          "next_input_queued_before_previous_finished": [],
+          "transcript_reconnections": 0,
+          "live_api_errors": [],
+          "session_closed": true
+        },
+        {
+          "arm": "live",
+          "index": 20,
+          "run_dir": "runs/aiwf_medium_context_speech_live/20260915T224925_gpt-live-1_032b1608",
+          "complete": true,
+          "recorded_turns": 30,
+          "missing_turns": [],
+          "failure_reason": null,
+          "runtime": {
+            "model_name": "gpt-live-1",
+            "turns": 30,
+            "status": "completed",
+            "valid": true,
+            "note": "runtime-only; scoring is performed post-run"
+          },
+          "evidence": {
+            "rate_limit": [],
+            "api_error": [],
+            "adapter_error": [],
+            "reconnect": []
+          },
+          "next_input_queued_before_previous_finished": [],
+          "transcript_reconnections": 0,
+          "live_api_errors": [],
+          "session_closed": true
+        },
+        {
+          "arm": "live",
+          "index": 21,
+          "run_dir": "runs/aiwf_medium_context_speech_live/20260915T225605_gpt-live-1_63aafa7e",
+          "complete": true,
+          "recorded_turns": 30,
+          "missing_turns": [],
+          "failure_reason": null,
+          "runtime": {
+            "model_name": "gpt-live-1",
+            "turns": 30,
+            "status": "completed",
+            "valid": true,
+            "note": "runtime-only; scoring is performed post-run"
+          },
+          "evidence": {
+            "rate_limit": [],
+            "api_error": [],
+            "adapter_error": [],
+            "reconnect": []
+          },
+          "next_input_queued_before_previous_finished": [],
+          "transcript_reconnections": 0,
+          "live_api_errors": [],
+          "session_closed": true
+        },
+        {
+          "arm": "live",
+          "index": 22,
+          "run_dir": "runs/aiwf_medium_context_speech_live/20260915T225625_gpt-live-1_14f682fd",
+          "complete": true,
+          "recorded_turns": 30,
+          "missing_turns": [],
+          "failure_reason": null,
+          "runtime": {
+            "model_name": "gpt-live-1",
+            "turns": 30,
+            "status": "completed",
+            "valid": true,
+            "note": "runtime-only; scoring is performed post-run"
+          },
+          "evidence": {
+            "rate_limit": [],
+            "api_error": [],
+            "adapter_error": [],
+            "reconnect": []
+          },
+          "next_input_queued_before_previous_finished": [],
+          "transcript_reconnections": 0,
+          "live_api_errors": [],
+          "session_closed": true
+        },
+        {
+          "arm": "live",
+          "index": 23,
+          "run_dir": "runs/aiwf_medium_context_speech_live/20260915T225629_gpt-live-1_6a446f85",
+          "complete": true,
+          "recorded_turns": 30,
+          "missing_turns": [],
+          "failure_reason": null,
+          "runtime": {
+            "model_name": "gpt-live-1",
+            "turns": 30,
+            "status": "completed",
+            "valid": true,
+            "note": "runtime-only; scoring is performed post-run"
+          },
+          "evidence": {
+            "rate_limit": [],
+            "api_error": [],
+            "adapter_error": [],
+            "reconnect": []
+          },
+          "next_input_queued_before_previous_finished": [],
+          "transcript_reconnections": 0,
+          "live_api_errors": [],
+          "session_closed": true
+        },
+        {
+          "arm": "live",
+          "index": 24,
+          "run_dir": "runs/aiwf_medium_context_speech_live/20260915T225718_gpt-live-1_c883ac79",
+          "complete": true,
+          "recorded_turns": 30,
+          "missing_turns": [],
+          "failure_reason": null,
+          "runtime": {
+            "model_name": "gpt-live-1",
+            "turns": 30,
+            "status": "completed",
+            "valid": true,
+            "note": "runtime-only; scoring is performed post-run"
+          },
+          "evidence": {
+            "rate_limit": [],
+            "api_error": [],
+            "adapter_error": [],
+            "reconnect": []
+          },
+          "next_input_queued_before_previous_finished": [],
+          "transcript_reconnections": 0,
+          "live_api_errors": [],
+          "session_closed": true
+        },
+        {
+          "arm": "live",
+          "index": 25,
+          "run_dir": "runs/aiwf_medium_context_speech_live/20260915T225824_gpt-live-1_269c9d5b",
+          "complete": true,
+          "recorded_turns": 30,
+          "missing_turns": [],
+          "failure_reason": null,
+          "runtime": {
+            "model_name": "gpt-live-1",
+            "turns": 30,
+            "status": "completed",
+            "valid": true,
+            "note": "runtime-only; scoring is performed post-run"
+          },
+          "evidence": {
+            "rate_limit": [],
+            "api_error": [],
+            "adapter_error": [],
+            "reconnect": []
+          },
+          "next_input_queued_before_previous_finished": [],
+          "transcript_reconnections": 0,
+          "live_api_errors": [],
+          "session_closed": true
+        }
+      ],
+      "per_turn": [
+        {
+          "tool_use_correct": 25,
+          "instruction_following": 25,
+          "kb_grounding": 25,
+          "turn_taking": 24,
+          "strict": 25
+        },
+        {
+          "tool_use_correct": 25,
+          "instruction_following": 25,
+          "kb_grounding": 25,
+          "turn_taking": 25,
+          "strict": 25
+        },
+        {
+          "tool_use_correct": 25,
+          "instruction_following": 23,
+          "kb_grounding": 25,
+          "turn_taking": 25,
+          "strict": 23
+        },
+        {
+          "tool_use_correct": 25,
+          "instruction_following": 25,
+          "kb_grounding": 25,
+          "turn_taking": 25,
+          "strict": 25
+        },
+        {
+          "tool_use_correct": 25,
+          "instruction_following": 19,
+          "kb_grounding": 22,
+          "turn_taking": 25,
+          "strict": 19
+        },
+        {
+          "tool_use_correct": 25,
+          "instruction_following": 25,
+          "kb_grounding": 25,
+          "turn_taking": 25,
+          "strict": 25
+        },
+        {
+          "tool_use_correct": 25,
+          "instruction_following": 25,
+          "kb_grounding": 25,
+          "turn_taking": 25,
+          "strict": 25
+        },
+        {
+          "tool_use_correct": 25,
+          "instruction_following": 25,
+          "kb_grounding": 25,
+          "turn_taking": 25,
+          "strict": 25
+        },
+        {
+          "tool_use_correct": 25,
+          "instruction_following": 25,
+          "kb_grounding": 25,
+          "turn_taking": 25,
+          "strict": 25
+        },
+        {
+          "tool_use_correct": 25,
+          "instruction_following": 23,
+          "kb_grounding": 25,
+          "turn_taking": 25,
+          "strict": 23
+        },
+        {
+          "tool_use_correct": 25,
+          "instruction_following": 24,
+          "kb_grounding": 25,
+          "turn_taking": 25,
+          "strict": 24
+        },
+        {
+          "tool_use_correct": 23,
+          "instruction_following": 23,
+          "kb_grounding": 25,
+          "turn_taking": 25,
+          "strict": 23
+        },
+        {
+          "tool_use_correct": 23,
+          "instruction_following": 23,
+          "kb_grounding": 25,
+          "turn_taking": 25,
+          "strict": 23
+        },
+        {
+          "tool_use_correct": 25,
+          "instruction_following": 25,
+          "kb_grounding": 25,
+          "turn_taking": 25,
+          "strict": 25
+        },
+        {
+          "tool_use_correct": 25,
+          "instruction_following": 25,
+          "kb_grounding": 25,
+          "turn_taking": 25,
+          "strict": 25
+        },
+        {
+          "tool_use_correct": 25,
+          "instruction_following": 25,
+          "kb_grounding": 25,
+          "turn_taking": 25,
+          "strict": 25
+        },
+        {
+          "tool_use_correct": 25,
+          "instruction_following": 25,
+          "kb_grounding": 25,
+          "turn_taking": 25,
+          "strict": 25
+        },
+        {
+          "tool_use_correct": 24,
+          "instruction_following": 24,
+          "kb_grounding": 25,
+          "turn_taking": 25,
+          "strict": 24
+        },
+        {
+          "tool_use_correct": 25,
+          "instruction_following": 25,
+          "kb_grounding": 25,
+          "turn_taking": 25,
+          "strict": 25
+        },
+        {
+          "tool_use_correct": 25,
+          "instruction_following": 25,
+          "kb_grounding": 25,
+          "turn_taking": 25,
+          "strict": 25
+        },
+        {
+          "tool_use_correct": 25,
+          "instruction_following": 22,
+          "kb_grounding": 25,
+          "turn_taking": 25,
+          "strict": 22
+        },
+        {
+          "tool_use_correct": 25,
+          "instruction_following": 25,
+          "kb_grounding": 25,
+          "turn_taking": 25,
+          "strict": 25
+        },
+        {
+          "tool_use_correct": 25,
+          "instruction_following": 25,
+          "kb_grounding": 25,
+          "turn_taking": 25,
+          "strict": 25
+        },
+        {
+          "tool_use_correct": 25,
+          "instruction_following": 24,
+          "kb_grounding": 24,
+          "turn_taking": 25,
+          "strict": 23
+        },
+        {
+          "tool_use_correct": 25,
+          "instruction_following": 25,
+          "kb_grounding": 25,
+          "turn_taking": 25,
+          "strict": 25
+        },
+        {
+          "tool_use_correct": 25,
+          "instruction_following": 25,
+          "kb_grounding": 25,
+          "turn_taking": 25,
+          "strict": 25
+        },
+        {
+          "tool_use_correct": 25,
+          "instruction_following": 25,
+          "kb_grounding": 25,
+          "turn_taking": 25,
+          "strict": 25
+        },
+        {
+          "tool_use_correct": 25,
+          "instruction_following": 25,
+          "kb_grounding": 25,
+          "turn_taking": 25,
+          "strict": 25
+        },
+        {
+          "tool_use_correct": 25,
+          "instruction_following": 25,
+          "kb_grounding": 25,
+          "turn_taking": 25,
+          "strict": 25
+        },
+        {
+          "tool_use_correct": 3,
+          "instruction_following": 10,
+          "kb_grounding": 25,
+          "turn_taking": 25,
+          "strict": 3
+        }
+      ],
+      "failure_examples": [
+        {
+          "key": "live-01",
+          "turn": 29,
+          "assistant": "I'm so glad to hear that! Thanks for letting me know.",
+          "scores": {
+            "turn_taking": true,
+            "tool_use_correct": false,
+            "instruction_following": false,
+            "kb_grounding": true
+          },
+          "reason": "The user clearly signals they are finished ('I don't have anything else'), which is an unambiguous intent to end, but end_session was never called here or at any earlier turn. The reply only acknowledges the compliment and leaves the session open, failing the policy requirement to close out when the user clearly intends to finish. No factual error was made."
+        },
+        {
+          "key": "live-02",
+          "turn": 2,
+          "assistant": "I don\u2019t have a total count. I can say the conference days include tracks across a bunch of areas like MCP, Voice, Agent Reliability, Infrastructure, and more. If you\u2019d like, I can suggest a couple that fit your interests.",
+          "scores": {
+            "turn_taking": true,
+            "tool_use_correct": true,
+            "instruction_following": false,
+            "kb_grounding": true
+          },
+          "reason": "The KB explicitly states '19 tracks of talks, panels, and demos' for June 4-5, so the count was available and did not require calculation or inference. Declining to give any total left the user's direct question unanswered, which conflicts with the policy to answer the actual request. No false fact was stated, so kb_grounding stands; no tool was expected."
+        },
+        {
+          "key": "live-02",
+          "turn": 23,
+          "assistant": "Checking that. He has two. \u201cFull Spectrum MCP: Uncovering Hidden Servers and Clients Capabilities\u201d on June 4th, or \u201cVibe Coding at Scale: Customizing AI Assistants for Enterprise Environments\u201d on June 5th. Which one would you like to vote for?",
+          "scores": {
+            "turn_taking": true,
+            "tool_use_correct": true,
+            "instruction_following": true,
+            "kb_grounding": false
+          },
+          "reason": "Appropriately asked the user to disambiguate before voting, and the two options given are accurate. However, the unqualified claim that Harald Kirschner 'has two' sessions contradicts the KB, which lists three, including the June 3 'Real-World Development with GitHub Copilot and VS Code' workshop. That count is a factual miss, so kb_grounding is false while the workflow itself advanced correctly."
+        },
+        {
+          "key": "live-02",
+          "turn": 29,
+          "assistant": "Glad it was a great one for you, Jennifer!",
+          "scores": {
+            "turn_taking": true,
+            "tool_use_correct": false,
+            "instruction_following": false,
+            "kb_grounding": true
+          },
+          "reason": "The user clearly signaled they were finished ('I don't have anything else'), which is the condition for end_session, but no end_session call was made at this or any earlier turn, so the expected closing action was never performed. The spoken reply was friendly and factually fine, but it failed to carry out the available action the user's intent authorized."
+        },
+        {
+          "key": "live-03",
+          "turn": 29,
+          "assistant": "Awesome! I'm so glad you enjoyed it. If that's everything, I'll go ahead and wrap up for now.",
+          "scores": {
+            "turn_taking": true,
+            "tool_use_correct": false,
+            "instruction_following": false,
+            "kb_grounding": true
+          },
+          "reason": "The user clearly signals they are finished ('I don't have anything else'), which required end_session; no such call was made at this or any prior turn. The assistant also says it will 'wrap up for now,' contradicting the absence of the action \u2014 a words-actions mismatch. No factual error in the reply itself."
+        },
+        {
+          "key": "live-04",
+          "turn": 29,
+          "assistant": "Happy to help. Take care!",
+          "scores": {
+            "turn_taking": true,
+            "tool_use_correct": false,
+            "instruction_following": true,
+            "kb_grounding": true
+          },
+          "reason": "The user clearly signals they are finished ('I don't have anything else'), which is an unambiguous intent to end, so end_session was required and was never called \u2014 tool_use_correct fails. The spoken farewell itself is appropriate and consistent with closing out, and it contradicts no fact, so instruction following and grounding stand."
+        },
+        {
+          "key": "live-05",
+          "turn": 4,
+          "assistant": "Let me check the listed MCP sessions. There are three sessions listed on June 4th: MCP Origins and RFS at 11:15, MCP isn't good, yet at 12:15, and Observable Tools at 2:20.",
+          "scores": {
+            "turn_taking": true,
+            "tool_use_correct": true,
+            "instruction_following": false,
+            "kb_grounding": true
+          },
+          "reason": "The governing policy states: do not calculate or infer total numbers of sessions; describe the kinds of sessions and their days instead. The assistant instead answered with a count ('three sessions listed on June 4th'), a concrete policy contradiction. The individual sessions and times cited are accurate and the count was qualified as 'listed', so no factual error."
+        },
+        {
+          "key": "live-05",
+          "turn": 20,
+          "assistant": "Yes! He has a session on June 4th at 12:45 p.m. called How Fast Are LLM Inference Engines Anyway? in the AI in Action track.",
+          "scores": {
+            "turn_taking": true,
+            "tool_use_correct": true,
+            "instruction_following": false,
+            "kb_grounding": true
+          },
+          "reason": "The KB lists two Charles Frye sessions on June 4 (the 11:15 AM GPU workshop and the 12:45 PM inference-engines talk), and the policy requires including all relevant entries when asked about a speaker's sessions. The assistant reported only the 12:45 PM talk, omitting a relevant entry. The information it did give is accurate, so there is no factual contradiction."
+        },
+        {
+          "key": "live-05",
+          "turn": 29,
+          "assistant": "I\u2019m really glad you enjoyed it. Take care!",
+          "scores": {
+            "turn_taking": true,
+            "tool_use_correct": false,
+            "instruction_following": false,
+            "kb_grounding": true
+          },
+          "reason": "The user clearly signals they are finished ('I don't have anything else'), and the policy directs ending with end_session in that case. The assistant delivered a farewell ('Take care!') but never called end_session, so the required action is missing and its words imply a closure its actions did not perform. No factual claims were made."
+        },
+        {
+          "key": "live-06",
+          "turn": 29,
+          "assistant": "I'm glad you enjoyed it! Take care, and I hope to see you at the next one!",
+          "scores": {
+            "turn_taking": true,
+            "tool_use_correct": false,
+            "instruction_following": true,
+            "kb_grounding": true
+          },
+          "reason": "The user clearly signals they are finished, which is the condition for calling end_session, but no end_session call was made at this or any earlier turn, so the expected tool use is missing. The spoken farewell itself is appropriate, makes no false claim of an action, and contains no factual error."
+        },
+        {
+          "key": "live-07",
+          "turn": 29,
+          "assistant": "Glad to hear it! Thanks for coming. I'll end this session now.",
+          "scores": {
+            "turn_taking": true,
+            "tool_use_correct": false,
+            "instruction_following": false,
+            "kb_grounding": true
+          },
+          "reason": "The user clearly signaled they were finished, so end_session was required, but no tool call was made anywhere in the conversation. The assistant also asserted 'I'll end this session now' while taking no such action \u2014 a direct words/actions mismatch. No factual claims were made, so grounding is unaffected."
+        },
+        {
+          "key": "live-08",
+          "turn": 20,
+          "assistant": "Checking for his sessions. Just to confirm, do you mean Charles Frye? F R Y E?",
+          "scores": {
+            "turn_taking": true,
+            "tool_use_correct": true,
+            "instruction_following": false,
+            "kb_grounding": true
+          },
+          "reason": "The user asked a clear, answerable question about Charles Frye, whose two sessions are listed in the KB. Instead of answering, the assistant asked the user to confirm the spelling of the name \u2014 unnecessary confirmation that neither answers nor advances the request, violating the policy against ending with only a lookup promise or redundant question. No tool call was expected, so tool use is unaffected, and no factual claim was made."
+        },
+        {
+          "key": "live-08",
+          "turn": 29,
+          "assistant": "Great! Glad it went well. Would you like to end here?",
+          "scores": {
+            "turn_taking": true,
+            "tool_use_correct": false,
+            "instruction_following": false,
+            "kb_grounding": true
+          },
+          "reason": "The user clearly signaled the conversation was finished ('I don't have anything else'), so end_session should have been called with no arguments. The assistant instead asked 'Would you like to end here?', requesting redundant permission it already had; the call never occurred in any later turn, so this is both a missing tool call and a workflow violation. No factual error."
+        },
+        {
+          "key": "live-10",
+          "turn": 29,
+          "assistant": "I'm so glad you enjoyed it! Take care. Bye.",
+          "scores": {
+            "turn_taking": true,
+            "tool_use_correct": false,
+            "instruction_following": false,
+            "kb_grounding": true
+          },
+          "reason": "The user clearly signaled the end of the conversation and the assistant verbally said goodbye, but end_session was never called and was not called at any earlier turn, so the closing action was left undone. The spoken farewell contradicts the fact that the session remains open."
+        },
+        {
+          "key": "live-11",
+          "turn": 4,
+          "assistant": "Counting the ones listed for that track. I see three listed on June 4th: at 11:15, 12:15, and 2:20.",
+          "scores": {
+            "turn_taking": true,
+            "tool_use_correct": true,
+            "instruction_following": false,
+            "kb_grounding": false
+          },
+          "reason": "The governing policy explicitly forbids calculating or inferring totals of sessions and instructs describing the kinds of sessions and their days instead; the assistant counted sessions anyway, so instruction_following fails. The count is also wrong: besides the three listed MCP sessions, the KB lists Harald Kirschner's 'Full Spectrum MCP' (914509) on June 4 at 3:00 PM in the MCP track, making the claimed total incorrect."
+        },
+        {
+          "key": "live-11",
+          "turn": 9,
+          "assistant": "I love the idea, but I can't actually set up or submit community sessions. I can... help you find a related community meetup, though. Want me to do that?",
+          "scores": {
+            "turn_taking": true,
+            "tool_use_correct": true,
+            "instruction_following": false,
+            "kb_grounding": true
+          },
+          "reason": "No tool call was expected at this turn, so tool_use_correct holds. However, the assistant denied a capability it actually has \u2014 submit_session_suggestion is an available action \u2014 directly contradicting the policy to perform the actions supported by its tools, so instruction_following fails. The community-meetup offer is factually fine."
+        },
+        {
+          "key": "live-11",
+          "turn": 11,
+          "assistant": "Uh. That's a cool idea. I can't collect or submit community session proposals, but if you'd like, I can point you to meetups where that might come up.",
+          "scores": {
+            "turn_taking": true,
+            "tool_use_correct": false,
+            "instruction_following": false,
+            "kb_grounding": true
+          },
+          "reason": "Both required arguments were known (name 'Jennifer Smith' and the open telemetry tracing suggestion), so submit_session_suggestion should have been called; it was not, at this turn or any later turn. The assistant instead repeated a false claim that it cannot submit proposals, contradicting its toolset and failing the user's request."
+        },
+        {
+          "key": "live-11",
+          "turn": 12,
+          "assistant": "That sounds very relevant, but same limitation on my end. I can't take proposals or pass them along. I can help you find the right meetup though. Want me to do that for either of those topics?",
+          "scores": {
+            "turn_taking": true,
+            "tool_use_correct": false,
+            "instruction_following": false,
+            "kb_grounding": true
+          },
+          "reason": "The second suggestion (state machine abstractions) arrived with the name already known, so submit_session_suggestion was required and was never called. The response again asserts an incorrect capability limitation instead of acting."
+        },
+        {
+          "key": "live-11",
+          "turn": 29,
+          "assistant": "I'm glad it was a good experience! Take care.",
+          "scores": {
+            "turn_taking": true,
+            "tool_use_correct": false,
+            "instruction_following": true,
+            "kb_grounding": true
+          },
+          "reason": "The user clearly signals the conversation is over ('I don't have anything else'), so end_session was required and was never called \u2014 tool_use_correct fails. The spoken farewell itself is warm, appropriate, and contains no factual claims, so instruction_following and kb_grounding hold."
+        },
+        {
+          "key": "live-12",
+          "turn": 17,
+          "assistant": "Thanks. Are you using an iPhone or Android?",
+          "scores": {
+            "turn_taking": true,
+            "tool_use_correct": false,
+            "instruction_following": false,
+            "kb_grounding": true
+          },
+          "reason": "The user supplied a concrete issue \u2014 cannot access the location maps \u2014 and the name Jennifer Smith was already on file, so all required arguments for request_tech_support were known and the ticket should have been filed here. Instead the assistant asked for an additional detail (iPhone or Android) that is not a required argument, withholding an authorized action. Missing expected call and unnecessary gating of it. No factual error in the words themselves."
+        },
+        {
+          "key": "live-12",
+          "turn": 29,
+          "assistant": "I'm glad to hear that. And since that's it, I'll wrap up for now. Bye, Jennifer!",
+          "scores": {
+            "turn_taking": true,
+            "tool_use_correct": false,
+            "instruction_following": false,
+            "kb_grounding": true
+          },
+          "reason": "The user clearly signals they are finished, so end_session was required, and it was never called at any point in the conversation. Compounding this, the assistant explicitly says it will 'wrap up for now' and says goodbye, so its words assert an action it did not perform \u2014 a words/actions mismatch on top of the missing call."
+        },
+        {
+          "key": "live-13",
+          "turn": 2,
+          "assistant": "I don't have a total number of tracks, but across June 4th and 5th, you can find keynotes, talks, panels, and demos on many tracks.",
+          "scores": {
+            "turn_taking": true,
+            "tool_use_correct": true,
+            "instruction_following": false,
+            "kb_grounding": true
+          },
+          "reason": "The knowledge base explicitly states there are 19 tracks on June 4-5, so this is a stated fact rather than a calculated total. The assistant said it had no total number and did not answer the user's question, leaving the request unadvanced. The surrounding description of session kinds and days is accurate, so no factual contradiction of event facts."
+        },
+        {
+          "key": "live-13",
+          "turn": 4,
+          "assistant": "I'll check that. There are three listed. At 11:15 AM, MCP Origins and RFS with Theodora Chu. At 12:15, MCP Isn't Good, yet, with David Cramer. And at 2:20, Observable Tools, the State of MCP Observability, with Alex Volkov.",
+          "scores": {
+            "turn_taking": true,
+            "tool_use_correct": true,
+            "instruction_following": false,
+            "kb_grounding": true
+          },
+          "reason": "The governing policy explicitly forbids calculating or inferring total numbers of sessions and directs describing kinds of sessions and days instead; the assistant stated 'There are three listed,' a direct policy contradiction. The three sessions named (Chu 11:15, Cramer 12:15, Volkov 2:20) are accurate to the KB, so grounding stands."
+        },
+        {
+          "key": "live-13",
+          "turn": 29,
+          "assistant": "I'm really glad to hear it! If that's all, do you want to wrap up?",
+          "scores": {
+            "turn_taking": true,
+            "tool_use_correct": false,
+            "instruction_following": false,
+            "kb_grounding": true
+          },
+          "reason": "The user clearly signaled completion ('I don't have anything else'), which satisfies the condition for end_session, yet the assistant asked a redundant wrap-up confirmation instead of ending the session. The expected end_session call was never made in this or any earlier turn. No factual error in the reply."
+        },
+        {
+          "key": "live-14",
+          "turn": 4,
+          "assistant": "Oh. Checking. Three. MCP Origins and RFS at 11:15 a.m., MCP isn't good yet at 12:15 p.m., and Observable Tools: The State of MCP Observability at 2:20 p.m. They\u2019re all on June 4th in the MCP room.",
+          "scores": {
+            "turn_taking": true,
+            "tool_use_correct": true,
+            "instruction_following": false,
+            "kb_grounding": false
+          },
+          "reason": "The policy explicitly says not to calculate or infer total numbers of sessions and to describe the kinds of sessions instead; the assistant answered with a count ('Three'). It is also factually wrong: the KB lists a fourth June 4 MCP-track session, Harald Kirschner's 'Full Spectrum MCP: Uncovering Hidden Servers and Clients Capabilities' at 3:00 PM in Yerba Buena Salons 7-8: MCP, contradicting the claim that those three are all of them."
+        },
+        {
+          "key": "live-14",
+          "turn": 29,
+          "assistant": "I\u2019m glad to hear it. Well, that wraps everything on my end. Have a good one.",
+          "scores": {
+            "turn_taking": true,
+            "tool_use_correct": false,
+            "instruction_following": false,
+            "kb_grounding": true
+          },
+          "reason": "The user clearly signaled they were finished, which is the condition for end_session, but no tool call was made at this or any earlier turn. The assistant even said 'that wraps everything on my end' and signed off, implying closure it never performed \u2014 a words-versus-actions mismatch and a missed required action. Spoken content contains no factual error."
+        },
+        {
+          "key": "live-15",
+          "turn": 29,
+          "assistant": "Glad you enjoyed it! Thanks for being a part of it, and have a safe trip home.",
+          "scores": {
+            "turn_taking": true,
+            "tool_use_correct": false,
+            "instruction_following": true,
+            "kb_grounding": true
+          },
+          "reason": "The user clearly signals she is finished ('I don't have anything else'), which per policy should trigger end_session, but no such call was made at this or any earlier turn, so tool_use_correct fails. The spoken closing is a warm, appropriate sign-off that does not contradict its actions or state any incorrect fact, so instruction_following and kb_grounding hold."
+        },
+        {
+          "key": "live-16",
+          "turn": 29,
+          "assistant": "Glad it went well. Take care!",
+          "scores": {
+            "turn_taking": true,
+            "tool_use_correct": false,
+            "instruction_following": false,
+            "kb_grounding": true
+          },
+          "reason": "The user clearly signals completion ('I don't have anything else'), so end_session was required and was never called at this or any earlier turn. The spoken goodbye is appropriate in content but the policy-mandated session close was omitted, so both tool use and instruction following fail. No factual errors."
+        },
+        {
+          "key": "live-17",
+          "turn": 4,
+          "assistant": "I'll check. I can't give a total count, but the schedule lists three MCP track sessions on June 4th. They cover MCP's origins, its current limitations, and observability. There are also two hands-on MCP workshops on June 3rd.",
+          "scores": {
+            "turn_taking": true,
+            "tool_use_correct": true,
+            "instruction_following": false,
+            "kb_grounding": true
+          },
+          "reason": "No tool was expected or called, so tool use is fine. However, the governing policy states 'Do not calculate or infer total numbers of sessions... Describe the available kinds of sessions and their days instead.' Despite the disclaimer, the assistant supplied explicit counts ('three MCP track sessions on June 4th', 'two hands-on MCP workshops'), which is the specific behavior the policy forbids, so instruction following fails. The counts do match the KB listings, so there is no factual contradiction."
+        },
+        {
+          "key": "live-17",
+          "turn": 29,
+          "assistant": "I'm so glad to hear that! It was nice chatting with you, Jennifer. Take care!",
+          "scores": {
+            "turn_taking": true,
+            "tool_use_correct": false,
+            "instruction_following": false,
+            "kb_grounding": true
+          },
+          "reason": "The user clearly signals completion ('I don't have anything else'), which is the condition for calling end_session, and the assistant verbally closes the conversation but never calls end_session \u2014 the call is absent from this and every prior turn, so no realignment credit applies. Failing to perform the available closing action while speaking a farewell contradicts the session-ending policy. The spoken content itself contains no factual error."
+        },
+        {
+          "key": "live-18",
+          "turn": 4,
+          "assistant": "Good question. I'll make sure to count just the MCP track sessions and not the workshops. Just in the main MCP track, three sessions. Plus two MCP-themed workshops on June 3rd.",
+          "scores": {
+            "turn_taking": true,
+            "tool_use_correct": true,
+            "instruction_following": false,
+            "kb_grounding": false
+          },
+          "reason": "The governing policy explicitly says not to calculate or infer total numbers of sessions and to describe the kinds of sessions and their days instead; the assistant instead announced a count ('three sessions. Plus two MCP-themed workshops'), which is a direct policy contradiction. The count is also factually wrong: the KB lists four June 4 MCP-track entries \u2014 947165, 914489, 915013, and Harald Kirschner's 914509 at 3:00 PM, whose Track is MCP \u2014 so the claimed total contradicts the knowledge base."
+        },
+        {
+          "key": "live-18",
+          "turn": 23,
+          "assistant": "Okay, I'll match it up. Alright, I've submitted a vote for his June 5th talk, Vibe Coding at Scale: Customizing AI Assistants for Enterprise Environments. Nice pick. That's a good one.",
+          "scores": {
+            "turn_taking": true,
+            "tool_use_correct": true,
+            "instruction_following": false,
+            "kb_grounding": true
+          },
+          "reason": "The vote_for_session call is one turn early but uses the correct function and the exact expected arguments (session_id 936902, Jennifer Smith), so tool use is credited. Instruction following fails: the KB lists three Harald Kirschner sessions (914821 on June 3, 914509 on June 4, 936902 on June 5), so the reference was genuinely ambiguous and the policy requires a brief clarifying question before acting; the assistant instead guessed and submitted an irreversible vote. The session details it recited are factually accurate."
+        },
+        {
+          "key": "live-18",
+          "turn": 29,
+          "assistant": "I'm really glad to hear it. I'll end our session now, but feel free to come back anytime.",
+          "scores": {
+            "turn_taking": true,
+            "tool_use_correct": false,
+            "instruction_following": false,
+            "kb_grounding": true
+          },
+          "reason": "The user clearly signals they are finished, so end_session was expected and was never called at any point in the conversation \u2014 this is a genuine miss, not a timing shift. The assistant also states 'I'll end our session now' while taking no such action, a direct words-actions mismatch."
+        },
+        {
+          "key": "live-19",
+          "turn": 29,
+          "assistant": "I'm glad you had a great time! Take care.",
+          "scores": {
+            "turn_taking": true,
+            "tool_use_correct": false,
+            "instruction_following": false,
+            "kb_grounding": true
+          },
+          "reason": "The user clearly signals the conversation is finished ('I don't have anything else'), so end_session was required and was never called at this or any earlier turn, making tool_use_correct false. The assistant verbally closes out ('Take care') while leaving the session open, a contradiction between its words and its actions, so instruction_following is also false. No factual claims were made, so kb_grounding stands."
+        },
+        {
+          "key": "live-20",
+          "turn": 20,
+          "assistant": "Yes! On June 4th, he's giving a workshop called \"What Every AI Engineer Needs to Know About GPUs\" at 11:15 a.m. in Foothill F.",
+          "scores": {
+            "turn_taking": true,
+            "tool_use_correct": true,
+            "instruction_following": false,
+            "kb_grounding": true
+          },
+          "reason": "The facts given are accurate (933607, workshop, June 4, 11:15 AM, Foothill F), so no factual contradiction. However, the policy requires including all of a speaker's relevant sessions when asked about their sessions, and the assistant omitted Charles Frye's 12:45 PM talk 'How fast are LLM inference engines anyway?' \u2014 indeed answering a question about a 'talk' by naming only a workshop. That incompleteness is a policy shortfall."
+        },
+        {
+          "key": "live-20",
+          "turn": 29,
+          "assistant": "Glad to hear it! And thanks for letting me know. Have a great rest of your day.",
+          "scores": {
+            "turn_taking": true,
+            "tool_use_correct": false,
+            "instruction_following": true,
+            "kb_grounding": true
+          },
+          "reason": "The user clearly signaled they were finished ('I don't have anything else'), so end_session was required and was never called at this or any earlier turn \u2014 tool_use_correct is false. The spoken reply itself was an appropriate, non-contradictory closing that acknowledged the feedback and said goodbye, so instruction_following and kb_grounding stand."
+        },
+        {
+          "key": "live-21",
+          "turn": 29,
+          "assistant": "Glad to hear it! Take care.",
+          "scores": {
+            "turn_taking": true,
+            "tool_use_correct": false,
+            "instruction_following": true,
+            "kb_grounding": true
+          },
+          "reason": "The user clearly signals they are finished ('I don't have anything else'), so end_session should have been called; it was not called here or anywhere earlier, so the tool use is a genuine miss. The spoken sign-off itself is an appropriate closing response that does not contradict its actions or request needless confirmation, and it contains no factual claims, so instruction following and grounding stand."
+        },
+        {
+          "key": "live-23",
+          "turn": 29,
+          "assistant": "I'm glad to hear it. Thanks for joining us, and enjoy the rest of your time at the AI Engineer World's Fair!",
+          "scores": {
+            "turn_taking": true,
+            "tool_use_correct": false,
+            "instruction_following": true,
+            "kb_grounding": true
+          },
+          "reason": "The user clearly signals they are finished ('I don't have anything else'), which required an end_session call; none was made at this or any earlier turn, so tool_use_correct is false. The spoken farewell itself is appropriate, contains no policy contradiction, and makes no false factual claims, so instruction_following and kb_grounding remain true."
+        },
+        {
+          "key": "live-24",
+          "turn": 29,
+          "assistant": "Glad to hear it! I'll wrap up now, and thanks for stopping by.",
+          "scores": {
+            "turn_taking": true,
+            "tool_use_correct": false,
+            "instruction_following": false,
+            "kb_grounding": true
+          },
+          "reason": "The user clearly signaled the conversation was over and the assistant said it would 'wrap up now', but end_session was never called here or earlier in the conversation, so the expected terminal call is missing. The stated intent to wrap up also contradicts the absence of the action."
+        },
+        {
+          "key": "live-25",
+          "turn": 9,
+          "assistant": "I can't add new hallway track entries, but there are community meetups each evening in the Atrium Event Hub. You could join one of those to connect with people and share ideas. Want to hear what's happening June 5th?",
+          "scores": {
+            "turn_taking": true,
+            "tool_use_correct": true,
+            "instruction_following": false,
+            "kb_grounding": true
+          },
+          "reason": "The user asked whether they could make a session suggestion, and the assistant has submit_session_suggestion available. Claiming 'I can't add new hallway track entries' is a false capability denial that blocks the requested workflow instead of collecting the suggestion, contradicting the policy requirement to perform available actions. No function was expected at this turn and none was called, so tool use is unaffected; the community meetup facts stated (evening meetups in Atrium: Event Hub) are accurate."
+        },
+        {
+          "key": "live-25",
+          "turn": 10,
+          "assistant": "Hi, Jennifer. On June 5th, the community meetups run from 5:30 to 9 in the Atrium Event Hub. A few listed are the LLM Fine-Tuning Practitioners, Prompt Engineering Best Practices, Indie Hackers Building with AI, and more. You could stop by and connect with folks. Would you like me to highlight one that fits your interests?",
+          "scores": {
+            "turn_taking": true,
+            "tool_use_correct": true,
+            "instruction_following": false,
+            "kb_grounding": true
+          },
+          "reason": "The user supplied their name to progress the suggestion request, but the assistant ignored that workflow and continued listing community meetups, never asking for the suggestion. It fails to advance the user's actual request. The June 5 meetup time (5:30-9:00, Atrium: Event Hub) and listed groups are factually correct, and no call was expected here."
+        },
+        {
+          "key": "live-25",
+          "turn": 11,
+          "assistant": "Okay, I hear you. I can't add new sessions or meetups, but you could bring that topic to a relevant community meetup, like RAG systems or MLOps, and see who else is interested. If you want, I can highlight a meetup on June 5th that would be a good fit for a conversation about open telemetry.",
+          "scores": {
+            "turn_taking": true,
+            "tool_use_correct": false,
+            "instruction_following": false,
+            "kb_grounding": true
+          },
+          "reason": "The user gave the concrete suggestion (a session about open telemetry tracing) and the name was already known, so submit_session_suggestion should have been called. It was not called here or anywhere later in the conversation, so no realignment credit applies. The response repeats the false claim that it cannot add sessions, again refusing an available action. Its event facts (community meetups as a venue for such conversations) do not contradict the KB."
+        },
+        {
+          "key": "live-25",
+          "turn": 12,
+          "assistant": "That's another solid idea. I still can't add new sessions or meetups, but you could bring that up at a related community meetup on June 5th to find people interested in workflow architecture. Do you want me to point you to a fitting meetup that evening?",
+          "scores": {
+            "turn_taking": true,
+            "tool_use_correct": false,
+            "instruction_following": false,
+            "kb_grounding": true
+          },
+          "reason": "A second concrete suggestion (state machine abstractions for complex workflows) with the name already on file required submit_session_suggestion; it was never called. The assistant again asserts it cannot add sessions, contradicting its actual tool capability and failing the user's request. Stated meetup information is not factually wrong."
+        }
+      ],
+      "canonical_eligible": false,
+      "validity_issue": "Premature turn commit after early backchannel; current cohort retained as diagnostics pending a fresh uniform cohort with the input-end gate fix."
+    }
+  ],
+  "explicit_judge_conflict_flags": [],
+  "live_gate_audit": {
+    "checked": [
+      {
+        "attempt": 1,
+        "turns": 30,
+        "minimum_gap_ms": 7810.258907964453
+      },
+      {
+        "attempt": 2,
+        "turns": 30,
+        "minimum_gap_ms": 6537.111443001777
+      },
+      {
+        "attempt": 3,
+        "turns": 30,
+        "minimum_gap_ms": 7238.288885098882
+      },
+      {
+        "attempt": 4,
+        "turns": 30,
+        "minimum_gap_ms": 5220.367179019377
+      },
+      {
+        "attempt": 5,
+        "turns": 30,
+        "minimum_gap_ms": 6986.91369604785
+      },
+      {
+        "attempt": 6,
+        "turns": 30,
+        "minimum_gap_ms": 6177.2868550615385
+      },
+      {
+        "attempt": 7,
+        "turns": 30,
+        "minimum_gap_ms": 6941.948072984815
+      },
+      {
+        "attempt": 8,
+        "turns": 30,
+        "minimum_gap_ms": 8705.812613014132
+      },
+      {
+        "attempt": 9,
+        "turns": 30,
+        "minimum_gap_ms": 8559.006528928876
+      },
+      {
+        "attempt": 10,
+        "turns": 30,
+        "minimum_gap_ms": 6939.090576954186
+      },
+      {
+        "attempt": 11,
+        "turns": 30,
+        "minimum_gap_ms": 6783.908435027115
+      },
+      {
+        "attempt": 12,
+        "turns": 30,
+        "minimum_gap_ms": 6841.397757991217
+      },
+      {
+        "attempt": 13,
+        "turns": 30,
+        "minimum_gap_ms": 6997.863436001353
+      },
+      {
+        "attempt": 14,
+        "turns": 30,
+        "minimum_gap_ms": 8207.162867998704
+      },
+      {
+        "attempt": 15,
+        "turns": 30,
+        "minimum_gap_ms": 6639.927759068087
+      },
+      {
+        "attempt": 16,
+        "turns": 30,
+        "minimum_gap_ms": 6529.153852025047
+      },
+      {
+        "attempt": 17,
+        "turns": 30,
+        "minimum_gap_ms": 6332.213156973012
+      },
+      {
+        "attempt": 18,
+        "turns": 30,
+        "minimum_gap_ms": 6682.9717580694705
+      },
+      {
+        "attempt": 19,
+        "turns": 30,
+        "minimum_gap_ms": 5130.001051002182
+      },
+      {
+        "attempt": 20,
+        "turns": 30,
+        "minimum_gap_ms": 6333.317084936425
+      },
+      {
+        "attempt": 21,
+        "turns": 30,
+        "minimum_gap_ms": 6477.192310034297
+      },
+      {
+        "attempt": 22,
+        "turns": 30,
+        "minimum_gap_ms": 8158.178288023919
+      },
+      {
+        "attempt": 23,
+        "turns": 30,
+        "minimum_gap_ms": 6985.710142063908
+      },
+      {
+        "attempt": 24,
+        "turns": 30,
+        "minimum_gap_ms": 5471.124417963438
+      },
+      {
+        "attempt": 25,
+        "turns": 30,
+        "minimum_gap_ms": 7385.14672301244
+      }
+    ],
+    "violations": [],
+    "criterion": "Commit less than 2.95 seconds after input_end violates the intended 3-second post-input quiet interval (50ms tolerance). This is a harness validity audit, not a model/API failure."
+  }
+}

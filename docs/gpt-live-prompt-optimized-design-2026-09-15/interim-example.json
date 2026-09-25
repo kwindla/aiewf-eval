@@ -1,0 +1,1409 @@
+{
+  "source_run": "runs/aiwf_medium_context_speech_live/20260915T151629_gpt-live-1_5ce8aa83",
+  "full_recording": "/home/khkramer/src/aiewf-eval/runs/aiwf_medium_context_speech_live/20260915T151629_gpt-live-1_5ce8aa83/conversation.wav",
+  "source_turn": 4,
+  "clip_start_sample": 2321939,
+  "clip_end_sample": 2818490,
+  "sample_rate": 24000,
+  "transcript": {
+    "ts": "2026-09-15T22:18:26.657Z",
+    "turn": 4,
+    "model_name": "gpt-live-1",
+    "user_text": "How many sessions are in that track?",
+    "assistant_text": "Let me check the program for that. I don't have an official total for that track, but the schedule lists MCP sessions on June 4th, plus two MCP workshops on June 3rd.",
+    "tool_calls": [],
+    "tool_results": [],
+    "tokens": {
+      "prompt_tokens": 22689,
+      "completion_tokens": 35,
+      "total_tokens": 22724,
+      "cache_read_input_tokens": 22094,
+      "cache_creation_input_tokens": null,
+      "thinking_tokens": 0
+    },
+    "ttfb_ms": null,
+    "raw_ttfb_ms": null,
+    "latency_ms": 19709,
+    "reconnection_count": 0
+  },
+  "events": [
+    {
+      "t": 97.58776048198342,
+      "turn": 4,
+      "type": "input_start"
+    },
+    {
+      "t": 100.34711514995433,
+      "turn": 4,
+      "type": "input_end"
+    },
+    {
+      "t": 101.64269655605312,
+      "turn": 4,
+      "type": "server",
+      "event": {
+        "type": "session.delegation.created",
+        "event_id": "event_EOVlbEGfW3BIwJXbGeWAM",
+        "offset_ms": 99600,
+        "delegation": {
+          "id": "item_EOVlaaUCZUULBdtfFJnFc",
+          "type": "delegation",
+          "target": "responses",
+          "response_id": "resp_00b6ed9ea0466f14006aa9c422f05887d082523ae9cdc8d14b"
+        }
+      }
+    },
+    {
+      "t": 101.64278746896889,
+      "turn": 4,
+      "type": "server",
+      "event": {
+        "type": "response.event",
+        "event_id": "event_EOVlbVdYedOR2vUS9087I",
+        "delegation_id": "item_EOVlaaUCZUULBdtfFJnFc",
+        "event": {
+          "type": "response.created",
+          "response": {
+            "id": "resp_00b6ed9ea0466f14006aa9c422f05887d082523ae9cdc8d14b",
+            "object": "response",
+            "created_at": 1789510690,
+            "status": "in_progress",
+            "background": false,
+            "completed_at": null,
+            "error": null,
+            "frequency_penalty": 0.0,
+            "incomplete_details": null,
+            "instructions": null,
+            "max_output_tokens": null,
+            "max_tool_calls": null,
+            "model": "gpt-5.6-terra",
+            "moderation": null,
+            "output": [],
+            "parallel_tool_calls": true,
+            "presence_penalty": 0.0,
+            "previous_response_id": "resp_00b6ed9ea0466f14016aa9c3bde5c887d0a6edf366fe9627bd",
+            "prompt_cache_key": "live:23095d023e9e2afc8838f37686f5ccb89772a0f507b38e6204666966c2c",
+            "prompt_cache_retention": "24h",
+            "reasoning": {
+              "context": "all_turns",
+              "effort": "medium",
+              "mode": "standard",
+              "summary": null
+            },
+            "safety_identifier": null,
+            "service_tier": "auto",
+            "store": true,
+            "temperature": 1.0,
+            "text": {
+              "format": {
+                "type": "text"
+              },
+              "verbosity": "medium"
+            },
+            "tool_choice": "auto",
+            "tool_usage": {
+              "image_gen": {
+                "input_tokens": 0,
+                "input_tokens_details": {
+                  "image_tokens": 0,
+                  "text_tokens": 0
+                },
+                "output_tokens": 0,
+                "output_tokens_details": {
+                  "image_tokens": 0,
+                  "text_tokens": 0
+                },
+                "total_tokens": 0
+              },
+              "web_search": {
+                "num_requests": 0
+              }
+            },
+            "tools": [],
+            "top_logprobs": 0,
+            "top_p": 0.98,
+            "truncation": "disabled",
+            "usage": null,
+            "user": "user-0hbY0MwPOcRJVTDalz1DB7lT",
+            "metadata": {}
+          },
+          "sequence_number": 0
+        }
+      }
+    },
+    {
+      "t": 101.67825104296207,
+      "turn": 4,
+      "type": "server",
+      "event": {
+        "type": "response.event",
+        "event_id": "event_EOVlbL59Q8xGgaFCIXv1g",
+        "delegation_id": "item_EOVlaaUCZUULBdtfFJnFc",
+        "event": {
+          "type": "response.in_progress",
+          "response": {
+            "id": "resp_00b6ed9ea0466f14006aa9c422f05887d082523ae9cdc8d14b",
+            "object": "response",
+            "created_at": 1789510690,
+            "status": "in_progress",
+            "background": false,
+            "completed_at": null,
+            "error": null,
+            "frequency_penalty": 0.0,
+            "incomplete_details": null,
+            "instructions": null,
+            "max_output_tokens": null,
+            "max_tool_calls": null,
+            "model": "gpt-5.6-terra",
+            "moderation": null,
+            "output": [],
+            "parallel_tool_calls": true,
+            "presence_penalty": 0.0,
+            "previous_response_id": "resp_00b6ed9ea0466f14016aa9c3bde5c887d0a6edf366fe9627bd",
+            "prompt_cache_key": "live:23095d023e9e2afc8838f37686f5ccb89772a0f507b38e6204666966c2c",
+            "prompt_cache_retention": "24h",
+            "reasoning": {
+              "context": "all_turns",
+              "effort": "medium",
+              "mode": "standard",
+              "summary": null
+            },
+            "safety_identifier": null,
+            "service_tier": "auto",
+            "store": true,
+            "temperature": 1.0,
+            "text": {
+              "format": {
+                "type": "text"
+              },
+              "verbosity": "medium"
+            },
+            "tool_choice": "auto",
+            "tool_usage": {
+              "image_gen": {
+                "input_tokens": 0,
+                "input_tokens_details": {
+                  "image_tokens": 0,
+                  "text_tokens": 0
+                },
+                "output_tokens": 0,
+                "output_tokens_details": {
+                  "image_tokens": 0,
+                  "text_tokens": 0
+                },
+                "total_tokens": 0
+              },
+              "web_search": {
+                "num_requests": 0
+              }
+            },
+            "tools": [],
+            "top_logprobs": 0,
+            "top_p": 0.98,
+            "truncation": "disabled",
+            "usage": null,
+            "user": "user-0hbY0MwPOcRJVTDalz1DB7lT",
+            "metadata": {}
+          },
+          "sequence_number": 1
+        }
+      }
+    },
+    {
+      "t": 101.77636466000695,
+      "turn": 4,
+      "type": "server",
+      "event": {
+        "type": "session.output_transcript.delta",
+        "event_id": "event_EOVlblcVsxWPUKsqoct3w",
+        "delta": " Let me",
+        "start_ms": 99800,
+        "end_ms": 100000
+      }
+    },
+    {
+      "t": 102.06810202100314,
+      "turn": 4,
+      "type": "server",
+      "event": {
+        "type": "session.output_transcript.delta",
+        "event_id": "event_EOVlb9hTN2jpVyM4TOqxB",
+        "delta": " check",
+        "start_ms": 100000,
+        "end_ms": 100200
+      }
+    },
+    {
+      "t": 102.19612496800255,
+      "turn": 4,
+      "type": "server",
+      "event": {
+        "type": "session.output_transcript.delta",
+        "event_id": "event_EOVlbXzdETObj66cnDLcJ",
+        "delta": " the program",
+        "start_ms": 100200,
+        "end_ms": 100400
+      }
+    },
+    {
+      "t": 102.77217665803619,
+      "turn": 4,
+      "type": "server",
+      "event": {
+        "type": "session.output_transcript.delta",
+        "event_id": "event_EOVlcuAJwfoEKBg8rR1xs",
+        "delta": " for",
+        "start_ms": 100800,
+        "end_ms": 101000
+      }
+    },
+    {
+      "t": 102.95342978602275,
+      "turn": 4,
+      "type": "server",
+      "event": {
+        "type": "session.output_transcript.delta",
+        "event_id": "event_EOVlcTYUlzxhmVZqvltfm",
+        "delta": " that.",
+        "start_ms": 101000,
+        "end_ms": 101200
+      }
+    },
+    {
+      "t": 103.4257943170378,
+      "turn": 4,
+      "type": "server",
+      "event": {
+        "type": "response.event",
+        "event_id": "event_EOVlcknTuaRJBGQ6OH7bO",
+        "delegation_id": "item_EOVlaaUCZUULBdtfFJnFc",
+        "event": {
+          "type": "response.output_item.added",
+          "item": {
+            "id": "msg_00b6ed9ea0466f14006aa9c424c90087d0924f89a861f9d27a",
+            "type": "message",
+            "status": "in_progress",
+            "content": [],
+            "phase": "final_answer",
+            "role": "assistant"
+          },
+          "output_index": 0,
+          "sequence_number": 2
+        }
+      }
+    },
+    {
+      "t": 103.4266562339617,
+      "turn": 4,
+      "type": "server",
+      "event": {
+        "type": "response.event",
+        "event_id": "event_EOVlcYkc5BB54mES7Yckb",
+        "delegation_id": "item_EOVlaaUCZUULBdtfFJnFc",
+        "event": {
+          "type": "response.content_part.added",
+          "content_index": 0,
+          "item_id": "msg_00b6ed9ea0466f14006aa9c424c90087d0924f89a861f9d27a",
+          "output_index": 0,
+          "part": {
+            "type": "output_text",
+            "annotations": [],
+            "logprobs": [],
+            "text": ""
+          },
+          "sequence_number": 3
+        }
+      }
+    },
+    {
+      "t": 103.46376297599636,
+      "turn": 4,
+      "type": "server",
+      "event": {
+        "type": "response.event",
+        "event_id": "event_EOVlcwzdWKZa7l0T3bfCY",
+        "delegation_id": "item_EOVlaaUCZUULBdtfFJnFc",
+        "event": {
+          "type": "response.output_text.delta",
+          "content_index": 0,
+          "delta": "I",
+          "item_id": "msg_00b6ed9ea0466f14006aa9c424c90087d0924f89a861f9d27a",
+          "logprobs": [],
+          "obfuscation": "6XN6xV1cTVzLjcL",
+          "output_index": 0,
+          "sequence_number": 4
+        }
+      }
+    },
+    {
+      "t": 103.46709561301395,
+      "turn": 4,
+      "type": "server",
+      "event": {
+        "type": "response.event",
+        "event_id": "event_EOVlczHsW6p1mCPVyShtq",
+        "delegation_id": "item_EOVlaaUCZUULBdtfFJnFc",
+        "event": {
+          "type": "response.output_text.delta",
+          "content_index": 0,
+          "delta": " don",
+          "item_id": "msg_00b6ed9ea0466f14006aa9c424c90087d0924f89a861f9d27a",
+          "logprobs": [],
+          "obfuscation": "46j2G7qlrKJt",
+          "output_index": 0,
+          "sequence_number": 5
+        }
+      }
+    },
+    {
+      "t": 103.46905174700078,
+      "turn": 4,
+      "type": "server",
+      "event": {
+        "type": "response.event",
+        "event_id": "event_EOVlcXJZ4I4MdsJr8QmMq",
+        "delegation_id": "item_EOVlaaUCZUULBdtfFJnFc",
+        "event": {
+          "type": "response.output_text.delta",
+          "content_index": 0,
+          "delta": "\u2019t",
+          "item_id": "msg_00b6ed9ea0466f14006aa9c424c90087d0924f89a861f9d27a",
+          "logprobs": [],
+          "obfuscation": "tiXSwM5ohynLx4",
+          "output_index": 0,
+          "sequence_number": 6
+        }
+      }
+    },
+    {
+      "t": 103.47188965405803,
+      "turn": 4,
+      "type": "server",
+      "event": {
+        "type": "response.event",
+        "event_id": "event_EOVlcUuEpI67kx1qx9QXr",
+        "delegation_id": "item_EOVlaaUCZUULBdtfFJnFc",
+        "event": {
+          "type": "response.output_text.delta",
+          "content_index": 0,
+          "delta": " have",
+          "item_id": "msg_00b6ed9ea0466f14006aa9c424c90087d0924f89a861f9d27a",
+          "logprobs": [],
+          "obfuscation": "RadWDFAMZLa",
+          "output_index": 0,
+          "sequence_number": 7
+        }
+      }
+    },
+    {
+      "t": 103.47698402497917,
+      "turn": 4,
+      "type": "server",
+      "event": {
+        "type": "response.event",
+        "event_id": "event_EOVlck08ye1IlCjS2pAyf",
+        "delegation_id": "item_EOVlaaUCZUULBdtfFJnFc",
+        "event": {
+          "type": "response.output_text.delta",
+          "content_index": 0,
+          "delta": " an",
+          "item_id": "msg_00b6ed9ea0466f14006aa9c424c90087d0924f89a861f9d27a",
+          "logprobs": [],
+          "obfuscation": "QNs5l1hQrkk5V",
+          "output_index": 0,
+          "sequence_number": 8
+        }
+      }
+    },
+    {
+      "t": 103.5054040880641,
+      "turn": 4,
+      "type": "server",
+      "event": {
+        "type": "response.event",
+        "event_id": "event_EOVlcRfDublO6562IclL1",
+        "delegation_id": "item_EOVlaaUCZUULBdtfFJnFc",
+        "event": {
+          "type": "response.output_text.delta",
+          "content_index": 0,
+          "delta": " official",
+          "item_id": "msg_00b6ed9ea0466f14006aa9c424c90087d0924f89a861f9d27a",
+          "logprobs": [],
+          "obfuscation": "d5pUHxf",
+          "output_index": 0,
+          "sequence_number": 9
+        }
+      }
+    },
+    {
+      "t": 103.50742889102548,
+      "turn": 4,
+      "type": "server",
+      "event": {
+        "type": "response.event",
+        "event_id": "event_EOVlc3b9QJ0UM5rm4RzlJ",
+        "delegation_id": "item_EOVlaaUCZUULBdtfFJnFc",
+        "event": {
+          "type": "response.output_text.delta",
+          "content_index": 0,
+          "delta": " total",
+          "item_id": "msg_00b6ed9ea0466f14006aa9c424c90087d0924f89a861f9d27a",
+          "logprobs": [],
+          "obfuscation": "KODHckpijr",
+          "output_index": 0,
+          "sequence_number": 10
+        }
+      }
+    },
+    {
+      "t": 103.54663195402827,
+      "turn": 4,
+      "type": "server",
+      "event": {
+        "type": "response.event",
+        "event_id": "event_EOVlct9Yf0sBYBm1spzrD",
+        "delegation_id": "item_EOVlaaUCZUULBdtfFJnFc",
+        "event": {
+          "type": "response.output_text.delta",
+          "content_index": 0,
+          "delta": " for",
+          "item_id": "msg_00b6ed9ea0466f14006aa9c424c90087d0924f89a861f9d27a",
+          "logprobs": [],
+          "obfuscation": "f9VY2BeznOX7",
+          "output_index": 0,
+          "sequence_number": 11
+        }
+      }
+    },
+    {
+      "t": 103.54961260198615,
+      "turn": 4,
+      "type": "server",
+      "event": {
+        "type": "response.event",
+        "event_id": "event_EOVlca034Yizgi1RacGoQ",
+        "delegation_id": "item_EOVlaaUCZUULBdtfFJnFc",
+        "event": {
+          "type": "response.output_text.delta",
+          "content_index": 0,
+          "delta": " the",
+          "item_id": "msg_00b6ed9ea0466f14006aa9c424c90087d0924f89a861f9d27a",
+          "logprobs": [],
+          "obfuscation": "kKnG4wWWwhj2",
+          "output_index": 0,
+          "sequence_number": 12
+        }
+      }
+    },
+    {
+      "t": 103.55218505603261,
+      "turn": 4,
+      "type": "server",
+      "event": {
+        "type": "response.event",
+        "event_id": "event_EOVlcyqbLMdk4H1v2PWUb",
+        "delegation_id": "item_EOVlaaUCZUULBdtfFJnFc",
+        "event": {
+          "type": "response.output_text.delta",
+          "content_index": 0,
+          "delta": " MCP",
+          "item_id": "msg_00b6ed9ea0466f14006aa9c424c90087d0924f89a861f9d27a",
+          "logprobs": [],
+          "obfuscation": "JkbzGKIMcBkX",
+          "output_index": 0,
+          "sequence_number": 13
+        }
+      }
+    },
+    {
+      "t": 103.5549063719809,
+      "turn": 4,
+      "type": "server",
+      "event": {
+        "type": "response.event",
+        "event_id": "event_EOVlcPaLu3ZWaY1T1orVO",
+        "delegation_id": "item_EOVlaaUCZUULBdtfFJnFc",
+        "event": {
+          "type": "response.output_text.delta",
+          "content_index": 0,
+          "delta": " track",
+          "item_id": "msg_00b6ed9ea0466f14006aa9c424c90087d0924f89a861f9d27a",
+          "logprobs": [],
+          "obfuscation": "2W3fIxMdby",
+          "output_index": 0,
+          "sequence_number": 14
+        }
+      }
+    },
+    {
+      "t": 103.55844705400523,
+      "turn": 4,
+      "type": "server",
+      "event": {
+        "type": "response.event",
+        "event_id": "event_EOVlc3n0chrm2H2IlTJXh",
+        "delegation_id": "item_EOVlaaUCZUULBdtfFJnFc",
+        "event": {
+          "type": "response.output_text.delta",
+          "content_index": 0,
+          "delta": ".",
+          "item_id": "msg_00b6ed9ea0466f14006aa9c424c90087d0924f89a861f9d27a",
+          "logprobs": [],
+          "obfuscation": "fdiMMvupMIDC3UA",
+          "output_index": 0,
+          "sequence_number": 15
+        }
+      }
+    },
+    {
+      "t": 103.58761281205807,
+      "turn": 4,
+      "type": "server",
+      "event": {
+        "type": "response.event",
+        "event_id": "event_EOVlcRBhKGKKAy3rIMHry",
+        "delegation_id": "item_EOVlaaUCZUULBdtfFJnFc",
+        "event": {
+          "type": "response.output_text.delta",
+          "content_index": 0,
+          "delta": " The",
+          "item_id": "msg_00b6ed9ea0466f14006aa9c424c90087d0924f89a861f9d27a",
+          "logprobs": [],
+          "obfuscation": "LueFtRG4thmp",
+          "output_index": 0,
+          "sequence_number": 16
+        }
+      }
+    },
+    {
+      "t": 103.6406681110384,
+      "turn": 4,
+      "type": "server",
+      "event": {
+        "type": "response.event",
+        "event_id": "event_EOVldk68NCVDNZoyEwva0",
+        "delegation_id": "item_EOVlaaUCZUULBdtfFJnFc",
+        "event": {
+          "type": "response.output_text.delta",
+          "content_index": 0,
+          "delta": " schedule",
+          "item_id": "msg_00b6ed9ea0466f14006aa9c424c90087d0924f89a861f9d27a",
+          "logprobs": [],
+          "obfuscation": "C3DQjtp",
+          "output_index": 0,
+          "sequence_number": 17
+        }
+      }
+    },
+    {
+      "t": 103.67268792702816,
+      "turn": 4,
+      "type": "server",
+      "event": {
+        "type": "response.event",
+        "event_id": "event_EOVldCVUmSd8II4QlKMJx",
+        "delegation_id": "item_EOVlaaUCZUULBdtfFJnFc",
+        "event": {
+          "type": "response.output_text.delta",
+          "content_index": 0,
+          "delta": " lists",
+          "item_id": "msg_00b6ed9ea0466f14006aa9c424c90087d0924f89a861f9d27a",
+          "logprobs": [],
+          "obfuscation": "fKDBiTQMoQ",
+          "output_index": 0,
+          "sequence_number": 18
+        }
+      }
+    },
+    {
+      "t": 103.6844955830602,
+      "turn": 4,
+      "type": "server",
+      "event": {
+        "type": "response.event",
+        "event_id": "event_EOVldydoHV5gIgxcWuA2n",
+        "delegation_id": "item_EOVlaaUCZUULBdtfFJnFc",
+        "event": {
+          "type": "response.output_text.delta",
+          "content_index": 0,
+          "delta": " MCP",
+          "item_id": "msg_00b6ed9ea0466f14006aa9c424c90087d0924f89a861f9d27a",
+          "logprobs": [],
+          "obfuscation": "srUtpMcgOf59",
+          "output_index": 0,
+          "sequence_number": 19
+        }
+      }
+    },
+    {
+      "t": 103.71265890705399,
+      "turn": 4,
+      "type": "server",
+      "event": {
+        "type": "response.event",
+        "event_id": "event_EOVld8M9Lmr5zsEhaDr3V",
+        "delegation_id": "item_EOVlaaUCZUULBdtfFJnFc",
+        "event": {
+          "type": "response.output_text.delta",
+          "content_index": 0,
+          "delta": " sessions",
+          "item_id": "msg_00b6ed9ea0466f14006aa9c424c90087d0924f89a861f9d27a",
+          "logprobs": [],
+          "obfuscation": "sA6S3UQ",
+          "output_index": 0,
+          "sequence_number": 20
+        }
+      }
+    },
+    {
+      "t": 103.71524833305739,
+      "turn": 4,
+      "type": "server",
+      "event": {
+        "type": "response.event",
+        "event_id": "event_EOVldCLYzIhVSjDwMpp3h",
+        "delegation_id": "item_EOVlaaUCZUULBdtfFJnFc",
+        "event": {
+          "type": "response.output_text.delta",
+          "content_index": 0,
+          "delta": " on",
+          "item_id": "msg_00b6ed9ea0466f14006aa9c424c90087d0924f89a861f9d27a",
+          "logprobs": [],
+          "obfuscation": "JhBjfr9C4SJOd",
+          "output_index": 0,
+          "sequence_number": 21
+        }
+      }
+    },
+    {
+      "t": 103.717490740004,
+      "turn": 4,
+      "type": "server",
+      "event": {
+        "type": "response.event",
+        "event_id": "event_EOVldJcup2UN5jgEwAlf5",
+        "delegation_id": "item_EOVlaaUCZUULBdtfFJnFc",
+        "event": {
+          "type": "response.output_text.delta",
+          "content_index": 0,
+          "delta": " June",
+          "item_id": "msg_00b6ed9ea0466f14006aa9c424c90087d0924f89a861f9d27a",
+          "logprobs": [],
+          "obfuscation": "APqHb9GJbFd",
+          "output_index": 0,
+          "sequence_number": 22
+        }
+      }
+    },
+    {
+      "t": 103.72005488805007,
+      "turn": 4,
+      "type": "server",
+      "event": {
+        "type": "response.event",
+        "event_id": "event_EOVld04ySezHSaYdMA31W",
+        "delegation_id": "item_EOVlaaUCZUULBdtfFJnFc",
+        "event": {
+          "type": "response.output_text.delta",
+          "content_index": 0,
+          "delta": " ",
+          "item_id": "msg_00b6ed9ea0466f14006aa9c424c90087d0924f89a861f9d27a",
+          "logprobs": [],
+          "obfuscation": "Jd5AEiSeorHBPl0",
+          "output_index": 0,
+          "sequence_number": 23
+        }
+      }
+    },
+    {
+      "t": 103.72163828404155,
+      "turn": 4,
+      "type": "server",
+      "event": {
+        "type": "response.event",
+        "event_id": "event_EOVldkLDTQ7wZ8vXK687F",
+        "delegation_id": "item_EOVlaaUCZUULBdtfFJnFc",
+        "event": {
+          "type": "response.output_text.delta",
+          "content_index": 0,
+          "delta": "4",
+          "item_id": "msg_00b6ed9ea0466f14006aa9c424c90087d0924f89a861f9d27a",
+          "logprobs": [],
+          "obfuscation": "ftiHGryyW78B5IF",
+          "output_index": 0,
+          "sequence_number": 24
+        }
+      }
+    },
+    {
+      "t": 103.75784616998862,
+      "turn": 4,
+      "type": "server",
+      "event": {
+        "type": "response.event",
+        "event_id": "event_EOVld3RFNC0ycnvMjeZCb",
+        "delegation_id": "item_EOVlaaUCZUULBdtfFJnFc",
+        "event": {
+          "type": "response.output_text.delta",
+          "content_index": 0,
+          "delta": ",",
+          "item_id": "msg_00b6ed9ea0466f14006aa9c424c90087d0924f89a861f9d27a",
+          "logprobs": [],
+          "obfuscation": "agLob7tuXBQplEr",
+          "output_index": 0,
+          "sequence_number": 25
+        }
+      }
+    },
+    {
+      "t": 103.76823348004837,
+      "turn": 4,
+      "type": "server",
+      "event": {
+        "type": "response.event",
+        "event_id": "event_EOVldVt1Cqf6rAHYlba2b",
+        "delegation_id": "item_EOVlaaUCZUULBdtfFJnFc",
+        "event": {
+          "type": "response.output_text.delta",
+          "content_index": 0,
+          "delta": " plus",
+          "item_id": "msg_00b6ed9ea0466f14006aa9c424c90087d0924f89a861f9d27a",
+          "logprobs": [],
+          "obfuscation": "4QVrPnS0ww2",
+          "output_index": 0,
+          "sequence_number": 26
+        }
+      }
+    },
+    {
+      "t": 103.76849605794996,
+      "turn": 4,
+      "type": "server",
+      "event": {
+        "type": "response.event",
+        "event_id": "event_EOVld02kNzidf9V3sjCrX",
+        "delegation_id": "item_EOVlaaUCZUULBdtfFJnFc",
+        "event": {
+          "type": "response.output_text.delta",
+          "content_index": 0,
+          "delta": " two",
+          "item_id": "msg_00b6ed9ea0466f14006aa9c424c90087d0924f89a861f9d27a",
+          "logprobs": [],
+          "obfuscation": "TxdYr1XcOsh5",
+          "output_index": 0,
+          "sequence_number": 27
+        }
+      }
+    },
+    {
+      "t": 103.7696491869865,
+      "turn": 4,
+      "type": "server",
+      "event": {
+        "type": "response.event",
+        "event_id": "event_EOVlddFsYVaK8DSTwVGWl",
+        "delegation_id": "item_EOVlaaUCZUULBdtfFJnFc",
+        "event": {
+          "type": "response.output_text.delta",
+          "content_index": 0,
+          "delta": " MCP",
+          "item_id": "msg_00b6ed9ea0466f14006aa9c424c90087d0924f89a861f9d27a",
+          "logprobs": [],
+          "obfuscation": "PxdOmzuiwuuq",
+          "output_index": 0,
+          "sequence_number": 28
+        }
+      }
+    },
+    {
+      "t": 103.77398512803484,
+      "turn": 4,
+      "type": "server",
+      "event": {
+        "type": "response.event",
+        "event_id": "event_EOVld3eHqWwk2TQZ6BmIj",
+        "delegation_id": "item_EOVlaaUCZUULBdtfFJnFc",
+        "event": {
+          "type": "response.output_text.delta",
+          "content_index": 0,
+          "delta": " workshops",
+          "item_id": "msg_00b6ed9ea0466f14006aa9c424c90087d0924f89a861f9d27a",
+          "logprobs": [],
+          "obfuscation": "hW3nVF",
+          "output_index": 0,
+          "sequence_number": 29
+        }
+      }
+    },
+    {
+      "t": 103.7750788750127,
+      "turn": 4,
+      "type": "server",
+      "event": {
+        "type": "response.event",
+        "event_id": "event_EOVldjOIxCyIYbUMnWhjE",
+        "delegation_id": "item_EOVlaaUCZUULBdtfFJnFc",
+        "event": {
+          "type": "response.output_text.delta",
+          "content_index": 0,
+          "delta": " on",
+          "item_id": "msg_00b6ed9ea0466f14006aa9c424c90087d0924f89a861f9d27a",
+          "logprobs": [],
+          "obfuscation": "no6GgQK0z31PX",
+          "output_index": 0,
+          "sequence_number": 30
+        }
+      }
+    },
+    {
+      "t": 103.77805023500696,
+      "turn": 4,
+      "type": "server",
+      "event": {
+        "type": "response.event",
+        "event_id": "event_EOVldyB9dSEQNBgm2WehG",
+        "delegation_id": "item_EOVlaaUCZUULBdtfFJnFc",
+        "event": {
+          "type": "response.output_text.delta",
+          "content_index": 0,
+          "delta": " June",
+          "item_id": "msg_00b6ed9ea0466f14006aa9c424c90087d0924f89a861f9d27a",
+          "logprobs": [],
+          "obfuscation": "Y0FeGBOAJ7s",
+          "output_index": 0,
+          "sequence_number": 31
+        }
+      }
+    },
+    {
+      "t": 103.7798376790015,
+      "turn": 4,
+      "type": "server",
+      "event": {
+        "type": "response.event",
+        "event_id": "event_EOVldaATdGfDJVpeBpGJX",
+        "delegation_id": "item_EOVlaaUCZUULBdtfFJnFc",
+        "event": {
+          "type": "response.output_text.delta",
+          "content_index": 0,
+          "delta": " ",
+          "item_id": "msg_00b6ed9ea0466f14006aa9c424c90087d0924f89a861f9d27a",
+          "logprobs": [],
+          "obfuscation": "Uz0fF9FwUqRjhqm",
+          "output_index": 0,
+          "sequence_number": 32
+        }
+      }
+    },
+    {
+      "t": 103.79410252906382,
+      "turn": 4,
+      "type": "server",
+      "event": {
+        "type": "response.event",
+        "event_id": "event_EOVld3fMDDnTnBifshIRg",
+        "delegation_id": "item_EOVlaaUCZUULBdtfFJnFc",
+        "event": {
+          "type": "response.output_text.delta",
+          "content_index": 0,
+          "delta": "3",
+          "item_id": "msg_00b6ed9ea0466f14006aa9c424c90087d0924f89a861f9d27a",
+          "logprobs": [],
+          "obfuscation": "6GjrHa9pjxiI1NK",
+          "output_index": 0,
+          "sequence_number": 33
+        }
+      }
+    },
+    {
+      "t": 103.79798792500515,
+      "turn": 4,
+      "type": "server",
+      "event": {
+        "type": "response.event",
+        "event_id": "event_EOVld9jVdCUoTPSNpcvjb",
+        "delegation_id": "item_EOVlaaUCZUULBdtfFJnFc",
+        "event": {
+          "type": "response.output_text.delta",
+          "content_index": 0,
+          "delta": ".",
+          "item_id": "msg_00b6ed9ea0466f14006aa9c424c90087d0924f89a861f9d27a",
+          "logprobs": [],
+          "obfuscation": "xRviMcemwOSRL0D",
+          "output_index": 0,
+          "sequence_number": 34
+        }
+      }
+    },
+    {
+      "t": 104.13220636104234,
+      "turn": 4,
+      "type": "server",
+      "event": {
+        "type": "response.event",
+        "event_id": "event_EOVldjUs0ualhQhCAOLqI",
+        "delegation_id": "item_EOVlaaUCZUULBdtfFJnFc",
+        "event": {
+          "type": "response.output_text.done",
+          "content_index": 0,
+          "item_id": "msg_00b6ed9ea0466f14006aa9c424c90087d0924f89a861f9d27a",
+          "logprobs": [],
+          "output_index": 0,
+          "sequence_number": 35,
+          "text": "I don\u2019t have an official total for the MCP track. The schedule lists MCP sessions on June 4, plus two MCP workshops on June 3."
+        }
+      }
+    },
+    {
+      "t": 104.13235415099189,
+      "turn": 4,
+      "type": "server",
+      "event": {
+        "type": "response.event",
+        "event_id": "event_EOVldS3Kc8eULAd4WqgVm",
+        "delegation_id": "item_EOVlaaUCZUULBdtfFJnFc",
+        "event": {
+          "type": "response.content_part.done",
+          "content_index": 0,
+          "item_id": "msg_00b6ed9ea0466f14006aa9c424c90087d0924f89a861f9d27a",
+          "output_index": 0,
+          "part": {
+            "type": "output_text",
+            "annotations": [],
+            "logprobs": [],
+            "text": "I don\u2019t have an official total for the MCP track. The schedule lists MCP sessions on June 4, plus two MCP workshops on June 3."
+          },
+          "sequence_number": 36
+        }
+      }
+    },
+    {
+      "t": 104.13256104395259,
+      "turn": 4,
+      "type": "server",
+      "event": {
+        "type": "response.event",
+        "event_id": "event_EOVld8n8mwpemU0XkYHh0",
+        "delegation_id": "item_EOVlaaUCZUULBdtfFJnFc",
+        "event": {
+          "type": "response.output_item.done",
+          "item": {
+            "id": "msg_00b6ed9ea0466f14006aa9c424c90087d0924f89a861f9d27a",
+            "type": "message",
+            "status": "completed",
+            "content": [
+              {
+                "type": "output_text",
+                "annotations": [],
+                "logprobs": [],
+                "text": "I don\u2019t have an official total for the MCP track. The schedule lists MCP sessions on June 4, plus two MCP workshops on June 3."
+              }
+            ],
+            "phase": "final_answer",
+            "role": "assistant"
+          },
+          "output_index": 0,
+          "sequence_number": 37
+        }
+      }
+    },
+    {
+      "t": 104.32600245100912,
+      "turn": 4,
+      "type": "server",
+      "event": {
+        "type": "response.event",
+        "event_id": "event_EOVldlcM0HttiSn14cWvA",
+        "delegation_id": "item_EOVlaaUCZUULBdtfFJnFc",
+        "event": {
+          "type": "response.completed",
+          "response": {
+            "id": "resp_00b6ed9ea0466f14006aa9c422f05887d082523ae9cdc8d14b",
+            "object": "response",
+            "created_at": 1789510690,
+            "status": "completed",
+            "background": false,
+            "completed_at": 1789510693,
+            "error": null,
+            "frequency_penalty": 0.0,
+            "incomplete_details": null,
+            "instructions": null,
+            "max_output_tokens": null,
+            "max_tool_calls": null,
+            "model": "gpt-5.6-terra",
+            "moderation": null,
+            "output": [],
+            "parallel_tool_calls": true,
+            "presence_penalty": 0.0,
+            "previous_response_id": "resp_00b6ed9ea0466f14016aa9c3bde5c887d0a6edf366fe9627bd",
+            "prompt_cache_key": "live:23095d023e9e2afc8838f37686f5ccb89772a0f507b38e6204666966c2c",
+            "prompt_cache_retention": "24h",
+            "reasoning": {
+              "context": "all_turns",
+              "effort": "medium",
+              "mode": "standard",
+              "summary": null
+            },
+            "safety_identifier": null,
+            "service_tier": "default",
+            "store": true,
+            "temperature": 1.0,
+            "text": {
+              "format": {
+                "type": "text"
+              },
+              "verbosity": "medium"
+            },
+            "tool_choice": "auto",
+            "tool_usage": {
+              "image_gen": {
+                "input_tokens": 0,
+                "input_tokens_details": {
+                  "image_tokens": 0,
+                  "text_tokens": 0
+                },
+                "output_tokens": 0,
+                "output_tokens_details": {
+                  "image_tokens": 0,
+                  "text_tokens": 0
+                },
+                "total_tokens": 0
+              },
+              "web_search": {
+                "num_requests": 0
+              }
+            },
+            "tools": [],
+            "top_logprobs": 0,
+            "top_p": 0.98,
+            "truncation": "disabled",
+            "usage": {
+              "input_tokens": 22689,
+              "input_tokens_details": {
+                "cache_write_tokens": 595,
+                "cached_tokens": 22094
+              },
+              "output_tokens": 35,
+              "output_tokens_details": {
+                "reasoning_tokens": 0
+              },
+              "total_tokens": 22724
+            },
+            "user": "user-0hbY0MwPOcRJVTDalz1DB7lT",
+            "metadata": {}
+          },
+          "sequence_number": 38
+        }
+      }
+    },
+    {
+      "t": 104.7767814239487,
+      "turn": 4,
+      "type": "server",
+      "event": {
+        "type": "session.output_transcript.delta",
+        "event_id": "event_EOVlencgsPxNm2PYrrdYM",
+        "delta": " I don't",
+        "start_ms": 102800,
+        "end_ms": 103000
+      }
+    },
+    {
+      "t": 104.96477634098846,
+      "turn": 4,
+      "type": "server",
+      "event": {
+        "type": "session.output_transcript.delta",
+        "event_id": "event_EOVleJKrpJmsTUm5pM3Nx",
+        "delta": " have",
+        "start_ms": 103000,
+        "end_ms": 103200
+      }
+    },
+    {
+      "t": 105.15140093700029,
+      "turn": 4,
+      "type": "server",
+      "event": {
+        "type": "session.output_transcript.delta",
+        "event_id": "event_EOVlexDqHpdAJeg4USf7n",
+        "delta": " an official",
+        "start_ms": 103200,
+        "end_ms": 103400
+      }
+    },
+    {
+      "t": 105.57161871297285,
+      "turn": 4,
+      "type": "server",
+      "event": {
+        "type": "session.output_transcript.delta",
+        "event_id": "event_EOVleGXwUImZ6jSFcWkGx",
+        "delta": " total",
+        "start_ms": 103600,
+        "end_ms": 103800
+      }
+    },
+    {
+      "t": 105.97243067901582,
+      "turn": 4,
+      "type": "server",
+      "event": {
+        "type": "session.output_transcript.delta",
+        "event_id": "event_EOVlfJsXLSdeDleuc6ZzY",
+        "delta": " for",
+        "start_ms": 104000,
+        "end_ms": 104200
+      }
+    },
+    {
+      "t": 106.17458162899129,
+      "turn": 4,
+      "type": "server",
+      "event": {
+        "type": "session.output_transcript.delta",
+        "event_id": "event_EOVlf7uU8o5WDvbyCSOgA",
+        "delta": " that",
+        "start_ms": 104200,
+        "end_ms": 104400
+      }
+    },
+    {
+      "t": 106.34451942704618,
+      "turn": 4,
+      "type": "server",
+      "event": {
+        "type": "session.output_transcript.delta",
+        "event_id": "event_EOVlfQM9zCfkcwAmjZGS4",
+        "delta": " track,",
+        "start_ms": 104400,
+        "end_ms": 104600
+      }
+    },
+    {
+      "t": 106.95290268305689,
+      "turn": 4,
+      "type": "server",
+      "event": {
+        "type": "session.output_transcript.delta",
+        "event_id": "event_EOVlgTSUhkUTu3r0sCnpa",
+        "delta": " but",
+        "start_ms": 105000,
+        "end_ms": 105200
+      }
+    },
+    {
+      "t": 107.36231476604007,
+      "turn": 4,
+      "type": "server",
+      "event": {
+        "type": "session.output_transcript.delta",
+        "event_id": "event_EOVlgOguCA75W06SRKTqa",
+        "delta": " the",
+        "start_ms": 105400,
+        "end_ms": 105600
+      }
+    },
+    {
+      "t": 107.55023322801571,
+      "turn": 4,
+      "type": "server",
+      "event": {
+        "type": "session.output_transcript.delta",
+        "event_id": "event_EOVlgakO4OJNSMJujkQr5",
+        "delta": " schedule",
+        "start_ms": 105600,
+        "end_ms": 105800
+      }
+    },
+    {
+      "t": 108.17154794302769,
+      "turn": 4,
+      "type": "server",
+      "event": {
+        "type": "session.output_transcript.delta",
+        "event_id": "event_EOVlhixLrxMPr8deuabUP",
+        "delta": " lists",
+        "start_ms": 106200,
+        "end_ms": 106400
+      }
+    },
+    {
+      "t": 108.34949973400217,
+      "turn": 4,
+      "type": "server",
+      "event": {
+        "type": "session.output_transcript.delta",
+        "event_id": "event_EOVlh55aUriexuLY3EMVg",
+        "delta": " MCP",
+        "start_ms": 106400,
+        "end_ms": 106600
+      }
+    },
+    {
+      "t": 109.1543881429825,
+      "turn": 4,
+      "type": "server",
+      "event": {
+        "type": "session.output_transcript.delta",
+        "event_id": "event_EOVliWidNPR3DiaZTL4RR",
+        "delta": " sessions",
+        "start_ms": 107200,
+        "end_ms": 107400
+      }
+    },
+    {
+      "t": 109.77792087802663,
+      "turn": 4,
+      "type": "server",
+      "event": {
+        "type": "session.output_transcript.delta",
+        "event_id": "event_EOVlj1p8vJoRmdhhmT8Xq",
+        "delta": " on",
+        "start_ms": 107800,
+        "end_ms": 108000
+      }
+    },
+    {
+      "t": 109.96610550500918,
+      "turn": 4,
+      "type": "server",
+      "event": {
+        "type": "session.output_transcript.delta",
+        "event_id": "event_EOVlj6lvtb0jKNinXOSbv",
+        "delta": " June",
+        "start_ms": 108000,
+        "end_ms": 108200
+      }
+    },
+    {
+      "t": 110.16501998202875,
+      "turn": 4,
+      "type": "server",
+      "event": {
+        "type": "session.output_transcript.delta",
+        "event_id": "event_EOVlj6KAGFQT3iuAFCWVA",
+        "delta": " 4",
+        "start_ms": 108200,
+        "end_ms": 108400
+      }
+    },
+    {
+      "t": 110.38577488996089,
+      "turn": 4,
+      "type": "server",
+      "event": {
+        "type": "session.output_transcript.delta",
+        "event_id": "event_EOVljPtdd4pXOamTEqGpy",
+        "delta": "th,",
+        "start_ms": 108400,
+        "end_ms": 108600
+      }
+    },
+    {
+      "t": 110.95448681397829,
+      "turn": 4,
+      "type": "server",
+      "event": {
+        "type": "session.output_transcript.delta",
+        "event_id": "event_EOVlkV13o991kERGq2v0b",
+        "delta": " plus",
+        "start_ms": 109000,
+        "end_ms": 109200
+      }
+    },
+    {
+      "t": 111.36462618701626,
+      "turn": 4,
+      "type": "server",
+      "event": {
+        "type": "session.output_transcript.delta",
+        "event_id": "event_EOVlkjiA5UI838FktQlRv",
+        "delta": " two",
+        "start_ms": 109400,
+        "end_ms": 109600
+      }
+    },
+    {
+      "t": 111.55023560498375,
+      "turn": 4,
+      "type": "server",
+      "event": {
+        "type": "session.output_transcript.delta",
+        "event_id": "event_EOVlk1TgSeKPqve00guAo",
+        "delta": " MCP",
+        "start_ms": 109600,
+        "end_ms": 109800
+      }
+    },
+    {
+      "t": 112.14853832300287,
+      "turn": 4,
+      "type": "server",
+      "event": {
+        "type": "session.output_transcript.delta",
+        "event_id": "event_EOVllWtMBVb3EluqhbWGx",
+        "delta": " workshops",
+        "start_ms": 110200,
+        "end_ms": 110400
+      }
+    },
+    {
+      "t": 112.7680919150589,
+      "turn": 4,
+      "type": "server",
+      "event": {
+        "type": "session.output_transcript.delta",
+        "event_id": "event_EOVlmGZbC19sovqztZl3b",
+        "delta": " on June",
+        "start_ms": 110800,
+        "end_ms": 111000
+      }
+    },
+    {
+      "t": 112.9695718010189,
+      "turn": 4,
+      "type": "server",
+      "event": {
+        "type": "session.output_transcript.delta",
+        "event_id": "event_EOVlmFt945j8s9zxITv2L",
+        "delta": " ",
+        "start_ms": 111000,
+        "end_ms": 111200
+      }
+    },
+    {
+      "t": 113.18511936301365,
+      "turn": 4,
+      "type": "server",
+      "event": {
+        "type": "session.output_transcript.delta",
+        "event_id": "event_EOVlm2SKZRe6Z5R3sPTQu",
+        "delta": "3rd",
+        "start_ms": 111200,
+        "end_ms": 111400
+      }
+    },
+    {
+      "t": 113.37475351104513,
+      "turn": 4,
+      "type": "server",
+      "event": {
+        "type": "session.output_transcript.delta",
+        "event_id": "event_EOVlmylcOgzv7sNRLm7QM",
+        "delta": ".",
+        "start_ms": 111400,
+        "end_ms": 111600
+      }
+    },
+    {
+      "t": 117.27740849903785,
+      "turn": 4,
+      "type": "turn_complete",
+      "transcript": " Let me check the program for that. I don't have an official total for that track, but the schedule lists MCP sessions on June 4th, plus two MCP workshops on June 3rd.",
+      "active": [],
+      "speaking": false
+    }
+  ],
+  "note": "Read-only extraction; no new capture, rejudging, audio transcription, or listening audit."
+}

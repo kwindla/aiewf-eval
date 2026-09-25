@@ -1,0 +1,7 @@
+{"index": 5, "run_dir": "runs/aiwf_medium_context_speech_live_optimized/20260916T070356_gpt-live-1_4a184622", "exit_code": 1, "turns": 4, "full": false}
+{"index": 4, "run_dir": "runs/aiwf_medium_context_speech_live_optimized/20260916T070356_gpt-live-1_79e808c2", "exit_code": 1, "turns": 6, "full": false}
+{"index": 6, "run_dir": "runs/aiwf_medium_context_speech_live_optimized/20260916T070736_gpt-live-1_5a7eabde", "exit_code": 1, "turns": 4, "full": false}
+{"index": 3, "run_dir": "runs/aiwf_medium_context_speech_live_optimized/20260916T070356_gpt-live-1_8225e690", "exit_code": 1, "turns": 20, "full": false}
+{"index": 2, "run_dir": "runs/aiwf_medium_context_speech_live_optimized/20260916T070356_gpt-live-1_ea589f44", "exit_code": 1, "turns": 20, "full": false}
+{"index": 1, "run_dir": "runs/aiwf_medium_context_speech_live_optimized/20260916T070356_gpt-live-1_72237592", "exit_code": 0, "turns": 30, "full": true}
+{"index": 10, "run_dir": "runs/aiwf_medium_context_speech_live_optimized/20260916T071356_gpt-live-1_bb5a6bf7", "exit_code": 1, "turns": 6, "full": false}

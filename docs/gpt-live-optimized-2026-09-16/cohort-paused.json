@@ -1,0 +1,8 @@
+{
+  "time": 1789568282.4626641,
+  "launcher_pids": [
+    2689253
+  ],
+  "reason": "Coordinator misclassified actual clarifications and substantive nonnumeric answers as progress-only. Stop launching; already running captures retained as diagnostics.",
+  "scope": "No prompts changed; Gemini uses provider IDLE instead."
+}
