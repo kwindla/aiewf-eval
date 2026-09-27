@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Standalone Gemini Live turn-boundary probe for Async Gemini Live.
 
-Run this with the private interaction-status SDK overlay. The probe bypasses
+Requires google-genai 2.23.0 or later (for interaction status). The probe bypasses
 Pipecat and records only event structure, timings, transcriptions, and output
 sizes; it never records audio bytes or credentials.
 """

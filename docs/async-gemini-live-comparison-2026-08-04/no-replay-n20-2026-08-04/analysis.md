@@ -15,7 +15,7 @@ The observed completion rate was 0/20. The two-sided 95% Wilson interval is 0.0%
 
 ## Timeout boundary audit
 
-The trace hooks the private SDK immediately after `WebSocket.recv()` and before JSON-to-SDK conversion. Across the 19 timeout runs:
+The trace hooks the google-genai SDK immediately after `WebSocket.recv()` and before JSON-to-SDK conversion. Across the 19 timeout runs:
 
 - 19/19 had no raw server event after the final user-audio send completed.
 - 19/19 had no raw server event after the last local `UserStoppedSpeaking` signal.

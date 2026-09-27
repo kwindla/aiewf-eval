@@ -362,7 +362,7 @@ def write_markdown(analysis: dict) -> None:
         "",
         "## Timeout boundary audit",
         "",
-        "The trace hooks the private SDK immediately after `WebSocket.recv()` and before "
+        "The trace hooks the google-genai SDK immediately after `WebSocket.recv()` and before "
         "JSON-to-SDK conversion. Across the 19 timeout runs:",
         "",
         f"- {sum(row['all_raw_events'] == 0 for row in timeout_after_send)}/19 had no raw "

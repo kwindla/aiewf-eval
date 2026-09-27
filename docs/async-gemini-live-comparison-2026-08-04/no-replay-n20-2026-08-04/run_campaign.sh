@@ -4,7 +4,6 @@ set -u
 repo_dir="$(cd "$(dirname "$0")/../../.." && pwd)"
 campaign_dir="$repo_dir/docs/async-gemini-live-comparison-2026-08-04/no-replay-n20-2026-08-04"
 log_dir="$campaign_dir/logs"
-overlay="/home/khkramer/.cache/aiewf-eval/interaction-status-overlay-private-214"
 launcher="$repo_dir/docs/async-gemini-live-comparison-2026-08-04/probe_interaction_status.py"
 python="$repo_dir/.venv/bin/python"
 attempts="$campaign_dir/attempts.tsv"
@@ -44,7 +43,7 @@ for attempt in $(seq 1 "$target"); do
     log="$log_dir/attempt-$attempt_label.log"
     exit_code=0
 
-    PYTHONPATH="$overlay" "$python" "$launcher" run aiwf_medium_context \
+    "$python" "$launcher" run aiwf_medium_context \
         --model "$async_model" --service gemini-live --thinking minimal \
         --gemini-3-protocol --gemini-require-interaction-status \
         --gemini-explicit-audio-activity --no-turn-replay \

@@ -61,7 +61,7 @@ Rebuild this count with:
 
 ### Raw SDK boundary probes
 
-The standalone probes bypass Pipecat and use the private Google SDK overlay.
+The standalone probes bypass Pipecat and use the google-genai SDK directly.
 They showed:
 
 | Probe | Result |
@@ -206,7 +206,7 @@ This corrects an earlier interpretation: a 45- or 60-second probe that saw
 audio but no terminal status was generally ending while audio generation was
 still active. We have not reproduced a case where `generationComplete` was
 followed by a long or permanently missing `REQUIRES_ACTION` under exact
-boundaries. The model/API is very slow and bursty, but the private status field
+boundaries. The model/API is very slow and bursty, but the interaction-status field
 is behaving consistently once generation actually finishes.
 
 ### No swallowed receive or send event
@@ -270,7 +270,7 @@ zero model-audio events cross into explicit input.
 
 ### Zero-output terminal housekeeping during open input
 
-The private API sometimes emits an interruption followed by a zero-output
+The API sometimes emits an interruption followed by a zero-output
 `REQUIRES_ACTION` while the next explicit user activity is open. Treating that
 as the response terminal could advance an input that the model had not yet
 answered. The service wrapper now tracks explicit input activity and ignores

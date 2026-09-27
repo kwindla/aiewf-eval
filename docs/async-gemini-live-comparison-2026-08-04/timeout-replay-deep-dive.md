@@ -28,7 +28,7 @@ amplifies the problem.
 
 We subsequently changed Clever Chatter to terminate on its first 15-second
 no-audio timeout, with no replay, and ran 20 sequential full-conversation
-attempts using the private interaction-status SDK. Nineteen attempts timed out
+attempts using a google-genai build that exposes interaction status. Nineteen attempts timed out
 between zero-based turns 0 and 8 (median 6); the remaining attempt ended after
 six turns. None completed all 30 turns, so there were no valid conversations to
 judge.
@@ -218,10 +218,8 @@ plausible for some quality failures but not yet quantified causally.
 
 ## Required fix and validation
 
-1. Use the validated private google-genai 2.14.0 EAP wheel through the isolated overlay
-   at `/home/khkramer/.cache/aiewf-eval/interaction-status-overlay-private-214`; do not
-   downgrade the repository's 2.16 environment in place. The private wheel exposes
-   `LiveServerContent.interaction_status`, and a typed live smoke test returned
+1. Use the public google-genai SDK at the version pinned in `pyproject.toml` (2.23.0 or
+   later). It exposes `LiveServerContent.interaction_status`, and a typed live smoke test returned
    `InteractionStatus.REQUIRES_ACTION` for Clever Chatter while Preview returned no
    status field.
 2. Teach the Gemini Live service to defer response-final frames, transcript flush, and
