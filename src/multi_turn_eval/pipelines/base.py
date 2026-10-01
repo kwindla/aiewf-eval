@@ -605,8 +605,15 @@ class BasePipeline(ABC):
                 raise ValueError(
                     "Qwen3.8 thinking-off runs must omit MTE_VLLM_REASONING_EFFORT"
                 )
-            temperature = _opt_float("MTE_VLLM_TEMPERATURE", "0.6")
-            top_p = _opt_float("MTE_VLLM_TOP_P", "0.95")
+            # Qwen3.8 uses its model-card sampling profile. Every other model
+            # keeps the established defaults so earlier rows stay comparable.
+            if is_qwen38:
+                default_temperature = "1.0" if enable_thinking else "0.7"
+                default_top_p = "0.95" if enable_thinking else "0.80"
+            else:
+                default_temperature, default_top_p = "0.6", "0.95"
+            temperature = _opt_float("MTE_VLLM_TEMPERATURE", default_temperature)
+            top_p = _opt_float("MTE_VLLM_TOP_P", default_top_p)
             top_k = _opt_int("MTE_VLLM_TOP_K", "20" if is_qwen38 else "")
             max_tokens = _opt_int("MTE_VLLM_MAX_TOKENS", "1024")
             request_seed = _opt_int("MTE_VLLM_SEED", "")
@@ -645,9 +652,10 @@ class BasePipeline(ABC):
                 # Qwen's tool-use template must retain each assistant thought
                 # alongside the tool call that followed it. Sending both knobs
                 # makes the request behavior explicit for thinking-on and
-                # thinking-off runs.
+                # thinking-off runs. Qwen3.8 always preserves; earlier Qwen
+                # models keep following the thinking toggle.
                 extra_body["chat_template_kwargs"]["preserve_thinking"] = (
-                    enable_thinking
+                    True if is_qwen38 else enable_thinking
                 )
             if is_qwen38:
                 extra_body["min_p"] = _opt_float("MTE_VLLM_MIN_P", "0")

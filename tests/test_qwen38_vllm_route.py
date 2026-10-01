@@ -35,6 +35,49 @@ def stub():
     return pipeline
 
 
+@pytest.mark.parametrize("effort", ["low", "medium", "xhigh"])
+def test_qwen38_thinking_request_profile(monkeypatch, effort):
+    monkeypatch.setenv("MTE_VLLM_THINKING", "true")
+    monkeypatch.setenv("MTE_VLLM_REASONING_EFFORT", effort)
+    monkeypatch.setenv("MTE_VLLM_MAX_TOKENS", "")
+    service = stub()._create_llm(Capture, "qwen3.8-27b-nvfp4-unsloth")
+    params = service.kwargs["params"]
+    assert params.max_tokens is NOT_GIVEN
+    assert params.temperature == 1.0
+    assert params.top_p == 0.95
+    assert params.top_k == 20
+    assert params.presence_penalty == 0.0
+    assert params.extra == {
+        "reasoning_effort": effort,
+        "extra_body": {
+            "chat_template_kwargs": {
+                "enable_thinking": True,
+                "preserve_thinking": True,
+            },
+            "min_p": 0.0,
+            "repetition_penalty": 1.0,
+        },
+    }
+
+
+def test_qwen38_none_request_profile_and_uncapped_output(monkeypatch):
+    monkeypatch.setenv("MTE_VLLM_THINKING", "false")
+    monkeypatch.setenv("MTE_VLLM_REASONING_EFFORT", "")
+    monkeypatch.setenv("MTE_VLLM_MAX_TOKENS", "")
+    service = stub()._create_llm(Capture, "qwen3.8-27b-nvfp4-unsloth")
+    params = service.kwargs["params"]
+    assert params.max_tokens is NOT_GIVEN
+    assert params.temperature == 0.7
+    assert params.top_p == 0.8
+    assert params.top_k == 20
+    assert params.presence_penalty == 1.5
+    assert "reasoning_effort" not in params.extra
+    assert params.extra["extra_body"]["chat_template_kwargs"] == {
+        "enable_thinking": False,
+        "preserve_thinking": True,
+    }
+
+
 def test_qwen38_registered_seed_is_top_level_and_optional(monkeypatch):
     monkeypatch.setenv("MTE_VLLM_THINKING", "false")
     monkeypatch.setenv("MTE_VLLM_REASONING_EFFORT", "")
