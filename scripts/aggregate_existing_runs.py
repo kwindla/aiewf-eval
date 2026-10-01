@@ -66,6 +66,8 @@ def load_ttfb_from_transcript(run_dir: Path) -> list[float]:
     with transcript_path.open() as f:
         for line in f:
             record = json.loads(line)
+            if not record.get("recovery_turn") and int(record.get("turn", -1)) == 0:
+                continue
             ttfb_ms = record.get("ttfb_ms")
             if ttfb_ms is not None:
                 ttfb_values.append(ttfb_ms)

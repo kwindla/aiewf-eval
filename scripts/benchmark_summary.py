@@ -127,6 +127,7 @@ def get_run_data(run_dir: Path) -> dict | None:
         if result.returncode == 0:
             metrics = json.loads(result.stdout)
             for turn in metrics.get("turns", []):
+                turn_index = turn.get("turn")
                 v2v = turn.get("wav_v2v_ms")
                 silence = turn.get("silent_pad_silero_ms")
                 has_tool = turn.get("has_tool_call", False)
@@ -140,12 +141,15 @@ def get_run_data(run_dir: Path) -> dict | None:
                 if silence is not None:
                     silence_pads.append(silence)
 
-                ttft = turn.get("server_ttfb_ms")
-                if ttft is not None:
-                    ttfts.append(ttft)
-                raw = turn.get("raw_ttfb_ms")
-                if raw is not None:
-                    raw_ttfts.append(raw)
+                # Leaderboard conversational latency excludes the first
+                # response, which pays conversation cold-start prefill.
+                if turn_index != 0:
+                    ttft = turn.get("server_ttfb_ms")
+                    if ttft is not None:
+                        ttfts.append(ttft)
+                    raw = turn.get("raw_ttfb_ms")
+                    if raw is not None:
+                        raw_ttfts.append(raw)
     except Exception:
         pass
 
