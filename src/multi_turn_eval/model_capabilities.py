@@ -38,6 +38,19 @@ _MODEL_CAPABILITY_OVERRIDES = {
         explicit_audio_activity=True,
         requires_interaction_status=True,
     ),
+    # GA successor to clever-chatter. The GA endpoint rejects minimal thinking;
+    # low is the least expensive supported level and preserves the asynchronous
+    # interaction-status protocol exercised by the EA benchmark.
+    "gemini-3.8-live-extended-thinking": ModelCapabilities(
+        realtime=True,
+        gemini_live=True,
+        gemini_3=True,
+        thinking_levels=True,
+        allow_turn_replay=False,
+        default_thinking_mode="low",
+        explicit_audio_activity=True,
+        requires_interaction_status=True,
+    ),
     # This model has no asynchronous reasoning and never sends interactionStatus.
     "walkie-talkie": ModelCapabilities(
         realtime=True,
@@ -46,6 +59,16 @@ _MODEL_CAPABILITY_OVERRIDES = {
         thinking_levels=True,
         allow_turn_replay=False,
         default_thinking_mode="minimal",
+        explicit_audio_activity=True,
+    ),
+    # The standard GA model rejects thinking levels and has the synchronous
+    # turn-complete behavior previously observed on walkie-talkie.
+    "gemini-3.8-live": ModelCapabilities(
+        realtime=True,
+        gemini_live=True,
+        gemini_3=True,
+        allow_turn_replay=False,
+        default_thinking_mode="default",
         explicit_audio_activity=True,
     ),
 }

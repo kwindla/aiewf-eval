@@ -17,6 +17,7 @@ Usage via CLI:
 """
 
 import os
+import hashlib
 import sys
 import json
 import argparse
@@ -359,6 +360,8 @@ async def judge_with_claude(
     debug: bool = False,
     expected_turns: Optional[List[Dict[str, Any]]] = None,
     skip_turn_taking: bool = False,
+    judge_model: Optional[str] = None,
+    judge_system_prompt: Optional[str] = None,
 ) -> Dict[str, Any]:
     """Main judging function using two-phase realignment approach.
 
@@ -456,9 +459,11 @@ Remember:
 """
 
     # Configure options - use extended thinking for complex reasoning
+    effective_model = judge_model or JUDGE_MODEL
+    effective_prompt = judge_system_prompt or JUDGE_SYSTEM_PROMPT
     options = ClaudeAgentOptions(
-        system_prompt=JUDGE_SYSTEM_PROMPT,
-        model=JUDGE_MODEL,
+        system_prompt=effective_prompt,
+        model=effective_model,
         permission_mode="bypassPermissions",
     )
 
@@ -552,6 +557,10 @@ Remember:
         "turn_taking_analysis": turn_taking_analysis.to_dict() if turn_taking_analysis else None,
         "summary": f"Evaluated {len(judgments)} turns with realignment.",
         "model_name": model_name,
+        "judge_metadata": {
+            "judge_model": effective_model,
+            "judge_prompt_sha256": hashlib.sha256(effective_prompt.encode()).hexdigest(),
+        },
     }
 
 
@@ -568,6 +577,7 @@ def write_outputs(
     realignment_notes: str = "",
     function_tracking: Optional[Dict[str, Any]] = None,
     turn_taking_analysis: Optional[Dict[str, Any]] = None,
+    judge_metadata: Optional[Dict[str, Any]] = None,
 ) -> None:
     """Write all output files.
 
@@ -653,6 +663,9 @@ def write_outputs(
         "turn_taking_failures": turn_taking_analysis.get("failed_turns", []) if turn_taking_analysis else [],
         "turn_taking_affected_instruction": turn_taking_affected_instruction,
     }
+
+    if judge_metadata:
+        summary_data.update(judge_metadata)
 
     (run_dir / "claude_summary.json").write_text(
         json.dumps(summary_data, indent=2, ensure_ascii=False) + "\n",

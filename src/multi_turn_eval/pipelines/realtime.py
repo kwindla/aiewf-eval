@@ -25,7 +25,10 @@ from pipecat.frames.frames import (
     BotStartedSpeakingFrame,
     BotStoppedSpeakingFrame,
     Frame,
+    FunctionCallInProgressFrame,
     InputAudioRawFrame,
+    LLMFullResponseStartFrame,
+    LLMFullResponseEndFrame,
     LLMContextFrame,
     LLMMessagesAppendFrame,
     LLMRunFrame,
@@ -43,9 +46,9 @@ from pipecat.pipeline.pipeline import Pipeline
 from pipecat.pipeline.task import PipelineParams, PipelineTask
 from pipecat.processors.aggregators.llm_context import LLMContext
 from pipecat.processors.aggregators.llm_response_universal import (
-    LLMContextAggregatorPair,
     LLMUserAggregatorParams,
 )
+from multi_turn_eval.processors.realtime_context import RealtimeContextAggregatorPair
 from google.genai import types as genai_types
 from multi_turn_eval.model_capabilities import get_model_capabilities
 from multi_turn_eval.processors.audio_buffer import WallClockAlignedAudioBufferProcessor
@@ -143,6 +146,7 @@ class TurnGate(FrameProcessor):
         no_response_timeout: float = 15.0,
         on_greeting_done: Optional[Callable[[], None]] = None,
         require_terminal_signal: bool = False,
+        wait_for_tool_followup: bool = False,
         **kwargs,
     ):
         """Initialize the turn gate.
@@ -177,6 +181,9 @@ class TurnGate(FrameProcessor):
         self._on_empty_response: Optional[Callable[[str], None]] = None
         self._require_terminal_signal = require_terminal_signal
         self._terminal_signal_received = False
+        self._wait_for_tool_followup = wait_for_tool_followup
+        self._tool_followup_pending = False
+        self._tool_followup_started = False
 
         # Initial greeting detection
         self._on_greeting_done = on_greeting_done
@@ -224,10 +231,7 @@ class TurnGate(FrameProcessor):
         # transport reports that speech stopped. In that ordering there will
         # be no second BotStoppedSpeakingFrame, so schedule completion here.
         if not self._bot_speaking and self._completion_is_terminal():
-            self._pending_transcript = None
-            if self._turn_end_task and not self._turn_end_task.done():
-                self._turn_end_task.cancel()
-            self._turn_end_task = asyncio.create_task(self._delayed_turn_end(text))
+            self._schedule_turn_end_if_ready()
 
     def clear_pending(self):
         """Clear any pending transcript and TTS state (e.g., on reconnection or empty response)."""
@@ -235,6 +239,8 @@ class TurnGate(FrameProcessor):
         self._tts_started = False
         self._bot_speaking = False
         self._terminal_signal_received = False
+        self._tool_followup_pending = False
+        self._tool_followup_started = False
         if self._turn_end_task and not self._turn_end_task.done():
             self._turn_end_task.cancel()
             self._turn_end_task = None
@@ -243,7 +249,9 @@ class TurnGate(FrameProcessor):
             self._no_response_check_task = None
 
     def _completion_is_terminal(self) -> bool:
-        return not self._require_terminal_signal or self._terminal_signal_received
+        return not self._tool_followup_pending and (
+            not self._require_terminal_signal or self._terminal_signal_received
+        )
 
     def _signal_greeting_done_if_ready(self) -> None:
         if (
@@ -264,7 +272,10 @@ class TurnGate(FrameProcessor):
         ):
             return
         text = self._pending_transcript
-        self._pending_transcript = None
+        # Keep ownership here until the delay actually commits the turn. A
+        # following BotStartedSpeakingFrame can cancel the task before its
+        # coroutine even starts, in which case its CancelledError handler
+        # cannot restore a transcript removed at scheduling time.
         if self._turn_end_task and not self._turn_end_task.done():
             self._turn_end_task.cancel()
         if self._no_response_check_task and not self._no_response_check_task.done():
@@ -283,21 +294,13 @@ class TurnGate(FrameProcessor):
         try:
             logger.info(f"[TurnGate] Waiting {self._audio_drain_delay}s for audio to drain...")
             await asyncio.sleep(self._audio_drain_delay)
+            text = self._pending_transcript or text
+            self._pending_transcript = None
             logger.info(f"[TurnGate] Triggering turn end with transcript ({len(text)} chars)")
             self._terminal_signal_received = False
             await self._on_turn_ready(text)
         except asyncio.CancelledError:
-            if self._pending_transcript is None:
-                # Preserve the transcript when the model emits a follow-up
-                # speech segment during the drain delay. The next stop event
-                # can then finish the same turn instead of hanging it.
-                self._pending_transcript = text
-                logger.info(
-                    "[TurnGate] Turn end cancelled; restored pending transcript "
-                    "for follow-up bot segment"
-                )
-            else:
-                logger.info("[TurnGate] Turn end cancelled (likely bot started speaking again)")
+            logger.info("[TurnGate] Turn end cancelled; pending transcript retained unless explicitly cleared")
 
     async def _check_no_response(self):
         """Check if model never responded after user stopped speaking."""
@@ -316,6 +319,21 @@ class TurnGate(FrameProcessor):
     async def process_frame(self, frame: Frame, direction: FrameDirection):
         """Watch for TTS and Bot speaking frames to manage turn advancement."""
         await super().process_frame(frame, direction)
+
+        if self._wait_for_tool_followup:
+            if isinstance(frame, FunctionCallInProgressFrame) and frame.function_name != "end_session":
+                self._tool_followup_pending = True
+                self._tool_followup_started = False
+                if self._turn_end_task and not self._turn_end_task.done():
+                    self._turn_end_task.cancel()
+                    self._turn_end_task = None
+                logger.info("[TurnGate] Waiting for post-tool response completion")
+            elif isinstance(frame, LLMFullResponseStartFrame) and self._tool_followup_pending:
+                self._tool_followup_started = True
+            elif isinstance(frame, LLMFullResponseEndFrame) and self._tool_followup_started:
+                self._tool_followup_pending = False
+                self._tool_followup_started = False
+                self._schedule_turn_end_if_ready()
 
         # Start no-response timeout when user stops speaking (pipecat 1.x
         # pushes UserStoppedSpeakingFrame; pre-1.x pushed the VAD variant)
@@ -568,12 +586,13 @@ class GeminiLiveLLMServiceWithReconnection(GeminiLiveLLMService):
         Note: _reconnect() is called both for initial context setup (when setting
         system_instruction or tools) and for actual session timeout reconnections.
         We only want to trigger the callbacks for real reconnections, not initial
-        setup. We detect this by checking if _session exists - if it's None, this
-        is the initial connection, not a reconnection.
+        setup. Pipecat 1.10 can establish a session before the initial context
+        frame arrives, then reconnect it to apply context-provided tools. In that
+        race ``_session`` is already set, but realtime input is not ready yet.
         """
-        # Only trigger callbacks if we had an existing session (real reconnection)
-        # Not for initial context setup which also calls _reconnect
-        is_real_reconnection = self._session is not None
+        # Initial context setup can reconnect an established session before it is
+        # ready for audio. Only notify the benchmark after setup has completed.
+        is_real_reconnection = self._session is not None and self._ready_for_realtime_input
 
         self._reconnecting = True
 
@@ -775,7 +794,11 @@ class RealtimePipeline(BasePipeline):
         """
         capabilities = get_model_capabilities(model)
         thinking_levels = capabilities.thinking_levels or self._uses_gemini_3_protocol()
-        default_mode = "minimal" if thinking_levels else capabilities.default_thinking_mode
+        default_mode = capabilities.default_thinking_mode
+        if self._uses_gemini_3_protocol() and not capabilities.gemini_live:
+            # An opaque EA model forced onto the Gemini 3 protocol predates a
+            # named capability entry, so retain the historical minimal default.
+            default_mode = "minimal"
         thinking_mode = (
             getattr(self, "thinking", None)
             or os.getenv("MTE_GOOGLE_THINKING_MODE", default_mode)
@@ -1045,7 +1068,7 @@ class RealtimePipeline(BasePipeline):
                 start=[ExternalUserTurnStartStrategy()],
                 stop=[ExternalUserTurnStopStrategy()],
             )
-        self.context_aggregator = LLMContextAggregatorPair(
+        self.context_aggregator = RealtimeContextAggregatorPair(
             self.context,
             user_params=LLMUserAggregatorParams(
                 vad_analyzer=aggregator_vad,
@@ -1364,7 +1387,10 @@ class RealtimePipeline(BasePipeline):
         self.turn_gate = TurnGate(
             on_turn_ready=self._on_turn_end,
             on_greeting_done=lambda: self._greeting_done.set(),
-            require_terminal_signal=self._requires_async_interaction_status(),
+            require_terminal_signal=(
+                self._is_gemini_live() or self._is_openai_realtime() or self._is_grok_realtime()
+            ),
+            wait_for_tool_followup=self._is_openai_realtime() or self._is_grok_realtime(),
         )
         self.turn_gate.set_greeting_started_callback(lambda: self._greeting_started.set())
         # Set up empty response callback for Gemini Live models

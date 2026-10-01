@@ -63,7 +63,8 @@ from pipecat.services.llm_service import (
     FunctionCallRunnerItem,
     LLMService,
 )
-from pipecat.services.settings import NOT_GIVEN, LLMSettings, _NotGiven
+from pipecat.services.settings import NOT_GIVEN, LLMSettings
+from pipecat.utils.types import NotGiven
 from pipecat.utils.time import time_now_iso8601
 
 _TRACE_NAME_RE = re.compile(r"[^A-Za-z0-9._-]")
@@ -255,8 +256,8 @@ class NemotronOmniAudioLLMSettings(LLMSettings):
         chat_template_kwargs: Extra chat-template kwargs forwarded to vLLM.
     """
 
-    audio_prompt: str | None | _NotGiven = field(default_factory=lambda: NOT_GIVEN)
-    chat_template_kwargs: dict[str, Any] | None | _NotGiven = field(
+    audio_prompt: str | None | NotGiven = field(default_factory=lambda: NOT_GIVEN)
+    chat_template_kwargs: dict[str, Any] | None | NotGiven = field(
         default_factory=lambda: NOT_GIVEN
     )
 

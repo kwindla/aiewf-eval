@@ -321,6 +321,12 @@ async def _run(
         )
 
     pipeline_cls = get_pipeline_class(pipeline_type)
+    allowed_pipelines = getattr(benchmark, "allowed_pipelines", None)
+    if allowed_pipelines and pipeline_type not in allowed_pipelines:
+        raise click.UsageError(
+            f"{benchmark_name} supports only {', '.join(allowed_pipelines)}; "
+            "use aiwf_medium_context for text and audio-in evaluations"
+        )
 
     # Check if pipeline requires a service
     requires_service = getattr(pipeline_cls, "requires_service", True)
@@ -336,6 +342,20 @@ async def _run(
 
     # Setup logging
     setup_logging(run_dir, verbose)
+    if getattr(benchmark, "prompt_version", None):
+        import hashlib
+
+        prompt = benchmark.system_instruction
+        (run_dir / "system-prompt.txt").write_text(prompt)
+        (run_dir / "benchmark-provenance.json").write_text(json.dumps({
+            "benchmark": benchmark_name,
+            "prompt_version": benchmark.prompt_version,
+            "prompt_sha256": hashlib.sha256(prompt.encode()).hexdigest(),
+            "pipeline": pipeline_type,
+            "model": model,
+            "service": service,
+            "thinking": thinking,
+        }, indent=2) + "\n")
 
     # Create recorder
     from multi_turn_eval.recording.transcript_recorder import TranscriptRecorder
@@ -381,12 +401,12 @@ async def _run(
 @cli.command()
 @click.argument("run_dir", type=click.Path(exists=True))
 @click.option("--only-turns", help="Comma-separated turn indices to judge (e.g., 0,1,2)")
-@click.option("--judge-model", default="claude-opus-4-5", help="Model for judging")
+@click.option("--judge-model", default=None, help="Judge model (default: MTE_JUDGE_MODEL or claude-opus-5)")
 @click.option("--debug", is_flag=True, help="Enable debug logging")
 def judge(
     run_dir: str,
     only_turns: Optional[str],
-    judge_model: str,
+    judge_model: Optional[str],
     debug: bool,
 ):
     """Judge a completed benchmark run.
@@ -411,6 +431,7 @@ def judge(
         turn_indices_set = {int(i.strip()) for i in only_turns.split(",")}
 
     # Load benchmark for expected turns
+    benchmark = None
     try:
         BenchmarkConfig = load_benchmark(benchmark_name)
         benchmark = BenchmarkConfig()
@@ -434,6 +455,8 @@ def judge(
                 only_turns=turn_indices_set,
                 debug=debug,
                 expected_turns=expected_turns,
+                judge_model=judge_model,
+                judge_system_prompt=getattr(benchmark, "judge_system_prompt", None),
             )
         )
     except Exception as e:
@@ -449,6 +472,7 @@ def judge(
         result.get("realignment_notes", ""),
         result.get("function_tracking", {}),
         result.get("turn_taking_analysis"),
+        judge_metadata=result.get("judge_metadata"),
     )
 
     # Print summary
