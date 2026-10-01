@@ -103,3 +103,12 @@ def test_backend_start_and_followup_extend_the_new_interval():
     s.event({"type": "session.output_transcript.delta", "delta": "The answer."}, 22)
     assert not s.ready(24)
     assert s.ready(25)
+
+
+def test_live_uses_the_exact_shared_speech_prompt_and_judge():
+    from benchmarks.aiwf_medium_context_speech_v2.config import BenchmarkConfig as Shared
+    from benchmarks.aiwf_medium_context_speech_live.config import BenchmarkConfig as Live
+    assert Live.system_instruction == Shared.system_instruction
+    assert Live.judge_system_prompt == Shared.judge_system_prompt
+    assert Live.tools_schema is Shared.tools_schema
+    assert Live.turns is Shared.turns
