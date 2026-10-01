@@ -28,7 +28,7 @@ amplifies the problem.
 
 We subsequently changed Clever Chatter to terminate on its first 15-second
 no-audio timeout, with no replay, and ran 20 sequential full-conversation
-attempts using the private interaction-status SDK. Nineteen attempts timed out
+attempts using an earlier google-genai build exposing interaction status. Nineteen attempts timed out
 between zero-based turns 0 and 8 (median 6); the remaining attempt ended after
 six turns. None completed all 30 turns, so there were no valid conversations to
 judge.
@@ -218,12 +218,14 @@ plausible for some quality failures but not yet quantified causally.
 
 ## Required fix and validation
 
-1. Use the validated private google-genai 2.14.0 EAP wheel through the isolated overlay
-   at `/home/khkramer/.cache/aiewf-eval/interaction-status-overlay-private-214`; do not
-   downgrade the repository's 2.16 environment in place. The private wheel exposes
-   `LiveServerContent.interaction_status`, and a typed live smoke test returned
-   `InteractionStatus.REQUIRES_ACTION` for Clever Chatter while Preview returned no
-   status field.
+1. For new reruns, use public google-genai 2.23.0 or later, which exposes
+   `LiveServerContent.interaction_status`. The August validation used an earlier
+   google-genai build exposing interaction status; its typed live smoke test
+   returned `InteractionStatus.REQUIRES_ACTION` for Clever Chatter while Preview
+   returned no status field. This public-SDK rerun guidance does not change the
+   recorded August environment or demonstrate identical behavior on a later SDK.
+   Check the installed version before rerunning: a checkout still pinned to 2.16.x
+   needs a compatible dependency upgrade first.
 2. Teach the Gemini Live service to defer response-final frames, transcript flush, and
    benchmark turn advancement when `turnComplete=true` but interaction status is
    `IN_PROGRESS`. Finalize only on `REQUIRES_ACTION`.
