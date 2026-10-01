@@ -1,0 +1,129 @@
+{
+  "schema_version": 1,
+  "artifact_status": "FINAL",
+  "benchmark": "aiwf_medium_context",
+  "turns_per_conversation": 30,
+  "filler": {
+    "count": 96,
+    "position": "suffix",
+    "history_persisted": false,
+    "tokenizer_normalized": false
+  },
+  "muse_glimmer": {
+    "display_name": "Muse Glimmer 30B",
+    "configuration": "embedded chat template, reasoning_strength=low, Q8_0 KV, 32K context, DFlash 15",
+    "dots_screen": {
+      "design": "noncontemporaneous N=30 per arm",
+      "arms": {
+        "nofiller": {"conversations": 30, "strict_pass": 775, "denominator": 900, "rate_pct": 86.11111111111111, "complete_conversations": 30},
+        "dots96": {"conversations": 30, "strict_pass": 754, "denominator": 900, "rate_pct": 83.77777777777777, "complete_conversations": 30}
+      },
+      "effect_points": -2.333333333333343,
+      "bootstrap_ci95_points": [-4.666666666666675, -0.11111111111110628]
+    },
+    "dash_replication": {
+      "design": "fresh contemporaneous N=75 per arm in 75 temporal pairs; order alternated; inference sequential",
+      "arms": {
+        "nofiller": {
+          "conversations": 75,
+          "strict_pass": 1942,
+          "denominator": 2250,
+          "rate_pct": 86.31111111111112,
+          "complete_conversations": 75,
+          "ttfat_p50_ms": 233,
+          "ttfat_p95_ms": 3113
+        },
+        "dashes96": {
+          "conversations": 75,
+          "strict_pass": 2011,
+          "denominator": 2250,
+          "rate_pct": 89.37777777777778,
+          "complete_conversations": 75,
+          "ttfat_p50_ms": 326,
+          "ttfat_p95_ms": 3056
+        }
+      },
+      "effect_points": 3.066666666666667,
+      "paired_block_bootstrap_ci95_points": [1.3777777777777778, 4.711111111111111],
+      "order_strata_effect_points": {
+        "nofiller_first": 2.982456140350877,
+        "dashes_first": 3.153153153153153
+      },
+      "redundant_confirmation": {
+        "turns": [11, 12],
+        "nofiller": {"count": 71, "opportunities": 150, "rate_pct": 47.333333333333336},
+        "dashes96": {"count": 51, "opportunities": 150, "rate_pct": 34.0},
+        "effect_points": -13.333333333333334,
+        "paired_block_bootstrap_ci95_points": [-24.0, -2.666666666666667]
+      },
+      "effect_anatomy": {
+        "required_tool_turns": [11, 12, 15, 17, 24, 29],
+        "required_tool_turn_passes": {"nofiller": 153, "dashes96": 283, "denominator_per_arm": 450},
+        "other_turn_net_pass_change": -61,
+        "immediate_transition_turns": [13, 16, 25],
+        "immediate_transition_net_pass_change": -55,
+        "component_pass_changes": {
+          "tool_use_correct": 116,
+          "instruction_following": 73,
+          "kb_grounding": -12,
+          "turn_taking": 0
+        }
+      },
+      "pooled_secondary": {
+        "conversations_per_arm": 105,
+        "nofiller": {"strict_pass": 2717, "denominator": 3150, "rate_pct": 86.25396825396825},
+        "dashes96": {"strict_pass": 2820, "denominator": 3150, "rate_pct": 89.52380952380953},
+        "effect_points": 3.269841269841278,
+        "independent_bootstrap_ci95_points": [1.9682539682539635, 4.5396825396825435]
+      }
+    }
+  },
+  "nemotron_35_lightning": {
+    "display_name": "Nemotron 3.5 Lightning",
+    "configuration": "native thinking enabled and unbounded; force_nonempty_content=true; SGLang 65,536-token context",
+    "design": "frozen N=30 no-filler control; fresh dots96 and dashes96 arms interleaved; fixed 900-turn denominator per arm",
+    "arms": {
+      "nofiller": {
+        "conversations": 30,
+        "strict_pass": 842,
+        "denominator": 900,
+        "rate_pct": 93.55555555555556,
+        "complete_conversations": 30,
+        "observed_scripted_turns": 900,
+        "missing_future_turns": 0,
+        "ttfat_p50_ms": 1463.5,
+        "ttfat_p95_ms": 5786.5
+      },
+      "dots96": {
+        "conversations": 30,
+        "strict_pass": 178,
+        "denominator": 900,
+        "rate_pct": 19.77777777777778,
+        "complete_conversations": 0,
+        "observed_scripted_turns": 206,
+        "missing_future_turns": 694,
+        "observed_turn_strict_rate_pct": 86.40776699029126,
+        "ttfat_p50_ms": 3699,
+        "ttfat_p95_ms": 157571.25
+      },
+      "dashes96": {
+        "conversations": 30,
+        "strict_pass": 256,
+        "denominator": 900,
+        "rate_pct": 28.444444444444443,
+        "complete_conversations": 0,
+        "observed_scripted_turns": 290,
+        "missing_future_turns": 610,
+        "observed_turn_strict_rate_pct": 88.27586206896552,
+        "ttfat_p50_ms": 3371,
+        "ttfat_p95_ms": 152954
+      }
+    },
+    "effects": {
+      "dots96_minus_nofiller": {"points": -73.77777777777777, "bootstrap_ci95_points": [-78.66666666666666, -68.77777777777777]},
+      "dashes96_minus_nofiller": {"points": -65.11111111111111, "bootstrap_ci95_points": [-71.33333333333334, -58.77777777777777]},
+      "dashes96_minus_dots96": {"points": 8.666666666666664, "bootstrap_ci95_points": [0.6666666666666654, 16.555555555555557]}
+    },
+    "failure_mode": "All 60 filler conversations ended after explicit context-length rejection. The terminal recorded response brought total_tokens to at least 65,000 before the next request exceeded 65,536. The suffix was semantically visible and induced runaway generation; this is not the older turn-0 end_session failure."
+  }
+}
