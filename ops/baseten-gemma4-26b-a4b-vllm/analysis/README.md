@@ -6,7 +6,6 @@ This workflow uses only the exact run directories recorded in
 Read-only preflight:
 
 ```bash
-cd /home/khkramer/src/aiewf-eval
 .venv/bin/python \
   ops/baseten-gemma4-26b-a4b-vllm/analysis/analyze.py preflight
 ```
@@ -14,7 +13,6 @@ cd /home/khkramer/src/aiewf-eval
 Final analysis, after `judging/COMPLETE.json` exists:
 
 ```bash
-cd /home/khkramer/src/aiewf-eval
 .venv/bin/python \
   ops/baseten-gemma4-26b-a4b-vllm/analysis/analyze.py final
 ```
