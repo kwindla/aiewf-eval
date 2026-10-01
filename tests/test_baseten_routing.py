@@ -87,6 +87,37 @@ def test_baseten_max_tokens_can_be_omitted(monkeypatch):
     assert params.max_tokens is NOT_GIVEN
 
 
+@pytest.mark.parametrize("enable_thinking", ["false", "true"])
+def test_together_nemotron_35_uses_cookbook_template_kwargs(
+    monkeypatch, enable_thinking
+):
+    pipeline = baseten_pipeline_stub()
+    pipeline.service_name = "together"
+    monkeypatch.setenv("TOGETHER_API_KEY", "test-key")
+    monkeypatch.setenv("MTE_TOGETHER_REASONING_EFFORT", "omit")
+    monkeypatch.setenv("MTE_TOGETHER_ENABLE_THINKING", enable_thinking)
+    monkeypatch.setenv("MTE_TOGETHER_MAX_TOKENS", "")
+    monkeypatch.setenv("MTE_TOGETHER_TEMPERATURE", "1.0")
+    monkeypatch.setenv("MTE_TOGETHER_TOP_P", "0.95")
+
+    service = pipeline._create_llm(
+        CapturingService, "nemotron-3.5-lightning"
+    )
+
+    params = service.kwargs["params"]
+    assert params.max_tokens is NOT_GIVEN
+    assert params.temperature == 1.0
+    assert params.top_p == 0.95
+    assert params.extra == {
+        "extra_body": {
+            "chat_template_kwargs": {
+                "enable_thinking": enable_thinking == "true",
+                "force_nonempty_content": True,
+            }
+        }
+    }
+
+
 def test_muse_glimmer_reasoning_strength_uses_embedded_template_kwarg(monkeypatch):
     monkeypatch.setenv("BASETEN_API_KEY", "test-baseten-key")
     monkeypatch.setenv("MTE_BASETEN_REASONING_EFFORT", "omit")

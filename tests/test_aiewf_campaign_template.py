@@ -13,10 +13,21 @@ import pytest
 
 ROOT = Path(__file__).resolve().parents[1]
 COLLECT_PATH = ROOT / "ops/aiewf-campaign-template/collect.py"
+RUN_ONE_PATH = ROOT / "ops/aiewf-campaign-template/run_one.py"
 
 
 def load_collector():
     spec = importlib.util.spec_from_file_location("aiewf_campaign_template_collect", COLLECT_PATH)
+    assert spec and spec.loader
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+def load_run_one():
+    spec = importlib.util.spec_from_file_location(
+        "aiewf_campaign_template_run_one", RUN_ONE_PATH
+    )
     assert spec and spec.loader
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
@@ -146,6 +157,47 @@ def test_default_preflight_is_read_only(collector, tmp_path, capsys):
     assert "Read-only preflight only" in output
     assert not artifact_dir.exists()
     assert not run_root.exists()
+
+
+def test_optional_pre_conversation_http_reset(monkeypatch, capsys):
+    run_one = load_run_one()
+    captured = {}
+
+    class Response:
+        status = 200
+
+        def __enter__(self):
+            return self
+
+        def __exit__(self, *_args):
+            return False
+
+        def read(self):
+            return b'{"status":"erased"}'
+
+    def fake_urlopen(req, *, timeout):
+        captured["url"] = req.full_url
+        captured["method"] = req.method
+        captured["timeout"] = timeout
+        return Response()
+
+    monkeypatch.setattr(run_one.request, "urlopen", fake_urlopen)
+    run_one.run_pre_conversation_http(
+        {
+            "pre_conversation_http": {
+                "url": "http://127.0.0.1:8080/slots/0?action=erase",
+                "method": "POST",
+                "timeout_seconds": 7,
+            }
+        }
+    )
+
+    assert captured == {
+        "url": "http://127.0.0.1:8080/slots/0?action=erase",
+        "method": "POST",
+        "timeout": 7.0,
+    }
+    assert "status=200" in capsys.readouterr().out
 
 
 def test_execute_requires_verified_serving_before_writes(collector, tmp_path):

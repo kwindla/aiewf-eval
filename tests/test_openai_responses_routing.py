@@ -4,6 +4,7 @@ import asyncio
 from types import SimpleNamespace
 
 import pytest
+from openai import NOT_GIVEN
 from pipecat.services.openai.llm import OpenAILLMService
 
 from multi_turn_eval.pipelines.base import BasePipeline
@@ -40,7 +41,38 @@ def test_gpt55_routes_to_responses_with_requested_effort(monkeypatch, effort):
 
     assert isinstance(service, OpenAIResponsesLLMService)
     assert service._settings.model == "gpt-5.5"
-    assert service._settings.extra == {"reasoning": {"effort": effort}}
+    assert service._settings.extra == {
+        "reasoning": {"effort": effort},
+        "service_tier": "priority",
+    }
+
+
+@pytest.mark.parametrize("model", ["gpt-5.6-terra", "gpt-5.6-luna", "gpt-4.1"])
+def test_openai_fast_mode_is_sent_for_ttfat_models(monkeypatch, model):
+    monkeypatch.setenv("OPENAI_API_KEY", "test-key")
+    monkeypatch.setenv("MTE_OPENAI_SERVICE_TIER", "fast")
+    monkeypatch.setenv("MTE_OPENAI_RESPONSES_REASONING_EFFORT", "none")
+
+    pipeline = object.__new__(ConcretePipeline)
+    pipeline.service_name = "openai"
+    service = pipeline._create_llm(OpenAILLMService, model)
+
+    assert isinstance(service, OpenAIResponsesLLMService)
+    assert service._settings.extra["service_tier"] == "fast"
+    if model.startswith("gpt-5.6"):
+        assert service._settings.extra["reasoning"] == {"effort": "none"}
+
+    monkeypatch.setattr(
+        service,
+        "_context_to_openai_params",
+        lambda _context: {
+            "messages": [],
+            "tools": NOT_GIVEN,
+            "tool_choice": NOT_GIVEN,
+        },
+    )
+    request = service._responses_request_params(SimpleNamespace())
+    assert request["service_tier"] == "fast"
 
 
 def test_gpt55_routing_only_applies_to_openai_service(monkeypatch):
