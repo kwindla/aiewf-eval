@@ -17,16 +17,16 @@ conversation-cluster bootstrap 95% CI 96.13–97.02%).
 | Tool error | 3.33% |
 | Instruction error | 3.40% |
 | KB error | 0.02% |
-| TTFAT P50 / P95 / max | 490 / 718 / 38250 ms |
+| TTFAT P50 / P95 / max | 489 / 609 / 38250 ms |
 | Thinking tokens | 0 |
 
-Latency by cohort (observed scripted turns):
+Latency by cohort (observed scripted turns after the first response):
 
 | Cohort | Turns | P50 ms | P95 ms | Max ms | >10s |
 |---|---:|---:|---:|---:|---:|
-| Original | 900 | 430 | 564 | 3718 | 0 |
-| Extension | 3600 | 495 | 778 | 38250 | 27 |
-| Pooled | 4500 | 490 | 718 | 38250 | 27 |
+| Original | 870 | 429 | 540 | 1283 | 0 |
+| Extension | 3480 | 494 | 615 | 38250 | 27 |
+| Pooled | 4350 | 489 | 609 | 38250 | 27 |
 
 Most error-prone scripted turns:
 
@@ -41,6 +41,7 @@ Most error-prone scripted turns:
 | 13 | 1/150 | 0.7% | 0 | 0 | 1 |
 
 Missing future turns after a model-caused early exit count as failures in all
-accuracy measures. Latency is reported only where a scripted turn produced a
-measured response. Whole conversations, not turns, are the bootstrap unit
+accuracy measures. Latency excludes each conversation's first scripted response
+and is reported only where a later scripted turn produced a measured response.
+Whole conversations, not turns, are the bootstrap unit
 (20,000 deterministic resamples).

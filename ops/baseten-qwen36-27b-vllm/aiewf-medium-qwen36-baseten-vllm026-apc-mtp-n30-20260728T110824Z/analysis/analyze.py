@@ -16,6 +16,8 @@ then writes all outputs into this analysis directory.
 
 from __future__ import annotations
 
+from multi_turn_eval.latency_reporting import include_response_latency
+
 import argparse
 import csv
 import hashlib
@@ -378,7 +380,7 @@ def load_conversation(entry: ManifestEntry) -> Conversation:
             scores[key].append(values[key])
         passed.append(all(values[key] for key in SCORE_COMPONENTS))
 
-        if turn in scheduled:
+        if include_response_latency(turn) and turn in scheduled:
             latency = scheduled[turn].get("ttfb_ms")
             if (
                 isinstance(latency, (int, float))
@@ -434,6 +436,8 @@ def latency_matrix(runs: list[Conversation]) -> np.ndarray:
         scheduled = canonical_turn_map(read_jsonl(transcript_path), transcript_path)
         # Observed scheduled turns are a prefix, and a TTFAT can still be null.
         for turn in run.observed_turns:
+            if not include_response_latency(turn):
+                continue
             latency = scheduled[turn].get("ttfb_ms")
             if (
                 isinstance(latency, (int, float))
@@ -861,7 +865,8 @@ def render_report(payload: dict[str, Any]) -> str:
             "",
             (
                 "TTFAT is the content-aware time to the first assistant text "
-                "or tool-call token. It is summarized only where a scheduled "
+                "or tool-call token. It excludes each conversation's first "
+                "scripted response and is summarized only where a later scheduled "
                 "model response was observed; missing turns remain accuracy "
                 "failures but are not assigned fictitious latency."
             ),
@@ -981,7 +986,7 @@ def final() -> None:
             ),
             "ttfat_definition": (
                 "content-aware time to first assistant text or tool-call token, "
-                "conditional on an observed scheduled response"
+                "excluding turn 0 and conditional on an observed scheduled response"
             ),
             "arm_ci_method": (
                 "whole-conversation nonparametric bootstrap for turn rates; "

@@ -2,13 +2,14 @@
 
 The BaseTen SGLang v0.5.16 NEXTN/MTP deployment was selected for the N=30
 AIEWF medium-context campaign. All nine bakeoff conversations completed all 30
-scripted turns with valid runtimes and zero thinking tokens.
+scripted turns with valid runtimes and zero thinking tokens. Latency excludes
+each conversation's first scripted response.
 
 | Serving stack | Conversations | Scripted turns | TTFAT P50 | TTFAT P95 | TTFAT max |
 |---|---:|---:|---:|---:|---:|
-| SGLang NEXTN/MTP | 3/3 | 90 | 422ms | 537ms | 3181ms |
-| vLLM APC, no MTP | 3/3 | 90 | 434ms | 648ms | 2374ms |
-| SGLang APC, no MTP | 3/3 | 90 | 496ms | 728ms | 4559ms |
+| SGLang NEXTN/MTP | 3/3 | 90 | 420ms | 521ms | 567ms |
+| vLLM APC, no MTP | 3/3 | 90 | 429ms | 550ms | 968ms |
+| SGLang APC, no MTP | 3/3 | 90 | 495ms | 647ms | 2731ms |
 
 The two SGLang arms used the same SGLang image, target checkpoint, two H100s,
 BF16, tensor parallelism, concurrency, context limit, prefix caching, and

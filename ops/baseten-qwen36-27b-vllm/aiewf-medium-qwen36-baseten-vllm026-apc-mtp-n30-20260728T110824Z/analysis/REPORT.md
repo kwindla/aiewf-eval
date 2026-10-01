@@ -24,12 +24,12 @@ High minus none strict-pass effect: **-11.3 points** (paired whole-conversation 
 
 | Arm | TTFAT observations | Coverage | P50 | P95 | Max |
 |---|---:|---:|---:|---:|---:|
-| High / native thinking-on | 786 | 87.3% | 1924 ms | 9468 ms | 18023 ms |
-| None / thinking-off | 900 | 100.0% | 668 ms | 822 ms | 5429 ms |
+| High / native thinking-on | 756 | 84.0% | 1842 ms | 9481 ms | 18023 ms |
+| None / thinking-off | 870 | 96.7% | 667 ms | 769 ms | 1920 ms |
 
-Observed-response P50 TTFAT effect, high minus none: **1256 ms** (paired conversation-bootstrap 95% CI 1144 to 1402 ms).
+Observed-response P50 TTFAT effect, high minus none: **1174 ms** (paired conversation-bootstrap 95% CI 1055 to 1305 ms).
 
-TTFAT is the content-aware time to the first assistant text or tool-call token. It is summarized only where a scheduled model response was observed; missing turns remain accuracy failures but are not assigned fictitious latency.
+TTFAT is the content-aware time to the first assistant text or tool-call token. It excludes each conversation's first scripted response and is summarized only where a later scheduled model response was observed; missing turns remain accuracy failures but are not assigned fictitious latency.
 
 ## Methods and audit trail
 

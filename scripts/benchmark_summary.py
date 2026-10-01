@@ -18,6 +18,8 @@ Usage:
         --exclude "runs/aiwf_medium_context/20260111T005820_grok-realtime_5fbc589b"
 """
 
+from multi_turn_eval.latency_reporting import include_response_latency
+
 import argparse
 import json
 import math
@@ -143,7 +145,7 @@ def get_run_data(run_dir: Path) -> dict | None:
 
                 # Leaderboard conversational latency excludes the first
                 # response, which pays conversation cold-start prefill.
-                if turn_index != 0:
+                if include_response_latency(turn_index):
                     ttft = turn.get("server_ttfb_ms")
                     if ttft is not None:
                         ttfts.append(ttft)

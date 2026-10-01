@@ -23,7 +23,7 @@ comparison = load("kimi_comparison", HERE / "analysis/compare_arms.py")
 judge = load("kimi_judge", HERE / "judge_campaign.py")
 
 
-def test_analysis_excludes_recovery_from_score_and_ttfat_but_bills_tokens(tmp_path: Path, monkeypatch) -> None:
+def test_analysis_excludes_first_and_recovery_from_ttfat_but_bills_tokens(tmp_path: Path, monkeypatch) -> None:
     root = tmp_path
     run_dir = root / "run"
     run_dir.mkdir()
@@ -82,7 +82,8 @@ def test_analysis_excludes_recovery_from_score_and_ttfat_but_bills_tokens(tmp_pa
     monkeypatch.setattr(analysis, "ROOT", root)
     conversation = analysis.load_conversation({"slot": "K26T-01", "run_dir": "run"})
     assert len(conversation.strict) == 30
-    assert len(conversation.ttfat_ms) == 30
+    assert len(conversation.ttfat_ms) == 29
+    assert min(conversation.ttfat_ms) == 2
     assert max(conversation.ttfat_ms) == 30
     assert max(conversation.raw_ttfb_ms) == 29.5
     assert conversation.recovery_rows == 1

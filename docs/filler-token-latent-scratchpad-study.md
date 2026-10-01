@@ -1,5 +1,7 @@
 # Filler-Token Latent Scratchpad — Cross-Model Study
 
+Latency scope: Qwen3.6 baseline TTFAT excludes each conversation's first scripted response. Other latency figures in this historical study retain their original analysis scope; consult the October TTFAT reanalysis for the separately corrected leaderboard values.
+
 **Question:** Can appending content-free filler positions to the current user
 message improve a reasoning model's accuracy when visible reasoning is disabled,
 without a large change in time to first answer token (TTFAT)?
@@ -84,8 +86,8 @@ directly.
 | gemini-3.6-flash | Google | 97.1 | 89.3 | −7.8 [−13.3, −2.9] | 90% → 90% | 798 | 30 / 30 | decrease |
 | gemini-2.5-flash | Google | 89.9 | 90.6 | +0.7 | 100% → 100% | 550 | 30 / 6 | no detectable effect |
 | laguna-s-2.1 | OpenRouter | 85.6 | 83.3 | −2.2 [−8.3, +5.1] | 13% → 13% | 295 | 30 / 30 | uncertain |
-| qwen3.6-27b | BaseTen | 97.3 | 97.2 | −0.1 | 100% → 100% | 668 | 30 / 6 | no detectable effect |
-| qwen3.6-35b-a3b (FP8) | BaseTen | 91.6 | 78.0 | −13.6 | 90% → 73% | 765 | 30 / 30 | decrease |
+| qwen3.6-27b | BaseTen | 97.3 | 97.2 | −0.1 | 100% → 100% | 667 | 30 / 6 | no detectable effect |
+| qwen3.6-35b-a3b (FP8) | BaseTen | 91.6 | 78.0 | −13.6 | 90% → 73% | 764 | 30 / 30 | decrease |
 | inkling-small | BaseTen | 75.1 | 76.9 | +1.8 [−9.0, +13.1] | 57% → 33% | 279 | 30 / 30 | no detectable effect |
 | gemma-4-26b-a4b | BaseTen | 80.7 | 79.8 | −0.9 [−4.6, +1.8] | 97% → 97% | 580 | 30 / 30 | no detectable effect |
 

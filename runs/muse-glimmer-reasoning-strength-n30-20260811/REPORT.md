@@ -2,7 +2,7 @@
 
 ## Result
 
-`low` is the best operating point on this benchmark. It has the highest observed strict pass rate, but the accuracy differences are unresolved: low minus high is +1.00% (conversation-cluster bootstrap 95% CI -0.67% to +2.67%). `low` nevertheless uses 34.7% fewer mean completion tokens than `high` and cuts P95 answer latency by 59.8%.
+`low` is the best operating point on this benchmark. It has the highest observed strict pass rate, but the accuracy differences are unresolved: low minus high is +1.00% (conversation-cluster bootstrap 95% CI -0.67% to +2.67%). `low` nevertheless uses 34.7% fewer mean completion tokens than `high` and cuts P95 answer latency by 68.6%.
 
 The exploratory redundant-confirmation result points in the same operational direction but is not conclusive. Across the two consecutive suggestion turns, low minus xhigh is -15.00% (conversation-cluster bootstrap 95% CI -31.67% to +1.67%). Turn 12 alone remains highly failure-prone at every strength and shows no monotonic strength effect.
 
@@ -10,10 +10,10 @@ The exploratory redundant-confirmation result points in the same operational dir
 
 | Strength | Strict pass | 95% CI | Completion tok mean | Scripted TTFAT P50 / P95 | Reasoning delay P50 / P95 |
 |---|---:|---:|---:|---:|---:|
-| low | 775/900 (86.1%) | 84.9%–87.3% | 145.3 | 231/3105 ms | 30/1906 ms |
-| medium | 769/900 (85.4%) | 84.6%–86.2% | 192.3 | 236/5958 ms | 30/4456 ms |
-| high | 766/900 (85.1%) | 83.9%–86.2% | 222.6 | 236/7719 ms | 30/6481 ms |
-| xhigh | 764/900 (84.9%) | 83.4%–86.2% | 220.2 | 234/7767 ms | 30/6147 ms |
+| low | 775/900 (86.1%) | 84.9%–87.3% | 145.3 | 228/1938 ms | 30/1732 ms |
+| medium | 769/900 (85.4%) | 84.6%–86.2% | 192.3 | 234/4632 ms | 30/4456 ms |
+| high | 766/900 (85.1%) | 83.9%–86.2% | 222.6 | 234/6176 ms | 30/6037 ms |
+| xhigh | 764/900 (84.9%) | 83.4%–86.2% | 220.2 | 232/6358 ms | 30/6138 ms |
 
 ## Pairwise strict-rate differences
 
@@ -92,7 +92,7 @@ Redundant-confirmation subtypes:
 - The live embedded-template audit proves absent/default equals `high`, and that top-level `reasoning_effort=none` and `enable_thinking=false` are render no-ops. `none` and `minimal` merely render unsupported literal labels, so they were not promoted to experimental arms.
 - The benchmark system instruction is unchanged and appears exactly once in every audited render. The only intended arm difference is `chat_template_kwargs.reasoning_strength`.
 - These are independent on-policy trajectories, balanced and interleaved by arm. Pairwise intervals are descriptive fixed-sample comparisons with no multiplicity adjustment; a same-prefix replay would answer a different question.
-- Completion tokens include the model's hidden reasoning and answer output; the local backend does not expose a separate thinking-token count. TTFAT is time to the first answer/tool token, while raw TTFT is time to the first reasoning token.
+- Completion tokens include the model's hidden reasoning and answer output; the local backend does not expose a separate thinking-token count. TTFAT is time to the first answer/tool token, while raw TTFT is time to the first reasoning token. Latency summaries exclude each conversation's first scripted response.
 
 ## Per-turn strict passes
 

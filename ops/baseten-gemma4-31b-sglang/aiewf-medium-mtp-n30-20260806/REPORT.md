@@ -12,14 +12,14 @@ conversation-cluster bootstrap 95% CI 95.8–97.9%).
 | Tool error | 3.1% |
 | Instruction error | 3.1% |
 | KB error | 0.0% |
-| TTFAT P50 / P95 / max | 430 / 564 / 3718 ms |
+| TTFAT P50 / P95 / max | 429 / 540 / 1283 ms |
 | Thinking tokens | 0 |
 
 README row:
 
 | Model | Pass Rate | Any Error | Tool Error | Instruction Error | KB Error | TTFAT P50 | TTFAT P95 | TTFAT Max | Provider |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|---|
-| gemma-4-31b-it (thinking off) | 96.9% | 3.1% | 3.1% | 3.1% | 0.0% | 430ms | 564ms | 3718ms | BaseTen |
+| gemma-4-31b-it (thinking off) | 96.9% | 3.1% | 3.1% | 3.1% | 0.0% | 429ms | 540ms | 1283ms | BaseTen |
 
 Most error-prone scripted turns:
 
@@ -32,6 +32,7 @@ Most error-prone scripted turns:
 | 24 | 1/30 | 3.3% |
 
 Missing future turns after a model-caused early exit count as failures in all
-four displayed accuracy measures. Latency is reported only where a scripted
-turn produced a measured response. Whole conversations, not individual turns,
-are the bootstrap resampling unit.
+four displayed accuracy measures. Latency excludes each conversation's first
+scripted response and is reported only where a later scripted turn produced a
+measured response. Whole conversations, not individual turns, are the bootstrap
+resampling unit.

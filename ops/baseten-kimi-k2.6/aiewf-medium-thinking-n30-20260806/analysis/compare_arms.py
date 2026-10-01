@@ -138,7 +138,8 @@ def main() -> int:
     report = f"""# BaseTen Kimi K2.6 thinking comparison
 
 Both arms use 30 complete, valid conversations and the same fixed 900 scripted
-turn denominator. Recovery turns are excluded from accuracy and TTFAT.
+turn denominator. Recovery turns and each conversation's first scripted response
+are excluded from TTFAT; recovery turns are also excluded from accuracy.
 
 | Measure | Thinking on | Thinking off |
 |---|---:|---:|

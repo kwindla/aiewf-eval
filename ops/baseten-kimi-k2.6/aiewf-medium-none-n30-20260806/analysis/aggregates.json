@@ -52,10 +52,10 @@
     }
   },
   "ttfat_ms": {
-    "scope": "scripted_turns_0_29_only",
-    "count": 900,
-    "p50": 479.5,
-    "p95": 854.0,
+    "scope": "scripted_turns_1_29_only",
+    "count": 870,
+    "p50": 475.0,
+    "p95": 842.0,
     "max": 4458.0
   },
   "recovery": {
@@ -322,7 +322,7 @@
       "kb_grounding_failures": 0
     }
   ],
-  "readme_candidate_row": "| kimi-k2.6 (thinking off) | 93.9% | 6.1% | 6.0% | 3.9% | 0.0% | 480ms | 854ms | 4458ms | BaseTen |",
+  "readme_candidate_row": "| kimi-k2.6 (thinking off) | 93.9% | 6.1% | 6.0% | 3.9% | 0.0% | 475ms | 842ms | 4458ms | BaseTen |",
   "input_hashes": {
     "configuration.json": "68268fac7ed901d5313e82889199fed2f0a5c9fff437a45a96e03bc242cbfe84",
     "canonical.tsv": "52269a25371c6f12b449fc13c52fa58fdad6f05283511a1043dca253f5e034ae",
@@ -332,7 +332,7 @@
     "judging/COMPLETE.json": "b00f4731ab8fc5c99269d95c45a5ce31584dc5b5b7f9d0a3b82201387919a88f",
     "judging/canonical-inputs.tsv": "3212f4b4de7e3445f35a552ab1f303abc74dcc82adbc4147e300127cea529bc7",
     "judging/judge-source-sha256.txt": "82ce844a36336c19a51c3c4e8039af04173fda019ba87ac4fad1633717962e80",
-    "analysis/analyze.py": "ddc51f014aca8044d0e1df1df1583506b3302eb336b0a3ee7a65174b7d2525f6"
+    "analysis/analyze.py": "7203b50e46ad16d37cc0c45a595f4f0d2eff01cd026d2b61e306f8d9fa91f07d"
   },
   "runs": [
     {

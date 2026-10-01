@@ -103,8 +103,8 @@ def render_svg(rows: list[ModelRow]) -> str:
     last_row_y = first_row_y + (len(rows) - 1) * row_height
     footnote_y = last_row_y + 56
     height = footnote_y + 42
-    min_latency, max_latency = 80.0, 8000.0
-    ticks = [100, 250, 500, 1000, 2000, 4000, 8000]
+    min_latency, max_latency = 50.0, 8000.0
+    ticks = [50, 100, 250, 500, 1000, 2000, 4000, 8000]
     voice_target = 700
     frontier = pareto_efficient(rows)
 
@@ -187,7 +187,7 @@ def render_svg(rows: list[ModelRow]) -> str:
 
     lines.extend(
         [
-            f'  <text class="note" x="{left}" y="{footnote_y}">Dark P50 dots mark rows for which no model is both faster and at least as accurate.</text>',
+            f'  <text class="note" x="{left}" y="{footnote_y}">Dark P50 dots mark rows for which no model is both faster and at least as accurate. Historical Nemotron 3 rows retain legacy TTFT; see README.</text>',
             "</svg>",
         ]
     )

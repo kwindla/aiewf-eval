@@ -2040,6 +2040,17 @@ Original dose, placement, and retained historical-screen analyses remain explici
 </div>
 </body>
 </html>"""
+    latency_scope = (
+        "Latency scope: Qwen3.6 baseline TTFAT excludes each conversation's first "
+        "scripted response. Other latency figures in this historical study retain "
+        "their original analysis scope; consult the October TTFAT reanalysis for "
+        "the separately corrected leaderboard values."
+    )
+    page = page.replace("</header>", "<p class=\"fine\">" + esc(latency_scope) + "</p></header>", 1)
+    markdown = MARKDOWN_OUT.read_text()
+    if "Latency scope: Qwen3.6 baseline TTFAT" not in markdown:
+        first, rest = markdown.split("\n", 1)
+        MARKDOWN_OUT.write_text(first + "\n\n" + latency_scope + "\n" + rest)
     OUT.write_text(page, encoding="utf-8")
     update_markdown_primary()
     update_markdown_turn_family()

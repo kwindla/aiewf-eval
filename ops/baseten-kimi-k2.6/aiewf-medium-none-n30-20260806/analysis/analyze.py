@@ -3,6 +3,8 @@
 
 from __future__ import annotations
 
+from multi_turn_eval.latency_reporting import include_response_latency
+
 import csv
 import hashlib
 import json
@@ -32,6 +34,7 @@ MODEL = "moonshotai/Kimi-K2.6"
 TARGET = 30
 N_TURNS = 30
 DENOMINATOR = TARGET * N_TURNS
+LATENCY_DENOMINATOR = TARGET * (N_TURNS - 1)
 JUDGE_MODEL = "claude-opus-4-5"
 JUDGE_VERSION = "claude-agent-sdk-v4-turn-taking"
 COMPONENTS = ("tool_use_correct", "instruction_following", "kb_grounding")
@@ -154,7 +157,7 @@ def load_conversation(manifest: dict[str, str]) -> Conversation:
         run_dir=run_dir,
         scores=scores,
         strict=strict,
-        ttfat_ms=tuple(float(row["ttfb_ms"]) for row in scheduled),
+        ttfat_ms=tuple(float(row["ttfb_ms"]) for row in scheduled if include_response_latency(row["turn"])),
         recovery_rows=len(recovery),
         end_session_kind=end_kind,
         end_session_turn=end_turn,
@@ -238,14 +241,14 @@ def main() -> int:
     components = {name: metric(conversations, name) for name in COMPONENTS}
     latencies = [value for conversation in conversations for value in conversation.ttfat_ms]
     latency = {
-        "scope": "scripted_turns_0_29_only",
+        "scope": "scripted_turns_1_29_only",
         "count": len(latencies),
         "p50": statistics.median(latencies),
         "p95": percentile(latencies, 0.95),
         "max": max(latencies),
     }
-    if latency["count"] != DENOMINATOR:
-        raise RuntimeError("README TTFAT denominator is not exactly 900 scripted turns")
+    if latency["count"] != LATENCY_DENOMINATOR:
+        raise RuntimeError("README TTFAT denominator is not exactly 870 post-first turns")
     end_counts = Counter(conversation.end_session_kind for conversation in conversations)
     end_turns = Counter(
         str(conversation.end_session_turn)
@@ -401,7 +404,8 @@ def main() -> int:
     report = f"""# BaseTen Kimi K2.6 — AIEWF medium-context result
 
 The fixed denominator is 30 canonical conversations × scripted turns 0–29 =
-900. Recovery rows are excluded from both scores and README TTFAT, but their
+900. Recovery rows are excluded from both scores and README TTFAT; the first
+scripted response in each conversation is also excluded from TTFAT. Recovery
 tokens remain in the billed-token totals.
 
 ## README-format result
