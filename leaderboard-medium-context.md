@@ -3,7 +3,9 @@
 Text-mode results for `aiwf_medium_context`, sorted by strict turn pass rate and
 then TTFAT P50. Each canonical conversation has 30 scripted turns. TTFAT is
 measured from request start to the first user-visible answer token or tool-call
-output; separately streamed reasoning deltas do not stop the timer. Selected
+output; separately streamed reasoning deltas do not stop the timer. Latency
+excludes each conversation's first scripted turn, then includes later scripted
+turns and any recovery responses. Selected
 historically important self-hosted results remain in the table with the provider
 that served the published runs. The reporting convention excludes each
 conversation's first scripted response; historical exceptions are noted below.
@@ -11,6 +13,7 @@ conversation's first scripted response; historical exceptions are noted below.
 | Model | Pass Rate | Any Error | Tool Error | Instruction Error | KB Error | TTFAT P50 | TTFAT P95 | TTFAT Max | Provider |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|---|
 | nemotron-3-ultra (128) | 100.0% | 0.0% | 0.0% | 0.0% | 0.0% | 541ms | 712ms | 1302ms | Baseten |
+| gemini-3.7-flash (low) | 100.0% | 0.0% | 0.0% | 0.0% | 0.0% | 817ms | 1260ms | 10938ms | AI Studio |
 | claude-sonnet-4-6 | 100.0% | 0.0% | 0.0% | 0.0% | 0.0% | 850ms | 4126ms | 9396ms | Anthropic |
 | claude-fable-5 (low) | 100.0% | 0.0% | 0.0% | 0.0% | 0.0% | 3582ms | 5148ms | 8815ms | Anthropic |
 | claude-fable-5 (default) | 100.0% | 0.0% | 0.0% | 0.0% | 0.0% | 3966ms | 6680ms | 13602ms | Anthropic |
@@ -54,6 +57,7 @@ conversation's first scripted response; historical exceptions are noted below.
 | gpt-4.1-mini | 85.3% | 14.7% | 14.7% | 14.7% | 0.0% | 851ms | 2135ms | 5945ms | OpenAI |
 | gpt-5-mini | 83.7% | 16.3% | 14.0% | 16.3% | 1.0% | 682ms | 1132ms | 1904ms | OpenAI |
 | gpt-4o-mini | 82.7% | 17.3% | 10.3% | 13.7% | 2.3% | 553ms | 1947ms | 6497ms | OpenAI |
+| grok-4.6 (low) | 82.2% | 17.8% | 14.2% | 17.7% | 10.1% | 2000ms | 5241ms | 17404ms | xAI |
 | gemma-4-26b-a4b-it (thinking off) | 80.7% | 19.3% | 13.9% | 19.3% | 0.9% | 578ms | 634ms | 31574ms | Baseten |
 | gemini-3.5-flash-lite (minimal) | 68.6% | 31.4% | 30.8% | 31.4% | 28.1% | 591ms | 677ms | 928ms | AI Studio |
 | nemotron-3.5-lightning (thinking off, NVFP4) | 50.9% | 49.1% | 49.0% | 47.9% | 38.9% | 62ms | 70ms | 80ms | Local RTX 5090 |
@@ -66,6 +70,12 @@ documented in [`runs/muse-glimmer-reasoning-strength-n30-20260811/REPORT.md`](ru
 The two Nemotron 3.5 Lightning rows are the official NVFP4 checkpoint on one RTX
 5090, with N=30 per native thinking setting. See the
 [`campaign report`](ops/local-nemotron35-lightning-sglang/aiewf-medium-binary-n30-20260811/artifacts/analysis/REPORT.md).
+
+Gemini 3.7 Flash is the frozen low-thinking N=30 campaign documented in
+[`ops/google-gemini37-flash/analysis/REPORT.md`](ops/google-gemini37-flash/analysis/REPORT.md). `low` is this model's minimum supported thinking level; there is no `minimal` setting. It scored 900/900 strict turns, measured 817ms P50 / 1260ms P95 warm TTFAT, and cost an estimated $0.00760 per observed turn at Google's introductory pricing through December 31, 2026.
+
+Grok 4.6 is the frozen low-effort N=30 campaign documented in
+[`ops/xai-grok46/analysis/REPORT.md`](ops/xai-grok46/analysis/REPORT.md). It scored 740/900 fixed-denominator turns and completed 26/30 conversations; three attempts called `end_session` on turn 0 and one ended on turn 28. Warm raw TTFT was 906ms P50 / 1638ms P95, content-aware TTFAT was 2000ms / 5241ms, median warm cached-input share was 98.7%, and xAI's standard-context rates produce an estimated $0.0104 per observed turn.
 
 The four Nemotron rows are historical measurements from Baseten deployments that
 no longer exist in their original form. They remain here because the results are

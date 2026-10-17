@@ -891,11 +891,46 @@ class BasePipeline(ABC):
                 f"reasoning_effort={reasoning_effort or '(default/thinking)'}, "
                 f"T={temperature}, top_p={top_p}"
             )
-        elif "OpenAI" in class_name or service_name_lower == "nemotron":
-            api_key = os.getenv("OPENAI_API_KEY")
+        elif "OpenAI" in class_name or service_name_lower in {"nemotron", "xai"}:
+            if service_name_lower == "xai":
+                api_key = os.getenv("XAI_API_KEY")
+            else:
+                api_key = os.getenv("OPENAI_API_KEY")
             if not api_key:
-                raise EnvironmentError("OPENAI_API_KEY environment variable is required")
+                required_key = "XAI_API_KEY" if service_name_lower == "xai" else "OPENAI_API_KEY"
+                raise EnvironmentError(f"{required_key} environment variable is required")
             kwargs["api_key"] = api_key
+
+            if service_name_lower == "xai":
+                from pipecat.services.openai.llm import OpenAILLMService
+
+                base_url = os.getenv("MTE_XAI_BASE_URL", "https://api.x.ai/v1").rstrip("/")
+                effort = os.getenv("MTE_XAI_REASONING_EFFORT", "low").strip().lower()
+                allowed_efforts = {"low", "medium", "high", "xhigh"}
+                if effort not in allowed_efforts:
+                    raise ValueError(
+                        f"Invalid MTE_XAI_REASONING_EFFORT={effort!r}; "
+                        f"expected one of {sorted(allowed_efforts)}"
+                    )
+                cache_key = f"aiewf-grok46-{uuid.uuid4().hex}"
+                kwargs.update(
+                    base_url=base_url,
+                    stateful_responses_enabled=True,
+                    params=OpenAILLMService.InputParams(
+                        extra={
+                            "reasoning": {"effort": effort},
+                            "prompt_cache_key": cache_key,
+                            "store": True,
+                        }
+                    ),
+                )
+                logger.info(
+                    f"Using xAI Responses with base_url={base_url}, model={model}, "
+                    f"reasoning.effort={effort}, stateful_responses=true, "
+                    "prompt_cache_key=stable-per-conversation, store=true, "
+                    "sampling=provider-default, max_output_tokens=unset"
+                )
+                return service_class(**kwargs)
 
             # Route selected OpenAI text models to Responses API without changing
             # benchmark pipelines.
@@ -1013,6 +1048,11 @@ class BasePipeline(ABC):
             if not api_key:
                 raise EnvironmentError("GOOGLE_API_KEY environment variable is required")
             kwargs["api_key"] = api_key
+            google_base_url = os.getenv(
+                "MTE_GOOGLE_API_ENDPOINT_PROVENANCE",
+                "https://generativelanguage.googleapis.com",
+            ).rstrip("/")
+            logger.info(f"Using Google with base_url={google_base_url}, model={model}")
 
             # Configure Gemma 4 on Google AI Studio: thinking is permanently ON
             # for gemma-4-*-it on this endpoint (Google rejects both
@@ -1069,13 +1109,17 @@ class BasePipeline(ABC):
                         )
                     )
 
-            # Configure Gemini 3 series models with an explicit thinking mode
-            # so benchmark sweeps can compare disabled vs minimal reasoning.
+            # Configure Gemini 3 series models with an explicit thinking level.
+            # The supported floor is model-specific: Gemini 3.7 starts at low,
+            # while earlier Gemini 3 models also expose minimal.
             elif "gemini-3" in model_lower:
                 from pipecat.services.google.llm import GoogleLLMService
+                default_thinking_mode = (
+                    "medium" if "gemini-3.7" in model_lower else "minimal"
+                )
                 thinking_mode = (
                     getattr(self, "thinking", None)
-                    or os.getenv("MTE_GOOGLE_THINKING_MODE", "minimal")
+                    or os.getenv("MTE_GOOGLE_THINKING_MODE", default_thinking_mode)
                 ).strip().lower()
 
                 if thinking_mode in {"disabled", "disable", "off", "none", "budget0", "0"}:
@@ -1084,6 +1128,11 @@ class BasePipeline(ABC):
                         "use minimal, low, medium, high, or default"
                     )
                 elif thinking_mode in {"minimal", "min"}:
+                    if "gemini-3.7" in model_lower:
+                        raise ValueError(
+                            f"{model} does not support thinking_level=minimal; "
+                            "use low, medium, high, or default"
+                        )
                     kwargs["params"] = GoogleLLMService.InputParams(
                         thinking=GoogleLLMService.ThinkingConfig(
                             thinking_level="minimal",

@@ -139,3 +139,24 @@ def test_gemini25_rejects_gemini3_thinking_levels(monkeypatch):
         assert "expected disabled or default" in str(exc)
     else:
         raise AssertionError("Gemini 2.5 must reject Gemini 3 thinking levels")
+
+
+def test_gemini37_defaults_to_provider_default_medium(monkeypatch):
+    monkeypatch.setenv("GOOGLE_API_KEY", "test-key")
+    monkeypatch.delenv("MTE_GOOGLE_THINKING_MODE", raising=False)
+
+    service = google_pipeline_stub()._create_llm(FakeGoogleService, "gemini-3.7-flash")
+
+    assert service.kwargs["params"].thinking.thinking_level == "medium"
+
+
+def test_gemini37_rejects_unsupported_minimal_level(monkeypatch):
+    monkeypatch.setenv("GOOGLE_API_KEY", "test-key")
+    monkeypatch.setenv("MTE_GOOGLE_THINKING_MODE", "minimal")
+
+    try:
+        google_pipeline_stub()._create_llm(FakeGoogleService, "gemini-3.7-flash")
+    except ValueError as exc:
+        assert "does not support thinking_level=minimal" in str(exc)
+    else:
+        raise AssertionError("Gemini 3.7 must reject thinking_level=minimal")

@@ -22,6 +22,7 @@ Rows are ordered by pass rate descending, then TTFAT P50 ascending. The solid do
 | Model | Pass Rate | Any Error | Tool Error | Instruction Error | KB Error | TTFAT P50 | TTFAT P95 | TTFAT Max | Provider |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|---|
 | **nemotron-3-ultra (128)** | **100.0%** | **0.0%** | **0.0%** | **0.0%** | **0.0%** | **541ms** | **712ms** | **1302ms** | **Baseten** |
+| gemini-3.7-flash (low) | 100.0% | 0.0% | 0.0% | 0.0% | 0.0% | 817ms | 1260ms | 10938ms | AI Studio |
 | claude-sonnet-4-6 | 100.0% | 0.0% | 0.0% | 0.0% | 0.0% | 850ms | 4126ms | 9396ms | Anthropic |
 | claude-fable-5 (low) | 100.0% | 0.0% | 0.0% | 0.0% | 0.0% | 3582ms | 5148ms | 8815ms | Anthropic |
 | claude-fable-5 (default) | 100.0% | 0.0% | 0.0% | 0.0% | 0.0% | 3966ms | 6680ms | 13602ms | Anthropic |
@@ -65,6 +66,7 @@ Rows are ordered by pass rate descending, then TTFAT P50 ascending. The solid do
 | gpt-4.1-mini | 85.3% | 14.7% | 14.7% | 14.7% | 0.0% | 851ms | 2135ms | 5945ms | OpenAI |
 | **gpt-5-mini** | **83.7%** | **16.3%** | **14.0%** | **16.3%** | **1.0%** | **682ms** | **1132ms** | **1904ms** | **OpenAI** |
 | **gpt-4o-mini** | **82.7%** | **17.3%** | **10.3%** | **13.7%** | **2.3%** | **553ms** | **1947ms** | **6497ms** | **OpenAI** |
+| grok-4.6 (low) | 82.2% | 17.8% | 14.2% | 17.7% | 10.1% | 2000ms | 5241ms | 17404ms | xAI |
 | **gemma-4-26b-a4b-it (thinking off)** | **80.7%** | **19.3%** | **13.9%** | **19.3%** | **0.9%** | **578ms** | **634ms** | **31574ms** | **Baseten** |
 | **gemini-3.5-flash-lite (minimal)** | **68.6%** | **31.4%** | **30.8%** | **31.4%** | **28.1%** | **591ms** | **677ms** | **928ms** | **AI Studio** |
 | **nemotron-3.5-lightning (thinking off, NVFP4)** | **50.9%** | **49.1%** | **49.0%** | **47.9%** | **38.9%** | **62ms** | **70ms** | **80ms** | **Local RTX 5090** |
@@ -75,11 +77,15 @@ This table emphasizes current-production routes while retaining selected histori
 
 Each conversation in this benchmark has 30 scripted turns. Refreshed filler-study rows use a fixed-denominator, attempt-based analysis in which missing, malformed, and post-abort future turns count as errors. Some legacy rows with early exits use their available observed turns and are therefore not directly comparable on completion reliability; detailed sample sizes and protocols live in the linked study artifacts rather than this summary table. **Any Error** is the percentage of turns where at least one of tool use, instruction following, or KB grounding fails; it is the complement of **Pass Rate**. The three dimension error rates overlap and therefore do not sum to Any Error.
 
-TTFAT is the latency reported by the Pipecat service from request to the first user-visible answer token or tool-call output; reasoning deltas are excluded where the service exposes them separately. An optimized speech-to-speech pipeline with typical network latencies should be able to achieve a total voice-to-voice latency of approximately LLM TTFAT + 500ms. In general, a model with TTFAT above ~700ms is too slow for most voice agent use cases.
+TTFAT is the latency reported by the Pipecat service from request to the first user-visible answer token or tool-call output; reasoning deltas are excluded where the service exposes them separately. Leaderboard latency excludes each conversation's first scripted turn (the cold start), then includes later scripted turns and any recovery responses. An optimized speech-to-speech pipeline with typical network latencies should be able to achieve a total voice-to-voice latency of approximately LLM TTFAT + 500ms. In general, a model with TTFAT above ~700ms is too slow for most voice agent use cases.
 
 Models labeled "(thinking)" were run with reasoning/chain-of-thought enabled. Models labeled with a reasoning effort like "(low)", "(medium)", or "(none)" were run at that effort level on the OpenAI Responses API.
 
 Gemini 3 rows labeled `(minimal)` use Google's lowest supported `thinking_level`, the closest current equivalent to no-think for latency testing. Google notes that `minimal` matches no thinking for most requests but does not guarantee that reasoning is completely off; these rows therefore are not labeled `thinking off`.
+
+`gemini-3.7-flash (low)` uses the model's lowest supported thinking level; unlike earlier Gemini 3 models, [Gemini 3.7 Flash supports](https://ai.google.dev/gemini-api/docs/thinking) only `low`, `medium`, and `high`, with `medium` as the provider default. The frozen no-filler N=30 cohort completed all 30 scripted turns in every conversation, called all six expected tool turns including `end_session`, and scored 900/900 strict turns (100.0%). Warm content-aware TTFAT was 817ms P50 / 1260ms P95 across turns after each conversation's cold-start turn; one 10.94-second outlier sets the maximum. Google reported zero thinking tokens for this workload despite the explicit low setting. At [Google's introductory paid-tier pricing](https://ai.google.dev/gemini-api/docs/pricing) through December 31, 2026—$0.75/M uncached input, $0.075/M cached input, and $3.75/M output including thinking—the cohort cost an estimated $0.00760 per observed turn. See the [frozen campaign report](ops/google-gemini37-flash/analysis/REPORT.md).
+
+`grok-4.6 (low)` uses [Grok 4.6's](https://docs.x.ai/developers/grok-4-6) minimum supported reasoning effort; reasoning cannot be disabled. The frozen no-filler N=30 campaign used xAI's Responses API with stateful `previous_response_id` continuation, one stable `prompt_cache_key` per conversation, provider-default sampling, and no output-token cap. It scored 740/900 fixed-denominator turns (82.2%, conversation-cluster bootstrap 95% CI 70.9–91.2%) and completed 26/30 conversations. Three attempts reasoned for 340–625 tokens and then incorrectly called `end_session` on turn 0; a fourth ended on turn 28. Warm raw TTFT was 906ms P50 / 1638ms P95, while content-aware TTFAT was 2000ms / 5241ms, excluding each conversation's first scripted response and including recovery responses. Median warm cached-input share was 98.7%. At [xAI's standard-context pricing](https://docs.x.ai/developers/pricing)—$2/M uncached input, $0.50/M cached input, and $6/M output including reasoning—the cohort cost an estimated $0.0104 per observed turn; every request remained below the 200K-input-token higher-price threshold. See the [frozen campaign report](ops/xai-grok46/analysis/REPORT.md).
 
 `gemini-2.5-flash (thinking off)` explicitly sets `thinking_budget=0`. This is also Pipecat's low-latency default for Gemini 2.5 Flash, but the benchmark pins it so every included run has an auditable thinking-off signature rather than relying on an implicit service default.
 
@@ -242,6 +248,7 @@ export ANTHROPIC_API_KEY=sk-ant-...
 # Text-mode model services
 export OPENAI_API_KEY=sk-...          # OpenAI (GPT-4o, GPT-4o-mini, etc.)
 export GOOGLE_API_KEY=...             # Google (Gemini models)
+export XAI_API_KEY=...                # xAI Grok text models (Responses API)
 export OPENROUTER_API_KEY=...         # OpenRouter (access to multiple providers)
 export GROQ_API_KEY=...               # Groq
 export CEREBRAS_API_KEY=...           # Cerebras
@@ -273,6 +280,8 @@ uv run multi-turn-eval run <benchmark> --model <model> --service <service>
 uv run multi-turn-eval run aiwf_medium_context --model claude-sonnet-4-5 --service anthropic
 uv run multi-turn-eval run aiwf_medium_context --model gpt-4o --service openai
 uv run multi-turn-eval run aiwf_medium_context --model gemini-2.5-flash --service google
+uv run multi-turn-eval run aiwf_medium_context --model gemini-3.7-flash --service google --thinking low
+MTE_XAI_REASONING_EFFORT=low uv run multi-turn-eval run aiwf_medium_context --model grok-4.6 --service xai
 
 # Realtime audio models use the separate speech-v2 prompt and rubric
 MTE_OPENAI_REALTIME_REASONING_EFFORT=low uv run multi-turn-eval run aiwf_medium_context_speech_v2 --model gpt-realtime-2.1 --service openai-realtime
@@ -368,6 +377,7 @@ For convenience, common service classes have short aliases:
 | `openai-realtime` | `pipecat.services.openai.realtime.llm.OpenAIRealtimeLLMService` |
 | `anthropic` | `pipecat.services.anthropic.llm.AnthropicLLMService` |
 | `google` | `pipecat.services.google.llm.GoogleLLMService` |
+| `xai` | `multi_turn_eval.services.openai_responses.OpenAIResponsesLLMService` (stateful Responses API; `MTE_XAI_REASONING_EFFORT` defaults to `low`) |
 | `gemini-live` | `multi_turn_eval.pipelines.realtime.GeminiLiveLLMServiceWithReconnection` |
 | `bedrock` | `pipecat.services.aws.llm.AWSBedrockLLMService` |
 | `ultravox-realtime` | `pipecat.services.ultravox.llm.UltravoxRealtimeLLMService` |
@@ -428,6 +438,8 @@ runs/
 | `gpt-4o-mini` | text | openai |
 | `gpt-realtime` | realtime | openai-realtime |
 | `gemini-2.5-flash` | text | google |
+| `gemini-3.7-flash` | text | google (use `--thinking low` for the published cohort) |
+| `grok-4.6` | text | xai |
 | `gemini-3.1-flash-live-preview` | realtime | gemini-live |
 | `gemini-3.8-live` | realtime | gemini-live |
 | `gemini-3.8-live-extended-thinking` | realtime | gemini-live |

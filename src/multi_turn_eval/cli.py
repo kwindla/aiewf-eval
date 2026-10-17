@@ -36,6 +36,7 @@ load_dotenv()
 
 SERVICE_ALIASES = {
     "openai": "pipecat.services.openai.llm.OpenAILLMService",
+    "xai": "multi_turn_eval.services.openai_responses.OpenAIResponsesLLMService",
     "openai-realtime": "pipecat.services.openai.realtime.llm.OpenAIRealtimeLLMService",
     "openrouter": "multi_turn_eval.services.openrouter_logged.LoggedOpenRouterLLMService",  # OpenRouter (OpenAI-compatible); content-aware TTFB + filler for reasoning models (Qwen3, DeepSeek-V3.x)
     "modal": "pipecat.services.openai.llm.OpenAILLMService",  # Modal uses OpenAI-compatible API

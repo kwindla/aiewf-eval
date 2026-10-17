@@ -5,22 +5,30 @@ under the hood, so existing text pipelines and aggregators continue to work.
 """
 
 import json
+import time
 from typing import Any, Dict, List
 
 from loguru import logger
 from openai import NOT_GIVEN
 from pipecat.adapters.services.open_ai_adapter import OpenAILLMInvocationParams
+from pipecat.frames.frames import MetricsFrame
 from pipecat.metrics.metrics import LLMTokenUsage
 from pipecat.processors.aggregators.llm_context import LLMContext
 from pipecat.services.llm_service import FunctionCallFromLLM
 from pipecat.services.openai.llm import OpenAILLMService
 from pipecat.utils.tracing.service_decorators import traced_llm
 
+from multi_turn_eval.metrics import RawTTFBMetricsData
 from multi_turn_eval.services.filler import apply_filler_to_last_user
 
 
 class OpenAIResponsesLLMService(OpenAILLMService):
     """OpenAI service implementation backed by the Responses API."""
+
+    def __init__(self, *, stateful_responses_enabled: bool = False, **kwargs: Any):
+        self._stateful_responses_enabled = bool(stateful_responses_enabled)
+        self._previous_response_id: str | None = None
+        super().__init__(**kwargs)
 
     def _setting(self, key: str, default: Any = NOT_GIVEN) -> Any:
         settings = getattr(self, "_settings", {})
@@ -222,6 +230,18 @@ class OpenAIResponsesLLMService(OpenAILLMService):
             extra = {}
         request.update(extra)
 
+        previous_response_id = self._previous_response_id
+        if self._stateful_responses_enabled and previous_response_id:
+            # The provider retains every prior output item behind the response
+            # ID. Send only messages added after the latest assistant response,
+            # which includes any function-call output plus the next user turn.
+            for index in range(len(messages) - 1, -1, -1):
+                if self._get_attr(messages[index], "role") == "assistant":
+                    messages = messages[index + 1 :]
+                    break
+            request["previous_response_id"] = previous_response_id
+            request["input"] = self._messages_to_responses_input(messages)
+
         # Drop NOT_GIVEN and empty markers.
         cleaned: Dict[str, Any] = {}
         for k, v in request.items():
@@ -230,6 +250,13 @@ class OpenAIResponsesLLMService(OpenAILLMService):
             cleaned[k] = v
 
         return cleaned
+
+    def _remember_completed_response(self, response: Any) -> None:
+        if not self._stateful_responses_enabled:
+            return
+        response_id = self._get_attr(response, "id")
+        if response_id:
+            self._previous_response_id = str(response_id)
 
     @staticmethod
     def _extract_response_text(response: Any) -> str:
@@ -257,12 +284,15 @@ class OpenAIResponsesLLMService(OpenAILLMService):
             params["max_output_tokens"] = max_tokens
 
         response = await self._client.responses.create(**params)
+        self._remember_completed_response(response)
         return self._extract_response_text(response)
 
     @traced_llm
     async def _process_context(self, context: LLMContext):
         await self.start_ttfb_metrics()
         ttfb_stopped = False
+        raw_ttfb_emitted = False
+        raw_t0 = time.monotonic()
         function_call_map: Dict[str, Dict[str, str]] = {}
         processed_call_ids: set[str] = set()
         pending_function_calls: List[FunctionCallFromLLM] = []
@@ -290,6 +320,30 @@ class OpenAIResponsesLLMService(OpenAILLMService):
         async with self._client.responses.stream(**params) as stream:
             async for event in stream:
                 event_type = getattr(event, "type", None)
+
+                # Metadata-only lifecycle events are not token arrival. The
+                # first output/reasoning/function event is our raw TTFT; visible
+                # text or a tool call separately stops the TTFAT timer below.
+                is_raw_output_event = bool(
+                    event_type
+                    and (
+                        event_type.startswith("response.output_")
+                        or "reasoning" in event_type
+                        or "function_call" in event_type
+                    )
+                )
+                if is_raw_output_event and not raw_ttfb_emitted:
+                    await self.push_frame(
+                        MetricsFrame(
+                            data=[
+                                RawTTFBMetricsData(
+                                    processor=self.name,
+                                    value=time.monotonic() - raw_t0,
+                                )
+                            ]
+                        )
+                    )
+                    raw_ttfb_emitted = True
 
                 if event_type == "response.output_text.delta":
                     delta = getattr(event, "delta", "")
@@ -393,6 +447,7 @@ class OpenAIResponsesLLMService(OpenAILLMService):
                 if event_type == "response.completed":
                     response = getattr(event, "response", None)
                     if response is not None:
+                        self._remember_completed_response(response)
                         effective_service_tier = getattr(response, "service_tier", None)
                         if effective_service_tier:
                             logger.info(

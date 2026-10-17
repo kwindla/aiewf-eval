@@ -1,0 +1,73 @@
+{
+  "cache": {
+    "maximum_request_prompt_tokens": 20121,
+    "median_warm_cached_input_percent": 98.65923958805622
+  },
+  "complete_conversations": 26,
+  "components": {
+    "instruction_following": {
+      "correct": 741,
+      "error_percent": 17.666666666666668
+    },
+    "kb_grounding": {
+      "correct": 809,
+      "error_percent": 10.11111111111111
+    },
+    "tool_use_correct": {
+      "correct": 772,
+      "error_percent": 14.222222222222221
+    }
+  },
+  "conversations": 30,
+  "fixed_scheduled_turn_denominator": 900,
+  "latency": {
+    "raw_ttft_p50_ms": 906.0,
+    "raw_ttft_p95_ms": 1638.0,
+    "reasoning_to_answer_gap_p50_ms": 1002.0,
+    "samples": 797,
+    "scope": "exclude_scripted_turn_0_include_later_scripted_and_recovery",
+    "ttfat_max_ms": 17404.0,
+    "ttfat_p50_ms": 2000.0,
+    "ttfat_p95_ms": 5241.0
+  },
+  "model": "grok-4.6",
+  "pricing": {
+    "as_of": "2026-08-13",
+    "estimated_cost_per_conversation_usd": 0.28562560000000004,
+    "estimated_cost_per_observed_turn_usd": 0.01036126723095526,
+    "estimated_total_usd": 8.568768,
+    "rates_per_million": {
+      "cached_input": 0.5,
+      "input": 2.0,
+      "output": 6.0
+    },
+    "tier": "under_200k_input_tokens_per_request"
+  },
+  "reasoning_effort": "low",
+  "responses": {
+    "end_session": {
+      "missing": 0,
+      "recovery": 0,
+      "scripted": 30
+    },
+    "observed": 827,
+    "recovery": 15,
+    "tool_call_turn_percent": 22.611850060459492,
+    "tool_call_turns": 187
+  },
+  "strict": {
+    "conversation_cluster_bootstrap_95_percent": [
+      70.88888888888889,
+      91.22222222222223
+    ],
+    "correct": 740,
+    "rate_percent": 82.22222222222221
+  },
+  "tokens": {
+    "cache_read_input_tokens": 11983616,
+    "completion_tokens": 128795,
+    "prompt_tokens": 12885711,
+    "thinking_tokens": 93664,
+    "total_tokens": 13014506
+  }
+}
