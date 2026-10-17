@@ -1,0 +1,182 @@
+[
+  {
+    "arm": "vllm_no_mtp",
+    "run_dir": "runs/aiwf_medium_context/20260806T094200_google_gemma-4-31B-it_8b8db844",
+    "summary": {
+      "run_dir": "runs/aiwf_medium_context/20260806T094200_google_gemma-4-31B-it_8b8db844",
+      "runtime_status": "completed",
+      "runtime_valid": true,
+      "rows": 31,
+      "scripted_turns": 30,
+      "latency_turns": 29,
+      "complete": true,
+      "ttfat_p50_ms": 456.0,
+      "ttfat_p95_ms": 549.5999999999999,
+      "ttfat_max_ms": 862.0,
+      "prompt_tokens": 438867,
+      "completion_tokens": 1548,
+      "cache_read_input_tokens": 423072,
+      "thinking_tokens": 0
+    }
+  },
+  {
+    "arm": "sglang_no_mtp",
+    "run_dir": "runs/aiwf_medium_context/20260806T151030_google_gemma-4-31B-it_7cf7fd92",
+    "summary": {
+      "run_dir": "runs/aiwf_medium_context/20260806T151030_google_gemma-4-31B-it_7cf7fd92",
+      "runtime_status": "completed",
+      "runtime_valid": true,
+      "rows": 33,
+      "scripted_turns": 30,
+      "latency_turns": 29,
+      "complete": true,
+      "ttfat_p50_ms": 497.0,
+      "ttfat_p95_ms": 697.9999999999998,
+      "ttfat_max_ms": 1795.0,
+      "prompt_tokens": 470540,
+      "completion_tokens": 1725,
+      "cache_read_input_tokens": 454916,
+      "thinking_tokens": 0
+    }
+  },
+  {
+    "arm": "sglang_mtp",
+    "run_dir": "runs/aiwf_medium_context/20260806T151030_google_gemma-4-31B-it_5fc8deb6",
+    "summary": {
+      "run_dir": "runs/aiwf_medium_context/20260806T151030_google_gemma-4-31B-it_5fc8deb6",
+      "runtime_status": "completed",
+      "runtime_valid": true,
+      "rows": 30,
+      "scripted_turns": 30,
+      "latency_turns": 29,
+      "complete": true,
+      "ttfat_p50_ms": 435.0,
+      "ttfat_p95_ms": 530.0,
+      "ttfat_max_ms": 567.0,
+      "prompt_tokens": 425210,
+      "completion_tokens": 1574,
+      "cache_read_input_tokens": 409753,
+      "thinking_tokens": 0
+    }
+  },
+  {
+    "arm": "sglang_no_mtp",
+    "run_dir": "runs/aiwf_medium_context/20260806T151125_google_gemma-4-31B-it_6ddd2084",
+    "summary": {
+      "run_dir": "runs/aiwf_medium_context/20260806T151125_google_gemma-4-31B-it_6ddd2084",
+      "runtime_status": "completed",
+      "runtime_valid": true,
+      "rows": 31,
+      "scripted_turns": 30,
+      "latency_turns": 29,
+      "complete": true,
+      "ttfat_p50_ms": 488.0,
+      "ttfat_p95_ms": 650.4000000000001,
+      "ttfat_max_ms": 2731.0,
+      "prompt_tokens": 439080,
+      "completion_tokens": 1557,
+      "cache_read_input_tokens": 436691,
+      "thinking_tokens": 0
+    }
+  },
+  {
+    "arm": "sglang_mtp",
+    "run_dir": "runs/aiwf_medium_context/20260806T151125_google_gemma-4-31B-it_a03d22d0",
+    "summary": {
+      "run_dir": "runs/aiwf_medium_context/20260806T151125_google_gemma-4-31B-it_a03d22d0",
+      "runtime_status": "completed",
+      "runtime_valid": true,
+      "rows": 30,
+      "scripted_turns": 30,
+      "latency_turns": 29,
+      "complete": true,
+      "ttfat_p50_ms": 415.0,
+      "ttfat_p95_ms": 512.6,
+      "ttfat_max_ms": 538.0,
+      "prompt_tokens": 423439,
+      "completion_tokens": 1466,
+      "cache_read_input_tokens": 421119,
+      "thinking_tokens": 0
+    }
+  },
+  {
+    "arm": "sglang_no_mtp",
+    "run_dir": "runs/aiwf_medium_context/20260806T151212_google_gemma-4-31B-it_d795eafc",
+    "summary": {
+      "run_dir": "runs/aiwf_medium_context/20260806T151212_google_gemma-4-31B-it_d795eafc",
+      "runtime_status": "completed",
+      "runtime_valid": true,
+      "rows": 31,
+      "scripted_turns": 30,
+      "latency_turns": 29,
+      "complete": true,
+      "ttfat_p50_ms": 493.0,
+      "ttfat_p95_ms": 619.5999999999999,
+      "ttfat_max_ms": 646.0,
+      "prompt_tokens": 440070,
+      "completion_tokens": 1601,
+      "cache_read_input_tokens": 437631,
+      "thinking_tokens": 0
+    }
+  },
+  {
+    "arm": "sglang_mtp",
+    "run_dir": "runs/aiwf_medium_context/20260806T151212_google_gemma-4-31B-it_b1af6ece",
+    "summary": {
+      "run_dir": "runs/aiwf_medium_context/20260806T151212_google_gemma-4-31B-it_b1af6ece",
+      "runtime_status": "completed",
+      "runtime_valid": true,
+      "rows": 30,
+      "scripted_turns": 30,
+      "latency_turns": 29,
+      "complete": true,
+      "ttfat_p50_ms": 418.0,
+      "ttfat_p95_ms": 517.1999999999999,
+      "ttfat_max_ms": 527.0,
+      "prompt_tokens": 424720,
+      "completion_tokens": 1540,
+      "cache_read_input_tokens": 422339,
+      "thinking_tokens": 0
+    }
+  },
+  {
+    "arm": "vllm_no_mtp",
+    "run_dir": "runs/aiwf_medium_context/20260806T152309_google_gemma-4-31B-it_8c49404e",
+    "summary": {
+      "run_dir": "runs/aiwf_medium_context/20260806T152309_google_gemma-4-31B-it_8c49404e",
+      "runtime_status": "completed",
+      "runtime_valid": true,
+      "rows": 31,
+      "scripted_turns": 30,
+      "latency_turns": 29,
+      "complete": true,
+      "ttfat_p50_ms": 420.0,
+      "ttfat_p95_ms": 555.5999999999999,
+      "ttfat_max_ms": 968.0,
+      "prompt_tokens": 438867,
+      "completion_tokens": 1548,
+      "cache_read_input_tokens": 423072,
+      "thinking_tokens": 0
+    }
+  },
+  {
+    "arm": "vllm_no_mtp",
+    "run_dir": "runs/aiwf_medium_context/20260806T152348_google_gemma-4-31B-it_c2f912e1",
+    "summary": {
+      "run_dir": "runs/aiwf_medium_context/20260806T152348_google_gemma-4-31B-it_c2f912e1",
+      "runtime_status": "completed",
+      "runtime_valid": true,
+      "rows": 31,
+      "scripted_turns": 30,
+      "latency_turns": 29,
+      "complete": true,
+      "ttfat_p50_ms": 408.0,
+      "ttfat_p95_ms": 519.1999999999999,
+      "ttfat_max_ms": 578.0,
+      "prompt_tokens": 440384,
+      "completion_tokens": 1607,
+      "cache_read_input_tokens": 437408,
+      "thinking_tokens": 0
+    }
+  }
+]

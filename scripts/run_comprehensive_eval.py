@@ -6,6 +6,8 @@ Usage:
     uv run python scripts/run_comprehensive_eval.py --model gpt-realtime --service openai-realtime --runs 10 --benchmark aiwf_medium_context
 """
 
+from multi_turn_eval.latency_reporting import include_response_latency
+
 import argparse
 import asyncio
 import json
@@ -160,6 +162,8 @@ def load_ttfb_from_transcript(run_dir: Path) -> list[float]:
     with transcript_path.open() as f:
         for line in f:
             record = json.loads(line)
+            if not include_response_latency(int(record.get("turn", -1)), recovery=bool(record.get("recovery_turn"))):
+                continue
             ttfb_ms = record.get("ttfb_ms")
             if ttfb_ms is not None:
                 ttfb_values.append(ttfb_ms)

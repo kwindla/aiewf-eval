@@ -68,8 +68,8 @@ by default and the vLLM control does not require it.
 
 The selected SGLang + MTP configuration completed 150/150 valid, 30-turn
 conversations. It scored 4,346/4,500 strict-correct turns, or 96.58%, with a
-conversation-cluster bootstrap 95% CI of 96.13–97.02%. Pooled TTFAT was 490ms
-P50 and 718ms P95. The extension also exposed intermittent serving tails: 27
+conversation-cluster bootstrap 95% CI of 96.13–97.02%. Excluding each conversation’s first response, pooled TTFAT was 489ms
+P50 and 609ms P95. The extension also exposed intermittent serving tails: 27
 of its 3,600 turns exceeded ten seconds.
 
 The frozen campaign, audit, and reproducible analysis are in

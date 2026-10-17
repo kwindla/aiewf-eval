@@ -18,12 +18,12 @@ def test_current_readme_rows_are_ranked_by_pass_rate_then_p50():
     rows = chart.load_rows(chart.DEFAULT_README)
     keys = [(-row.pass_rate, row.p50_ms, row.model) for row in rows]
     assert keys == sorted(keys)
-    assert len(rows) == 47  # +glm-5.3 (low reasoning), 2026-08-19
+    assert len(rows) == 49
     assert [row.model for row in rows[:4]] == [
         "nemotron-3-ultra (128)",
+        "gemini-3.7-flash (low)",
         "claude-sonnet-4-6",
         "claude-fable-5 (low)",
-        "claude-fable-5 (default)",
     ]
     historical_nemotron_rows = [
         row for row in rows if row.model.startswith("nemotron-3-")

@@ -33,13 +33,14 @@ for diagnosis but are excluded from the fixed 900-turn judge and timing cohort.
 
 TTFT is Pipecat `raw_ttfb_ms`, the first streamed reasoning token. TTFAT is
 Pipecat `ttfb_ms`, the first answer-text or tool-call event. The table uses only
-the 900 scripted turns and excludes recovery responses.
+scripted turns 1–29 and excludes recovery responses and each conversation’s
+first scripted response.
 
 | Metric | P50 | P95 | Max |
 |---|---:|---:|---:|
-| TTFT | 178 ms | 291 ms | 4,741 ms |
-| TTFAT | 232 ms | 6,488 ms | 11,586 ms |
-| Full response latency | 832 ms | 7,576 ms | 13,019 ms |
+| TTFT | 176 ms | 271 ms | 333 ms |
+| TTFAT | 229 ms | 5,957 ms | 11,586 ms |
+| Full response latency | 806 ms | 6,914 ms | 13,019 ms |
 
 On turn 0 of each conversation, TTFT was 598 ms P50 / 625 ms P95 and TTFAT was
 4,533 ms P50 / 8,652 ms P95. The first cold run accounts for the 4,741 ms
@@ -47,7 +48,7 @@ maximum turn-0 TTFT.
 
 Compared with the earlier capped N=25 run, TTFT is essentially identical
 (178/292 ms P50/P95 previously). TTFAT P50 is also unchanged (231 ms
-previously), while TTFAT P95 increased from 5,791 ms to 6,488 ms, exposing more
+previously), while v2 TTFAT P95 is 5,957 ms (the earlier 5,791 ms included first responses), exposing more
 of the native high-strength reasoning tail.
 
 ## Serving

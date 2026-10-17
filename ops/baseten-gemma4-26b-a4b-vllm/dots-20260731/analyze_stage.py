@@ -10,6 +10,8 @@ named. It never invokes Claude, BaseTen, or the collection driver.
 
 from __future__ import annotations
 
+from multi_turn_eval.latency_reporting import include_response_latency
+
 import argparse
 import csv
 import fcntl
@@ -226,6 +228,7 @@ def build_conversation(entry: dict[str, Any]) -> dict[str, Any]:
     latencies = [
         float(row["ttfb_ms"])
         for row in scheduled
+        if include_response_latency(int(row["turn"]))
         if isinstance(row.get("ttfb_ms"), (int, float))
         and not isinstance(row.get("ttfb_ms"), bool)
         and math.isfinite(float(row["ttfb_ms"]))
@@ -588,6 +591,7 @@ def analyze(
         "method": {
             "fixed_denominator": True,
             "missing_future_turns_fail_all_displayed_accuracy_criteria": True,
+            "latency_excludes_first_scripted_turn_per_conversation": True,
             "arm_interval_unit": "whole conversation",
             "effect_interval_unit": "frozen temporal pair",
             "effect_bootstrap_design": "paired bootstrap",
@@ -625,6 +629,7 @@ def render_markdown(result: dict[str, Any]) -> str:
         "",
         "Every conversation contributes 30 scheduled turns. Missing future turns are errors. "
         "Arm intervals resample whole conversations; effect intervals resample the frozen temporal pairs.",
+        "TTFAT excludes each conversation's first scripted response.",
         "",
         "| arm | conversations | strict pass | whole-conversation 95% CI | strict completion | observed / fixed turns | TTFAT P50 / P95 |",
         "|---|---:|---:|---:|---:|---:|---:|",

@@ -31,9 +31,11 @@ pooled report only after both final extension validations succeed:
 
 | Configuration | Strict pass | Whole-conversation bootstrap 95% CI | TTFAT P50/P95 |
 |---|---:|---:|---:|
-| BaseTen BF16 weights/KV + MTP | 4346/4500 (96.58%) | 96.13–97.02% | 490/718ms |
-| Local NVFP4 + FP8 KV | 4297/4500 (95.49%) | 94.96–96.00% | 105/309ms |
-| Local NVFP4 + BF16 KV | 4327/4500 (96.16%) | 95.62–96.64% | 128/336ms |
+| BaseTen BF16 weights/KV + MTP | 4346/4500 (96.58%) | 96.13–97.02% | 489/609ms |
+| Local NVFP4 + FP8 KV | 4297/4500 (95.49%) | 94.96–96.00% | 105/290ms |
+| Local NVFP4 + BF16 KV | 4327/4500 (96.16%) | 95.62–96.64% | 127/318ms |
+
+Latency excludes each conversation’s first scripted response.
 
 Local BF16 minus FP8 KV is +0.67 percentage points (independent
 whole-conversation bootstrap 95% CI -0.07 to +1.40). The estimate favors BF16,

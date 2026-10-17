@@ -45,13 +45,12 @@ from multi_turn_eval.services.filler import apply_filler_to_last_user
 def is_qwen_reasoning_history_model(model: str | None) -> bool:
     """Return whether *model* needs Qwen thinking preserved across tool calls.
 
-    The deployed 27B model has appeared under both ``Qwen3.5`` and ``Qwen3.6``
-    labels in run infrastructure. Keep the compatibility gate narrow to those
-    generations instead of changing every model routed through vllm-openai.
+    Keep the compatibility gate narrow to Qwen3.5, Qwen3.6, and Qwen3.8
+    instead of changing every model routed through vllm-openai.
     """
 
     compact = "".join(ch for ch in (model or "").lower() if ch.isalnum())
-    return "qwen35" in compact or "qwen36" in compact
+    return "qwen35" in compact or "qwen36" in compact or "qwen38" in compact
 
 
 class QwenReasoningAssistantAggregator(LLMAssistantAggregator):

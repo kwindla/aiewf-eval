@@ -81,11 +81,12 @@ htmlcov/
 /ops/local-gemma4-31b-nvfp4-sglang/targeted-turn-kv-study-20260807/balanced-origin-followup-20260808/results/*.jsonl
 /ops/local-gemma4-31b-nvfp4-sglang/targeted-turn-kv-study-20260807/balanced-origin-followup-20260808/results/*.plan.json
 /ops/local-gemma4-31b-nvfp4-sglang/targeted-turn-kv-study-20260807/balanced-origin-followup-20260808/results/token-manifest-*.json
-/docs/nemotron-super-modal-optimization-data/bf16-030326-mtp-only/checkpoint-metadata/
 /docs/filler-study-data/turn-family-secondary-2026-07-22/analyze.out
 /docs/gemini-3.1-live-thinking-levels-temp.md
 /docs/open-weights-latency-vs-passrate.png
 /docs/open-weights-latency-vs-passrate-v2.png
+/docs/open-weights-latency-vs-passrate-v3.png
+/docs/all-text-models-latency-vs-passrate.png
 /docs/Untitled-1
 /docs/run-notes.txt
 /eval_output.json

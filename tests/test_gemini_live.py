@@ -1,6 +1,7 @@
 """Focused coverage for the current Gemini Live model and turn gating."""
 
 import asyncio
+from unittest.mock import AsyncMock
 import json
 from types import SimpleNamespace
 
@@ -60,13 +61,16 @@ def _async_live_pipeline() -> RealtimePipeline:
 
 
 @pytest.mark.parametrize(
-    ("model", "requires_interaction_status"),
+    ("model", "default_thinking_mode", "requires_interaction_status"),
     [
-        ("clever-chatter", True),
-        ("walkie-talkie", False),
+        ("clever-chatter", "minimal", True),
+        ("gemini-3.8-live-extended-thinking", "low", True),
+        ("walkie-talkie", "minimal", False),
     ],
 )
-def test_opaque_live_model_capability_overrides(model, requires_interaction_status):
+def test_opaque_live_model_capability_overrides(
+    model, default_thinking_mode, requires_interaction_status
+):
     capabilities = get_model_capabilities(model)
 
     assert capabilities.realtime is True
@@ -74,9 +78,22 @@ def test_opaque_live_model_capability_overrides(model, requires_interaction_stat
     assert capabilities.gemini_3 is True
     assert capabilities.thinking_levels is True
     assert capabilities.allow_turn_replay is False
-    assert capabilities.default_thinking_mode == "minimal"
+    assert capabilities.default_thinking_mode == default_thinking_mode
     assert capabilities.explicit_audio_activity is True
     assert capabilities.requires_interaction_status is requires_interaction_status
+
+
+def test_gemini38_live_ga_capability_defaults():
+    capabilities = get_model_capabilities("gemini-3.8-live")
+
+    assert capabilities.realtime is True
+    assert capabilities.gemini_live is True
+    assert capabilities.gemini_3 is True
+    assert capabilities.thinking_levels is False
+    assert capabilities.allow_turn_replay is False
+    assert capabilities.default_thinking_mode == "default"
+    assert capabilities.explicit_audio_activity is True
+    assert capabilities.requires_interaction_status is False
 
 
 def test_opaque_live_model_pipeline_uses_capability_defaults():
@@ -132,6 +149,56 @@ def test_gemini31_live_rejects_thinking_disabled(monkeypatch):
 
     with pytest.raises(ValueError, match="does not support thinking_budget=0"):
         pipeline._create_llm(GeminiLiveLLMServiceWithReconnection, MODEL)
+
+
+def test_gemini38_live_uses_provider_default_thinking(monkeypatch):
+    monkeypatch.setenv("GOOGLE_API_KEY", "test-google-key")
+    monkeypatch.delenv("MTE_GOOGLE_THINKING_MODE", raising=False)
+
+    service = _pipeline("gemini-3.8-live")._create_llm(
+        GeminiLiveLLMServiceWithReconnection,
+        "gemini-3.8-live",
+    )
+
+    assert service._settings.thinking == {}
+
+
+def test_gemini38_extended_defaults_to_low_thinking(monkeypatch):
+    monkeypatch.setenv("GOOGLE_API_KEY", "test-google-key")
+    monkeypatch.delenv("MTE_GOOGLE_THINKING_MODE", raising=False)
+
+    service = _pipeline("gemini-3.8-live-extended-thinking")._create_llm(
+        GeminiLiveLLMServiceWithReconnection,
+        "gemini-3.8-live-extended-thinking",
+    )
+
+    assert service._settings.thinking.thinking_level == genai_types.ThinkingLevel.LOW
+    assert service._settings.thinking.include_thoughts is False
+
+
+def test_initial_context_setup_reconnect_does_not_notify_runtime_guard(monkeypatch):
+    events = []
+
+    async def parent_reconnect(_service):
+        events.append("parent")
+
+    async def scenario():
+        monkeypatch.setenv("GOOGLE_API_KEY", "test-google-key")
+        monkeypatch.setattr(GeminiLiveLLMService, "_reconnect", parent_reconnect)
+        service = _pipeline("gemini-3.8-live")._create_llm(
+            GeminiLiveLLMServiceWithReconnection,
+            "gemini-3.8-live",
+        )
+        service._session = object()
+        service._ready_for_realtime_input = False
+        service._on_reconnecting = lambda: events.append("reconnecting")
+        service._on_reconnected = lambda: events.append("reconnected")
+
+        await service._reconnect()
+
+    asyncio.run(scenario())
+
+    assert events == ["parent"]
 
 
 def test_explicit_behavior_configures_opaque_async_gemini_live_model(monkeypatch):
@@ -460,6 +527,66 @@ def test_turn_gate_merges_consecutive_transcript_segments():
 
     asyncio.run(scenario())
     assert completed == ["Workshop day is on Tuesday."]
+
+
+def test_turn_gate_keeps_transcript_when_delay_is_cancelled_before_start():
+    completed = []
+
+    async def scenario():
+        async def on_turn_ready(text):
+            completed.append(text)
+
+        gate = TurnGate(on_turn_ready=on_turn_ready, audio_drain_delay=0)
+        gate.set_pending_transcript("First segment.")
+        # No yield: cancellation happens before the delay coroutine starts.
+        await gate.process_frame(BotStartedSpeakingFrame(), FrameDirection.DOWNSTREAM)
+        gate.set_pending_transcript("Second segment.")
+        await gate.process_frame(BotStoppedSpeakingFrame(), FrameDirection.DOWNSTREAM)
+        await gate._turn_end_task
+
+    asyncio.run(scenario())
+    assert completed == ["First segment. Second segment."]
+
+
+def test_turn_gate_clear_does_not_resurrect_cancelled_transcript():
+    async def scenario():
+        gate = TurnGate(on_turn_ready=AsyncMock(), audio_drain_delay=60)
+        gate.set_pending_transcript("stale greeting")
+        await asyncio.sleep(0)
+        gate.clear_pending()
+        await asyncio.sleep(0)
+        assert gate._pending_transcript is None
+
+    asyncio.run(scenario())
+
+
+def test_turn_gate_waits_for_post_tool_response_before_next_user_turn():
+    from pipecat.frames.frames import FunctionCallInProgressFrame, LLMFullResponseStartFrame, LLMFullResponseEndFrame, TTSStartedFrame, TTSStoppedFrame
+
+    async def scenario():
+        callback = AsyncMock()
+        gate = TurnGate(on_turn_ready=callback, audio_drain_delay=0,
+                        require_terminal_signal=True, wait_for_tool_followup=True)
+        gate._bot_speaking = True
+        gate.set_pending_transcript("I'll submit that.")
+        await gate.process_frame(TTSStoppedFrame(), FrameDirection.DOWNSTREAM)
+        await gate.process_frame(FunctionCallInProgressFrame('submit_session_suggestion', 'c1', {}), FrameDirection.DOWNSTREAM)
+        await gate.process_frame(LLMFullResponseEndFrame(), FrameDirection.DOWNSTREAM)
+        await gate.process_frame(BotStoppedSpeakingFrame(), FrameDirection.DOWNSTREAM)
+        await asyncio.sleep(0)
+        callback.assert_not_awaited()
+        assert gate._pending_transcript == "I'll submit that."
+        await gate.process_frame(TTSStartedFrame(), FrameDirection.DOWNSTREAM)
+        await gate.process_frame(LLMFullResponseStartFrame(), FrameDirection.DOWNSTREAM)
+        await gate.process_frame(BotStartedSpeakingFrame(), FrameDirection.DOWNSTREAM)
+        gate.set_pending_transcript("Your suggestion is submitted.")
+        await gate.process_frame(TTSStoppedFrame(), FrameDirection.DOWNSTREAM)
+        await gate.process_frame(LLMFullResponseEndFrame(), FrameDirection.DOWNSTREAM)
+        await gate.process_frame(BotStoppedSpeakingFrame(), FrameDirection.DOWNSTREAM)
+        await gate._turn_end_task
+        callback.assert_awaited_once_with("I'll submit that. Your suggestion is submitted.")
+
+    asyncio.run(scenario())
 
 
 def test_assistant_transcript_flushes_when_playback_stops_without_turn_complete():

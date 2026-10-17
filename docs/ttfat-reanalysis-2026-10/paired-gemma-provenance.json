@@ -1,0 +1,210 @@
+{
+  "capture_sources": [
+    {
+      "path": "ops/baseten-gemma4-26b-a4b-vllm/dots-20260731/configuration.json",
+      "sha256": "26beb44573ea9908cec5d91170e792998f1599757c6953dc9e3ab2629d2ce8c1",
+      "commit": "ddcdb979f14e09a18cd6b8a06283f8440e429fe9"
+    },
+    {
+      "path": "ops/baseten-gemma4-26b-a4b-vllm/dots-20260731/frozen-order.tsv",
+      "sha256": "f69b8377029a5d499f45dccb3138ee10a4818e67339ea02fa9f3a835cdffa105",
+      "commit": "ddcdb979f14e09a18cd6b8a06283f8440e429fe9"
+    },
+    {
+      "path": "ops/baseten-gemma4-26b-a4b-vllm/dots-20260731/protocol.md",
+      "sha256": "0263e8fee9d40a4eb8336c89aee531fba52c7274f910119de34db838fb11280e",
+      "commit": "ddcdb979f14e09a18cd6b8a06283f8440e429fe9"
+    },
+    {
+      "path": "ops/baseten-gemma4-26b-a4b-vllm/dots-20260731/promotion-decision.example.json",
+      "sha256": "d52570fdd04d63148e1c7fc04b07597e4615e149a4fc45bafbc0d805ba5954c5",
+      "commit": "ddcdb979f14e09a18cd6b8a06283f8440e429fe9"
+    },
+    {
+      "path": "ops/baseten-gemma4-26b-a4b-vllm/dots-20260731/collect.py",
+      "sha256": "705d14eb959c0ac0dbdb249c9fd5a4c9f24033d0a2e6ea81738e0c172c46a02b",
+      "commit": "ddcdb979f14e09a18cd6b8a06283f8440e429fe9"
+    },
+    {
+      "path": "ops/baseten-gemma4-26b-a4b-vllm/dots-20260731/judge_stage.py",
+      "sha256": "91271af08648f52a733276a609bd1a8b50a26781d505aeb4e702ec902164fe6d",
+      "commit": "ddcdb979f14e09a18cd6b8a06283f8440e429fe9"
+    },
+    {
+      "path": "ops/baseten-gemma4-26b-a4b-vllm/dots-20260731/analyze_stage.py",
+      "sha256": "87e6ab09e030948203b10dfe5334cdd25f95093ac87bfe55c0995bee5ab79593",
+      "commit": "ddcdb979f14e09a18cd6b8a06283f8440e429fe9"
+    },
+    {
+      "path": "ops/baseten-gemma4-26b-a4b-vllm/dots-20260731/test_bundle.py",
+      "sha256": "e03c3ed2f919dba6decd2ba0dc63ffa2ee6a90aba943814dc2b956f093626231",
+      "commit": "ddcdb979f14e09a18cd6b8a06283f8440e429fe9"
+    },
+    {
+      "path": "ops/baseten-gemma4-26b-a4b-vllm/configuration.json",
+      "sha256": "9558352264e1fe8f7834ecba8ef58132b3a728e8268b9ca8a9bcac7c4780fca8",
+      "commit": "3820bdf19f2520da1ecd5f093da5d5ed2c30584c"
+    },
+    {
+      "path": "src/multi_turn_eval/cli.py",
+      "sha256": "07d10fbbfc0bee5a4b2f22a9dfe2e79c5188e2f2bedf43e81a32e1cdbb84754c",
+      "commit": "59d0a8d872b6cbf84e984edc9da7012409dbbfc3"
+    },
+    {
+      "path": "src/multi_turn_eval/pipelines/base.py",
+      "sha256": "f959a874df6ba0d94c83dd5e93ae72ca5fc7239c2f4c0f2b3797a3c7a7e4e02a",
+      "commit": "59d0a8d872b6cbf84e984edc9da7012409dbbfc3"
+    },
+    {
+      "path": "src/multi_turn_eval/pipelines/text.py",
+      "sha256": "8b407041aad365313bb61c77db1ca57dde6f7c36df284d9e6811a5386006f9b2",
+      "commit": "59d0a8d872b6cbf84e984edc9da7012409dbbfc3"
+    },
+    {
+      "path": "src/multi_turn_eval/services/vllm_openai.py",
+      "sha256": "f1acf503c004f57af1bdbacc1ee4cf182c946222168ed73faf4da14eea5d8afd",
+      "commit": "59d0a8d872b6cbf84e984edc9da7012409dbbfc3"
+    },
+    {
+      "path": "src/multi_turn_eval/services/filler.py",
+      "sha256": "d0d3ea02d69797c56e7d1395b752b04d132f003b3148b3d8e847f69067bf0d15",
+      "commit": "59d0a8d872b6cbf84e984edc9da7012409dbbfc3"
+    },
+    {
+      "path": "benchmarks/aiwf_medium_context/config.py",
+      "sha256": "ebab4cc8f8465a844adc0c9542ef60e16400fdd5528b91eceed042486560e164",
+      "commit": "cc4d45c292ea3ab0b15079abb18577c82358bbb6"
+    },
+    {
+      "path": "benchmarks/aiwf_medium_context/prompts/system.py",
+      "sha256": "6003f0f482c757a9bec6ed01e2993c7192112984e2037cf79d830bd46d76e9a6",
+      "commit": "cc4d45c292ea3ab0b15079abb18577c82358bbb6"
+    },
+    {
+      "path": "benchmarks/_shared/turns.py",
+      "sha256": "c88da69f8ade0e04e943b7493629ff96481d2779c001be7f77f0de82fbdc456b",
+      "commit": "cc4d45c292ea3ab0b15079abb18577c82358bbb6"
+    },
+    {
+      "path": "src/multi_turn_eval/model_policy.py",
+      "sha256": "e3bbb32a1a9fc279c928006fe614627cedd70e59f8defbbf2cddd303906f349f",
+      "commit": "59d0a8d872b6cbf84e984edc9da7012409dbbfc3"
+    }
+  ],
+  "judge_sources": [
+    {
+      "path": "ops/baseten-gemma4-26b-a4b-vllm/dots-20260731/judge_stage.py",
+      "sha256": "91271af08648f52a733276a609bd1a8b50a26781d505aeb4e702ec902164fe6d",
+      "commit": "ddcdb979f14e09a18cd6b8a06283f8440e429fe9"
+    },
+    {
+      "path": "ops/baseten-gemma4-26b-a4b-vllm/dots-20260731/configuration.json",
+      "sha256": "26beb44573ea9908cec5d91170e792998f1599757c6953dc9e3ab2629d2ce8c1",
+      "commit": "ddcdb979f14e09a18cd6b8a06283f8440e429fe9"
+    },
+    {
+      "path": "ops/baseten-gemma4-26b-a4b-vllm/dots-20260731/frozen-order.tsv",
+      "sha256": "f69b8377029a5d499f45dccb3138ee10a4818e67339ea02fa9f3a835cdffa105",
+      "commit": "ddcdb979f14e09a18cd6b8a06283f8440e429fe9"
+    },
+    {
+      "path": "ops/baseten-gemma4-26b-a4b-vllm/dots-20260731/protocol.md",
+      "sha256": "0263e8fee9d40a4eb8336c89aee531fba52c7274f910119de34db838fb11280e",
+      "commit": "ddcdb979f14e09a18cd6b8a06283f8440e429fe9"
+    },
+    {
+      "path": "ops/baseten-gemma4-26b-a4b-vllm/dots-20260731/collect.py",
+      "sha256": "705d14eb959c0ac0dbdb249c9fd5a4c9f24033d0a2e6ea81738e0c172c46a02b",
+      "commit": "ddcdb979f14e09a18cd6b8a06283f8440e429fe9"
+    },
+    {
+      "path": "src/multi_turn_eval/cli.py",
+      "sha256": "07d10fbbfc0bee5a4b2f22a9dfe2e79c5188e2f2bedf43e81a32e1cdbb84754c",
+      "commit": "59d0a8d872b6cbf84e984edc9da7012409dbbfc3"
+    },
+    {
+      "path": "src/multi_turn_eval/judging/claude_judge.py",
+      "sha256": "3f5d2372959d7e9a30f6e426742cc9cb8ff662227c4769c3c8090bd5e5776e18",
+      "commit": "3c19c13bccaa60dde2728834e5e15e833538baa6"
+    },
+    {
+      "path": "benchmarks/aiwf_medium_context/config.py",
+      "sha256": "ebab4cc8f8465a844adc0c9542ef60e16400fdd5528b91eceed042486560e164",
+      "commit": "cc4d45c292ea3ab0b15079abb18577c82358bbb6"
+    },
+    {
+      "path": "benchmarks/aiwf_medium_context/prompts/system.py",
+      "sha256": "6003f0f482c757a9bec6ed01e2993c7192112984e2037cf79d830bd46d76e9a6",
+      "commit": "cc4d45c292ea3ab0b15079abb18577c82358bbb6"
+    },
+    {
+      "path": "benchmarks/_shared/turns.py",
+      "sha256": "c88da69f8ade0e04e943b7493629ff96481d2779c001be7f77f0de82fbdc456b",
+      "commit": "cc4d45c292ea3ab0b15079abb18577c82358bbb6"
+    }
+  ],
+  "executed_analyzer": "ops/baseten-gemma4-26b-a4b-vllm/dots-20260731/analyze_stage.py",
+  "executed_sha256": "30a74f3e5bafa972810693683d27e57ca5a03b64a6c3c42895fe10ec2e6e9952",
+  "included_run_ids": [
+    "runs/aiwf_medium_context/20260731T120004_google_gemma-4-26B-A4B-it_89e40303",
+    "runs/aiwf_medium_context/20260731T120037_google_gemma-4-26B-A4B-it_df1f6419",
+    "runs/aiwf_medium_context/20260731T120109_google_gemma-4-26B-A4B-it_5fa51d3e",
+    "runs/aiwf_medium_context/20260731T120140_google_gemma-4-26B-A4B-it_5ceeac15",
+    "runs/aiwf_medium_context/20260731T120209_google_gemma-4-26B-A4B-it_f574d465",
+    "runs/aiwf_medium_context/20260731T120238_google_gemma-4-26B-A4B-it_275630cd",
+    "runs/aiwf_medium_context/20260731T120310_google_gemma-4-26B-A4B-it_6f12ed61",
+    "runs/aiwf_medium_context/20260731T120339_google_gemma-4-26B-A4B-it_17cf23f0",
+    "runs/aiwf_medium_context/20260731T120408_google_gemma-4-26B-A4B-it_0faf94d3",
+    "runs/aiwf_medium_context/20260731T120437_google_gemma-4-26B-A4B-it_3b88411d",
+    "runs/aiwf_medium_context/20260731T120506_google_gemma-4-26B-A4B-it_bbdf05c5",
+    "runs/aiwf_medium_context/20260731T120642_google_gemma-4-26B-A4B-it_350445ca",
+    "runs/aiwf_medium_context/20260731T120712_google_gemma-4-26B-A4B-it_ec436797",
+    "runs/aiwf_medium_context/20260731T120740_google_gemma-4-26B-A4B-it_37bb5b6a",
+    "runs/aiwf_medium_context/20260731T120811_google_gemma-4-26B-A4B-it_0c27030f",
+    "runs/aiwf_medium_context/20260731T120840_google_gemma-4-26B-A4B-it_755ce6fd",
+    "runs/aiwf_medium_context/20260731T120911_google_gemma-4-26B-A4B-it_882c02ef",
+    "runs/aiwf_medium_context/20260731T120940_google_gemma-4-26B-A4B-it_008911fc",
+    "runs/aiwf_medium_context/20260731T121009_google_gemma-4-26B-A4B-it_9118e514",
+    "runs/aiwf_medium_context/20260731T121038_google_gemma-4-26B-A4B-it_6d468433",
+    "runs/aiwf_medium_context/20260803T181322_google_gemma-4-26B-A4B-it_981e7e2f",
+    "runs/aiwf_medium_context/20260803T181411_google_gemma-4-26B-A4B-it_ee339bf6",
+    "runs/aiwf_medium_context/20260803T181521_google_gemma-4-26B-A4B-it_f3bd6fd8",
+    "runs/aiwf_medium_context/20260803T181557_google_gemma-4-26B-A4B-it_ba74d7a9",
+    "runs/aiwf_medium_context/20260803T181646_google_gemma-4-26B-A4B-it_9f0172b7",
+    "runs/aiwf_medium_context/20260803T181745_google_gemma-4-26B-A4B-it_ce59d5b8",
+    "runs/aiwf_medium_context/20260803T181829_google_gemma-4-26B-A4B-it_62fa6805",
+    "runs/aiwf_medium_context/20260803T181918_google_gemma-4-26B-A4B-it_27577d9c",
+    "runs/aiwf_medium_context/20260803T181947_google_gemma-4-26B-A4B-it_9fcfab4e",
+    "runs/aiwf_medium_context/20260803T182018_google_gemma-4-26B-A4B-it_d3b4f40a",
+    "runs/aiwf_medium_context/20260803T182054_google_gemma-4-26B-A4B-it_490cf9a8",
+    "runs/aiwf_medium_context/20260803T182125_google_gemma-4-26B-A4B-it_d630d3d9",
+    "runs/aiwf_medium_context/20260803T182259_google_gemma-4-26B-A4B-it_3c9766ed",
+    "runs/aiwf_medium_context/20260803T182332_google_gemma-4-26B-A4B-it_fb29f3e1",
+    "runs/aiwf_medium_context/20260803T182404_google_gemma-4-26B-A4B-it_9506a9b3",
+    "runs/aiwf_medium_context/20260803T182441_google_gemma-4-26B-A4B-it_1a24c375",
+    "runs/aiwf_medium_context/20260803T182605_google_gemma-4-26B-A4B-it_11c5d0e4",
+    "runs/aiwf_medium_context/20260803T182655_google_gemma-4-26B-A4B-it_2dc0b154",
+    "runs/aiwf_medium_context/20260803T182725_google_gemma-4-26B-A4B-it_983edadf",
+    "runs/aiwf_medium_context/20260803T182754_google_gemma-4-26B-A4B-it_984bd976",
+    "runs/aiwf_medium_context/20260803T182823_google_gemma-4-26B-A4B-it_228cc534",
+    "runs/aiwf_medium_context/20260803T182853_google_gemma-4-26B-A4B-it_34b7d0bb",
+    "runs/aiwf_medium_context/20260803T182932_google_gemma-4-26B-A4B-it_7936d00b",
+    "runs/aiwf_medium_context/20260803T183021_google_gemma-4-26B-A4B-it_b57f35ef",
+    "runs/aiwf_medium_context/20260803T183119_google_gemma-4-26B-A4B-it_9d6e8575",
+    "runs/aiwf_medium_context/20260803T183147_google_gemma-4-26B-A4B-it_a1c0476c",
+    "runs/aiwf_medium_context/20260803T183218_google_gemma-4-26B-A4B-it_83f0a1f2",
+    "runs/aiwf_medium_context/20260803T183257_google_gemma-4-26B-A4B-it_0cd5c7be",
+    "runs/aiwf_medium_context/20260803T183326_google_gemma-4-26B-A4B-it_abbbf6a1",
+    "runs/aiwf_medium_context/20260803T183338_google_gemma-4-26B-A4B-it_22860f99",
+    "runs/aiwf_medium_context/20260803T183407_google_gemma-4-26B-A4B-it_30fa03a6",
+    "runs/aiwf_medium_context/20260803T183436_google_gemma-4-26B-A4B-it_a50f3807",
+    "runs/aiwf_medium_context/20260803T183505_google_gemma-4-26B-A4B-it_7655fa26",
+    "runs/aiwf_medium_context/20260803T183543_google_gemma-4-26B-A4B-it_7ad799bf",
+    "runs/aiwf_medium_context/20260803T183612_google_gemma-4-26B-A4B-it_85af54bc",
+    "runs/aiwf_medium_context/20260803T183643_google_gemma-4-26B-A4B-it_96c4cf45",
+    "runs/aiwf_medium_context/20260803T183713_google_gemma-4-26B-A4B-it_3f634d93",
+    "runs/aiwf_medium_context/20260803T183743_google_gemma-4-26B-A4B-it_b6eb7345",
+    "runs/aiwf_medium_context/20260803T183812_google_gemma-4-26B-A4B-it_f750e45a",
+    "runs/aiwf_medium_context/20260803T183841_google_gemma-4-26B-A4B-it_82a89ef5"
+  ]
+}

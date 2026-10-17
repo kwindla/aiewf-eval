@@ -1,0 +1,34 @@
+[
+  [
+    "docs/filler-study-data/qwen36-dots-2026-07-28/analyze.py"
+  ],
+  [
+    "ops/baseten-gemma4-26b-a4b-vllm/analysis/analyze.py",
+    "final"
+  ],
+  [
+    "ops/baseten-gemma4-31b-sglang/aiewf-medium-mtp-n150-20260807/analyze.py"
+  ],
+  [
+    "ops/baseten-gemma4-31b-sglang/aiewf-medium-mtp-n30-20260806/analyze.py"
+  ],
+  [
+    "ops/baseten-kimi-k2.6/aiewf-medium-none-n30-20260806/analysis/analyze.py"
+  ],
+  [
+    "ops/baseten-kimi-k2.6/aiewf-medium-thinking-n30-20260806/analysis/analyze.py"
+  ],
+  [
+    "ops/baseten-kimi-k2.6/aiewf-medium-thinking-n30-20260806/analysis/compare_arms.py"
+  ],
+  [
+    "ops/baseten-qwen36-27b-vllm/aiewf-medium-qwen36-baseten-vllm026-apc-mtp-n30-20260728T110824Z/analysis/analyze.py",
+    "final"
+  ],
+  [
+    "ops/local-gemma4-31b-nvfp4-sglang/pooled-n150-analysis-20260807/analyze.py"
+  ],
+  [
+    "ops/local-muse-glimmer-reasoning-sweep-20260811/analyze.py"
+  ]
+]

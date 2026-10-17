@@ -1,11 +1,12 @@
 # Gemma 4 26B A4B +96 dots — full stage
 
 Every conversation contributes 30 scheduled turns. Missing future turns are errors. Arm intervals resample whole conversations; effect intervals resample the frozen temporal pairs.
+TTFAT excludes each conversation's first scripted response.
 
 | arm | conversations | strict pass | whole-conversation 95% CI | strict completion | observed / fixed turns | TTFAT P50 / P95 |
 |---|---:|---:|---:|---:|---:|---:|
-| no filler | 30 | 80.7% | 79.4 to 81.6% | 29/30 (96.7%) | 894 / 900 | 580 / 803 ms |
-| +96 dots | 30 | 79.8% | 76.2 to 82.2% | 29/30 (96.7%) | 882 / 900 | 582 / 812 ms |
+| no filler | 30 | 80.7% | 79.4 to 81.6% | 29/30 (96.7%) | 894 / 900 | 578 / 634 ms |
+| +96 dots | 30 | 79.8% | 76.2 to 82.2% | 29/30 (96.7%) | 882 / 900 | 581 / 639 ms |
 
 Dots minus control strict-pass effect: **-0.9 points** (paired bootstrap 95% CI -4.6 to +1.8).
 

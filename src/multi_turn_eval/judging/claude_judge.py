@@ -17,6 +17,7 @@ Usage via CLI:
 """
 
 import os
+import hashlib
 import sys
 import json
 import argparse
@@ -48,6 +49,58 @@ JUDGE_VERSION = "claude-agent-sdk-v4-turn-taking"
 # noisy measurement rather than a fixed one. Judge repeatedly when comparing
 # models and fold that spread into the interval.
 JUDGE_MODEL = os.getenv("MTE_JUDGE_MODEL", "claude-opus-5")
+
+JUDGE_ROOT_KEYS = frozenset(
+    {
+        "phase1_analysis",
+        "function_call_tracking",
+        "realignment_notes",
+        "final_judgments",
+    }
+)
+
+
+def _is_judge_root(value: Any) -> bool:
+    return (
+        isinstance(value, dict)
+        and frozenset(value) == JUDGE_ROOT_KEYS
+        and isinstance(value["phase1_analysis"], list)
+        and isinstance(value["function_call_tracking"], dict)
+        and isinstance(value["realignment_notes"], str)
+        and isinstance(value["final_judgments"], list)
+    )
+
+
+def extract_judge_result(response_text: str) -> dict[str, Any]:
+    """Return the unique complete JSON object with the exact judge root schema.
+
+    Prose, Markdown fences, BOMs, and unrelated JSON values may surround the
+    result. Selection is structural rather than positional. Zero matching
+    objects and multiple matching objects are both rejected; the latter avoids
+    silently choosing between doubled judge results.
+    """
+
+    if not isinstance(response_text, str):
+        raise TypeError("judge response must be text")
+
+    decoder = json.JSONDecoder()
+    matches: list[dict[str, Any]] = []
+    for start, character in enumerate(response_text):
+        if character != "{":
+            continue
+        try:
+            value, _ = decoder.raw_decode(response_text, start)
+        except json.JSONDecodeError:
+            continue
+        if _is_judge_root(value):
+            matches.append(value)
+
+    if len(matches) != 1:
+        raise ValueError(
+            "expected exactly one complete JSON object with the judge root "
+            f"schema; found {len(matches)}"
+        )
+    return matches[0]
 
 # System prompt for the two-phase judge
 JUDGE_SYSTEM_PROMPT = """# Role
@@ -359,6 +412,8 @@ async def judge_with_claude(
     debug: bool = False,
     expected_turns: Optional[List[Dict[str, Any]]] = None,
     skip_turn_taking: bool = False,
+    judge_model: Optional[str] = None,
+    judge_system_prompt: Optional[str] = None,
 ) -> Dict[str, Any]:
     """Main judging function using two-phase realignment approach.
 
@@ -456,9 +511,11 @@ Remember:
 """
 
     # Configure options - use extended thinking for complex reasoning
+    effective_model = judge_model or JUDGE_MODEL
+    effective_prompt = judge_system_prompt or JUDGE_SYSTEM_PROMPT
     options = ClaudeAgentOptions(
-        system_prompt=JUDGE_SYSTEM_PROMPT,
-        model=JUDGE_MODEL,
+        system_prompt=effective_prompt,
+        model=effective_model,
         permission_mode="bypassPermissions",
     )
 
@@ -479,22 +536,11 @@ Remember:
         print(f"Claude response length: {len(response_text)} chars", file=sys.stderr)
         print(f"First 1000 chars:\n{response_text[:1000]}", file=sys.stderr)
 
-    # Parse the JSON response
-    # Try to find JSON object in the response
-    json_start = response_text.find('{')
-    json_end = response_text.rfind('}') + 1
-
-    if json_start == -1 or json_end == 0:
-        raise ValueError(f"No JSON found in response: {response_text[:500]}")
-
-    json_str = response_text[json_start:json_end]
-
     try:
-        result = json.loads(json_str)
-    except json.JSONDecodeError as e:
+        result = extract_judge_result(response_text)
+    except (TypeError, ValueError) as e:
         if debug:
             print(f"JSON parse error: {e}", file=sys.stderr)
-            print(f"Attempted to parse: {json_str[:500]}...", file=sys.stderr)
         raise ValueError(f"Failed to parse JSON response: {e}")
 
     # Extract final judgments
@@ -552,6 +598,10 @@ Remember:
         "turn_taking_analysis": turn_taking_analysis.to_dict() if turn_taking_analysis else None,
         "summary": f"Evaluated {len(judgments)} turns with realignment.",
         "model_name": model_name,
+        "judge_metadata": {
+            "judge_model": effective_model,
+            "judge_prompt_sha256": hashlib.sha256(effective_prompt.encode()).hexdigest(),
+        },
     }
 
 
@@ -568,6 +618,7 @@ def write_outputs(
     realignment_notes: str = "",
     function_tracking: Optional[Dict[str, Any]] = None,
     turn_taking_analysis: Optional[Dict[str, Any]] = None,
+    judge_metadata: Optional[Dict[str, Any]] = None,
 ) -> None:
     """Write all output files.
 
@@ -653,6 +704,9 @@ def write_outputs(
         "turn_taking_failures": turn_taking_analysis.get("failed_turns", []) if turn_taking_analysis else [],
         "turn_taking_affected_instruction": turn_taking_affected_instruction,
     }
+
+    if judge_metadata:
+        summary_data.update(judge_metadata)
 
     (run_dir / "claude_summary.json").write_text(
         json.dumps(summary_data, indent=2, ensure_ascii=False) + "\n",

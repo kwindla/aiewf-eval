@@ -1,0 +1,3 @@
+# Frozen judge ledgers retain an empty final error column as a trailing tab.
+ops/google-gemini37-flash/judging/results.tsv whitespace=-blank-at-eol
+ops/xai-grok46/judging/results.tsv whitespace=-blank-at-eol

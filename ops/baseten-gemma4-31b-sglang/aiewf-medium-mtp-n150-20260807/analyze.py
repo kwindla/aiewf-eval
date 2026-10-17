@@ -3,6 +3,8 @@
 
 from __future__ import annotations
 
+from multi_turn_eval.latency_reporting import include_response_latency
+
 import csv
 import hashlib
 import json
@@ -138,7 +140,7 @@ def load_conversation(
     strict = [all(scores[name][turn] for name in COMPONENTS) for turn in range(N_TURNS)]
     latencies = [
         float(row["ttfb_ms"])
-        for row in scheduled
+        for row in scheduled if include_response_latency(row["turn"])
         if isinstance(row.get("ttfb_ms"), (int, float))
     ]
     scheduled_end = [
@@ -224,7 +226,7 @@ def latency_metrics(conversations: list[dict[str, Any]]) -> dict[str, Any]:
         value for conversation in conversations for value in conversation["latencies"]
     ]
     return {
-        "scope": "observed_scripted_turns_only",
+        "scope": "observed_scripted_turns_excluding_first_response",
         "count": len(values),
         "p50_ms": statistics.median(values),
         "p95_ms": percentile(values, 0.95),
@@ -408,7 +410,7 @@ conversation-cluster bootstrap 95% CI {ci[0]:.2f}–{ci[1]:.2f}%).
 | TTFAT P50 / P95 / max | {latency['p50_ms']:.0f} / {latency['p95_ms']:.0f} / {latency['max_ms']:.0f} ms |
 | Thinking tokens | {token_totals['thinking_tokens']} |
 
-Latency by cohort (observed scripted turns):
+Latency by cohort (observed scripted turns after the first response):
 
 | Cohort | Turns | P50 ms | P95 ms | Max ms | >10s |
 |---|---:|---:|---:|---:|---:|
@@ -421,8 +423,9 @@ Most error-prone scripted turns:
 {worst_rows}
 
 Missing future turns after a model-caused early exit count as failures in all
-accuracy measures. Latency is reported only where a scripted turn produced a
-measured response. Whole conversations, not turns, are the bootstrap unit
+accuracy measures. Latency excludes each conversation's first scripted response
+and is reported only where a later scripted turn produced a measured response.
+Whole conversations, not turns, are the bootstrap unit
 ({BOOTSTRAPS:,} deterministic resamples).
 """
     OUTPUT_REPORT.write_text(report)

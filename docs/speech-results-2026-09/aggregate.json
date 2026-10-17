@@ -1,0 +1,1137 @@
+{
+  "schema_version": 1,
+  "source_commit": "3fed83e41c09c91c28f2751a82f1011542f11063",
+  "as_of": "2026-09-16",
+  "policy": {
+    "completed_conversations_per_cohort": 25,
+    "turns_per_conversation": 30,
+    "accuracy": "conditional on completion; entire failed conversation excluded",
+    "failure_rate": "incomplete model/service conversations divided by harness-valid attempts",
+    "judge_model": "claude-opus-5",
+    "judge_prompt_sha256": "c5a8a3b3c3240172cc392529a1784b59d2913a32e2ec2ba843a456415b75ef27",
+    "standard_prompt_sha256": "0ff3ba3519554c8743095841a93af92c25d76ec2243d7abb4d1451578a701f9f",
+    "capture_concurrency_per_provider": 5,
+    "latency": "first actual speech, including acknowledgments; positive measurable values only",
+    "unscored_value": null
+  },
+  "models": [
+    {
+      "key": "live_optimized",
+      "label": "GPT-Live prompt-optimized + Terra medium*",
+      "complete": 25,
+      "accuracy_denominator": 750,
+      "scores": {
+        "tool_use_correct": 749,
+        "instruction_following": 739,
+        "kb_grounding": 746,
+        "turn_taking": null,
+        "strict": 739
+      },
+      "strict_percent": 98.53333333333333,
+      "eligible_attempts": 27,
+      "failed_conversations": 2,
+      "failure_rate_percent": 7.407407407407407,
+      "harness_excluded": 0,
+      "failure_details": [
+        {
+          "run_dir": "runs/aiwf_medium_context_speech_live_optimized/20260916T123039_gpt-live-1_5dc5eeb2",
+          "completed_turns": 10,
+          "reason": "TimeoutError",
+          "detail": "No completed Live answer within 90 seconds",
+          "turn_index": 10,
+          "turn_number": 11
+        },
+        {
+          "run_dir": "runs/aiwf_medium_context_speech_live_optimized/20260916T140645_gpt-live-1_fd2c66d8",
+          "completed_turns": 10,
+          "reason": "TimeoutError",
+          "detail": "No completed Live answer within 90 seconds",
+          "turn_index": 10,
+          "turn_number": 11
+        }
+      ],
+      "first_speech_positive": {
+        "n": 748,
+        "mean_ms": 2686.1604278074865,
+        "median_ms": 2112.0,
+        "max_ms": 29056.0
+      },
+      "first_speech_signed": {
+        "n": 749,
+        "mean_ms": 2680.7369826435247,
+        "median_ms": 2112.0,
+        "max_ms": 29056.0
+      },
+      "non_tool": {
+        "n": 598,
+        "mean_ms": 2740.1739130434785,
+        "median_ms": 2144.0,
+        "max_ms": 29056.0
+      },
+      "tool": {
+        "n": 150,
+        "mean_ms": 2470.826666666667,
+        "median_ms": 2000.0,
+        "max_ms": 11520.0
+      },
+      "silence": {
+        "n": 0,
+        "mean_ms": null,
+        "median_ms": null,
+        "max_ms": null
+      },
+      "nonpositive_n": 1,
+      "missing_audio": [
+        {
+          "run_dir": "runs/aiwf_medium_context_speech_live_optimized/20260916T131943_gpt-live-1_b298f449",
+          "turn_indices": [
+            21
+          ]
+        }
+      ],
+      "source": {
+        "archive_path": "git/docs/speech-completed25-2026-09-16/aggregate.json",
+        "json_pointer": "/models/8"
+      },
+      "turn_taking_scored": false,
+      "missing_latency_n": 1,
+      "configuration": {
+        "model": "gpt-live-1",
+        "backend": "gpt-5.6-terra",
+        "reasoning": "medium",
+        "voice": "marin",
+        "frontend_sha256": "332a125c8fbc1a98be1302cf0dc10de22fb24004d56105d75990a9b96ed74ce0",
+        "backend_sha256": "26a768b2c8faf9e4a27ade00b4f111a4a4e9c5cbdc27bd5a4a9992b0ba712c71",
+        "quiet_seconds": 5,
+        "timeout_seconds": 90,
+        "versions": {
+          "openai": "3.14.0",
+          "pipecat-ai": "1.10.0"
+        },
+        "capture_protocol_archive_path": "git/docs/gpt-live-optimized-quiet5-2026-09-16/cohort/protocol.json"
+      }
+    },
+    {
+      "key": "grok",
+      "label": "Grok Voice Think Fast",
+      "complete": 25,
+      "accuracy_denominator": 750,
+      "scores": {
+        "tool_use_correct": 742,
+        "instruction_following": 734,
+        "kb_grounding": 750,
+        "turn_taking": 730,
+        "strict": 733
+      },
+      "strict_percent": 97.73333333333333,
+      "eligible_attempts": 25,
+      "failed_conversations": 0,
+      "failure_rate_percent": 0.0,
+      "harness_excluded": 0,
+      "failure_details": [],
+      "first_speech_positive": {
+        "n": 730,
+        "mean_ms": 2654.6849315068494,
+        "median_ms": 2528.0,
+        "max_ms": 5984.0
+      },
+      "first_speech_signed": {
+        "n": 730,
+        "mean_ms": 2654.6849315068494,
+        "median_ms": 2528.0,
+        "max_ms": 5984.0
+      },
+      "non_tool": {
+        "n": 592,
+        "mean_ms": 2646.6486486486488,
+        "median_ms": 2496.0,
+        "max_ms": 5984.0
+      },
+      "tool": {
+        "n": 138,
+        "mean_ms": 2689.159420289855,
+        "median_ms": 2704.0,
+        "max_ms": 3744.0
+      },
+      "silence": {
+        "n": 730,
+        "mean_ms": 87.51095890410959,
+        "median_ms": 86.0,
+        "max_ms": 201.0
+      },
+      "nonpositive_n": 0,
+      "missing_audio": [
+        {
+          "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T133854_grok-voice-think-fast-1.0_c4d6ab6e",
+          "turn_indices": [
+            29
+          ]
+        },
+        {
+          "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T133854_grok-voice-think-fast-1.0_7afe9c9d",
+          "turn_indices": [
+            29
+          ]
+        },
+        {
+          "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T133854_grok-voice-think-fast-1.0_22ae863f",
+          "turn_indices": [
+            29
+          ]
+        },
+        {
+          "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T133854_grok-voice-think-fast-1.0_bc3d1cad",
+          "turn_indices": [
+            29
+          ]
+        },
+        {
+          "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T133854_grok-voice-think-fast-1.0_d024c854",
+          "turn_indices": [
+            29
+          ]
+        },
+        {
+          "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T134729_grok-voice-think-fast-1.0_f0e74e8c",
+          "turn_indices": [
+            29
+          ]
+        },
+        {
+          "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T134739_grok-voice-think-fast-1.0_b2d9988e",
+          "turn_indices": [
+            29
+          ]
+        },
+        {
+          "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T134739_grok-voice-think-fast-1.0_5cb2e5e3",
+          "turn_indices": [
+            29
+          ]
+        },
+        {
+          "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T134809_grok-voice-think-fast-1.0_45b01df4",
+          "turn_indices": [
+            29
+          ]
+        },
+        {
+          "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T135600_grok-voice-think-fast-1.0_2f713234",
+          "turn_indices": [
+            29
+          ]
+        },
+        {
+          "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T135631_grok-voice-think-fast-1.0_98c98110",
+          "turn_indices": [
+            29
+          ]
+        },
+        {
+          "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T135701_grok-voice-think-fast-1.0_248615b0",
+          "turn_indices": [
+            29
+          ]
+        },
+        {
+          "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T140440_grok-voice-think-fast-1.0_2ff5aa45",
+          "turn_indices": [
+            29
+          ]
+        },
+        {
+          "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T140450_grok-voice-think-fast-1.0_5f0889b7",
+          "turn_indices": [
+            29
+          ]
+        },
+        {
+          "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T140534_grok-voice-think-fast-1.0_c1546526",
+          "turn_indices": [
+            29
+          ]
+        },
+        {
+          "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T140544_grok-voice-think-fast-1.0_1b8b40be",
+          "turn_indices": [
+            29
+          ]
+        },
+        {
+          "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T141328_grok-voice-think-fast-1.0_22f04aca",
+          "turn_indices": [
+            29
+          ]
+        },
+        {
+          "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T141345_grok-voice-think-fast-1.0_d5416088",
+          "turn_indices": [
+            29
+          ]
+        },
+        {
+          "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T141414_grok-voice-think-fast-1.0_ecc03f17",
+          "turn_indices": [
+            29
+          ]
+        },
+        {
+          "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T141449_grok-voice-think-fast-1.0_18c2de6c",
+          "turn_indices": [
+            29
+          ]
+        }
+      ],
+      "source": {
+        "archive_path": "git/docs/speech-completed25-2026-09-16/aggregate.json",
+        "json_pointer": "/models/1"
+      },
+      "turn_taking_scored": true,
+      "missing_latency_n": 20,
+      "configuration": {
+        "model": "grok-voice-think-fast-1.0",
+        "pipeline": "grok-realtime",
+        "provider": "xai"
+      }
+    },
+    {
+      "key": "openai21",
+      "label": "GPT-Realtime-2.1 low",
+      "complete": 25,
+      "accuracy_denominator": 750,
+      "scores": {
+        "tool_use_correct": 733,
+        "instruction_following": 712,
+        "kb_grounding": 731,
+        "turn_taking": 750,
+        "strict": 708
+      },
+      "strict_percent": 94.39999999999999,
+      "eligible_attempts": 25,
+      "failed_conversations": 0,
+      "failure_rate_percent": 0.0,
+      "harness_excluded": 0,
+      "failure_details": [],
+      "first_speech_positive": {
+        "n": 750,
+        "mean_ms": 1614.848,
+        "median_ms": 1536.0,
+        "max_ms": 9568.0
+      },
+      "first_speech_signed": {
+        "n": 750,
+        "mean_ms": 1614.848,
+        "median_ms": 1536.0,
+        "max_ms": 9568.0
+      },
+      "non_tool": {
+        "n": 615,
+        "mean_ms": 1640.2731707317073,
+        "median_ms": 1568.0,
+        "max_ms": 9568.0
+      },
+      "tool": {
+        "n": 135,
+        "mean_ms": 1499.0222222222221,
+        "median_ms": 1440.0,
+        "max_ms": 2592.0
+      },
+      "silence": {
+        "n": 750,
+        "mean_ms": 75.33333333333333,
+        "median_ms": 58.0,
+        "max_ms": 634.0
+      },
+      "nonpositive_n": 0,
+      "missing_audio": [],
+      "source": {
+        "archive_path": "git/docs/speech-completed25-2026-09-16/aggregate.json",
+        "json_pointer": "/models/0"
+      },
+      "turn_taking_scored": true,
+      "missing_latency_n": 0,
+      "configuration": {
+        "model": "gpt-realtime-2.1",
+        "service": "openai-realtime",
+        "provider": "openai",
+        "reasoning": "low"
+      }
+    },
+    {
+      "key": "live_standard",
+      "label": "GPT-Live standard + Terra medium",
+      "complete": 25,
+      "accuracy_denominator": 750,
+      "scores": {
+        "tool_use_correct": 723,
+        "instruction_following": 715,
+        "kb_grounding": 746,
+        "turn_taking": 749,
+        "strict": 707
+      },
+      "strict_percent": 94.26666666666667,
+      "eligible_attempts": 25,
+      "failed_conversations": 0,
+      "failure_rate_percent": 0.0,
+      "harness_excluded": 0,
+      "failure_details": [],
+      "first_speech_positive": {
+        "n": 748,
+        "mean_ms": 1869.9893048128342,
+        "median_ms": 1728.0,
+        "max_ms": 11072.0
+      },
+      "first_speech_signed": {
+        "n": 749,
+        "mean_ms": 1865.4846461949267,
+        "median_ms": 1728.0,
+        "max_ms": 11072.0
+      },
+      "non_tool": {
+        "n": 625,
+        "mean_ms": 1811.2,
+        "median_ms": 1696.0,
+        "max_ms": 11072.0
+      },
+      "tool": {
+        "n": 123,
+        "mean_ms": 2168.7154471544713,
+        "median_ms": 1792.0,
+        "max_ms": 7040.0
+      },
+      "silence": {
+        "n": 0,
+        "mean_ms": null,
+        "median_ms": null,
+        "max_ms": null
+      },
+      "nonpositive_n": 1,
+      "missing_audio": [
+        {
+          "run_dir": "runs/aiwf_medium_context_speech_live/20260915T222012_gpt-live-1_e23bff31",
+          "turn_indices": [
+            21
+          ]
+        }
+      ],
+      "source": {
+        "archive_path": "git/docs/speech-completed25-2026-09-16/aggregate.json",
+        "json_pointer": "/models/6"
+      },
+      "turn_taking_scored": true,
+      "missing_latency_n": 1,
+      "configuration": {
+        "model": "gpt-live-1",
+        "backend": "gpt-5.6-terra",
+        "reasoning": "medium",
+        "voice": "marin",
+        "quiet_seconds": 3,
+        "timeout_seconds": 90,
+        "versions": {
+          "openai": "3.14.0",
+          "pipecat-ai": "1.10.0",
+          "google-genai": "2.23.0"
+        },
+        "capture_protocol_archive_path": "git/docs/gpt-live-fixed-gate-n25-2026-09-15/protocol.json"
+      }
+    },
+    {
+      "key": "openai15",
+      "label": "GPT-Realtime-1.5",
+      "complete": 25,
+      "accuracy_denominator": 750,
+      "scores": {
+        "tool_use_correct": 739,
+        "instruction_following": 708,
+        "kb_grounding": 725,
+        "turn_taking": 737,
+        "strict": 705
+      },
+      "strict_percent": 94.0,
+      "eligible_attempts": 25,
+      "failed_conversations": 0,
+      "failure_rate_percent": 0.0,
+      "harness_excluded": 0,
+      "failure_details": [],
+      "first_speech_positive": {
+        "n": 725,
+        "mean_ms": 1278.9848275862068,
+        "median_ms": 1152.0,
+        "max_ms": 3424.0
+      },
+      "first_speech_signed": {
+        "n": 725,
+        "mean_ms": 1278.9848275862068,
+        "median_ms": 1152.0,
+        "max_ms": 3424.0
+      },
+      "non_tool": {
+        "n": 603,
+        "mean_ms": 1155.290215588723,
+        "median_ms": 1120.0,
+        "max_ms": 3424.0
+      },
+      "tool": {
+        "n": 122,
+        "mean_ms": 1890.360655737705,
+        "median_ms": 1920.0,
+        "max_ms": 3072.0
+      },
+      "silence": {
+        "n": 733,
+        "mean_ms": 159.88130968622102,
+        "median_ms": 37.0,
+        "max_ms": 15722.0
+      },
+      "nonpositive_n": 0,
+      "missing_audio": [
+        {
+          "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T133854_gpt-realtime-1.5_dbbec089",
+          "turn_indices": [
+            29
+          ]
+        },
+        {
+          "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T134913_gpt-realtime-1.5_5967dc90",
+          "turn_indices": [
+            29
+          ]
+        },
+        {
+          "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T134938_gpt-realtime-1.5_ee806789",
+          "turn_indices": [
+            29
+          ]
+        },
+        {
+          "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T135026_gpt-realtime-1.5_340b21e5",
+          "turn_indices": [
+            29
+          ]
+        },
+        {
+          "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T140024_gpt-realtime-1.5_31eae89a",
+          "turn_indices": [
+            29
+          ]
+        },
+        {
+          "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T140040_gpt-realtime-1.5_dc24bcd3",
+          "turn_indices": [
+            10,
+            29
+          ]
+        },
+        {
+          "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T141052_gpt-realtime-1.5_c7408f70",
+          "turn_indices": [
+            9,
+            10,
+            11,
+            12,
+            14
+          ]
+        },
+        {
+          "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T142308_gpt-realtime-1.5_82198fcc",
+          "turn_indices": [
+            29
+          ]
+        },
+        {
+          "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T143247_gpt-realtime-1.5_a09b85ff",
+          "turn_indices": [
+            29
+          ]
+        },
+        {
+          "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T143405_gpt-realtime-1.5_f3ba662b",
+          "turn_indices": [
+            29
+          ]
+        },
+        {
+          "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T143438_gpt-realtime-1.5_be0079fd",
+          "turn_indices": [
+            10,
+            11,
+            29
+          ]
+        },
+        {
+          "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T144440_gpt-realtime-1.5_bb3dfa4d",
+          "turn_indices": [
+            29
+          ]
+        },
+        {
+          "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T145527_gpt-realtime-1.5_812a90f6",
+          "turn_indices": [
+            29
+          ]
+        },
+        {
+          "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T145725_gpt-realtime-1.5_f4ad832f",
+          "turn_indices": [
+            29
+          ]
+        },
+        {
+          "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T150711_gpt-realtime-1.5_c5af0dec",
+          "turn_indices": [
+            29
+          ]
+        },
+        {
+          "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T151604_gpt-realtime-1.5_04611f15",
+          "turn_indices": [
+            29
+          ]
+        },
+        {
+          "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T151738_gpt-realtime-1.5_39897026",
+          "turn_indices": [
+            29
+          ]
+        },
+        {
+          "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T152001_gpt-realtime-1.5_2226ea41",
+          "turn_indices": [
+            29
+          ]
+        }
+      ],
+      "source": {
+        "archive_path": "git/docs/speech-completed25-2026-09-16/aggregate.json",
+        "json_pointer": "/models/2"
+      },
+      "turn_taking_scored": true,
+      "missing_latency_n": 25,
+      "configuration": {
+        "model": "gpt-realtime-1.5",
+        "service": "openai-realtime",
+        "provider": "openai"
+      }
+    },
+    {
+      "key": "gemini38regular",
+      "label": "Gemini 3.8 Live (regular; default)",
+      "complete": 25,
+      "accuracy_denominator": 750,
+      "scores": {
+        "turn_taking": 749,
+        "tool_use_correct": 733,
+        "instruction_following": 700,
+        "kb_grounding": 732,
+        "strict": 697
+      },
+      "strict_percent": 92.93333333333334,
+      "eligible_attempts": 26,
+      "failed_conversations": 1,
+      "failure_rate_percent": 3.8461538461538463,
+      "harness_excluded": 13,
+      "failure_details": [
+        {
+          "run_dir": "runs/aiwf_medium_context_speech_v2/20260916T151738_gemini-3.8-live_927feec6",
+          "completed_turns": 0,
+          "reason": "no_audio_timeout",
+          "turn_index": 0,
+          "turn_number": 1
+        }
+      ],
+      "first_speech_positive": {
+        "n": 749,
+        "mean_ms": 1615.8504672897195,
+        "median_ms": 1536.0,
+        "max_ms": 12288.0
+      },
+      "first_speech_signed": {
+        "n": 749,
+        "mean_ms": 1615.8504672897195,
+        "median_ms": 1536.0,
+        "max_ms": 12288.0
+      },
+      "non_tool": {
+        "n": 593,
+        "mean_ms": 1485.3827993254638,
+        "median_ms": 1440.0,
+        "max_ms": 12288.0
+      },
+      "tool": {
+        "n": 156,
+        "mean_ms": 2111.7948717948716,
+        "median_ms": 1936.0,
+        "max_ms": 4736.0
+      },
+      "silence": {
+        "n": 0,
+        "mean_ms": null,
+        "median_ms": null,
+        "max_ms": null
+      },
+      "nonpositive_n": 0,
+      "missing_latency_n": 1,
+      "turn_taking_scored": true,
+      "source": {
+        "archive_path": "git/docs/gemini38-standard-n25-2026-09-16/aggregate.json",
+        "json_pointer": "/"
+      },
+      "configuration": {
+        "model": "gemini-3.8-live",
+        "thinking": null,
+        "timeout_seconds": 15,
+        "concurrency": 5
+      }
+    },
+    {
+      "key": "gemini38low",
+      "label": "Gemini 3.8 Extended Thinking low",
+      "complete": 25,
+      "accuracy_denominator": 750,
+      "scores": {
+        "tool_use_correct": 747,
+        "instruction_following": 698,
+        "kb_grounding": 729,
+        "turn_taking": 750,
+        "strict": 697
+      },
+      "strict_percent": 92.93333333333334,
+      "eligible_attempts": 25,
+      "failed_conversations": 0,
+      "failure_rate_percent": 0.0,
+      "harness_excluded": 1,
+      "failure_details": [],
+      "first_speech_positive": {
+        "n": 743,
+        "mean_ms": 1492.2422611036338,
+        "median_ms": 1440.0,
+        "max_ms": 8896.0
+      },
+      "first_speech_signed": {
+        "n": 743,
+        "mean_ms": 1492.2422611036338,
+        "median_ms": 1440.0,
+        "max_ms": 8896.0
+      },
+      "non_tool": {
+        "n": 600,
+        "mean_ms": 1488.16,
+        "median_ms": 1440.0,
+        "max_ms": 8896.0
+      },
+      "tool": {
+        "n": 143,
+        "mean_ms": 1509.3706293706293,
+        "median_ms": 1376.0,
+        "max_ms": 3360.0
+      },
+      "silence": {
+        "n": 0,
+        "mean_ms": null,
+        "median_ms": null,
+        "max_ms": null
+      },
+      "nonpositive_n": 0,
+      "missing_audio": [
+        {
+          "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T133854_gemini-3.8-live-extended-thinking_cfcf320c",
+          "turn_indices": [
+            29
+          ]
+        },
+        {
+          "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T134707_gemini-3.8-live-extended-thinking_c6a961a1",
+          "turn_indices": [
+            29
+          ]
+        },
+        {
+          "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T135435_gemini-3.8-live-extended-thinking_084d54b5",
+          "turn_indices": [
+            29
+          ]
+        },
+        {
+          "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T140134_gemini-3.8-live-extended-thinking_a06f3cf9",
+          "turn_indices": [
+            29
+          ]
+        },
+        {
+          "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T140219_gemini-3.8-live-extended-thinking_9b52d016",
+          "turn_indices": [
+            29
+          ]
+        },
+        {
+          "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T144307_gemini-3.8-live-extended-thinking_c0532da7",
+          "turn_indices": [
+            29
+          ]
+        },
+        {
+          "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T144713_gemini-3.8-live-extended-thinking_f71032c2",
+          "turn_indices": [
+            29
+          ]
+        }
+      ],
+      "source": {
+        "archive_path": "git/docs/speech-completed25-2026-09-16/aggregate.json",
+        "json_pointer": "/models/4"
+      },
+      "turn_taking_scored": true,
+      "missing_latency_n": 7,
+      "configuration": {
+        "model": "gemini-3.8-live-extended-thinking",
+        "service": "gemini-live",
+        "provider": "google",
+        "thinking": "low"
+      }
+    },
+    {
+      "key": "gemini31",
+      "label": "Gemini 3.1 minimal",
+      "complete": 25,
+      "accuracy_denominator": 750,
+      "scores": {
+        "tool_use_correct": 717,
+        "instruction_following": 663,
+        "kb_grounding": 729,
+        "turn_taking": 750,
+        "strict": 656
+      },
+      "strict_percent": 87.46666666666667,
+      "eligible_attempts": 26,
+      "failed_conversations": 1,
+      "failure_rate_percent": 3.8461538461538463,
+      "harness_excluded": 0,
+      "failure_details": [
+        {
+          "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T144826_gemini-3.1-flash-live-preview_8a11ff4e",
+          "completed_turns": 24,
+          "reason": "no_audio_timeout",
+          "detail": null,
+          "turn_index": 24,
+          "turn_number": 25
+        }
+      ],
+      "first_speech_positive": {
+        "n": 721,
+        "mean_ms": 1447.0568654646324,
+        "median_ms": 1344.0,
+        "max_ms": 3936.0
+      },
+      "first_speech_signed": {
+        "n": 721,
+        "mean_ms": 1447.0568654646324,
+        "median_ms": 1344.0,
+        "max_ms": 3936.0
+      },
+      "non_tool": {
+        "n": 592,
+        "mean_ms": 1400.4324324324325,
+        "median_ms": 1344.0,
+        "max_ms": 3936.0
+      },
+      "tool": {
+        "n": 129,
+        "mean_ms": 1661.0232558139535,
+        "median_ms": 1696.0,
+        "max_ms": 2304.0
+      },
+      "silence": {
+        "n": 691,
+        "mean_ms": 98.32995658465991,
+        "median_ms": 67.0,
+        "max_ms": 334.0
+      },
+      "nonpositive_n": 0,
+      "missing_audio": [
+        {
+          "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T133854_gemini-3.1-flash-live-preview_fb904290",
+          "turn_indices": [
+            28,
+            29
+          ]
+        },
+        {
+          "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T133854_gemini-3.1-flash-live-preview_03507c18",
+          "turn_indices": [
+            29
+          ]
+        },
+        {
+          "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T134604_gemini-3.1-flash-live-preview_5b457e10",
+          "turn_indices": [
+            28,
+            29
+          ]
+        },
+        {
+          "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T134726_gemini-3.1-flash-live-preview_9390254f",
+          "turn_indices": [
+            29
+          ]
+        },
+        {
+          "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T135338_gemini-3.1-flash-live-preview_3917b0c0",
+          "turn_indices": [
+            29
+          ]
+        },
+        {
+          "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T135427_gemini-3.1-flash-live-preview_be4a2d67",
+          "turn_indices": [
+            29
+          ]
+        },
+        {
+          "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T135627_gemini-3.1-flash-live-preview_74e6c92b",
+          "turn_indices": [
+            29
+          ]
+        },
+        {
+          "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T140212_gemini-3.1-flash-live-preview_2a890133",
+          "turn_indices": [
+            27,
+            28,
+            29
+          ]
+        },
+        {
+          "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T140257_gemini-3.1-flash-live-preview_000584aa",
+          "turn_indices": [
+            29
+          ]
+        },
+        {
+          "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T140900_gemini-3.1-flash-live-preview_2b7fe42e",
+          "turn_indices": [
+            29
+          ]
+        },
+        {
+          "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T141021_gemini-3.1-flash-live-preview_3f3a2443",
+          "turn_indices": [
+            29
+          ]
+        },
+        {
+          "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T141203_gemini-3.1-flash-live-preview_0d3b6d98",
+          "turn_indices": [
+            29
+          ]
+        },
+        {
+          "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T141645_gemini-3.1-flash-live-preview_543e1b5f",
+          "turn_indices": [
+            29
+          ]
+        },
+        {
+          "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T141845_gemini-3.1-flash-live-preview_cb6de9ca",
+          "turn_indices": [
+            27,
+            28,
+            29
+          ]
+        },
+        {
+          "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T142354_gemini-3.1-flash-live-preview_8b3405e3",
+          "turn_indices": [
+            29
+          ]
+        },
+        {
+          "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T142527_gemini-3.1-flash-live-preview_f0475fac",
+          "turn_indices": [
+            29
+          ]
+        },
+        {
+          "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T142716_gemini-3.1-flash-live-preview_4f3cd812",
+          "turn_indices": [
+            29
+          ]
+        },
+        {
+          "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T143306_gemini-3.1-flash-live-preview_f7d58b1d",
+          "turn_indices": [
+            29
+          ]
+        },
+        {
+          "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T143435_gemini-3.1-flash-live-preview_35ea9d46",
+          "turn_indices": [
+            29
+          ]
+        },
+        {
+          "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T143936_gemini-3.1-flash-live-preview_241f277c",
+          "turn_indices": [
+            29
+          ]
+        },
+        {
+          "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T144118_gemini-3.1-flash-live-preview_6e1c27dd",
+          "turn_indices": [
+            29
+          ]
+        },
+        {
+          "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T144355_gemini-3.1-flash-live-preview_a4d92e95",
+          "turn_indices": [
+            29
+          ]
+        },
+        {
+          "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T144946_gemini-3.1-flash-live-preview_ae174ae1",
+          "turn_indices": [
+            29
+          ]
+        }
+      ],
+      "source": {
+        "archive_path": "git/docs/speech-completed25-2026-09-16/aggregate.json",
+        "json_pointer": "/models/3"
+      },
+      "turn_taking_scored": true,
+      "missing_latency_n": 29,
+      "configuration": {
+        "model": "gemini-3.1-flash-live-preview",
+        "service": "gemini-live",
+        "provider": "google",
+        "thinking": "minimal"
+      }
+    },
+    {
+      "key": "gemini38medium_new",
+      "label": "Gemini 3.8 Extended Thinking medium (interaction-aware)",
+      "complete": 25,
+      "accuracy_denominator": 750,
+      "scores": {
+        "tool_use_correct": 747,
+        "instruction_following": 699,
+        "kb_grounding": 732,
+        "turn_taking": null,
+        "strict": 698
+      },
+      "strict_percent": 93.06666666666666,
+      "eligible_attempts": 27,
+      "failed_conversations": 2,
+      "failure_rate_percent": 7.407407407407407,
+      "harness_excluded": 0,
+      "failure_details": [
+        {
+          "run_dir": "runs/aiwf_medium_context_speech_v2/20260916T074653_gemini-3.8-live-extended-thinking_c2d7a24b",
+          "completed_turns": 0,
+          "reason": "no_audio_timeout",
+          "detail": null,
+          "turn_index": 0,
+          "turn_number": 1
+        },
+        {
+          "run_dir": "runs/aiwf_medium_context_speech_v2/20260916T080944_gemini-3.8-live-extended-thinking_bd55a0b2",
+          "completed_turns": 0,
+          "reason": "no_audio_timeout",
+          "detail": null,
+          "turn_index": 0,
+          "turn_number": 1
+        }
+      ],
+      "first_speech_positive": {
+        "n": 750,
+        "mean_ms": 1752.4906666666666,
+        "median_ms": 1632.0,
+        "max_ms": 7392.0
+      },
+      "first_speech_signed": {
+        "n": 750,
+        "mean_ms": 1752.4906666666666,
+        "median_ms": 1632.0,
+        "max_ms": 7392.0
+      },
+      "non_tool": {
+        "n": 599,
+        "mean_ms": 1715.338898163606,
+        "median_ms": 1632.0,
+        "max_ms": 5888.0
+      },
+      "tool": {
+        "n": 151,
+        "mean_ms": 1899.867549668874,
+        "median_ms": 1600.0,
+        "max_ms": 7392.0
+      },
+      "silence": {
+        "n": 0,
+        "mean_ms": null,
+        "median_ms": null,
+        "max_ms": null
+      },
+      "nonpositive_n": 0,
+      "missing_audio": [],
+      "source": {
+        "archive_path": "git/docs/speech-completed25-2026-09-16/aggregate.json",
+        "json_pointer": "/models/7"
+      },
+      "turn_taking_scored": false,
+      "missing_latency_n": 0,
+      "configuration": {
+        "model": "gemini-3.8-live-extended-thinking",
+        "thinking": "medium",
+        "versions": {
+          "google-genai": "2.23.0",
+          "pipecat-ai": "1.10.0"
+        },
+        "timeout_seconds": 15,
+        "capture_protocol_archive_path": "git/docs/gemini38-extended-exchanges-2026-09-16/cohort/protocol.json"
+      }
+    }
+  ],
+  "readme_numeric_notes": {
+    "regular_gemini": {
+      "retained_before_duplicate_fix": 21,
+      "added_after_fix": 4,
+      "total_captures": 39,
+      "source": "git/docs/gemini38-standard-n25-2026-09-16/harness-review.json"
+    },
+    "live_optimized": {
+      "quiet_seconds": 5,
+      "timeout_seconds": 90
+    },
+    "live_standard": {
+      "quiet_seconds": 3,
+      "timeout_seconds": 90
+    },
+    "historical_live_validation": {
+      "single_strict_passes": 28,
+      "single_turns": 30,
+      "pilot_conversations": 5,
+      "added_conversations": 20,
+      "diagnostic_complete": 25,
+      "diagnostic_attempts": 25,
+      "sources": [
+        {
+          "archive_path": "git/docs/gpt-live-readiness-2026-09-15/rejudged/standard-validation-results.json",
+          "json_pointer": "/runs/0/judge"
+        },
+        {
+          "archive_path": "git/docs/speech-v2-live-medium-2026-09-15/aggregate.json",
+          "json_pointer": "/models/0"
+        }
+      ]
+    },
+    "historical_gemini31": {
+      "no_response_free": 18,
+      "attempts": 20,
+      "websocket_reconnect_code": 1006,
+      "source": {
+        "repository_path": "docs/async-gemini-live-comparison-2026-08-04/root-cause-probes/README.md",
+        "sha256": "f7a09e52ce286bc016db4dd61ca61e4c0c6e96267d66136cf76f6d4ccc9087b5"
+      }
+    }
+  }
+}

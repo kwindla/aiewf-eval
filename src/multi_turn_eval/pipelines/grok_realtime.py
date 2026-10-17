@@ -19,7 +19,7 @@ from typing import Optional
 
 from loguru import logger
 
-from pipecat.frames.frames import LLMFullResponseEndFrame
+from pipecat.frames.frames import LLMFullResponseEndFrame, TTSStoppedFrame
 from pipecat.processors.frame_processor import FrameProcessor
 from pipecat.services.llm_service import FunctionCallFromLLM
 from pipecat.services.openai.realtime import events as rt_events
@@ -115,19 +115,6 @@ class XAIRealtimeLLMService(OpenAIRealtimeLLMService):
                 logger.info(f"[xAI] Converted {len(converted_tools)} tools to xAI format")
         await super().send_client_event(event)
 
-    async def _update_settings(self):
-        """Override to log the tools being sent to xAI."""
-        if self._session_properties.tools:
-            logger.debug(f"[xAI] Tools in session_properties: {type(self._session_properties.tools)}")
-            if hasattr(self._session_properties.tools, 'standard_tools'):
-                for t in self._session_properties.tools.standard_tools:
-                    logger.debug(f"[xAI]   - Tool: {t.name}")
-        else:
-            logger.warning("[xAI] No tools in session_properties!")
-
-        await super()._update_settings()
-        logger.debug("[xAI] Session update sent to xAI")
-
     async def _receive_task_handler(self):
         """Override to handle xAI-specific events like ping."""
         async for message in self._websocket:
@@ -144,7 +131,7 @@ class XAIRealtimeLLMService(OpenAIRealtimeLLMService):
 
                 if event_type == "conversation.created":
                     logger.info("[xAI] Conversation created, treating as session ready")
-                    await self._update_settings()
+                    await self._send_session_update()
                     continue
 
                 if event_type == "session.updated":
@@ -211,6 +198,8 @@ class XAIRealtimeLLMService(OpenAIRealtimeLLMService):
 
                 if event_type == "response.done":
                     # xAI includes function calls in response.done output
+                    if self._current_audio_response is not None:
+                        await self.push_frame(TTSStoppedFrame())
                     await self._handle_xai_response_done(raw_event)
                     await self.push_frame(LLMFullResponseEndFrame())
                     self._current_assistant_response = None
@@ -225,7 +214,8 @@ class XAIRealtimeLLMService(OpenAIRealtimeLLMService):
                 elif evt.type == "response.output_audio.delta":
                     await self._handle_evt_audio_delta(evt)
                 elif evt.type == "response.output_audio.done":
-                    await self._handle_evt_audio_done(evt)
+                    # Pipecat 1.10 brackets the whole response, not each audio item.
+                    pass
                 elif evt.type == "conversation.item.added":
                     await self._handle_evt_conversation_item_added(evt)
                 elif evt.type == "conversation.item.done":
@@ -269,6 +259,11 @@ class GrokRealtimePipeline(RealtimePipeline):
     """
 
     requires_service = False  # This pipeline creates its own XAIRealtimeLLMService
+
+    def _is_grok_realtime(self) -> bool:
+        # Provider behavior follows the pipeline even when the model ID omits
+        # "realtime", as grok-voice-think-fast-1.0 does.
+        return True
 
     def _create_llm(
         self, service_class: Optional[type], model: str

@@ -1,0 +1,68 @@
+{
+  "complete_conversations": 30,
+  "components": {
+    "instruction_following": {
+      "correct": 900,
+      "error_percent": 0.0
+    },
+    "kb_grounding": {
+      "correct": 900,
+      "error_percent": 0.0
+    },
+    "tool_use_correct": {
+      "correct": 900,
+      "error_percent": 0.0
+    }
+  },
+  "conversations": 30,
+  "fixed_scheduled_turn_denominator": 900,
+  "latency": {
+    "raw_ttft_p50_ms": 818.0,
+    "raw_ttft_p95_ms": 1261.0,
+    "reasoning_to_answer_gap_p50_ms": 0.0,
+    "samples": 870,
+    "scope": "exclude_scripted_turn_0_include_later_scripted_and_recovery",
+    "ttfat_max_ms": 10938.0,
+    "ttfat_p50_ms": 817.0,
+    "ttfat_p95_ms": 1260.0
+  },
+  "model": "gemini-3.7-flash",
+  "pricing": {
+    "as_of": "2026-08-13",
+    "estimated_cost_per_observed_turn_usd": 0.0076004112499999995,
+    "estimated_total_usd": 6.840370125,
+    "introductory_through": "2026-12-31",
+    "rates_per_million": {
+      "cached_input": 0.075,
+      "input": 0.75,
+      "output": 3.75
+    }
+  },
+  "responses": {
+    "end_session": {
+      "missing": 0,
+      "recovery": 0,
+      "scripted": 30
+    },
+    "observed": 900,
+    "recovery": 0,
+    "tool_call_turn_percent": 20.0,
+    "tool_call_turns": 180
+  },
+  "strict": {
+    "conversation_cluster_bootstrap_95_percent": [
+      100.0,
+      100.0
+    ],
+    "correct": 900,
+    "rate_percent": 100.0
+  },
+  "thinking_level": "low",
+  "tokens": {
+    "cache_read_input_tokens": 4138565,
+    "completion_tokens": 45110,
+    "prompt_tokens": 12619652,
+    "thinking_tokens": 0,
+    "total_tokens": 12664762
+  }
+}

@@ -1,10 +1,13 @@
 #!/usr/bin/env bash
 set -u
 
+# New reruns require public google-genai >=2.23.0 in the project venv.
+# August results used an earlier google-genai build exposing interaction status.
+# Upgrade older pinned environments before rerunning.
+
 repo_dir="$(cd "$(dirname "$0")/../../.." && pwd)"
 campaign_dir="${CAMPAIGN_DIR:-$repo_dir/docs/async-gemini-live-comparison-2026-08-04/exact-boundary-n20-2026-08-05}"
 log_dir="$campaign_dir/logs"
-overlay="/home/khkramer/.cache/aiewf-eval/interaction-status-overlay-private-214"
 launcher="$repo_dir/docs/async-gemini-live-comparison-2026-08-04/probe_interaction_status.py"
 event_flow_validator="$repo_dir/docs/async-gemini-live-comparison-2026-08-04/root-cause-probes/validate_exact_run.py"
 python="$repo_dir/.venv/bin/python"
@@ -55,7 +58,7 @@ for attempt in $(seq $((completed_attempts + 1)) "$target"); do
     exit_code=0
 
     printf 'attempt %d/%d running\n' "$attempt" "$target" | tee "$progress"
-    PYTHONPATH="$overlay" "$python" "$launcher" run aiwf_medium_context \
+    "$python" "$launcher" run aiwf_medium_context \
         --model "$async_model" --service gemini-live --thinking minimal \
         --gemini-3-protocol --gemini-require-interaction-status \
         --gemini-explicit-audio-activity --no-turn-replay \

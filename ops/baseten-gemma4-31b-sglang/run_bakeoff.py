@@ -3,6 +3,8 @@
 
 from __future__ import annotations
 
+from multi_turn_eval.latency_reporting import include_response_latency
+
 import json
 import os
 import re
@@ -168,7 +170,12 @@ def summarize_run(run_dir: Path | None) -> dict[str, Any]:
         for row in rows
         if isinstance(row.get("turn"), int) and 0 <= int(row["turn"]) < 30
     ]
-    ttfb = [float(row["ttfb_ms"]) for row in scripted if row.get("ttfb_ms") is not None]
+    latency_rows = [row for row in scripted if include_response_latency(int(row["turn"]))]
+    ttfb = [
+        float(row["ttfb_ms"])
+        for row in latency_rows
+        if row.get("ttfb_ms") is not None
+    ]
 
     def percentile(values: list[float], fraction: float) -> float | None:
         if not values:
@@ -189,6 +196,7 @@ def summarize_run(run_dir: Path | None) -> dict[str, Any]:
         "runtime_valid": runtime.get("valid"),
         "rows": len(rows),
         "scripted_turns": len(scripted),
+        "latency_turns": len(latency_rows),
         "complete": runtime.get("status") == "completed"
         and runtime.get("valid") is True
         and len(scripted) == 30,

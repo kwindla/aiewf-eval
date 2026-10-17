@@ -5,8 +5,11 @@ from __future__ import annotations
 
 import argparse
 import asyncio
+import hashlib
 import json
+import os
 from pathlib import Path
+from urllib import request
 
 
 def parse_args() -> argparse.Namespace:
@@ -15,6 +18,35 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--arm", required=True)
     parser.add_argument("--run-dir", type=Path, required=True)
     return parser.parse_args()
+
+
+def run_pre_conversation_http(config: dict) -> None:
+    """Run an optional serving-state reset immediately before a conversation."""
+    spec = config.get("pre_conversation_http")
+    if spec is None:
+        return
+    if not isinstance(spec, dict):
+        raise ValueError("pre_conversation_http must be an object")
+    url = spec.get("url")
+    method = spec.get("method", "POST")
+    timeout = spec.get("timeout_seconds", 10)
+    if not isinstance(url, str) or not url:
+        raise ValueError("pre_conversation_http.url must be a non-empty string")
+    if method not in {"POST", "PUT", "DELETE"}:
+        raise ValueError("pre_conversation_http.method must be POST, PUT, or DELETE")
+    if not isinstance(timeout, (int, float)) or timeout <= 0:
+        raise ValueError("pre_conversation_http.timeout_seconds must be positive")
+    req = request.Request(url, data=b"", method=method)
+    with request.urlopen(req, timeout=float(timeout)) as response:
+        body = response.read().decode("utf-8", errors="replace")
+        status = response.status
+    if not 200 <= status < 300:
+        raise RuntimeError(f"pre-conversation HTTP reset returned status {status}")
+    print(
+        f"Pre-conversation HTTP reset: method={method} url={url} "
+        f"status={status} body={body[:500]!r}",
+        flush=True,
+    )
 
 
 async def run_conversation(config: dict, run_dir: Path) -> None:
@@ -39,7 +71,22 @@ async def run_conversation(config: dict, run_dir: Path) -> None:
 
     run_dir.mkdir(parents=True, exist_ok=False)
     setup_logging(run_dir, verbose=False)
+    seed_raw = os.getenv("MTE_VLLM_SEED", "").strip()
+    campaign_request = {
+        "arm": os.getenv("STEP3_AIEWF_ARM", ""),
+        "benchmark": config["benchmark"],
+        "model": model,
+        "registered_seed": int(seed_raw) if seed_raw else None,
+        "config_sha256": hashlib.sha256(
+            json.dumps(config, sort_keys=True, separators=(",", ":")).encode()
+        ).hexdigest(),
+    }
+    (run_dir / "campaign-request.json").write_text(
+        json.dumps(campaign_request, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+    )
     print(f"Output directory: {run_dir}", flush=True)
+    run_pre_conversation_http(config)
     recorder = TranscriptRecorder(run_dir, model)
     try:
         pipeline = pipeline_class(benchmark)

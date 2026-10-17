@@ -15,7 +15,9 @@ and per-turn error results.
 
 | Strict pass rate | Conversation-cluster bootstrap 95% CI | TTFAT P50 | TTFAT P95 |
 |---:|---:|---:|---:|
-| 4,346/4,500 (96.58%) | 96.13–97.02% | 490ms | 718ms |
+| 4,346/4,500 (96.58%) | 96.13–97.02% | 489ms | 609ms |
+
+Latency excludes each conversation’s first scripted response.
 
 All 150 conversations completed all 30 scripted turns. See `REPORT.md` for
 the turn-level error distribution and latency-tail details.

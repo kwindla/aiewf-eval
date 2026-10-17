@@ -22,10 +22,11 @@ Rows are ordered by pass rate descending, then TTFAT P50 ascending. The solid do
 | Model | Pass Rate | Any Error | Tool Error | Instruction Error | KB Error | TTFAT P50 | TTFAT P95 | TTFAT Max | Provider |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|---|
 | **nemotron-3-ultra (128)** | **100.0%** | **0.0%** | **0.0%** | **0.0%** | **0.0%** | **541ms** | **712ms** | **1302ms** | **Baseten** |
+| gemini-3.7-flash (low) | 100.0% | 0.0% | 0.0% | 0.0% | 0.0% | 817ms | 1260ms | 10938ms | AI Studio |
 | claude-sonnet-4-6 | 100.0% | 0.0% | 0.0% | 0.0% | 0.0% | 850ms | 4126ms | 9396ms | Anthropic |
-| claude-fable-5 (low) | 100.0% | 0.0% | 0.0% | 0.0% | 0.0% | 3535ms | 5148ms | 8815ms | Anthropic |
-| claude-fable-5 (default) | 100.0% | 0.0% | 0.0% | 0.0% | 0.0% | 3956ms | 6496ms | 13602ms | Anthropic |
-| glm-5.2 (none) | 99.7% | 0.3% | 0.2% | 0.2% | 0.0% | 936ms | 2140ms | 7567ms | Baseten |
+| claude-fable-5 (low) | 100.0% | 0.0% | 0.0% | 0.0% | 0.0% | 3582ms | 5148ms | 8815ms | Anthropic |
+| claude-fable-5 (default) | 100.0% | 0.0% | 0.0% | 0.0% | 0.0% | 3966ms | 6680ms | 13602ms | Anthropic |
+| glm-5.2 (none) | 99.7% | 0.3% | 0.2% | 0.2% | 0.0% | 924ms | 2091ms | 7567ms | Baseten |
 | glm-5.3 (low reasoning) | 98.7% | 1.3% | 1.3% | 1.3% | 0.0% | 2376ms | 4761ms | 8007ms | Z.AI |
 | **nemotron-3-ultra (96)** | **98.3%** | **1.7%** | **1.3%** | **1.3%** | **0.3%** | **529ms** | **655ms** | **1259ms** | **Baseten** |
 | kimi-k2.6 (thinking on) | 98.3% | 1.7% | 1.4% | 1.7% | 0.0% | 1560ms | 5404ms | 13622ms | Baseten |
@@ -34,50 +35,57 @@ Rows are ordered by pass rate descending, then TTFAT P50 ascending. The solid do
 | gpt-5.1 | 98.0% | 2.0% | 2.0% | 2.0% | 0.0% | 739ms | 1492ms | 4244ms | OpenAI |
 | **qwen3.8-27b (thinking off, NVFP4)** | **97.8%** | **2.2%** | **1.9%** | **2.2%** | **0.1%** | **101ms** | **318ms** | **592ms** | **Local RTX 5090** |
 | gpt-5.6-terra (medium) | 97.8% | 2.2% | 1.9% | 2.2% | 0.0% | 927ms | 2149ms | 4167ms | OpenAI |
-| gpt-5.5 (none) | 97.4% | 2.6% | 2.0% | 2.6% | 0.0% | 875ms | 2177ms | 5623ms | OpenAI |
+| gpt-5.5 (none) | 97.4% | 2.6% | 2.0% | 2.6% | 0.0% | 868ms | 2197ms | 5623ms | OpenAI |
 | **qwen3.6-27b (thinking off)** | **97.3%** | **2.7%** | **2.7%** | **2.7%** | **0.0%** | **667ms** | **769ms** | **1920ms** | **Baseten** |
 | deepseek-v4-pro-0813 (low) | 97.3% | 2.7% | 2.7% | 2.6% | 2.0% | 752ms | 1477ms | 3545ms | Baseten |
-| gemini-3.6-flash (minimal) | 97.1% | 2.9% | 2.4% | 2.8% | 0.1% | 798ms | 984ms | 1472ms | AI Studio |
+| gemini-3.6-flash (minimal) | 97.1% | 2.9% | 2.4% | 2.8% | 0.1% | 799ms | 985ms | 1472ms | AI Studio |
 | **nemotron-3-super-120b (512)** | **97.0%** | **3.0%** | **1.0%** | **3.0%** | **0.3%** | **687ms** | **1210ms** | **2254ms** | **Baseten** |
 | gpt-5.4 (low) | 97.0% | 3.0% | 3.0% | 3.0% | 0.0% | 782ms | 1706ms | 2698ms | OpenAI |
-| **deepseek-v4-flash-0731 (low)** | **96.7%** | **3.3%** | **2.8%** | **3.2%** | **0.7%** | **677ms** | **1452ms** | **4687ms** | **Baseten** |
+| **deepseek-v4-flash-0731 (low)** | **96.7%** | **3.3%** | **2.8%** | **3.2%** | **0.7%** | **677ms** | **1444ms** | **4687ms** | **Baseten** |
 | **gemma-4-31b-it (thinking off)** | **96.6%** | **3.4%** | **3.3%** | **3.4%** | **0.0%** | **489ms** | **609ms** | **38250ms** | **Baseten** |
-| gpt-5.6-sol (none) | 96.6% | 3.4% | 3.3% | 3.3% | 0.1% | 1098ms | 2625ms | 6344ms | OpenAI |
+| gpt-5.6-sol (none) | 96.6% | 3.4% | 3.3% | 3.3% | 0.1% | 1090ms | 2619ms | 6344ms | OpenAI |
 | **gpt-4.1** | **96.3%** | **3.7%** | **3.7%** | **3.3%** | **0.0%** | **536ms** | **1771ms** | **5056ms** | **OpenAI** |
-| **gpt-5.4 (none, +96 dots)** | **95.2%** | **4.8%** | **4.7%** | **4.6%** | **0.1%** | **694ms** | **2273ms** | **17264ms** | **OpenAI** |
-| **inkling (none)** | **94.8%** | **5.2%** | **5.1%** | **4.8%** | **1.3%** | **447ms** | **727ms** | **1813ms** | **Baseten** |
+| **gpt-5.4 (none, +96 dots)** | **95.2%** | **4.8%** | **4.7%** | **4.6%** | **0.1%** | **688ms** | **2210ms** | **17264ms** | **OpenAI** |
+| **inkling (none)** | **94.8%** | **5.2%** | **5.1%** | **4.8%** | **1.3%** | **445ms** | **652ms** | **1158ms** | **Baseten** |
 | **gpt-4o** | **94.7%** | **5.3%** | **3.0%** | **5.0%** | **0.3%** | **546ms** | **1369ms** | **4897ms** | **OpenAI** |
 | **kimi-k2.6 (thinking off)** | **93.9%** | **6.1%** | **6.0%** | **3.9%** | **0.0%** | **475ms** | **842ms** | **4458ms** | **Baseten** |
-| deepseek-v4-flash-0731 (high) | 93.9% | 6.1% | 5.9% | 6.1% | 4.8% | 763ms | 1871ms | 8702ms | Baseten |
-| nemotron-3.5-lightning (thinking on, NVFP4) | 93.6% | 6.4% | 2.8% | 5.7% | 0.9% | 1464ms | 5787ms | 29869ms | Local RTX 5090 |
+| deepseek-v4-flash-0731 (high) | 93.9% | 6.1% | 5.9% | 6.1% | 4.8% | 762ms | 1871ms | 8702ms | Baseten |
+| nemotron-3.5-lightning (thinking on, NVFP4) | 93.6% | 6.4% | 2.8% | 5.7% | 0.9% | 1464ms | 5786ms | 29869ms | Local RTX 5090 |
 | gemini-3.5-flash (minimal) | 93.3% | 6.7% | 5.3% | 6.7% | 4.9% | 892ms | 1183ms | 1721ms | AI Studio |
-| claude-sonnet-5 | 93.0% | 7.0% | 7.0% | 7.0% | 0.0% | 1204ms | 2465ms | 6955ms | Anthropic |
+| claude-sonnet-5 | 93.0% | 7.0% | 7.0% | 7.0% | 0.0% | 1200ms | 2524ms | 6955ms | Anthropic |
 | qwen3.6-35b-a3b (thinking off, FP8) | 91.6% | 8.4% | 6.8% | 7.8% | 0.4% | 764ms | 1233ms | 35664ms | Baseten |
-| **gpt-5.6-terra (none)** | **91.3%** | **8.7%** | **8.1%** | **8.6%** | **0.3%** | **621ms** | **1870ms** | **5665ms** | **OpenAI** |
+| **gpt-5.6-terra (none)** | **91.3%** | **8.7%** | **8.1%** | **8.6%** | **0.3%** | **614ms** | **1855ms** | **5665ms** | **OpenAI** |
 | nemotron-3-nano-30b (512) | 90.6% | 9.4% | 5.0% | 6.1% | 4.0% | 940ms | 1912ms | 2821ms | Baseten |
-| **gpt-5.4 (none)** | **90.2%** | **9.8%** | **9.4%** | **9.7%** | **0.1%** | **689ms** | **1723ms** | **6571ms** | **OpenAI** |
-| **gemini-2.5-flash (thinking off)** | **89.9%** | **10.1%** | **9.1%** | **10.1%** | **0.0%** | **550ms** | **850ms** | **2352ms** | **AI Studio** |
+| **gpt-5.4 (none)** | **90.2%** | **9.8%** | **9.4%** | **9.7%** | **0.1%** | **682ms** | **1680ms** | **6571ms** | **OpenAI** |
+| **gemini-2.5-flash (thinking off)** | **89.9%** | **10.1%** | **9.1%** | **10.1%** | **0.0%** | **548ms** | **848ms** | **2352ms** | **AI Studio** |
 | **gpt-5.2** | **89.3%** | **10.7%** | **10.0%** | **10.7%** | **0.7%** | **624ms** | **1171ms** | **2509ms** | **OpenAI** |
 | **gpt-5.6-luna (none)** | **88.3%** | **11.7%** | **11.7%** | **11.7%** | **0.0%** | **671ms** | **2304ms** | **12017ms** | **OpenAI** |
 | **gpt-oss-120b (groq)** | **86.3%** | **13.7%** | **9.3%** | **13.0%** | **0.7%** | **98ms** | **217ms** | **2117ms** | **Groq** |
 | **muse-glimmer-30b (thinking low, GGUF)** | **86.1%** | **13.9%** | **13.0%** | **13.7%** | **0.0%** | **231ms** | **1752ms** | **5474ms** | **Local RTX 5090** |
-| **poolside/laguna-s-2.1 (thinking off)** | **85.6%** | **14.4%** | **13.7%** | **11.2%** | **5.7%** | **295ms** | **620ms** | **21032ms** | **OpenRouter** |
+| **poolside/laguna-s-2.1 (thinking off)** | **85.6%** | **14.4%** | **13.7%** | **11.2%** | **5.7%** | **293ms** | **580ms** | **3140ms** | **OpenRouter** |
 | gpt-4.1-mini | 85.3% | 14.7% | 14.7% | 14.7% | 0.0% | 851ms | 2135ms | 5945ms | OpenAI |
 | **gpt-5-mini** | **83.7%** | **16.3%** | **14.0%** | **16.3%** | **1.0%** | **682ms** | **1132ms** | **1904ms** | **OpenAI** |
 | **gpt-4o-mini** | **82.7%** | **17.3%** | **10.3%** | **13.7%** | **2.3%** | **553ms** | **1947ms** | **6497ms** | **OpenAI** |
+| grok-4.6 (low) | 82.2% | 17.8% | 14.2% | 17.7% | 10.1% | 2000ms | 5241ms | 17404ms | xAI |
 | **gemma-4-26b-a4b-it (thinking off)** | **80.7%** | **19.3%** | **13.9%** | **19.3%** | **0.9%** | **578ms** | **634ms** | **31574ms** | **Baseten** |
-| **gemini-3.5-flash-lite (minimal)** | **68.6%** | **31.4%** | **30.8%** | **31.4%** | **28.1%** | **591ms** | **679ms** | **928ms** | **AI Studio** |
+| **gemini-3.5-flash-lite (minimal)** | **68.6%** | **31.4%** | **30.8%** | **31.4%** | **28.1%** | **591ms** | **677ms** | **928ms** | **AI Studio** |
 | **nemotron-3.5-lightning (thinking off, NVFP4)** | **50.9%** | **49.1%** | **49.0%** | **47.9%** | **38.9%** | **62ms** | **70ms** | **80ms** | **Local RTX 5090** |
+
+The [October latency audit](docs/ttfat-reanalysis-2026-10/REPORT.md) verifies 30 rows against v2 cohorts or outputs. Thirteen older rows retain published latency values pending exact cohort provenance; they are not yet certified as first-response-excluded. The four legacy Nemotron exceptions remain as documented.
 
 This table emphasizes current-production routes while retaining selected historically important benchmark results. The four older Nemotron rows are measurements from Baseten deployments that no longer exist in their original form; `Baseten` identifies the provider used for those published runs. Their latency values are the originally published legacy TTFT summaries: the commits did not preserve exact canonical manifests, and the values cannot be converted reliably to content-aware, first-response-excluded TTFAT. They remain useful historical accuracy results but are not latency-comparable with the corrected canonical campaigns. An August 2026 freshness audit removed other retired routes, superseded previews, and unavailable self-hosted configurations. Their transcripts and dedicated study documents remain in the repository and its history.
 
 Each conversation in this benchmark has 30 scripted turns. Refreshed filler-study rows use a fixed-denominator, attempt-based analysis in which missing, malformed, and post-abort future turns count as errors. Some legacy rows with early exits use their available observed turns and are therefore not directly comparable on completion reliability; detailed sample sizes and protocols live in the linked study artifacts rather than this summary table. **Any Error** is the percentage of turns where at least one of tool use, instruction following, or KB grounding fails; it is the complement of **Pass Rate**. The three dimension error rates overlap and therefore do not sum to Any Error.
 
-TTFAT is the latency reported by the Pipecat service from request to the first user-visible answer token or tool-call output; reasoning deltas are excluded where the service exposes them separately. An optimized speech-to-speech pipeline with typical network latencies should be able to achieve a total voice-to-voice latency of approximately LLM TTFAT + 500ms. In general, a model with TTFAT above ~700ms is too slow for most voice agent use cases.
+TTFAT is the latency reported by the Pipecat service from request to the first user-visible answer token or tool-call output; reasoning deltas are excluded where the service exposes them separately. Leaderboard latency excludes each conversation's first scripted turn (the cold start), then includes later scripted turns and any recovery responses. An optimized speech-to-speech pipeline with typical network latencies should be able to achieve a total voice-to-voice latency of approximately LLM TTFAT + 500ms. In general, a model with TTFAT above ~700ms is too slow for most voice agent use cases.
 
 Models labeled "(thinking)" were run with reasoning/chain-of-thought enabled. Models labeled with a reasoning effort like "(low)", "(medium)", or "(none)" were run at that effort level on the OpenAI Responses API.
 
 Gemini 3 rows labeled `(minimal)` use Google's lowest supported `thinking_level`, the closest current equivalent to no-think for latency testing. Google notes that `minimal` matches no thinking for most requests but does not guarantee that reasoning is completely off; these rows therefore are not labeled `thinking off`.
+
+`gemini-3.7-flash (low)` uses the model's lowest supported thinking level; unlike earlier Gemini 3 models, [Gemini 3.7 Flash supports](https://ai.google.dev/gemini-api/docs/thinking) only `low`, `medium`, and `high`, with `medium` as the provider default. The frozen no-filler N=30 cohort completed all 30 scripted turns in every conversation, called all six expected tool turns including `end_session`, and scored 900/900 strict turns (100.0%). Warm content-aware TTFAT was 817ms P50 / 1260ms P95 across turns after each conversation's cold-start turn; one 10.94-second outlier sets the maximum. Google reported zero thinking tokens for this workload despite the explicit low setting. At [Google's introductory paid-tier pricing](https://ai.google.dev/gemini-api/docs/pricing) through December 31, 2026—$0.75/M uncached input, $0.075/M cached input, and $3.75/M output including thinking—the cohort cost an estimated $0.00760 per observed turn. See the [frozen campaign report](ops/google-gemini37-flash/analysis/REPORT.md).
+
+`grok-4.6 (low)` uses [Grok 4.6's](https://docs.x.ai/developers/grok-4-6) minimum supported reasoning effort; reasoning cannot be disabled. The frozen no-filler N=30 campaign used xAI's Responses API with stateful `previous_response_id` continuation, one stable `prompt_cache_key` per conversation, provider-default sampling, and no output-token cap. It scored 740/900 fixed-denominator turns (82.2%, conversation-cluster bootstrap 95% CI 70.9–91.2%) and completed 26/30 conversations. Three attempts reasoned for 340–625 tokens and then incorrectly called `end_session` on turn 0; a fourth ended on turn 28. Warm raw TTFT was 906ms P50 / 1638ms P95, while content-aware TTFAT was 2000ms / 5241ms, excluding each conversation's first scripted response and including recovery responses. Median warm cached-input share was 98.7%. At [xAI's standard-context pricing](https://docs.x.ai/developers/pricing)—$2/M uncached input, $0.50/M cached input, and $6/M output including reasoning—the cohort cost an estimated $0.0104 per observed turn; every request remained below the 200K-input-token higher-price threshold. See the [frozen campaign report](ops/xai-grok46/analysis/REPORT.md).
 
 `gemini-2.5-flash (thinking off)` explicitly sets `thinking_budget=0`. This is also Pipecat's low-latency default for Gemini 2.5 Flash, but the benchmark pins it so every included run has an auditable thinking-off signature rather than relying on an implicit service default.
 
@@ -85,13 +93,13 @@ Gemini 3 rows labeled `(minimal)` use Google's lowest supported `thinking_level`
 
 `muse-glimmer-30b (thinking low, GGUF)` is the public quantized model served locally through llama.cpp on one RTX 5090 with a 32,768-token context, Q8_0 K/V cache, and DFlash draft length 15. A balanced, interleaved N=30-per-arm sweep used Meta's recommended temperature 1.0, top-p 0.95, and top-k 64 sampler, no request-level output-token cap, and the embedded chat template with exact `chat_template_kwargs.reasoning_strength` values. `low` scored 775/900 strict turns (86.1%), versus 769/900 (85.4%) for `medium`, 766/900 (85.1%) for `high`, and 764/900 (84.9%) for `xhigh`; every pairwise conversation-cluster bootstrap 95% interval includes zero. `low` is nevertheless the clear operational choice: it used 34.7% fewer mean completion tokens than `high` and measured 231ms P50 / 1752ms P95 TTFAT across later scripted and recovery responses, versus 236ms / 5850ms for `high`. Meta documents no supported off mode: `none` and `minimal` only render unsupported literal labels, while top-level `reasoning_effort=none` and `enable_thinking=false` are template no-ops. See the [reasoning-strength sweep](runs/muse-glimmer-reasoning-strength-n30-20260811/REPORT.md) and [earlier high-strength campaign](runs/muse-glimmer-card-high-nomax-dflash15-32k-n30-20260810T214000Z/REPORT.md).
 
-`nemotron-3.5-lightning` uses NVIDIA's official NVFP4 checkpoint through SGLang on one RTX 5090. The balanced binary campaign contains 30 conversations per setting and 900 fixed-denominator scripted turns per row. Both settings use the model-card sampler (temperature 1.0, top-p 0.95), no request-level output cap, `force_nonempty_content=true`, and native `enable_thinking=false|true`; the thinking-on arm is unbounded rather than assigned an artificial token budget. Radix prefix caching stays enabled within each conversation, while the cache is flushed between conversations. Thinking on scored 842/900 strict turns (93.6%, conversation-cluster bootstrap 95% CI 92.4–94.6%) and completed 30/30 conversations; thinking off scored 458/900 (50.9%, 95% CI 39.3–62.6%) and ended early in 17/30. Following the leaderboard convention, latency excludes each conversation's first scripted response but includes recovery responses. The Pipecat OpenAI-compatible path measured both raw TTFT and content-aware TTFAT: thinking-on raw TTFT was 65ms P50 / 72ms P95, while TTFAT was 1464ms / 5787ms, exposing the otherwise hidden reasoning delay. Thinking-off raw TTFT was 62ms / 69ms and TTFAT was 62ms / 70ms. See the [campaign report](ops/local-nemotron35-lightning-sglang/aiewf-medium-binary-n30-20260811/artifacts/analysis/REPORT.md).
+`nemotron-3.5-lightning` uses NVIDIA's official NVFP4 checkpoint through SGLang on one RTX 5090. The balanced binary campaign contains 30 conversations per setting and 900 fixed-denominator scripted turns per row. Both settings use the model-card sampler (temperature 1.0, top-p 0.95), no request-level output cap, `force_nonempty_content=true`, and native `enable_thinking=false|true`; the thinking-on arm is unbounded rather than assigned an artificial token budget. Radix prefix caching stays enabled within each conversation, while the cache is flushed between conversations. Thinking on scored 842/900 strict turns (93.6%, conversation-cluster bootstrap 95% CI 92.4–94.6%) and completed 30/30 conversations; thinking off scored 458/900 (50.9%, 95% CI 39.3–62.6%) and ended early in 17/30. Following the leaderboard convention, latency excludes each conversation's first scripted response but includes recovery responses. The Pipecat OpenAI-compatible path measured both raw TTFT and content-aware TTFAT: thinking-on raw TTFT was 65ms P50 / 72ms P95, while TTFAT was 1464ms / 5786ms, exposing the otherwise hidden reasoning delay. Thinking-off raw TTFT was 62ms / 69ms and TTFAT was 62ms / 70ms. See the [campaign report](ops/local-nemotron35-lightning-sglang/aiewf-medium-binary-n30-20260811/artifacts/analysis/REPORT.md).
 
 `qwen3.8-27b (thinking off, NVFP4)` is the newly released Qwen3.8 27B dense model served locally: the community Unsloth NVFP4 checkpoint through a pinned SGLang build (with a one-file lm_head quantization overlay) on one RTX 5090, with a 32,768-token context and pool, BF16 KV cache, explicit BF16 GDN/Mamba state (12 Mamba states), chunked prefill 4,096, radix prefix caching enabled, no speculative decoding, and no request-level output cap. Native thinking is disabled. The campaign contains 30 conversations against the fixed 900-turn denominator: 880/900 strict turns (97.8%, conversation-cluster bootstrap 95% CI 96.6–98.9%), with 29/30 conversations completing every scripted turn (the single absent turn counts as an error) and 13 recovery responses excluded from judging but included in latency. Following the leaderboard convention, TTFAT excludes each conversation's first scripted response and measured 101ms P50 / 318ms P95 / 592ms max. As with the other Local RTX 5090 rows, latency is client wall-clock over localhost to a dedicated batch-one GPU, so it includes no provider network time and is not directly comparable with hosted rows. Matching campaigns of the official BF16 and FP8 checkpoints on Baseten H100s scored 97.9% and 98.2% on the same fixed denominator, so the NVFP4 quantization shows no measurable accuracy loss on this benchmark. See the [campaign report](ops/local-qwen38-27b-nvfp4-sglang/aiewf-medium-none-n30-20260816/analysis/REPORT.md).
 
 `gemma-4-31b-it (thinking off)` replaces the retired Lilac route with the official `google/gemma-4-31B-it` BF16 checkpoint on a dedicated Baseten deployment. The selected serving stack is SGLang v0.5.16 on two H100s with RadixAttention prefix caching and the official Gemma 4 NEXTN/MTP assistant. A matched three-conversation bakeoff measured 420ms P50 / 521ms P95 TTFAT for NEXTN/MTP, versus 429ms / 550ms for vLLM with prefix caching and no MTP, and 495ms / 647ms for SGLang without MTP. The published row pools an immutable 30-conversation cohort with a matched 120-conversation extension: all 150 conversations completed all 30 scripted turns, scored 4346/4500 strict turns (96.6%, conversation-cluster bootstrap 95% CI 96.1–97.0%), and produced zero thinking tokens. Pooled TTFAT after the first response was 489ms P50 / 609ms P95, but the extension exposed intermittent serving stalls: the maximum was 38.25 seconds. SGLang's Gemma 4 parser incorrectly emits request-schema tool positions as OpenAI streaming call indices; the campaign uses an explicit, default-off compatibility option that remaps them to response-local ordinals. See the [pooled campaign report](ops/baseten-gemma4-31b-sglang/aiewf-medium-mtp-n150-20260807/REPORT.md), [original campaign](ops/baseten-gemma4-31b-sglang/aiewf-medium-mtp-n30-20260806/REPORT.md), and [serving bakeoff](ops/baseten-gemma4-31b-sglang/bakeoff-20260806-normalized/REPORT.md). The historical Lilac 97.7% aggregate remains in `docs/ten-run-aggregates/lilac-gemma-4-31b-it-off-2026-06-15.txt` and is not pooled with the Baseten result.
 
-DeepSeek V4 Flash 0731 and DeepSeek V4 Pro 0813 were measured through Baseten's OpenAI-compatible Model API with their exact model IDs, native `reasoning_effort`, temperature 1.0, model-default top-p, and an 8,192-token cap. Each published arm is an independent 30-conversation cohort scored against the fixed 900-turn denominator; absent scripted turns count as errors. Flash low scored 870/900 strict turns (96.7%) at 677ms P50 TTFAT, Flash high scored 845/900 (93.9%) at 763ms, and Pro low scored 876/900 (97.3%) at 752ms. All latency values exclude the first scripted response and include recovery responses. See the [campaign report](ops/baseten-deepseek-v4/aiewf-medium-3arm-n30-20260817/analysis/REPORT.md), whose manifest maps every published number to its judged run directory; raw campaign logs remain local-only in `runs/deepseek-v4-baseten-full3-20260818T044040Z`.
+DeepSeek V4 Flash 0731 and DeepSeek V4 Pro 0813 were measured through Baseten's OpenAI-compatible Model API with their exact model IDs, native `reasoning_effort`, temperature 1.0, model-default top-p, and an 8,192-token cap. Each published arm is an independent 30-conversation cohort scored against the fixed 900-turn denominator; absent scripted turns count as errors. Flash low scored 870/900 strict turns (96.7%) at 677ms P50 TTFAT, Flash high scored 845/900 (93.9%) at 762ms, and Pro low scored 876/900 (97.3%) at 752ms. All latency values exclude the first scripted response and include recovery responses. See the [campaign report](ops/baseten-deepseek-v4/aiewf-medium-3arm-n30-20260817/analysis/REPORT.md), whose manifest maps every published number to its judged run directory; raw campaign logs remain local-only in `runs/deepseek-v4-baseten-full3-20260818T044040Z`.
 
 A separate RTX 5090 serving study used the public Red Hat NVFP4 checkpoint at batch one with the same no-filler benchmark configuration. Pooled N=150 cohorts scored 95.5% with FP8 KV and 96.2% with a compact BF16-KV layout. BF16 minus FP8 KV was +0.67 percentage points with an independent whole-conversation bootstrap 95% interval of -0.07 to +1.40 points: the point estimate favors BF16, but the global difference remains inconclusive. After excluding the first response, BF16 measured 127ms P50 / 318ms P95 TTFAT versus 105ms / 290ms for FP8; both completed 150/150 conversations and retained 100% KB grounding. The Baseten BF16 row remains the production-table result because the local experiment uses quantized weights and omits MTP. See the [pooled local three-way comparison](ops/local-gemma4-31b-nvfp4-sglang/pooled-n150-analysis-20260807/REPORT.md).
 
@@ -121,38 +129,53 @@ The Qwen3.6 rows use official `Qwen/Qwen3.6-27B` BF16 and `Qwen/Qwen3.6-35B-A3B-
 
 Speech-to-speech models:
 
-| Model             | Pass Rate | Tool Use | Instruction | KB Ground | Turn Ok | Non-Tool V2V Med | Non-Tool V2V Max | Tool V2V Mean | Silence Pad Mean |
-|-------------------|-----------|----------|-------------|-----------|---------|------------------|------------------|---------------|------------------|
-| gpt-realtime-2.1 (low) | 97.2% | 876/900 | 876/900 | 900/900 | 899/900 | 1504ms | 4288ms | 1537ms | 75ms |
-| grok-voice-think-fast-1.0 | 95.3% | 288/300 | 289/300 | 299/300 | 296/300 | 2336ms | 4800ms | 2753ms | 239ms |
-| gpt-realtime-1.5 | 93.3% | 282/300 | 280/300 | 300/300 | 299/300 | 1152ms | 2304ms | 2251ms | 96ms |
-| gemini-3.1-flash-live (minimal) | 91.7% | 276/300 | 277/300 | 300/300 | 300/300 | 1632ms | 5664ms | 3172ms | 100ms |
-| gpt-realtime | 86.7% | 271/300 | 260/300 | 300/300 | 296/300 | 1536ms | 4672ms | 2199ms | 341ms |
-| gemini-live | 86.0% | 258/300 | 261/300 | 293/300 | 278/300 | 2624ms | 30000ms | 4082ms | 90ms |
-| nova-2-sonic | * | 278/300 | 265/300 | 296/300 | * | 1280ms | 3232ms | 1689ms | 79ms |
+**Completed-conversation speech results, September 16, 2026.** Each row scores the first **25 complete, harness-valid conversations (750 turns)** with the shared Opus 5 rubric. Standard-prompt rows use the shared speech-v2 prompt; the prompt-optimized configuration is marked with an asterisk. Accuracy is conditional on conversation completion. Incomplete conversations, including their observed prefixes, are excluded from accuracy and reported separately as failed conversations. Every attempt is preserved; failures are not erased by top-ups.
 
-For speech-to-speech models, we measure voice-to-voice latency by analyzing the conversation recording. We measure the overall time from the end of the user's speech to the beginning of the model's speech response.
+Failure rate is incomplete model/service conversations divided by harness-valid attempts. Harness-invalid captures are excluded from that denominator and disclosed separately. No prompts or judge rubric changed for this policy update; text-model scores remain unchanged. See the [completed-conversation report](docs/speech-results-2026-09/REPORT.md) and [sampling policy](docs/speech-results-2026-09/PROTOCOL.md).
 
-For voice agent use cases, voice-to-voice latency needs to be under 1,500ms.
+| Model | Scored | Failed conversations | Pass Rate | Tool Use | Instruction | KB Ground | Turn Ok | Non-Tool V2V Med | Non-Tool V2V Max | Tool V2V Mean | Silence Pad Mean |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| GPT-Live prompt-optimized + Terra medium* | 25 | 2/27 (7.4%) | 98.5% | 749/750 | 739/750 | 746/750 | — | 2144ms | 29056ms | 2471ms | — |
+| Grok Voice Think Fast | 25 | 0/25 (0.0%) | 97.7% | 742/750 | 734/750 | 750/750 | 730/750 | 2496ms | 5984ms | 2689ms | 88ms |
+| GPT-Realtime-2.1 low | 25 | 0/25 (0.0%) | 94.4% | 733/750 | 712/750 | 731/750 | 750/750 | 1568ms | 9568ms | 1499ms | 75ms |
+| GPT-Live standard + Terra medium | 25 | 0/25 (0.0%) | 94.3% | 723/750 | 715/750 | 746/750 | 749/750 | 1696ms | 11072ms | 2169ms | — |
+| GPT-Realtime-1.5 | 25 | 0/25 (0.0%) | 94.0% | 739/750 | 708/750 | 725/750 | 737/750 | 1120ms | 3424ms | 1890ms | 160ms |
+| Gemini 3.8 Live (regular; default) | 25 | 1/26 (3.8%) | 92.9% | 733/750 | 700/750 | 732/750 | 749/750 | 1440ms | 12288ms | 2112ms | — |
+| Gemini 3.8 Extended Thinking low | 25 | 0/25 (0.0%) | 92.9% | 747/750 | 698/750 | 729/750 | 750/750 | 1440ms | 8896ms | 1509ms | — |
+| Gemini 3.1 minimal | 25 | 1/26 (3.8%) | 87.5% | 717/750 | 663/750 | 729/750 | 750/750 | 1344ms | 3936ms | 1661ms | 98ms |
 
-The voice-to-voice latency measured here is different from the TTFB reported by the Pipecat service for these models, because all of these models were tested in server-side VAD mode (the server-side turn delay is opaque to the Pipecat pipeline), and all of the models send initial silence bytes before actual speech audio. (Text-to-speech models do this, too. The initial silence segments are typically between 150ms and 250ms for standalone TTS models.)
+*GPT-Live prompt-optimized uses a different prompt structure: the frontend contains voice-agent behavior and delegation instructions; the backend contains the full knowledge base and answering instructions. It uses Terra medium and a five-second quiet/playback completion gate. It is evaluated on the same benchmark questions with the shared Opus 5 rubric. Turn-taking is not scored by its reconstructed-transcript judge (shown as —); waveform audio metrics are measured separately. First-speech V2V mean is 2686ms, median 2112ms, with 748/750 positive measurable latencies.*
 
-We also include a "Turn Ok" column for these models, which counts how often the model does not respond at all when we expect it or responds with control characters, API refusals, or generic errors.
+### Additional speech experiments
 
-The Nova 2 Sonic model performs very well on instruction following and tool calling but has a high rate of safety refusals for normal content. It also has a connection limit of 8 minutes. Fixes for both of these issues are in flight from AWS.
+Gemini medium also contains 25 completed conversations and uses the interaction-aware harness with the standard prompt. The earlier-harness Gemini medium cohort is superseded and retained only in the historical reports. No runtime transcript classifier is used.
 
-gemini-3.1-flash-live-preview is a reasoning model. We show the results with minimal thinking enabled, above. Here are the results all thinking levels. Even minimal is too slow for voice agent use cases, today. With additional reasoning, the model's benchmark results improve, but latency increases. Note the tool use and instruction following regression from medium to high. This is something we see regularly in multi-turn testing of thinking models. The model is not always "smartest" at the highest thinking setting.
+| Model / configuration | Scored | Failed conversations | Pass Rate | First-speech V2V mean | Median | Positive latency coverage |
+|---|---:|---:|---:|---:|---:|---:|
+| Gemini 3.8 Extended Thinking medium (interaction-aware) | 25 | 2/27 (7.4%) | 93.1% | 1752ms | 1632ms | 750/750 |
 
-| Thinking | Pass Rate | Tool Use | Instruction | KB Ground | Turn Ok | Non-Tool V2V Med | Non-Tool V2V Max | Tool V2V Mean | Silence Pad Mean |
-|----------|-----------|----------|-------------|-----------|---------|------------------|------------------|---------------|------------------|
-| high | 91.0% | 281/300 | 273/300 | 300/300 | 297/300 | 2368ms | 15872ms | 3665ms | 119ms |
-| medium | 96.0% | 291/300 | 288/300 | 300/300 | 296/300 | 2400ms | 10208ms | 3903ms | 113ms |
-| low | 90.3% | 282/300 | 271/300 | 299/300 | 297/300 | 2176ms | 4672ms | 3602ms | 97ms |
-| minimal | 91.7% | 276/300 | 277/300 | 300/300 | 300/300 | 1632ms | 5664ms | 3172ms | 100ms |
+**Failed-conversation details:** turn numbers below are **one-based, out of 30**. No-response timeouts are not labeled explicit API errors.
+
+- **Gemini 3.8 Live (regular)**: 1 failure, `no_audio_timeout` on turn **1**, after 0 completed turns.
+- **Gemini 3.1 minimal**: 1 failure, `no_audio_timeout` on turn **25**, after 24 completed turns.
+- **Gemini 3.8 Extended Thinking medium (interaction-aware)**: 2 failures, `no_audio_timeout` on turn **1**, after 0 completed turns.
+- **GPT-Live prompt-optimized**: 2 failures, `no-response timeout (90s)` on turn **11**, after 10 completed turns.
+
+**Harness and measurement notes:**
+
+- Gemini 3.8 Live (regular): 25 completed conversations, 697/750 strict passes. First-speech V2V mean 1616ms, median 1536ms, 749/750 positive measurements (one missing). Thinking configuration is omitted, as required by this model. Thirteen attempts were excluded for a harness defect that suppressed duplicate-tool acknowledgments; the 21 earlier completed conversations had no such suppression and were retained, then four validated completions were added after the capture-local fix. Failures are 1/26 eligible attempts, not 14/39 total captures. See the [regular-model report](docs/speech-results-2026-09/REPORT.md#regular-gemini) and [harness review](docs/speech-results-2026-09/manifest.json).
+
+- Gemini 3.8 Extended Thinking low: one original capture recorded a startup greeting instead of the first scripted exchange. It is excluded as a harness defect and replaced; the old dagger no longer applies to the scored set. It is not counted as a provider failure.
+- GPT-Live standard: waveform landmark alignment resolved the late input-window offset in one recording without changing its measured latencies. The original broken-gate cohort remains diagnostic and excluded.
+- GPT-Live optimized: canonical VAD missed one brief recorded answer. The conversation is complete; its unmeasurable latency remains missing. Full missing/nonpositive coverage is retained in the report.
+- First-speech V2V includes acknowledgments and is conditional on measurable speech. It is not latency to the substantive answer. Metrics use actual recorded speech, not packet arrival. Missing audio boundaries do not become zero-latency observations.
+- The earlier Gemini cohorts retain their documented silent-closing audio limitations. The newer medium cohort waits for provider IDLE and closing playback.
+- Gemini 3.1 historical reliability: the [August investigation](docs/async-gemini-live-comparison-2026-08-04/root-cause-probes/README.md) reported 18/20 no-response-free conversations and a WebSocket 1006 reconnect in another attempt. Those historical observations are separate from current counts.
+- Historical diagnostic campaigns are not pooled into current failure rates. Original [attempt-based results](docs/speech-results-2026-09/REPORT.md#historical-diagnostics) and the [old speech table](docs/speech-results-2026-09/REPORT.md#historical-diagnostics) remain archived. The original gpt-realtime model remains omitted.
 
 ### Sample Recordings
 
-Listen to full 30-turn benchmark conversations from each speech-to-speech model:
+Historical recordings using the original prompt (not the speech-v2 cohort above):
 
 | Model         | Recording                                      |
 |---------------|------------------------------------------------|
@@ -167,6 +190,26 @@ In the recordings, the left channel is the user's speech and the right channel i
 ![Visually inspecting silence padding by looking at the audio waveform](samples/silence-padding-measurement.png)
 
 *Visually inspecting silence padding by looking at the audio waveform. Here we're using the [Descript](https://descript.com/) editor.*
+
+### GPT-Live validation notes
+
+GPT-Live (`gpt-live-1`) was validated with the **exact same full speech-v2
+frontend prompt, knowledge base, tools, and judging criteria** as the other
+speech-to-speech models. Its delegated backend is `gpt-5.6-terra` with medium
+reasoning and receives the same prompt. Results must name both models.
+
+OpenAI's [prompting guide](https://developers.openai.com/api/docs/guides/live-prompting)
+recommends a shorter conversational frontend prompt and detailed backend procedures.
+That is a possible production optimization, not a change to this benchmark.
+With the revised shared judge, the first standard-prompt 30-turn validation scored 28/30. The closing
+utterance stayed in the frontend with no backend delegation, so `end_session` was
+never called. Explicit delegation guidance for closing requests could be worth a
+production experiment; it has not been applied to this benchmark. Custom-frontend
+probes are diagnostic only and are excluded from standard-prompt results.
+
+GPT-Live has **25 captured conversations** (five pilot plus 20 additions), with 25/25 reaching all 30 transcript turns. A turn-gate defect can advance immediately after input ends when an early backchannel has already gone quiet. These captures are retained as **diagnostics**, not a canonical score. See the [capture report](docs/speech-results-2026-09/REPORT.md#historical-diagnostics) and [isolated gate fix](docs/live-speech-support.md). The [fresh corrected-gate cohort](docs/speech-results-2026-09/REPORT.md) completed 25/25 conversations and scored 707/750 (94.3%). Its gate audit passed. The [completed-conversation review](docs/speech-results-2026-09/REPORT.md) resolved the recording offset by waveform alignment without changing its measured latencies.
+
+The separate **GPT-Live prompt-optimized** experiment follows the [design document](docs/speech-results-2026-09/PROTOCOL.md#optimized-prompt-structure). Its original runtime-classifier cohort is preserved as diagnostics. The [five-second protocol](docs/speech-results-2026-09/PROTOCOL.md#completion-gates) uses backend lifecycle, speech after backend content availability, and playback; it has no runtime text classifier. The [completed-conversation report](docs/speech-results-2026-09/REPORT.md) includes the validated 25-completion cohort and separately retained no-response failure. Smoke tests are excluded. Its split prompts remain separate from the standard speech prompt.
 
 ## Quick Start
 
@@ -205,6 +248,7 @@ export ANTHROPIC_API_KEY=sk-ant-...
 # Text-mode model services
 export OPENAI_API_KEY=sk-...          # OpenAI (GPT-4o, GPT-4o-mini, etc.)
 export GOOGLE_API_KEY=...             # Google (Gemini models)
+export XAI_API_KEY=...                # xAI Grok text models (Responses API)
 export OPENROUTER_API_KEY=...         # OpenRouter (access to multiple providers)
 export GROQ_API_KEY=...               # Groq
 export CEREBRAS_API_KEY=...           # Cerebras
@@ -236,17 +280,21 @@ uv run multi-turn-eval run <benchmark> --model <model> --service <service>
 uv run multi-turn-eval run aiwf_medium_context --model claude-sonnet-4-5 --service anthropic
 uv run multi-turn-eval run aiwf_medium_context --model gpt-4o --service openai
 uv run multi-turn-eval run aiwf_medium_context --model gemini-2.5-flash --service google
+uv run multi-turn-eval run aiwf_medium_context --model gemini-3.7-flash --service google --thinking low
+MTE_XAI_REASONING_EFFORT=low uv run multi-turn-eval run aiwf_medium_context --model grok-4.6 --service xai
 
-# Realtime audio models 
-uv run multi-turn-eval run aiwf_medium_context --model gpt-realtime --service openai-realtime
-uv run multi-turn-eval run aiwf_medium_context --model gemini-3.1-flash-live-preview --service gemini-live --thinking minimal
+# Realtime audio models use the separate speech-v2 prompt and rubric
+MTE_OPENAI_REALTIME_REASONING_EFFORT=low uv run multi-turn-eval run aiwf_medium_context_speech_v2 --model gpt-realtime-2.1 --service openai-realtime
+uv run multi-turn-eval run aiwf_medium_context_speech_v2 --model gemini-3.1-flash-live-preview --service gemini-live --thinking minimal
+uv run python -m scripts.capture_gemini_regular --benchmark aiwf_medium_context_speech_v2
+uv run python -m scripts.capture_gemini_startup_guard --benchmark aiwf_medium_context_speech_v2 --model gemini-3.8-live-extended-thinking --thinking low
 uv run multi-turn-eval run aiwf_medium_context --model ultravox-v0.7 --service ultravox-realtime
 
 # Nova Sonic (no --service needed, pipeline creates its own LLM)
 uv run multi-turn-eval run aiwf_medium_context --model amazon.nova-2-sonic-v1:0 --pipeline nova-sonic
 
 # Grok (xAI) Realtime
-uv run multi-turn-eval run aiwf_medium_context --model grok-voice-think-fast-1.0 --pipeline grok-realtime
+uv run multi-turn-eval run aiwf_medium_context_speech_v2 --model grok-voice-think-fast-1.0 --pipeline grok-realtime
 
 # Debug with limited turns
 uv run multi-turn-eval run aiwf_medium_context --model gpt-4o --service openai --only-turns 0,1,2
@@ -298,10 +346,7 @@ When turn-taking failures occur, the judge is more lenient on `instruction_follo
 
 ```bash
 # Judge a speech-to-speech run (turn-taking analysis runs automatically)
-uv run multi-turn-eval judge runs/aiwf_medium_context/20260111T123456_gpt-realtime_abc123
-
-# Skip turn-taking analysis
-uv run multi-turn-eval judge runs/aiwf_medium_context/20260111T123456_gpt-realtime_abc123 --skip-turn-taking
+uv run multi-turn-eval judge runs/aiwf_medium_context_speech_v2/<run-directory> --judge-model claude-opus-5
 ```
 
 Additional outputs for speech-to-speech runs:
@@ -332,6 +377,7 @@ For convenience, common service classes have short aliases:
 | `openai-realtime` | `pipecat.services.openai.realtime.llm.OpenAIRealtimeLLMService` |
 | `anthropic` | `pipecat.services.anthropic.llm.AnthropicLLMService` |
 | `google` | `pipecat.services.google.llm.GoogleLLMService` |
+| `xai` | `multi_turn_eval.services.openai_responses.OpenAIResponsesLLMService` (stateful Responses API; `MTE_XAI_REASONING_EFFORT` defaults to `low`) |
 | `gemini-live` | `multi_turn_eval.pipelines.realtime.GeminiLiveLLMServiceWithReconnection` |
 | `bedrock` | `pipecat.services.aws.llm.AWSBedrockLLMService` |
 | `ultravox-realtime` | `pipecat.services.ultravox.llm.UltravoxRealtimeLLMService` |
@@ -392,7 +438,11 @@ runs/
 | `gpt-4o-mini` | text | openai |
 | `gpt-realtime` | realtime | openai-realtime |
 | `gemini-2.5-flash` | text | google |
+| `gemini-3.7-flash` | text | google (use `--thinking low` for the published cohort) |
+| `grok-4.6` | text | xai |
 | `gemini-3.1-flash-live-preview` | realtime | gemini-live |
+| `gemini-3.8-live` | realtime | gemini-live |
+| `gemini-3.8-live-extended-thinking` | realtime | gemini-live |
 | `gemini-2.5-flash-native-audio-preview-12-2025` | realtime | gemini-live |
 | `ultravox-v0.7` | realtime | ultravox-realtime |
 | `claude-sonnet-4-5` | text | anthropic |
@@ -510,20 +560,31 @@ uv run python scripts/analyze_turn_metrics.py runs/aiwf_medium_context/<timestam
 Use this prompt with Claude Code to run comprehensive benchmarks across multiple speech-to-speech models:
 
 ```
-Run a full 30-turn test with all four speech-to-speech models: ultravox-v0.7,
-gpt-realtime, grok-realtime, gemini-2.5-flash-native-audio-preview-12-2025.
+Collect 25 complete, harness-valid 30-turn conversations per model with aiwf_medium_context_speech_v2:
+- gpt-realtime-2.1 (low reasoning)
+- grok-voice-think-fast-1.0
+- gpt-realtime-1.5
+- gemini-3.1-flash-live-preview (minimal thinking)
+- gemini-3.8-live-extended-thinking (low thinking)
+
+Use at most five concurrent sessions per provider. Preserve every attempt, including
+failures. Add new attempts until 25 valid conversations complete; never select by score.
+Exclude incomplete conversations from accuracy and report failure rates separately.
+Exclude confirmed harness defects separately from model/service failures. Use a fresh campaign directory.
 
 For each model:
-1. Run the 30-turn benchmark
+1. Run the voice benchmark and record completion/errors for every attempt
 2. Analyze using scripts/analyze_turn_metrics.py and save turn_metrics.json
-3. Judge the model performance using the Claude judge
+3. Judge once with claude-opus-5 and the benchmark-specific voice rubric
 
 After completing all models, create a summary comparison table with these columns:
 - Model
-- Tool Use (X/30)
-- Instruction (X/30)
-- KB Ground (X/30)
-- Turn Ok (X/30)
+- Scored conversations (25)
+- Failed conversations / eligible attempts, percentage, failure reason and stopping turn
+- Tool Use (X/750)
+- Instruction (X/750)
+- KB Ground (X/750)
+- Turn Ok (X/750)
 - Pass Rate
 - Non-Tool V2V Median
 - Non-Tool V2V Max
@@ -531,9 +592,13 @@ After completing all models, create a summary comparison table with these column
 - Silence Pad Mean
 
 Separate metrics for tool-call turns vs non-tool-call turns in the analysis.
+Score the 750 turns from completed conversations. Preserve partial failed transcripts as
+diagnostics; report each failure with its one-based stopping turn and completed-turn count.
+Preserve all text-model prompts and README scores.
 ```
 
-This will run all four models (which takes approximately 15-20 minutes each), analyze their timing metrics, judge their responses, and produce a comparison table.
+See the [completed-conversation protocol](docs/speech-results-2026-09/PROTOCOL.md)
+for sampling, failure accounting, and links to preserved capture artifacts.
 
 ## License
 

@@ -2,7 +2,7 @@
   "schema_version": 1,
   "campaign_id": "aiewf-medium-gemma4-26b-a4b-dots-paired-20260731",
   "stage": "full",
-  "generated_at": "2026-08-04T02:14:05+00:00",
+  "generated_at": "2026-10-01T18:20:48+00:00",
   "model": "google/gemma-4-26B-A4B-it",
   "provider": "BaseTen",
   "configuration": {
@@ -19,6 +19,7 @@
   "method": {
     "fixed_denominator": true,
     "missing_future_turns_fail_all_displayed_accuracy_criteria": true,
+    "latency_excludes_first_scripted_turn_per_conversation": true,
     "arm_interval_unit": "whole conversation",
     "effect_interval_unit": "frozen temporal pair",
     "effect_bootstrap_design": "paired bootstrap",
@@ -31,7 +32,7 @@
     "judge_inputs": "78bd2b1c73e95cdc64f0a637a1c76b9b8d35378b2d077702c5cda884243960b6",
     "judge_complete": "4e73053ee05d7d52692b7cea9f444cf29fff435ca1b698a319d9c9dc5400df5b",
     "judge_source": "eef8d507d3aa7aa579a5c622f7a33d3586e49c280f5179bc33a5cf46fa87d7a1",
-    "analysis_source": "87e6ab09e030948203b10dfe5334cdd25f95093ac87bfe55c0995bee5ab79593"
+    "analysis_source": "30a74f3e5bafa972810693683d27e57ca5a03b64a6c3c42895fe10ec2e6e9952"
   },
   "judging_complete": {
     "campaign": "aiewf-medium-gemma4-26b-a4b-dots-paired-20260731",
@@ -173,9 +174,9 @@
         "strict_complete": 29
       },
       "ttfat_ms_observed_responses_only": {
-        "count": 894,
-        "p50": 579.5,
-        "p95": 802.6999999999998,
+        "count": 864,
+        "p50": 578.0,
+        "p95": 633.5499999999997,
         "max": 31574.0
       },
       "turn_taking_error_count_fixed_denominator": 6,
@@ -817,9 +818,9 @@
         "strict_complete": 29
       },
       "ttfat_ms_observed_responses_only": {
-        "count": 882,
-        "p50": 582.0,
-        "p95": 812.0,
+        "count": 852,
+        "p50": 581.0,
+        "p95": 638.8999999999999,
         "max": 25923.0
       },
       "turn_taking_error_count_fixed_denominator": 18,

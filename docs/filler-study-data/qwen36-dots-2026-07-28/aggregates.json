@@ -15,6 +15,7 @@
     "control_n": 30,
     "decision_control_n": 10,
     "missing_scripted_turns": "fail",
+    "ttfat_scope": "observed scripted responses excluding each conversation's first response",
     "bootstrap_unit": "whole conversation",
     "bootstrap_samples": 100000,
     "interleaved": false,
@@ -25,6 +26,8 @@
       "display_name": "qwen3.6-27b (thinking off)",
       "requested_model": "Qwen/Qwen3.6-27B",
       "checkpoint_precision": "BF16",
+      "deployment_id": "wxpnlg5",
+      "endpoint": "https://model-w67n482q.api.baseten.co/deployment/wxpnlg5/sync/v1",
       "provider": "BaseTen",
       "serving": {
         "vllm": "0.26.0",
@@ -50,9 +53,9 @@
             88.64866068260312,
             99.99999999999999
           ],
-          "ttfat_observations": 900,
-          "ttfat_p50_ms": 668.0,
-          "ttfat_p95_ms": 822.0,
+          "ttfat_observations": 870,
+          "ttfat_p50_ms": 667.0,
+          "ttfat_p95_ms": 768.55,
           "thought_tokens": 0,
           "run_dirs": [
             "runs/aiwf_medium_context/20260728T041918_Qwen_Qwen3.6-27B_c6f50663",
@@ -108,9 +111,9 @@
             60.96657120978346,
             100.0
           ],
-          "ttfat_observations": 180,
-          "ttfat_p50_ms": 682.5,
-          "ttfat_p95_ms": 846.3499999999996,
+          "ttfat_observations": 174,
+          "ttfat_p50_ms": 680.0,
+          "ttfat_p95_ms": 808.4499999999999,
           "thought_tokens": 0,
           "run_dirs": [
             "runs/aiwf_medium_context/20260728T070113_Qwen_Qwen3.6-27B_211a4fa8",
@@ -143,9 +146,9 @@
           72.24672001371107,
           99.99999999999999
         ],
-        "ttfat_observations": 300,
-        "ttfat_p50_ms": 667.0,
-        "ttfat_p95_ms": 828.45,
+        "ttfat_observations": 290,
+        "ttfat_p50_ms": 664.0,
+        "ttfat_p95_ms": 774.6500000000001,
         "thought_tokens": 0,
         "run_dirs": [
           "runs/aiwf_medium_context/20260728T041918_Qwen_Qwen3.6-27B_c6f50663",
@@ -203,6 +206,8 @@
       "display_name": "qwen3.6-35b-a3b (thinking off, FP8)",
       "requested_model": "Qwen/Qwen3.6-35B-A3B-FP8",
       "checkpoint_precision": "FP8",
+      "deployment_id": "qe20zvr",
+      "endpoint": "https://model-qzkm8mpq.api.baseten.co/deployment/qe20zvr/sync/v1",
       "provider": "BaseTen",
       "serving": {
         "vllm": "0.26.0",
@@ -228,9 +233,9 @@
             74.37891742081592,
             96.54001112526657
           ],
-          "ttfat_observations": 900,
-          "ttfat_p50_ms": 765.0,
-          "ttfat_p95_ms": 1254.6999999999994,
+          "ttfat_observations": 870,
+          "ttfat_p50_ms": 764.0,
+          "ttfat_p95_ms": 1232.6999999999985,
           "thought_tokens": 0,
           "run_dirs": [
             "runs/aiwf_medium_context/20260728T075844_Qwen_Qwen3.6-35B-A3B-FP8_873d75eb",
@@ -286,9 +291,9 @@
             55.552038304811106,
             85.81733668040368
           ],
-          "ttfat_observations": 862,
-          "ttfat_p50_ms": 667.5,
-          "ttfat_p95_ms": 852.8499999999998,
+          "ttfat_observations": 832,
+          "ttfat_p50_ms": 666.0,
+          "ttfat_p95_ms": 812.4499999999999,
           "thought_tokens": 0,
           "run_dirs": [
             "runs/aiwf_medium_context/20260728T083607_Qwen_Qwen3.6-35B-A3B-FP8_10f073e5",
@@ -345,9 +350,9 @@
           49.01624715366418,
           94.33178485456247
         ],
-        "ttfat_observations": 300,
-        "ttfat_p50_ms": 775.0,
-        "ttfat_p95_ms": 1659.300000000001,
+        "ttfat_observations": 290,
+        "ttfat_p50_ms": 773.0,
+        "ttfat_p95_ms": 1702.300000000001,
         "thought_tokens": 0,
         "run_dirs": [
           "runs/aiwf_medium_context/20260728T075844_Qwen_Qwen3.6-35B-A3B-FP8_873d75eb",

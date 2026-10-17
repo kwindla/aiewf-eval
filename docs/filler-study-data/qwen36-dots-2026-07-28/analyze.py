@@ -3,6 +3,8 @@
 
 from __future__ import annotations
 
+from multi_turn_eval.latency_reporting import include_response_latency
+
 import csv
 from dataclasses import dataclass
 import hashlib
@@ -178,7 +180,7 @@ def load_conversation(
         passed.append(all(values))
         raw_row = raw.get(turn, {})
         latency = raw_row.get("ttfb_ms")
-        if isinstance(latency, (int, float)) and math.isfinite(latency) and latency >= 0:
+        if include_response_latency(turn) and isinstance(latency, (int, float)) and math.isfinite(latency) and latency >= 0:
             ttfat.append(float(latency))
         tokens = raw_row.get("tokens") or {}
         reasoning = tokens.get("thinking_tokens")
@@ -441,6 +443,7 @@ def main() -> int:
             "control_n": 30,
             "decision_control_n": 10,
             "missing_scripted_turns": "fail",
+            "ttfat_scope": "observed scripted responses excluding each conversation's first response",
             "bootstrap_unit": "whole conversation",
             "bootstrap_samples": BOOTSTRAPS,
             "interleaved": False,

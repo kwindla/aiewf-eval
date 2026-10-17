@@ -1,7 +1,8 @@
 # BaseTen Kimi K2.6 — AIEWF medium-context result
 
 The fixed denominator is 30 canonical conversations × scripted turns 0–29 =
-900. Recovery rows are excluded from both scores and README TTFAT, but their
+900. Recovery rows are excluded from both scores and README TTFAT; the first
+scripted response in each conversation is also excluded from TTFAT. Recovery
 tokens remain in the billed-token totals.
 
 ## README-format result
@@ -14,14 +15,14 @@ tokens remain in the billed-token totals.
 | Tool error | 1.4% |
 | Instruction error | 1.7% |
 | KB error | 0.0% |
-| Scripted-turn TTFAT P50 / P95 / max | 1596 / 5252 / 13622 ms |
-| Raw first-chunk TTFB P50 / P95 / max | 666 / 1146 / 2163 ms |
-| Reasoning delay P50 / P95 / max | 854 / 4586 / 12100 ms |
+| Scripted-turn TTFAT P50 / P95 / max | 1560 / 5404 / 13622 ms |
+| Raw first-chunk TTFB P50 / P95 / max | 657 / 1132 / 2163 ms |
+| Reasoning delay P50 / P95 / max | 825 / 4726 / 12100 ms |
 | Scripted rows with positive thinking tokens | 900/900 |
 | Scripted thinking tokens | 225,391 |
 
 ```text
-| kimi-k2.6 (thinking on) | 98.3% | 1.7% | 1.4% | 1.7% | 0.0% | 1596ms | 5252ms | 13622ms | BaseTen |
+| kimi-k2.6 (thinking on) | 98.3% | 1.7% | 1.4% | 1.7% | 0.0% | 1560ms | 5404ms | 13622ms | BaseTen |
 ```
 
 ## Collection and protocol reliability

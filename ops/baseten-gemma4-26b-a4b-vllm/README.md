@@ -39,14 +39,12 @@ The collector deliberately refuses `--execute` while those fields are pending.
 Read-only preflight:
 
 ```bash
-cd /home/khkramer/src/aiewf-eval
 .venv/bin/python ops/baseten-gemma4-26b-a4b-vllm/collect.py
 ```
 
 Live, resumable collection:
 
 ```bash
-cd /home/khkramer/src/aiewf-eval
 .venv/bin/python ops/baseten-gemma4-26b-a4b-vllm/collect.py --execute
 ```
 
@@ -84,14 +82,12 @@ post-teardown control-plane state is recorded in
 The judge driver is read-only by default:
 
 ```bash
-cd /home/khkramer/src/aiewf-eval
 .venv/bin/python ops/baseten-gemma4-26b-a4b-vllm/judge_campaign.py
 ```
 
 After all 30 runs are canonical:
 
 ```bash
-cd /home/khkramer/src/aiewf-eval
 .venv/bin/python ops/baseten-gemma4-26b-a4b-vllm/judge_campaign.py \
   --execute \
   --workers 2 \
