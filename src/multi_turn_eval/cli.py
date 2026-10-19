@@ -133,7 +133,7 @@ def infer_pipeline(model: str, service: str | None = None) -> str:
     if "nemotron_3_nano_omni" in m and s != "nemotron":
         return "audio-in"
     # Grok realtime uses dedicated pipeline for xAI-specific protocol handling
-    if m.startswith("grok") and "realtime" in m:
+    if m.startswith("grok") and ("realtime" in m or m.startswith("grok-voice")):
         return "grok-realtime"
     if get_model_capabilities(model).realtime or s == "gemini-live":
         return "realtime"
@@ -143,7 +143,7 @@ def infer_pipeline(model: str, service: str | None = None) -> str:
         return "realtime"
     if "ultravox" in m:
         return "realtime"
-    if "nova-sonic" in m or "nova_sonic" in m:
+    if ("nova" in m and "sonic" in m):
         return "nova-sonic"
     return "text"
 
@@ -402,12 +402,15 @@ async def _run(
 @cli.command()
 @click.argument("run_dir", type=click.Path(exists=True))
 @click.option("--only-turns", help="Comma-separated turn indices to judge (e.g., 0,1,2)")
-@click.option("--judge-model", default=None, help="Judge model (default: MTE_JUDGE_MODEL or claude-opus-5)")
+@click.option("--judge-model", default=None, help="Judge model (default: MTE_JUDGE_MODEL or claude-opus-5-5)")
+@click.option("--judge-effort", type=click.Choice(["low", "medium", "high", "max"]), default=None,
+              help="Judge effort (default: MTE_JUDGE_EFFORT or medium for Opus 5)")
 @click.option("--debug", is_flag=True, help="Enable debug logging")
 def judge(
     run_dir: str,
     only_turns: Optional[str],
     judge_model: Optional[str],
+    judge_effort: Optional[str],
     debug: bool,
 ):
     """Judge a completed benchmark run.
@@ -447,7 +450,7 @@ def judge(
 
     records = load_transcript(run_path)
     if turn_indices_set is not None:
-        records = [r for r in records if r["turn"] in turn_indices_set]
+        records = [r for r in records if r.get('recovery_turn') or r["turn"] in turn_indices_set]
 
     try:
         result = asyncio.run(
@@ -457,6 +460,7 @@ def judge(
                 debug=debug,
                 expected_turns=expected_turns,
                 judge_model=judge_model,
+                judge_effort=judge_effort,
                 judge_system_prompt=getattr(benchmark, "judge_system_prompt", None),
             )
         )

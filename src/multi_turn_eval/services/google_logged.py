@@ -167,10 +167,16 @@ class FillerGoogleLLMAdapter(GeminiLLMAdapter):
     """Gemini adapter that fills the ephemeral, API-ready request only."""
 
     def get_llm_invocation_params(
-        self, context: LLMContext, *, system_instruction: str | None = None
+        self,
+        context: LLMContext,
+        *,
+        system_instruction: str | None = None,
+        ensure_last_message_is_user: bool = False,
     ):
         params = super().get_llm_invocation_params(
-            context, system_instruction=system_instruction
+            context,
+            system_instruction=system_instruction,
+            ensure_last_message_is_user=ensure_last_message_is_user,
         )
         messages, effective_system = _apply_filler_google(
             params["messages"], params["system_instruction"]
@@ -214,6 +220,9 @@ class LoggedGoogleLLMService(GoogleLLMService):
         raw_t0 = time.monotonic()
 
         try:
+            # Pipecat 1.12 starts this timer in _process_context rather than
+            # _stream_content. Our override must arm it for every response.
+            await self.start_ttfb_metrics()
             response = await self._stream_content(context)
 
             function_calls = []

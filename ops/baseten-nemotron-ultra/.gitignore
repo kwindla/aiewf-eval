@@ -1,0 +1,17 @@
+# Campaign evidence stays local; public summaries live in docs/model-evaluations-2026-10/.
+/*
+!/.gitignore
+!/aiewf-medium-off-on-n30-20261018/
+/aiewf-medium-off-on-n30-20261018/*
+!/aiewf-medium-off-on-n30-20261018/failure-analysis/
+/aiewf-medium-off-on-n30-20261018/failure-analysis/*
+!/aiewf-medium-off-on-n30-20261018/rubric-comparison/
+/aiewf-medium-off-on-n30-20261018/rubric-comparison/*
+!/aiewf-medium-off-on-n30-20261018/analyze.py
+!/aiewf-medium-off-on-n30-20261018/configuration.json
+!/aiewf-medium-off-on-n30-20261018/failure-analysis/audit.py
+!/aiewf-medium-off-on-n30-20261018/finish.py
+!/aiewf-medium-off-on-n30-20261018/judge.py
+!/aiewf-medium-off-on-n30-20261018/preflight.py
+!/aiewf-medium-off-on-n30-20261018/rubric-comparison/rejudge_legacy.py
+!/aiewf-medium-off-on-n30-20261018/schedule.tsv

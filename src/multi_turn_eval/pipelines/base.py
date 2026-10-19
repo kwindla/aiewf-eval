@@ -322,13 +322,19 @@ class BasePipeline(ABC):
                 # OpenRouter's unified reasoning-effort control (low|medium|high).
                 # Models without effort support ignore it harmlessly.
                 params_kwargs["extra"] = {"extra_body": {"reasoning": {"effort": effort}}}
+            provider = os.getenv("MTE_OPENROUTER_PROVIDER", "").strip()
+            if provider:
+                extra_body = params_kwargs.setdefault("extra", {}).setdefault("extra_body", {})
+                extra_body["provider"] = {
+                    "only": [provider], "allow_fallbacks": False, "require_parameters": True,
+                }
             if params_kwargs:
                 kwargs["params"] = OpenAILLMService.InputParams(**params_kwargs)
             logger.info(
-                f"Using OpenRouter with base_url={kwargs['base_url']}, "
+                f"Using OpenRouter with base_url={kwargs['base_url']}, model={model}, "
                 f"reasoning_off={reasoning_off}, "
                 f"reasoning_effort={effort or '(default)'}, "
-                f"max_tokens={mt or '(default)'}"
+                f"max_tokens={mt or '(default)'}, provider={provider or '(default)'}"
             )
             return service_class(**kwargs)
 
@@ -743,11 +749,25 @@ class BasePipeline(ABC):
             #   - "adaptive" -> force the adaptive branch below without needing
             #                   an effort level (sonnet-5 capability row).
             thinking_mode = os.getenv("MTE_ANTHROPIC_THINKING", "").strip().lower()
-            if thinking_mode and thinking_mode not in {"disabled", "adaptive"}:
+            if thinking_mode and thinking_mode not in {"disabled", "adaptive", "between_tools"}:
                 raise ValueError(
                     f"Invalid MTE_ANTHROPIC_THINKING='{thinking_mode}'; "
-                    f"expected 'disabled' or 'adaptive'"
+                    f"expected 'disabled', 'adaptive', or 'between_tools'"
                 )
+            sonnet55 = model_lower == "claude-sonnet-5-5"
+            haiku55 = model_lower == "claude-haiku-5-5"
+            # Pipecat 1.12 otherwise injects disabled for Sonnet 5+, which
+            # Sonnet 5.5 rejects. Preserve the intended no-up-front-thinking
+            # default with its supported replacement. Explicit modes/efforts win.
+            if sonnet55 and not thinking_mode and not effort:
+                thinking_mode = "between_tools"
+            if thinking_mode == "between_tools" and not sonnet55:
+                raise ValueError("between_tools is supported only on claude-sonnet-5-5")
+            if thinking_mode == "disabled" and sonnet55:
+                raise ValueError("claude-sonnet-5-5 requires between_tools instead of disabled")
+            no_upfront_thinking = thinking_mode in {"disabled", "between_tools"}
+            if no_upfront_thinking and effort in {"xhigh", "max"} and (sonnet55 or haiku55):
+                raise ValueError("Thinking off/between_tools requires effort high or below")
             # claude-fable-5 thinks unconditionally: adaptive thinking is on
             # even when the `thinking` param is omitted, and an explicit
             # {"type": "disabled"} returns a 400. So there is no "no-thinking"
@@ -759,7 +779,7 @@ class BasePipeline(ABC):
                     "MTE_ANTHROPIC_THINKING=disabled is invalid for always-thinking "
                     f"model {model} (claude-fable-* returns 400 on an explicit disable)"
                 )
-            if thinking_mode == "disabled" and effort:
+            if thinking_mode == "disabled" and effort and not haiku55:
                 raise ValueError(
                     "MTE_ANTHROPIC_THINKING=disabled conflicts with "
                     f"MTE_ANTHROPIC_EFFORT={effort} (effort implies adaptive thinking)"
@@ -773,11 +793,11 @@ class BasePipeline(ABC):
             max_tokens_env = os.getenv("MTE_ANTHROPIC_MAX_TOKENS", "").strip()
             if max_tokens_env:
                 params_kwargs["max_tokens"] = int(max_tokens_env)
-            if thinking_mode == "disabled":
+            if no_upfront_thinking:
                 # Explicit no-thinking. Accepted on sonnet-5 / sonnet-4-6;
                 # reproduces the omitted-param behavior of the older rows so the
                 # sonnet-5 voice row is apples-to-apples with sonnet-4-6.
-                extra["thinking"] = {"type": "disabled"}
+                extra["thinking"] = {"type": thinking_mode}
             if effort:
                 allowed_efforts = {"low", "medium", "high", "xhigh", "max"}
                 if effort not in allowed_efforts:
@@ -787,7 +807,7 @@ class BasePipeline(ABC):
                         f"Invalid MTE_ANTHROPIC_EFFORT='{effort}'; "
                         f"expected one of {sorted(allowed_efforts)}"
                     )
-                if not always_thinking:
+                if not always_thinking and not no_upfront_thinking:
                     # Guard against a leftover export from a fable sweep
                     # silently changing another model's published config.
                     logger.warning(
@@ -796,7 +816,7 @@ class BasePipeline(ABC):
                         "will be sent. Unset the env var if this is unintended."
                     )
                 extra["output_config"] = {"effort": effort}
-            if effort or always_thinking or thinking_mode == "adaptive":
+            if not no_upfront_thinking and (effort or always_thinking or thinking_mode == "adaptive"):
                 # display=summarized (default) keeps thinking text non-empty,
                 # which pipecat 1.1.0's stock adapter requires to rebuild
                 # context thought messages. display=omitted skips streaming
@@ -850,6 +870,7 @@ class BasePipeline(ABC):
                     else ""
                 )
             )
+            logger.info(f"Using Anthropic with base_url=https://api.anthropic.com, model={model}")
         elif "Groq" in class_name:
             api_key = os.getenv("GROQ_API_KEY")
             if not api_key:
@@ -932,6 +953,9 @@ class BasePipeline(ABC):
                 )
                 return service_class(**kwargs)
 
+            if service_name_lower == "openai":
+                logger.info(f"Using OpenAI with base_url=https://api.openai.com/v1, model={model}")
+
             # Route selected OpenAI text models to Responses API without changing
             # benchmark pipelines.
             if service_name_lower == "openai" and (
@@ -939,12 +963,14 @@ class BasePipeline(ABC):
                 or model_lower.startswith("gpt-5.4")
                 or model_lower.startswith("gpt-5.5")
                 or model_lower.startswith("gpt-5.6")
+                or model_lower.startswith("gpt-6")
             ):
                 from multi_turn_eval.services.openai_responses import OpenAIResponsesLLMService
 
                 service_class = OpenAIResponsesLLMService
                 class_name = service_class.__name__
-                logger.info(f"Configured {model} to use {class_name}")
+                kwargs["stateful_responses_enabled"] = True
+                logger.info(f"Configured {model} to use {class_name}, stateful_responses=true")
 
             openai_service_tier = os.getenv(
                 "MTE_OPENAI_SERVICE_TIER", "priority"
@@ -964,7 +990,7 @@ class BasePipeline(ABC):
                 )
 
             # Configure gpt-5 series models: set reasoning effort and priority tier
-            if model_lower.startswith("gpt-5"):
+            if model_lower.startswith(("gpt-5", "gpt-6")):
                 from pipecat.services.openai.llm import OpenAILLMService
                 # gpt-5.1 and gpt-5.2 use "none"; most other gpt-5 models use "minimal".
                 #
@@ -975,6 +1001,7 @@ class BasePipeline(ABC):
                     model_lower.startswith("gpt-5.4")
                     or model_lower.startswith("gpt-5.5")
                     or model_lower.startswith("gpt-5.6")
+                    or model_lower.startswith("gpt-6")
                 ):
                     if class_name == "OpenAIResponsesLLMService":
                         reasoning_effort = os.getenv(
@@ -984,9 +1011,11 @@ class BasePipeline(ABC):
                         # (sol/terra/luna) adds "max". These route through Responses
                         # for tool-use compatibility.
                         allowed_efforts = {"none", "low", "medium", "high", "xhigh"}
-                        if model_lower.startswith("gpt-5.6"):
+                        if model_lower.startswith(("gpt-5.6", "gpt-6")):
                             allowed_efforts = allowed_efforts | {"max"}
                         if reasoning_effort not in allowed_efforts:
+                            if model_lower.startswith("gpt-6"):
+                                raise ValueError(f"Unsupported reasoning effort {reasoning_effort!r} for {model}")
                             logger.warning(
                                 "Invalid MTE_OPENAI_RESPONSES_REASONING_EFFORT='{}'; defaulting to low".format(
                                     reasoning_effort
@@ -1110,12 +1139,15 @@ class BasePipeline(ABC):
                     )
 
             # Configure Gemini 3 series models with an explicit thinking level.
-            # The supported floor is model-specific: Gemini 3.7 starts at low,
-            # while earlier Gemini 3 models also expose minimal.
+            # Gemini 3.7/3.8 Flash start at low; earlier Gemini 3 models
+            # also expose minimal. Both Flash models default to medium.
             elif "gemini-3" in model_lower:
                 from pipecat.services.google.llm import GoogleLLMService
+                low_thinking_floor = model_lower.removeprefix("models/").startswith(
+                    ("gemini-3.7-flash", "gemini-3.8-flash")
+                )
                 default_thinking_mode = (
-                    "medium" if "gemini-3.7" in model_lower else "minimal"
+                    "medium" if low_thinking_floor else "minimal"
                 )
                 thinking_mode = (
                     getattr(self, "thinking", None)
@@ -1128,7 +1160,7 @@ class BasePipeline(ABC):
                         "use minimal, low, medium, high, or default"
                     )
                 elif thinking_mode in {"minimal", "min"}:
-                    if "gemini-3.7" in model_lower:
+                    if low_thinking_floor:
                         raise ValueError(
                             f"{model} does not support thinking_level=minimal; "
                             "use low, medium, high, or default"
@@ -1162,6 +1194,27 @@ class BasePipeline(ABC):
                             thinking_mode
                         )
                     )
+
+            # Pipecat otherwise applies a 4096-token default, which also
+            # limits Google's thinking tokens. An explicitly empty override
+            # omits the request cap; unset preserves existing model settings.
+            max_tokens_override = os.getenv("MTE_GOOGLE_MAX_TOKENS")
+            if max_tokens_override is not None:
+                from pipecat.services.google.llm import GoogleLLMService
+
+                raw_max_tokens = max_tokens_override.strip()
+                try:
+                    max_tokens = int(raw_max_tokens) if raw_max_tokens else None
+                except ValueError as exc:
+                    raise ValueError("MTE_GOOGLE_MAX_TOKENS must be a positive integer or empty") from exc
+                if max_tokens is not None and max_tokens <= 0:
+                    raise ValueError("MTE_GOOGLE_MAX_TOKENS must be a positive integer or empty")
+                params = kwargs.get("params") or GoogleLLMService.InputParams()
+                params.max_tokens = max_tokens
+                kwargs["params"] = params
+                logger.info(
+                    f"Configured {model} with max_output_tokens={max_tokens if max_tokens is not None else '(omitted)'}"
+                )
 
         elif "Bedrock" in class_name:
             # AWS Bedrock uses AWS credentials from environment

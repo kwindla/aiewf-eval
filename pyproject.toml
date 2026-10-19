@@ -5,8 +5,8 @@ description = "Multi-turn LLM evaluation framework"
 requires-python = ">=3.12"
 dependencies = [
   "click>=8.3",
-  "pipecat-ai[anthropic,aws,aws-nova-sonic,azure,cerebras,google,groq,openai,silero]==1.10.0",
-  "google-genai==2.23.0",
+  "pipecat-ai[anthropic,aws,aws-nova-sonic,azure,cerebras,google,groq,openai,silero]==1.12.0",
+  "google-genai==2.31.0",
   "python-dotenv",
   "loguru",
   "sounddevice>=0.4.6",
@@ -15,7 +15,8 @@ dependencies = [
   # Used directly by scripts/analyze_turn_metrics.py; Pipecat 1.10 no longer
   # brings it in transitively.
   "scipy>=1.16.3",
-  "claude-agent-sdk>=0.1.73",
+  # Bundles Claude Code 2.1.301; Opus 5.5 requires >=2.1.280.
+  "claude-agent-sdk==0.2.168",
   "torch>=2.9.1",
   "torchaudio>=2.9.1",
   # Pinned above pipecat's anthropic>=0.49.0 floor for claude-fable-5 support

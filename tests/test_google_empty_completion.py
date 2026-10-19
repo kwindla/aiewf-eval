@@ -34,6 +34,7 @@ def _service(chunks):
     service._name = "LoggedGoogleLLMService#test"
     service.push_frame = _async_noop
     service.push_error = _async_noop
+    service.start_ttfb_metrics = _async_noop
     service.stop_ttfb_metrics = _async_noop
     service.run_function_calls = _async_noop
     service.start_llm_usage_metrics = _async_noop
@@ -109,3 +110,47 @@ def test_normal_text_stream_stays_quiet():
     records = _run_and_capture(_service([chunk]))
 
     assert not [r for r in records if "Empty completion from Gemini" in r], records
+
+
+def test_ttfat_timer_restarts_for_every_response_and_waits_for_visible_output():
+    events = []
+    service = _service([])
+
+    def chunk(text, thought):
+        return SimpleNamespace(
+            usage_metadata=None,
+            prompt_feedback=None,
+            candidates=[SimpleNamespace(
+                finish_reason=None,
+                grounding_metadata=None,
+                content=SimpleNamespace(parts=[SimpleNamespace(
+                    text=text, thought=thought, function_call=None,
+                    inline_data=None, thought_signature=None,
+                )]),
+            )],
+        )
+
+    async def start():
+        events.append("start")
+
+    async def stop():
+        events.append("visible")
+
+    async def stream(context):
+        assert events[-1] == "start"
+        async def chunks():
+            yield chunk("Think before answering", True)
+            assert events[-1] == "start"  # Thought output must not stop TTFAT.
+            yield chunk("Here is the answer", False)
+        return chunks()
+
+    service.start_ttfb_metrics = start
+    service.stop_ttfb_metrics = stop
+    service._stream_content = stream
+
+    async def run():
+        await service._process_context(SimpleNamespace())
+        await service._process_context(SimpleNamespace())
+
+    asyncio.run(run())
+    assert events == ["start", "visible", "start", "visible"]

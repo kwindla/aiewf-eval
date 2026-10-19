@@ -1,0 +1,35 @@
+{
+  "campaign_id": "nova-2-5-sonic-20261019-user-context-v2",
+  "benchmark": "aiwf_medium_context_speech_v2",
+  "model": "amazon.nova-2-5-sonic",
+  "pipeline": "nova-sonic",
+  "service": null,
+  "arms": {
+    "standard": {
+      "environment": {}
+    }
+  },
+  "paths": {
+    "run_output_root": "runs/nova-2-5-sonic-20261019-user-context-v2"
+  },
+  "voice": "tiffany",
+  "region": "us-east-1",
+  "endpointing_sensitivity": "HIGH",
+  "target_complete": 25,
+  "turns": 30,
+  "max_concurrent": 3,
+  "timeout_seconds": 1800,
+  "attempt_review_cap": 50,
+  "recovery": false,
+  "reference_layout": {
+    "policy_role": "SYSTEM",
+    "knowledge_base_role": "USER",
+    "all_original_bytes_preserved": true
+  },
+  "common_environment": {
+    "MTE_NOVA_KB_CONTEXT_ROLE": "user",
+    "MTE_ENABLE_RECOVERY": "0"
+  },
+  "excluded_smoke_name": "smoke-final",
+  "excluded_prior_profile": "../user-context"
+}

@@ -1,0 +1,415 @@
+{
+  "publication_summary": true,
+  "source_artifact": "ops/grok-voice-high-20261018/aggregate.json",
+  "source_sha256": "215cc046de58c8ef32197212f37f226971fc7a65d583f51ac1fc3c114aa85d3f",
+  "evidence_storage": "../README.md",
+  "data": {
+    "at": "2026-10-19T00:58:22+00:00",
+    "judge_model": "claude-opus-5-5",
+    "judge_effort": "medium",
+    "text_models": [],
+    "voice_models": [
+      {
+        "key": "grok-voice-high",
+        "name": "grok-voice",
+        "arm": "high",
+        "label": "Grok Voice 3.0 (reasoning high)",
+        "provider": "xAI",
+        "assigned": 25,
+        "complete": 25,
+        "incomplete": 0,
+        "shortfall": 0,
+        "all_assigned": {
+          "strict_passes": 696,
+          "dimension_passes": {
+            "tool_use_correct": 750,
+            "instruction_following": 697,
+            "kb_grounding": 729
+          },
+          "denominator": 750,
+          "strict_percent": 92.8,
+          "strict_ci95": [
+            91.60000000000001,
+            94.0
+          ],
+          "dimension_error_percent": {
+            "tool_use_correct": 0.0,
+            "instruction_following": 7.066666666666666,
+            "kb_grounding": 2.8
+          }
+        },
+        "complete_only": {
+          "strict_passes": 696,
+          "dimension_passes": {
+            "tool_use_correct": 750,
+            "instruction_following": 697,
+            "kb_grounding": 729
+          },
+          "denominator": 750,
+          "strict_percent": 92.8,
+          "strict_ci95": [
+            91.60000000000001,
+            94.0
+          ],
+          "dimension_error_percent": {
+            "tool_use_correct": 0.0,
+            "instruction_following": 7.066666666666666,
+            "kb_grounding": 2.8
+          }
+        },
+        "strict_percent": 92.8,
+        "strict_ci95": [
+          91.60000000000001,
+          94.0
+        ],
+        "dimension_error_percent": {
+          "tool_use_correct": 0.0,
+          "instruction_following": 7.066666666666666,
+          "kb_grounding": 2.8
+        },
+        "latency": {
+          "positive": {
+            "n": 725,
+            "mean_ms": 781.3186206896552,
+            "median_ms": 751,
+            "p50_ms": 751,
+            "p95_ms": 1058.6,
+            "max_ms": 3308
+          },
+          "signed": {
+            "n": 725,
+            "mean_ms": 781.3186206896552,
+            "median_ms": 751,
+            "p50_ms": 751,
+            "p95_ms": 1058.6,
+            "max_ms": 3308
+          },
+          "missing_n": 0,
+          "nonpositive_n": 0,
+          "eligible_response_n": 725,
+          "raw_ttft": {
+            "n": 0,
+            "mean_ms": null,
+            "median_ms": null,
+            "p50_ms": null,
+            "p95_ms": null,
+            "max_ms": null
+          }
+        },
+        "all_attempt_latency": {
+          "positive": {
+            "n": 725,
+            "mean_ms": 781.3186206896552,
+            "median_ms": 751,
+            "p50_ms": 751,
+            "p95_ms": 1058.6,
+            "max_ms": 3308
+          },
+          "signed": {
+            "n": 725,
+            "mean_ms": 781.3186206896552,
+            "median_ms": 751,
+            "p50_ms": 751,
+            "p95_ms": 1058.6,
+            "max_ms": 3308
+          },
+          "missing_n": 0,
+          "nonpositive_n": 0,
+          "eligible_response_n": 725,
+          "raw_ttft": {
+            "n": 0,
+            "mean_ms": null,
+            "median_ms": null,
+            "p50_ms": null,
+            "p95_ms": null,
+            "max_ms": null
+          }
+        },
+        "judge_blocked": [],
+        "observed_scripted_turns": 750,
+        "missing_future_turns": 0,
+        "early_end_session_turns": {},
+        "generation_credit_retries": 0,
+        "generation_prestream_429_retries": 0,
+        "eligible_attempts": 25,
+        "failed_conversations": 0,
+        "failure_rate_percent": 0.0,
+        "first_speech_positive": {
+          "n": 750,
+          "mean_ms": 2028.6293333333333,
+          "median_ms": 1984.0,
+          "p50_ms": 1984.0,
+          "p95_ms": 2336.0,
+          "max_ms": 4576.0
+        },
+        "first_speech_signed": {
+          "n": 750,
+          "mean_ms": 2028.6293333333333,
+          "median_ms": 1984.0,
+          "p50_ms": 1984.0,
+          "p95_ms": 2336.0,
+          "max_ms": 4576.0
+        },
+        "tool": {
+          "n": 150,
+          "mean_ms": 2056.1066666666666,
+          "median_ms": 2048.0,
+          "p50_ms": 2048.0,
+          "p95_ms": 2336.0,
+          "max_ms": 4256.0
+        },
+        "non_tool": {
+          "n": 600,
+          "mean_ms": 2021.76,
+          "median_ms": 1984.0,
+          "p50_ms": 1984.0,
+          "p95_ms": 2336.0,
+          "max_ms": 4576.0
+        },
+        "silence": {
+          "n": 750,
+          "mean_ms": 97.88933333333334,
+          "median_ms": 94.0,
+          "p50_ms": 94.0,
+          "p95_ms": 150.0,
+          "max_ms": 217.0
+        },
+        "nonpositive_n": 0,
+        "missing_latency_n": 0,
+        "turn_taking_scored": true,
+        "turn_taking_passes": 748,
+        "audio_inputs": [
+          {
+            "job": "grok-voice-high-001",
+            "source_wav": "runs/grok-voice-high-20261018/attempt-001/conversation.wav",
+            "wav_sha256": "1f9c3c454389f00503c6e47c556e09eb36f7380cddadd57229bc0ca2e7ad70d9",
+            "metrics": "ops/grok-voice-high-20261018/grok-voice/audio/grok-voice-high-001.json",
+            "metrics_sha256": "caec626d3c6d882e22cff47177ff99b5e7db3ab49346462c435227263ecdb876",
+            "input_waveform_audit": "ops/grok-voice-high-20261018/grok-voice/audio/grok-voice-high-001-input-waveform.json",
+            "input_waveform_audit_sha256": "c5dcb5142b53840092c2c5518307f7cdc380d5585ae37f72db23cc9a319cc339"
+          },
+          {
+            "job": "grok-voice-high-002",
+            "source_wav": "runs/grok-voice-high-20261018/attempt-002/conversation.wav",
+            "wav_sha256": "ec93441a5d70dc0b31be39a134071fc1eed1e9ce29c68903698accb23e15cf37",
+            "metrics": "ops/grok-voice-high-20261018/grok-voice/audio/grok-voice-high-002.json",
+            "metrics_sha256": "ad8b14710ff4d03553696cb8f65f8ad2f03bae410696bbe2e51400889a449cc2",
+            "input_waveform_audit": "ops/grok-voice-high-20261018/grok-voice/audio/grok-voice-high-002-input-waveform.json",
+            "input_waveform_audit_sha256": "2c6e334c91764a77ee213b25bf2edb60ea9e0cff4d2842b2bd8a3907d8d6d3e4"
+          },
+          {
+            "job": "grok-voice-high-003",
+            "source_wav": "runs/grok-voice-high-20261018/attempt-003/conversation.wav",
+            "wav_sha256": "ee46f7f345b4367d0e23f2061ff15e513c76337448c9e48b333ddd146209243a",
+            "metrics": "ops/grok-voice-high-20261018/grok-voice/audio/grok-voice-high-003.json",
+            "metrics_sha256": "9b12db29fa9845cd8ebf43be2daff9f3d9984e4e2d367ff70dbf4aa1452c830b",
+            "input_waveform_audit": "ops/grok-voice-high-20261018/grok-voice/audio/grok-voice-high-003-input-waveform.json",
+            "input_waveform_audit_sha256": "6320acfebe71cee98d5b423a51ba8bd7f403e93e977b643296847d94dcd3ff8b"
+          },
+          {
+            "job": "grok-voice-high-004",
+            "source_wav": "runs/grok-voice-high-20261018/attempt-004/conversation.wav",
+            "wav_sha256": "0d59c4ce07e4e99cfceaf1e50bccf088f93d8675252b16bce816dd06813a8f55",
+            "metrics": "ops/grok-voice-high-20261018/grok-voice/audio/grok-voice-high-004.json",
+            "metrics_sha256": "c1c284632653fa7ff45da88b31b53e5efa01fa658eb7f50bd74ec93dcf22be69",
+            "input_waveform_audit": "ops/grok-voice-high-20261018/grok-voice/audio/grok-voice-high-004-input-waveform.json",
+            "input_waveform_audit_sha256": "4942e97d1afd2b18e7f60bc1ced484909746fa82dbe51318c98c3bf0e3965c56"
+          },
+          {
+            "job": "grok-voice-high-005",
+            "source_wav": "runs/grok-voice-high-20261018/attempt-005/conversation.wav",
+            "wav_sha256": "542a839f1a89fcb199e718524c4d6fd0e20fe136ef2db490bae23b07e8760ffd",
+            "metrics": "ops/grok-voice-high-20261018/grok-voice/audio/grok-voice-high-005.json",
+            "metrics_sha256": "bedcaca3b5b9931078fe88831cffd801afc97d34fb920d2ff5d6a86294aa0b59",
+            "input_waveform_audit": "ops/grok-voice-high-20261018/grok-voice/audio/grok-voice-high-005-input-waveform.json",
+            "input_waveform_audit_sha256": "58629fb6973969b76ed980d39c0ab0ed74daf0e8851d05268495a2545f9aee4b"
+          },
+          {
+            "job": "grok-voice-high-006",
+            "source_wav": "runs/grok-voice-high-20261018/attempt-006/conversation.wav",
+            "wav_sha256": "0481ea90b8d282be51d2dac0b8ac0c4b6c3d578e134a513b72876013ebaf7d98",
+            "metrics": "ops/grok-voice-high-20261018/grok-voice/audio/grok-voice-high-006.json",
+            "metrics_sha256": "3c515d329d44a53b590512044364e5f0fdad9e998c66d5a2f419f57ac9d27fe2",
+            "input_waveform_audit": "ops/grok-voice-high-20261018/grok-voice/audio/grok-voice-high-006-input-waveform.json",
+            "input_waveform_audit_sha256": "aa531cb67d0afac395c544f28fde60f62b936682f1fabfaa1fcf4ac355b17d19"
+          },
+          {
+            "job": "grok-voice-high-007",
+            "source_wav": "runs/grok-voice-high-20261018/attempt-007/conversation.wav",
+            "wav_sha256": "9d3bb01b5099df48c7dd96b01cd2474ca5bb44f7408f2728ca85266cb41e18dd",
+            "metrics": "ops/grok-voice-high-20261018/grok-voice/audio/grok-voice-high-007.json",
+            "metrics_sha256": "a1cdede8e8ae5f8c518c5b548ab603af473bf06ef544a2de88447726818e07a1",
+            "input_waveform_audit": "ops/grok-voice-high-20261018/grok-voice/audio/grok-voice-high-007-input-waveform.json",
+            "input_waveform_audit_sha256": "0c44d20630182d3e27a64a5df57a7eb69f140c0966276cb8d202ec65dfbd0e32"
+          },
+          {
+            "job": "grok-voice-high-008",
+            "source_wav": "runs/grok-voice-high-20261018/attempt-008/conversation.wav",
+            "wav_sha256": "760b39eafb5f16721f3f2f6aa47ef7084988b28bee16efac5bef0d54b97be460",
+            "metrics": "ops/grok-voice-high-20261018/grok-voice/audio/grok-voice-high-008.json",
+            "metrics_sha256": "63daad22f3ebd8961d46bf3ce684fbaf1e26ef22e0a9dcf1d146cca29154182c",
+            "input_waveform_audit": "ops/grok-voice-high-20261018/grok-voice/audio/grok-voice-high-008-input-waveform.json",
+            "input_waveform_audit_sha256": "7cabe7f67c69959078ca752d2f0acd3c812bb17eadb0b4d708046ce57763a54b"
+          },
+          {
+            "job": "grok-voice-high-009",
+            "source_wav": "runs/grok-voice-high-20261018/attempt-009/conversation.wav",
+            "wav_sha256": "1359228329f12136ffdaa21da7a1841d335dfa2206de8fc4895d2032db44543d",
+            "metrics": "ops/grok-voice-high-20261018/grok-voice/audio/grok-voice-high-009.json",
+            "metrics_sha256": "44568ca76bb976a29cd22631ea23387a63cfec071c4a2de1e04ba6d13e540274",
+            "input_waveform_audit": "ops/grok-voice-high-20261018/grok-voice/audio/grok-voice-high-009-input-waveform.json",
+            "input_waveform_audit_sha256": "dd98cbe088b0834a617c03717e1e17f1545e1d11e240f15de8db2d8619c70ded"
+          },
+          {
+            "job": "grok-voice-high-010",
+            "source_wav": "runs/grok-voice-high-20261018/attempt-010/conversation.wav",
+            "wav_sha256": "c37736b0e1f7dd0dad456772314e8dbe30302ad5d5e1a3091d8a7c6af055534e",
+            "metrics": "ops/grok-voice-high-20261018/grok-voice/audio/grok-voice-high-010.json",
+            "metrics_sha256": "5c5f048eeea1d6686cecdc544836326c26c7f9e00d1ec556fd48d910d7a7f65c",
+            "input_waveform_audit": "ops/grok-voice-high-20261018/grok-voice/audio/grok-voice-high-010-input-waveform.json",
+            "input_waveform_audit_sha256": "2f41f61c3ad378fb24b22e4e823a49c21e1dadfdc78704c5cf33e0eb1bcad1b6"
+          },
+          {
+            "job": "grok-voice-high-011",
+            "source_wav": "runs/grok-voice-high-20261018/attempt-011/conversation.wav",
+            "wav_sha256": "86c166436eb5a754d08e9a93e27edecac1fc2d860343346cdd7f6122e1a4d2cf",
+            "metrics": "ops/grok-voice-high-20261018/grok-voice/audio/grok-voice-high-011.json",
+            "metrics_sha256": "d05995dbaff3b7ccc052e2c2aa064f861eab70c0b73e67e3dac82a3dd00d9a49",
+            "input_waveform_audit": "ops/grok-voice-high-20261018/grok-voice/audio/grok-voice-high-011-input-waveform.json",
+            "input_waveform_audit_sha256": "2a5157e220456cf457c804da98bb3544a15951fc5618289268eb36c7de8a2215"
+          },
+          {
+            "job": "grok-voice-high-012",
+            "source_wav": "runs/grok-voice-high-20261018/attempt-012/conversation.wav",
+            "wav_sha256": "341e6b150b218eee4e7e44da6a5cdfc3af865d33b1916402cbf6313f5a46d391",
+            "metrics": "ops/grok-voice-high-20261018/grok-voice/audio/grok-voice-high-012.json",
+            "metrics_sha256": "d1beaf96bbc1e36e104fe958fd6c8e6db718a656c60360912457185f64f51dd2",
+            "input_waveform_audit": "ops/grok-voice-high-20261018/grok-voice/audio/grok-voice-high-012-input-waveform.json",
+            "input_waveform_audit_sha256": "c6a4bf89ca776098ce1af2eb1fac716989177d189c9e23288f252bd1806eef50"
+          },
+          {
+            "job": "grok-voice-high-013",
+            "source_wav": "runs/grok-voice-high-20261018/attempt-013/conversation.wav",
+            "wav_sha256": "d683921b16d92eef70e40e5b0e5d37e02d6572c3593f8e78342b5f30c3b0832d",
+            "metrics": "ops/grok-voice-high-20261018/grok-voice/audio/grok-voice-high-013.json",
+            "metrics_sha256": "23ef1e7fed9ccf64ce0c91c989e7556d310f067dc6cef3eda550fa929e79d751",
+            "input_waveform_audit": "ops/grok-voice-high-20261018/grok-voice/audio/grok-voice-high-013-input-waveform.json",
+            "input_waveform_audit_sha256": "3dfd59b5df4182515e0f6017e8816f42d21415d76a6278d626c966e4bc8d0d74"
+          },
+          {
+            "job": "grok-voice-high-014",
+            "source_wav": "runs/grok-voice-high-20261018/attempt-014/conversation.wav",
+            "wav_sha256": "8c11b12ab7db00282ec9230ed5ca3c34b31d51e61062c14cf9b679a8905cdf51",
+            "metrics": "ops/grok-voice-high-20261018/grok-voice/audio/grok-voice-high-014.json",
+            "metrics_sha256": "0d1e472f6b9432c2a79c32e005e7107487ba8d86e3353ba3a8fb08f53649e583",
+            "input_waveform_audit": "ops/grok-voice-high-20261018/grok-voice/audio/grok-voice-high-014-input-waveform.json",
+            "input_waveform_audit_sha256": "5abdbcdb0b517357fa8cca0f6464b1c9783ecdff8f7d2c1fd32629b45cf29656"
+          },
+          {
+            "job": "grok-voice-high-015",
+            "source_wav": "runs/grok-voice-high-20261018/attempt-015/conversation.wav",
+            "wav_sha256": "cda8d909dcdff9206e8153df04b94028ec77a3c25bc14f5165328bc5ac27ea2e",
+            "metrics": "ops/grok-voice-high-20261018/grok-voice/audio/grok-voice-high-015.json",
+            "metrics_sha256": "9d8903db8debcb832a8a69943217a44b0d934c18019ed60e8e74fdd76d9d28cd",
+            "input_waveform_audit": "ops/grok-voice-high-20261018/grok-voice/audio/grok-voice-high-015-input-waveform.json",
+            "input_waveform_audit_sha256": "49e21187af0b945f212461465ff4a535a819fd0d0e61a4a8208e7eac525d9768"
+          },
+          {
+            "job": "grok-voice-high-016",
+            "source_wav": "runs/grok-voice-high-20261018/attempt-016/conversation.wav",
+            "wav_sha256": "9299657930689c5afa6ab4237acf28adbf9843e77100db362712407bbd64a695",
+            "metrics": "ops/grok-voice-high-20261018/grok-voice/audio/grok-voice-high-016.json",
+            "metrics_sha256": "213d74a4d300a66ff3d8002ac7b0a2e1096b32415ebe134e42512c8b136898aa",
+            "input_waveform_audit": "ops/grok-voice-high-20261018/grok-voice/audio/grok-voice-high-016-input-waveform.json",
+            "input_waveform_audit_sha256": "2eaa670b104ecc07997149d0be3c70d972652c93ebebd698efa457962cec7c64"
+          },
+          {
+            "job": "grok-voice-high-017",
+            "source_wav": "runs/grok-voice-high-20261018/attempt-017/conversation.wav",
+            "wav_sha256": "123d27575f726ecb4705402b58c3214e47d5b25be2c17713f0eaeabbee5b1a70",
+            "metrics": "ops/grok-voice-high-20261018/grok-voice/audio/grok-voice-high-017.json",
+            "metrics_sha256": "af82088a7ba150c3e646a8293f81c5211ca2bb46059a57f8141532d8f44bcddb",
+            "input_waveform_audit": "ops/grok-voice-high-20261018/grok-voice/audio/grok-voice-high-017-input-waveform.json",
+            "input_waveform_audit_sha256": "f90a455a029f45040dcc7a178bede4edebdab6fcf3dd7c0864d01460594236c4"
+          },
+          {
+            "job": "grok-voice-high-018",
+            "source_wav": "runs/grok-voice-high-20261018/attempt-018/conversation.wav",
+            "wav_sha256": "22cda5325a8d6a2d1e38f7446fb4308ccd949af4f7dfa4bc75d4cb7e69bfb89d",
+            "metrics": "ops/grok-voice-high-20261018/grok-voice/audio/grok-voice-high-018.json",
+            "metrics_sha256": "b6760b4311d37c4987083aba2e0c41d030160fb0abc8d9a0bcaf4d27b4ef02d7",
+            "input_waveform_audit": "ops/grok-voice-high-20261018/grok-voice/audio/grok-voice-high-018-input-waveform.json",
+            "input_waveform_audit_sha256": "ae4f5b8eecd404f530b1ec5496aab7577a8b252a138d0e7101342c80c570766b"
+          },
+          {
+            "job": "grok-voice-high-019",
+            "source_wav": "runs/grok-voice-high-20261018/attempt-019/conversation.wav",
+            "wav_sha256": "82a21ab0b88d1d84b13573842b71a39709afd060a74baaef43d2739673e5a1c7",
+            "metrics": "ops/grok-voice-high-20261018/grok-voice/audio/grok-voice-high-019.json",
+            "metrics_sha256": "8b29469ca1094a3c0e4cb8f24ea67c1533f7fa104f2f6793409f87237430dd62",
+            "input_waveform_audit": "ops/grok-voice-high-20261018/grok-voice/audio/grok-voice-high-019-input-waveform.json",
+            "input_waveform_audit_sha256": "3fddbe91ab6a2a2c912159e4a92e7d8179b12817eac13b281ca88be6aa0b5d49"
+          },
+          {
+            "job": "grok-voice-high-020",
+            "source_wav": "runs/grok-voice-high-20261018/attempt-020/conversation.wav",
+            "wav_sha256": "a51eb0cee21c08df7c1dc269b1961bc1a8c4070d211163e25056e99f816a6069",
+            "metrics": "ops/grok-voice-high-20261018/grok-voice/audio/grok-voice-high-020.json",
+            "metrics_sha256": "ed832a4c6a0f2872e25f99c5892eb4409aabb423a16032f30cd67540b29d7556",
+            "input_waveform_audit": "ops/grok-voice-high-20261018/grok-voice/audio/grok-voice-high-020-input-waveform.json",
+            "input_waveform_audit_sha256": "80af857a0af7d30d2d848b13f26ba9107b8c8b01228b4669c751d5ae1adaac55"
+          },
+          {
+            "job": "grok-voice-high-021",
+            "source_wav": "runs/grok-voice-high-20261018/attempt-021/conversation.wav",
+            "wav_sha256": "28dcd39b2dfe86deed5eb5edfdbc6762c993fe2bed63342edc0c1ad02d1ae4e9",
+            "metrics": "ops/grok-voice-high-20261018/grok-voice/audio/grok-voice-high-021.json",
+            "metrics_sha256": "f734ed546f5891845a71b8963fbff8cb828aa3f824a9b32657f49dac0a501365",
+            "input_waveform_audit": "ops/grok-voice-high-20261018/grok-voice/audio/grok-voice-high-021-input-waveform.json",
+            "input_waveform_audit_sha256": "448344270d3360a41d03acde178104b343c0218f981743cba3dc1e5f2e979b1a"
+          },
+          {
+            "job": "grok-voice-high-022",
+            "source_wav": "runs/grok-voice-high-20261018/attempt-022/conversation.wav",
+            "wav_sha256": "4b9e98af5ce3b7abf91294a74131b321fd4b6e7420b4e15100f3952cd58c7a2d",
+            "metrics": "ops/grok-voice-high-20261018/grok-voice/audio/grok-voice-high-022.json",
+            "metrics_sha256": "cd5a01789c1f1e05b135ce858490d3a75159b920c8c52f298b81ce97c1de7567",
+            "input_waveform_audit": "ops/grok-voice-high-20261018/grok-voice/audio/grok-voice-high-022-input-waveform.json",
+            "input_waveform_audit_sha256": "a93e0bddda06cdf6f7f7f7ddbe2b2ad6fba92bf0ecc18b1dafbaf6c3310d8d20"
+          },
+          {
+            "job": "grok-voice-high-023",
+            "source_wav": "runs/grok-voice-high-20261018/attempt-023/conversation.wav",
+            "wav_sha256": "25ab8b480836cc8efb0ced52168728e6e6d0ea397a51098c558a4b1bb792fd39",
+            "metrics": "ops/grok-voice-high-20261018/grok-voice/audio/grok-voice-high-023.json",
+            "metrics_sha256": "dad03794886cbe9bfc2bef8bf7af2a5936364b2fe9e779b29c51f611f39819b8",
+            "input_waveform_audit": "ops/grok-voice-high-20261018/grok-voice/audio/grok-voice-high-023-input-waveform.json",
+            "input_waveform_audit_sha256": "676958e415172794e507f8e2a2983726481256f63093910fdce495c1dea8a95b"
+          },
+          {
+            "job": "grok-voice-high-024",
+            "source_wav": "runs/grok-voice-high-20261018/attempt-024/conversation.wav",
+            "wav_sha256": "9d82fe6b5ee989295198e0da7068e4355b161d8a5a8db0a46e6de7f092a9c695",
+            "metrics": "ops/grok-voice-high-20261018/grok-voice/audio/grok-voice-high-024.json",
+            "metrics_sha256": "b7f33d0464b61e0ff444c099aa9684fb3f828ad71ce270e46eafe9bac95076a6",
+            "input_waveform_audit": "ops/grok-voice-high-20261018/grok-voice/audio/grok-voice-high-024-input-waveform.json",
+            "input_waveform_audit_sha256": "a308ad944ace8ee1f9e5fa7eb021dc951d3d619691a2ff8649cf7044f038c398"
+          },
+          {
+            "job": "grok-voice-high-025",
+            "source_wav": "runs/grok-voice-high-20261018/attempt-025/conversation.wav",
+            "wav_sha256": "2cda3bc0b2939c729116be9c6b5b72e88d14916c22802d54f112ef0ee83d8e3e",
+            "metrics": "ops/grok-voice-high-20261018/grok-voice/audio/grok-voice-high-025.json",
+            "metrics_sha256": "bb6dd32ed625aca9add838588e166bb9da2bd7e899ae2c3a74b3a4148f8c7ef7",
+            "input_waveform_audit": "ops/grok-voice-high-20261018/grok-voice/audio/grok-voice-high-025-input-waveform.json",
+            "input_waveform_audit_sha256": "72c3f1659ac5496a88d162fbafec3ce3ee0f5d5c195516b789458fa6c7b9ddec"
+          }
+        ]
+      }
+    ],
+    "all_quality_complete": true,
+    "judged_conversations": 25,
+    "successful_judge_cost_usd": 4.988293400000001,
+    "judge_credit_cooldowns": 0
+  }
+}

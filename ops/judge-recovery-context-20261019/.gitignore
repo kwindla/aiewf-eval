@@ -1,0 +1,20 @@
+# Campaign evidence stays local; public summaries live in docs/model-evaluations-2026-10/.
+/*
+!/.gitignore
+!/acceptance.py
+!/analyze.py
+!/audit_endings.py
+!/canonical.py
+!/common.py
+!/driver.py
+!/finish.py
+!/holdout.py
+!/preflight.py
+!/progress.py
+!/publish.py
+!/references.py
+!/report.py
+!/review_fable.py
+!/run_validation.py
+!/validate.py
+!/verify.py

@@ -1,0 +1,169 @@
+{
+  "publication_summary": true,
+  "source_artifact": "ops/judge-refresh-opus55-20261017/reasoning-cleanup/manifest.json",
+  "source_sha256": "34daad938df50eb52a1c6433259ac88e6063a1a704f0715fe8dfe1e638335247",
+  "evidence_storage": "../../README.md",
+  "data": {
+    "started_at": "2026-10-18T14:16:47.563112+00:00",
+    "reason": "User requested stripping leaked reasoning before judging, without parser root-cause work",
+    "normalization": "think-sections-v1",
+    "cohorts_audited": 52,
+    "conversations_audited": 1316,
+    "changed_conversations": 29,
+    "changed_scripted_turns": 49,
+    "recovery_only_unchanged_jobs": [
+      "nemotron-3-ultra-128-027-71558078899f",
+      "nemotron-3-ultra-128-028-0520fde833dd"
+    ],
+    "source_cohorts_rubrics_model_effort_and_latency_unchanged": true,
+    "old_task_clarification_omitted": true,
+    "outcomes": [
+      {
+        "job_id": "deepseek-v4-flash-0731-low-011-c874d0a11556",
+        "attempt": 2,
+        "status": "graded"
+      },
+      {
+        "job_id": "nemotron-3-nano-30b-512-001-95432fe028c8",
+        "attempt": 2,
+        "status": "graded"
+      },
+      {
+        "job_id": "nemotron-3-nano-30b-512-002-260f0ca8c251",
+        "attempt": 2,
+        "status": "graded"
+      },
+      {
+        "job_id": "nemotron-3-nano-30b-512-003-2c6486035cbd",
+        "attempt": 7,
+        "status": "graded"
+      },
+      {
+        "job_id": "nemotron-3-nano-30b-512-004-ea8cd1040595",
+        "attempt": 2,
+        "status": "graded"
+      },
+      {
+        "job_id": "nemotron-3-nano-30b-512-005-8fcdaf0b36dd",
+        "attempt": 2,
+        "status": "graded"
+      },
+      {
+        "job_id": "nemotron-3-nano-30b-512-006-a5335a24a31c",
+        "attempt": 2,
+        "status": "graded"
+      },
+      {
+        "job_id": "nemotron-3-nano-30b-512-007-f93ad9567c31",
+        "attempt": 6,
+        "status": "graded"
+      },
+      {
+        "job_id": "nemotron-3-super-120b-512-002-8dabcc89e287",
+        "attempt": 2,
+        "status": "graded"
+      },
+      {
+        "job_id": "nemotron-3-super-120b-512-014-53f5deb0f17c",
+        "attempt": 6,
+        "status": "graded"
+      },
+      {
+        "job_id": "nemotron-3-super-120b-512-017-3c727cf0cbb4",
+        "attempt": 2,
+        "status": "graded"
+      },
+      {
+        "job_id": "nemotron-3-super-120b-512-023-a95bfb411dc6",
+        "attempt": 2,
+        "status": "graded"
+      },
+      {
+        "job_id": "nemotron-3-super-120b-512-024-405eba62363b",
+        "attempt": 2,
+        "status": "graded"
+      },
+      {
+        "job_id": "nemotron-3-super-120b-512-026-d3045ab0c157",
+        "attempt": 2,
+        "status": "graded"
+      },
+      {
+        "job_id": "nemotron-3-super-120b-512-028-705511fd6a49",
+        "attempt": 2,
+        "status": "graded"
+      },
+      {
+        "job_id": "nemotron-3-super-120b-512-029-ee1b06674328",
+        "attempt": 2,
+        "status": "graded"
+      },
+      {
+        "job_id": "nemotron-3-ultra-128-003-45836715791e",
+        "attempt": 2,
+        "status": "graded"
+      },
+      {
+        "job_id": "nemotron-3-ultra-128-023-01f980ad61a3",
+        "attempt": 2,
+        "status": "graded"
+      },
+      {
+        "job_id": "nemotron-3-ultra-96-006-66a8f22d8473",
+        "attempt": 2,
+        "status": "graded"
+      },
+      {
+        "job_id": "nemotron-3-ultra-96-014-0b933296be44",
+        "attempt": 2,
+        "status": "graded"
+      },
+      {
+        "job_id": "nemotron-3-ultra-96-015-4c2f38d596af",
+        "attempt": 2,
+        "status": "graded"
+      },
+      {
+        "job_id": "nemotron-3-ultra-96-016-0e36eedac6a4",
+        "attempt": 2,
+        "status": "graded"
+      },
+      {
+        "job_id": "nemotron-3-ultra-96-018-fe74986727dd",
+        "attempt": 2,
+        "status": "graded"
+      },
+      {
+        "job_id": "nemotron-3-ultra-96-019-63e61da419f3",
+        "attempt": 2,
+        "status": "graded"
+      },
+      {
+        "job_id": "nemotron-3.5-lightning-on-028-100cd0e3d1eb",
+        "attempt": 2,
+        "status": "graded"
+      },
+      {
+        "job_id": "qwen3.8-27b-fp8-008-9dcf16f46c1c",
+        "attempt": 2,
+        "status": "graded"
+      },
+      {
+        "job_id": "qwen3.8-27b-nvfp4-004-3a16f2aa7097",
+        "attempt": 2,
+        "status": "graded"
+      },
+      {
+        "job_id": "qwen3.8-27b-nvfp4-011-2654703cc481",
+        "attempt": 2,
+        "status": "graded"
+      },
+      {
+        "job_id": "qwen3.8-27b-nvfp4-030-5a9dcabba0be",
+        "attempt": 2,
+        "status": "graded"
+      }
+    ],
+    "finished_at": "2026-10-18T14:24:53.481375+00:00"
+  }
+}

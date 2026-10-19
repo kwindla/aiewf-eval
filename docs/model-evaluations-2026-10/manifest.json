@@ -1,0 +1,404 @@
+{
+  "source_commit": "d9a3e20209c27111107b6c9ca2809ea91ca34ba0",
+  "archive_id": "aiewf-eval-archive/2026-10-benchmark-refresh",
+  "archive_file": "evidence.tar.gz",
+  "archive_sha256": "10eb1a9eefd0065aa90e66151322d2783aabf56f1b53292886016aef02f2db58",
+  "archive_bytes": 36791580,
+  "member_manifest": "MANIFEST.json",
+  "member_manifest_sha256": "b6ebb5fef8cb8f80907f958a3e8560559ce99e53a1668cf66357a4890a9cd53b",
+  "file_count": 9212,
+  "uncompressed_bytes": 169792121,
+  "storage": "Maintainer-held local archive; no off-host copy has been made.",
+  "raw_runs": {
+    "included": false,
+    "location": "Original ignored runs/ tree",
+    "note": "Original recordings and run outputs remain local and unchanged."
+  },
+  "publication_sources": {
+    "ops/responses-repair-20261018/PROTOCOL.md": {
+      "path": "docs/model-evaluations-2026-10/responses-repair-20261018/PROTOCOL.md",
+      "source_sha256": "fb5db8e4063ee08a804fa015bcf9e3c7ee55d4e4dbdd90be69cb545dd6c9d75b",
+      "published_sha256": "c1660050fb7414566acb54369b37022dffe81bdc55518af795318aca8a538435"
+    },
+    "ops/baseten-nemotron-ultra/aiewf-medium-off-on-n30-20261018/REPORT.md": {
+      "path": "docs/model-evaluations-2026-10/baseten-nemotron-ultra/aiewf-medium-off-on-n30-20261018/REPORT.md",
+      "source_sha256": "8a06e8ba2d9e6aabfccacb1e5806475933841556f097898c3fcc2321964a80dc",
+      "published_sha256": "e2a400952679d2199e023410e1eb43dcea247a5de1e6d14d40a0f6a07f3831d6"
+    },
+    "ops/google-gemini38-flash/analysis/REPORT.md": {
+      "path": "docs/model-evaluations-2026-10/google-gemini38-flash/analysis/REPORT.md",
+      "source_sha256": "33ff197938a1a04f15023341e889e9fd3e77fd0622580f109531e76e172b4472",
+      "published_sha256": "87858ccfa1cc1ec5e89c241047afbcffe7fc6c8150de39252de9bfdf2f75900a"
+    },
+    "ops/baseten-nemotron-ultra/aiewf-medium-off-on-n30-20261018/PROTOCOL.md": {
+      "path": "docs/model-evaluations-2026-10/baseten-nemotron-ultra/aiewf-medium-off-on-n30-20261018/PROTOCOL.md",
+      "source_sha256": "357562d2b37aac289df3d6360048f1bb9b07aeec501a86cee4dffb251fdb3fcb",
+      "published_sha256": "e14a7eed4ce526575a1bd1068c44f28fff640141414cbbf0e9e94bcfb6492325"
+    },
+    "ops/judge-refresh-opus55-20261017/PROTOCOL.md": {
+      "path": "docs/model-evaluations-2026-10/judge-refresh-opus55-20261017/PROTOCOL.md",
+      "source_sha256": "a3a2a4e48a30ff863c002fc6ad0b647f51a35a5cf732017a736ee57a9c985394",
+      "published_sha256": "cae8c9eb520e2eef5a67a6cd81d94076e1f9ad96c3be09bea4f02956f9186af7"
+    },
+    "ops/nova-2-5-sonic-20261019/user-context-v2/REPORT.md": {
+      "path": "docs/model-evaluations-2026-10/nova-2-5-sonic-20261019/user-context-v2/REPORT.md",
+      "source_sha256": "72bbf9ed8828b866e558e87b2b95d4dcf23e4d6cf3c39d6ed28e100aa1df9ff9",
+      "published_sha256": "ae5a0a978d70b89f5a3ac1fc2763de63595de2f5e01a83d1718431e62a223ea0"
+    },
+    "ops/nova-2-5-sonic-20261019/REPORT.md": {
+      "path": "docs/model-evaluations-2026-10/nova-2-5-sonic-20261019/REPORT.md",
+      "source_sha256": "e82aa7de28388c22a4a970b490d7a27767313c1e7659ed030bf3fb4e85a6cc87",
+      "published_sha256": "bc459404219cc68f5efcdaf50d5a2911043afa289298174184dabf9ffca6d686"
+    },
+    "ops/nova-2-5-sonic-20261019/filter-diagnostics/REPORT.md": {
+      "path": "docs/model-evaluations-2026-10/nova-2-5-sonic-20261019/filter-diagnostics/REPORT.md",
+      "source_sha256": "38afd5845c372fd828b20ebbcb5d4301e369f48f3d109a1c6bb6f57d7d19e037",
+      "published_sha256": "dee8f8418ba4abb16eef7228d426bbb9d49960aa576349d54d2a4a86265def42"
+    },
+    "ops/recent-models-20261018/REPORT.md": {
+      "path": "docs/model-evaluations-2026-10/recent-models-20261018/REPORT.md",
+      "source_sha256": "c12be9f988b91d738532490dda5b84126ae522ec247efae7ec5e94cd8e010a7b",
+      "published_sha256": "1645806992dbfe2ac74c379cffe2ba208b76b563be9ea2036e71523c381bf8bf"
+    },
+    "ops/responses-repair-20261018/PUBLIC-TEXT-AMENDMENT.md": {
+      "path": "docs/model-evaluations-2026-10/responses-repair-20261018/PUBLIC-TEXT-AMENDMENT.md",
+      "source_sha256": "34c322e3ba26215260c162ebfa81e124d88989d533294802ec36ec960f75be26",
+      "published_sha256": "ec084ecfb773d41654b96d627fa9d76fa2902a2210a39200c6dcc7693ac8a890"
+    },
+    "ops/recent-models-20261018/PROTOCOL.md": {
+      "path": "docs/model-evaluations-2026-10/recent-models-20261018/PROTOCOL.md",
+      "source_sha256": "8f62e53e1f95209a48633dc8ad8a41df7e51afbb889c3382a66a61592ca02a73",
+      "published_sha256": "3a70d8b03c503ce70765f02cb2b20606ff7d7b47d3920d992bad054355c2ce0a"
+    },
+    "ops/responses-repair-20261018/REPORT.md": {
+      "path": "docs/model-evaluations-2026-10/responses-repair-20261018/REPORT.md",
+      "source_sha256": "6daa596cf44d0bcfe088b38ae51e6ddb79319ed4cb8370a55ccdd584d76bd3c8",
+      "published_sha256": "f799a805a2a761f3bc6a661e1a1a15f2633aaa00d06dfcb70d0dd49c38a386ff"
+    },
+    "ops/nova-2-5-sonic-20261019/PROTOCOL.md": {
+      "path": "docs/model-evaluations-2026-10/nova-2-5-sonic-20261019/PROTOCOL.md",
+      "source_sha256": "adfcbe622c302ba006c476885db5aefe88e57870c93740893f83cffd5f94b868",
+      "published_sha256": "e3a77826d563a99cfe9c29e22b58aaccebf315b63b3249683cac5d336e675d78"
+    },
+    "ops/nova-2-5-sonic-20261019/user-context-v2/PROTOCOL.md": {
+      "path": "docs/model-evaluations-2026-10/nova-2-5-sonic-20261019/user-context-v2/PROTOCOL.md",
+      "source_sha256": "56f5db5b2b81f270bf0d6ecd85eeff44aee006fa9c689999890302835225a867",
+      "published_sha256": "4a8b8ca79ad915529f70be8141b5e2e29447c3b563e382020d5b7e808193a655"
+    },
+    "ops/recent-models-20261018/MODE-SETTINGS.md": {
+      "path": "docs/model-evaluations-2026-10/recent-models-20261018/MODE-SETTINGS.md",
+      "source_sha256": "4d2dafeeab1de5ff31885866ebf046f4d418b113f337dd3e1eeacff951a06d15",
+      "published_sha256": "98ad42f06ca8f16016015ca0eee23ffe8720bee0ec8fb1c094f6bdca59a6c1ba"
+    },
+    "ops/baseten-nemotron-ultra/aiewf-medium-off-on-n30-20261018/failure-analysis/REPORT.md": {
+      "path": "docs/model-evaluations-2026-10/baseten-nemotron-ultra/aiewf-medium-off-on-n30-20261018/failure-analysis/REPORT.md",
+      "source_sha256": "3df6a981928882211ade5cd711a4edf60c7da357cfc3e7032783d5ef71f85186",
+      "published_sha256": "4028e388758de21d851133e1ba39eed439a4df16421e74444e9a9b4ab671dd2b"
+    },
+    "ops/judge-refresh-opus55-20261017/SOURCE-AUDIT.md": {
+      "path": "docs/model-evaluations-2026-10/judge-refresh-opus55-20261017/SOURCE-AUDIT.md",
+      "source_sha256": "36724dc495bb75215d1b799036d40fa0e704d9d9c267554c4504eb3c0955c9a3",
+      "published_sha256": "fdf959f6f1e90d3af021f8aff3b6aa8d1970bf66eaa9c56e070c4b834abbc737"
+    },
+    "ops/nova-2-5-sonic-20261019/filter-diagnostics/PROTOCOL.md": {
+      "path": "docs/model-evaluations-2026-10/nova-2-5-sonic-20261019/filter-diagnostics/PROTOCOL.md",
+      "source_sha256": "547ee2334e492213fa28a0d6a0e6553ff233e2c6f145b5e3d973f585e26aeafa",
+      "published_sha256": "15c08c531634e34fb6f08a7a907fd9234e433d846473ee5a8d7fcc866466f857"
+    },
+    "ops/judge-calibration-opus55-20261017/PROTOCOL.md": {
+      "path": "docs/model-evaluations-2026-10/judge-calibration-opus55-20261017/PROTOCOL.md",
+      "source_sha256": "370ebb7c844b1b1c8d7c27c07271e0c90b262ddfcc29e9506dd44c866a9a118b",
+      "published_sha256": "0cf166437de4738365dbc12a13ef5e37e4797425ac9f5f002b7adaacc356174f"
+    },
+    "ops/luna-completion-investigation-20261018/REPORT.md": {
+      "path": "docs/model-evaluations-2026-10/luna-completion-investigation-20261018/REPORT.md",
+      "source_sha256": "30e8cc21b407b1f18c6878964abe1a64fa779c037a5bdedff7bd1d10a917c52f",
+      "published_sha256": "b972a110907fb1878f116df43b946f37a2053b5e6ccb3c8f78f8236c14c546f2"
+    },
+    "ops/judge-recovery-context-20261019/REPORT.md": {
+      "path": "docs/model-evaluations-2026-10/judge-recovery-context-20261019/REPORT.md",
+      "source_sha256": "9bb8f47bb3140a74b66c1405464eae5f84ac455dd83b8486f55e56ccce46feb1",
+      "published_sha256": "8d06de9e836f677f645d8985774fa4116291ee877af5545904663581939b261e"
+    },
+    "ops/judge-refresh-opus55-20261017/REPORT.md": {
+      "path": "docs/model-evaluations-2026-10/judge-refresh-opus55-20261017/REPORT.md",
+      "source_sha256": "48e1c8996f1ef5bac14eb10b1c31b1b28ccf9e3475a1f3ae47b8e23e288db72c",
+      "published_sha256": "95f97a00d61e64cf1fc7a76432de001ada8f0c274ddb8490e48a6c7981d06bb0"
+    },
+    "ops/judge-calibration-opus55-20261017/REPORT.md": {
+      "path": "docs/model-evaluations-2026-10/judge-calibration-opus55-20261017/REPORT.md",
+      "source_sha256": "52630b49c5d101aa1655c78d3fd082bccfe87e2d9a32becf7d92e1ee6b8e0a6c",
+      "published_sha256": "7f92d28e5d57493ae16fe003dcf48033323fb5f4c7840884552bd6b9982c466c"
+    },
+    "ops/grok-voice-high-20261018/REPORT.md": {
+      "path": "docs/model-evaluations-2026-10/grok-voice-high-20261018/REPORT.md",
+      "source_sha256": "1fcf21c6fc87c8ed26a42781bcd517292e871a24754130a39e9bff5026a54287",
+      "published_sha256": "7e4b60c8bd4f46be2b2f8a2b5d5c0120d26265fa7d00dbd3df63bb16da1886e5"
+    },
+    "ops/google-gemini38-flash/PROTOCOL.md": {
+      "path": "docs/model-evaluations-2026-10/google-gemini38-flash/PROTOCOL.md",
+      "source_sha256": "c1bc384c5336c8c8e55941c2eafdcebc30bc63a129961a9205423cebd2780da6",
+      "published_sha256": "02e26ad0d5c847e10a68735ff64e53affd89c3b67a0ffe1706ac9590e9b27f7b"
+    },
+    "ops/grok-voice-high-20261018/PROTOCOL.md": {
+      "path": "docs/model-evaluations-2026-10/grok-voice-high-20261018/PROTOCOL.md",
+      "source_sha256": "17c68560106ced1388119d8050ab3ffa4ee73e9f8444b6024d77f5951b94dcd5",
+      "published_sha256": "8754a1f17d6387fb8db15ca94b072aa0fd289dc3dcb675ddc567075f7482f7b1"
+    },
+    "ops/baseten-nemotron-ultra/aiewf-medium-off-on-n30-20261018/rubric-comparison/REPORT.md": {
+      "path": "docs/model-evaluations-2026-10/baseten-nemotron-ultra/aiewf-medium-off-on-n30-20261018/rubric-comparison/REPORT.md",
+      "source_sha256": "785258e21d2ebd99c6a2d8da2827209a82fb42484eed4a7391b864c201eee2e5",
+      "published_sha256": "feef6977226c2bb04f0f82ef9cf4ef61a10b07edb1318febe61ca5514b2c9d4a"
+    },
+    "ops/judge-refresh-opus55-20261017/aggregate.json": {
+      "path": "docs/model-evaluations-2026-10/judge-refresh-opus55-20261017/summary.json",
+      "source_sha256": "2441cc54a66767a03a64a5f964f79777ebb19cbf7a948fcf08cc75d5cb5ef2bc",
+      "published_sha256": "4df39e601ccc1e50faeb085cc089f9ed70281a62911f50d46219ff254fdde378"
+    },
+    "ops/responses-repair-20261018/aggregate.json": {
+      "path": "docs/model-evaluations-2026-10/responses-repair-20261018/summary.json",
+      "source_sha256": "69b85393adfecb991794c01299ad010d302ae350cded58a0ac346ea89d43acb0",
+      "published_sha256": "dc870f4f9502bd492d5f8765fa23bbfa6ae41b8aebd707163f01ad0d85fdb0ca"
+    },
+    "ops/nova-2-5-sonic-20261019/user-context-v2/aggregate.json": {
+      "path": "docs/model-evaluations-2026-10/nova-2-5-sonic-20261019/user-context-v2/summary.json",
+      "source_sha256": "16ac11b0e8d68e306b7f73315db59cf4bdf4f185240fbc54def5b4dba963c9df",
+      "published_sha256": "54cd9c95be02868877cef820eb47275898036705979f8f463dd3670e1839b765"
+    },
+    "ops/grok-voice-high-20261018/aggregate.json": {
+      "path": "docs/model-evaluations-2026-10/grok-voice-high-20261018/summary.json",
+      "source_sha256": "215cc046de58c8ef32197212f37f226971fc7a65d583f51ac1fc3c114aa85d3f",
+      "published_sha256": "0a1f9fe857e33a8c72dfaf3d95f8237e3c2ac67da9817ebd51d55e65e86d7c5f"
+    },
+    "ops/baseten-nemotron-ultra/aiewf-medium-off-on-n30-20261018/aggregate.json": {
+      "path": "docs/model-evaluations-2026-10/baseten-nemotron-ultra/aiewf-medium-off-on-n30-20261018/summary.json",
+      "source_sha256": "2e46863e4bc6f80769c25481f062dd099825bb22241ccba5db75c30a062619a1",
+      "published_sha256": "1ea36ad8315ecf79d760831d9315d7745caea0d781d04d290090b7c18171a830"
+    },
+    "ops/judge-refresh-opus55-20261017/reasoning-cleanup/aggregate.json": {
+      "path": "docs/model-evaluations-2026-10/judge-refresh-opus55-20261017/reasoning-cleanup/summary.json",
+      "source_sha256": "4b60a01d7bb995ae1eee69f6a4662313b614f3797d3500a7a9204e85a12862e6",
+      "published_sha256": "fe1211754894d2de2cc0ef7353a28dd5d877b32bd39384d995eec1cddb938519"
+    },
+    "ops/nova-2-5-sonic-20261019/filter-diagnostics/aggregate.json": {
+      "path": "docs/model-evaluations-2026-10/nova-2-5-sonic-20261019/filter-diagnostics/summary.json",
+      "source_sha256": "7fca6abdb7664cdf6361a506f4808af83d2c80dfe53364720ae04300c7412dac",
+      "published_sha256": "6001cc20043bf8207a84b6341463cb9319d7d937ffc3ae7e7f3a325f22ca26d1"
+    },
+    "ops/judge-recovery-context-20261019/aggregate.json": {
+      "path": "docs/model-evaluations-2026-10/judge-recovery-context-20261019/summary.json",
+      "source_sha256": "815e85b7225261d7d614970d0e4f25d25fff5ba5f70bc7fec3ca90790bdefe81",
+      "published_sha256": "d4d545a8d5fb0638381e39220a5a2a06f59e4237182ad0b7f97c2861ac728714"
+    },
+    "ops/baseten-nemotron-ultra/aiewf-medium-off-on-n30-20261018/rubric-comparison/aggregate.json": {
+      "path": "docs/model-evaluations-2026-10/baseten-nemotron-ultra/aiewf-medium-off-on-n30-20261018/rubric-comparison/summary.json",
+      "source_sha256": "c94122f93c40bbd6963fc6953ff389610e632ddd62845f2b2107c04b6d612843",
+      "published_sha256": "513b77e3cd3fd09e757937f26374f5835a09a0ff1f76871d3dedcc68b7455c02"
+    },
+    "ops/recent-models-20261018/aggregate.json": {
+      "path": "docs/model-evaluations-2026-10/recent-models-20261018/summary.json",
+      "source_sha256": "fab0ef19aeff10c7ec3be5e0e01dadead5d8079e79a8609549d43c608a0131e2",
+      "published_sha256": "678de929e43555ea5b8798eb16ef12027f46f38c35e208e6c739ff8f5fe807aa"
+    },
+    "ops/judge-refresh-opus55-20261017/reasoning-cleanup/manifest.json": {
+      "path": "docs/model-evaluations-2026-10/judge-refresh-opus55-20261017/reasoning-cleanup/manifest.json",
+      "source_sha256": "34daad938df50eb52a1c6433259ac88e6063a1a704f0715fe8dfe1e638335247",
+      "published_sha256": "7f11b4205579dbacd4d75932bb99262b9262870805888e672a44df99adada6d3"
+    },
+    "ops/judge-refresh-opus55-20261017/configurations.json": {
+      "path": "docs/model-evaluations-2026-10/judge-refresh-opus55-20261017/configurations.json",
+      "source_sha256": "06276fbb9abaaff512e10aff9e0543e74bc51d641797481fc32f0a0099884ef9",
+      "published_sha256": "d9d23610587bccb9d0c9cefd52449e3443393ece28539872e0edfd8c19045101"
+    },
+    "ops/judge-recovery-context-20261019/PLAN.md": {
+      "path": "docs/model-evaluations-2026-10/judge-recovery-context-20261019/PLAN.md",
+      "source_sha256": "2e084e76fc02ad193c431c6653c6e0df8fc89e9b08063ce1425da0bba6e00151",
+      "published_sha256": "51ef5ed4c156b41a6014a849cefd33120cd580a2403f41b268d08d5ee0bedab3"
+    }
+  },
+  "excluded_tracked_files": 9014,
+  "public_entrypoints": {
+    "README.md": {
+      "source_sha256": "4c7d8d40bb8efa07b7ec0f25b6e3831022ce73c6d6b754b362d49abafc24104b",
+      "published_sha256": "e2d32ae67f155399b436ab7c73c68064fde9ff1be9d05170c7fb62d2cb7358c7"
+    },
+    "leaderboard-medium-context.md": {
+      "source_sha256": "f3ff9297073fd75e524a14c27677b898c573a46e9d0faa367d1902d737db12d2",
+      "published_sha256": "d777e8ec290cab49ef23ba2c21368684f06e4695f653ac1d3351518c9e89b08b"
+    },
+    "docs/text-cohort-sizes-2026-10-17.md": {
+      "source_sha256": "dc4348bdd2508c258f40bb48678857b600128f21a4033014c5401d8df148c044",
+      "published_sha256": "58d80adad312164c503ae888a194d3fc0f956a11287dc8c54831c1d516660dc3"
+    },
+    "docs/text-model-voice-readiness.svg": {
+      "source_sha256": "d7fc40dc186879e2ee919b18087b5c89e253f8dbe565fe2c18e7fd397cdb371a",
+      "published_sha256": "d7fc40dc186879e2ee919b18087b5c89e253f8dbe565fe2c18e7fd397cdb371a"
+    }
+  },
+  "history_bundle": {
+    "file": "branch-history-d9a3e20.bundle",
+    "sha256": "2fabb1a4dd596a0730d3bd706fc0749e62f19f17237dfe9b4f5ae7eac1651ea9",
+    "bytes": 17488955,
+    "head": "d9a3e20209c27111107b6c9ca2809ea91ca34ba0",
+    "base_commit": "5dfcd96df15a1eeda5f879696ad804d7e1487f00",
+    "storage": "Maintainer-held local archive; no off-host copy has been made."
+  },
+  "retained_campaign_files": [
+    "ops/baseten-nemotron-ultra/.gitignore",
+    "ops/baseten-nemotron-ultra/aiewf-medium-off-on-n30-20261018/analyze.py",
+    "ops/baseten-nemotron-ultra/aiewf-medium-off-on-n30-20261018/configuration.json",
+    "ops/baseten-nemotron-ultra/aiewf-medium-off-on-n30-20261018/failure-analysis/audit.py",
+    "ops/baseten-nemotron-ultra/aiewf-medium-off-on-n30-20261018/finish.py",
+    "ops/baseten-nemotron-ultra/aiewf-medium-off-on-n30-20261018/judge.py",
+    "ops/baseten-nemotron-ultra/aiewf-medium-off-on-n30-20261018/preflight.py",
+    "ops/baseten-nemotron-ultra/aiewf-medium-off-on-n30-20261018/rubric-comparison/rejudge_legacy.py",
+    "ops/baseten-nemotron-ultra/aiewf-medium-off-on-n30-20261018/schedule.tsv",
+    "ops/google-gemini38-flash/.gitignore",
+    "ops/google-gemini38-flash/analyze.py",
+    "ops/google-gemini38-flash/configuration.json",
+    "ops/google-gemini38-flash/judge_campaign.py",
+    "ops/google-gemini38-flash/schedule.tsv",
+    "ops/google-gemini38-flash/smoke/missing-ttfat-diagnostic/configuration.json",
+    "ops/grok-voice-high-20261018/.gitignore",
+    "ops/grok-voice-high-20261018/analyze.py",
+    "ops/grok-voice-high-20261018/audio.py",
+    "ops/grok-voice-high-20261018/collect.py",
+    "ops/grok-voice-high-20261018/common.py",
+    "ops/grok-voice-high-20261018/finish.py",
+    "ops/grok-voice-high-20261018/grok-voice/configuration.json",
+    "ops/grok-voice-high-20261018/grok-voice/schedule.tsv",
+    "ops/grok-voice-high-20261018/judge.py",
+    "ops/grok-voice-high-20261018/precompute.py",
+    "ops/grok-voice-high-20261018/publish.py",
+    "ops/grok-voice-high-20261018/smoke.py",
+    "ops/grok-voice-high-20261018/status.py",
+    "ops/judge-calibration-opus55-20261017/.gitignore",
+    "ops/judge-calibration-opus55-20261017/analyze.py",
+    "ops/judge-calibration-opus55-20261017/configuration.json",
+    "ops/judge-calibration-opus55-20261017/run.py",
+    "ops/judge-recovery-context-20261019/.gitignore",
+    "ops/judge-recovery-context-20261019/acceptance.py",
+    "ops/judge-recovery-context-20261019/analyze.py",
+    "ops/judge-recovery-context-20261019/audit_endings.py",
+    "ops/judge-recovery-context-20261019/canonical.py",
+    "ops/judge-recovery-context-20261019/common.py",
+    "ops/judge-recovery-context-20261019/driver.py",
+    "ops/judge-recovery-context-20261019/finish.py",
+    "ops/judge-recovery-context-20261019/holdout.py",
+    "ops/judge-recovery-context-20261019/preflight.py",
+    "ops/judge-recovery-context-20261019/progress.py",
+    "ops/judge-recovery-context-20261019/publish.py",
+    "ops/judge-recovery-context-20261019/references.py",
+    "ops/judge-recovery-context-20261019/report.py",
+    "ops/judge-recovery-context-20261019/review_fable.py",
+    "ops/judge-recovery-context-20261019/run_validation.py",
+    "ops/judge-recovery-context-20261019/validate.py",
+    "ops/judge-recovery-context-20261019/verify.py",
+    "ops/judge-refresh-opus55-20261017/.gitignore",
+    "ops/judge-refresh-opus55-20261017/analyze.py",
+    "ops/judge-refresh-opus55-20261017/audit_local_runs.py",
+    "ops/judge-refresh-opus55-20261017/campaign.py",
+    "ops/judge-refresh-opus55-20261017/cleanup-reasoning.py",
+    "ops/judge-refresh-opus55-20261017/finalize.py",
+    "ops/judge-refresh-opus55-20261017/publish.py",
+    "ops/judge-refresh-opus55-20261017/retry-blocked-20261018.py",
+    "ops/judge-refresh-opus55-20261017/rubric-text.txt",
+    "ops/judge-refresh-opus55-20261017/rubric-voice.txt",
+    "ops/judge-refresh-opus55-20261017/select_text.py",
+    "ops/judge-refresh-opus55-20261017/select_voice.py",
+    "ops/judge-refresh-opus55-20261017/summarize_sources.py",
+    "ops/luna-completion-investigation-20261018/.gitignore",
+    "ops/luna-completion-investigation-20261018/inventory_impact.py",
+    "ops/luna-completion-investigation-20261018/replay_diagnostic.py",
+    "ops/nova-2-5-sonic-20261019/.gitignore",
+    "ops/nova-2-5-sonic-20261019/audio.py",
+    "ops/nova-2-5-sonic-20261019/collect.py",
+    "ops/nova-2-5-sonic-20261019/common.py",
+    "ops/nova-2-5-sonic-20261019/configuration.json",
+    "ops/nova-2-5-sonic-20261019/direct.py",
+    "ops/nova-2-5-sonic-20261019/filter-diagnostics/probe.py",
+    "ops/nova-2-5-sonic-20261019/filter-diagnostics/probe_readback.py",
+    "ops/nova-2-5-sonic-20261019/native_prompt_check.py",
+    "ops/nova-2-5-sonic-20261019/schedule.tsv",
+    "ops/nova-2-5-sonic-20261019/user-context-v2/analyze.py",
+    "ops/nova-2-5-sonic-20261019/user-context-v2/audio.py",
+    "ops/nova-2-5-sonic-20261019/user-context-v2/collect.py",
+    "ops/nova-2-5-sonic-20261019/user-context-v2/common.py",
+    "ops/nova-2-5-sonic-20261019/user-context-v2/configuration.json",
+    "ops/nova-2-5-sonic-20261019/user-context-v2/direct.py",
+    "ops/nova-2-5-sonic-20261019/user-context-v2/finish.py",
+    "ops/nova-2-5-sonic-20261019/user-context-v2/judge.py",
+    "ops/nova-2-5-sonic-20261019/user-context-v2/publish.py",
+    "ops/nova-2-5-sonic-20261019/user-context-v2/schedule.tsv",
+    "ops/recent-models-20261018/.gitignore",
+    "ops/recent-models-20261018/analyze.py",
+    "ops/recent-models-20261018/collect_campaign.py",
+    "ops/recent-models-20261018/finish.py",
+    "ops/recent-models-20261018/grok-voice/configuration.json",
+    "ops/recent-models-20261018/grok-voice/schedule.tsv",
+    "ops/recent-models-20261018/haiku/configuration.json",
+    "ops/recent-models-20261018/haiku/schedule.tsv",
+    "ops/recent-models-20261018/judge_campaign.py",
+    "ops/recent-models-20261018/luna/audit_stream.py",
+    "ops/recent-models-20261018/luna/completion.py",
+    "ops/recent-models-20261018/luna/configuration.json",
+    "ops/recent-models-20261018/luna/schedule.tsv",
+    "ops/recent-models-20261018/post_capture_compat.py",
+    "ops/recent-models-20261018/precompute_voice.py",
+    "ops/recent-models-20261018/preflight.py",
+    "ops/recent-models-20261018/publish.py",
+    "ops/recent-models-20261018/setup.py",
+    "ops/recent-models-20261018/sonnet/configuration.json",
+    "ops/recent-models-20261018/sonnet/schedule.tsv",
+    "ops/recent-models-20261018/spark-open/configuration.json",
+    "ops/recent-models-20261018/spark-open/schedule.tsv",
+    "ops/recent-models-20261018/spark13/configuration.json",
+    "ops/recent-models-20261018/spark13/schedule.tsv",
+    "ops/recent-models-20261018/status.py",
+    "ops/recent-models-20261018/verify_capture_sources.py",
+    "ops/recent-models-20261018/voice_waveform.py",
+    "ops/responses-repair-20261018/.gitignore",
+    "ops/responses-repair-20261018/analyze.py",
+    "ops/responses-repair-20261018/audit_capture.py",
+    "ops/responses-repair-20261018/collect_campaign.py",
+    "ops/responses-repair-20261018/collect_one.py",
+    "ops/responses-repair-20261018/common.py",
+    "ops/responses-repair-20261018/diagnose_none.py",
+    "ops/responses-repair-20261018/direct.py",
+    "ops/responses-repair-20261018/finish_analysis.py",
+    "ops/responses-repair-20261018/gpt-4.1-mini/configuration.json",
+    "ops/responses-repair-20261018/gpt-4.1-mini/schedule.tsv",
+    "ops/responses-repair-20261018/gpt-4.1/configuration.json",
+    "ops/responses-repair-20261018/gpt-4.1/schedule.tsv",
+    "ops/responses-repair-20261018/gpt-5.4-low/configuration.json",
+    "ops/responses-repair-20261018/gpt-5.4-low/schedule.tsv",
+    "ops/responses-repair-20261018/gpt-5.4-none-dots96/configuration.json",
+    "ops/responses-repair-20261018/gpt-5.4-none-dots96/schedule.tsv",
+    "ops/responses-repair-20261018/gpt-5.4-none/configuration.json",
+    "ops/responses-repair-20261018/gpt-5.4-none/schedule.tsv",
+    "ops/responses-repair-20261018/gpt-5.5-none/configuration.json",
+    "ops/responses-repair-20261018/gpt-5.5-none/schedule.tsv",
+    "ops/responses-repair-20261018/gpt-5.6-luna-none/configuration.json",
+    "ops/responses-repair-20261018/gpt-5.6-luna-none/schedule.tsv",
+    "ops/responses-repair-20261018/gpt-5.6-sol-none/configuration.json",
+    "ops/responses-repair-20261018/gpt-5.6-sol-none/schedule.tsv",
+    "ops/responses-repair-20261018/gpt-5.6-terra-medium/configuration.json",
+    "ops/responses-repair-20261018/gpt-5.6-terra-medium/schedule.tsv",
+    "ops/responses-repair-20261018/gpt-5.6-terra-none/configuration.json",
+    "ops/responses-repair-20261018/gpt-5.6-terra-none/schedule.tsv",
+    "ops/responses-repair-20261018/integrate.py",
+    "ops/responses-repair-20261018/judge.py",
+    "ops/responses-repair-20261018/launch.py",
+    "ops/responses-repair-20261018/luna-low/configuration.json",
+    "ops/responses-repair-20261018/luna-low/schedule.tsv",
+    "ops/responses-repair-20261018/luna-none/configuration.json",
+    "ops/responses-repair-20261018/luna-none/schedule.tsv",
+    "ops/responses-repair-20261018/public_text.py",
+    "ops/responses-repair-20261018/publish.py",
+    "ops/responses-repair-20261018/repair_captures.py",
+    "ops/responses-repair-20261018/run_one.py",
+    "ops/responses-repair-20261018/smoke.py",
+    "ops/responses-repair-20261018/status.py",
+    "ops/responses-repair-20261018/wire_audit.py"
+  ]
+}

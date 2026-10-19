@@ -39,7 +39,10 @@ class XAIRealtimeLLMService(OpenAIRealtimeLLMService):
     - Validation workarounds for non-standard field values
     """
 
-    def __init__(self, **kwargs):
+    def __init__(self, *, reasoning_effort=None, **kwargs):
+        if reasoning_effort is not None and reasoning_effort not in {"none", "high"}:
+            raise ValueError("Grok Voice reasoning effort must be none or high")
+        self._xai_reasoning_effort = reasoning_effort
         super().__init__(**kwargs)
         # Track if we're using manual turn handling (VAD disabled)
         session_props = kwargs.get("session_properties")
@@ -113,7 +116,15 @@ class XAIRealtimeLLMService(OpenAIRealtimeLLMService):
                         converted_tools.append(tool)
                 session.tools = converted_tools
                 logger.info(f"[xAI] Converted {len(converted_tools)} tools to xAI format")
-        await super().send_client_event(event)
+        if getattr(event, "type", None) == "session.update" and self._xai_reasoning_effort is not None:
+            # Pipecat strips reasoning for models outside its OpenAI allowlist.
+            # Inject xAI's documented field after that step, on the actual wire.
+            payload = event.model_dump(exclude_none=True)
+            payload["session"]["reasoning"] = {"effort": self._xai_reasoning_effort}
+            logger.info(f"[xAI] session reasoning.effort={self._xai_reasoning_effort}")
+            await self._ws_send(payload)
+        else:
+            await super().send_client_event(event)
 
     async def _receive_task_handler(self):
         """Override to handle xAI-specific events like ping."""
@@ -282,7 +293,7 @@ class GrokRealtimePipeline(RealtimePipeline):
             raise EnvironmentError("XAI_API_KEY environment variable is required for Grok models")
 
         base_url = "wss://api.x.ai/v1/realtime"
-        logger.info(f"Using xAI Grok Voice Agent API at {base_url}")
+        logger.info(f"Using xAI Grok Voice Agent API base_url={base_url}, model={model}")
 
         system_instruction = getattr(self.benchmark, "system_instruction", "")
         tools = getattr(self.benchmark, "tools_schema", None)
@@ -312,4 +323,5 @@ class GrokRealtimePipeline(RealtimePipeline):
             base_url=base_url,
             system_instruction=system_instruction,
             session_properties=session_props,
+            reasoning_effort=os.getenv("MTE_XAI_VOICE_REASONING_EFFORT") or None,
         )

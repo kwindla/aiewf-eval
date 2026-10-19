@@ -27,8 +27,10 @@ This preserves the project convention (see ``multi_turn_eval.metrics``):
 
 from __future__ import annotations
 
+import asyncio
 import json
 import os
+import re
 import time
 from typing import Any, AsyncIterator
 
@@ -310,7 +312,24 @@ class LoggedAnthropicLLMService(AnthropicLLMService):
             )
 
         raw_t0 = time.monotonic()
-        response = await super()._create_message_stream(api_call, params)
+        credit_wait = float(os.getenv("MTE_ANTHROPIC_CREDIT_RETRY_SECONDS", "0"))
+        if credit_wait and credit_wait < 90:
+            raise ValueError("Anthropic credit retry delay must be at least 90 seconds")
+        while True:
+            try:
+                response = await super()._create_message_stream(api_call, params)
+                break
+            except Exception as exc:
+                credit_error = re.search(
+                    r"credit.balance|insufficient.credit|not.enough.credit|out.of.credit|"
+                    r"payment.required|insufficient.funds|purchase.*credit|"
+                    r"billing.*(?:limit|balance)|balance.*(?:low|insufficient)",
+                    str(exc), re.I,
+                )
+                if not credit_wait or not credit_error:
+                    raise
+                logger.warning(f"Anthropic credit balance error before stream; retry in {credit_wait}s")
+                await asyncio.sleep(credit_wait)
         if not params.get("stream"):
             return response
 

@@ -16,7 +16,8 @@ def test_voice_policy_shares_tasks_but_not_instructions():
     assert text.system_instruction != voice.system_instruction
     assert 'you must ask for their name and preference' in text.system_instruction
     assert 'you must ask for their name and preference' not in voice.system_instruction
-    assert not hasattr(text, 'judge_system_prompt')
+    assert text.judge_system_prompt != voice.judge_system_prompt
+    assert 'Model\'s governing voice policy' not in text.judge_system_prompt
     assert 'Model\'s governing voice policy' in voice.judge_system_prompt
     assert 'Model\'s governing voice policy' not in JUDGE_SYSTEM_PROMPT
 

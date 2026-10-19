@@ -22,10 +22,13 @@ import sys
 import json
 import argparse
 import asyncio
+import re
 from pathlib import Path
 from typing import Dict, Any, List, Optional
 from datetime import datetime
+from importlib.metadata import version
 from dotenv import load_dotenv
+from .context import CONTEXT_REVISION, RECOVERY_INSTRUCTIONS, SCOPE_ADDENDUM, outcome_text, recovery_block, validate_context
 
 try:
     from claude_agent_sdk import query, ClaudeAgentOptions
@@ -39,7 +42,7 @@ except ImportError:
 # Configuration
 # ============================================================================
 
-JUDGE_VERSION = "claude-agent-sdk-v4-turn-taking"
+JUDGE_VERSION = "claude-agent-sdk-v5-recovery-context"
 
 # Judging is blind: format_turns_for_claude() never passes the model name into
 # the prompt, so the judge cannot tell which system produced a transcript. The
@@ -48,7 +51,7 @@ JUDGE_VERSION = "claude-agent-sdk-v4-turn-taking"
 # The judge is non-deterministic on borderline turns, so a single judgment is a
 # noisy measurement rather than a fixed one. Judge repeatedly when comparing
 # models and fold that spread into the interval.
-JUDGE_MODEL = os.getenv("MTE_JUDGE_MODEL", "claude-opus-5")
+JUDGE_MODEL = os.getenv("MTE_JUDGE_MODEL", "claude-opus-5-5")
 
 JUDGE_ROOT_KEYS = frozenset(
     {
@@ -293,6 +296,63 @@ def load_transcript(run_dir: Path) -> List[Dict[str, Any]]:
 # Turn Formatting
 # ============================================================================
 
+REASONING_NORMALIZATION = "think-sections-v1"
+
+
+def strip_reasoning_sections(text: str) -> str:
+    """Remove explicit think spans, including a prompt-prefilled opening tag.
+
+    A leading analysis segment may have only a closing tag because the opening
+    tag was supplied by the chat template. Never infer reasoning from prose.
+    Reject ambiguous/unclosed markup rather than silently removing an answer.
+    """
+    tags = list(re.finditer(r"</?think>", text))
+    if not tags:
+        return text
+    thinking = tags[0].group() == "</think>"
+    pieces = []
+    cursor = 0
+    for tag in tags:
+        if not thinking:
+            pieces.append(text[cursor:tag.start()])
+        if tag.group() == "<think>":
+            if thinking:
+                raise ValueError("Nested think sections in judge input")
+            thinking = True
+        else:
+            if not thinking:
+                raise ValueError("Unmatched closing think tag in judge input")
+            thinking = False
+        cursor = tag.end()
+    if thinking:
+        raise ValueError("Unclosed think section in judge input")
+    pieces.append(text[cursor:])
+    return "".join(pieces).strip()
+
+
+def prepare_judge_records(
+    records: List[Dict[str, Any]],
+) -> tuple[List[Dict[str, Any]], List[Dict[str, Any]]]:
+    """Derive final-answer records and a content-hash audit without mutation."""
+    prepared, changes = [], []
+    for record_index, record in enumerate(records):
+        original = record["assistant_text"]
+        answer = strip_reasoning_sections(original)
+        if answer != original:
+            changes.append({
+                "turn": record["turn"],
+                "source_text_sha256": hashlib.sha256(original.encode()).hexdigest(),
+                "judge_text_sha256": hashlib.sha256(answer.encode()).hexdigest(),
+                "removed_characters": len(original) - len(answer),
+                **({"recovery_turn": True, "record_index": record_index,
+                    "recovery_for_turn": record.get("recovery_for_turn")}
+                   if record.get("recovery_turn") else {}),
+            })
+            record = {**record, "assistant_text": answer}
+        prepared.append(record)
+    return prepared, changes
+
+
 def format_turns_for_claude(
     records: List[Dict[str, Any]],
     expected_turns: List[Dict[str, Any]],
@@ -308,6 +368,15 @@ def format_turns_for_claude(
         turn_taking_data: Optional dict mapping turn index to turn-taking analysis
     """
     lines = []
+    contexts = validate_context(records, len(expected_turns))
+    extended = any(record.get('recovery_turn') for record in records) or only_turns is not None
+    targets = {record['turn'] for record in records if not record.get('recovery_turn')}
+    if only_turns is not None:
+        if not only_turns or any(type(turn) is not int for turn in only_turns) or not only_turns <= targets:
+            raise ValueError('Scoring targets must be present scripted turn IDs')
+        targets = only_turns
+    if extended:
+        lines.extend([RECOVERY_INSTRUCTIONS, f'Scripted scoring targets: {sorted(targets)}', '', '---', ''])
 
     # First, provide turn-taking failure summary if any
     if turn_taking_data:
@@ -341,22 +410,18 @@ def format_turns_for_claude(
     lines.append("# Conversation Turns")
     lines.append("")
 
-    for rec in records:
+    for rec, context in zip(records, contexts):
         if rec.get("recovery_turn"):
+            lines.extend(recovery_block({**rec, 'assistant_text': strip_reasoning_sections(rec['assistant_text'])}, context))
             continue
 
         turn_idx = rec["turn"]
 
-        # Skip turns not in the filter set
-        if only_turns is not None and turn_idx not in only_turns:
-            continue
-
-        if turn_idx >= len(expected_turns):
-            continue
-
         expected = expected_turns[turn_idx]
 
         lines.append(f"## Turn {turn_idx}")
+        if extended:
+            lines.append('**Scoring**: ' + ('scripted target' if turn_idx in targets else 'context only; do not judge'))
 
         # Add turn-taking status if available
         if turn_taking_data and turn_idx in turn_taking_data:
@@ -371,7 +436,7 @@ def format_turns_for_claude(
             lines.append("**Turn-Taking**: OK (no audio analysis)")
 
         lines.append(f"**User**: {rec['user_text']}")
-        lines.append(f"**Assistant**: {rec['assistant_text']}")
+        lines.append(f"**Assistant**: {strip_reasoning_sections(rec['assistant_text'])}")
         lines.append("")
 
         golden = expected.get('golden_text', '')
@@ -394,6 +459,8 @@ def format_turns_for_claude(
             lines.append(f"**Actual Functions**: {calls_str}")
         else:
             lines.append("**Actual Functions**: none")
+        if extended and (rec.get('tool_calls') or rec.get('tool_results')):
+            lines.append(f'**Recorded Tool Outcomes**: {outcome_text(rec)}')
 
         lines.append("")
         lines.append("---")
@@ -414,6 +481,9 @@ async def judge_with_claude(
     skip_turn_taking: bool = False,
     judge_model: Optional[str] = None,
     judge_system_prompt: Optional[str] = None,
+    judge_effort: Optional[str] = None,
+    precomputed_turn_taking: Optional[Dict[int, Dict[str, Any]]] = None,
+    task_clarification: Optional[str] = None,
 ) -> Dict[str, Any]:
     """Main judging function using two-phase realignment approach.
 
@@ -423,6 +493,13 @@ async def judge_with_claude(
         debug: Enable debug logging
         expected_turns: Optional list of expected turns. If not provided, imports from turns module.
         skip_turn_taking: If True, skip turn-taking analysis (for runs without WAV files)
+        judge_model: Explicit model, otherwise MTE_JUDGE_MODEL or the default judge.
+        judge_system_prompt: Frozen benchmark rubric, otherwise the legacy rubric.
+        judge_effort: Explicit effort, otherwise MTE_JUDGE_EFFORT or medium for Opus 5.
+        precomputed_turn_taking: Verified audio analysis for every scored turn,
+            allowing quality rejudging without repeating waveform analysis.
+        task_clarification: Optional explicit task clarification appended to the
+            request and recorded in metadata; does not replace the scoring rubric.
 
     Returns:
         Dict with judgments, realignment_notes, function_tracking, turn_taking_analysis, summary, and model_name.
@@ -435,15 +512,17 @@ async def judge_with_claude(
     if expected_turns is None:
         from turns import turns as expected_turns
 
-    # Filter records if only_turns specified
-    if only_turns is not None:
-        records = [r for r in records if r["turn"] in only_turns]
-
     if not records:
         raise ValueError("No turns to judge")
 
-    # Recovery turns are transcript artifacts and should not be scored.
-    scored_records = [r for r in records if not r.get("recovery_turn")]
+    context_records = validate_context(records, len(expected_turns))
+    all_scripted_ids = {r['turn'] for r in records if not r.get('recovery_turn')}
+    if only_turns is not None and (not only_turns or any(type(t) is not int for t in only_turns) or not only_turns <= all_scripted_ids):
+        raise ValueError('Scoring targets must be present scripted turn IDs')
+    records, normalization_changes = prepare_judge_records(records)
+    # Recovery exchanges inform state without adding scoring targets.
+    scored_records = [r for r in records if not r.get("recovery_turn")
+                      and (only_turns is None or r['turn'] in only_turns)]
     if not scored_records:
         raise ValueError("No non-recovery turns to judge")
 
@@ -452,7 +531,7 @@ async def judge_with_claude(
     if debug:
         print(
             f"Judging {len(scored_records)} scripted turns "
-            f"(skipped {len(records) - len(scored_records)} recovery turns) "
+            f"({len(records) - len(scored_records)} unscored context records) "
             f"with realignment analysis...",
             file=sys.stderr,
         )
@@ -460,7 +539,15 @@ async def judge_with_claude(
     # Run turn-taking analysis if WAV file exists
     turn_taking_data: Optional[Dict[int, Dict[str, Any]]] = None
     turn_taking_analysis = None
-    if not skip_turn_taking:
+    if precomputed_turn_taking is not None:
+        if skip_turn_taking:
+            raise ValueError("Cannot skip turn-taking and supply precomputed audio analysis")
+        if not {r["turn"] for r in scored_records} <= set(precomputed_turn_taking) <= all_scripted_ids:
+            raise ValueError("Precomputed turn-taking must cover every scored turn")
+        if any(type(data.get("turn_taking")) is not bool for data in precomputed_turn_taking.values()):
+            raise ValueError("Precomputed turn-taking scores must be booleans")
+        turn_taking_data = precomputed_turn_taking
+    elif not skip_turn_taking:
         wav_path = run_dir / "conversation.wav"
         if wav_path.exists():
             if debug:
@@ -484,7 +571,7 @@ async def judge_with_claude(
 
     # Format turns (with turn-taking data if available)
     formatted_turns = format_turns_for_claude(
-        scored_records,
+        records,
         expected_turns,
         only_turns,
         turn_taking_data,
@@ -509,19 +596,47 @@ Remember:
 - Be generous with kb_grounding unless there's a clear factual error
 - Empty assistant_text with a valid tool call is still a valid turn - evaluate the tool call
 """
+    if task_clarification:
+        prompt += "\n\n# Task clarification\n" + task_clarification
 
-    # Configure options - use extended thinking for complex reasoning
+    # Explicit effort makes judge comparisons reproducible across model defaults.
     effective_model = judge_model or JUDGE_MODEL
-    effective_prompt = judge_system_prompt or JUDGE_SYSTEM_PROMPT
+    base_prompt = judge_system_prompt or JUDGE_SYSTEM_PROMPT
+    extended_context = any(r.get('recovery_turn') for r in records) or only_turns is not None
+    effective_prompt = base_prompt + (SCOPE_ADDENDUM if extended_context else '')
+    if extended_context:
+        prompt = prompt.replace(
+            'penalize the turn that should have called it, credit the turn that did call it, then continue evaluating all remaining turns',
+            'penalize a scored turn that unnecessarily missed it; credit a later scored turn only for its own response. Recovery records earn no judgment or retroactive credit; use their actions as state evidence for subsequent targets')
+    opus5 = effective_model.startswith("claude-opus-5")
+    effective_effort = judge_effort or os.getenv("MTE_JUDGE_EFFORT") or ("medium" if opus5 else None)
+    if effective_effort is not None and effective_effort not in {"low", "medium", "high", "max"}:
+        raise ValueError(f"Unsupported judge effort: {effective_effort}")
     options = ClaudeAgentOptions(
         system_prompt=effective_prompt,
         model=effective_model,
+        effort=effective_effort,
+        thinking={"type": "adaptive"} if opus5 else None,
+        tools=[],
+        setting_sources=[],
         permission_mode="bypassPermissions",
     )
 
     # Query Claude
     all_text = []
+    response_models = set()
+    sdk_result = {}
     async for message in query(prompt=prompt, options=options):
+        if getattr(message, "model", None):
+            response_models.add(message.model)
+        if hasattr(message, "total_cost_usd"):
+            sdk_result = {
+                "judge_cost_usd": message.total_cost_usd,
+                "judge_usage": message.usage,
+                "judge_duration_ms": message.duration_ms,
+            }
+            if getattr(message, "is_error", False):
+                raise ValueError(f"Judge SDK error: {getattr(message, 'result', '')}")
         if hasattr(message, 'content'):
             if isinstance(message.content, str):
                 all_text.append(message.content)
@@ -531,6 +646,9 @@ Remember:
                         all_text.append(block.text)
 
     response_text = "".join(all_text)
+    (run_dir / "claude_response.txt").write_text(response_text, encoding="utf-8")
+    if response_models != {effective_model}:
+        raise ValueError(f"Unexpected judge response models: {sorted(response_models)}")
 
     if debug:
         print(f"Claude response length: {len(response_text)} chars", file=sys.stderr)
@@ -545,12 +663,28 @@ Remember:
 
     # Extract final judgments
     final_judgments = result.get('final_judgments', [])
+    if not isinstance(final_judgments, list) or any(not isinstance(j, dict) for j in final_judgments):
+        raise ValueError('Judge final_judgments must be an array of objects')
     realignment_notes = result.get('realignment_notes', '')
     function_tracking = result.get('function_call_tracking', {})
 
     if debug:
         print(f"\nRealignment notes: {realignment_notes}", file=sys.stderr)
         print(f"Function tracking: {json.dumps(function_tracking, indent=2)}", file=sys.stderr)
+
+    # Reject malformed/duplicate scores rather than silently overwriting turns.
+    expected_turn_numbers = {r["turn"] for r in scored_records}
+    actual_turn_numbers = [j.get("turn") for j in final_judgments]
+    if (any(type(turn) is not int for turn in actual_turn_numbers)
+            or len(actual_turn_numbers) != len(expected_turn_numbers)
+            or set(actual_turn_numbers) != expected_turn_numbers):
+        raise ValueError("Judge must return exactly one judgment for each scripted turn")
+    for judgment in final_judgments:
+        if 'turn_taking' in judgment and type(judgment['turn_taking']) is not bool:
+            raise ValueError("Judge turn_taking must be a boolean")
+        for dimension in ("tool_use_correct", "instruction_following", "kb_grounding"):
+            if type(judgment.get(dimension)) is not bool:
+                raise ValueError(f"Judge {dimension} must be a boolean")
 
     # Convert to our standard format
     judgments = {}
@@ -599,8 +733,23 @@ Remember:
         "summary": f"Evaluated {len(judgments)} turns with realignment.",
         "model_name": model_name,
         "judge_metadata": {
+            **sdk_result,
             "judge_model": effective_model,
+            "judge_sdk_version": version("claude-agent-sdk"),
+            "judge_response_models": sorted(response_models),
+            "judge_effort": effective_effort,
+            "judge_thinking": "adaptive" if opus5 else "model_default",
+            "judge_tools": [],
+            "judge_setting_sources": [],
             "judge_prompt_sha256": hashlib.sha256(effective_prompt.encode()).hexdigest(),
+            "judge_base_prompt_sha256": hashlib.sha256(base_prompt.encode()).hexdigest(),
+            "judge_input_sha256": hashlib.sha256(prompt.encode()).hexdigest(),
+            "judge_context_revision": CONTEXT_REVISION,
+            "judge_context_records": context_records,
+            "judge_scored_targets": sorted(expected_turn_numbers),
+            **({"judge_input_normalization": REASONING_NORMALIZATION,
+                "judge_normalized_turns": normalization_changes} if normalization_changes else {}),
+            **({"judge_task_clarification": task_clarification} if task_clarification else {}),
         },
     }
 
@@ -720,7 +869,9 @@ def write_outputs(
         f"",
         f"**Model**: {model_name}",
         f"**Turns**: {total}",
-        f"**Judge**: {JUDGE_MODEL}",
+        f"**Judge**: {summary_data['judge_model']}",
+        f"**Judge effort**: {summary_data.get('judge_effort') or 'model_default (or unrecorded)'}",
+        f"**Judge prompt SHA256**: {summary_data.get('judge_prompt_sha256', 'unrecorded')}",
         f"**Judge Version**: {JUDGE_VERSION}",
         f"**Judged**: {summary_data['judged_at']}",
         f"",
@@ -837,6 +988,8 @@ def main():
         action="store_true",
         help="Enable debug logging"
     )
+    parser.add_argument("--judge-model", default=None)
+    parser.add_argument("--judge-effort", choices=["low", "medium", "high", "max"], default=None)
 
     args = parser.parse_args()
 
@@ -868,11 +1021,21 @@ def main():
     # Load records (for output generation)
     records = load_transcript(run_dir)
     if only_turns is not None:
-        records = [r for r in records if r["turn"] in only_turns]
+        records = [r for r in records if r.get('recovery_turn') or r["turn"] in only_turns]
 
     # Run judgment
     try:
-        result = asyncio.run(judge_with_claude(run_dir, only_turns, args.debug))
+        from multi_turn_eval.cli import load_benchmark
+        try:
+            benchmark = load_benchmark(run_dir.parent.name)()
+        except Exception:
+            benchmark = None
+        result = asyncio.run(judge_with_claude(
+            run_dir, only_turns, args.debug,
+            expected_turns=getattr(benchmark, "turns", None),
+            judge_system_prompt=getattr(benchmark, "judge_system_prompt", None),
+            judge_model=args.judge_model, judge_effort=args.judge_effort,
+        ))
     except Exception as e:
         print(f"ERROR: Judgment failed: {e}", file=sys.stderr)
         if args.debug:
@@ -890,6 +1053,7 @@ def main():
         result.get("realignment_notes", ""),
         result.get("function_tracking", {}),
         result.get("turn_taking_analysis"),
+        judge_metadata=result.get("judge_metadata"),
     )
 
     # Print summary

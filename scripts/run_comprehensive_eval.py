@@ -42,9 +42,10 @@ def parse_args():
     )
     parser.add_argument(
         "--judge-model",
-        default="claude-opus-4-5",
-        help="Model for judging (default: claude-opus-4-5)",
+        default=None,
+        help="Model for judging (default: MTE_JUDGE_MODEL or the standard judge)",
     )
+    parser.add_argument("--judge-effort", choices=["low", "medium", "high", "max"], default=None)
     parser.add_argument(
         "--pipeline", help="Pipeline type (auto-detected if not specified)"
     )
@@ -100,7 +101,7 @@ async def run_single_eval(
 
 
 async def judge_run(
-    run_dir: Path, benchmark: str, judge_model: str = "claude-opus-4-5"
+    run_dir: Path, benchmark: str, judge_model: str | None = None, judge_effort: str | None = None
 ):
     """Judge a single run and return the summary."""
     from multi_turn_eval.cli import load_benchmark
@@ -126,6 +127,9 @@ async def judge_run(
         only_turns=None,
         debug=False,
         expected_turns=expected_turns,
+        judge_model=judge_model,
+        judge_effort=judge_effort,
+        judge_system_prompt=getattr(benchmark_obj, "judge_system_prompt", None),
     )
 
     # Write outputs
@@ -135,6 +139,10 @@ async def judge_run(
         result["judgments"],
         result["summary"],
         result["model_name"],
+        realignment_notes=result.get("realignment_notes", ""),
+        function_tracking=result.get("function_tracking", {}),
+        turn_taking_analysis=result.get("turn_taking_analysis"),
+        judge_metadata=result.get("judge_metadata"),
     )
 
     # Load and return summary
@@ -397,6 +405,7 @@ def print_results_table(results: dict, total_attempted: int = None):
 
 async def main():
     args = parse_args()
+    from multi_turn_eval.judging.claude_judge import JUDGE_MODEL
 
     print(f"\n{'=' * 100}")
     print(f"Running Comprehensive Evaluation")
@@ -405,7 +414,7 @@ async def main():
     print(f"Service:     {args.service}")
     print(f"Benchmark:   {args.benchmark}")
     print(f"Runs:        {args.runs}")
-    print(f"Judge Model: {args.judge_model}")
+    print(f"Judge Model: {args.judge_model or JUDGE_MODEL}")
     print(f"{'=' * 100}\n")
 
     # Run all evaluations in parallel
@@ -450,7 +459,7 @@ async def main():
     print(f"{'=' * 100}\n")
 
     judge_tasks = [
-        judge_run(run_dir, args.benchmark, args.judge_model) for run_dir in run_dirs
+        judge_run(run_dir, args.benchmark, args.judge_model, args.judge_effort) for run_dir in run_dirs
     ]
 
     # Gather judging results, allowing failures

@@ -1,0 +1,99 @@
+{
+  "schema_version": 1,
+  "campaign_id": "recent-models-20261018-luna",
+  "benchmark": "aiwf_medium_context",
+  "model": "gpt-6-luna",
+  "accepted_response_model_ids": [
+    "gpt-6-luna"
+  ],
+  "service": "openai",
+  "pipeline": "text",
+  "endpoint": {
+    "url": "https://api.openai.com/v1",
+    "request_env": "MTE_ENDPOINT_PROVENANCE"
+  },
+  "credential": {
+    "request_env": "OPENAI_API_KEY",
+    "source_env": "OPENAI_API_KEY",
+    "source_file": "/home/khkramer/src/aiewf-eval/.env",
+    "source_file_key": "OPENAI_API_KEY"
+  },
+  "paths": {
+    "campaign_artifact_dir": "ops/recent-models-20261018/luna/artifacts",
+    "run_output_root": "runs/recent-models-20261018/luna"
+  },
+  "schedule_path": "ops/recent-models-20261018/luna/schedule.tsv",
+  "source_integrity_paths": [
+    "pyproject.toml",
+    "uv.lock",
+    "src/multi_turn_eval/pipelines/base.py",
+    "src/multi_turn_eval/pipelines/text.py",
+    "src/multi_turn_eval/pipelines/realtime.py",
+    "src/multi_turn_eval/pipelines/grok_realtime.py",
+    "src/multi_turn_eval/services/openai_responses.py",
+    "src/multi_turn_eval/services/anthropic_logged.py",
+    "src/multi_turn_eval/services/openrouter_logged.py",
+    "src/multi_turn_eval/services/lilac_logged.py",
+    "src/multi_turn_eval/services/baseten_logged.py",
+    "src/multi_turn_eval/recording/transcript_recorder.py",
+    "benchmarks/_shared/turns.py",
+    "benchmarks/_shared/tools.py",
+    "benchmarks/aiwf_medium_context/prompts/system.py",
+    "benchmarks/aiwf_medium_context/data/knowledge_base.txt",
+    "ops/recent-models-20261018/PROTOCOL.md",
+    "src/multi_turn_eval/model_capabilities.py",
+    "ops/recent-models-20261018/collect_campaign.py",
+    "ops/recent-models-20261018/preflight.py",
+    "ops/recent-models-20261018/setup.py"
+  ],
+  "target_eligible_runs": 60,
+  "fixed_scheduled_turns_per_conversation": 30,
+  "serving": {
+    "verified": true,
+    "notes": "Direct tool round-trip and excluded full-task harness smoke checked every registered mode; any early end_session retained as model behavior. See smoke artifacts for observed completion."
+  },
+  "eligibility": {
+    "policy": "first_valid_response",
+    "missing_future_turns": "retain_as_fixed_denominator_failures"
+  },
+  "collection": {
+    "provider_endpoint_concurrency": 1,
+    "max_attempts_per_slot_default": 3,
+    "timeout_seconds_default": 1800
+  },
+  "unset_environment_prefixes": [
+    "MTE_"
+  ],
+  "unset_environment": [],
+  "common_environment": {
+    "MTE_ENABLE_RECOVERY": "1",
+    "MTE_DEDUPE_TOOL_CALLS": "1",
+    "MTE_TOOL_RESULT_RUN_LLM": "0",
+    "MTE_TEXT_IDLE_TIMEOUT_SECS": "180",
+    "MTE_OPENAI_SERVICE_TIER": "priority"
+  },
+  "arms": {
+    "none": {
+      "environment": {
+        "MTE_OPENAI_RESPONSES_REASONING_EFFORT": "none"
+      },
+      "provenance_log_needles": [
+        "reasoning.effort=none,"
+      ],
+      "forbidden_log_needles": [
+        "MTE_FILLER_DOTS active"
+      ]
+    },
+    "low": {
+      "environment": {
+        "MTE_OPENAI_RESPONSES_REASONING_EFFORT": "low"
+      },
+      "provenance_log_needles": [
+        "reasoning.effort=low,"
+      ],
+      "forbidden_log_needles": [
+        "MTE_FILLER_DOTS active"
+      ]
+    }
+  }
+}

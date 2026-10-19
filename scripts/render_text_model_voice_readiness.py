@@ -19,10 +19,11 @@ DEFAULT_OUTPUT = REPO_ROOT / "docs/text-model-voice-readiness.svg"
 @dataclass(frozen=True)
 class ModelRow:
     model: str
-    pass_rate: float
+    pass_rate: float | None
     p50_ms: float
     p95_ms: float
     provider: str
+    conversations: int | None = None
 
 
 def _plain_markdown(value: str) -> str:
@@ -53,23 +54,24 @@ def load_rows(readme: Path) -> list[ModelRow]:
                 break
             continue
         cells = [cell.strip() for cell in line.strip().strip("|").split("|")]
-        if len(cells) != 10:
-            raise ValueError(f"expected 10 columns in README row: {line}")
+        if len(cells) not in (10, 11):
+            raise ValueError(f"expected 10 or 11 columns in README row: {line}")
         if re.fullmatch(r":?-+:?", cells[0]):
             continue
         rows.append(
             ModelRow(
                 model=_plain_markdown(cells[0]),
-                pass_rate=_number(cells[1], "%"),
+                pass_rate=None if _plain_markdown(cells[1]) == "—" else _number(cells[1], "%"),
                 p50_ms=_number(cells[6], "ms"),
                 p95_ms=_number(cells[7], "ms"),
                 provider=_plain_markdown(cells[9]),
+                conversations=int(_plain_markdown(cells[10])) if len(cells) == 11 else None,
             )
         )
 
     if not rows:
         raise ValueError(f"text-model table is empty in {readme}")
-    return sorted(rows, key=lambda row: (-row.pass_rate, row.p50_ms, row.model))
+    return sorted(rows, key=lambda row: (float("inf") if row.pass_rate is None else -row.pass_rate, row.p50_ms, row.model))
 
 
 def pareto_efficient(rows: list[ModelRow]) -> set[ModelRow]:
@@ -78,8 +80,9 @@ def pareto_efficient(rows: list[ModelRow]) -> set[ModelRow]:
     return {
         row
         for row in rows
-        if not any(
-            other.p50_ms <= row.p50_ms
+        if row.pass_rate is not None and not any(
+            other.pass_rate is not None
+            and other.p50_ms <= row.p50_ms
             and other.pass_rate >= row.pass_rate
             and (other.p50_ms < row.p50_ms or other.pass_rate > row.pass_rate)
             for other in rows
@@ -165,12 +168,14 @@ def render_svg(rows: list[ModelRow]) -> str:
         py = first_row_y + index * row_height
         p50_x, p95_x = x(row.p50_ms), x(row.p95_ms)
         model = html.escape(row.model)
+        quality_label = "quality unavailable" if row.pass_rate is None else f"{row.pass_rate:.1f}% pass"
         metadata = html.escape(
-            f"{row.pass_rate:.1f}% pass · {_latency(row.p50_ms)} P50 / "
+            f"{quality_label} · {_latency(row.p50_ms)} P50 / "
             f"{_latency(row.p95_ms)} P95 · {row.provider}"
+            + (f" · N={row.conversations}" if row.conversations is not None else "")
         )
         details = html.escape(
-            f"{row.model}: {row.pass_rate:.1f}% pass rate; "
+            f"{row.model}: {quality_label}; "
             f"TTFAT {_latency(row.p50_ms)} P50 and {_latency(row.p95_ms)} P95; "
             f"{row.provider}"
         )
@@ -187,7 +192,8 @@ def render_svg(rows: list[ModelRow]) -> str:
 
     lines.extend(
         [
-            f'  <text class="note" x="{left}" y="{footnote_y}">Dark P50 dots mark rows for which no model is both faster and at least as accurate. Historical Nemotron 3 rows retain legacy TTFT; see README.</text>',
+            f'  <text class="note" x="{left}" y="{footnote_y}">Dark P50 dots mark rows for which no model is both faster and at least as accurate. Local rows omit provider network time.</text>',
+            f'  <text class="note" x="{left}" y="{footnote_y + 18}">All rows: Opus 5.5 medium; quality conditional on completion. N counts conversations. Capture dates and serving configurations differ; see README.</text>',
             "</svg>",
         ]
     )

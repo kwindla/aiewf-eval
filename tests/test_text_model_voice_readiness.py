@@ -1,4 +1,5 @@
 import importlib.util
+import json
 import sys
 from pathlib import Path
 
@@ -16,20 +17,33 @@ SPEC.loader.exec_module(chart)
 
 def test_current_readme_rows_are_ranked_by_pass_rate_then_p50():
     rows = chart.load_rows(chart.DEFAULT_README)
-    keys = [(-row.pass_rate, row.p50_ms, row.model) for row in rows]
+    keys = [(float("inf") if row.pass_rate is None else -row.pass_rate, row.p50_ms, row.model) for row in rows]
     assert keys == sorted(keys)
-    assert len(rows) == 49
-    assert [row.model for row in rows[:4]] == [
-        "nemotron-3-ultra (128)",
-        "gemini-3.7-flash (low)",
-        "claude-sonnet-4-6",
+    summary = json.loads((REPO_ROOT / 'docs/model-evaluations-2026-10/judge-recovery-context-20261019/summary.json').read_text())['data']
+    ranked = [m for m in summary['text_models'] if m['complete'] > 0]
+    assert len(rows) == len(ranked)
+    assert {row.model for row in rows} == {m['label'] for m in ranked}
+    assert not {
+        "gpt-oss-120b (groq)",
+        "grok-4.6 (low)",
         "claude-fable-5 (low)",
-    ]
-    historical_nemotron_rows = [
-        row for row in rows if row.model.startswith("nemotron-3-")
-    ]
-    assert len(historical_nemotron_rows) == 4
-    assert {row.provider for row in historical_nemotron_rows} == {"Baseten"}
+        "claude-fable-5 (default)",
+        "claude-sonnet-4-6",
+        "claude-haiku-4-5",
+        "claude-sonnet-5",
+        "nemotron-3-ultra (128)",
+        "nemotron-3-ultra (96)",
+        "nemotron-3-ultra (thinking off)",
+    } & {row.model for row in rows}
+    table = chart.DEFAULT_README.read_text().split("| Model | Pass Rate | Any Error |")[1].split("\n\n", 1)[0]
+    actual_order = [line.split("|")[1].strip() for line in table.splitlines() if line.startswith("| ")]
+    assert actual_order == [row.model for row in rows]
+    assert all(row.conversations and 0 < row.conversations <= 30 for row in rows)
+    assert sum(row.conversations for row in rows) == sum(m['complete'] for m in ranked)
+    nemotron_rows = [row for row in rows if row.model.startswith("nemotron-3-")]
+    assert len(nemotron_rows) == 3
+    assert {row.provider for row in nemotron_rows} == {"Baseten", "AWS B200"}
+    assert all("NVFP4" in row.model for row in nemotron_rows if row.provider == "AWS B200")
     lightning_rows = [
         row for row in rows if row.model.startswith("nemotron-3.5-lightning")
     ]
@@ -48,23 +62,26 @@ def test_chart_has_one_p50_and_p95_mark_per_model():
     assert svg.count('class="p50') == len(rows)
     assert svg.count('class="p95"') == len(rows)
     assert "~700ms voice guideline" in svg
+    assert "All rows: Opus 5.5 medium" in svg
+    assert "quality conditional on completion" in svg
+    assert "legacy TTFT" not in svg
+    for row in rows:
+        assert f"N={row.conversations}" in svg
+        assert ("quality unavailable" if row.pass_rate is None else f"{row.pass_rate:.1f}% pass") in svg
     assert "muse-glimmer-30b" in svg
-    assert "231ms P50 / 1.75s P95" in svg
     assert "nemotron-3.5-lightning (thinking on, NVFP4)" in svg
-    assert "93.6% pass · 1.46s P50 / 5.8s P95 · Local RTX 5090" in svg
     assert "nemotron-3.5-lightning (thinking off, NVFP4)" in svg
-    assert "50.9% pass · 62ms P50 / 70ms P95 · Local RTX 5090" in svg
     assert "qwen3.8-27b (thinking off, NVFP4)" in svg
-    assert "97.8% pass · 101ms P50 / 318ms P95 · Local RTX 5090" in svg
     assert "qwen3-8b" not in svg
 
 
-def test_current_speed_accuracy_frontier_is_stable():
-    rows = chart.load_rows(chart.DEFAULT_README)
-    assert {row.model for row in chart.pareto_efficient(rows)} == {
-        "gpt-oss-120b (groq)",
-        "nemotron-3.5-lightning (thinking off, NVFP4)",
-        "qwen3.8-27b (thinking off, NVFP4)",
-        "nemotron-3-ultra (96)",
-        "nemotron-3-ultra (128)",
-    }
+def test_speed_accuracy_frontier_handles_ties_and_tradeoffs():
+    rows = [
+        chart.ModelRow("Fast", 80, 100, 200, "test"),
+        chart.ModelRow("Accurate", 99, 400, 500, "test"),
+        chart.ModelRow("Dominated", 80, 200, 300, "test"),
+        chart.ModelRow("Same speed", 79, 100, 200, "test"),
+        chart.ModelRow("Equal", 80, 100, 200, "test"),
+        chart.ModelRow("Unknown", None, 50, 70, "test"),
+    ]
+    assert {row.model for row in chart.pareto_efficient(rows)} == {"Fast", "Accurate", "Equal"}

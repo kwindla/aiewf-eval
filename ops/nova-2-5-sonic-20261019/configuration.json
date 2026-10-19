@@ -1,0 +1,24 @@
+{
+  "campaign_id": "nova-2-5-sonic-20261019",
+  "benchmark": "aiwf_medium_context_speech_v2",
+  "model": "amazon.nova-2-5-sonic",
+  "pipeline": "nova-sonic",
+  "service": null,
+  "arms": {
+    "standard": {
+      "environment": {}
+    }
+  },
+  "paths": {
+    "run_output_root": "runs/nova-2-5-sonic-20261019"
+  },
+  "voice": "tiffany",
+  "region": "us-east-1",
+  "endpointing_sensitivity": "HIGH",
+  "target_complete": 25,
+  "turns": 30,
+  "max_concurrent": 3,
+  "timeout_seconds": 1800,
+  "attempt_review_cap": 50,
+  "recovery": false
+}

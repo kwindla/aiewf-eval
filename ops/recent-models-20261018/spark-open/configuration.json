@@ -1,0 +1,93 @@
+{
+  "schema_version": 1,
+  "campaign_id": "recent-models-20261018-spark-open",
+  "benchmark": "aiwf_medium_context",
+  "model": "meta-models/muse-spark-open",
+  "accepted_response_model_ids": [
+    "meta-models/muse-spark-open"
+  ],
+  "service": "baseten",
+  "pipeline": "text",
+  "endpoint": {
+    "url": "https://inference.baseten.co/v1",
+    "request_env": "BASETEN_BASE_URL"
+  },
+  "credential": {
+    "request_env": "BASETEN_API_KEY",
+    "source_env": "BASETEN_API_KEY",
+    "source_file": "/home/khkramer/src/gb-benchmarks/.env",
+    "source_file_key": "BASETEN_API_KEY"
+  },
+  "paths": {
+    "campaign_artifact_dir": "ops/recent-models-20261018/spark-open/artifacts",
+    "run_output_root": "runs/recent-models-20261018/spark-open"
+  },
+  "schedule_path": "ops/recent-models-20261018/spark-open/schedule.tsv",
+  "source_integrity_paths": [
+    "pyproject.toml",
+    "uv.lock",
+    "src/multi_turn_eval/pipelines/base.py",
+    "src/multi_turn_eval/pipelines/text.py",
+    "src/multi_turn_eval/pipelines/realtime.py",
+    "src/multi_turn_eval/pipelines/grok_realtime.py",
+    "src/multi_turn_eval/services/openai_responses.py",
+    "src/multi_turn_eval/services/anthropic_logged.py",
+    "src/multi_turn_eval/services/openrouter_logged.py",
+    "src/multi_turn_eval/services/lilac_logged.py",
+    "src/multi_turn_eval/services/baseten_logged.py",
+    "src/multi_turn_eval/recording/transcript_recorder.py",
+    "benchmarks/_shared/turns.py",
+    "benchmarks/_shared/tools.py",
+    "benchmarks/aiwf_medium_context/prompts/system.py",
+    "benchmarks/aiwf_medium_context/data/knowledge_base.txt",
+    "ops/recent-models-20261018/PROTOCOL.md",
+    "src/multi_turn_eval/model_capabilities.py",
+    "ops/recent-models-20261018/collect_campaign.py",
+    "ops/recent-models-20261018/preflight.py",
+    "ops/recent-models-20261018/setup.py"
+  ],
+  "target_eligible_runs": 30,
+  "fixed_scheduled_turns_per_conversation": 30,
+  "serving": {
+    "verified": true,
+    "notes": "Direct tool round-trip and excluded 30-turn harness smokes passed every registered mode; see smoke artifacts."
+  },
+  "eligibility": {
+    "policy": "first_valid_response",
+    "missing_future_turns": "retain_as_fixed_denominator_failures"
+  },
+  "collection": {
+    "provider_endpoint_concurrency": 1,
+    "max_attempts_per_slot_default": 3,
+    "timeout_seconds_default": 1800
+  },
+  "unset_environment_prefixes": [
+    "MTE_"
+  ],
+  "unset_environment": [],
+  "common_environment": {
+    "MTE_ENABLE_RECOVERY": "1",
+    "MTE_DEDUPE_TOOL_CALLS": "1",
+    "MTE_TOOL_RESULT_RUN_LLM": "0",
+    "MTE_TEXT_IDLE_TIMEOUT_SECS": "180",
+    "MTE_BASETEN_MAX_TOKENS": "16384",
+    "MTE_BASETEN_TEMPERATURE": "1.0",
+    "MTE_BASETEN_TOP_P": "1.0",
+    "MTE_BASETEN_MIN_REQUEST_INTERVAL_SECS": "3",
+    "MTE_BASETEN_RATE_LIMIT_RETRIES": "3",
+    "MTE_BASETEN_RATE_LIMIT_BACKOFF_SECS": "10"
+  },
+  "arms": {
+    "low": {
+      "environment": {
+        "MTE_BASETEN_REASONING_EFFORT": "low"
+      },
+      "provenance_log_needles": [
+        "reasoning_effort=low,"
+      ],
+      "forbidden_log_needles": [
+        "MTE_FILLER_DOTS active"
+      ]
+    }
+  }
+}

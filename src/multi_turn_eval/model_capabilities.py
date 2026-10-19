@@ -18,6 +18,7 @@ class ModelCapabilities:
 
 
 _MODEL_CAPABILITY_OVERRIDES = {
+    "grok-voice-3.0": ModelCapabilities(realtime=True, allow_turn_replay=False),
     # Use the same no-replay reliability policy as asynchronous Live models so
     # full-conversation completion is comparable across the speech leaderboard.
     "gemini-3.1-flash-live-preview": ModelCapabilities(

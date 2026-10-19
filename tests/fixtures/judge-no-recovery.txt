@@ -1,0 +1,26 @@
+# Expected Function Calls Summary
+
+
+---
+
+# Conversation Turns
+
+## Turn 0
+**Turn-Taking**: OK (no audio analysis)
+**User**: Please submit it.
+**Assistant**: Done.
+
+**Expected Function**: none
+**Actual Functions**: none
+
+---
+
+## Turn 1
+**Turn-Taking**: OK (no audio analysis)
+**User**: Please submit it.
+**Assistant**: Done.
+
+**Expected Function**: none
+**Actual Functions**: none
+
+---

@@ -1,0 +1,1484 @@
+{
+  "publication_summary": true,
+  "source_artifact": "ops/responses-repair-20261018/aggregate.json",
+  "source_sha256": "69b85393adfecb991794c01299ad010d302ae350cded58a0ac346ea89d43acb0",
+  "evidence_storage": "../README.md",
+  "data": {
+    "at": "2026-10-19T01:24:58+00:00",
+    "judge_model": "claude-opus-5-5",
+    "judge_effort": "medium",
+    "all_quality_complete": true,
+    "judged_conversations": 360,
+    "successful_judge_cost_usd": 59.70895980000003,
+    "judge_credit_cooldowns": 0,
+    "text_models": [
+      {
+        "key": "gpt-4.1-mini",
+        "name": "gpt-4.1-mini",
+        "arm": "standard",
+        "label": "gpt-4.1-mini",
+        "provider": "OpenAI",
+        "assigned": 30,
+        "complete": 13,
+        "incomplete": 17,
+        "shortfall": 17,
+        "all_assigned": {
+          "strict_passes": 684,
+          "dimension_passes": {
+            "tool_use_correct": 742,
+            "instruction_following": 686,
+            "kb_grounding": 848
+          },
+          "denominator": 900,
+          "strict_percent": 76.0,
+          "strict_ci95": [
+            72.77777777777777,
+            78.8888888888889
+          ],
+          "dimension_error_percent": {
+            "tool_use_correct": 17.555555555555557,
+            "instruction_following": 23.77777777777778,
+            "kb_grounding": 5.777777777777778
+          }
+        },
+        "complete_only": {
+          "strict_passes": 321,
+          "dimension_passes": {
+            "tool_use_correct": 339,
+            "instruction_following": 322,
+            "kb_grounding": 385
+          },
+          "denominator": 390,
+          "strict_percent": 82.3076923076923,
+          "strict_ci95": [
+            80.51282051282051,
+            83.84615384615385
+          ],
+          "dimension_error_percent": {
+            "tool_use_correct": 13.076923076923077,
+            "instruction_following": 17.435897435897434,
+            "kb_grounding": 1.2820512820512822
+          }
+        },
+        "strict_percent": 82.3076923076923,
+        "strict_ci95": [
+          80.51282051282051,
+          83.84615384615385
+        ],
+        "dimension_error_percent": {
+          "tool_use_correct": 13.076923076923077,
+          "instruction_following": 17.435897435897434,
+          "kb_grounding": 1.2820512820512822
+        },
+        "latency": {
+          "positive": {
+            "n": 428,
+            "mean_ms": 673.8107476635514,
+            "median_ms": 638.0,
+            "p50_ms": 638.0,
+            "p95_ms": 1010.1999999999998,
+            "max_ms": 1704
+          },
+          "signed": {
+            "n": 428,
+            "mean_ms": 673.8107476635514,
+            "median_ms": 638.0,
+            "p50_ms": 638.0,
+            "p95_ms": 1010.1999999999998,
+            "max_ms": 1704
+          },
+          "missing_n": 0,
+          "nonpositive_n": 0,
+          "eligible_response_n": 428,
+          "raw_ttft": {
+            "n": 428,
+            "mean_ms": 670.4228971962617,
+            "median_ms": 632.5,
+            "p50_ms": 632.5,
+            "p95_ms": 1004.8499999999998,
+            "max_ms": 1700
+          }
+        },
+        "all_attempt_latency": {
+          "positive": {
+            "n": 950,
+            "mean_ms": 660.7536842105263,
+            "median_ms": 627.0,
+            "p50_ms": 627.0,
+            "p95_ms": 1001.1999999999998,
+            "max_ms": 1854
+          },
+          "signed": {
+            "n": 950,
+            "mean_ms": 660.7536842105263,
+            "median_ms": 627.0,
+            "p50_ms": 627.0,
+            "p95_ms": 1001.1999999999998,
+            "max_ms": 1854
+          },
+          "missing_n": 0,
+          "nonpositive_n": 0,
+          "eligible_response_n": 950,
+          "raw_ttft": {
+            "n": 950,
+            "mean_ms": 657.5368421052632,
+            "median_ms": 623.5,
+            "p50_ms": 623.5,
+            "p95_ms": 995.7499999999998,
+            "max_ms": 1854
+          }
+        },
+        "observed_scripted_turns": 864,
+        "missing_future_turns": 36,
+        "requested_service_tier": "priority",
+        "effective_service_tiers": [
+          "priority"
+        ]
+      },
+      {
+        "key": "gpt-4.1",
+        "name": "gpt-4.1",
+        "arm": "standard",
+        "label": "gpt-4.1",
+        "provider": "OpenAI",
+        "assigned": 30,
+        "complete": 26,
+        "incomplete": 4,
+        "shortfall": 4,
+        "all_assigned": {
+          "strict_passes": 847,
+          "dimension_passes": {
+            "tool_use_correct": 852,
+            "instruction_following": 849,
+            "kb_grounding": 896
+          },
+          "denominator": 900,
+          "strict_percent": 94.11111111111111,
+          "strict_ci95": [
+            93.11111111111111,
+            95.11111111111111
+          ],
+          "dimension_error_percent": {
+            "tool_use_correct": 5.333333333333333,
+            "instruction_following": 5.666666666666667,
+            "kb_grounding": 0.4444444444444444
+          }
+        },
+        "complete_only": {
+          "strict_passes": 738,
+          "dimension_passes": {
+            "tool_use_correct": 743,
+            "instruction_following": 740,
+            "kb_grounding": 780
+          },
+          "denominator": 780,
+          "strict_percent": 94.61538461538461,
+          "strict_ci95": [
+            93.71794871794872,
+            95.51282051282051
+          ],
+          "dimension_error_percent": {
+            "tool_use_correct": 4.743589743589744,
+            "instruction_following": 5.128205128205129,
+            "kb_grounding": 0.0
+          }
+        },
+        "strict_percent": 94.61538461538461,
+        "strict_ci95": [
+          93.71794871794872,
+          95.51282051282051
+        ],
+        "dimension_error_percent": {
+          "tool_use_correct": 4.743589743589744,
+          "instruction_following": 5.128205128205129,
+          "kb_grounding": 0.0
+        },
+        "latency": {
+          "positive": {
+            "n": 781,
+            "mean_ms": 772.9590268886044,
+            "median_ms": 743,
+            "p50_ms": 743,
+            "p95_ms": 1086.0,
+            "max_ms": 4655
+          },
+          "signed": {
+            "n": 781,
+            "mean_ms": 772.9590268886044,
+            "median_ms": 743,
+            "p50_ms": 743,
+            "p95_ms": 1086.0,
+            "max_ms": 4655
+          },
+          "missing_n": 0,
+          "nonpositive_n": 0,
+          "eligible_response_n": 781,
+          "raw_ttft": {
+            "n": 781,
+            "mean_ms": 767.7477592829706,
+            "median_ms": 740,
+            "p50_ms": 740,
+            "p95_ms": 1073.0,
+            "max_ms": 4647
+          }
+        },
+        "all_attempt_latency": {
+          "positive": {
+            "n": 897,
+            "mean_ms": 772.1460423634337,
+            "median_ms": 750,
+            "p50_ms": 750,
+            "p95_ms": 1075.599999999999,
+            "max_ms": 4655
+          },
+          "signed": {
+            "n": 897,
+            "mean_ms": 772.1460423634337,
+            "median_ms": 750,
+            "p50_ms": 750,
+            "p95_ms": 1075.599999999999,
+            "max_ms": 4655
+          },
+          "missing_n": 0,
+          "nonpositive_n": 0,
+          "eligible_response_n": 897,
+          "raw_ttft": {
+            "n": 897,
+            "mean_ms": 766.8439241917503,
+            "median_ms": 744,
+            "p50_ms": 744,
+            "p95_ms": 1067.9999999999995,
+            "max_ms": 4647
+          }
+        },
+        "observed_scripted_turns": 896,
+        "missing_future_turns": 4,
+        "requested_service_tier": "priority",
+        "effective_service_tiers": [
+          "priority"
+        ]
+      },
+      {
+        "key": "gpt-5.4-low",
+        "name": "gpt-5.4-low",
+        "arm": "standard",
+        "label": "gpt-5.4 (low)",
+        "provider": "OpenAI",
+        "assigned": 30,
+        "complete": 30,
+        "incomplete": 0,
+        "shortfall": 0,
+        "all_assigned": {
+          "strict_passes": 872,
+          "dimension_passes": {
+            "tool_use_correct": 874,
+            "instruction_following": 874,
+            "kb_grounding": 900
+          },
+          "denominator": 900,
+          "strict_percent": 96.88888888888889,
+          "strict_ci95": [
+            95.55555555555556,
+            98.11111111111111
+          ],
+          "dimension_error_percent": {
+            "tool_use_correct": 2.888888888888889,
+            "instruction_following": 2.888888888888889,
+            "kb_grounding": 0.0
+          }
+        },
+        "complete_only": {
+          "strict_passes": 872,
+          "dimension_passes": {
+            "tool_use_correct": 874,
+            "instruction_following": 874,
+            "kb_grounding": 900
+          },
+          "denominator": 900,
+          "strict_percent": 96.88888888888889,
+          "strict_ci95": [
+            95.55555555555556,
+            98.11111111111111
+          ],
+          "dimension_error_percent": {
+            "tool_use_correct": 2.888888888888889,
+            "instruction_following": 2.888888888888889,
+            "kb_grounding": 0.0
+          }
+        },
+        "strict_percent": 96.88888888888889,
+        "strict_ci95": [
+          95.55555555555556,
+          98.11111111111111
+        ],
+        "dimension_error_percent": {
+          "tool_use_correct": 2.888888888888889,
+          "instruction_following": 2.888888888888889,
+          "kb_grounding": 0.0
+        },
+        "latency": {
+          "positive": {
+            "n": 886,
+            "mean_ms": 990.7607223476298,
+            "median_ms": 932.0,
+            "p50_ms": 932.0,
+            "p95_ms": 1458.25,
+            "max_ms": 5712
+          },
+          "signed": {
+            "n": 886,
+            "mean_ms": 990.7607223476298,
+            "median_ms": 932.0,
+            "p50_ms": 932.0,
+            "p95_ms": 1458.25,
+            "max_ms": 5712
+          },
+          "missing_n": 0,
+          "nonpositive_n": 0,
+          "eligible_response_n": 886,
+          "raw_ttft": {
+            "n": 886,
+            "mean_ms": 853.9841986455982,
+            "median_ms": 797.5,
+            "p50_ms": 797.5,
+            "p95_ms": 1177.5,
+            "max_ms": 3047
+          }
+        },
+        "all_attempt_latency": {
+          "positive": {
+            "n": 886,
+            "mean_ms": 990.7607223476298,
+            "median_ms": 932.0,
+            "p50_ms": 932.0,
+            "p95_ms": 1458.25,
+            "max_ms": 5712
+          },
+          "signed": {
+            "n": 886,
+            "mean_ms": 990.7607223476298,
+            "median_ms": 932.0,
+            "p50_ms": 932.0,
+            "p95_ms": 1458.25,
+            "max_ms": 5712
+          },
+          "missing_n": 0,
+          "nonpositive_n": 0,
+          "eligible_response_n": 886,
+          "raw_ttft": {
+            "n": 886,
+            "mean_ms": 853.9841986455982,
+            "median_ms": 797.5,
+            "p50_ms": 797.5,
+            "p95_ms": 1177.5,
+            "max_ms": 3047
+          }
+        },
+        "observed_scripted_turns": 900,
+        "missing_future_turns": 0,
+        "requested_service_tier": "priority",
+        "effective_service_tiers": [
+          "priority"
+        ]
+      },
+      {
+        "key": "gpt-5.4-none-dots96",
+        "name": "gpt-5.4-none-dots96",
+        "arm": "standard",
+        "label": "gpt-5.4 (none, +96 dots)",
+        "provider": "OpenAI",
+        "assigned": 30,
+        "complete": 30,
+        "incomplete": 0,
+        "shortfall": 0,
+        "all_assigned": {
+          "strict_passes": 866,
+          "dimension_passes": {
+            "tool_use_correct": 867,
+            "instruction_following": 866,
+            "kb_grounding": 900
+          },
+          "denominator": 900,
+          "strict_percent": 96.22222222222223,
+          "strict_ci95": [
+            94.0,
+            98.11111111111111
+          ],
+          "dimension_error_percent": {
+            "tool_use_correct": 3.6666666666666665,
+            "instruction_following": 3.7777777777777777,
+            "kb_grounding": 0.0
+          }
+        },
+        "complete_only": {
+          "strict_passes": 866,
+          "dimension_passes": {
+            "tool_use_correct": 867,
+            "instruction_following": 866,
+            "kb_grounding": 900
+          },
+          "denominator": 900,
+          "strict_percent": 96.22222222222223,
+          "strict_ci95": [
+            94.0,
+            98.11111111111111
+          ],
+          "dimension_error_percent": {
+            "tool_use_correct": 3.6666666666666665,
+            "instruction_following": 3.7777777777777777,
+            "kb_grounding": 0.0
+          }
+        },
+        "strict_percent": 96.22222222222223,
+        "strict_ci95": [
+          94.0,
+          98.11111111111111
+        ],
+        "dimension_error_percent": {
+          "tool_use_correct": 3.6666666666666665,
+          "instruction_following": 3.7777777777777777,
+          "kb_grounding": 0.0
+        },
+        "latency": {
+          "positive": {
+            "n": 897,
+            "mean_ms": 867.0936454849499,
+            "median_ms": 813,
+            "p50_ms": 813,
+            "p95_ms": 1233.799999999999,
+            "max_ms": 4180
+          },
+          "signed": {
+            "n": 897,
+            "mean_ms": 867.0936454849499,
+            "median_ms": 813,
+            "p50_ms": 813,
+            "p95_ms": 1233.799999999999,
+            "max_ms": 4180
+          },
+          "missing_n": 0,
+          "nonpositive_n": 0,
+          "eligible_response_n": 897,
+          "raw_ttft": {
+            "n": 897,
+            "mean_ms": 861.9698996655518,
+            "median_ms": 809,
+            "p50_ms": 809,
+            "p95_ms": 1226.3999999999992,
+            "max_ms": 4175
+          }
+        },
+        "all_attempt_latency": {
+          "positive": {
+            "n": 897,
+            "mean_ms": 867.0936454849499,
+            "median_ms": 813,
+            "p50_ms": 813,
+            "p95_ms": 1233.799999999999,
+            "max_ms": 4180
+          },
+          "signed": {
+            "n": 897,
+            "mean_ms": 867.0936454849499,
+            "median_ms": 813,
+            "p50_ms": 813,
+            "p95_ms": 1233.799999999999,
+            "max_ms": 4180
+          },
+          "missing_n": 0,
+          "nonpositive_n": 0,
+          "eligible_response_n": 897,
+          "raw_ttft": {
+            "n": 897,
+            "mean_ms": 861.9698996655518,
+            "median_ms": 809,
+            "p50_ms": 809,
+            "p95_ms": 1226.3999999999992,
+            "max_ms": 4175
+          }
+        },
+        "observed_scripted_turns": 900,
+        "missing_future_turns": 0,
+        "requested_service_tier": "priority",
+        "effective_service_tiers": [
+          "priority"
+        ]
+      },
+      {
+        "key": "gpt-5.4-none",
+        "name": "gpt-5.4-none",
+        "arm": "standard",
+        "label": "gpt-5.4 (none)",
+        "provider": "OpenAI",
+        "assigned": 30,
+        "complete": 30,
+        "incomplete": 0,
+        "shortfall": 0,
+        "all_assigned": {
+          "strict_passes": 825,
+          "dimension_passes": {
+            "tool_use_correct": 833,
+            "instruction_following": 825,
+            "kb_grounding": 900
+          },
+          "denominator": 900,
+          "strict_percent": 91.66666666666667,
+          "strict_ci95": [
+            89.77777777777777,
+            93.44444444444446
+          ],
+          "dimension_error_percent": {
+            "tool_use_correct": 7.444444444444445,
+            "instruction_following": 8.333333333333334,
+            "kb_grounding": 0.0
+          }
+        },
+        "complete_only": {
+          "strict_passes": 825,
+          "dimension_passes": {
+            "tool_use_correct": 833,
+            "instruction_following": 825,
+            "kb_grounding": 900
+          },
+          "denominator": 900,
+          "strict_percent": 91.66666666666667,
+          "strict_ci95": [
+            89.77777777777777,
+            93.44444444444446
+          ],
+          "dimension_error_percent": {
+            "tool_use_correct": 7.444444444444445,
+            "instruction_following": 8.333333333333334,
+            "kb_grounding": 0.0
+          }
+        },
+        "strict_percent": 91.66666666666667,
+        "strict_ci95": [
+          89.77777777777777,
+          93.44444444444446
+        ],
+        "dimension_error_percent": {
+          "tool_use_correct": 7.444444444444445,
+          "instruction_following": 8.333333333333334,
+          "kb_grounding": 0.0
+        },
+        "latency": {
+          "positive": {
+            "n": 929,
+            "mean_ms": 871.7578040904198,
+            "median_ms": 810,
+            "p50_ms": 810,
+            "p95_ms": 1256.6,
+            "max_ms": 3669
+          },
+          "signed": {
+            "n": 929,
+            "mean_ms": 871.7578040904198,
+            "median_ms": 810,
+            "p50_ms": 810,
+            "p95_ms": 1256.6,
+            "max_ms": 3669
+          },
+          "missing_n": 0,
+          "nonpositive_n": 0,
+          "eligible_response_n": 929,
+          "raw_ttft": {
+            "n": 929,
+            "mean_ms": 865.799784714747,
+            "median_ms": 805,
+            "p50_ms": 805,
+            "p95_ms": 1246.7999999999997,
+            "max_ms": 3062
+          }
+        },
+        "all_attempt_latency": {
+          "positive": {
+            "n": 929,
+            "mean_ms": 871.7578040904198,
+            "median_ms": 810,
+            "p50_ms": 810,
+            "p95_ms": 1256.6,
+            "max_ms": 3669
+          },
+          "signed": {
+            "n": 929,
+            "mean_ms": 871.7578040904198,
+            "median_ms": 810,
+            "p50_ms": 810,
+            "p95_ms": 1256.6,
+            "max_ms": 3669
+          },
+          "missing_n": 0,
+          "nonpositive_n": 0,
+          "eligible_response_n": 929,
+          "raw_ttft": {
+            "n": 929,
+            "mean_ms": 865.799784714747,
+            "median_ms": 805,
+            "p50_ms": 805,
+            "p95_ms": 1246.7999999999997,
+            "max_ms": 3062
+          }
+        },
+        "observed_scripted_turns": 900,
+        "missing_future_turns": 0,
+        "requested_service_tier": "priority",
+        "effective_service_tiers": [
+          "priority"
+        ]
+      },
+      {
+        "key": "gpt-5.5-none",
+        "name": "gpt-5.5-none",
+        "arm": "standard",
+        "label": "gpt-5.5 (none)",
+        "provider": "OpenAI",
+        "assigned": 30,
+        "complete": 29,
+        "incomplete": 1,
+        "shortfall": 1,
+        "all_assigned": {
+          "strict_passes": 871,
+          "dimension_passes": {
+            "tool_use_correct": 872,
+            "instruction_following": 871,
+            "kb_grounding": 897
+          },
+          "denominator": 900,
+          "strict_percent": 96.77777777777777,
+          "strict_ci95": [
+            95.33333333333334,
+            98.11111111111111
+          ],
+          "dimension_error_percent": {
+            "tool_use_correct": 3.111111111111111,
+            "instruction_following": 3.2222222222222223,
+            "kb_grounding": 0.3333333333333333
+          }
+        },
+        "complete_only": {
+          "strict_passes": 846,
+          "dimension_passes": {
+            "tool_use_correct": 847,
+            "instruction_following": 846,
+            "kb_grounding": 870
+          },
+          "denominator": 870,
+          "strict_percent": 97.24137931034483,
+          "strict_ci95": [
+            96.0919540229885,
+            98.39080459770115
+          ],
+          "dimension_error_percent": {
+            "tool_use_correct": 2.6436781609195403,
+            "instruction_following": 2.7586206896551726,
+            "kb_grounding": 0.0
+          }
+        },
+        "strict_percent": 97.24137931034483,
+        "strict_ci95": [
+          96.0919540229885,
+          98.39080459770115
+        ],
+        "dimension_error_percent": {
+          "tool_use_correct": 2.6436781609195403,
+          "instruction_following": 2.7586206896551726,
+          "kb_grounding": 0.0
+        },
+        "latency": {
+          "positive": {
+            "n": 857,
+            "mean_ms": 824.9323220536756,
+            "median_ms": 780,
+            "p50_ms": 780,
+            "p95_ms": 1173.0,
+            "max_ms": 2870
+          },
+          "signed": {
+            "n": 857,
+            "mean_ms": 824.9323220536756,
+            "median_ms": 780,
+            "p50_ms": 780,
+            "p95_ms": 1173.0,
+            "max_ms": 2870
+          },
+          "missing_n": 0,
+          "nonpositive_n": 0,
+          "eligible_response_n": 857,
+          "raw_ttft": {
+            "n": 857,
+            "mean_ms": 819.5274212368728,
+            "median_ms": 776,
+            "p50_ms": 776,
+            "p95_ms": 1162.1999999999998,
+            "max_ms": 2869
+          }
+        },
+        "all_attempt_latency": {
+          "positive": {
+            "n": 884,
+            "mean_ms": 823.3359728506788,
+            "median_ms": 779.0,
+            "p50_ms": 779.0,
+            "p95_ms": 1163.0,
+            "max_ms": 2870
+          },
+          "signed": {
+            "n": 884,
+            "mean_ms": 823.3359728506788,
+            "median_ms": 779.0,
+            "p50_ms": 779.0,
+            "p95_ms": 1163.0,
+            "max_ms": 2870
+          },
+          "missing_n": 0,
+          "nonpositive_n": 0,
+          "eligible_response_n": 884,
+          "raw_ttft": {
+            "n": 884,
+            "mean_ms": 817.9649321266968,
+            "median_ms": 776.0,
+            "p50_ms": 776.0,
+            "p95_ms": 1159.3999999999996,
+            "max_ms": 2869
+          }
+        },
+        "observed_scripted_turns": 897,
+        "missing_future_turns": 3,
+        "requested_service_tier": "priority",
+        "effective_service_tiers": [
+          "priority"
+        ]
+      },
+      {
+        "key": "gpt-5.6-luna-none",
+        "name": "gpt-5.6-luna-none",
+        "arm": "standard",
+        "label": "gpt-5.6-luna (none)",
+        "provider": "OpenAI",
+        "assigned": 30,
+        "complete": 27,
+        "incomplete": 3,
+        "shortfall": 3,
+        "all_assigned": {
+          "strict_passes": 738,
+          "dimension_passes": {
+            "tool_use_correct": 774,
+            "instruction_following": 738,
+            "kb_grounding": 869
+          },
+          "denominator": 900,
+          "strict_percent": 82.0,
+          "strict_ci95": [
+            77.77777777777779,
+            85.55555555555556
+          ],
+          "dimension_error_percent": {
+            "tool_use_correct": 14.0,
+            "instruction_following": 18.0,
+            "kb_grounding": 3.4444444444444446
+          }
+        },
+        "complete_only": {
+          "strict_passes": 686,
+          "dimension_passes": {
+            "tool_use_correct": 719,
+            "instruction_following": 686,
+            "kb_grounding": 807
+          },
+          "denominator": 810,
+          "strict_percent": 84.69135802469135,
+          "strict_ci95": [
+            82.34567901234567,
+            86.91358024691358
+          ],
+          "dimension_error_percent": {
+            "tool_use_correct": 11.234567901234568,
+            "instruction_following": 15.308641975308642,
+            "kb_grounding": 0.37037037037037035
+          }
+        },
+        "strict_percent": 84.69135802469135,
+        "strict_ci95": [
+          82.34567901234567,
+          86.91358024691358
+        ],
+        "dimension_error_percent": {
+          "tool_use_correct": 11.234567901234568,
+          "instruction_following": 15.308641975308642,
+          "kb_grounding": 0.37037037037037035
+        },
+        "latency": {
+          "positive": {
+            "n": 873,
+            "mean_ms": 776.3138602520046,
+            "median_ms": 708,
+            "p50_ms": 708,
+            "p95_ms": 1198.0,
+            "max_ms": 4546
+          },
+          "signed": {
+            "n": 873,
+            "mean_ms": 776.3138602520046,
+            "median_ms": 708,
+            "p50_ms": 708,
+            "p95_ms": 1198.0,
+            "max_ms": 4546
+          },
+          "missing_n": 0,
+          "nonpositive_n": 0,
+          "eligible_response_n": 873,
+          "raw_ttft": {
+            "n": 873,
+            "mean_ms": 770.9014891179839,
+            "median_ms": 704,
+            "p50_ms": 704,
+            "p95_ms": 1189.6,
+            "max_ms": 4529
+          }
+        },
+        "all_attempt_latency": {
+          "positive": {
+            "n": 938,
+            "mean_ms": 776.636460554371,
+            "median_ms": 707.0,
+            "p50_ms": 707.0,
+            "p95_ms": 1196.75,
+            "max_ms": 4546
+          },
+          "signed": {
+            "n": 938,
+            "mean_ms": 776.636460554371,
+            "median_ms": 707.0,
+            "p50_ms": 707.0,
+            "p95_ms": 1196.75,
+            "max_ms": 4546
+          },
+          "missing_n": 0,
+          "nonpositive_n": 0,
+          "eligible_response_n": 938,
+          "raw_ttft": {
+            "n": 938,
+            "mean_ms": 771.2484008528785,
+            "median_ms": 702.0,
+            "p50_ms": 702.0,
+            "p95_ms": 1188.6,
+            "max_ms": 4529
+          }
+        },
+        "observed_scripted_turns": 873,
+        "missing_future_turns": 27,
+        "requested_service_tier": "priority",
+        "effective_service_tiers": [
+          "priority"
+        ]
+      },
+      {
+        "key": "gpt-5.6-sol-none",
+        "name": "gpt-5.6-sol-none",
+        "arm": "standard",
+        "label": "gpt-5.6-sol (none)",
+        "provider": "OpenAI",
+        "assigned": 30,
+        "complete": 28,
+        "incomplete": 2,
+        "shortfall": 2,
+        "all_assigned": {
+          "strict_passes": 825,
+          "dimension_passes": {
+            "tool_use_correct": 830,
+            "instruction_following": 825,
+            "kb_grounding": 860
+          },
+          "denominator": 900,
+          "strict_percent": 91.66666666666667,
+          "strict_ci95": [
+            84.77777777777777,
+            96.33333333333333
+          ],
+          "dimension_error_percent": {
+            "tool_use_correct": 7.777777777777778,
+            "instruction_following": 8.333333333333334,
+            "kb_grounding": 4.444444444444445
+          }
+        },
+        "complete_only": {
+          "strict_passes": 807,
+          "dimension_passes": {
+            "tool_use_correct": 812,
+            "instruction_following": 807,
+            "kb_grounding": 840
+          },
+          "denominator": 840,
+          "strict_percent": 96.07142857142857,
+          "strict_ci95": [
+            95.35714285714286,
+            96.78571428571429
+          ],
+          "dimension_error_percent": {
+            "tool_use_correct": 3.3333333333333335,
+            "instruction_following": 3.9285714285714284,
+            "kb_grounding": 0.0
+          }
+        },
+        "strict_percent": 96.07142857142857,
+        "strict_ci95": [
+          95.35714285714286,
+          96.78571428571429
+        ],
+        "dimension_error_percent": {
+          "tool_use_correct": 3.3333333333333335,
+          "instruction_following": 3.9285714285714284,
+          "kb_grounding": 0.0
+        },
+        "latency": {
+          "positive": {
+            "n": 838,
+            "mean_ms": 900.7159904534607,
+            "median_ms": 765.0,
+            "p50_ms": 765.0,
+            "p95_ms": 1298.2499999999995,
+            "max_ms": 36309
+          },
+          "signed": {
+            "n": 838,
+            "mean_ms": 900.7159904534607,
+            "median_ms": 765.0,
+            "p50_ms": 765.0,
+            "p95_ms": 1298.2499999999995,
+            "max_ms": 36309
+          },
+          "missing_n": 0,
+          "nonpositive_n": 0,
+          "eligible_response_n": 838,
+          "raw_ttft": {
+            "n": 838,
+            "mean_ms": 893.3269689737471,
+            "median_ms": 760.0,
+            "p50_ms": 760.0,
+            "p95_ms": 1297.4999999999998,
+            "max_ms": 36300
+          }
+        },
+        "all_attempt_latency": {
+          "positive": {
+            "n": 857,
+            "mean_ms": 898.2345390898483,
+            "median_ms": 763,
+            "p50_ms": 763,
+            "p95_ms": 1298.999999999999,
+            "max_ms": 36309
+          },
+          "signed": {
+            "n": 857,
+            "mean_ms": 898.2345390898483,
+            "median_ms": 763,
+            "p50_ms": 763,
+            "p95_ms": 1298.999999999999,
+            "max_ms": 36309
+          },
+          "missing_n": 0,
+          "nonpositive_n": 0,
+          "eligible_response_n": 857,
+          "raw_ttft": {
+            "n": 857,
+            "mean_ms": 890.9089848308051,
+            "median_ms": 758,
+            "p50_ms": 758,
+            "p95_ms": 1297.9999999999993,
+            "max_ms": 36300
+          }
+        },
+        "observed_scripted_turns": 860,
+        "missing_future_turns": 40,
+        "requested_service_tier": "priority",
+        "effective_service_tiers": [
+          "priority"
+        ]
+      },
+      {
+        "key": "gpt-5.6-terra-medium",
+        "name": "gpt-5.6-terra-medium",
+        "arm": "standard",
+        "label": "gpt-5.6-terra (medium)",
+        "provider": "OpenAI",
+        "assigned": 30,
+        "complete": 26,
+        "incomplete": 4,
+        "shortfall": 4,
+        "all_assigned": {
+          "strict_passes": 891,
+          "dimension_passes": {
+            "tool_use_correct": 892,
+            "instruction_following": 891,
+            "kb_grounding": 896
+          },
+          "denominator": 900,
+          "strict_percent": 99.0,
+          "strict_ci95": [
+            98.11111111111111,
+            99.77777777777777
+          ],
+          "dimension_error_percent": {
+            "tool_use_correct": 0.8888888888888888,
+            "instruction_following": 1.0,
+            "kb_grounding": 0.4444444444444444
+          }
+        },
+        "complete_only": {
+          "strict_passes": 779,
+          "dimension_passes": {
+            "tool_use_correct": 780,
+            "instruction_following": 779,
+            "kb_grounding": 780
+          },
+          "denominator": 780,
+          "strict_percent": 99.87179487179488,
+          "strict_ci95": [
+            99.6153846153846,
+            100.0
+          ],
+          "dimension_error_percent": {
+            "tool_use_correct": 0.0,
+            "instruction_following": 0.1282051282051282,
+            "kb_grounding": 0.0
+          }
+        },
+        "strict_percent": 99.87179487179488,
+        "strict_ci95": [
+          99.6153846153846,
+          100.0
+        ],
+        "dimension_error_percent": {
+          "tool_use_correct": 0.0,
+          "instruction_following": 0.1282051282051282,
+          "kb_grounding": 0.0
+        },
+        "latency": {
+          "positive": {
+            "n": 754,
+            "mean_ms": 1057.2241379310344,
+            "median_ms": 1004.5,
+            "p50_ms": 1004.5,
+            "p95_ms": 1569.2000000000003,
+            "max_ms": 4177
+          },
+          "signed": {
+            "n": 754,
+            "mean_ms": 1057.2241379310344,
+            "median_ms": 1004.5,
+            "p50_ms": 1004.5,
+            "p95_ms": 1569.2000000000003,
+            "max_ms": 4177
+          },
+          "missing_n": 0,
+          "nonpositive_n": 0,
+          "eligible_response_n": 754,
+          "raw_ttft": {
+            "n": 754,
+            "mean_ms": 875.4058355437666,
+            "median_ms": 821.0,
+            "p50_ms": 821.0,
+            "p95_ms": 1231.35,
+            "max_ms": 3709
+          }
+        },
+        "all_attempt_latency": {
+          "positive": {
+            "n": 866,
+            "mean_ms": 1058.1247113163972,
+            "median_ms": 1006.0,
+            "p50_ms": 1006.0,
+            "p95_ms": 1580.75,
+            "max_ms": 4177
+          },
+          "signed": {
+            "n": 866,
+            "mean_ms": 1058.1247113163972,
+            "median_ms": 1006.0,
+            "p50_ms": 1006.0,
+            "p95_ms": 1580.75,
+            "max_ms": 4177
+          },
+          "missing_n": 0,
+          "nonpositive_n": 0,
+          "eligible_response_n": 866,
+          "raw_ttft": {
+            "n": 866,
+            "mean_ms": 872.4769053117783,
+            "median_ms": 819.5,
+            "p50_ms": 819.5,
+            "p95_ms": 1227.5,
+            "max_ms": 3709
+          }
+        },
+        "observed_scripted_turns": 896,
+        "missing_future_turns": 4,
+        "requested_service_tier": "priority",
+        "effective_service_tiers": [
+          "priority"
+        ]
+      },
+      {
+        "key": "gpt-5.6-terra-none",
+        "name": "gpt-5.6-terra-none",
+        "arm": "standard",
+        "label": "gpt-5.6-terra (none)",
+        "provider": "OpenAI",
+        "assigned": 30,
+        "complete": 26,
+        "incomplete": 4,
+        "shortfall": 4,
+        "all_assigned": {
+          "strict_passes": 769,
+          "dimension_passes": {
+            "tool_use_correct": 774,
+            "instruction_following": 770,
+            "kb_grounding": 850
+          },
+          "denominator": 900,
+          "strict_percent": 85.44444444444444,
+          "strict_ci95": [
+            79.22222222222221,
+            90.44444444444444
+          ],
+          "dimension_error_percent": {
+            "tool_use_correct": 14.0,
+            "instruction_following": 14.444444444444445,
+            "kb_grounding": 5.555555555555555
+          }
+        },
+        "complete_only": {
+          "strict_passes": 708,
+          "dimension_passes": {
+            "tool_use_correct": 713,
+            "instruction_following": 709,
+            "kb_grounding": 780
+          },
+          "denominator": 780,
+          "strict_percent": 90.76923076923077,
+          "strict_ci95": [
+            88.84615384615384,
+            92.56410256410257
+          ],
+          "dimension_error_percent": {
+            "tool_use_correct": 8.58974358974359,
+            "instruction_following": 9.102564102564102,
+            "kb_grounding": 0.0
+          }
+        },
+        "strict_percent": 90.76923076923077,
+        "strict_ci95": [
+          88.84615384615384,
+          92.56410256410257
+        ],
+        "dimension_error_percent": {
+          "tool_use_correct": 8.58974358974359,
+          "instruction_following": 9.102564102564102,
+          "kb_grounding": 0.0
+        },
+        "latency": {
+          "positive": {
+            "n": 812,
+            "mean_ms": 877.0997536945813,
+            "median_ms": 826.0,
+            "p50_ms": 826.0,
+            "p95_ms": 1257.1499999999996,
+            "max_ms": 2706
+          },
+          "signed": {
+            "n": 812,
+            "mean_ms": 877.0997536945813,
+            "median_ms": 826.0,
+            "p50_ms": 826.0,
+            "p95_ms": 1257.1499999999996,
+            "max_ms": 2706
+          },
+          "missing_n": 0,
+          "nonpositive_n": 0,
+          "eligible_response_n": 812,
+          "raw_ttft": {
+            "n": 812,
+            "mean_ms": 871.3916256157636,
+            "median_ms": 819.0,
+            "p50_ms": 819.0,
+            "p95_ms": 1242.0999999999988,
+            "max_ms": 2693
+          }
+        },
+        "all_attempt_latency": {
+          "positive": {
+            "n": 883,
+            "mean_ms": 874.6115515288789,
+            "median_ms": 825,
+            "p50_ms": 825,
+            "p95_ms": 1237.9,
+            "max_ms": 2706
+          },
+          "signed": {
+            "n": 883,
+            "mean_ms": 874.6115515288789,
+            "median_ms": 825,
+            "p50_ms": 825,
+            "p95_ms": 1237.9,
+            "max_ms": 2706
+          },
+          "missing_n": 0,
+          "nonpositive_n": 0,
+          "eligible_response_n": 883,
+          "raw_ttft": {
+            "n": 883,
+            "mean_ms": 869.0430351075878,
+            "median_ms": 818,
+            "p50_ms": 818,
+            "p95_ms": 1230.6999999999998,
+            "max_ms": 2693
+          }
+        },
+        "observed_scripted_turns": 850,
+        "missing_future_turns": 50,
+        "requested_service_tier": "priority",
+        "effective_service_tiers": [
+          "priority"
+        ]
+      },
+      {
+        "key": "luna-none",
+        "name": "luna-none",
+        "arm": "standard",
+        "label": "gpt-6-luna (none)",
+        "provider": "OpenAI",
+        "assigned": 30,
+        "complete": 0,
+        "incomplete": 30,
+        "shortfall": 30,
+        "all_assigned": {
+          "strict_passes": 225,
+          "dimension_passes": {
+            "tool_use_correct": 229,
+            "instruction_following": 226,
+            "kb_grounding": 279
+          },
+          "denominator": 900,
+          "strict_percent": 25.0,
+          "strict_ci95": [
+            21.666666666666668,
+            28.444444444444443
+          ],
+          "dimension_error_percent": {
+            "tool_use_correct": 74.55555555555556,
+            "instruction_following": 74.88888888888889,
+            "kb_grounding": 69.0
+          }
+        },
+        "complete_only": {
+          "strict_passes": 0,
+          "dimension_passes": {},
+          "denominator": 0,
+          "strict_percent": null,
+          "strict_ci95": null,
+          "dimension_error_percent": {
+            "tool_use_correct": null,
+            "instruction_following": null,
+            "kb_grounding": null
+          }
+        },
+        "strict_percent": null,
+        "strict_ci95": null,
+        "dimension_error_percent": {
+          "tool_use_correct": null,
+          "instruction_following": null,
+          "kb_grounding": null
+        },
+        "latency": {
+          "positive": {
+            "n": 0,
+            "mean_ms": null,
+            "median_ms": null,
+            "p50_ms": null,
+            "p95_ms": null,
+            "max_ms": null
+          },
+          "signed": {
+            "n": 0,
+            "mean_ms": null,
+            "median_ms": null,
+            "p50_ms": null,
+            "p95_ms": null,
+            "max_ms": null
+          },
+          "missing_n": 0,
+          "nonpositive_n": 0,
+          "eligible_response_n": 0,
+          "raw_ttft": {
+            "n": 0,
+            "mean_ms": null,
+            "median_ms": null,
+            "p50_ms": null,
+            "p95_ms": null,
+            "max_ms": null
+          }
+        },
+        "all_attempt_latency": {
+          "positive": {
+            "n": 254,
+            "mean_ms": 669.3110236220473,
+            "median_ms": 603.5,
+            "p50_ms": 603.5,
+            "p95_ms": 1030.5999999999997,
+            "max_ms": 3195
+          },
+          "signed": {
+            "n": 254,
+            "mean_ms": 669.3110236220473,
+            "median_ms": 603.5,
+            "p50_ms": 603.5,
+            "p95_ms": 1030.5999999999997,
+            "max_ms": 3195
+          },
+          "missing_n": 0,
+          "nonpositive_n": 0,
+          "eligible_response_n": 254,
+          "raw_ttft": {
+            "n": 254,
+            "mean_ms": 663.011811023622,
+            "median_ms": 601.5,
+            "p50_ms": 601.5,
+            "p95_ms": 1027.3499999999997,
+            "max_ms": 3112
+          }
+        },
+        "observed_scripted_turns": 283,
+        "missing_future_turns": 617,
+        "requested_service_tier": "priority",
+        "effective_service_tiers": [
+          "fast"
+        ]
+      },
+      {
+        "key": "luna-low",
+        "name": "luna-low",
+        "arm": "standard",
+        "label": "gpt-6-luna (low)",
+        "provider": "OpenAI",
+        "assigned": 30,
+        "complete": 29,
+        "incomplete": 1,
+        "shortfall": 1,
+        "all_assigned": {
+          "strict_passes": 821,
+          "dimension_passes": {
+            "tool_use_correct": 855,
+            "instruction_following": 832,
+            "kb_grounding": 897
+          },
+          "denominator": 900,
+          "strict_percent": 91.22222222222223,
+          "strict_ci95": [
+            88.33333333333333,
+            94.0
+          ],
+          "dimension_error_percent": {
+            "tool_use_correct": 5.0,
+            "instruction_following": 7.555555555555555,
+            "kb_grounding": 0.3333333333333333
+          }
+        },
+        "complete_only": {
+          "strict_passes": 795,
+          "dimension_passes": {
+            "tool_use_correct": 829,
+            "instruction_following": 805,
+            "kb_grounding": 869
+          },
+          "denominator": 870,
+          "strict_percent": 91.37931034482759,
+          "strict_ci95": [
+            88.39080459770116,
+            94.25287356321839
+          ],
+          "dimension_error_percent": {
+            "tool_use_correct": 4.712643678160919,
+            "instruction_following": 7.471264367816092,
+            "kb_grounding": 0.11494252873563218
+          }
+        },
+        "strict_percent": 91.37931034482759,
+        "strict_ci95": [
+          88.39080459770116,
+          94.25287356321839
+        ],
+        "dimension_error_percent": {
+          "tool_use_correct": 4.712643678160919,
+          "instruction_following": 7.471264367816092,
+          "kb_grounding": 0.11494252873563218
+        },
+        "latency": {
+          "positive": {
+            "n": 878,
+            "mean_ms": 961.3929384965832,
+            "median_ms": 917.0,
+            "p50_ms": 917.0,
+            "p95_ms": 1438.6499999999996,
+            "max_ms": 3585
+          },
+          "signed": {
+            "n": 878,
+            "mean_ms": 961.3929384965832,
+            "median_ms": 917.0,
+            "p50_ms": 917.0,
+            "p95_ms": 1438.6499999999996,
+            "max_ms": 3585
+          },
+          "missing_n": 0,
+          "nonpositive_n": 0,
+          "eligible_response_n": 878,
+          "raw_ttft": {
+            "n": 878,
+            "mean_ms": 785.1389521640091,
+            "median_ms": 728.0,
+            "p50_ms": 728.0,
+            "p95_ms": 1151.6,
+            "max_ms": 2919
+          }
+        },
+        "all_attempt_latency": {
+          "positive": {
+            "n": 906,
+            "mean_ms": 960.7450331125827,
+            "median_ms": 917.5,
+            "p50_ms": 917.5,
+            "p95_ms": 1422.75,
+            "max_ms": 3585
+          },
+          "signed": {
+            "n": 906,
+            "mean_ms": 960.7450331125827,
+            "median_ms": 917.5,
+            "p50_ms": 917.5,
+            "p95_ms": 1422.75,
+            "max_ms": 3585
+          },
+          "missing_n": 0,
+          "nonpositive_n": 0,
+          "eligible_response_n": 906,
+          "raw_ttft": {
+            "n": 906,
+            "mean_ms": 784.3256070640176,
+            "median_ms": 729.0,
+            "p50_ms": 729.0,
+            "p95_ms": 1150.0,
+            "max_ms": 2919
+          }
+        },
+        "observed_scripted_turns": 898,
+        "missing_future_turns": 2,
+        "requested_service_tier": "priority",
+        "effective_service_tiers": [
+          "fast"
+        ]
+      }
+    ],
+    "voice_models": []
+  }
+}
