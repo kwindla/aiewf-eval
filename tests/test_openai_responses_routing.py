@@ -41,6 +41,7 @@ def test_gpt55_routes_to_responses_with_requested_effort(monkeypatch, effort):
     service = pipeline._create_llm(OpenAILLMService, "gpt-5.5")
 
     assert isinstance(service, OpenAIResponsesLLMService)
+    assert service._stateful_responses_enabled is True
     assert service._settings.model == "gpt-5.5"
     assert service._settings.extra == {
         "reasoning": {"effort": effort},
@@ -155,11 +156,13 @@ def test_stateful_continuation_sends_only_new_user_or_tool_outputs(tool_calls):
     messages = [
         {"role": "system", "content": "Answer event questions."},
         {"role": "user", "content": "When does registration open?"},
-        assistant,
-        *followup,
     ]
     service._context_to_openai_params = lambda context: {"messages": messages}
-    service._remember_completed_response(SimpleNamespace(id="resp-previous"))
+    service._responses_request_params(SimpleNamespace())
+    service._remember_completed_response(SimpleNamespace(id="resp-previous", output=[
+        {"type": "message", "role": "assistant", "phase": "final_answer", "content": []}
+    ]))
+    messages.extend([assistant, *followup])
 
     request = service._responses_request_params(SimpleNamespace())
 
@@ -181,18 +184,18 @@ def test_stateful_continuation_sends_only_new_user_or_tool_outputs(tool_calls):
 
 def test_stateless_responses_keep_history_after_a_completed_response():
     service = OpenAIResponsesLLMService(model="gpt-5.5", api_key="test-key")
-    messages = [
-        {"role": "user", "content": "Hello"},
-        {"role": "assistant", "content": "Hi"},
-        {"role": "user", "content": "When does registration open?"},
-    ]
+    messages = [{"role": "user", "content": "Hello"}]
     service._context_to_openai_params = lambda context: {"messages": messages}
-    service._remember_completed_response(SimpleNamespace(id="resp-stateless"))
-
+    service._responses_request_params(SimpleNamespace())
+    native = {"id": "msg-1", "type": "message", "role": "assistant", "phase": "final_answer",
+              "content": [{"type": "output_text", "text": "Hi", "annotations": []}]}
+    service._remember_completed_response(SimpleNamespace(id="resp-stateless", output=[native]))
+    messages.extend([{"role": "assistant", "content": "Hi"},
+                     {"role": "user", "content": "When does registration open?"}])
     request = service._responses_request_params(SimpleNamespace())
-
     assert "previous_response_id" not in request
     assert [item["role"] for item in request["input"]] == ["user", "assistant", "user"]
+    assert request["input"][1] == native
 
 
 @pytest.mark.parametrize("model", ["gpt-5.5-pro", "o3-pro", "future-model-pro"])
@@ -273,6 +276,7 @@ def test_tool_callback_runs_after_completed_usage_metrics():
     )
     service._stateful_responses_enabled = True
     service._previous_response_id = None
+    service._pending_history = ([], [], False, True)
     service._responses_request_params = lambda context: {}
     service.get_full_model_name = lambda: "gpt-5.5"
     service.set_full_model_name = lambda model: None

@@ -2,12 +2,63 @@
 
 import asyncio
 from types import SimpleNamespace
+from unittest.mock import AsyncMock
 
+import httpx
 import pytest
-from openai import NOT_GIVEN
+from openai import NOT_GIVEN, RateLimitError
 
 from multi_turn_eval.pipelines.base import BasePipeline
 from multi_turn_eval.services.baseten_logged import LoggedBaseTenLLMService
+from multi_turn_eval.services import baseten_logged
+from multi_turn_eval.services.lilac_logged import LoggedLilacLLMService
+
+
+def test_baseten_pacing_precedes_measurement_and_only_retries_rate_errors(monkeypatch):
+    events = []
+    service = object.__new__(LoggedBaseTenLLMService)
+    service._min_interval = 3
+    service._last_request_start = 99
+    service._rate_retries = 3
+    service._rate_backoff = 10
+    monkeypatch.setattr(baseten_logged.time, 'monotonic', lambda: 100)
+
+    async def sleep(delay):
+        events.append(('wait', delay))
+
+    async def measured(self, context):
+        events.append(('start_measurement', context))
+        return await self.get_chat_completions(context)
+
+    error = RateLimitError('limited', response=httpx.Response(429, request=httpx.Request('POST', 'https://example.test')), body={})
+    stream = object()
+    requests = AsyncMock(side_effect=[error, stream])
+    monkeypatch.setattr(baseten_logged.asyncio, 'sleep', sleep)
+    monkeypatch.setattr(LoggedLilacLLMService, '_process_context', measured)
+    monkeypatch.setattr(LoggedLilacLLMService, 'get_chat_completions', requests)
+    assert asyncio.run(service._process_context('context')) is stream
+    assert events == [('wait', 2), ('start_measurement', 'context'), ('wait', 10)]
+    assert requests.await_count == 2
+
+    requests.side_effect = ValueError('non-rate error')
+    with pytest.raises(ValueError, match='non-rate error'):
+        asyncio.run(service.get_chat_completions('context'))
+    assert requests.await_count == 3
+
+
+def test_baseten_rate_retries_stop_without_consuming_a_stream(monkeypatch):
+    service = object.__new__(LoggedBaseTenLLMService)
+    service._rate_retries = 3
+    service._rate_backoff = 10
+    error = RateLimitError('limited', response=httpx.Response(429, request=httpx.Request('POST', 'https://example.test')), body={})
+    requests = AsyncMock(side_effect=error)
+    sleep = AsyncMock()
+    monkeypatch.setattr(LoggedLilacLLMService, 'get_chat_completions', requests)
+    monkeypatch.setattr(baseten_logged.asyncio, 'sleep', sleep)
+    with pytest.raises(RateLimitError):
+        asyncio.run(service.get_chat_completions('context'))
+    assert requests.await_count == 4
+    assert [c.args[0] for c in sleep.await_args_list] == [10, 20, 40]
 
 
 class ConcretePipeline(BasePipeline):
@@ -72,6 +123,24 @@ def test_baseten_top_p_is_optional(monkeypatch):
     params = service.kwargs["params"]
     assert params.top_p is NOT_GIVEN
     assert params.extra == {"extra_body": {"reasoning_effort": "none"}}
+
+
+@pytest.mark.parametrize('effort', ['none', 'high'])
+def test_ultra_baseten_request_uses_only_the_registered_reasoning_mode(monkeypatch, effort):
+    monkeypatch.setenv('BASETEN_API_KEY', 'test-key')
+    monkeypatch.setenv('MTE_BASETEN_REASONING_EFFORT', effort)
+    monkeypatch.setenv('MTE_BASETEN_MAX_TOKENS', '16384')
+    monkeypatch.setenv('MTE_BASETEN_TEMPERATURE', '1.0')
+    monkeypatch.setenv('MTE_BASETEN_TOP_P', '0.95')
+    monkeypatch.delenv('MTE_BASETEN_ENABLE_THINKING', raising=False)
+    monkeypatch.delenv('MTE_BASETEN_REASONING_STRENGTH', raising=False)
+    service=baseten_pipeline_stub()._create_llm(
+        CapturingService, 'nvidia/NVIDIA-Nemotron-3-Ultra-550B-A55B'
+    )
+    params=service.kwargs['params']
+    assert params.extra == {'extra_body': {'reasoning_effort': effort}}
+    assert params.max_tokens == 16384
+    assert params.temperature == 1.0 and params.top_p == 0.95
 
 
 def test_baseten_max_tokens_can_be_omitted(monkeypatch):
@@ -204,6 +273,8 @@ def test_baseten_ttfat_ignores_reasoning_content_deltas():
 
     service = object.__new__(LoggedBaseTenLLMService)
     service._name = "LoggedBaseTenLLMService#test"
+    service._last_request_start = None
+    service._min_interval = 0
     stops = []
     visible_text = []
 

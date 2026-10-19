@@ -1,0 +1,6865 @@
+{
+  "publication_summary": true,
+  "source_artifact": "ops/judge-refresh-opus55-20261017/reasoning-cleanup/aggregate.json",
+  "source_sha256": "4b60a01d7bb995ae1eee69f6a4662313b614f3797d3500a7a9204e85a12862e6",
+  "evidence_storage": "../../README.md",
+  "data": {
+    "schema_version": 1,
+    "as_of": "2026-10-18T14:08:40.972964+00:00",
+    "complete": false,
+    "processing_complete": true,
+    "policy": {
+      "judge_model": "claude-opus-5-5",
+      "judge_effort": "medium",
+      "rubric_sha256": {
+        "text": "70cdc7982a5f2485375e22ff43761ebf74acf21e38bde5d8518a9e95f6cfd3d2",
+        "voice": "c5a8a3b3c3240172cc392529a1784b59d2913a32e2ec2ba843a456415b75ef27"
+      },
+      "text_target_n": 30,
+      "voice_target_n": 25,
+      "accuracy": "conditional on complete conversations; no incomplete prefixes or unobserved future turns included",
+      "strict": "tool_use_correct AND instruction_following AND kb_grounding; turn-taking reported separately",
+      "confidence_interval": "20000 whole-conversation bootstrap resamples; excludes judge uncertainty and differences in capture date/SDK/serving",
+      "text_latency": "first scripted response excluded; recorded recovery responses included; positive finite service timings; linear P95",
+      "voice_latency": "all turns; positive measurable actual first speech; signed and missing diagnostics preserved",
+      "source_preservation": "selected original sources, immutable input snapshots, original voice quality records, and original per-turn audio JSON verified byte-for-byte",
+      "provider_rejections": "explicit unscored dispositions; any incomplete quality cohort has null headline accuracy/error rates/CIs; source membership and latency retained",
+      "cost": "SDK-reported successful-request costs; operational attempts without usage metadata are not assigned an invented cost"
+    },
+    "complete_means": "every selected conversation has a valid quality grade; processing_complete tracks terminal dispositions separately",
+    "all_quality_complete": false,
+    "text_models": [
+      {
+        "key": "deepseek-v4-flash-0731-high",
+        "original_label": "deepseek-v4-flash-0731 (high)",
+        "label": "deepseek-v4-flash-0731 (high)",
+        "mode": "text",
+        "complete": 30,
+        "target": 30,
+        "shortfall": 0,
+        "manifest": "cohorts/deepseek-v4-flash-0731-high.json",
+        "provider": "Baseten",
+        "latency": {
+          "definition": "Recorded service TTFAT/TTFB, scripted index zero excluded, recovery responses included; positive finite measurements only; linear P95",
+          "positive": {
+            "n": 878,
+            "mean_ms": 950.2209567198178,
+            "median_ms": 773.0,
+            "p50_ms": 773.0,
+            "p95_ms": 1969.8999999999999,
+            "min_ms": 426,
+            "max_ms": 8702
+          },
+          "signed": {
+            "n": 878,
+            "mean_ms": 950.2209567198178,
+            "median_ms": 773.0,
+            "p50_ms": 773.0,
+            "p95_ms": 1969.8999999999999,
+            "min_ms": 426,
+            "max_ms": 8702
+          },
+          "missing_n": 0,
+          "nonpositive_n": 0,
+          "excluded_first_scripted_n": 30,
+          "eligible_response_n": 878
+        },
+        "available_complete": 32,
+        "configuration": {
+          "key": "deepseek-v4-flash-0731-high",
+          "label": "deepseek-v4-flash-0731 (high)",
+          "family": "deepseek-v4-flash-0731",
+          "provider": "Baseten",
+          "system_prompt_sha256": "14d62989a3475567d22300f2bab2a4b141abb0f1b675edec2f8c876a0ea9448e",
+          "match": {
+            "hosts": [
+              "inference.baseten.co"
+            ],
+            "reasoning_effort": [
+              "high"
+            ],
+            "temperature": [
+              "1.0"
+            ],
+            "max_tokens": [
+              "8192"
+            ],
+            "filler": []
+          }
+        },
+        "scores": {
+          "tool_use_correct": 894,
+          "instruction_following": 889,
+          "kb_grounding": 893,
+          "strict": 884
+        },
+        "accuracy_denominator": 900,
+        "quality_complete": true,
+        "graded_conversations": 30,
+        "provider_blocked_conversations": 0,
+        "provider_blocked_jobs": [],
+        "graded_turns": 900,
+        "unknown_turns": 0,
+        "strict_percent": 98.22222222222223,
+        "strict_bounds_percent": [
+          98.22222222222223,
+          98.22222222222223
+        ],
+        "strict_ci95": [
+          96.88888888888889,
+          99.33333333333333
+        ],
+        "dimension_error_percent": {
+          "tool_use_correct": 0.6666666666666666,
+          "instruction_following": 1.2222222222222223,
+          "kb_grounding": 0.7777777777777778
+        },
+        "conversation_strict_passes": [
+          30,
+          30,
+          30,
+          29,
+          30,
+          28,
+          30,
+          30,
+          29,
+          30,
+          30,
+          30,
+          30,
+          30,
+          29,
+          30,
+          30,
+          30,
+          26,
+          30,
+          30,
+          30,
+          26,
+          29,
+          29,
+          30,
+          30,
+          29,
+          30,
+          30
+        ],
+        "successful_judge_cost_usd": 5.418439399999999,
+        "unknown_cost_jobs": 0,
+        "judge_duration_ms": {
+          "n": 30,
+          "mean_ms": 42101.433333333334,
+          "median_ms": 41850.5,
+          "p50_ms": 41850.5,
+          "p95_ms": 49202.7,
+          "min_ms": 36812,
+          "max_ms": 53713
+        },
+        "judge_usage": {
+          "input_tokens": 60,
+          "cache_creation_input_tokens": 384884,
+          "cache_read_input_tokens": 664350,
+          "output_tokens": 166305
+        }
+      },
+      {
+        "key": "deepseek-v4-flash-0731-low",
+        "original_label": "deepseek-v4-flash-0731 (low)",
+        "label": "deepseek-v4-flash-0731 (low)",
+        "mode": "text",
+        "complete": 30,
+        "target": 30,
+        "shortfall": 0,
+        "manifest": "cohorts/deepseek-v4-flash-0731-low.json",
+        "provider": "Baseten",
+        "latency": {
+          "definition": "Recorded service TTFAT/TTFB, scripted index zero excluded, recovery responses included; positive finite measurements only; linear P95",
+          "positive": {
+            "n": 886,
+            "mean_ms": 938.4097065462754,
+            "median_ms": 689.0,
+            "p50_ms": 689.0,
+            "p95_ms": 1647.75,
+            "min_ms": 389,
+            "max_ms": 17531
+          },
+          "signed": {
+            "n": 886,
+            "mean_ms": 938.4097065462754,
+            "median_ms": 689.0,
+            "p50_ms": 689.0,
+            "p95_ms": 1647.75,
+            "min_ms": 389,
+            "max_ms": 17531
+          },
+          "missing_n": 0,
+          "nonpositive_n": 0,
+          "excluded_first_scripted_n": 30,
+          "eligible_response_n": 886
+        },
+        "available_complete": 31,
+        "configuration": {
+          "key": "deepseek-v4-flash-0731-low",
+          "label": "deepseek-v4-flash-0731 (low)",
+          "family": "deepseek-v4-flash-0731",
+          "provider": "Baseten",
+          "system_prompt_sha256": "14d62989a3475567d22300f2bab2a4b141abb0f1b675edec2f8c876a0ea9448e",
+          "match": {
+            "hosts": [
+              "inference.baseten.co"
+            ],
+            "reasoning_effort": [
+              "low"
+            ],
+            "temperature": [
+              "1.0"
+            ],
+            "max_tokens": [
+              "8192"
+            ],
+            "filler": []
+          }
+        },
+        "scores": {
+          "tool_use_correct": 878,
+          "instruction_following": 873,
+          "kb_grounding": 893,
+          "strict": 868
+        },
+        "accuracy_denominator": 900,
+        "quality_complete": true,
+        "graded_conversations": 30,
+        "provider_blocked_conversations": 0,
+        "provider_blocked_jobs": [],
+        "graded_turns": 900,
+        "unknown_turns": 0,
+        "strict_percent": 96.44444444444444,
+        "strict_bounds_percent": [
+          96.44444444444444,
+          96.44444444444444
+        ],
+        "strict_ci95": [
+          95.1111111111111,
+          97.66666666666667
+        ],
+        "dimension_error_percent": {
+          "tool_use_correct": 2.4444444444444446,
+          "instruction_following": 3.0,
+          "kb_grounding": 0.7777777777777778
+        },
+        "conversation_strict_passes": [
+          30,
+          30,
+          30,
+          27,
+          30,
+          30,
+          29,
+          27,
+          29,
+          28,
+          29,
+          29,
+          28,
+          30,
+          26,
+          30,
+          29,
+          29,
+          30,
+          29,
+          30,
+          28,
+          30,
+          27,
+          28,
+          29,
+          29,
+          29,
+          29,
+          30
+        ],
+        "successful_judge_cost_usd": 5.389252099999998,
+        "unknown_cost_jobs": 0,
+        "judge_duration_ms": {
+          "n": 30,
+          "mean_ms": 42592.3,
+          "median_ms": 42717.5,
+          "p50_ms": 42717.5,
+          "p95_ms": 47541.44999999999,
+          "min_ms": 37679,
+          "max_ms": 53274
+        },
+        "judge_usage": {
+          "input_tokens": 60,
+          "cache_creation_input_tokens": 371151,
+          "cache_read_input_tokens": 664350,
+          "output_tokens": 168348
+        }
+      },
+      {
+        "key": "deepseek-v4-pro-0813-low",
+        "original_label": "deepseek-v4-pro-0813 (low)",
+        "label": "deepseek-v4-pro-0813 (low)",
+        "mode": "text",
+        "complete": 30,
+        "target": 30,
+        "shortfall": 0,
+        "manifest": "cohorts/deepseek-v4-pro-0813-low.json",
+        "provider": "Baseten",
+        "latency": {
+          "definition": "Recorded service TTFAT/TTFB, scripted index zero excluded, recovery responses included; positive finite measurements only; linear P95",
+          "positive": {
+            "n": 875,
+            "mean_ms": 858.5908571428571,
+            "median_ms": 755,
+            "p50_ms": 755,
+            "p95_ms": 1474.3,
+            "min_ms": 493,
+            "max_ms": 4506
+          },
+          "signed": {
+            "n": 875,
+            "mean_ms": 858.5908571428571,
+            "median_ms": 755,
+            "p50_ms": 755,
+            "p95_ms": 1474.3,
+            "min_ms": 493,
+            "max_ms": 4506
+          },
+          "missing_n": 0,
+          "nonpositive_n": 0,
+          "excluded_first_scripted_n": 30,
+          "eligible_response_n": 875
+        },
+        "available_complete": 34,
+        "configuration": {
+          "key": "deepseek-v4-pro-0813-low",
+          "label": "deepseek-v4-pro-0813 (low)",
+          "family": "deepseek-v4-pro-0813",
+          "provider": "Baseten",
+          "system_prompt_sha256": "14d62989a3475567d22300f2bab2a4b141abb0f1b675edec2f8c876a0ea9448e",
+          "match": {
+            "hosts": [
+              "inference.baseten.co"
+            ],
+            "reasoning_effort": [
+              "low"
+            ],
+            "temperature": [
+              "1.0"
+            ],
+            "max_tokens": [
+              "8192"
+            ],
+            "filler": []
+          }
+        },
+        "scores": {
+          "tool_use_correct": 899,
+          "instruction_following": 892,
+          "kb_grounding": 890,
+          "strict": 888
+        },
+        "accuracy_denominator": 900,
+        "quality_complete": true,
+        "graded_conversations": 30,
+        "provider_blocked_conversations": 0,
+        "provider_blocked_jobs": [],
+        "graded_turns": 900,
+        "unknown_turns": 0,
+        "strict_percent": 98.66666666666667,
+        "strict_bounds_percent": [
+          98.66666666666667,
+          98.66666666666667
+        ],
+        "strict_ci95": [
+          97.99999999999999,
+          99.33333333333333
+        ],
+        "dimension_error_percent": {
+          "tool_use_correct": 0.1111111111111111,
+          "instruction_following": 0.8888888888888888,
+          "kb_grounding": 1.1111111111111112
+        },
+        "conversation_strict_passes": [
+          29,
+          30,
+          30,
+          28,
+          30,
+          30,
+          29,
+          30,
+          30,
+          30,
+          30,
+          30,
+          30,
+          29,
+          30,
+          30,
+          30,
+          29,
+          29,
+          30,
+          29,
+          30,
+          29,
+          29,
+          30,
+          30,
+          30,
+          30,
+          29,
+          29
+        ],
+        "successful_judge_cost_usd": 5.214508799999999,
+        "unknown_cost_jobs": 0,
+        "judge_duration_ms": {
+          "n": 30,
+          "mean_ms": 39889.833333333336,
+          "median_ms": 38645.5,
+          "p50_ms": 38645.5,
+          "p95_ms": 47140.6,
+          "min_ms": 34492,
+          "max_ms": 53715
+        },
+        "judge_usage": {
+          "input_tokens": 60,
+          "cache_creation_input_tokens": 373078,
+          "cache_read_input_tokens": 664350,
+          "output_tokens": 159119
+        }
+      },
+      {
+        "key": "gemini-2.5-flash",
+        "original_label": "gemini-2.5-flash (thinking off)",
+        "label": "gemini-2.5-flash (thinking off)",
+        "mode": "text",
+        "complete": 30,
+        "target": 30,
+        "shortfall": 0,
+        "manifest": "cohorts/gemini-2.5-flash.json",
+        "provider": "AI Studio",
+        "latency": {
+          "definition": "Recorded service TTFAT/TTFB, scripted index zero excluded, recovery responses included; positive finite measurements only; linear P95",
+          "positive": {
+            "n": 952,
+            "mean_ms": 580.5777310924369,
+            "median_ms": 545.0,
+            "p50_ms": 545.0,
+            "p95_ms": 823.749999999999,
+            "min_ms": 316,
+            "max_ms": 2352
+          },
+          "signed": {
+            "n": 952,
+            "mean_ms": 580.5777310924369,
+            "median_ms": 545.0,
+            "p50_ms": 545.0,
+            "p95_ms": 823.749999999999,
+            "min_ms": 316,
+            "max_ms": 2352
+          },
+          "missing_n": 0,
+          "nonpositive_n": 0,
+          "excluded_first_scripted_n": 30,
+          "eligible_response_n": 952
+        },
+        "available_complete": 31,
+        "configuration": {
+          "key": "gemini-2.5-flash",
+          "label": "gemini-2.5-flash (thinking off)",
+          "family": "gemini-2.5-flash",
+          "provider": "AI Studio",
+          "system_prompt_sha256": "14d62989a3475567d22300f2bab2a4b141abb0f1b675edec2f8c876a0ea9448e",
+          "match": {
+            "thinking_budget": [
+              "0"
+            ],
+            "filler": []
+          }
+        },
+        "scores": {
+          "tool_use_correct": 817,
+          "instruction_following": 735,
+          "kb_grounding": 880,
+          "strict": 734
+        },
+        "accuracy_denominator": 900,
+        "quality_complete": true,
+        "graded_conversations": 30,
+        "provider_blocked_conversations": 0,
+        "provider_blocked_jobs": [],
+        "graded_turns": 900,
+        "unknown_turns": 0,
+        "strict_percent": 81.55555555555556,
+        "strict_bounds_percent": [
+          81.55555555555556,
+          81.55555555555556
+        ],
+        "strict_ci95": [
+          79.22222222222223,
+          83.88888888888889
+        ],
+        "dimension_error_percent": {
+          "tool_use_correct": 9.222222222222221,
+          "instruction_following": 18.333333333333332,
+          "kb_grounding": 2.2222222222222223
+        },
+        "conversation_strict_passes": [
+          25,
+          26,
+          23,
+          22,
+          25,
+          25,
+          21,
+          26,
+          25,
+          24,
+          26,
+          25,
+          20,
+          27,
+          26,
+          27,
+          22,
+          25,
+          24,
+          22,
+          24,
+          27,
+          27,
+          24,
+          27,
+          22,
+          24,
+          25,
+          26,
+          22
+        ],
+        "successful_judge_cost_usd": 5.3074341,
+        "unknown_cost_jobs": 0,
+        "judge_duration_ms": {
+          "n": 30,
+          "mean_ms": 44650.46666666667,
+          "median_ms": 43925.0,
+          "p50_ms": 43925.0,
+          "p95_ms": 49093.65,
+          "min_ms": 40287,
+          "max_ms": 51135
+        },
+        "judge_usage": {
+          "input_tokens": 60,
+          "cache_creation_input_tokens": 336881,
+          "cache_read_input_tokens": 664350,
+          "output_tokens": 172996
+        }
+      },
+      {
+        "key": "gemini-3.5-flash-lite",
+        "original_label": "gemini-3.5-flash-lite (minimal)",
+        "label": "gemini-3.5-flash-lite (minimal)",
+        "mode": "text",
+        "complete": 30,
+        "target": 30,
+        "shortfall": 0,
+        "manifest": "cohorts/gemini-3.5-flash-lite.json",
+        "provider": "AI Studio",
+        "latency": {
+          "definition": "Recorded service TTFAT/TTFB, scripted index zero excluded, recovery responses included; positive finite measurements only; linear P95",
+          "positive": {
+            "n": 886,
+            "mean_ms": 685.0519187358916,
+            "median_ms": 617.0,
+            "p50_ms": 617.0,
+            "p95_ms": 1145.25,
+            "min_ms": 426,
+            "max_ms": 1938
+          },
+          "signed": {
+            "n": 886,
+            "mean_ms": 685.0519187358916,
+            "median_ms": 617.0,
+            "p50_ms": 617.0,
+            "p95_ms": 1145.25,
+            "min_ms": 426,
+            "max_ms": 1938
+          },
+          "missing_n": 0,
+          "nonpositive_n": 0,
+          "excluded_first_scripted_n": 30,
+          "eligible_response_n": 886
+        },
+        "available_complete": 49,
+        "configuration": {
+          "key": "gemini-3.5-flash-lite",
+          "label": "gemini-3.5-flash-lite (minimal)",
+          "family": "gemini-3.5-flash-lite",
+          "provider": "AI Studio",
+          "system_prompt_sha256": "14d62989a3475567d22300f2bab2a4b141abb0f1b675edec2f8c876a0ea9448e",
+          "match": {
+            "model": [
+              "gemini-3.5-flash-lite"
+            ],
+            "thinking_level": [
+              "minimal"
+            ],
+            "filler": []
+          }
+        },
+        "scores": {
+          "tool_use_correct": 857,
+          "instruction_following": 855,
+          "kb_grounding": 890,
+          "strict": 842
+        },
+        "accuracy_denominator": 900,
+        "quality_complete": true,
+        "graded_conversations": 30,
+        "provider_blocked_conversations": 0,
+        "provider_blocked_jobs": [],
+        "graded_turns": 900,
+        "unknown_turns": 0,
+        "strict_percent": 93.55555555555556,
+        "strict_bounds_percent": [
+          93.55555555555556,
+          93.55555555555556
+        ],
+        "strict_ci95": [
+          92.11111111111111,
+          94.88888888888891
+        ],
+        "dimension_error_percent": {
+          "tool_use_correct": 4.777777777777778,
+          "instruction_following": 5.0,
+          "kb_grounding": 1.1111111111111112
+        },
+        "conversation_strict_passes": [
+          29,
+          29,
+          29,
+          30,
+          28,
+          29,
+          27,
+          28,
+          28,
+          27,
+          29,
+          28,
+          28,
+          27,
+          28,
+          25,
+          27,
+          27,
+          28,
+          29,
+          29,
+          28,
+          26,
+          30,
+          28,
+          28,
+          30,
+          26,
+          28,
+          29
+        ],
+        "successful_judge_cost_usd": 5.2065363,
+        "unknown_cost_jobs": 0,
+        "judge_duration_ms": {
+          "n": 30,
+          "mean_ms": 43392.13333333333,
+          "median_ms": 44108.5,
+          "p50_ms": 44108.5,
+          "p95_ms": 48427.549999999996,
+          "min_ms": 35765,
+          "max_ms": 50005
+        },
+        "judge_usage": {
+          "input_tokens": 60,
+          "cache_creation_input_tokens": 334418,
+          "cache_read_input_tokens": 664350,
+          "output_tokens": 168579
+        }
+      },
+      {
+        "key": "gemini-3.5-flash",
+        "original_label": "gemini-3.5-flash (minimal)",
+        "label": "gemini-3.5-flash (minimal)",
+        "mode": "text",
+        "complete": 30,
+        "target": 30,
+        "shortfall": 0,
+        "manifest": "cohorts/gemini-3.5-flash.json",
+        "provider": "AI Studio",
+        "latency": {
+          "definition": "Recorded service TTFAT/TTFB, scripted index zero excluded, recovery responses included; positive finite measurements only; linear P95",
+          "positive": {
+            "n": 873,
+            "mean_ms": 934.9599083619702,
+            "median_ms": 898,
+            "p50_ms": 898,
+            "p95_ms": 1256.3999999999999,
+            "min_ms": 649,
+            "max_ms": 2076
+          },
+          "signed": {
+            "n": 873,
+            "mean_ms": 934.9599083619702,
+            "median_ms": 898,
+            "p50_ms": 898,
+            "p95_ms": 1256.3999999999999,
+            "min_ms": 649,
+            "max_ms": 2076
+          },
+          "missing_n": 0,
+          "nonpositive_n": 0,
+          "excluded_first_scripted_n": 30,
+          "eligible_response_n": 873
+        },
+        "available_complete": 47,
+        "configuration": {
+          "key": "gemini-3.5-flash",
+          "label": "gemini-3.5-flash (minimal)",
+          "family": "gemini-3.5-flash",
+          "provider": "AI Studio",
+          "system_prompt_sha256": "14d62989a3475567d22300f2bab2a4b141abb0f1b675edec2f8c876a0ea9448e",
+          "match": {
+            "model": [
+              "gemini-3.5-flash"
+            ],
+            "thinking_level": [
+              "minimal"
+            ],
+            "filler": []
+          }
+        },
+        "scores": {
+          "tool_use_correct": 896,
+          "instruction_following": 852,
+          "kb_grounding": 882,
+          "strict": 851
+        },
+        "accuracy_denominator": 900,
+        "quality_complete": true,
+        "graded_conversations": 30,
+        "provider_blocked_conversations": 0,
+        "provider_blocked_jobs": [],
+        "graded_turns": 900,
+        "unknown_turns": 0,
+        "strict_percent": 94.55555555555556,
+        "strict_bounds_percent": [
+          94.55555555555556,
+          94.55555555555556
+        ],
+        "strict_ci95": [
+          93.22222222222221,
+          95.77777777777777
+        ],
+        "dimension_error_percent": {
+          "tool_use_correct": 0.4444444444444444,
+          "instruction_following": 5.333333333333333,
+          "kb_grounding": 2.0
+        },
+        "conversation_strict_passes": [
+          29,
+          29,
+          30,
+          27,
+          26,
+          27,
+          30,
+          29,
+          29,
+          29,
+          29,
+          28,
+          29,
+          30,
+          27,
+          29,
+          28,
+          29,
+          29,
+          27,
+          27,
+          28,
+          26,
+          29,
+          29,
+          29,
+          28,
+          28,
+          28,
+          29
+        ],
+        "successful_judge_cost_usd": 5.380205900000001,
+        "unknown_cost_jobs": 0,
+        "judge_duration_ms": {
+          "n": 30,
+          "mean_ms": 42831.1,
+          "median_ms": 42565.0,
+          "p50_ms": 42565.0,
+          "p95_ms": 49396.899999999994,
+          "min_ms": 35916,
+          "max_ms": 51792
+        },
+        "judge_usage": {
+          "input_tokens": 60,
+          "cache_creation_input_tokens": 365574,
+          "cache_read_input_tokens": 664350,
+          "output_tokens": 169318
+        }
+      },
+      {
+        "key": "gemini-3.6-flash",
+        "original_label": "gemini-3.6-flash (minimal)",
+        "label": "gemini-3.6-flash (minimal)",
+        "mode": "text",
+        "complete": 30,
+        "target": 30,
+        "shortfall": 0,
+        "manifest": "cohorts/gemini-3.6-flash.json",
+        "provider": "AI Studio",
+        "latency": {
+          "definition": "Recorded service TTFAT/TTFB, scripted index zero excluded, recovery responses included; positive finite measurements only; linear P95",
+          "positive": {
+            "n": 892,
+            "mean_ms": 832.3015695067264,
+            "median_ms": 808.0,
+            "p50_ms": 808.0,
+            "p95_ms": 1078.0,
+            "min_ms": 600,
+            "max_ms": 2229
+          },
+          "signed": {
+            "n": 892,
+            "mean_ms": 832.3015695067264,
+            "median_ms": 808.0,
+            "p50_ms": 808.0,
+            "p95_ms": 1078.0,
+            "min_ms": 600,
+            "max_ms": 2229
+          },
+          "missing_n": 0,
+          "nonpositive_n": 0,
+          "excluded_first_scripted_n": 30,
+          "eligible_response_n": 892
+        },
+        "available_complete": 32,
+        "configuration": {
+          "key": "gemini-3.6-flash",
+          "label": "gemini-3.6-flash (minimal)",
+          "family": "gemini-3.6-flash",
+          "provider": "AI Studio",
+          "system_prompt_sha256": "14d62989a3475567d22300f2bab2a4b141abb0f1b675edec2f8c876a0ea9448e",
+          "match": {
+            "model": [
+              "gemini-3.6-flash"
+            ],
+            "thinking_level": [
+              "minimal"
+            ],
+            "filler": []
+          }
+        },
+        "scores": {
+          "tool_use_correct": 879,
+          "instruction_following": 864,
+          "kb_grounding": 888,
+          "strict": 858
+        },
+        "accuracy_denominator": 900,
+        "quality_complete": true,
+        "graded_conversations": 30,
+        "provider_blocked_conversations": 0,
+        "provider_blocked_jobs": [],
+        "graded_turns": 900,
+        "unknown_turns": 0,
+        "strict_percent": 95.33333333333333,
+        "strict_bounds_percent": [
+          95.33333333333333,
+          95.33333333333333
+        ],
+        "strict_ci95": [
+          93.0,
+          97.22222222222221
+        ],
+        "dimension_error_percent": {
+          "tool_use_correct": 2.3333333333333335,
+          "instruction_following": 4.0,
+          "kb_grounding": 1.3333333333333333
+        },
+        "conversation_strict_passes": [
+          30,
+          28,
+          30,
+          28,
+          29,
+          23,
+          29,
+          29,
+          30,
+          28,
+          30,
+          29,
+          29,
+          29,
+          29,
+          29,
+          30,
+          29,
+          29,
+          28,
+          29,
+          30,
+          29,
+          24,
+          29,
+          29,
+          30,
+          30,
+          29,
+          24
+        ],
+        "successful_judge_cost_usd": 5.0705816,
+        "unknown_cost_jobs": 0,
+        "judge_duration_ms": {
+          "n": 30,
+          "mean_ms": 40657.73333333333,
+          "median_ms": 41179.5,
+          "p50_ms": 41179.5,
+          "p95_ms": 46332.1,
+          "min_ms": 33976,
+          "max_ms": 46746
+        },
+        "judge_usage": {
+          "input_tokens": 60,
+          "cache_creation_input_tokens": 338976,
+          "cache_read_input_tokens": 664350,
+          "output_tokens": 160619
+        }
+      },
+      {
+        "key": "gemini-3.7-flash",
+        "original_label": "gemini-3.7-flash (low)",
+        "label": "gemini-3.7-flash (low)",
+        "mode": "text",
+        "complete": 30,
+        "target": 30,
+        "shortfall": 0,
+        "manifest": "cohorts/gemini-3.7-flash.json",
+        "provider": "AI Studio",
+        "latency": {
+          "definition": "Recorded service TTFAT/TTFB, scripted index zero excluded, recovery responses included; positive finite measurements only; linear P95",
+          "positive": {
+            "n": 870,
+            "mean_ms": 987.1310344827587,
+            "median_ms": 821.0,
+            "p50_ms": 821.0,
+            "p95_ms": 1656.1999999999998,
+            "min_ms": 529,
+            "max_ms": 15353
+          },
+          "signed": {
+            "n": 870,
+            "mean_ms": 987.1310344827587,
+            "median_ms": 821.0,
+            "p50_ms": 821.0,
+            "p95_ms": 1656.1999999999998,
+            "min_ms": 529,
+            "max_ms": 15353
+          },
+          "missing_n": 0,
+          "nonpositive_n": 0,
+          "excluded_first_scripted_n": 30,
+          "eligible_response_n": 870
+        },
+        "available_complete": 32,
+        "configuration": {
+          "key": "gemini-3.7-flash",
+          "label": "gemini-3.7-flash (low)",
+          "family": "gemini-3.7-flash",
+          "provider": "AI Studio",
+          "system_prompt_sha256": "14d62989a3475567d22300f2bab2a4b141abb0f1b675edec2f8c876a0ea9448e",
+          "match": {
+            "model": [
+              "gemini-3.7-flash"
+            ],
+            "thinking_level": [
+              "low"
+            ],
+            "filler": []
+          }
+        },
+        "scores": {
+          "tool_use_correct": 899,
+          "instruction_following": 900,
+          "kb_grounding": 900,
+          "strict": 899
+        },
+        "accuracy_denominator": 900,
+        "quality_complete": true,
+        "graded_conversations": 30,
+        "provider_blocked_conversations": 0,
+        "provider_blocked_jobs": [],
+        "graded_turns": 900,
+        "unknown_turns": 0,
+        "strict_percent": 99.88888888888889,
+        "strict_bounds_percent": [
+          99.88888888888889,
+          99.88888888888889
+        ],
+        "strict_ci95": [
+          99.66666666666667,
+          100.0
+        ],
+        "dimension_error_percent": {
+          "tool_use_correct": 0.1111111111111111,
+          "instruction_following": 0.0,
+          "kb_grounding": 0.0
+        },
+        "conversation_strict_passes": [
+          29,
+          30,
+          30,
+          30,
+          30,
+          30,
+          30,
+          30,
+          30,
+          30,
+          30,
+          30,
+          30,
+          30,
+          30,
+          30,
+          30,
+          30,
+          30,
+          30,
+          30,
+          30,
+          30,
+          30,
+          30,
+          30,
+          30,
+          30,
+          30,
+          30
+        ],
+        "successful_judge_cost_usd": 4.7205786,
+        "unknown_cost_jobs": 0,
+        "judge_duration_ms": {
+          "n": 30,
+          "mean_ms": 36303.26666666667,
+          "median_ms": 35562.5,
+          "p50_ms": 35562.5,
+          "p95_ms": 41716.45,
+          "min_ms": 31976,
+          "max_ms": 50423
+        },
+        "judge_usage": {
+          "input_tokens": 60,
+          "cache_creation_input_tokens": 325206,
+          "cache_read_input_tokens": 664350,
+          "output_tokens": 146631
+        }
+      },
+      {
+        "key": "gemini-3.8-flash",
+        "original_label": "gemini-3.8-flash (low)",
+        "label": "gemini-3.8-flash (low)",
+        "mode": "text",
+        "complete": 30,
+        "target": 30,
+        "shortfall": 0,
+        "manifest": "cohorts/gemini-3.8-flash.json",
+        "provider": "AI Studio",
+        "latency": {
+          "definition": "Recorded service TTFAT/TTFB, scripted index zero excluded, recovery responses included; positive finite measurements only; linear P95",
+          "positive": {
+            "n": 870,
+            "mean_ms": 1480.6977011494253,
+            "median_ms": 1411.0,
+            "p50_ms": 1411.0,
+            "p95_ms": 1966.6499999999999,
+            "min_ms": 877,
+            "max_ms": 7588
+          },
+          "signed": {
+            "n": 870,
+            "mean_ms": 1480.6977011494253,
+            "median_ms": 1411.0,
+            "p50_ms": 1411.0,
+            "p95_ms": 1966.6499999999999,
+            "min_ms": 877,
+            "max_ms": 7588
+          },
+          "missing_n": 0,
+          "nonpositive_n": 0,
+          "excluded_first_scripted_n": 30,
+          "eligible_response_n": 870
+        },
+        "available_complete": 33,
+        "configuration": {
+          "key": "gemini-3.8-flash",
+          "label": "gemini-3.8-flash (low)",
+          "family": "gemini-3.8-flash",
+          "provider": "AI Studio",
+          "system_prompt_sha256": "14d62989a3475567d22300f2bab2a4b141abb0f1b675edec2f8c876a0ea9448e",
+          "match": {
+            "model": [
+              "gemini-3.8-flash"
+            ],
+            "thinking_level": [
+              "low"
+            ],
+            "filler": []
+          }
+        },
+        "scores": {
+          "tool_use_correct": 900,
+          "instruction_following": 900,
+          "kb_grounding": 899,
+          "strict": 899
+        },
+        "accuracy_denominator": 900,
+        "quality_complete": true,
+        "graded_conversations": 30,
+        "provider_blocked_conversations": 0,
+        "provider_blocked_jobs": [],
+        "graded_turns": 900,
+        "unknown_turns": 0,
+        "strict_percent": 99.88888888888889,
+        "strict_bounds_percent": [
+          99.88888888888889,
+          99.88888888888889
+        ],
+        "strict_ci95": [
+          99.66666666666667,
+          100.0
+        ],
+        "dimension_error_percent": {
+          "tool_use_correct": 0.0,
+          "instruction_following": 0.0,
+          "kb_grounding": 0.1111111111111111
+        },
+        "conversation_strict_passes": [
+          30,
+          30,
+          30,
+          29,
+          30,
+          30,
+          30,
+          30,
+          30,
+          30,
+          30,
+          30,
+          30,
+          30,
+          30,
+          30,
+          30,
+          30,
+          30,
+          30,
+          30,
+          30,
+          30,
+          30,
+          30,
+          30,
+          30,
+          30,
+          30,
+          30
+        ],
+        "successful_judge_cost_usd": 4.810062099999998,
+        "unknown_cost_jobs": 0,
+        "judge_duration_ms": {
+          "n": 30,
+          "mean_ms": 36543.166666666664,
+          "median_ms": 36482.0,
+          "p50_ms": 36482.0,
+          "p95_ms": 38954.0,
+          "min_ms": 33302,
+          "max_ms": 39957
+        },
+        "judge_usage": {
+          "input_tokens": 60,
+          "cache_creation_input_tokens": 333401,
+          "cache_read_input_tokens": 664350,
+          "output_tokens": 149015
+        }
+      },
+      {
+        "key": "gemma-4-26b-a4b-it",
+        "original_label": "gemma-4-26b-a4b-it (thinking off)",
+        "label": "gemma-4-26b-a4b-it (thinking off)",
+        "mode": "text",
+        "complete": 30,
+        "target": 30,
+        "shortfall": 0,
+        "manifest": "cohorts/gemma-4-26b-a4b-it.json",
+        "provider": "Baseten",
+        "latency": {
+          "definition": "Recorded service TTFAT/TTFB, scripted index zero excluded, recovery responses included; positive finite measurements only; linear P95",
+          "positive": {
+            "n": 991,
+            "mean_ms": 797.0090817356206,
+            "median_ms": 578,
+            "p50_ms": 578,
+            "p95_ms": 680.0,
+            "min_ms": 369,
+            "max_ms": 31574
+          },
+          "signed": {
+            "n": 991,
+            "mean_ms": 797.0090817356206,
+            "median_ms": 578,
+            "p50_ms": 578,
+            "p95_ms": 680.0,
+            "min_ms": 369,
+            "max_ms": 31574
+          },
+          "missing_n": 0,
+          "nonpositive_n": 0,
+          "excluded_first_scripted_n": 30,
+          "eligible_response_n": 991
+        },
+        "available_complete": 60,
+        "configuration": {
+          "key": "gemma-4-26b-a4b-it",
+          "label": "gemma-4-26b-a4b-it (thinking off)",
+          "family": "gemma-4-26b-a4b-it",
+          "provider": "Baseten",
+          "system_prompt_sha256": "14d62989a3475567d22300f2bab2a4b141abb0f1b675edec2f8c876a0ea9448e",
+          "match": {
+            "hosts": [
+              "model-qel1y223.api.baseten.co"
+            ],
+            "thinking_state": [
+              "False"
+            ],
+            "temperature": [
+              "1.0"
+            ],
+            "max_tokens": [
+              "8192"
+            ],
+            "filler": []
+          }
+        },
+        "scores": {
+          "tool_use_correct": 779,
+          "instruction_following": 740,
+          "kb_grounding": 899,
+          "strict": 740
+        },
+        "accuracy_denominator": 900,
+        "quality_complete": true,
+        "graded_conversations": 30,
+        "provider_blocked_conversations": 0,
+        "provider_blocked_jobs": [],
+        "graded_turns": 900,
+        "unknown_turns": 0,
+        "strict_percent": 82.22222222222223,
+        "strict_bounds_percent": [
+          82.22222222222223,
+          82.22222222222223
+        ],
+        "strict_ci95": [
+          80.11111111111113,
+          84.0
+        ],
+        "dimension_error_percent": {
+          "tool_use_correct": 13.444444444444445,
+          "instruction_following": 17.77777777777778,
+          "kb_grounding": 0.1111111111111111
+        },
+        "conversation_strict_passes": [
+          25,
+          25,
+          25,
+          26,
+          26,
+          25,
+          25,
+          23,
+          25,
+          24,
+          24,
+          19,
+          22,
+          24,
+          26,
+          26,
+          25,
+          26,
+          25,
+          26,
+          26,
+          26,
+          25,
+          26,
+          21,
+          25,
+          24,
+          26,
+          25,
+          24
+        ],
+        "successful_judge_cost_usd": 5.442405300000001,
+        "unknown_cost_jobs": 0,
+        "judge_duration_ms": {
+          "n": 30,
+          "mean_ms": 46889.63333333333,
+          "median_ms": 46537.5,
+          "p50_ms": 46537.5,
+          "p95_ms": 52612.7,
+          "min_ms": 42327,
+          "max_ms": 53634
+        },
+        "judge_usage": {
+          "input_tokens": 60,
+          "cache_creation_input_tokens": 337663,
+          "cache_read_input_tokens": 664350,
+          "output_tokens": 179545
+        }
+      },
+      {
+        "key": "gemma-4-31b-it",
+        "original_label": "gemma-4-31b-it (thinking off)",
+        "label": "gemma-4-31b-it (thinking off)",
+        "mode": "text",
+        "complete": 30,
+        "target": 30,
+        "shortfall": 0,
+        "manifest": "cohorts/gemma-4-31b-it.json",
+        "provider": "Baseten",
+        "latency": {
+          "definition": "Recorded service TTFAT/TTFB, scripted index zero excluded, recovery responses included; positive finite measurements only; linear P95",
+          "positive": {
+            "n": 900,
+            "mean_ms": 753.1977777777778,
+            "median_ms": 497.0,
+            "p50_ms": 497.0,
+            "p95_ms": 629.0,
+            "min_ms": 392,
+            "max_ms": 33254
+          },
+          "signed": {
+            "n": 900,
+            "mean_ms": 753.1977777777778,
+            "median_ms": 497.0,
+            "p50_ms": 497.0,
+            "p95_ms": 629.0,
+            "min_ms": 392,
+            "max_ms": 33254
+          },
+          "missing_n": 0,
+          "nonpositive_n": 0,
+          "excluded_first_scripted_n": 30,
+          "eligible_response_n": 900
+        },
+        "available_complete": 153,
+        "configuration": {
+          "key": "gemma-4-31b-it",
+          "label": "gemma-4-31b-it (thinking off)",
+          "family": "gemma-4-31b-it",
+          "provider": "Baseten",
+          "system_prompt_sha256": "14d62989a3475567d22300f2bab2a4b141abb0f1b675edec2f8c876a0ea9448e",
+          "match": {
+            "model": [
+              "google/gemma-4-31B-it"
+            ],
+            "hosts": [
+              "model-q951m16w.api.baseten.co"
+            ],
+            "thinking_state": [
+              "False"
+            ],
+            "temperature": [
+              "1.0"
+            ],
+            "max_tokens": [
+              "8192"
+            ],
+            "filler": []
+          }
+        },
+        "scores": {
+          "tool_use_correct": 869,
+          "instruction_following": 863,
+          "kb_grounding": 900,
+          "strict": 863
+        },
+        "accuracy_denominator": 900,
+        "quality_complete": true,
+        "graded_conversations": 30,
+        "provider_blocked_conversations": 0,
+        "provider_blocked_jobs": [],
+        "graded_turns": 900,
+        "unknown_turns": 0,
+        "strict_percent": 95.88888888888889,
+        "strict_bounds_percent": [
+          95.88888888888889,
+          95.88888888888889
+        ],
+        "strict_ci95": [
+          94.77777777777777,
+          96.99999999999999
+        ],
+        "dimension_error_percent": {
+          "tool_use_correct": 3.4444444444444446,
+          "instruction_following": 4.111111111111111,
+          "kb_grounding": 0.0
+        },
+        "conversation_strict_passes": [
+          29,
+          28,
+          29,
+          28,
+          30,
+          29,
+          27,
+          29,
+          29,
+          27,
+          30,
+          28,
+          28,
+          28,
+          29,
+          29,
+          30,
+          29,
+          29,
+          29,
+          30,
+          30,
+          29,
+          27,
+          29,
+          29,
+          27,
+          29,
+          30,
+          29
+        ],
+        "successful_judge_cost_usd": 4.759659199999999,
+        "unknown_cost_jobs": 0,
+        "judge_duration_ms": {
+          "n": 30,
+          "mean_ms": 36994.433333333334,
+          "median_ms": 35386.5,
+          "p50_ms": 35386.5,
+          "p95_ms": 42531.299999999996,
+          "min_ms": 32165,
+          "max_ms": 47029
+        },
+        "judge_usage": {
+          "input_tokens": 60,
+          "cache_creation_input_tokens": 322157,
+          "cache_read_input_tokens": 664350,
+          "output_tokens": 149362
+        }
+      },
+      {
+        "key": "glm-5.2",
+        "original_label": "glm-5.2 (none)",
+        "label": "glm-5.2 (none)",
+        "mode": "text",
+        "complete": 30,
+        "target": 30,
+        "shortfall": 0,
+        "manifest": "cohorts/glm-5.2.json",
+        "provider": "Baseten",
+        "latency": {
+          "definition": "Recorded service TTFAT/TTFB, scripted index zero excluded, recovery responses included; positive finite measurements only; linear P95",
+          "positive": {
+            "n": 873,
+            "mean_ms": 1091.2222222222222,
+            "median_ms": 938,
+            "p50_ms": 938,
+            "p95_ms": 2214.6,
+            "min_ms": 347,
+            "max_ms": 7567
+          },
+          "signed": {
+            "n": 873,
+            "mean_ms": 1091.2222222222222,
+            "median_ms": 938,
+            "p50_ms": 938,
+            "p95_ms": 2214.6,
+            "min_ms": 347,
+            "max_ms": 7567
+          },
+          "missing_n": 0,
+          "nonpositive_n": 0,
+          "excluded_first_scripted_n": 30,
+          "eligible_response_n": 873
+        },
+        "available_complete": 31,
+        "configuration": {
+          "key": "glm-5.2",
+          "label": "glm-5.2 (none)",
+          "family": "glm-5.2",
+          "provider": "Baseten",
+          "system_prompt_sha256": "14d62989a3475567d22300f2bab2a4b141abb0f1b675edec2f8c876a0ea9448e",
+          "match": {
+            "hosts": [
+              "inference.baseten.co"
+            ],
+            "reasoning_effort": [
+              "none"
+            ],
+            "temperature": [
+              "1.0"
+            ],
+            "max_tokens": [
+              "8192"
+            ],
+            "filler": []
+          }
+        },
+        "scores": {
+          "tool_use_correct": 899,
+          "instruction_following": 879,
+          "kb_grounding": 880,
+          "strict": 861
+        },
+        "accuracy_denominator": 900,
+        "quality_complete": true,
+        "graded_conversations": 30,
+        "provider_blocked_conversations": 0,
+        "provider_blocked_jobs": [],
+        "graded_turns": 900,
+        "unknown_turns": 0,
+        "strict_percent": 95.66666666666667,
+        "strict_bounds_percent": [
+          95.66666666666667,
+          95.66666666666667
+        ],
+        "strict_ci95": [
+          94.44444444444443,
+          96.77777777777779
+        ],
+        "dimension_error_percent": {
+          "tool_use_correct": 0.1111111111111111,
+          "instruction_following": 2.3333333333333335,
+          "kb_grounding": 2.2222222222222223
+        },
+        "conversation_strict_passes": [
+          28,
+          29,
+          30,
+          29,
+          30,
+          29,
+          30,
+          30,
+          29,
+          29,
+          28,
+          28,
+          29,
+          29,
+          27,
+          27,
+          26,
+          30,
+          30,
+          27,
+          29,
+          28,
+          29,
+          29,
+          29,
+          28,
+          28,
+          29,
+          29,
+          29
+        ],
+        "successful_judge_cost_usd": 5.661579999999998,
+        "unknown_cost_jobs": 0,
+        "judge_duration_ms": {
+          "n": 30,
+          "mean_ms": 44795.13333333333,
+          "median_ms": 44268.0,
+          "p50_ms": 44268.0,
+          "p95_ms": 50241.899999999994,
+          "min_ms": 37901,
+          "max_ms": 54897
+        },
+        "judge_usage": {
+          "input_tokens": 60,
+          "cache_creation_input_tokens": 401550,
+          "cache_read_input_tokens": 664350,
+          "output_tokens": 174213
+        }
+      },
+      {
+        "key": "glm-5.3",
+        "original_label": "glm-5.3 (low reasoning)",
+        "label": "glm-5.3 (low reasoning)",
+        "mode": "text",
+        "complete": 30,
+        "target": 30,
+        "shortfall": 0,
+        "manifest": "cohorts/glm-5.3.json",
+        "provider": "Z.AI",
+        "latency": {
+          "definition": "Recorded service TTFAT/TTFB, scripted index zero excluded, recovery responses included; positive finite measurements only; linear P95",
+          "positive": {
+            "n": 872,
+            "mean_ms": 2643.798165137615,
+            "median_ms": 2376.5,
+            "p50_ms": 2376.5,
+            "p95_ms": 4756.599999999999,
+            "min_ms": 1243,
+            "max_ms": 8007
+          },
+          "signed": {
+            "n": 872,
+            "mean_ms": 2643.798165137615,
+            "median_ms": 2376.5,
+            "p50_ms": 2376.5,
+            "p95_ms": 4756.599999999999,
+            "min_ms": 1243,
+            "max_ms": 8007
+          },
+          "missing_n": 0,
+          "nonpositive_n": 0,
+          "excluded_first_scripted_n": 30,
+          "eligible_response_n": 872
+        },
+        "available_complete": 33,
+        "configuration": {
+          "key": "glm-5.3",
+          "label": "glm-5.3 (low reasoning)",
+          "family": "glm-5.3",
+          "provider": "Z.AI",
+          "system_prompt_sha256": "14d62989a3475567d22300f2bab2a4b141abb0f1b675edec2f8c876a0ea9448e",
+          "match": {
+            "hosts": [
+              "api.z.ai"
+            ],
+            "reasoning_effort": [
+              "low"
+            ],
+            "max_tokens": [
+              "16384"
+            ],
+            "filler": []
+          }
+        },
+        "scores": {
+          "tool_use_correct": 892,
+          "instruction_following": 892,
+          "kb_grounding": 894,
+          "strict": 880
+        },
+        "accuracy_denominator": 900,
+        "quality_complete": true,
+        "graded_conversations": 30,
+        "provider_blocked_conversations": 0,
+        "provider_blocked_jobs": [],
+        "graded_turns": 900,
+        "unknown_turns": 0,
+        "strict_percent": 97.77777777777777,
+        "strict_bounds_percent": [
+          97.77777777777777,
+          97.77777777777777
+        ],
+        "strict_ci95": [
+          96.8888888888889,
+          98.55555555555557
+        ],
+        "dimension_error_percent": {
+          "tool_use_correct": 0.8888888888888888,
+          "instruction_following": 0.8888888888888888,
+          "kb_grounding": 0.6666666666666666
+        },
+        "conversation_strict_passes": [
+          30,
+          30,
+          29,
+          28,
+          30,
+          29,
+          28,
+          30,
+          30,
+          30,
+          29,
+          29,
+          28,
+          30,
+          30,
+          29,
+          30,
+          30,
+          30,
+          29,
+          30,
+          28,
+          29,
+          29,
+          29,
+          30,
+          29,
+          30,
+          29,
+          29
+        ],
+        "successful_judge_cost_usd": 5.399087700000001,
+        "unknown_cost_jobs": 0,
+        "judge_duration_ms": {
+          "n": 30,
+          "mean_ms": 43818.333333333336,
+          "median_ms": 43741.0,
+          "p50_ms": 43741.0,
+          "p95_ms": 48927.75,
+          "min_ms": 35106,
+          "max_ms": 58140
+        },
+        "judge_usage": {
+          "input_tokens": 60,
+          "cache_creation_input_tokens": 361892,
+          "cache_read_input_tokens": 664350,
+          "output_tokens": 171201
+        }
+      },
+      {
+        "key": "gpt-4.1-mini",
+        "original_label": "gpt-4.1-mini",
+        "label": "gpt-4.1-mini",
+        "mode": "text",
+        "complete": 7,
+        "target": 30,
+        "shortfall": 23,
+        "manifest": "cohorts/gpt-4.1-mini.json",
+        "provider": "OpenAI",
+        "latency": {
+          "definition": "Recorded service TTFAT/TTFB, scripted index zero excluded, recovery responses included; positive finite measurements only; linear P95",
+          "positive": {
+            "n": 230,
+            "mean_ms": 1099.708695652174,
+            "median_ms": 911.5,
+            "p50_ms": 911.5,
+            "p95_ms": 2436.3499999999995,
+            "min_ms": 436,
+            "max_ms": 5348
+          },
+          "signed": {
+            "n": 230,
+            "mean_ms": 1099.708695652174,
+            "median_ms": 911.5,
+            "p50_ms": 911.5,
+            "p95_ms": 2436.3499999999995,
+            "min_ms": 436,
+            "max_ms": 5348
+          },
+          "missing_n": 0,
+          "nonpositive_n": 0,
+          "excluded_first_scripted_n": 7,
+          "eligible_response_n": 230
+        },
+        "available_complete": 7,
+        "configuration": {
+          "model": "gpt-4.1-mini",
+          "reasoning_effort": null,
+          "filler": "none"
+        },
+        "scores": {
+          "tool_use_correct": 183,
+          "instruction_following": 172,
+          "kb_grounding": 204,
+          "strict": 172
+        },
+        "accuracy_denominator": 210,
+        "quality_complete": true,
+        "graded_conversations": 7,
+        "provider_blocked_conversations": 0,
+        "provider_blocked_jobs": [],
+        "graded_turns": 210,
+        "unknown_turns": 0,
+        "strict_percent": 81.9047619047619,
+        "strict_bounds_percent": [
+          81.9047619047619,
+          81.9047619047619
+        ],
+        "strict_ci95": [
+          80.47619047619048,
+          83.80952380952382
+        ],
+        "dimension_error_percent": {
+          "tool_use_correct": 12.857142857142858,
+          "instruction_following": 18.095238095238095,
+          "kb_grounding": 2.857142857142857
+        },
+        "conversation_strict_passes": [
+          24,
+          24,
+          25,
+          26,
+          24,
+          24,
+          25
+        ],
+        "successful_judge_cost_usd": 2.0461285,
+        "unknown_cost_jobs": 0,
+        "judge_duration_ms": {
+          "n": 7,
+          "mean_ms": 46982.857142857145,
+          "median_ms": 47248,
+          "p50_ms": 47248,
+          "p95_ms": 52295.2,
+          "min_ms": 43066,
+          "max_ms": 53659
+        },
+        "judge_usage": {
+          "input_tokens": 14,
+          "cache_creation_input_tokens": 238669,
+          "cache_read_input_tokens": 0,
+          "output_tokens": 42261
+        }
+      },
+      {
+        "key": "gpt-4.1",
+        "original_label": "gpt-4.1",
+        "label": "gpt-4.1",
+        "mode": "text",
+        "complete": 26,
+        "target": 30,
+        "shortfall": 4,
+        "manifest": "cohorts/gpt-4.1.json",
+        "provider": "OpenAI",
+        "latency": {
+          "definition": "Recorded service TTFAT/TTFB, scripted index zero excluded, recovery responses included; positive finite measurements only; linear P95",
+          "positive": {
+            "n": 780,
+            "mean_ms": 788.851282051282,
+            "median_ms": 608.0,
+            "p50_ms": 608.0,
+            "p95_ms": 1870.0,
+            "min_ms": 364,
+            "max_ms": 7988
+          },
+          "signed": {
+            "n": 780,
+            "mean_ms": 788.851282051282,
+            "median_ms": 608.0,
+            "p50_ms": 608.0,
+            "p95_ms": 1870.0,
+            "min_ms": 364,
+            "max_ms": 7988
+          },
+          "missing_n": 0,
+          "nonpositive_n": 0,
+          "excluded_first_scripted_n": 26,
+          "eligible_response_n": 780
+        },
+        "available_complete": 26,
+        "configuration": {
+          "key": "gpt-4.1",
+          "label": "gpt-4.1",
+          "family": "gpt-4.1",
+          "provider": "OpenAI",
+          "system_prompt_sha256": "14d62989a3475567d22300f2bab2a4b141abb0f1b675edec2f8c876a0ea9448e",
+          "match": {
+            "model": [
+              "gpt-4.1"
+            ],
+            "filler": []
+          }
+        },
+        "scores": {
+          "tool_use_correct": 744,
+          "instruction_following": 740,
+          "kb_grounding": 778,
+          "strict": 737
+        },
+        "accuracy_denominator": 780,
+        "quality_complete": true,
+        "graded_conversations": 26,
+        "provider_blocked_conversations": 0,
+        "provider_blocked_jobs": [],
+        "graded_turns": 780,
+        "unknown_turns": 0,
+        "strict_percent": 94.48717948717949,
+        "strict_bounds_percent": [
+          94.48717948717949,
+          94.48717948717949
+        ],
+        "strict_ci95": [
+          92.94871794871794,
+          95.8974358974359
+        ],
+        "dimension_error_percent": {
+          "tool_use_correct": 4.615384615384615,
+          "instruction_following": 5.128205128205129,
+          "kb_grounding": 0.2564102564102564
+        },
+        "conversation_strict_passes": [
+          28,
+          27,
+          26,
+          29,
+          28,
+          28,
+          28,
+          30,
+          28,
+          28,
+          29,
+          29,
+          26,
+          29,
+          30,
+          29,
+          26,
+          30,
+          28,
+          27,
+          29,
+          29,
+          29,
+          30,
+          29,
+          28
+        ],
+        "successful_judge_cost_usd": 4.6862206,
+        "unknown_cost_jobs": 0,
+        "judge_duration_ms": {
+          "n": 26,
+          "mean_ms": 43178.03846153846,
+          "median_ms": 43247.0,
+          "p50_ms": 43247.0,
+          "p95_ms": 50470.5,
+          "min_ms": 37353,
+          "max_ms": 50663
+        },
+        "judge_usage": {
+          "input_tokens": 52,
+          "cache_creation_input_tokens": 322548,
+          "cache_read_input_tokens": 575770,
+          "output_tokens": 146453
+        }
+      },
+      {
+        "key": "gpt-4o-mini",
+        "original_label": "gpt-4o-mini",
+        "label": "gpt-4o-mini",
+        "mode": "text",
+        "complete": 11,
+        "target": 30,
+        "shortfall": 19,
+        "manifest": "cohorts/gpt-4o-mini.json",
+        "provider": "OpenAI",
+        "latency": {
+          "definition": "Recorded service TTFAT/TTFB, scripted index zero excluded, recovery responses included; positive finite measurements only; linear P95",
+          "positive": {
+            "n": 352,
+            "mean_ms": 955.5738636363636,
+            "median_ms": 603.0,
+            "p50_ms": 603.0,
+            "p95_ms": 3366.6,
+            "min_ms": 340,
+            "max_ms": 16315
+          },
+          "signed": {
+            "n": 352,
+            "mean_ms": 955.5738636363636,
+            "median_ms": 603.0,
+            "p50_ms": 603.0,
+            "p95_ms": 3366.6,
+            "min_ms": 340,
+            "max_ms": 16315
+          },
+          "missing_n": 0,
+          "nonpositive_n": 0,
+          "excluded_first_scripted_n": 11,
+          "eligible_response_n": 352
+        },
+        "available_complete": 11,
+        "configuration": {
+          "model": "gpt-4o-mini",
+          "reasoning_effort": null,
+          "filler": "none"
+        },
+        "scores": {
+          "tool_use_correct": 297,
+          "instruction_following": 278,
+          "kb_grounding": 314,
+          "strict": 268
+        },
+        "accuracy_denominator": 330,
+        "quality_complete": true,
+        "graded_conversations": 11,
+        "provider_blocked_conversations": 0,
+        "provider_blocked_jobs": [],
+        "graded_turns": 330,
+        "unknown_turns": 0,
+        "strict_percent": 81.21212121212122,
+        "strict_bounds_percent": [
+          81.21212121212122,
+          81.21212121212122
+        ],
+        "strict_ci95": [
+          76.66666666666667,
+          85.15151515151514
+        ],
+        "dimension_error_percent": {
+          "tool_use_correct": 10.0,
+          "instruction_following": 15.757575757575758,
+          "kb_grounding": 4.848484848484849
+        },
+        "conversation_strict_passes": [
+          26,
+          22,
+          23,
+          26,
+          19,
+          25,
+          25,
+          26,
+          24,
+          27,
+          25
+        ],
+        "successful_judge_cost_usd": 2.2013092,
+        "unknown_cost_jobs": 0,
+        "judge_duration_ms": {
+          "n": 11,
+          "mean_ms": 49329.36363636364,
+          "median_ms": 46807,
+          "p50_ms": 46807,
+          "p95_ms": 59031.5,
+          "min_ms": 42180,
+          "max_ms": 60572
+        },
+        "judge_usage": {
+          "input_tokens": 22,
+          "cache_creation_input_tokens": 154219,
+          "cache_read_input_tokens": 221450,
+          "output_tokens": 68699
+        }
+      },
+      {
+        "key": "gpt-4o",
+        "original_label": "gpt-4o",
+        "label": "gpt-4o",
+        "mode": "text",
+        "complete": 11,
+        "target": 30,
+        "shortfall": 19,
+        "manifest": "cohorts/gpt-4o.json",
+        "provider": "OpenAI",
+        "latency": {
+          "definition": "Recorded service TTFAT/TTFB, scripted index zero excluded, recovery responses included; positive finite measurements only; linear P95",
+          "positive": {
+            "n": 330,
+            "mean_ms": 691.6545454545454,
+            "median_ms": 556.0,
+            "p50_ms": 556.0,
+            "p95_ms": 1318.9500000000003,
+            "min_ms": 305,
+            "max_ms": 5313
+          },
+          "signed": {
+            "n": 330,
+            "mean_ms": 691.6545454545454,
+            "median_ms": 556.0,
+            "p50_ms": 556.0,
+            "p95_ms": 1318.9500000000003,
+            "min_ms": 305,
+            "max_ms": 5313
+          },
+          "missing_n": 0,
+          "nonpositive_n": 0,
+          "excluded_first_scripted_n": 11,
+          "eligible_response_n": 330
+        },
+        "available_complete": 11,
+        "configuration": {
+          "model": "gpt-4o",
+          "reasoning_effort": null,
+          "filler": "none"
+        },
+        "scores": {
+          "tool_use_correct": 319,
+          "instruction_following": 286,
+          "kb_grounding": 324,
+          "strict": 286
+        },
+        "accuracy_denominator": 330,
+        "quality_complete": true,
+        "graded_conversations": 11,
+        "provider_blocked_conversations": 0,
+        "provider_blocked_jobs": [],
+        "graded_turns": 330,
+        "unknown_turns": 0,
+        "strict_percent": 86.66666666666667,
+        "strict_bounds_percent": [
+          86.66666666666667,
+          86.66666666666667
+        ],
+        "strict_ci95": [
+          83.33333333333333,
+          89.6969696969697
+        ],
+        "dimension_error_percent": {
+          "tool_use_correct": 3.3333333333333335,
+          "instruction_following": 13.333333333333334,
+          "kb_grounding": 1.8181818181818181
+        },
+        "conversation_strict_passes": [
+          26,
+          28,
+          24,
+          26,
+          27,
+          26,
+          26,
+          23,
+          28,
+          24,
+          28
+        ],
+        "successful_judge_cost_usd": 2.1544842,
+        "unknown_cost_jobs": 0,
+        "judge_duration_ms": {
+          "n": 11,
+          "mean_ms": 49491.90909090909,
+          "median_ms": 48048,
+          "p50_ms": 48048,
+          "p95_ms": 54642.0,
+          "min_ms": 42964,
+          "max_ms": 54806
+        },
+        "judge_usage": {
+          "input_tokens": 22,
+          "cache_creation_input_tokens": 142209,
+          "cache_read_input_tokens": 243595,
+          "output_tokens": 69088
+        }
+      },
+      {
+        "key": "gpt-5-mini",
+        "original_label": "gpt-5-mini",
+        "label": "gpt-5-mini",
+        "mode": "text",
+        "complete": 11,
+        "target": 30,
+        "shortfall": 19,
+        "manifest": "cohorts/gpt-5-mini.json",
+        "provider": "OpenAI",
+        "latency": {
+          "definition": "Recorded service TTFAT/TTFB, scripted index zero excluded, recovery responses included; positive finite measurements only; linear P95",
+          "positive": {
+            "n": 363,
+            "mean_ms": 780.702479338843,
+            "median_ms": 690,
+            "p50_ms": 690,
+            "p95_ms": 1191.4999999999995,
+            "min_ms": 434,
+            "max_ms": 2269
+          },
+          "signed": {
+            "n": 363,
+            "mean_ms": 780.702479338843,
+            "median_ms": 690,
+            "p50_ms": 690,
+            "p95_ms": 1191.4999999999995,
+            "min_ms": 434,
+            "max_ms": 2269
+          },
+          "missing_n": 0,
+          "nonpositive_n": 0,
+          "excluded_first_scripted_n": 11,
+          "eligible_response_n": 363
+        },
+        "available_complete": 11,
+        "configuration": {
+          "model": "gpt-5-mini",
+          "reasoning_effort": "minimal",
+          "filler": "none"
+        },
+        "scores": {
+          "tool_use_correct": 284,
+          "instruction_following": 260,
+          "kb_grounding": 327,
+          "strict": 259
+        },
+        "accuracy_denominator": 330,
+        "quality_complete": true,
+        "graded_conversations": 11,
+        "provider_blocked_conversations": 0,
+        "provider_blocked_jobs": [],
+        "graded_turns": 330,
+        "unknown_turns": 0,
+        "strict_percent": 78.48484848484848,
+        "strict_bounds_percent": [
+          78.48484848484848,
+          78.48484848484848
+        ],
+        "strict_ci95": [
+          74.54545454545453,
+          81.81818181818183
+        ],
+        "dimension_error_percent": {
+          "tool_use_correct": 13.93939393939394,
+          "instruction_following": 21.21212121212121,
+          "kb_grounding": 0.9090909090909091
+        },
+        "conversation_strict_passes": [
+          24,
+          23,
+          25,
+          23,
+          22,
+          26,
+          25,
+          19,
+          25,
+          25,
+          22
+        ],
+        "successful_judge_cost_usd": 2.2506771999999997,
+        "unknown_cost_jobs": 0,
+        "judge_duration_ms": {
+          "n": 11,
+          "mean_ms": 53343.36363636364,
+          "median_ms": 53110,
+          "p50_ms": 53110,
+          "p95_ms": 60491.0,
+          "min_ms": 47175,
+          "max_ms": 61437
+        },
+        "judge_usage": {
+          "input_tokens": 22,
+          "cache_creation_input_tokens": 147369,
+          "cache_read_input_tokens": 243595,
+          "output_tokens": 72582
+        }
+      },
+      {
+        "key": "gpt-5.1",
+        "original_label": "gpt-5.1",
+        "label": "gpt-5.1",
+        "mode": "text",
+        "complete": 25,
+        "target": 30,
+        "shortfall": 5,
+        "manifest": "cohorts/gpt-5.1.json",
+        "provider": "OpenAI",
+        "latency": {
+          "definition": "Recorded service TTFAT/TTFB, scripted index zero excluded, recovery responses included; positive finite measurements only; linear P95",
+          "positive": {
+            "n": 770,
+            "mean_ms": 891.8441558441558,
+            "median_ms": 768.0,
+            "p50_ms": 768.0,
+            "p95_ms": 1493.1,
+            "min_ms": 486,
+            "max_ms": 5561
+          },
+          "signed": {
+            "n": 770,
+            "mean_ms": 891.8441558441558,
+            "median_ms": 768.0,
+            "p50_ms": 768.0,
+            "p95_ms": 1493.1,
+            "min_ms": 486,
+            "max_ms": 5561
+          },
+          "missing_n": 0,
+          "nonpositive_n": 0,
+          "excluded_first_scripted_n": 25,
+          "eligible_response_n": 770
+        },
+        "available_complete": 25,
+        "configuration": {
+          "model": "gpt-5.1",
+          "reasoning_effort": "none",
+          "filler": "none"
+        },
+        "scores": {
+          "tool_use_correct": 732,
+          "instruction_following": 705,
+          "kb_grounding": 736,
+          "strict": 696
+        },
+        "accuracy_denominator": 750,
+        "quality_complete": true,
+        "graded_conversations": 25,
+        "provider_blocked_conversations": 0,
+        "provider_blocked_jobs": [],
+        "graded_turns": 750,
+        "unknown_turns": 0,
+        "strict_percent": 92.8,
+        "strict_bounds_percent": [
+          92.8,
+          92.8
+        ],
+        "strict_ci95": [
+          90.26666666666668,
+          95.06666666666666
+        ],
+        "dimension_error_percent": {
+          "tool_use_correct": 2.4,
+          "instruction_following": 6.0,
+          "kb_grounding": 1.8666666666666667
+        },
+        "conversation_strict_passes": [
+          26,
+          28,
+          28,
+          29,
+          30,
+          30,
+          27,
+          26,
+          27,
+          30,
+          26,
+          30,
+          28,
+          26,
+          27,
+          28,
+          22,
+          28,
+          27,
+          29,
+          30,
+          28,
+          29,
+          30,
+          27
+        ],
+        "successful_judge_cost_usd": 5.3734143,
+        "unknown_cost_jobs": 0,
+        "judge_duration_ms": {
+          "n": 25,
+          "mean_ms": 51828.16,
+          "median_ms": 50959,
+          "p50_ms": 50959,
+          "p95_ms": 58490.6,
+          "min_ms": 41606,
+          "max_ms": 67740
+        },
+        "judge_usage": {
+          "input_tokens": 50,
+          "cache_creation_input_tokens": 389563,
+          "cache_read_input_tokens": 553625,
+          "output_tokens": 163939
+        }
+      },
+      {
+        "key": "gpt-5.2",
+        "original_label": "gpt-5.2",
+        "label": "gpt-5.2",
+        "mode": "text",
+        "complete": 11,
+        "target": 30,
+        "shortfall": 19,
+        "manifest": "cohorts/gpt-5.2.json",
+        "provider": "OpenAI",
+        "latency": {
+          "definition": "Recorded service TTFAT/TTFB, scripted index zero excluded, recovery responses included; positive finite measurements only; linear P95",
+          "positive": {
+            "n": 352,
+            "mean_ms": 728.0539772727273,
+            "median_ms": 648.5,
+            "p50_ms": 648.5,
+            "p95_ms": 1192.35,
+            "min_ms": 422,
+            "max_ms": 7647
+          },
+          "signed": {
+            "n": 352,
+            "mean_ms": 728.0539772727273,
+            "median_ms": 648.5,
+            "p50_ms": 648.5,
+            "p95_ms": 1192.35,
+            "min_ms": 422,
+            "max_ms": 7647
+          },
+          "missing_n": 0,
+          "nonpositive_n": 0,
+          "excluded_first_scripted_n": 11,
+          "eligible_response_n": 352
+        },
+        "available_complete": 11,
+        "configuration": {
+          "model": "gpt-5.2",
+          "reasoning_effort": "none",
+          "filler": "none"
+        },
+        "scores": {
+          "tool_use_correct": 296,
+          "instruction_following": 293,
+          "kb_grounding": 328,
+          "strict": 290
+        },
+        "accuracy_denominator": 330,
+        "quality_complete": true,
+        "graded_conversations": 11,
+        "provider_blocked_conversations": 0,
+        "provider_blocked_jobs": [],
+        "graded_turns": 330,
+        "unknown_turns": 0,
+        "strict_percent": 87.87878787878788,
+        "strict_bounds_percent": [
+          87.87878787878788,
+          87.87878787878788
+        ],
+        "strict_ci95": [
+          84.84848484848486,
+          91.21212121212122
+        ],
+        "dimension_error_percent": {
+          "tool_use_correct": 10.303030303030303,
+          "instruction_following": 11.212121212121213,
+          "kb_grounding": 0.6060606060606061
+        },
+        "conversation_strict_passes": [
+          25,
+          27,
+          27,
+          30,
+          28,
+          27,
+          24,
+          27,
+          25,
+          25,
+          25
+        ],
+        "successful_judge_cost_usd": 2.0862906999999997,
+        "unknown_cost_jobs": 0,
+        "judge_duration_ms": {
+          "n": 11,
+          "mean_ms": 47731.90909090909,
+          "median_ms": 48864,
+          "p50_ms": 48864,
+          "p95_ms": 51317.5,
+          "min_ms": 42376,
+          "max_ms": 52045
+        },
+        "judge_usage": {
+          "input_tokens": 24,
+          "cache_creation_input_tokens": 135587,
+          "cache_read_input_tokens": 278011,
+          "output_tokens": 67023
+        }
+      },
+      {
+        "key": "gpt-5.4-low",
+        "original_label": "gpt-5.4 (low)",
+        "label": "gpt-5.4 (low)",
+        "mode": "text",
+        "complete": 19,
+        "target": 30,
+        "shortfall": 11,
+        "manifest": "cohorts/gpt-5.4-low.json",
+        "provider": "OpenAI",
+        "latency": {
+          "definition": "Recorded service TTFAT/TTFB, scripted index zero excluded, recovery responses included; positive finite measurements only; linear P95",
+          "positive": {
+            "n": 564,
+            "mean_ms": 1058.25,
+            "median_ms": 929.0,
+            "p50_ms": 929.0,
+            "p95_ms": 2026.150000000002,
+            "min_ms": 426,
+            "max_ms": 6498
+          },
+          "signed": {
+            "n": 564,
+            "mean_ms": 1058.25,
+            "median_ms": 929.0,
+            "p50_ms": 929.0,
+            "p95_ms": 2026.150000000002,
+            "min_ms": 426,
+            "max_ms": 6498
+          },
+          "missing_n": 0,
+          "nonpositive_n": 0,
+          "excluded_first_scripted_n": 19,
+          "eligible_response_n": 564
+        },
+        "available_complete": 19,
+        "configuration": {
+          "key": "gpt-5.4-low",
+          "label": "gpt-5.4 (low)",
+          "family": "gpt-5.4",
+          "provider": "OpenAI",
+          "system_prompt_sha256": "14d62989a3475567d22300f2bab2a4b141abb0f1b675edec2f8c876a0ea9448e",
+          "match": {
+            "reasoning_effort": [
+              "low"
+            ],
+            "filler": []
+          }
+        },
+        "scores": {
+          "tool_use_correct": 546,
+          "instruction_following": 545,
+          "kb_grounding": 570,
+          "strict": 544
+        },
+        "accuracy_denominator": 570,
+        "quality_complete": true,
+        "graded_conversations": 19,
+        "provider_blocked_conversations": 0,
+        "provider_blocked_jobs": [],
+        "graded_turns": 570,
+        "unknown_turns": 0,
+        "strict_percent": 95.43859649122807,
+        "strict_bounds_percent": [
+          95.43859649122807,
+          95.43859649122807
+        ],
+        "strict_ci95": [
+          93.50877192982455,
+          97.19298245614036
+        ],
+        "dimension_error_percent": {
+          "tool_use_correct": 4.2105263157894735,
+          "instruction_following": 4.385964912280702,
+          "kb_grounding": 0.0
+        },
+        "conversation_strict_passes": [
+          29,
+          28,
+          28,
+          30,
+          28,
+          28,
+          28,
+          30,
+          28,
+          28,
+          30,
+          30,
+          30,
+          29,
+          26,
+          30,
+          26,
+          30,
+          28
+        ],
+        "successful_judge_cost_usd": 3.3273874,
+        "unknown_cost_jobs": 0,
+        "judge_duration_ms": {
+          "n": 19,
+          "mean_ms": 42966.68421052631,
+          "median_ms": 42884,
+          "p50_ms": 42884,
+          "p95_ms": 49861.5,
+          "min_ms": 33862,
+          "max_ms": 51207
+        },
+        "judge_usage": {
+          "input_tokens": 38,
+          "cache_creation_input_tokens": 217242,
+          "cache_read_input_tokens": 420755,
+          "output_tokens": 106874
+        }
+      },
+      {
+        "key": "gpt-5.4-none-dots96",
+        "original_label": "gpt-5.4 (none, +96 dots)",
+        "label": "gpt-5.4 (none, +96 dots)",
+        "mode": "text",
+        "complete": 30,
+        "target": 30,
+        "shortfall": 0,
+        "manifest": "cohorts/gpt-5.4-none-dots96.json",
+        "provider": "OpenAI",
+        "latency": {
+          "definition": "Recorded service TTFAT/TTFB, scripted index zero excluded, recovery responses included; positive finite measurements only; linear P95",
+          "positive": {
+            "n": 907,
+            "mean_ms": 903.2061742006615,
+            "median_ms": 698,
+            "p50_ms": 698,
+            "p95_ms": 2323.499999999997,
+            "min_ms": 417,
+            "max_ms": 17264
+          },
+          "signed": {
+            "n": 907,
+            "mean_ms": 903.2061742006615,
+            "median_ms": 698,
+            "p50_ms": 698,
+            "p95_ms": 2323.499999999997,
+            "min_ms": 417,
+            "max_ms": 17264
+          },
+          "missing_n": 0,
+          "nonpositive_n": 0,
+          "excluded_first_scripted_n": 30,
+          "eligible_response_n": 907
+        },
+        "available_complete": 31,
+        "configuration": {
+          "key": "gpt-5.4-none-dots96",
+          "label": "gpt-5.4 (none, +96 dots)",
+          "family": "gpt-5.4",
+          "provider": "OpenAI",
+          "system_prompt_sha256": "14d62989a3475567d22300f2bab2a4b141abb0f1b675edec2f8c876a0ea9448e",
+          "match": {
+            "reasoning_effort": [
+              "none"
+            ],
+            "filler": [
+              [
+                "96",
+                "'.'",
+                "suffix"
+              ]
+            ]
+          }
+        },
+        "scores": {
+          "tool_use_correct": 863,
+          "instruction_following": 861,
+          "kb_grounding": 900,
+          "strict": 861
+        },
+        "accuracy_denominator": 900,
+        "quality_complete": true,
+        "graded_conversations": 30,
+        "provider_blocked_conversations": 0,
+        "provider_blocked_jobs": [],
+        "graded_turns": 900,
+        "unknown_turns": 0,
+        "strict_percent": 95.66666666666667,
+        "strict_bounds_percent": [
+          95.66666666666667,
+          95.66666666666667
+        ],
+        "strict_ci95": [
+          94.33333333333333,
+          96.99999999999999
+        ],
+        "dimension_error_percent": {
+          "tool_use_correct": 4.111111111111111,
+          "instruction_following": 4.333333333333333,
+          "kb_grounding": 0.0
+        },
+        "conversation_strict_passes": [
+          29,
+          29,
+          27,
+          30,
+          28,
+          30,
+          26,
+          29,
+          28,
+          28,
+          28,
+          29,
+          30,
+          30,
+          29,
+          29,
+          28,
+          29,
+          29,
+          30,
+          28,
+          27,
+          28,
+          30,
+          30,
+          28,
+          30,
+          27,
+          30,
+          28
+        ],
+        "successful_judge_cost_usd": 5.2124868,
+        "unknown_cost_jobs": 0,
+        "judge_duration_ms": {
+          "n": 30,
+          "mean_ms": 42023.433333333334,
+          "median_ms": 42174.0,
+          "p50_ms": 42174.0,
+          "p95_ms": 51356.049999999996,
+          "min_ms": 35000,
+          "max_ms": 52821
+        },
+        "judge_usage": {
+          "input_tokens": 60,
+          "cache_creation_input_tokens": 347793,
+          "cache_read_input_tokens": 664350,
+          "output_tokens": 165466
+        }
+      },
+      {
+        "key": "gpt-5.4-none",
+        "original_label": "gpt-5.4 (none)",
+        "label": "gpt-5.4 (none)",
+        "mode": "text",
+        "complete": 30,
+        "target": 30,
+        "shortfall": 0,
+        "manifest": "cohorts/gpt-5.4-none.json",
+        "provider": "OpenAI",
+        "latency": {
+          "definition": "Recorded service TTFAT/TTFB, scripted index zero excluded, recovery responses included; positive finite measurements only; linear P95",
+          "positive": {
+            "n": 951,
+            "mean_ms": 842.8527865404837,
+            "median_ms": 686,
+            "p50_ms": 686,
+            "p95_ms": 1915.5,
+            "min_ms": 411,
+            "max_ms": 6243
+          },
+          "signed": {
+            "n": 951,
+            "mean_ms": 842.8527865404837,
+            "median_ms": 686,
+            "p50_ms": 686,
+            "p95_ms": 1915.5,
+            "min_ms": 411,
+            "max_ms": 6243
+          },
+          "missing_n": 0,
+          "nonpositive_n": 0,
+          "excluded_first_scripted_n": 30,
+          "eligible_response_n": 951
+        },
+        "available_complete": 72,
+        "configuration": {
+          "key": "gpt-5.4-none",
+          "label": "gpt-5.4 (none)",
+          "family": "gpt-5.4",
+          "provider": "OpenAI",
+          "system_prompt_sha256": "14d62989a3475567d22300f2bab2a4b141abb0f1b675edec2f8c876a0ea9448e",
+          "match": {
+            "reasoning_effort": [
+              "none"
+            ],
+            "filler": []
+          }
+        },
+        "scores": {
+          "tool_use_correct": 814,
+          "instruction_following": 804,
+          "kb_grounding": 900,
+          "strict": 803
+        },
+        "accuracy_denominator": 900,
+        "quality_complete": true,
+        "graded_conversations": 30,
+        "provider_blocked_conversations": 0,
+        "provider_blocked_jobs": [],
+        "graded_turns": 900,
+        "unknown_turns": 0,
+        "strict_percent": 89.22222222222223,
+        "strict_bounds_percent": [
+          89.22222222222223,
+          89.22222222222223
+        ],
+        "strict_ci95": [
+          87.11111111111111,
+          91.11111111111111
+        ],
+        "dimension_error_percent": {
+          "tool_use_correct": 9.555555555555555,
+          "instruction_following": 10.666666666666666,
+          "kb_grounding": 0.0
+        },
+        "conversation_strict_passes": [
+          26,
+          27,
+          26,
+          23,
+          28,
+          26,
+          26,
+          26,
+          26,
+          28,
+          29,
+          26,
+          26,
+          27,
+          27,
+          27,
+          28,
+          29,
+          26,
+          27,
+          26,
+          26,
+          29,
+          28,
+          28,
+          24,
+          29,
+          29,
+          22,
+          28
+        ],
+        "successful_judge_cost_usd": 5.2793261000000005,
+        "unknown_cost_jobs": 0,
+        "judge_duration_ms": {
+          "n": 30,
+          "mean_ms": 44536.8,
+          "median_ms": 45507.0,
+          "p50_ms": 45507.0,
+          "p95_ms": 49516.049999999996,
+          "min_ms": 37533,
+          "max_ms": 52076
+        },
+        "judge_usage": {
+          "input_tokens": 60,
+          "cache_creation_input_tokens": 333736,
+          "cache_read_input_tokens": 664350,
+          "output_tokens": 172393
+        }
+      },
+      {
+        "key": "gpt-5.5-none",
+        "original_label": "gpt-5.5 (none)",
+        "label": "gpt-5.5 (none)",
+        "mode": "text",
+        "complete": 30,
+        "target": 30,
+        "shortfall": 0,
+        "manifest": "cohorts/gpt-5.5-none.json",
+        "provider": "OpenAI",
+        "latency": {
+          "definition": "Recorded service TTFAT/TTFB, scripted index zero excluded, recovery responses included; positive finite measurements only; linear P95",
+          "positive": {
+            "n": 890,
+            "mean_ms": 1046.6179775280898,
+            "median_ms": 871.5,
+            "p50_ms": 871.5,
+            "p95_ms": 2242.949999999997,
+            "min_ms": 574,
+            "max_ms": 5623
+          },
+          "signed": {
+            "n": 890,
+            "mean_ms": 1046.6179775280898,
+            "median_ms": 871.5,
+            "p50_ms": 871.5,
+            "p95_ms": 2242.949999999997,
+            "min_ms": 574,
+            "max_ms": 5623
+          },
+          "missing_n": 0,
+          "nonpositive_n": 0,
+          "excluded_first_scripted_n": 30,
+          "eligible_response_n": 890
+        },
+        "available_complete": 31,
+        "configuration": {
+          "key": "gpt-5.5-none",
+          "label": "gpt-5.5 (none)",
+          "family": "gpt-5.5",
+          "provider": "OpenAI",
+          "system_prompt_sha256": "14d62989a3475567d22300f2bab2a4b141abb0f1b675edec2f8c876a0ea9448e",
+          "match": {
+            "reasoning_effort": [
+              "none"
+            ],
+            "filler": []
+          }
+        },
+        "scores": {
+          "tool_use_correct": 869,
+          "instruction_following": 866,
+          "kb_grounding": 900,
+          "strict": 865
+        },
+        "accuracy_denominator": 900,
+        "quality_complete": true,
+        "graded_conversations": 30,
+        "provider_blocked_conversations": 0,
+        "provider_blocked_jobs": [],
+        "graded_turns": 900,
+        "unknown_turns": 0,
+        "strict_percent": 96.11111111111111,
+        "strict_bounds_percent": [
+          96.11111111111111,
+          96.11111111111111
+        ],
+        "strict_ci95": [
+          94.55555555555556,
+          97.55555555555557
+        ],
+        "dimension_error_percent": {
+          "tool_use_correct": 3.4444444444444446,
+          "instruction_following": 3.7777777777777777,
+          "kb_grounding": 0.0
+        },
+        "conversation_strict_passes": [
+          26,
+          30,
+          30,
+          26,
+          28,
+          29,
+          30,
+          28,
+          28,
+          28,
+          30,
+          30,
+          28,
+          30,
+          30,
+          28,
+          30,
+          28,
+          30,
+          30,
+          30,
+          29,
+          29,
+          28,
+          30,
+          30,
+          30,
+          28,
+          28,
+          26
+        ],
+        "successful_judge_cost_usd": 5.066567900000001,
+        "unknown_cost_jobs": 0,
+        "judge_duration_ms": {
+          "n": 30,
+          "mean_ms": 40269.46666666667,
+          "median_ms": 40725.5,
+          "p50_ms": 40725.5,
+          "p95_ms": 47482.149999999994,
+          "min_ms": 33311,
+          "max_ms": 49856
+        },
+        "judge_usage": {
+          "input_tokens": 60,
+          "cache_creation_input_tokens": 342674,
+          "cache_read_input_tokens": 664350,
+          "output_tokens": 159475
+        }
+      },
+      {
+        "key": "gpt-5.6-luna-none",
+        "original_label": "gpt-5.6-luna (none)",
+        "label": "gpt-5.6-luna (none)",
+        "mode": "text",
+        "complete": 21,
+        "target": 30,
+        "shortfall": 9,
+        "manifest": "cohorts/gpt-5.6-luna-none.json",
+        "provider": "OpenAI",
+        "latency": {
+          "definition": "Recorded service TTFAT/TTFB, scripted index zero excluded, recovery responses included; positive finite measurements only; linear P95",
+          "positive": {
+            "n": 678,
+            "mean_ms": 852.4542772861357,
+            "median_ms": 639.0,
+            "p50_ms": 639.0,
+            "p95_ms": 1756.549999999997,
+            "min_ms": 390,
+            "max_ms": 15256
+          },
+          "signed": {
+            "n": 678,
+            "mean_ms": 852.4542772861357,
+            "median_ms": 639.0,
+            "p50_ms": 639.0,
+            "p95_ms": 1756.549999999997,
+            "min_ms": 390,
+            "max_ms": 15256
+          },
+          "missing_n": 0,
+          "nonpositive_n": 0,
+          "excluded_first_scripted_n": 21,
+          "eligible_response_n": 678
+        },
+        "available_complete": 21,
+        "configuration": {
+          "key": "gpt-5.6-luna-none",
+          "label": "gpt-5.6-luna (none)",
+          "family": "gpt-5.6-luna",
+          "provider": "OpenAI",
+          "system_prompt_sha256": "14d62989a3475567d22300f2bab2a4b141abb0f1b675edec2f8c876a0ea9448e",
+          "match": {
+            "reasoning_effort": [
+              "none"
+            ],
+            "filler": []
+          }
+        },
+        "scores": {
+          "tool_use_correct": 561,
+          "instruction_following": 540,
+          "kb_grounding": 630,
+          "strict": 540
+        },
+        "accuracy_denominator": 630,
+        "quality_complete": true,
+        "graded_conversations": 21,
+        "provider_blocked_conversations": 0,
+        "provider_blocked_jobs": [],
+        "graded_turns": 630,
+        "unknown_turns": 0,
+        "strict_percent": 85.71428571428571,
+        "strict_bounds_percent": [
+          85.71428571428571,
+          85.71428571428571
+        ],
+        "strict_ci95": [
+          83.4920634920635,
+          87.77777777777779
+        ],
+        "dimension_error_percent": {
+          "tool_use_correct": 10.952380952380953,
+          "instruction_following": 14.285714285714286,
+          "kb_grounding": 0.0
+        },
+        "conversation_strict_passes": [
+          28,
+          23,
+          25,
+          27,
+          22,
+          23,
+          26,
+          24,
+          27,
+          26,
+          27,
+          27,
+          25,
+          26,
+          27,
+          25,
+          27,
+          26,
+          27,
+          26,
+          26
+        ],
+        "successful_judge_cost_usd": 3.6249195000000003,
+        "unknown_cost_jobs": 0,
+        "judge_duration_ms": {
+          "n": 21,
+          "mean_ms": 44440.23809523809,
+          "median_ms": 44023,
+          "p50_ms": 44023,
+          "p95_ms": 48835.0,
+          "min_ms": 40022,
+          "max_ms": 49450
+        },
+        "judge_usage": {
+          "input_tokens": 42,
+          "cache_creation_input_tokens": 222337,
+          "cache_read_input_tokens": 465045,
+          "output_tokens": 120021
+        }
+      },
+      {
+        "key": "gpt-5.6-sol-none",
+        "original_label": "gpt-5.6-sol (none)",
+        "label": "gpt-5.6-sol (none)",
+        "mode": "text",
+        "complete": 30,
+        "target": 30,
+        "shortfall": 0,
+        "manifest": "cohorts/gpt-5.6-sol-none.json",
+        "provider": "OpenAI",
+        "latency": {
+          "definition": "Recorded service TTFAT/TTFB, scripted index zero excluded, recovery responses included; positive finite measurements only; linear P95",
+          "positive": {
+            "n": 900,
+            "mean_ms": 1344.8466666666666,
+            "median_ms": 1096.0,
+            "p50_ms": 1096.0,
+            "p95_ms": 2664.749999999999,
+            "min_ms": 655,
+            "max_ms": 6344
+          },
+          "signed": {
+            "n": 900,
+            "mean_ms": 1344.8466666666666,
+            "median_ms": 1096.0,
+            "p50_ms": 1096.0,
+            "p95_ms": 2664.749999999999,
+            "min_ms": 655,
+            "max_ms": 6344
+          },
+          "missing_n": 0,
+          "nonpositive_n": 0,
+          "excluded_first_scripted_n": 30,
+          "eligible_response_n": 900
+        },
+        "available_complete": 31,
+        "configuration": {
+          "key": "gpt-5.6-sol-none",
+          "label": "gpt-5.6-sol (none)",
+          "family": "gpt-5.6-sol",
+          "provider": "OpenAI",
+          "system_prompt_sha256": "14d62989a3475567d22300f2bab2a4b141abb0f1b675edec2f8c876a0ea9448e",
+          "match": {
+            "reasoning_effort": [
+              "none"
+            ],
+            "filler": []
+          }
+        },
+        "scores": {
+          "tool_use_correct": 868,
+          "instruction_following": 859,
+          "kb_grounding": 900,
+          "strict": 859
+        },
+        "accuracy_denominator": 900,
+        "quality_complete": true,
+        "graded_conversations": 30,
+        "provider_blocked_conversations": 0,
+        "provider_blocked_jobs": [],
+        "graded_turns": 900,
+        "unknown_turns": 0,
+        "strict_percent": 95.44444444444444,
+        "strict_bounds_percent": [
+          95.44444444444444,
+          95.44444444444444
+        ],
+        "strict_ci95": [
+          94.88888888888889,
+          95.99999999999999
+        ],
+        "dimension_error_percent": {
+          "tool_use_correct": 3.5555555555555554,
+          "instruction_following": 4.555555555555555,
+          "kb_grounding": 0.0
+        },
+        "conversation_strict_passes": [
+          29,
+          28,
+          29,
+          29,
+          28,
+          28,
+          28,
+          28,
+          29,
+          28,
+          29,
+          29,
+          29,
+          28,
+          29,
+          29,
+          28,
+          28,
+          29,
+          28,
+          29,
+          29,
+          28,
+          29,
+          29,
+          29,
+          29,
+          29,
+          29,
+          29
+        ],
+        "successful_judge_cost_usd": 5.103418099999999,
+        "unknown_cost_jobs": 0,
+        "judge_duration_ms": {
+          "n": 30,
+          "mean_ms": 42364.066666666666,
+          "median_ms": 42161.0,
+          "p50_ms": 42161.0,
+          "p95_ms": 46478.84999999999,
+          "min_ms": 38938,
+          "max_ms": 47478
+        },
+        "judge_usage": {
+          "input_tokens": 60,
+          "cache_creation_input_tokens": 321401,
+          "cache_read_input_tokens": 664350,
+          "output_tokens": 166743
+        }
+      },
+      {
+        "key": "gpt-5.6-terra-medium",
+        "original_label": "gpt-5.6-terra (medium)",
+        "label": "gpt-5.6-terra (medium)",
+        "mode": "text",
+        "complete": 8,
+        "target": 30,
+        "shortfall": 22,
+        "manifest": "cohorts/gpt-5.6-terra-medium.json",
+        "provider": "OpenAI",
+        "latency": {
+          "definition": "Recorded service TTFAT/TTFB, scripted index zero excluded, recovery responses included; positive finite measurements only; linear P95",
+          "positive": {
+            "n": 232,
+            "mean_ms": 1134.4094827586207,
+            "median_ms": 932.5,
+            "p50_ms": 932.5,
+            "p95_ms": 2900.1499999999983,
+            "min_ms": 524,
+            "max_ms": 4167
+          },
+          "signed": {
+            "n": 232,
+            "mean_ms": 1134.4094827586207,
+            "median_ms": 932.5,
+            "p50_ms": 932.5,
+            "p95_ms": 2900.1499999999983,
+            "min_ms": 524,
+            "max_ms": 4167
+          },
+          "missing_n": 0,
+          "nonpositive_n": 0,
+          "excluded_first_scripted_n": 8,
+          "eligible_response_n": 232
+        },
+        "available_complete": 8,
+        "configuration": {
+          "key": "gpt-5.6-terra-medium",
+          "label": "gpt-5.6-terra (medium)",
+          "family": "gpt-5.6-terra",
+          "provider": "OpenAI",
+          "system_prompt_sha256": "14d62989a3475567d22300f2bab2a4b141abb0f1b675edec2f8c876a0ea9448e",
+          "match": {
+            "reasoning_effort": [
+              "medium"
+            ],
+            "filler": []
+          }
+        },
+        "scores": {
+          "tool_use_correct": 238,
+          "instruction_following": 240,
+          "kb_grounding": 240,
+          "strict": 238
+        },
+        "accuracy_denominator": 240,
+        "quality_complete": true,
+        "graded_conversations": 8,
+        "provider_blocked_conversations": 0,
+        "provider_blocked_jobs": [],
+        "graded_turns": 240,
+        "unknown_turns": 0,
+        "strict_percent": 99.16666666666667,
+        "strict_bounds_percent": [
+          99.16666666666667,
+          99.16666666666667
+        ],
+        "strict_ci95": [
+          97.91666666666667,
+          100.0
+        ],
+        "dimension_error_percent": {
+          "tool_use_correct": 0.8333333333333334,
+          "instruction_following": 0.0,
+          "kb_grounding": 0.0
+        },
+        "conversation_strict_passes": [
+          29,
+          30,
+          30,
+          30,
+          30,
+          30,
+          29,
+          30
+        ],
+        "successful_judge_cost_usd": 1.2749051,
+        "unknown_cost_jobs": 0,
+        "judge_duration_ms": {
+          "n": 8,
+          "mean_ms": 37126.25,
+          "median_ms": 36070.5,
+          "p50_ms": 36070.5,
+          "p95_ms": 42582.15,
+          "min_ms": 32734,
+          "max_ms": 43790
+        },
+        "judge_usage": {
+          "input_tokens": 16,
+          "cache_creation_input_tokens": 85282,
+          "cache_read_input_tokens": 177160,
+          "output_tokens": 40273
+        }
+      },
+      {
+        "key": "gpt-5.6-terra-none",
+        "original_label": "gpt-5.6-terra (none)",
+        "label": "gpt-5.6-terra (none)",
+        "mode": "text",
+        "complete": 30,
+        "target": 30,
+        "shortfall": 0,
+        "manifest": "cohorts/gpt-5.6-terra-none.json",
+        "provider": "OpenAI",
+        "latency": {
+          "definition": "Recorded service TTFAT/TTFB, scripted index zero excluded, recovery responses included; positive finite measurements only; linear P95",
+          "positive": {
+            "n": 941,
+            "mean_ms": 777.6121147715197,
+            "median_ms": 623,
+            "p50_ms": 623,
+            "p95_ms": 1869.0,
+            "min_ms": 386,
+            "max_ms": 5665
+          },
+          "signed": {
+            "n": 941,
+            "mean_ms": 777.6121147715197,
+            "median_ms": 623,
+            "p50_ms": 623,
+            "p95_ms": 1869.0,
+            "min_ms": 386,
+            "max_ms": 5665
+          },
+          "missing_n": 0,
+          "nonpositive_n": 0,
+          "excluded_first_scripted_n": 30,
+          "eligible_response_n": 941
+        },
+        "available_complete": 33,
+        "configuration": {
+          "key": "gpt-5.6-terra-none",
+          "label": "gpt-5.6-terra (none)",
+          "family": "gpt-5.6-terra",
+          "provider": "OpenAI",
+          "system_prompt_sha256": "14d62989a3475567d22300f2bab2a4b141abb0f1b675edec2f8c876a0ea9448e",
+          "match": {
+            "reasoning_effort": [
+              "none"
+            ],
+            "filler": []
+          }
+        },
+        "scores": {
+          "tool_use_correct": 817,
+          "instruction_following": 804,
+          "kb_grounding": 900,
+          "strict": 801
+        },
+        "accuracy_denominator": 900,
+        "quality_complete": true,
+        "graded_conversations": 30,
+        "provider_blocked_conversations": 0,
+        "provider_blocked_jobs": [],
+        "graded_turns": 900,
+        "unknown_turns": 0,
+        "strict_percent": 89.0,
+        "strict_bounds_percent": [
+          89.0,
+          89.0
+        ],
+        "strict_ci95": [
+          87.1111111111111,
+          90.88888888888889
+        ],
+        "dimension_error_percent": {
+          "tool_use_correct": 9.222222222222221,
+          "instruction_following": 10.666666666666666,
+          "kb_grounding": 0.0
+        },
+        "conversation_strict_passes": [
+          29,
+          25,
+          25,
+          27,
+          26,
+          25,
+          27,
+          29,
+          26,
+          27,
+          27,
+          27,
+          26,
+          24,
+          27,
+          25,
+          26,
+          26,
+          29,
+          23,
+          28,
+          26,
+          29,
+          25,
+          28,
+          29,
+          29,
+          26,
+          28,
+          27
+        ],
+        "successful_judge_cost_usd": 5.2174188,
+        "unknown_cost_jobs": 0,
+        "judge_duration_ms": {
+          "n": 30,
+          "mean_ms": 44837.2,
+          "median_ms": 45629.5,
+          "p50_ms": 45629.5,
+          "p95_ms": 51425.34999999999,
+          "min_ms": 36368,
+          "max_ms": 54819
+        },
+        "judge_usage": {
+          "input_tokens": 60,
+          "cache_creation_input_tokens": 316963,
+          "cache_read_input_tokens": 664350,
+          "output_tokens": 173575
+        }
+      },
+      {
+        "key": "inkling",
+        "original_label": "inkling (none)",
+        "label": "inkling (none)",
+        "mode": "text",
+        "complete": 30,
+        "target": 30,
+        "shortfall": 0,
+        "manifest": "cohorts/inkling.json",
+        "provider": "Baseten",
+        "latency": {
+          "definition": "Recorded service TTFAT/TTFB, scripted index zero excluded, recovery responses included; positive finite measurements only; linear P95",
+          "positive": {
+            "n": 897,
+            "mean_ms": 468.340022296544,
+            "median_ms": 443,
+            "p50_ms": 443,
+            "p95_ms": 658.0,
+            "min_ms": 253,
+            "max_ms": 1158
+          },
+          "signed": {
+            "n": 897,
+            "mean_ms": 468.340022296544,
+            "median_ms": 443,
+            "p50_ms": 443,
+            "p95_ms": 658.0,
+            "min_ms": 253,
+            "max_ms": 1158
+          },
+          "missing_n": 0,
+          "nonpositive_n": 0,
+          "excluded_first_scripted_n": 30,
+          "eligible_response_n": 897
+        },
+        "available_complete": 30,
+        "configuration": {
+          "key": "inkling",
+          "label": "inkling (none)",
+          "family": "inkling",
+          "provider": "Baseten",
+          "system_prompt_sha256": "14d62989a3475567d22300f2bab2a4b141abb0f1b675edec2f8c876a0ea9448e",
+          "match": {
+            "hosts": [
+              "inference.baseten.co"
+            ],
+            "reasoning_effort": [
+              "none"
+            ],
+            "temperature": [
+              "1.0"
+            ],
+            "max_tokens": [
+              "8192"
+            ],
+            "filler": []
+          }
+        },
+        "scores": {
+          "tool_use_correct": 875,
+          "instruction_following": 857,
+          "kb_grounding": 884,
+          "strict": 844
+        },
+        "accuracy_denominator": 900,
+        "quality_complete": true,
+        "graded_conversations": 30,
+        "provider_blocked_conversations": 0,
+        "provider_blocked_jobs": [],
+        "graded_turns": 900,
+        "unknown_turns": 0,
+        "strict_percent": 93.77777777777777,
+        "strict_bounds_percent": [
+          93.77777777777777,
+          93.77777777777777
+        ],
+        "strict_ci95": [
+          92.11111111111109,
+          95.44444444444444
+        ],
+        "dimension_error_percent": {
+          "tool_use_correct": 2.7777777777777777,
+          "instruction_following": 4.777777777777778,
+          "kb_grounding": 1.7777777777777777
+        },
+        "conversation_strict_passes": [
+          28,
+          29,
+          29,
+          29,
+          27,
+          29,
+          27,
+          27,
+          28,
+          30,
+          27,
+          28,
+          26,
+          29,
+          30,
+          30,
+          28,
+          28,
+          30,
+          28,
+          26,
+          30,
+          26,
+          30,
+          29,
+          25,
+          27,
+          29,
+          29,
+          26
+        ],
+        "successful_judge_cost_usd": 5.832308999999999,
+        "unknown_cost_jobs": 0,
+        "judge_duration_ms": {
+          "n": 30,
+          "mean_ms": 50088.53333333333,
+          "median_ms": 51047.5,
+          "p50_ms": 51047.5,
+          "p95_ms": 55785.2,
+          "min_ms": 40082,
+          "max_ms": 64973
+        },
+        "judge_usage": {
+          "input_tokens": 60,
+          "cache_creation_input_tokens": 369405,
+          "cache_read_input_tokens": 664350,
+          "output_tokens": 190946
+        }
+      },
+      {
+        "key": "kimi-k2.6-off",
+        "original_label": "kimi-k2.6 (thinking off)",
+        "label": "kimi-k2.6 (thinking off)",
+        "mode": "text",
+        "complete": 30,
+        "target": 30,
+        "shortfall": 0,
+        "manifest": "cohorts/kimi-k2.6-off.json",
+        "provider": "Baseten",
+        "latency": {
+          "definition": "Recorded service TTFAT/TTFB, scripted index zero excluded, recovery responses included; positive finite measurements only; linear P95",
+          "positive": {
+            "n": 926,
+            "mean_ms": 549.2224622030237,
+            "median_ms": 481.0,
+            "p50_ms": 481.0,
+            "p95_ms": 849.75,
+            "min_ms": 387,
+            "max_ms": 4458
+          },
+          "signed": {
+            "n": 926,
+            "mean_ms": 549.2224622030237,
+            "median_ms": 481.0,
+            "p50_ms": 481.0,
+            "p95_ms": 849.75,
+            "min_ms": 387,
+            "max_ms": 4458
+          },
+          "missing_n": 0,
+          "nonpositive_n": 0,
+          "excluded_first_scripted_n": 30,
+          "eligible_response_n": 926
+        },
+        "available_complete": 32,
+        "configuration": {
+          "key": "kimi-k2.6-off",
+          "label": "kimi-k2.6 (thinking off)",
+          "family": "kimi-k2.6",
+          "provider": "Baseten",
+          "system_prompt_sha256": "14d62989a3475567d22300f2bab2a4b141abb0f1b675edec2f8c876a0ea9448e",
+          "match": {
+            "model": [
+              "moonshotai/Kimi-K2.6"
+            ],
+            "hosts": [
+              "inference.baseten.co"
+            ],
+            "reasoning_effort": [
+              "none"
+            ],
+            "enable_thinking": [],
+            "temperature": [
+              "0.6"
+            ],
+            "max_tokens": [
+              "8192"
+            ],
+            "filler": []
+          }
+        },
+        "scores": {
+          "tool_use_correct": 842,
+          "instruction_following": 793,
+          "kb_grounding": 867,
+          "strict": 787
+        },
+        "accuracy_denominator": 900,
+        "quality_complete": true,
+        "graded_conversations": 30,
+        "provider_blocked_conversations": 0,
+        "provider_blocked_jobs": [],
+        "graded_turns": 900,
+        "unknown_turns": 0,
+        "strict_percent": 87.44444444444444,
+        "strict_bounds_percent": [
+          87.44444444444444,
+          87.44444444444444
+        ],
+        "strict_ci95": [
+          84.77777777777781,
+          89.99999999999999
+        ],
+        "dimension_error_percent": {
+          "tool_use_correct": 6.444444444444445,
+          "instruction_following": 11.88888888888889,
+          "kb_grounding": 3.6666666666666665
+        },
+        "conversation_strict_passes": [
+          27,
+          30,
+          28,
+          28,
+          26,
+          26,
+          22,
+          25,
+          28,
+          26,
+          26,
+          27,
+          22,
+          26,
+          28,
+          25,
+          25,
+          29,
+          27,
+          25,
+          30,
+          28,
+          25,
+          28,
+          27,
+          22,
+          28,
+          22,
+          25,
+          26
+        ],
+        "successful_judge_cost_usd": 5.5282939,
+        "unknown_cost_jobs": 0,
+        "judge_duration_ms": {
+          "n": 30,
+          "mean_ms": 45951.46666666667,
+          "median_ms": 46098.0,
+          "p50_ms": 46098.0,
+          "p95_ms": 54313.99999999999,
+          "min_ms": 37876,
+          "max_ms": 60463
+        },
+        "judge_usage": {
+          "input_tokens": 60,
+          "cache_creation_input_tokens": 360929,
+          "cache_read_input_tokens": 664350,
+          "output_tokens": 177907
+        }
+      },
+      {
+        "key": "kimi-k2.6-on",
+        "original_label": "kimi-k2.6 (thinking on)",
+        "label": "kimi-k2.6 (thinking on)",
+        "mode": "text",
+        "complete": 30,
+        "target": 30,
+        "shortfall": 0,
+        "manifest": "cohorts/kimi-k2.6-on.json",
+        "provider": "Baseten",
+        "latency": {
+          "definition": "Recorded service TTFAT/TTFB, scripted index zero excluded, recovery responses included; positive finite measurements only; linear P95",
+          "positive": {
+            "n": 870,
+            "mean_ms": 2133.2218390804596,
+            "median_ms": 1560.5,
+            "p50_ms": 1560.5,
+            "p95_ms": 5393.199999999999,
+            "min_ms": 762,
+            "max_ms": 13622
+          },
+          "signed": {
+            "n": 870,
+            "mean_ms": 2133.2218390804596,
+            "median_ms": 1560.5,
+            "p50_ms": 1560.5,
+            "p95_ms": 5393.199999999999,
+            "min_ms": 762,
+            "max_ms": 13622
+          },
+          "missing_n": 0,
+          "nonpositive_n": 0,
+          "excluded_first_scripted_n": 30,
+          "eligible_response_n": 870
+        },
+        "available_complete": 30,
+        "configuration": {
+          "key": "kimi-k2.6-on",
+          "label": "kimi-k2.6 (thinking on)",
+          "family": "kimi-k2.6",
+          "provider": "Baseten",
+          "system_prompt_sha256": "14d62989a3475567d22300f2bab2a4b141abb0f1b675edec2f8c876a0ea9448e",
+          "match": {
+            "model": [
+              "moonshotai/Kimi-K2.6"
+            ],
+            "hosts": [
+              "inference.baseten.co"
+            ],
+            "thinking_state": [
+              "true"
+            ],
+            "temperature": [
+              "1.0"
+            ],
+            "top_p": [
+              "0.95"
+            ],
+            "max_tokens": [
+              "8192"
+            ],
+            "filler": []
+          }
+        },
+        "scores": {
+          "tool_use_correct": 892,
+          "instruction_following": 899,
+          "kb_grounding": 898,
+          "strict": 889
+        },
+        "accuracy_denominator": 900,
+        "quality_complete": true,
+        "graded_conversations": 30,
+        "provider_blocked_conversations": 0,
+        "provider_blocked_jobs": [],
+        "graded_turns": 900,
+        "unknown_turns": 0,
+        "strict_percent": 98.77777777777777,
+        "strict_bounds_percent": [
+          98.77777777777777,
+          98.77777777777777
+        ],
+        "strict_ci95": [
+          98.0,
+          99.44444444444444
+        ],
+        "dimension_error_percent": {
+          "tool_use_correct": 0.8888888888888888,
+          "instruction_following": 0.1111111111111111,
+          "kb_grounding": 0.2222222222222222
+        },
+        "conversation_strict_passes": [
+          30,
+          30,
+          30,
+          30,
+          30,
+          30,
+          30,
+          30,
+          29,
+          29,
+          30,
+          29,
+          29,
+          29,
+          28,
+          30,
+          30,
+          30,
+          29,
+          30,
+          29,
+          30,
+          28,
+          30,
+          30,
+          30,
+          30,
+          30,
+          30,
+          30
+        ],
+        "successful_judge_cost_usd": 5.324866499999999,
+        "unknown_cost_jobs": 0,
+        "judge_duration_ms": {
+          "n": 30,
+          "mean_ms": 42333.1,
+          "median_ms": 41123.5,
+          "p50_ms": 41123.5,
+          "p95_ms": 49116.549999999996,
+          "min_ms": 36759,
+          "max_ms": 49780
+        },
+        "judge_usage": {
+          "input_tokens": 60,
+          "cache_creation_input_tokens": 365025,
+          "cache_read_input_tokens": 664350,
+          "output_tokens": 166691
+        }
+      },
+      {
+        "key": "muse-glimmer-30b-low",
+        "original_label": "muse-glimmer-30b (thinking low, GGUF)",
+        "label": "muse-glimmer-30b (thinking low, GGUF)",
+        "mode": "text",
+        "complete": 30,
+        "target": 30,
+        "shortfall": 0,
+        "manifest": "cohorts/muse-glimmer-30b-low.json",
+        "provider": "Local RTX 5090",
+        "latency": {
+          "definition": "Recorded service TTFAT/TTFB, scripted index zero excluded, recovery responses included; positive finite measurements only; linear P95",
+          "positive": {
+            "n": 983,
+            "mean_ms": 408.49237029501523,
+            "median_ms": 225,
+            "p50_ms": 225,
+            "p95_ms": 1743.3999999999999,
+            "min_ms": 153,
+            "max_ms": 4792
+          },
+          "signed": {
+            "n": 983,
+            "mean_ms": 408.49237029501523,
+            "median_ms": 225,
+            "p50_ms": 225,
+            "p95_ms": 1743.3999999999999,
+            "min_ms": 153,
+            "max_ms": 4792
+          },
+          "missing_n": 0,
+          "nonpositive_n": 0,
+          "excluded_first_scripted_n": 30,
+          "eligible_response_n": 983
+        },
+        "available_complete": 165,
+        "configuration": {
+          "key": "muse-glimmer-30b-low",
+          "label": "muse-glimmer-30b (thinking low, GGUF)",
+          "family": "muse-glimmer-30b",
+          "provider": "Local RTX 5090",
+          "system_prompt_sha256": "14d62989a3475567d22300f2bab2a4b141abb0f1b675edec2f8c876a0ea9448e",
+          "match": {
+            "origins": [
+              "http://127.0.0.1:8080"
+            ],
+            "reasoning_strength": [
+              "low"
+            ],
+            "temperature": [
+              "1.0"
+            ],
+            "max_tokens": [
+              "None"
+            ],
+            "filler": []
+          }
+        },
+        "scores": {
+          "tool_use_correct": 781,
+          "instruction_following": 751,
+          "kb_grounding": 896,
+          "strict": 750
+        },
+        "accuracy_denominator": 900,
+        "quality_complete": true,
+        "graded_conversations": 30,
+        "provider_blocked_conversations": 0,
+        "provider_blocked_jobs": [],
+        "graded_turns": 900,
+        "unknown_turns": 0,
+        "strict_percent": 83.33333333333333,
+        "strict_bounds_percent": [
+          83.33333333333333,
+          83.33333333333333
+        ],
+        "strict_ci95": [
+          81.77499999999998,
+          84.88888888888889
+        ],
+        "dimension_error_percent": {
+          "tool_use_correct": 13.222222222222221,
+          "instruction_following": 16.555555555555557,
+          "kb_grounding": 0.4444444444444444
+        },
+        "conversation_strict_passes": [
+          26,
+          24,
+          25,
+          26,
+          24,
+          25,
+          27,
+          26,
+          26,
+          27,
+          26,
+          24,
+          26,
+          24,
+          26,
+          24,
+          23,
+          24,
+          27,
+          23,
+          26,
+          22,
+          26,
+          23,
+          26,
+          24,
+          24,
+          25,
+          25,
+          26
+        ],
+        "successful_judge_cost_usd": 6.033426,
+        "unknown_cost_jobs": 0,
+        "judge_duration_ms": {
+          "n": 30,
+          "mean_ms": 50306.36666666667,
+          "median_ms": 50227.0,
+          "p50_ms": 50227.0,
+          "p95_ms": 56007.899999999994,
+          "min_ms": 43901,
+          "max_ms": 62604
+        },
+        "judge_usage": {
+          "input_tokens": 62,
+          "cache_creation_input_tokens": 412040,
+          "cache_read_input_tokens": 699985,
+          "output_tokens": 189773
+        }
+      },
+      {
+        "key": "nemotron-3-nano-30b-512",
+        "original_label": "nemotron-3-nano-30b (512)",
+        "label": "nemotron-3-nano-30b (512, NVFP4)",
+        "mode": "text",
+        "complete": 7,
+        "target": 30,
+        "shortfall": 23,
+        "manifest": "cohorts/nemotron-3-nano-30b-512.json",
+        "provider": "AWS B200",
+        "latency": {
+          "definition": "Recorded service TTFAT/TTFB, scripted index zero excluded, recovery responses included; positive finite measurements only; linear P95",
+          "positive": {
+            "n": 214,
+            "mean_ms": 966.5420560747664,
+            "median_ms": 934.5,
+            "p50_ms": 934.5,
+            "p95_ms": 1436.0,
+            "min_ms": 251,
+            "max_ms": 1538
+          },
+          "signed": {
+            "n": 214,
+            "mean_ms": 966.5420560747664,
+            "median_ms": 934.5,
+            "p50_ms": 934.5,
+            "p95_ms": 1436.0,
+            "min_ms": 251,
+            "max_ms": 1538
+          },
+          "missing_n": 0,
+          "nonpositive_n": 0,
+          "excluded_first_scripted_n": 7,
+          "eligible_response_n": 214
+        },
+        "available_complete": 7,
+        "configuration": {
+          "key": "nemotron-3-nano-30b-512",
+          "label": "nemotron-3-nano-30b (512)",
+          "display_label": "nemotron-3-nano-30b (512, NVFP4)",
+          "family": "nemotron-3-nano-30b",
+          "provider": "AWS B200",
+          "system_prompt_sha256": "14d62989a3475567d22300f2bab2a4b141abb0f1b675edec2f8c876a0ea9448e",
+          "match": {
+            "model": [
+              "nvidia/nemotron-3-nano"
+            ],
+            "source_contains": [
+              "docs/aiwf_nano_quality/"
+            ],
+            "origins": [
+              "http://172.31.41.93:8000"
+            ],
+            "budget_parameter": "native_thinking_token_budget",
+            "thinking_budget": [
+              "512"
+            ],
+            "thinking_state": [
+              "True"
+            ],
+            "temperature": [
+              "0.6"
+            ],
+            "top_p": [
+              "0.95"
+            ],
+            "max_tokens": [
+              "8192"
+            ],
+            "filler": []
+          },
+          "qualification": "Remapped to the archived vLLM 0.22.0 NVFP4 study on AWS B200. Quantization and provider are explicit; this is not a judge-only comparison with the old row."
+        },
+        "scores": {
+          "tool_use_correct": 141,
+          "instruction_following": 115,
+          "kb_grounding": 120,
+          "strict": 97
+        },
+        "accuracy_denominator": 210,
+        "quality_complete": false,
+        "graded_conversations": 5,
+        "provider_blocked_conversations": 2,
+        "provider_blocked_jobs": [
+          "nemotron-3-nano-30b-512-003-2c6486035cbd",
+          "nemotron-3-nano-30b-512-007-f93ad9567c31"
+        ],
+        "graded_turns": 150,
+        "unknown_turns": 60,
+        "strict_percent": null,
+        "strict_bounds_percent": [
+          46.19047619047619,
+          74.76190476190476
+        ],
+        "strict_ci95": null,
+        "dimension_error_percent": {
+          "tool_use_correct": null,
+          "instruction_following": null,
+          "kb_grounding": null
+        },
+        "conversation_strict_passes": [
+          19,
+          19,
+          20,
+          21,
+          18
+        ],
+        "successful_judge_cost_usd": 1.1890491,
+        "unknown_cost_jobs": 0,
+        "judge_duration_ms": {
+          "n": 5,
+          "mean_ms": 59051,
+          "median_ms": 58812,
+          "p50_ms": 58812,
+          "p95_ms": 63359.0,
+          "min_ms": 54431,
+          "max_ms": 63736
+        },
+        "judge_usage": {
+          "input_tokens": 10,
+          "cache_creation_input_tokens": 85141,
+          "cache_read_input_tokens": 110725,
+          "output_tokens": 36663
+        }
+      },
+      {
+        "key": "nemotron-3-super-120b-512",
+        "original_label": "nemotron-3-super-120b (512)",
+        "label": "nemotron-3-super-120b (512, NVFP4)",
+        "mode": "text",
+        "complete": 30,
+        "target": 30,
+        "shortfall": 0,
+        "manifest": "cohorts/nemotron-3-super-120b-512.json",
+        "provider": "AWS B200",
+        "latency": {
+          "definition": "Recorded service TTFAT/TTFB, scripted index zero excluded, recovery responses included; positive finite measurements only; linear P95",
+          "positive": {
+            "n": 879,
+            "mean_ms": 739.0398179749716,
+            "median_ms": 669,
+            "p50_ms": 669,
+            "p95_ms": 1382.6999999999994,
+            "min_ms": 214,
+            "max_ms": 2881
+          },
+          "signed": {
+            "n": 879,
+            "mean_ms": 739.0398179749716,
+            "median_ms": 669,
+            "p50_ms": 669,
+            "p95_ms": 1382.6999999999994,
+            "min_ms": 214,
+            "max_ms": 2881
+          },
+          "missing_n": 0,
+          "nonpositive_n": 0,
+          "excluded_first_scripted_n": 30,
+          "eligible_response_n": 879
+        },
+        "available_complete": 40,
+        "configuration": {
+          "key": "nemotron-3-super-120b-512",
+          "label": "nemotron-3-super-120b (512)",
+          "display_label": "nemotron-3-super-120b (512, NVFP4)",
+          "family": "nemotron-3-super-120b",
+          "provider": "AWS B200",
+          "system_prompt_sha256": "14d62989a3475567d22300f2bab2a4b141abb0f1b675edec2f8c876a0ea9448e",
+          "match": {
+            "model": [
+              "nvidia/nemotron-3-super"
+            ],
+            "source_contains": [
+              "docs/aiwf_super_40_quality/"
+            ],
+            "origins": [
+              "http://172.31.34.103:8000"
+            ],
+            "budget_parameter": "native_thinking_token_budget",
+            "thinking_budget": [
+              "512"
+            ],
+            "thinking_state": [
+              "True"
+            ],
+            "temperature": [
+              "0.6"
+            ],
+            "top_p": [
+              "0.95"
+            ],
+            "max_tokens": [
+              "8192"
+            ],
+            "filler": []
+          },
+          "qualification": "Remapped to the archived vLLM 0.22.0 NVFP4 study on AWS B200. Quantization and provider are explicit; this is not a judge-only comparison with the old row."
+        },
+        "scores": {
+          "tool_use_correct": 859,
+          "instruction_following": 800,
+          "kb_grounding": 833,
+          "strict": 786
+        },
+        "accuracy_denominator": 900,
+        "quality_complete": false,
+        "graded_conversations": 29,
+        "provider_blocked_conversations": 1,
+        "provider_blocked_jobs": [
+          "nemotron-3-super-120b-512-014-53f5deb0f17c"
+        ],
+        "graded_turns": 870,
+        "unknown_turns": 30,
+        "strict_percent": null,
+        "strict_bounds_percent": [
+          87.33333333333333,
+          90.66666666666667
+        ],
+        "strict_ci95": null,
+        "dimension_error_percent": {
+          "tool_use_correct": null,
+          "instruction_following": null,
+          "kb_grounding": null
+        },
+        "conversation_strict_passes": [
+          28,
+          26,
+          28,
+          28,
+          24,
+          28,
+          28,
+          29,
+          27,
+          25,
+          26,
+          29,
+          29,
+          26,
+          28,
+          27,
+          26,
+          28,
+          27,
+          28,
+          28,
+          28,
+          27,
+          27,
+          25,
+          26,
+          25,
+          29,
+          26
+        ],
+        "successful_judge_cost_usd": 5.692432200000001,
+        "unknown_cost_jobs": 0,
+        "judge_duration_ms": {
+          "n": 29,
+          "mean_ms": 46487.620689655174,
+          "median_ms": 46679,
+          "p50_ms": 46679,
+          "p95_ms": 50996.0,
+          "min_ms": 38741,
+          "max_ms": 53961
+        },
+        "judge_usage": {
+          "input_tokens": 58,
+          "cache_creation_input_tokens": 409716,
+          "cache_read_input_tokens": 656178,
+          "output_tokens": 173679
+        }
+      },
+      {
+        "key": "nemotron-3-ultra-128",
+        "original_label": "nemotron-3-ultra (128)",
+        "label": "nemotron-3-ultra (128)",
+        "mode": "text",
+        "complete": 30,
+        "target": 30,
+        "shortfall": 0,
+        "manifest": "cohorts/nemotron-3-ultra-128.json",
+        "provider": "Modal",
+        "latency": {
+          "definition": "Recorded service TTFAT/TTFB, scripted index zero excluded, recovery responses included; positive finite measurements only; linear P95",
+          "positive": {
+            "n": 910,
+            "mean_ms": 1712.810989010989,
+            "median_ms": 1510.5,
+            "p50_ms": 1510.5,
+            "p95_ms": 3031.0,
+            "min_ms": 809,
+            "max_ms": 4459
+          },
+          "signed": {
+            "n": 910,
+            "mean_ms": 1712.810989010989,
+            "median_ms": 1510.5,
+            "p50_ms": 1510.5,
+            "p95_ms": 3031.0,
+            "min_ms": 809,
+            "max_ms": 4459
+          },
+          "missing_n": 0,
+          "nonpositive_n": 0,
+          "excluded_first_scripted_n": 30,
+          "eligible_response_n": 910
+        },
+        "available_complete": 33,
+        "configuration": {
+          "key": "nemotron-3-ultra-128",
+          "label": "nemotron-3-ultra (128)",
+          "family": "nemotron-3-ultra",
+          "provider": "Modal",
+          "system_prompt_sha256": "14d62989a3475567d22300f2bab2a4b141abb0f1b675edec2f8c876a0ea9448e",
+          "match": {
+            "model": [
+              "nemotron-3-ultra"
+            ],
+            "hosts": [
+              "daily--nemotron-ultra-b200.modal.run"
+            ],
+            "budget_parameter": "native_thinking_token_budget",
+            "thinking_budget": [
+              "128"
+            ],
+            "thinking_state": [
+              "True"
+            ],
+            "temperature": [
+              "1.0"
+            ],
+            "top_p": [
+              "0.95"
+            ],
+            "max_tokens": [
+              "4096"
+            ],
+            "filler": []
+          },
+          "qualification": "Remapped to native budget requests at the recorded Modal endpoint; legacy budget parameter and different sampling variants remain separate."
+        },
+        "scores": {
+          "tool_use_correct": 855,
+          "instruction_following": 705,
+          "kb_grounding": 707,
+          "strict": 617
+        },
+        "accuracy_denominator": 900,
+        "quality_complete": true,
+        "graded_conversations": 30,
+        "provider_blocked_conversations": 0,
+        "provider_blocked_jobs": [],
+        "graded_turns": 900,
+        "unknown_turns": 0,
+        "strict_percent": 68.55555555555556,
+        "strict_bounds_percent": [
+          68.55555555555556,
+          68.55555555555556
+        ],
+        "strict_ci95": [
+          60.44444444444444,
+          76.33333333333333
+        ],
+        "dimension_error_percent": {
+          "tool_use_correct": 5.0,
+          "instruction_following": 21.666666666666668,
+          "kb_grounding": 21.444444444444443
+        },
+        "conversation_strict_passes": [
+          28,
+          28,
+          27,
+          26,
+          25,
+          27,
+          19,
+          26,
+          26,
+          27,
+          26,
+          26,
+          20,
+          28,
+          20,
+          22,
+          22,
+          24,
+          21,
+          18,
+          21,
+          23,
+          19,
+          9,
+          13,
+          10,
+          10,
+          12,
+          5,
+          9
+        ],
+        "successful_judge_cost_usd": 7.2259933,
+        "unknown_cost_jobs": 0,
+        "judge_duration_ms": {
+          "n": 30,
+          "mean_ms": 57374.46666666667,
+          "median_ms": 53937.0,
+          "p50_ms": 53937.0,
+          "p95_ms": 72861.04999999999,
+          "min_ms": 45211,
+          "max_ms": 90505
+        },
+        "judge_usage": {
+          "input_tokens": 62,
+          "cache_creation_input_tokens": 551540,
+          "cache_read_input_tokens": 706584,
+          "output_tokens": 213743
+        }
+      },
+      {
+        "key": "nemotron-3-ultra-96",
+        "original_label": "nemotron-3-ultra (96)",
+        "label": "nemotron-3-ultra (96)",
+        "mode": "text",
+        "complete": 19,
+        "target": 30,
+        "shortfall": 11,
+        "manifest": "cohorts/nemotron-3-ultra-96.json",
+        "provider": "Modal",
+        "latency": {
+          "definition": "Recorded service TTFAT/TTFB, scripted index zero excluded, recovery responses included; positive finite measurements only; linear P95",
+          "positive": {
+            "n": 601,
+            "mean_ms": 2224.0465890183027,
+            "median_ms": 2169,
+            "p50_ms": 2169,
+            "p95_ms": 3542.0,
+            "min_ms": 836,
+            "max_ms": 11066
+          },
+          "signed": {
+            "n": 601,
+            "mean_ms": 2224.0465890183027,
+            "median_ms": 2169,
+            "p50_ms": 2169,
+            "p95_ms": 3542.0,
+            "min_ms": 836,
+            "max_ms": 11066
+          },
+          "missing_n": 0,
+          "nonpositive_n": 0,
+          "excluded_first_scripted_n": 19,
+          "eligible_response_n": 601
+        },
+        "available_complete": 19,
+        "configuration": {
+          "key": "nemotron-3-ultra-96",
+          "label": "nemotron-3-ultra (96)",
+          "family": "nemotron-3-ultra",
+          "provider": "Modal",
+          "system_prompt_sha256": "14d62989a3475567d22300f2bab2a4b141abb0f1b675edec2f8c876a0ea9448e",
+          "match": {
+            "model": [
+              "nemotron-3-ultra"
+            ],
+            "hosts": [
+              "daily--nemotron-ultra-b200.modal.run"
+            ],
+            "budget_parameter": "native_thinking_token_budget",
+            "thinking_budget": [
+              "96"
+            ],
+            "thinking_state": [
+              "True"
+            ],
+            "temperature": [
+              "1.0"
+            ],
+            "top_p": [
+              "0.95"
+            ],
+            "max_tokens": [
+              "4096"
+            ],
+            "filler": []
+          },
+          "qualification": "Remapped to native budget requests at the recorded Modal endpoint; legacy budget parameter and different sampling variants remain separate."
+        },
+        "scores": {
+          "tool_use_correct": 513,
+          "instruction_following": 354,
+          "kb_grounding": 393,
+          "strict": 292
+        },
+        "accuracy_denominator": 570,
+        "quality_complete": true,
+        "graded_conversations": 19,
+        "provider_blocked_conversations": 0,
+        "provider_blocked_jobs": [],
+        "graded_turns": 570,
+        "unknown_turns": 0,
+        "strict_percent": 51.228070175438596,
+        "strict_bounds_percent": [
+          51.228070175438596,
+          51.228070175438596
+        ],
+        "strict_ci95": [
+          42.98245614035087,
+          59.649122807017555
+        ],
+        "dimension_error_percent": {
+          "tool_use_correct": 10.0,
+          "instruction_following": 37.89473684210526,
+          "kb_grounding": 31.05263157894737
+        },
+        "conversation_strict_passes": [
+          24,
+          21,
+          16,
+          22,
+          23,
+          23,
+          14,
+          23,
+          17,
+          11,
+          11,
+          6,
+          8,
+          14,
+          15,
+          8,
+          12,
+          12,
+          12
+        ],
+        "successful_judge_cost_usd": 5.240277799999999,
+        "unknown_cost_jobs": 0,
+        "judge_duration_ms": {
+          "n": 19,
+          "mean_ms": 64936.78947368421,
+          "median_ms": 62790,
+          "p50_ms": 62790,
+          "p95_ms": 79763.09999999999,
+          "min_ms": 57552,
+          "max_ms": 86118
+        },
+        "judge_usage": {
+          "input_tokens": 38,
+          "cache_creation_input_tokens": 416091,
+          "cache_read_input_tokens": 420755,
+          "output_tokens": 151813
+        }
+      },
+      {
+        "key": "nemotron-3.5-lightning-off",
+        "original_label": "nemotron-3.5-lightning (thinking off, NVFP4)",
+        "label": "nemotron-3.5-lightning (thinking off, NVFP4)",
+        "mode": "text",
+        "complete": 16,
+        "target": 30,
+        "shortfall": 14,
+        "manifest": "cohorts/nemotron-3.5-lightning-off.json",
+        "provider": "Local RTX 5090",
+        "latency": {
+          "definition": "Recorded service TTFAT/TTFB, scripted index zero excluded, recovery responses included; positive finite measurements only; linear P95",
+          "positive": {
+            "n": 481,
+            "mean_ms": 63.12681912681913,
+            "median_ms": 63,
+            "p50_ms": 63,
+            "p95_ms": 70.0,
+            "min_ms": 53,
+            "max_ms": 80
+          },
+          "signed": {
+            "n": 481,
+            "mean_ms": 63.12681912681913,
+            "median_ms": 63,
+            "p50_ms": 63,
+            "p95_ms": 70.0,
+            "min_ms": 53,
+            "max_ms": 80
+          },
+          "missing_n": 0,
+          "nonpositive_n": 0,
+          "excluded_first_scripted_n": 16,
+          "eligible_response_n": 481
+        },
+        "available_complete": 16,
+        "configuration": {
+          "key": "nemotron-3.5-lightning-off",
+          "label": "nemotron-3.5-lightning (thinking off, NVFP4)",
+          "family": "nemotron-3.5-lightning",
+          "provider": "Local RTX 5090",
+          "system_prompt_sha256": "14d62989a3475567d22300f2bab2a4b141abb0f1b675edec2f8c876a0ea9448e",
+          "match": {
+            "origins": [
+              "http://127.0.0.1:8000"
+            ],
+            "thinking_state": [
+              "false"
+            ],
+            "temperature": [
+              "1.0"
+            ],
+            "max_tokens": [
+              "None"
+            ],
+            "filler": []
+          }
+        },
+        "scores": {
+          "tool_use_correct": 419,
+          "instruction_following": 375,
+          "kb_grounding": 426,
+          "strict": 338
+        },
+        "accuracy_denominator": 480,
+        "quality_complete": true,
+        "graded_conversations": 16,
+        "provider_blocked_conversations": 0,
+        "provider_blocked_jobs": [],
+        "graded_turns": 480,
+        "unknown_turns": 0,
+        "strict_percent": 70.41666666666667,
+        "strict_bounds_percent": [
+          70.41666666666667,
+          70.41666666666667
+        ],
+        "strict_ci95": [
+          66.25,
+          74.16666666666666
+        ],
+        "dimension_error_percent": {
+          "tool_use_correct": 12.708333333333334,
+          "instruction_following": 21.875,
+          "kb_grounding": 11.25
+        },
+        "conversation_strict_passes": [
+          24,
+          21,
+          21,
+          21,
+          23,
+          18,
+          16,
+          23,
+          24,
+          20,
+          22,
+          22,
+          22,
+          16,
+          22,
+          23
+        ],
+        "successful_judge_cost_usd": 3.7483442999999994,
+        "unknown_cost_jobs": 0,
+        "judge_duration_ms": {
+          "n": 16,
+          "mean_ms": 64214.625,
+          "median_ms": 64023.0,
+          "p50_ms": 64023.0,
+          "p95_ms": 74236.5,
+          "min_ms": 55437,
+          "max_ms": 74844
+        },
+        "judge_usage": {
+          "input_tokens": 32,
+          "cache_creation_input_tokens": 229860,
+          "cache_read_input_tokens": 354320,
+          "output_tokens": 125352
+        }
+      },
+      {
+        "key": "nemotron-3.5-lightning-on",
+        "original_label": "nemotron-3.5-lightning (thinking on, NVFP4)",
+        "label": "nemotron-3.5-lightning (thinking on, NVFP4)",
+        "mode": "text",
+        "complete": 30,
+        "target": 30,
+        "shortfall": 0,
+        "manifest": "cohorts/nemotron-3.5-lightning-on.json",
+        "provider": "Local RTX 5090",
+        "latency": {
+          "definition": "Recorded service TTFAT/TTFB, scripted index zero excluded, recovery responses included; positive finite measurements only; linear P95",
+          "positive": {
+            "n": 877,
+            "mean_ms": 2143.2143671607755,
+            "median_ms": 1470,
+            "p50_ms": 1470,
+            "p95_ms": 5926.7999999999965,
+            "min_ms": 123,
+            "max_ms": 29869
+          },
+          "signed": {
+            "n": 877,
+            "mean_ms": 2143.2143671607755,
+            "median_ms": 1470,
+            "p50_ms": 1470,
+            "p95_ms": 5926.7999999999965,
+            "min_ms": 123,
+            "max_ms": 29869
+          },
+          "missing_n": 0,
+          "nonpositive_n": 0,
+          "excluded_first_scripted_n": 30,
+          "eligible_response_n": 877
+        },
+        "available_complete": 33,
+        "configuration": {
+          "key": "nemotron-3.5-lightning-on",
+          "label": "nemotron-3.5-lightning (thinking on, NVFP4)",
+          "family": "nemotron-3.5-lightning",
+          "provider": "Local RTX 5090",
+          "system_prompt_sha256": "14d62989a3475567d22300f2bab2a4b141abb0f1b675edec2f8c876a0ea9448e",
+          "match": {
+            "origins": [
+              "http://127.0.0.1:8000"
+            ],
+            "thinking_state": [
+              "true"
+            ],
+            "temperature": [
+              "1.0"
+            ],
+            "max_tokens": [
+              "None"
+            ],
+            "filler": []
+          }
+        },
+        "scores": {
+          "tool_use_correct": 882,
+          "instruction_following": 824,
+          "kb_grounding": 808,
+          "strict": 749
+        },
+        "accuracy_denominator": 900,
+        "quality_complete": true,
+        "graded_conversations": 30,
+        "provider_blocked_conversations": 0,
+        "provider_blocked_jobs": [],
+        "graded_turns": 900,
+        "unknown_turns": 0,
+        "strict_percent": 83.22222222222223,
+        "strict_bounds_percent": [
+          83.22222222222223,
+          83.22222222222223
+        ],
+        "strict_ci95": [
+          80.66666666666669,
+          85.55555555555557
+        ],
+        "dimension_error_percent": {
+          "tool_use_correct": 2.0,
+          "instruction_following": 8.444444444444445,
+          "kb_grounding": 10.222222222222221
+        },
+        "conversation_strict_passes": [
+          19,
+          26,
+          25,
+          26,
+          22,
+          25,
+          28,
+          25,
+          24,
+          24,
+          25,
+          28,
+          26,
+          26,
+          25,
+          25,
+          27,
+          25,
+          23,
+          25,
+          26,
+          26,
+          25,
+          23,
+          26,
+          29,
+          27,
+          21,
+          23,
+          24
+        ],
+        "successful_judge_cost_usd": 6.684742700000002,
+        "unknown_cost_jobs": 0,
+        "judge_duration_ms": {
+          "n": 30,
+          "mean_ms": 58316.566666666666,
+          "median_ms": 56391.0,
+          "p50_ms": 56391.0,
+          "p95_ms": 67543.7,
+          "min_ms": 43341,
+          "max_ms": 100249
+        },
+        "judge_usage": {
+          "input_tokens": 62,
+          "cache_creation_input_tokens": 451929,
+          "cache_read_input_tokens": 686495,
+          "output_tokens": 212376
+        }
+      },
+      {
+        "key": "poolside-laguna-s-2.1",
+        "original_label": "poolside/laguna-s-2.1 (thinking off)",
+        "label": "poolside/laguna-s-2.1 (thinking off)",
+        "mode": "text",
+        "complete": 29,
+        "target": 30,
+        "shortfall": 1,
+        "manifest": "cohorts/poolside-laguna-s-2.1.json",
+        "provider": "OpenRouter",
+        "latency": {
+          "definition": "Recorded service TTFAT/TTFB, scripted index zero excluded, recovery responses included; positive finite measurements only; linear P95",
+          "positive": {
+            "n": 925,
+            "mean_ms": 342.9967567567568,
+            "median_ms": 296,
+            "p50_ms": 296,
+            "p95_ms": 600.3999999999996,
+            "min_ms": 225,
+            "max_ms": 3140
+          },
+          "signed": {
+            "n": 925,
+            "mean_ms": 342.9967567567568,
+            "median_ms": 296,
+            "p50_ms": 296,
+            "p95_ms": 600.3999999999996,
+            "min_ms": 225,
+            "max_ms": 3140
+          },
+          "missing_n": 0,
+          "nonpositive_n": 0,
+          "excluded_first_scripted_n": 29,
+          "eligible_response_n": 925
+        },
+        "available_complete": 29,
+        "configuration": {
+          "key": "poolside-laguna-s-2.1",
+          "label": "poolside/laguna-s-2.1 (thinking off)",
+          "family": "poolside/laguna-s-2.1",
+          "provider": "OpenRouter",
+          "system_prompt_sha256": "14d62989a3475567d22300f2bab2a4b141abb0f1b675edec2f8c876a0ea9448e",
+          "match": {
+            "hosts": [
+              "openrouter.ai"
+            ],
+            "reasoning_off": [
+              "True"
+            ],
+            "max_tokens": [
+              "8192"
+            ],
+            "filler": []
+          }
+        },
+        "scores": {
+          "tool_use_correct": 785,
+          "instruction_following": 728,
+          "kb_grounding": 808,
+          "strict": 687
+        },
+        "accuracy_denominator": 870,
+        "quality_complete": true,
+        "graded_conversations": 29,
+        "provider_blocked_conversations": 0,
+        "provider_blocked_jobs": [],
+        "graded_turns": 870,
+        "unknown_turns": 0,
+        "strict_percent": 78.96551724137932,
+        "strict_bounds_percent": [
+          78.96551724137932,
+          78.96551724137932
+        ],
+        "strict_ci95": [
+          76.66666666666666,
+          81.26436781609196
+        ],
+        "dimension_error_percent": {
+          "tool_use_correct": 9.770114942528735,
+          "instruction_following": 16.32183908045977,
+          "kb_grounding": 7.126436781609195
+        },
+        "conversation_strict_passes": [
+          21,
+          24,
+          22,
+          24,
+          23,
+          27,
+          24,
+          22,
+          26,
+          21,
+          27,
+          22,
+          26,
+          22,
+          25,
+          21,
+          23,
+          24,
+          20,
+          26,
+          25,
+          25,
+          22,
+          23,
+          23,
+          22,
+          26,
+          25,
+          26
+        ],
+        "successful_judge_cost_usd": 5.5892389,
+        "unknown_cost_jobs": 0,
+        "judge_duration_ms": {
+          "n": 29,
+          "mean_ms": 49264,
+          "median_ms": 48220,
+          "p50_ms": 48220,
+          "p95_ms": 59076.4,
+          "min_ms": 41279,
+          "max_ms": 61100
+        },
+        "judge_usage": {
+          "input_tokens": 58,
+          "cache_creation_input_tokens": 357237,
+          "cache_read_input_tokens": 642205,
+          "output_tokens": 182111
+        }
+      },
+      {
+        "key": "qwen3.6-27b",
+        "original_label": "qwen3.6-27b (thinking off)",
+        "label": "qwen3.6-27b (thinking off)",
+        "mode": "text",
+        "complete": 30,
+        "target": 30,
+        "shortfall": 0,
+        "manifest": "cohorts/qwen3.6-27b.json",
+        "provider": "Baseten",
+        "latency": {
+          "definition": "Recorded service TTFAT/TTFB, scripted index zero excluded, recovery responses included; positive finite measurements only; linear P95",
+          "positive": {
+            "n": 874,
+            "mean_ms": 676.0594965675057,
+            "median_ms": 665.0,
+            "p50_ms": 665.0,
+            "p95_ms": 765.3499999999999,
+            "min_ms": 503,
+            "max_ms": 1920
+          },
+          "signed": {
+            "n": 874,
+            "mean_ms": 676.0594965675057,
+            "median_ms": 665.0,
+            "p50_ms": 665.0,
+            "p95_ms": 765.3499999999999,
+            "min_ms": 503,
+            "max_ms": 1920
+          },
+          "missing_n": 0,
+          "nonpositive_n": 0,
+          "excluded_first_scripted_n": 30,
+          "eligible_response_n": 874
+        },
+        "available_complete": 31,
+        "configuration": {
+          "key": "qwen3.6-27b",
+          "label": "qwen3.6-27b (thinking off)",
+          "family": "qwen3.6-27b",
+          "provider": "Baseten",
+          "system_prompt_sha256": "14d62989a3475567d22300f2bab2a4b141abb0f1b675edec2f8c876a0ea9448e",
+          "match": {
+            "hosts": [
+              "model-w67n482q.api.baseten.co"
+            ],
+            "thinking_state": [
+              "False"
+            ],
+            "temperature": [
+              "0.6"
+            ],
+            "filler": []
+          }
+        },
+        "scores": {
+          "tool_use_correct": 884,
+          "instruction_following": 845,
+          "kb_grounding": 891,
+          "strict": 828
+        },
+        "accuracy_denominator": 900,
+        "quality_complete": true,
+        "graded_conversations": 30,
+        "provider_blocked_conversations": 0,
+        "provider_blocked_jobs": [],
+        "graded_turns": 900,
+        "unknown_turns": 0,
+        "strict_percent": 92.0,
+        "strict_bounds_percent": [
+          92.0,
+          92.0
+        ],
+        "strict_ci95": [
+          90.33333333333331,
+          93.55555555555553
+        ],
+        "dimension_error_percent": {
+          "tool_use_correct": 1.7777777777777777,
+          "instruction_following": 6.111111111111111,
+          "kb_grounding": 1.0
+        },
+        "conversation_strict_passes": [
+          29,
+          28,
+          26,
+          28,
+          27,
+          29,
+          27,
+          26,
+          26,
+          29,
+          27,
+          28,
+          23,
+          27,
+          27,
+          28,
+          28,
+          27,
+          29,
+          29,
+          29,
+          28,
+          29,
+          28,
+          28,
+          26,
+          29,
+          26,
+          29,
+          28
+        ],
+        "successful_judge_cost_usd": 5.728009600000001,
+        "unknown_cost_jobs": 0,
+        "judge_duration_ms": {
+          "n": 30,
+          "mean_ms": 48791.46666666667,
+          "median_ms": 47975.0,
+          "p50_ms": 47975.0,
+          "p95_ms": 56999.549999999996,
+          "min_ms": 41413,
+          "max_ms": 60893
+        },
+        "judge_usage": {
+          "input_tokens": 60,
+          "cache_creation_input_tokens": 372156,
+          "cache_read_input_tokens": 664350,
+          "output_tokens": 185030
+        }
+      },
+      {
+        "key": "qwen3.6-35b-a3b",
+        "original_label": "qwen3.6-35b-a3b (thinking off, FP8)",
+        "label": "qwen3.6-35b-a3b (thinking off, FP8)",
+        "mode": "text",
+        "complete": 30,
+        "target": 30,
+        "shortfall": 0,
+        "manifest": "cohorts/qwen3.6-35b-a3b.json",
+        "provider": "Baseten",
+        "latency": {
+          "definition": "Recorded service TTFAT/TTFB, scripted index zero excluded, recovery responses included; positive finite measurements only; linear P95",
+          "positive": {
+            "n": 918,
+            "mean_ms": 903.6198257080611,
+            "median_ms": 762.5,
+            "p50_ms": 762.5,
+            "p95_ms": 1134.0999999999997,
+            "min_ms": 450,
+            "max_ms": 14389
+          },
+          "signed": {
+            "n": 918,
+            "mean_ms": 903.6198257080611,
+            "median_ms": 762.5,
+            "p50_ms": 762.5,
+            "p95_ms": 1134.0999999999997,
+            "min_ms": 450,
+            "max_ms": 14389
+          },
+          "missing_n": 0,
+          "nonpositive_n": 0,
+          "excluded_first_scripted_n": 30,
+          "eligible_response_n": 918
+        },
+        "available_complete": 31,
+        "configuration": {
+          "key": "qwen3.6-35b-a3b",
+          "label": "qwen3.6-35b-a3b (thinking off, FP8)",
+          "family": "qwen3.6-35b-a3b",
+          "provider": "Baseten",
+          "system_prompt_sha256": "14d62989a3475567d22300f2bab2a4b141abb0f1b675edec2f8c876a0ea9448e",
+          "match": {
+            "hosts": [
+              "model-qzkm8mpq.api.baseten.co"
+            ],
+            "thinking_state": [
+              "False"
+            ],
+            "temperature": [
+              "0.6"
+            ],
+            "filler": []
+          }
+        },
+        "scores": {
+          "tool_use_correct": 850,
+          "instruction_following": 751,
+          "kb_grounding": 871,
+          "strict": 735
+        },
+        "accuracy_denominator": 900,
+        "quality_complete": true,
+        "graded_conversations": 30,
+        "provider_blocked_conversations": 0,
+        "provider_blocked_jobs": [],
+        "graded_turns": 900,
+        "unknown_turns": 0,
+        "strict_percent": 81.66666666666667,
+        "strict_bounds_percent": [
+          81.66666666666667,
+          81.66666666666667
+        ],
+        "strict_ci95": [
+          78.66666666666669,
+          84.33333333333333
+        ],
+        "dimension_error_percent": {
+          "tool_use_correct": 5.555555555555555,
+          "instruction_following": 16.555555555555557,
+          "kb_grounding": 3.2222222222222223
+        },
+        "conversation_strict_passes": [
+          16,
+          24,
+          26,
+          23,
+          25,
+          26,
+          23,
+          23,
+          26,
+          25,
+          23,
+          26,
+          21,
+          27,
+          24,
+          23,
+          26,
+          26,
+          26,
+          29,
+          24,
+          25,
+          24,
+          23,
+          23,
+          27,
+          24,
+          24,
+          24,
+          29
+        ],
+        "successful_judge_cost_usd": 5.832649000000001,
+        "unknown_cost_jobs": 0,
+        "judge_duration_ms": {
+          "n": 30,
+          "mean_ms": 49576.96666666667,
+          "median_ms": 50157.0,
+          "p50_ms": 50157.0,
+          "p95_ms": 56342.85,
+          "min_ms": 38759,
+          "max_ms": 58160
+        },
+        "judge_usage": {
+          "input_tokens": 60,
+          "cache_creation_input_tokens": 379675,
+          "cache_read_input_tokens": 664350,
+          "output_tokens": 188335
+        }
+      },
+      {
+        "key": "qwen3.8-27b-fp8",
+        "original_label": "qwen3.8-27b (thinking off, FP8)",
+        "label": "qwen3.8-27b (thinking off, FP8)",
+        "mode": "text",
+        "complete": 30,
+        "target": 30,
+        "shortfall": 0,
+        "manifest": "cohorts/qwen3.8-27b-fp8.json",
+        "provider": "Baseten",
+        "latency": {
+          "definition": "Recorded service TTFAT/TTFB, scripted index zero excluded, recovery responses included; positive finite measurements only; linear P95",
+          "positive": {
+            "n": 883,
+            "mean_ms": 684.2582106455266,
+            "median_ms": 649,
+            "p50_ms": 649,
+            "p95_ms": 801.0,
+            "min_ms": 514,
+            "max_ms": 2161
+          },
+          "signed": {
+            "n": 883,
+            "mean_ms": 684.2582106455266,
+            "median_ms": 649,
+            "p50_ms": 649,
+            "p95_ms": 801.0,
+            "min_ms": 514,
+            "max_ms": 2161
+          },
+          "missing_n": 0,
+          "nonpositive_n": 0,
+          "excluded_first_scripted_n": 30,
+          "eligible_response_n": 883
+        },
+        "available_complete": 30,
+        "configuration": {
+          "key": "qwen3.8-27b-fp8",
+          "label": "qwen3.8-27b (thinking off, FP8)",
+          "family": "qwen3.8-27b",
+          "provider": "Baseten",
+          "system_prompt_sha256": "14d62989a3475567d22300f2bab2a4b141abb0f1b675edec2f8c876a0ea9448e",
+          "match": {
+            "model": [
+              "Qwen/Qwen3.8-27B-FP8"
+            ],
+            "hosts": [
+              "model-wom2d5kq.api.baseten.co"
+            ],
+            "thinking_state": [
+              "False"
+            ],
+            "temperature": [
+              "0.7"
+            ],
+            "max_tokens": [
+              "None"
+            ],
+            "filler": []
+          }
+        },
+        "scores": {
+          "tool_use_correct": 886,
+          "instruction_following": 868,
+          "kb_grounding": 895,
+          "strict": 865
+        },
+        "accuracy_denominator": 900,
+        "quality_complete": true,
+        "graded_conversations": 30,
+        "provider_blocked_conversations": 0,
+        "provider_blocked_jobs": [],
+        "graded_turns": 900,
+        "unknown_turns": 0,
+        "strict_percent": 96.11111111111111,
+        "strict_bounds_percent": [
+          96.11111111111111,
+          96.11111111111111
+        ],
+        "strict_ci95": [
+          95.0,
+          97.2222222222222
+        ],
+        "dimension_error_percent": {
+          "tool_use_correct": 1.5555555555555556,
+          "instruction_following": 3.5555555555555554,
+          "kb_grounding": 0.5555555555555556
+        },
+        "conversation_strict_passes": [
+          29,
+          28,
+          28,
+          28,
+          29,
+          30,
+          27,
+          29,
+          29,
+          29,
+          30,
+          30,
+          28,
+          28,
+          28,
+          29,
+          28,
+          30,
+          30,
+          29,
+          30,
+          27,
+          30,
+          28,
+          29,
+          29,
+          29,
+          28,
+          29,
+          30
+        ],
+        "successful_judge_cost_usd": 5.09655,
+        "unknown_cost_jobs": 0,
+        "judge_duration_ms": {
+          "n": 30,
+          "mean_ms": 40401.833333333336,
+          "median_ms": 40832.5,
+          "p50_ms": 40832.5,
+          "p95_ms": 43971.65,
+          "min_ms": 34198,
+          "max_ms": 44387
+        },
+        "judge_usage": {
+          "input_tokens": 60,
+          "cache_creation_input_tokens": 347320,
+          "cache_read_input_tokens": 664350,
+          "output_tokens": 159790
+        }
+      },
+      {
+        "key": "qwen3.8-27b-nvfp4",
+        "original_label": "qwen3.8-27b (thinking off, NVFP4)",
+        "label": "qwen3.8-27b (thinking off, NVFP4)",
+        "mode": "text",
+        "complete": 30,
+        "target": 30,
+        "shortfall": 0,
+        "manifest": "cohorts/qwen3.8-27b-nvfp4.json",
+        "provider": "Local RTX 5090",
+        "latency": {
+          "definition": "Recorded service TTFAT/TTFB, scripted index zero excluded, recovery responses included; positive finite measurements only; linear P95",
+          "positive": {
+            "n": 885,
+            "mean_ms": 136.4090395480226,
+            "median_ms": 101,
+            "p50_ms": 101,
+            "p95_ms": 317.79999999999995,
+            "min_ms": 82,
+            "max_ms": 592
+          },
+          "signed": {
+            "n": 885,
+            "mean_ms": 136.4090395480226,
+            "median_ms": 101,
+            "p50_ms": 101,
+            "p95_ms": 317.79999999999995,
+            "min_ms": 82,
+            "max_ms": 592
+          },
+          "missing_n": 0,
+          "nonpositive_n": 0,
+          "excluded_first_scripted_n": 30,
+          "eligible_response_n": 885
+        },
+        "available_complete": 31,
+        "configuration": {
+          "key": "qwen3.8-27b-nvfp4",
+          "label": "qwen3.8-27b (thinking off, NVFP4)",
+          "family": "qwen3.8-27b",
+          "provider": "Local RTX 5090",
+          "system_prompt_sha256": "14d62989a3475567d22300f2bab2a4b141abb0f1b675edec2f8c876a0ea9448e",
+          "match": {
+            "model": [
+              "qwen3.8-27b-nvfp4-unsloth"
+            ],
+            "origins": [
+              "http://127.0.0.1:30186"
+            ],
+            "thinking_state": [
+              "False"
+            ],
+            "temperature": [
+              "0.7"
+            ],
+            "max_tokens": [
+              "None"
+            ],
+            "filler": []
+          }
+        },
+        "scores": {
+          "tool_use_correct": 884,
+          "instruction_following": 848,
+          "kb_grounding": 896,
+          "strict": 846
+        },
+        "accuracy_denominator": 900,
+        "quality_complete": true,
+        "graded_conversations": 30,
+        "provider_blocked_conversations": 0,
+        "provider_blocked_jobs": [],
+        "graded_turns": 900,
+        "unknown_turns": 0,
+        "strict_percent": 94.0,
+        "strict_bounds_percent": [
+          94.0,
+          94.0
+        ],
+        "strict_ci95": [
+          92.44444444444441,
+          95.44444444444444
+        ],
+        "dimension_error_percent": {
+          "tool_use_correct": 1.7777777777777777,
+          "instruction_following": 5.777777777777778,
+          "kb_grounding": 0.4444444444444444
+        },
+        "conversation_strict_passes": [
+          29,
+          30,
+          29,
+          28,
+          29,
+          27,
+          28,
+          30,
+          29,
+          29,
+          28,
+          29,
+          29,
+          27,
+          27,
+          29,
+          26,
+          25,
+          27,
+          26,
+          29,
+          29,
+          29,
+          29,
+          29,
+          30,
+          29,
+          28,
+          27,
+          26
+        ],
+        "successful_judge_cost_usd": 5.267606600000001,
+        "unknown_cost_jobs": 0,
+        "judge_duration_ms": {
+          "n": 30,
+          "mean_ms": 42313.76666666667,
+          "median_ms": 41009.5,
+          "p50_ms": 41009.5,
+          "p95_ms": 50081.549999999996,
+          "min_ms": 35993,
+          "max_ms": 51739
+        },
+        "judge_usage": {
+          "input_tokens": 60,
+          "cache_creation_input_tokens": 358326,
+          "cache_read_input_tokens": 664350,
+          "output_tokens": 165536
+        }
+      }
+    ],
+    "voice_models": [
+      {
+        "key": "gemini31",
+        "original_label": "Gemini 3.1 minimal",
+        "label": "Gemini 3.1 minimal",
+        "mode": "voice",
+        "complete": 25,
+        "target": 25,
+        "shortfall": 0,
+        "manifest": "cohorts/voice-gemini31.json",
+        "provider": null,
+        "definition": "All 30 scripted turns; actual first recorded speech including acknowledgments; positive finite V2V; original Silero detector/alignment; no zero imputation",
+        "first_speech_positive": {
+          "n": 721,
+          "mean_ms": 1447.0568654646324,
+          "median_ms": 1344.0,
+          "p50_ms": 1344.0,
+          "p95_ms": 2080.0,
+          "min_ms": 1120.0,
+          "max_ms": 3936.0
+        },
+        "first_speech_signed": {
+          "n": 721,
+          "mean_ms": 1447.0568654646324,
+          "median_ms": 1344.0,
+          "p50_ms": 1344.0,
+          "p95_ms": 2080.0,
+          "min_ms": 1120.0,
+          "max_ms": 3936.0
+        },
+        "tool": {
+          "n": 129,
+          "mean_ms": 1661.0232558139535,
+          "median_ms": 1696.0,
+          "p50_ms": 1696.0,
+          "p95_ms": 2163.2,
+          "min_ms": 1184.0,
+          "max_ms": 2304.0
+        },
+        "non_tool": {
+          "n": 592,
+          "mean_ms": 1400.4324324324325,
+          "median_ms": 1344.0,
+          "p50_ms": 1344.0,
+          "p95_ms": 1984.0,
+          "min_ms": 1120.0,
+          "max_ms": 3936.0
+        },
+        "silence": {
+          "n": 691,
+          "mean_ms": 98.32995658465991,
+          "median_ms": 67.0,
+          "p50_ms": 67.0,
+          "p95_ms": 254.5,
+          "min_ms": 15.0,
+          "max_ms": 334.0
+        },
+        "nonpositive_n": 0,
+        "missing_latency_n": 29,
+        "eligible_attempts": 26,
+        "failed_conversations": 1,
+        "failure_rate_percent": 3.8461538461538463,
+        "harness_excluded": 0,
+        "failure_details": [
+          {
+            "run_dir": "runs/aiwf_medium_context_speech_v2/20260915T144826_gemini-3.1-flash-live-preview_8a11ff4e",
+            "completed_turns": 24,
+            "reason": "no_audio_timeout",
+            "detail": null,
+            "turn_index": 24,
+            "turn_number": 25
+          }
+        ],
+        "cohort_key": "voice-gemini31",
+        "turn_taking_scored": true,
+        "additional_experiment": false,
+        "configuration": {
+          "model": "gemini-3.1-flash-live-preview",
+          "service": "gemini-live",
+          "provider": "google",
+          "thinking": "minimal"
+        },
+        "scores": {
+          "tool_use_correct": 718,
+          "instruction_following": 630,
+          "kb_grounding": 723,
+          "strict": 628,
+          "turn_taking": 750
+        },
+        "accuracy_denominator": 750,
+        "quality_complete": true,
+        "graded_conversations": 25,
+        "provider_blocked_conversations": 0,
+        "provider_blocked_jobs": [],
+        "graded_turns": 750,
+        "unknown_turns": 0,
+        "strict_percent": 83.73333333333333,
+        "strict_bounds_percent": [
+          83.73333333333333,
+          83.73333333333333
+        ],
+        "strict_ci95": [
+          80.00000000000001,
+          86.93333333333334
+        ],
+        "dimension_error_percent": {
+          "tool_use_correct": 4.266666666666667,
+          "instruction_following": 16.0,
+          "kb_grounding": 3.6
+        },
+        "conversation_strict_passes": [
+          25,
+          25,
+          25,
+          27,
+          24,
+          27,
+          26,
+          16,
+          26,
+          27,
+          26,
+          22,
+          25,
+          28,
+          26,
+          27,
+          28,
+          26,
+          24,
+          22,
+          21,
+          24,
+          28,
+          28,
+          25
+        ],
+        "successful_judge_cost_usd": 6.230202300000001,
+        "unknown_cost_jobs": 0,
+        "judge_duration_ms": {
+          "n": 25,
+          "mean_ms": 48963.44,
+          "median_ms": 49813,
+          "p50_ms": 49813,
+          "p95_ms": 54934.99999999999,
+          "min_ms": 42253,
+          "max_ms": 58159
+        },
+        "judge_usage": {
+          "input_tokens": 50,
+          "cache_creation_input_tokens": 603265,
+          "cache_read_input_tokens": 187821,
+          "output_tokens": 157612
+        }
+      },
+      {
+        "key": "gemini38low",
+        "original_label": "Gemini 3.8 Extended Thinking low",
+        "label": "Gemini 3.8 Extended Thinking low",
+        "mode": "voice",
+        "complete": 25,
+        "target": 25,
+        "shortfall": 0,
+        "manifest": "cohorts/voice-gemini38low.json",
+        "provider": null,
+        "definition": "All 30 scripted turns; actual first recorded speech including acknowledgments; positive finite V2V; original Silero detector/alignment; no zero imputation",
+        "first_speech_positive": {
+          "n": 743,
+          "mean_ms": 1492.2422611036338,
+          "median_ms": 1440.0,
+          "p50_ms": 1440.0,
+          "p95_ms": 2080.0,
+          "min_ms": 832.0,
+          "max_ms": 8896.0
+        },
+        "first_speech_signed": {
+          "n": 743,
+          "mean_ms": 1492.2422611036338,
+          "median_ms": 1440.0,
+          "p50_ms": 1440.0,
+          "p95_ms": 2080.0,
+          "min_ms": 832.0,
+          "max_ms": 8896.0
+        },
+        "tool": {
+          "n": 143,
+          "mean_ms": 1509.3706293706293,
+          "median_ms": 1376.0,
+          "p50_ms": 1376.0,
+          "p95_ms": 2304.0,
+          "min_ms": 864.0,
+          "max_ms": 3360.0
+        },
+        "non_tool": {
+          "n": 600,
+          "mean_ms": 1488.16,
+          "median_ms": 1440.0,
+          "p50_ms": 1440.0,
+          "p95_ms": 2016.0,
+          "min_ms": 832.0,
+          "max_ms": 8896.0
+        },
+        "silence": {
+          "n": 0,
+          "mean_ms": null,
+          "median_ms": null,
+          "p50_ms": null,
+          "p95_ms": null,
+          "min_ms": null,
+          "max_ms": null
+        },
+        "nonpositive_n": 0,
+        "missing_latency_n": 7,
+        "eligible_attempts": 25,
+        "failed_conversations": 0,
+        "failure_rate_percent": 0.0,
+        "harness_excluded": 1,
+        "failure_details": [],
+        "cohort_key": "voice-gemini38low",
+        "turn_taking_scored": true,
+        "additional_experiment": false,
+        "configuration": {
+          "model": "gemini-3.8-live-extended-thinking",
+          "service": "gemini-live",
+          "provider": "google",
+          "thinking": "low"
+        },
+        "scores": {
+          "tool_use_correct": 744,
+          "instruction_following": 673,
+          "kb_grounding": 725,
+          "strict": 672,
+          "turn_taking": 750
+        },
+        "accuracy_denominator": 750,
+        "quality_complete": true,
+        "graded_conversations": 25,
+        "provider_blocked_conversations": 0,
+        "provider_blocked_jobs": [],
+        "graded_turns": 750,
+        "unknown_turns": 0,
+        "strict_percent": 89.6,
+        "strict_bounds_percent": [
+          89.6,
+          89.6
+        ],
+        "strict_ci95": [
+          87.73333333333333,
+          91.46666666666665
+        ],
+        "dimension_error_percent": {
+          "tool_use_correct": 0.8,
+          "instruction_following": 10.266666666666667,
+          "kb_grounding": 3.3333333333333335
+        },
+        "conversation_strict_passes": [
+          27,
+          27,
+          25,
+          25,
+          24,
+          26,
+          28,
+          26,
+          28,
+          28,
+          28,
+          26,
+          28,
+          26,
+          29,
+          26,
+          28,
+          25,
+          27,
+          26,
+          26,
+          27,
+          30,
+          29,
+          27
+        ],
+        "successful_judge_cost_usd": 4.4370430999999995,
+        "unknown_cost_jobs": 0,
+        "judge_duration_ms": {
+          "n": 25,
+          "mean_ms": 47626.32,
+          "median_ms": 48106,
+          "p50_ms": 48106,
+          "p95_ms": 52547.799999999996,
+          "min_ms": 41099,
+          "max_ms": 54262
+        },
+        "judge_usage": {
+          "input_tokens": 50,
+          "cache_creation_input_tokens": 253016,
+          "cache_read_input_tokens": 521725,
+          "output_tokens": 152260
+        }
+      },
+      {
+        "key": "gemini38medium_new",
+        "original_label": "Gemini 3.8 Extended Thinking medium (interaction-aware)",
+        "label": "Gemini 3.8 Extended Thinking medium (interaction-aware)",
+        "mode": "voice",
+        "complete": 25,
+        "target": 25,
+        "shortfall": 0,
+        "manifest": "cohorts/voice-gemini38medium_new.json",
+        "provider": null,
+        "definition": "All 30 scripted turns; actual first recorded speech including acknowledgments; positive finite V2V; original Silero detector/alignment; no zero imputation",
+        "first_speech_positive": {
+          "n": 750,
+          "mean_ms": 1752.4906666666666,
+          "median_ms": 1632.0,
+          "p50_ms": 1632.0,
+          "p95_ms": 2688.0,
+          "min_ms": 832.0,
+          "max_ms": 7392.0
+        },
+        "first_speech_signed": {
+          "n": 750,
+          "mean_ms": 1752.4906666666666,
+          "median_ms": 1632.0,
+          "p50_ms": 1632.0,
+          "p95_ms": 2688.0,
+          "min_ms": 832.0,
+          "max_ms": 7392.0
+        },
+        "tool": {
+          "n": 151,
+          "mean_ms": 1899.867549668874,
+          "median_ms": 1600.0,
+          "p50_ms": 1600.0,
+          "p95_ms": 4432.0,
+          "min_ms": 960.0,
+          "max_ms": 7392.0
+        },
+        "non_tool": {
+          "n": 599,
+          "mean_ms": 1715.338898163606,
+          "median_ms": 1632.0,
+          "p50_ms": 1632.0,
+          "p95_ms": 2656.0,
+          "min_ms": 832.0,
+          "max_ms": 5888.0
+        },
+        "silence": {
+          "n": 0,
+          "mean_ms": null,
+          "median_ms": null,
+          "p50_ms": null,
+          "p95_ms": null,
+          "min_ms": null,
+          "max_ms": null
+        },
+        "nonpositive_n": 0,
+        "missing_latency_n": 0,
+        "eligible_attempts": 27,
+        "failed_conversations": 2,
+        "failure_rate_percent": 7.407407407407407,
+        "harness_excluded": 0,
+        "failure_details": [
+          {
+            "run_dir": "runs/aiwf_medium_context_speech_v2/20260916T074653_gemini-3.8-live-extended-thinking_c2d7a24b",
+            "completed_turns": 0,
+            "reason": "no_audio_timeout",
+            "detail": null,
+            "turn_index": 0,
+            "turn_number": 1
+          },
+          {
+            "run_dir": "runs/aiwf_medium_context_speech_v2/20260916T080944_gemini-3.8-live-extended-thinking_bd55a0b2",
+            "completed_turns": 0,
+            "reason": "no_audio_timeout",
+            "detail": null,
+            "turn_index": 0,
+            "turn_number": 1
+          }
+        ],
+        "cohort_key": "voice-gemini38medium_new",
+        "turn_taking_scored": false,
+        "additional_experiment": true,
+        "configuration": {
+          "model": "gemini-3.8-live-extended-thinking",
+          "thinking": "medium",
+          "versions": {
+            "google-genai": "2.23.0",
+            "pipecat-ai": "1.10.0"
+          },
+          "timeout_seconds": 15,
+          "capture_protocol_archive_path": "git/docs/gemini38-extended-exchanges-2026-09-16/cohort/protocol.json"
+        },
+        "scores": {
+          "tool_use_correct": 747,
+          "instruction_following": 679,
+          "kb_grounding": 728,
+          "strict": 678,
+          "turn_taking": null
+        },
+        "accuracy_denominator": 750,
+        "quality_complete": true,
+        "graded_conversations": 25,
+        "provider_blocked_conversations": 0,
+        "provider_blocked_jobs": [],
+        "graded_turns": 750,
+        "unknown_turns": 0,
+        "strict_percent": 90.4,
+        "strict_bounds_percent": [
+          90.4,
+          90.4
+        ],
+        "strict_ci95": [
+          88.8,
+          91.99999999999999
+        ],
+        "dimension_error_percent": {
+          "tool_use_correct": 0.4,
+          "instruction_following": 9.466666666666667,
+          "kb_grounding": 2.933333333333333
+        },
+        "conversation_strict_passes": [
+          28,
+          26,
+          25,
+          26,
+          25,
+          28,
+          28,
+          27,
+          28,
+          29,
+          28,
+          28,
+          29,
+          26,
+          27,
+          27,
+          26,
+          25,
+          27,
+          28,
+          26,
+          28,
+          27,
+          29,
+          27
+        ],
+        "successful_judge_cost_usd": 4.5105806,
+        "unknown_cost_jobs": 0,
+        "judge_duration_ms": {
+          "n": 25,
+          "mean_ms": 47678.24,
+          "median_ms": 47769,
+          "p50_ms": 47769,
+          "p95_ms": 56301.2,
+          "min_ms": 37326,
+          "max_ms": 58526
+        },
+        "judge_usage": {
+          "input_tokens": 50,
+          "cache_creation_input_tokens": 259156,
+          "cache_read_input_tokens": 521725,
+          "output_tokens": 154371
+        }
+      },
+      {
+        "key": "gemini38regular",
+        "original_label": "Gemini 3.8 Live (regular; default)",
+        "label": "Gemini 3.8 Live (regular; default)",
+        "mode": "voice",
+        "complete": 25,
+        "target": 25,
+        "shortfall": 0,
+        "manifest": "cohorts/voice-gemini38regular.json",
+        "provider": null,
+        "definition": "All 30 scripted turns; actual first recorded speech including acknowledgments; positive finite V2V; original Silero detector/alignment; no zero imputation",
+        "first_speech_positive": {
+          "n": 749,
+          "mean_ms": 1615.8504672897195,
+          "median_ms": 1536.0,
+          "p50_ms": 1536.0,
+          "p95_ms": 2656.0,
+          "min_ms": 800.0,
+          "max_ms": 12288.0
+        },
+        "first_speech_signed": {
+          "n": 749,
+          "mean_ms": 1615.8504672897195,
+          "median_ms": 1536.0,
+          "p50_ms": 1536.0,
+          "p95_ms": 2656.0,
+          "min_ms": 800.0,
+          "max_ms": 12288.0
+        },
+        "tool": {
+          "n": 156,
+          "mean_ms": 2111.7948717948716,
+          "median_ms": 1936.0,
+          "p50_ms": 1936.0,
+          "p95_ms": 3152.0,
+          "min_ms": 960.0,
+          "max_ms": 4736.0
+        },
+        "non_tool": {
+          "n": 593,
+          "mean_ms": 1485.3827993254638,
+          "median_ms": 1440.0,
+          "p50_ms": 1440.0,
+          "p95_ms": 2016.0,
+          "min_ms": 800.0,
+          "max_ms": 12288.0
+        },
+        "silence": {
+          "n": 0,
+          "mean_ms": null,
+          "median_ms": null,
+          "p50_ms": null,
+          "p95_ms": null,
+          "min_ms": null,
+          "max_ms": null
+        },
+        "nonpositive_n": 0,
+        "missing_latency_n": 1,
+        "eligible_attempts": 26,
+        "failed_conversations": 1,
+        "failure_rate_percent": 3.8461538461538463,
+        "harness_excluded": 13,
+        "failure_details": [
+          {
+            "run_dir": "runs/aiwf_medium_context_speech_v2/20260916T151738_gemini-3.8-live_927feec6",
+            "completed_turns": 0,
+            "reason": "no_audio_timeout",
+            "turn_index": 0,
+            "turn_number": 1
+          }
+        ],
+        "cohort_key": "voice-gemini38regular",
+        "turn_taking_scored": true,
+        "additional_experiment": false,
+        "configuration": {
+          "model": "gemini-3.8-live",
+          "thinking": null,
+          "timeout_seconds": 15,
+          "concurrency": 5
+        },
+        "scores": {
+          "tool_use_correct": 719,
+          "instruction_following": 688,
+          "kb_grounding": 726,
+          "strict": 671,
+          "turn_taking": 749
+        },
+        "accuracy_denominator": 750,
+        "quality_complete": true,
+        "graded_conversations": 25,
+        "provider_blocked_conversations": 0,
+        "provider_blocked_jobs": [],
+        "graded_turns": 750,
+        "unknown_turns": 0,
+        "strict_percent": 89.46666666666667,
+        "strict_bounds_percent": [
+          89.46666666666667,
+          89.46666666666667
+        ],
+        "strict_ci95": [
+          87.33333333333331,
+          91.46666666666668
+        ],
+        "dimension_error_percent": {
+          "tool_use_correct": 4.133333333333334,
+          "instruction_following": 8.266666666666667,
+          "kb_grounding": 3.2
+        },
+        "conversation_strict_passes": [
+          28,
+          28,
+          27,
+          27,
+          28,
+          26,
+          26,
+          28,
+          27,
+          27,
+          26,
+          30,
+          28,
+          28,
+          27,
+          26,
+          28,
+          25,
+          23,
+          27,
+          28,
+          26,
+          23,
+          29,
+          25
+        ],
+        "successful_judge_cost_usd": 4.4136567,
+        "unknown_cost_jobs": 0,
+        "judge_duration_ms": {
+          "n": 25,
+          "mean_ms": 46887.28,
+          "median_ms": 46550,
+          "p50_ms": 46550,
+          "p95_ms": 53736.6,
+          "min_ms": 39662,
+          "max_ms": 54552
+        },
+        "judge_usage": {
+          "input_tokens": 50,
+          "cache_creation_input_tokens": 252167,
+          "cache_read_input_tokens": 521725,
+          "output_tokens": 151307
+        }
+      },
+      {
+        "key": "grok",
+        "original_label": "Grok Voice Think Fast",
+        "label": "Grok Voice Think Fast",
+        "mode": "voice",
+        "complete": 25,
+        "target": 25,
+        "shortfall": 0,
+        "manifest": "cohorts/voice-grok.json",
+        "provider": null,
+        "definition": "All 30 scripted turns; actual first recorded speech including acknowledgments; positive finite V2V; original Silero detector/alignment; no zero imputation",
+        "first_speech_positive": {
+          "n": 730,
+          "mean_ms": 2654.6849315068494,
+          "median_ms": 2528.0,
+          "p50_ms": 2528.0,
+          "p95_ms": 3136.0,
+          "min_ms": 1952.0,
+          "max_ms": 5984.0
+        },
+        "first_speech_signed": {
+          "n": 730,
+          "mean_ms": 2654.6849315068494,
+          "median_ms": 2528.0,
+          "p50_ms": 2528.0,
+          "p95_ms": 3136.0,
+          "min_ms": 1952.0,
+          "max_ms": 5984.0
+        },
+        "tool": {
+          "n": 138,
+          "mean_ms": 2689.159420289855,
+          "median_ms": 2704.0,
+          "p50_ms": 2704.0,
+          "p95_ms": 3145.6000000000004,
+          "min_ms": 2080.0,
+          "max_ms": 3744.0
+        },
+        "non_tool": {
+          "n": 592,
+          "mean_ms": 2646.6486486486488,
+          "median_ms": 2496.0,
+          "p50_ms": 2496.0,
+          "p95_ms": 3051.1999999999935,
+          "min_ms": 1952.0,
+          "max_ms": 5984.0
+        },
+        "silence": {
+          "n": 730,
+          "mean_ms": 87.51095890410959,
+          "median_ms": 86.0,
+          "p50_ms": 86.0,
+          "p95_ms": 143.0,
+          "min_ms": 16.0,
+          "max_ms": 201.0
+        },
+        "nonpositive_n": 0,
+        "missing_latency_n": 20,
+        "eligible_attempts": 25,
+        "failed_conversations": 0,
+        "failure_rate_percent": 0.0,
+        "harness_excluded": 0,
+        "failure_details": [],
+        "cohort_key": "voice-grok",
+        "turn_taking_scored": true,
+        "additional_experiment": false,
+        "configuration": {
+          "model": "grok-voice-think-fast-1.0",
+          "pipeline": "grok-realtime",
+          "provider": "xai"
+        },
+        "scores": {
+          "tool_use_correct": 740,
+          "instruction_following": 691,
+          "kb_grounding": 746,
+          "strict": 691,
+          "turn_taking": 730
+        },
+        "accuracy_denominator": 750,
+        "quality_complete": true,
+        "graded_conversations": 25,
+        "provider_blocked_conversations": 0,
+        "provider_blocked_jobs": [],
+        "graded_turns": 750,
+        "unknown_turns": 0,
+        "strict_percent": 92.13333333333334,
+        "strict_bounds_percent": [
+          92.13333333333334,
+          92.13333333333334
+        ],
+        "strict_ci95": [
+          90.66666666666669,
+          93.46666666666665
+        ],
+        "dimension_error_percent": {
+          "tool_use_correct": 1.3333333333333333,
+          "instruction_following": 7.866666666666666,
+          "kb_grounding": 0.5333333333333333
+        },
+        "conversation_strict_passes": [
+          28,
+          29,
+          26,
+          26,
+          26,
+          29,
+          27,
+          28,
+          29,
+          28,
+          28,
+          27,
+          28,
+          27,
+          29,
+          27,
+          28,
+          28,
+          29,
+          29,
+          27,
+          28,
+          28,
+          26,
+          26
+        ],
+        "successful_judge_cost_usd": 4.5675202,
+        "unknown_cost_jobs": 0,
+        "judge_duration_ms": {
+          "n": 25,
+          "mean_ms": 48403.4,
+          "median_ms": 48522,
+          "p50_ms": 48522,
+          "p95_ms": 53876.399999999994,
+          "min_ms": 42091,
+          "max_ms": 55654
+        },
+        "judge_usage": {
+          "input_tokens": 50,
+          "cache_creation_input_tokens": 263532,
+          "cache_read_input_tokens": 521725,
+          "output_tokens": 156099
+        }
+      },
+      {
+        "key": "live_optimized",
+        "original_label": "GPT-Live prompt-optimized + Terra medium*",
+        "label": "GPT-Live prompt-optimized + Terra medium*",
+        "mode": "voice",
+        "complete": 25,
+        "target": 25,
+        "shortfall": 0,
+        "manifest": "cohorts/voice-live_optimized.json",
+        "provider": null,
+        "definition": "All 30 scripted turns; actual first recorded speech including acknowledgments; positive finite V2V; original Silero detector/alignment; no zero imputation",
+        "first_speech_positive": {
+          "n": 748,
+          "mean_ms": 2686.1604278074865,
+          "median_ms": 2112.0,
+          "p50_ms": 2112.0,
+          "p95_ms": 6855.999999999996,
+          "min_ms": 1152.0,
+          "max_ms": 29056.0
+        },
+        "first_speech_signed": {
+          "n": 749,
+          "mean_ms": 2680.7369826435247,
+          "median_ms": 2112.0,
+          "p50_ms": 2112.0,
+          "p95_ms": 6848.000000000004,
+          "min_ms": -1376.0,
+          "max_ms": 29056.0
+        },
+        "tool": {
+          "n": 150,
+          "mean_ms": 2470.826666666667,
+          "median_ms": 2000.0,
+          "p50_ms": 2000.0,
+          "p95_ms": 5711.9999999999945,
+          "min_ms": 1344.0,
+          "max_ms": 11520.0
+        },
+        "non_tool": {
+          "n": 598,
+          "mean_ms": 2740.1739130434785,
+          "median_ms": 2144.0,
+          "p50_ms": 2144.0,
+          "p95_ms": 7652.799999999999,
+          "min_ms": 1152.0,
+          "max_ms": 29056.0
+        },
+        "silence": {
+          "n": 0,
+          "mean_ms": null,
+          "median_ms": null,
+          "p50_ms": null,
+          "p95_ms": null,
+          "min_ms": null,
+          "max_ms": null
+        },
+        "nonpositive_n": 1,
+        "missing_latency_n": 1,
+        "eligible_attempts": 27,
+        "failed_conversations": 2,
+        "failure_rate_percent": 7.407407407407407,
+        "harness_excluded": 0,
+        "failure_details": [
+          {
+            "run_dir": "runs/aiwf_medium_context_speech_live_optimized/20260916T123039_gpt-live-1_5dc5eeb2",
+            "completed_turns": 10,
+            "reason": "TimeoutError",
+            "detail": "No completed Live answer within 90 seconds",
+            "turn_index": 10,
+            "turn_number": 11
+          },
+          {
+            "run_dir": "runs/aiwf_medium_context_speech_live_optimized/20260916T140645_gpt-live-1_fd2c66d8",
+            "completed_turns": 10,
+            "reason": "TimeoutError",
+            "detail": "No completed Live answer within 90 seconds",
+            "turn_index": 10,
+            "turn_number": 11
+          }
+        ],
+        "cohort_key": "voice-live_optimized",
+        "turn_taking_scored": false,
+        "additional_experiment": false,
+        "configuration": {
+          "model": "gpt-live-1",
+          "backend": "gpt-5.6-terra",
+          "reasoning": "medium",
+          "voice": "marin",
+          "frontend_sha256": "332a125c8fbc1a98be1302cf0dc10de22fb24004d56105d75990a9b96ed74ce0",
+          "backend_sha256": "26a768b2c8faf9e4a27ade00b4f111a4a4e9c5cbdc27bd5a4a9992b0ba712c71",
+          "quiet_seconds": 5,
+          "timeout_seconds": 90,
+          "versions": {
+            "openai": "3.14.0",
+            "pipecat-ai": "1.10.0"
+          },
+          "capture_protocol_archive_path": "git/docs/gpt-live-optimized-quiet5-2026-09-16/cohort/protocol.json"
+        },
+        "scores": {
+          "tool_use_correct": 748,
+          "instruction_following": 707,
+          "kb_grounding": 744,
+          "strict": 707,
+          "turn_taking": null
+        },
+        "accuracy_denominator": 750,
+        "quality_complete": true,
+        "graded_conversations": 25,
+        "provider_blocked_conversations": 0,
+        "provider_blocked_jobs": [],
+        "graded_turns": 750,
+        "unknown_turns": 0,
+        "strict_percent": 94.26666666666667,
+        "strict_bounds_percent": [
+          94.26666666666667,
+          94.26666666666667
+        ],
+        "strict_ci95": [
+          92.66666666666666,
+          95.86666666666666
+        ],
+        "dimension_error_percent": {
+          "tool_use_correct": 0.26666666666666666,
+          "instruction_following": 5.733333333333333,
+          "kb_grounding": 0.8
+        },
+        "conversation_strict_passes": [
+          29,
+          30,
+          27,
+          28,
+          29,
+          28,
+          27,
+          28,
+          28,
+          29,
+          29,
+          30,
+          30,
+          28,
+          29,
+          28,
+          28,
+          26,
+          28,
+          27,
+          25,
+          29,
+          29,
+          30,
+          28
+        ],
+        "successful_judge_cost_usd": 4.401961199999999,
+        "unknown_cost_jobs": 0,
+        "judge_duration_ms": {
+          "n": 25,
+          "mean_ms": 44901.12,
+          "median_ms": 45081,
+          "p50_ms": 45081,
+          "p95_ms": 48985.0,
+          "min_ms": 39175,
+          "max_ms": 50929
+        },
+        "judge_usage": {
+          "input_tokens": 50,
+          "cache_creation_input_tokens": 265142,
+          "cache_read_input_tokens": 521725,
+          "output_tokens": 147414
+        }
+      },
+      {
+        "key": "live_standard",
+        "original_label": "GPT-Live standard + Terra medium",
+        "label": "GPT-Live standard + Terra medium",
+        "mode": "voice",
+        "complete": 25,
+        "target": 25,
+        "shortfall": 0,
+        "manifest": "cohorts/voice-live_standard.json",
+        "provider": null,
+        "definition": "All 30 scripted turns; actual first recorded speech including acknowledgments; positive finite V2V; original Silero detector/alignment; no zero imputation",
+        "first_speech_positive": {
+          "n": 748,
+          "mean_ms": 1869.9893048128342,
+          "median_ms": 1728.0,
+          "p50_ms": 1728.0,
+          "p95_ms": 2688.0,
+          "min_ms": 256.0,
+          "max_ms": 11072.0
+        },
+        "first_speech_signed": {
+          "n": 749,
+          "mean_ms": 1865.4846461949267,
+          "median_ms": 1728.0,
+          "p50_ms": 1728.0,
+          "p95_ms": 2688.0,
+          "min_ms": -1504.0,
+          "max_ms": 11072.0
+        },
+        "tool": {
+          "n": 123,
+          "mean_ms": 2168.7154471544713,
+          "median_ms": 1792.0,
+          "p50_ms": 1792.0,
+          "p95_ms": 5273.599999999999,
+          "min_ms": 1280.0,
+          "max_ms": 7040.0
+        },
+        "non_tool": {
+          "n": 625,
+          "mean_ms": 1811.2,
+          "median_ms": 1696.0,
+          "p50_ms": 1696.0,
+          "p95_ms": 2553.5999999999985,
+          "min_ms": 256.0,
+          "max_ms": 11072.0
+        },
+        "silence": {
+          "n": 0,
+          "mean_ms": null,
+          "median_ms": null,
+          "p50_ms": null,
+          "p95_ms": null,
+          "min_ms": null,
+          "max_ms": null
+        },
+        "nonpositive_n": 1,
+        "missing_latency_n": 1,
+        "eligible_attempts": 25,
+        "failed_conversations": 0,
+        "failure_rate_percent": 0.0,
+        "harness_excluded": 0,
+        "failure_details": [],
+        "cohort_key": "voice-live_standard",
+        "turn_taking_scored": true,
+        "additional_experiment": false,
+        "configuration": {
+          "model": "gpt-live-1",
+          "backend": "gpt-5.6-terra",
+          "reasoning": "medium",
+          "voice": "marin",
+          "quiet_seconds": 3,
+          "timeout_seconds": 90,
+          "versions": {
+            "openai": "3.14.0",
+            "pipecat-ai": "1.10.0",
+            "google-genai": "2.23.0"
+          },
+          "capture_protocol_archive_path": "git/docs/gpt-live-fixed-gate-n25-2026-09-15/protocol.json"
+        },
+        "scores": {
+          "tool_use_correct": 722,
+          "instruction_following": 696,
+          "kb_grounding": 738,
+          "strict": 689,
+          "turn_taking": 749
+        },
+        "accuracy_denominator": 750,
+        "quality_complete": true,
+        "graded_conversations": 25,
+        "provider_blocked_conversations": 0,
+        "provider_blocked_jobs": [],
+        "graded_turns": 750,
+        "unknown_turns": 0,
+        "strict_percent": 91.86666666666666,
+        "strict_bounds_percent": [
+          91.86666666666666,
+          91.86666666666666
+        ],
+        "strict_ci95": [
+          90.13333333333333,
+          93.6
+        ],
+        "dimension_error_percent": {
+          "tool_use_correct": 3.7333333333333334,
+          "instruction_following": 7.2,
+          "kb_grounding": 1.6
+        },
+        "conversation_strict_passes": [
+          25,
+          29,
+          28,
+          30,
+          27,
+          27,
+          28,
+          26,
+          28,
+          29,
+          27,
+          25,
+          27,
+          28,
+          25,
+          28,
+          30,
+          27,
+          29,
+          28,
+          27,
+          29,
+          28,
+          27,
+          27
+        ],
+        "successful_judge_cost_usd": 4.4002173,
+        "unknown_cost_jobs": 0,
+        "judge_duration_ms": {
+          "n": 25,
+          "mean_ms": 46172.44,
+          "median_ms": 45896,
+          "p50_ms": 45896,
+          "p95_ms": 51958.4,
+          "min_ms": 38421,
+          "max_ms": 61125
+        },
+        "judge_usage": {
+          "input_tokens": 50,
+          "cache_creation_input_tokens": 255648,
+          "cache_read_input_tokens": 521725,
+          "output_tokens": 149747
+        }
+      },
+      {
+        "key": "openai15",
+        "original_label": "GPT-Realtime-1.5",
+        "label": "GPT-Realtime-1.5",
+        "mode": "voice",
+        "complete": 25,
+        "target": 25,
+        "shortfall": 0,
+        "manifest": "cohorts/voice-openai15.json",
+        "provider": null,
+        "definition": "All 30 scripted turns; actual first recorded speech including acknowledgments; positive finite V2V; original Silero detector/alignment; no zero imputation",
+        "first_speech_positive": {
+          "n": 725,
+          "mean_ms": 1278.9848275862068,
+          "median_ms": 1152.0,
+          "p50_ms": 1152.0,
+          "p95_ms": 2137.5999999999985,
+          "min_ms": 736.0,
+          "max_ms": 3424.0
+        },
+        "first_speech_signed": {
+          "n": 725,
+          "mean_ms": 1278.9848275862068,
+          "median_ms": 1152.0,
+          "p50_ms": 1152.0,
+          "p95_ms": 2137.5999999999985,
+          "min_ms": 736.0,
+          "max_ms": 3424.0
+        },
+        "tool": {
+          "n": 122,
+          "mean_ms": 1890.360655737705,
+          "median_ms": 1920.0,
+          "p50_ms": 1920.0,
+          "p95_ms": 2523.199999999999,
+          "min_ms": 832.0,
+          "max_ms": 3072.0
+        },
+        "non_tool": {
+          "n": 603,
+          "mean_ms": 1155.290215588723,
+          "median_ms": 1120.0,
+          "p50_ms": 1120.0,
+          "p95_ms": 1628.7999999999993,
+          "min_ms": 736.0,
+          "max_ms": 3424.0
+        },
+        "silence": {
+          "n": 733,
+          "mean_ms": 159.88130968622102,
+          "median_ms": 37.0,
+          "p50_ms": 37.0,
+          "p95_ms": 102.79999999999995,
+          "min_ms": 12.0,
+          "max_ms": 15722.0
+        },
+        "nonpositive_n": 0,
+        "missing_latency_n": 25,
+        "eligible_attempts": 25,
+        "failed_conversations": 0,
+        "failure_rate_percent": 0.0,
+        "harness_excluded": 0,
+        "failure_details": [],
+        "cohort_key": "voice-openai15",
+        "turn_taking_scored": true,
+        "additional_experiment": false,
+        "configuration": {
+          "model": "gpt-realtime-1.5",
+          "service": "openai-realtime",
+          "provider": "openai"
+        },
+        "scores": {
+          "tool_use_correct": 739,
+          "instruction_following": 696,
+          "kb_grounding": 722,
+          "strict": 694,
+          "turn_taking": 737
+        },
+        "accuracy_denominator": 750,
+        "quality_complete": true,
+        "graded_conversations": 25,
+        "provider_blocked_conversations": 0,
+        "provider_blocked_jobs": [],
+        "graded_turns": 750,
+        "unknown_turns": 0,
+        "strict_percent": 92.53333333333333,
+        "strict_bounds_percent": [
+          92.53333333333333,
+          92.53333333333333
+        ],
+        "strict_ci95": [
+          91.2,
+          93.73333333333333
+        ],
+        "dimension_error_percent": {
+          "tool_use_correct": 1.4666666666666666,
+          "instruction_following": 7.2,
+          "kb_grounding": 3.7333333333333334
+        },
+        "conversation_strict_passes": [
+          29,
+          27,
+          29,
+          29,
+          28,
+          28,
+          28,
+          27,
+          27,
+          28,
+          27,
+          29,
+          28,
+          28,
+          26,
+          27,
+          27,
+          26,
+          29,
+          28,
+          29,
+          29,
+          28,
+          26,
+          27
+        ],
+        "successful_judge_cost_usd": 4.681659300000001,
+        "unknown_cost_jobs": 0,
+        "judge_duration_ms": {
+          "n": 25,
+          "mean_ms": 48105.12,
+          "median_ms": 47282,
+          "p50_ms": 47282,
+          "p95_ms": 54545.799999999996,
+          "min_ms": 42621,
+          "max_ms": 61302
+        },
+        "judge_usage": {
+          "input_tokens": 50,
+          "cache_creation_input_tokens": 291658,
+          "cache_read_input_tokens": 521725,
+          "output_tokens": 154636
+        }
+      },
+      {
+        "key": "openai21",
+        "original_label": "GPT-Realtime-2.1 low",
+        "label": "GPT-Realtime-2.1 low",
+        "mode": "voice",
+        "complete": 25,
+        "target": 25,
+        "shortfall": 0,
+        "manifest": "cohorts/voice-openai21.json",
+        "provider": null,
+        "definition": "All 30 scripted turns; actual first recorded speech including acknowledgments; positive finite V2V; original Silero detector/alignment; no zero imputation",
+        "first_speech_positive": {
+          "n": 750,
+          "mean_ms": 1614.848,
+          "median_ms": 1536.0,
+          "p50_ms": 1536.0,
+          "p95_ms": 2097.5999999999985,
+          "min_ms": 1152.0,
+          "max_ms": 9568.0
+        },
+        "first_speech_signed": {
+          "n": 750,
+          "mean_ms": 1614.848,
+          "median_ms": 1536.0,
+          "p50_ms": 1536.0,
+          "p95_ms": 2097.5999999999985,
+          "min_ms": 1152.0,
+          "max_ms": 9568.0
+        },
+        "tool": {
+          "n": 135,
+          "mean_ms": 1499.0222222222221,
+          "median_ms": 1440.0,
+          "p50_ms": 1440.0,
+          "p95_ms": 1856.0,
+          "min_ms": 1184.0,
+          "max_ms": 2592.0
+        },
+        "non_tool": {
+          "n": 615,
+          "mean_ms": 1640.2731707317073,
+          "median_ms": 1568.0,
+          "p50_ms": 1568.0,
+          "p95_ms": 2112.0,
+          "min_ms": 1152.0,
+          "max_ms": 9568.0
+        },
+        "silence": {
+          "n": 750,
+          "mean_ms": 75.33333333333333,
+          "median_ms": 58.0,
+          "p50_ms": 58.0,
+          "p95_ms": 172.0999999999999,
+          "min_ms": 12.0,
+          "max_ms": 634.0
+        },
+        "nonpositive_n": 0,
+        "missing_latency_n": 0,
+        "eligible_attempts": 25,
+        "failed_conversations": 0,
+        "failure_rate_percent": 0.0,
+        "harness_excluded": 0,
+        "failure_details": [],
+        "cohort_key": "voice-openai21",
+        "turn_taking_scored": true,
+        "additional_experiment": false,
+        "configuration": {
+          "model": "gpt-realtime-2.1",
+          "service": "openai-realtime",
+          "provider": "openai",
+          "reasoning": "low"
+        },
+        "scores": {
+          "tool_use_correct": 733,
+          "instruction_following": 706,
+          "kb_grounding": 722,
+          "strict": 699,
+          "turn_taking": 750
+        },
+        "accuracy_denominator": 750,
+        "quality_complete": true,
+        "graded_conversations": 25,
+        "provider_blocked_conversations": 0,
+        "provider_blocked_jobs": [],
+        "graded_turns": 750,
+        "unknown_turns": 0,
+        "strict_percent": 93.2,
+        "strict_bounds_percent": [
+          93.2,
+          93.2
+        ],
+        "strict_ci95": [
+          92.13333333333333,
+          94.26666666666667
+        ],
+        "dimension_error_percent": {
+          "tool_use_correct": 2.2666666666666666,
+          "instruction_following": 5.866666666666666,
+          "kb_grounding": 3.7333333333333334
+        },
+        "conversation_strict_passes": [
+          27,
+          29,
+          28,
+          28,
+          27,
+          28,
+          27,
+          28,
+          28,
+          28,
+          30,
+          26,
+          29,
+          27,
+          28,
+          28,
+          28,
+          28,
+          28,
+          28,
+          28,
+          29,
+          27,
+          28,
+          29
+        ],
+        "successful_judge_cost_usd": 4.68977,
+        "unknown_cost_jobs": 0,
+        "judge_duration_ms": {
+          "n": 25,
+          "mean_ms": 48412.04,
+          "median_ms": 47811,
+          "p50_ms": 47811,
+          "p95_ms": 54304.2,
+          "min_ms": 41417,
+          "max_ms": 56266
+        },
+        "judge_usage": {
+          "input_tokens": 50,
+          "cache_creation_input_tokens": 289720,
+          "cache_read_input_tokens": 521725,
+          "output_tokens": 155537
+        }
+      }
+    ],
+    "counts": {
+      "text_configurations": 43,
+      "text_conversations": 1091,
+      "voice_configurations": 9,
+      "voice_conversations": 225,
+      "scripted_turns": 39480,
+      "graded_conversations": 1313,
+      "provider_blocked_conversations": 3
+    }
+  }
+}

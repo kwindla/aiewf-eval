@@ -1,0 +1,44 @@
+{
+  "publication_summary": true,
+  "source_artifact": "ops/baseten-nemotron-ultra/aiewf-medium-off-on-n30-20261018/rubric-comparison/aggregate.json",
+  "source_sha256": "c94122f93c40bbd6963fc6953ff389610e632ddd62845f2b2107c04b6d612843",
+  "evidence_storage": "../../../README.md",
+  "data": {
+    "completed_at": "2026-10-18T18:05:31.951984+00:00",
+    "conversations": 30,
+    "turns": 900,
+    "judge_model": "claude-opus-5-5",
+    "judge_effort": "medium",
+    "legacy_rubric_sha256": "2ffdd0b3c5072e197b95cafba49dda5731e59eda7f6b73bfbdbc43e246e06f26",
+    "current_rubric_sha256": "70cdc7982a5f2485375e22ff43761ebf74acf21e38bde5d8518a9e95f6cfd3d2",
+    "counts": {
+      "legacy_passes": 869,
+      "current_passes": 827,
+      "legacy_pass_current_pass": 811,
+      "legacy_fail_current_fail": 15,
+      "legacy_pass_current_fail": 58,
+      "legacy_fail_current_pass": 16
+    },
+    "legacy_percent": 96.55555555555556,
+    "current_percent": 91.88888888888889,
+    "legacy_minus_current_percentage_points": 4.666666666666667,
+    "paired_conversation_bootstrap_ci95": [
+      3.2222222222222223,
+      6.222222222222222
+    ],
+    "legacy_judge_cost_usd": 5.948926899999998,
+    "disagreement_counts_by_turn": {
+      "20": 15,
+      "2": 1,
+      "4": 22,
+      "19": 12,
+      "7": 4,
+      "8": 4,
+      "21": 12,
+      "13": 1,
+      "14": 1,
+      "3": 1,
+      "16": 1
+    }
+  }
+}

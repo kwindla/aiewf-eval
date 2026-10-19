@@ -1,0 +1,108 @@
+{
+  "schema_version": 1,
+  "campaign_id": "aiewf-medium-ultra-baseten-off-on-n30-20261018-paced",
+  "benchmark": "aiwf_medium_context",
+  "model": "nvidia/NVIDIA-Nemotron-3-Ultra-550B-A55B",
+  "accepted_response_model_ids": [
+    "nvidia/NVIDIA-Nemotron-3-Ultra-550B-A55B"
+  ],
+  "service": "baseten",
+  "pipeline": "text",
+  "endpoint": {
+    "url": "https://inference.baseten.co/v1",
+    "request_env": "BASETEN_BASE_URL"
+  },
+  "credential": {
+    "request_env": "BASETEN_API_KEY",
+    "source_env": "BASETEN_API_KEY",
+    "source_file": "/home/khkramer/src/gb-benchmarks/.env",
+    "source_file_key": "BASETEN_API_KEY"
+  },
+  "paths": {
+    "campaign_artifact_dir": "ops/baseten-nemotron-ultra/aiewf-medium-off-on-n30-20261018/artifacts",
+    "run_output_root": "runs/baseten-ultra-20261018-paced/aiwf_medium_context"
+  },
+  "schedule_path": "ops/baseten-nemotron-ultra/aiewf-medium-off-on-n30-20261018/schedule.tsv",
+  "source_integrity_paths": [
+    "benchmarks/_shared/__init__.py",
+    "benchmarks/_shared/tools.py",
+    "benchmarks/_shared/turns.py",
+    "benchmarks/aiwf_medium_context/config.py",
+    "benchmarks/aiwf_medium_context/prompts/system.py",
+    "benchmarks/aiwf_medium_context/data/knowledge_base.txt",
+    "src/multi_turn_eval/pipelines/base.py",
+    "src/multi_turn_eval/recording/transcript_recorder.py",
+    "pyproject.toml",
+    "uv.lock",
+    "src/multi_turn_eval/services/filler.py",
+    "src/multi_turn_eval/pipelines/text.py",
+    "src/multi_turn_eval/services/baseten_logged.py",
+    "src/multi_turn_eval/services/lilac_logged.py",
+    "ops/baseten-nemotron-ultra/aiewf-medium-off-on-n30-20261018/PROTOCOL.md",
+    "ops/baseten-nemotron-ultra/aiewf-medium-off-on-n30-20261018/pairs.json"
+  ],
+  "target_eligible_runs": 60,
+  "fixed_scheduled_turns_per_conversation": 30,
+  "serving": {
+    "verified": true,
+    "notes": "Paced direct streams confirmed exact released Ultra and none/high reasoning separation. Full-harness smokes: off early end_session at turn 6 (7 turns), on all 30 turns; no errors/thinking marker leakage, every observed turn positive TTFAT. Entire prior unpaced pilot excluded unjudged. Effective limits 120 RPM/500000 combined TPM; 3s spacing and bounded prestream 429 retries frozen for both arms."
+  },
+  "eligibility": {
+    "policy": "first_valid_response",
+    "missing_future_turns": "retain_as_fixed_denominator_failures",
+    "notes": "Retain first-valid-response slots including early model/service termination; missing future turns fail the fixed 900-turn denominator. No top-ups based on completion or scores."
+  },
+  "collection": {
+    "provider_endpoint_concurrency": 1,
+    "max_attempts_per_slot_default": 3,
+    "timeout_seconds_default": 1800
+  },
+  "unset_environment_prefixes": [
+    "MTE_BASETEN_",
+    "MTE_FILLER_",
+    "MTE_VLLM_"
+  ],
+  "unset_environment": [],
+  "common_environment": {
+    "MTE_ENABLE_RECOVERY": "1",
+    "MTE_DEDUPE_TOOL_CALLS": "1",
+    "MTE_TOOL_RESULT_RUN_LLM": "0",
+    "MTE_TEXT_IDLE_TIMEOUT_SECS": "180",
+    "MTE_BASETEN_MAX_TOKENS": "16384",
+    "MTE_BASETEN_TEMPERATURE": "1.0",
+    "MTE_BASETEN_TOP_P": "0.95",
+    "MTE_BASETEN_MIN_REQUEST_INTERVAL_SECS": "3",
+    "MTE_BASETEN_RATE_LIMIT_RETRIES": "3",
+    "MTE_BASETEN_RATE_LIMIT_BACKOFF_SECS": "10"
+  },
+  "arms": {
+    "off": {
+      "environment": {
+        "MTE_BASETEN_REASONING_EFFORT": "none"
+      },
+      "provenance_log_needles": [
+        "reasoning_effort=none,",
+        "enable_thinking=(unset)",
+        "max_tokens=16384, temperature=1.0, top_p=0.95"
+      ],
+      "forbidden_log_needles": [
+        "MTE_FILLER_DOTS active",
+        "reasoning_effort=high,"
+      ]
+    },
+    "on": {
+      "environment": {
+        "MTE_BASETEN_REASONING_EFFORT": "high"
+      },
+      "provenance_log_needles": [
+        "reasoning_effort=high,",
+        "enable_thinking=(unset)",
+        "max_tokens=16384, temperature=1.0, top_p=0.95"
+      ],
+      "forbidden_log_needles": [
+        "MTE_FILLER_DOTS active",
+        "reasoning_effort=none,"
+      ]
+    }
+  }
+}

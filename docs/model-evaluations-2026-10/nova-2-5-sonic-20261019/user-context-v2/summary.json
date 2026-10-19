@@ -1,0 +1,335 @@
+{
+  "publication_summary": true,
+  "source_artifact": "ops/nova-2-5-sonic-20261019/user-context-v2/aggregate.json",
+  "source_sha256": "16ac11b0e8d68e306b7f73315db59cf4bdf4f185240fbc54def5b4dba963c9df",
+  "evidence_storage": "../../README.md",
+  "data": {
+    "at": "2026-10-19T18:37:27.956893+00:00",
+    "judge_model": "claude-opus-5-5",
+    "judge_effort": "medium",
+    "all_quality_complete": true,
+    "judged_conversations": 25,
+    "successful_judge_cost_usd": 4.6118905,
+    "judge_credit_cooldowns": 0,
+    "text_models": [],
+    "voice_models": [
+      {
+        "label": "Nova 2.5 Sonic (reference in USER context)",
+        "model": "amazon.nova-2-5-sonic",
+        "provider": "AWS Bedrock",
+        "complete": 25,
+        "eligible_attempts": 25,
+        "failed_conversations": 0,
+        "failure_rate_percent": 0.0,
+        "complete_only": {
+          "strict_passes": 645,
+          "dimension_passes": {
+            "tool_use_correct": 676,
+            "instruction_following": 658,
+            "kb_grounding": 750
+          },
+          "denominator": 750
+        },
+        "strict_percent": 86.0,
+        "strict_ci95": [
+          82.93333333333332,
+          88.8
+        ],
+        "per_conversation_strict_passes": [
+          23,
+          28,
+          28,
+          27,
+          27,
+          22,
+          27,
+          28,
+          27,
+          28,
+          24,
+          22,
+          26,
+          26,
+          22,
+          23,
+          27,
+          28,
+          26,
+          28,
+          28,
+          26,
+          22,
+          24,
+          28
+        ],
+        "turn_taking_passes": 750,
+        "turn_taking_scored": true,
+        "first_speech_signed": {
+          "n": 750,
+          "mean_ms": 1193.088,
+          "median_ms": 1152.0,
+          "p50_ms": 1152.0,
+          "p95_ms": 1617.5999999999985,
+          "max_ms": 1888.0
+        },
+        "first_speech_positive": {
+          "n": 750,
+          "mean_ms": 1193.088,
+          "median_ms": 1152.0,
+          "p50_ms": 1152.0,
+          "p95_ms": 1617.5999999999985,
+          "max_ms": 1888.0
+        },
+        "non_tool": {
+          "n": 674,
+          "mean_ms": 1160.213649851632,
+          "median_ms": 1120.0,
+          "p50_ms": 1120.0,
+          "p95_ms": 1600.0,
+          "max_ms": 1888.0
+        },
+        "tool": {
+          "n": 76,
+          "mean_ms": 1484.6315789473683,
+          "median_ms": 1472.0,
+          "p50_ms": 1472.0,
+          "p95_ms": 1640.0,
+          "max_ms": 1760.0
+        },
+        "silence": {
+          "n": 750,
+          "mean_ms": 180.62133333333333,
+          "median_ms": 198.0,
+          "p50_ms": 198.0,
+          "p95_ms": 272.54999999999995,
+          "max_ms": 349.0
+        },
+        "nonpositive_n": 0,
+        "missing_latency_n": 0,
+        "audio_inputs": [
+          {
+            "job": "nova-standard-001",
+            "source_wav": "runs/nova-2-5-sonic-20261019-user-context-v2/attempt-001/conversation.wav",
+            "wav_sha256": "347459cb9f46179088d8ff31fc49cdfdf90d21572ffa3917c6d1f1656df5ff8e",
+            "metrics": "ops/nova-2-5-sonic-20261019/user-context-v2/audio/nova-standard-001.json",
+            "input_waveform_audit": "ops/nova-2-5-sonic-20261019/user-context-v2/audio/nova-standard-001-input-waveform.json"
+          },
+          {
+            "job": "nova-standard-002",
+            "source_wav": "runs/nova-2-5-sonic-20261019-user-context-v2/attempt-002/conversation.wav",
+            "wav_sha256": "804a18ccc4e9d4a81fc4c59babf9acb32078ac462f6e7e1cc84d8f3ae3a661c5",
+            "metrics": "ops/nova-2-5-sonic-20261019/user-context-v2/audio/nova-standard-002.json",
+            "input_waveform_audit": "ops/nova-2-5-sonic-20261019/user-context-v2/audio/nova-standard-002-input-waveform.json"
+          },
+          {
+            "job": "nova-standard-003",
+            "source_wav": "runs/nova-2-5-sonic-20261019-user-context-v2/attempt-003/conversation.wav",
+            "wav_sha256": "ab899ccf0628ff489939d30e1a10ed35509db2b8b0472d0e49b4cea83a418391",
+            "metrics": "ops/nova-2-5-sonic-20261019/user-context-v2/audio/nova-standard-003.json",
+            "input_waveform_audit": "ops/nova-2-5-sonic-20261019/user-context-v2/audio/nova-standard-003-input-waveform.json"
+          },
+          {
+            "job": "nova-standard-004",
+            "source_wav": "runs/nova-2-5-sonic-20261019-user-context-v2/attempt-004/conversation.wav",
+            "wav_sha256": "0bb9054794cdceedfdc4662476b1f6bd0d7dc096ef13084a695f8c17efa86eb1",
+            "metrics": "ops/nova-2-5-sonic-20261019/user-context-v2/audio/nova-standard-004.json",
+            "input_waveform_audit": "ops/nova-2-5-sonic-20261019/user-context-v2/audio/nova-standard-004-input-waveform.json"
+          },
+          {
+            "job": "nova-standard-005",
+            "source_wav": "runs/nova-2-5-sonic-20261019-user-context-v2/attempt-005/conversation.wav",
+            "wav_sha256": "29cc79c8407b1d717c1a2386f213460ebcdaa4fef2383db9d00f5ba81377ccd9",
+            "metrics": "ops/nova-2-5-sonic-20261019/user-context-v2/audio/nova-standard-005.json",
+            "input_waveform_audit": "ops/nova-2-5-sonic-20261019/user-context-v2/audio/nova-standard-005-input-waveform.json"
+          },
+          {
+            "job": "nova-standard-006",
+            "source_wav": "runs/nova-2-5-sonic-20261019-user-context-v2/attempt-006/conversation.wav",
+            "wav_sha256": "bf2627cf09b970cafb93344a090baea117c8d5c303869d3137d83142de38c7f3",
+            "metrics": "ops/nova-2-5-sonic-20261019/user-context-v2/audio/nova-standard-006.json",
+            "input_waveform_audit": "ops/nova-2-5-sonic-20261019/user-context-v2/audio/nova-standard-006-input-waveform.json"
+          },
+          {
+            "job": "nova-standard-007",
+            "source_wav": "runs/nova-2-5-sonic-20261019-user-context-v2/attempt-007/conversation.wav",
+            "wav_sha256": "af8c3d1d056a9e4c225a3aba4503cb11301e9497b8c5431af18d862e687742c9",
+            "metrics": "ops/nova-2-5-sonic-20261019/user-context-v2/audio/nova-standard-007.json",
+            "input_waveform_audit": "ops/nova-2-5-sonic-20261019/user-context-v2/audio/nova-standard-007-input-waveform.json"
+          },
+          {
+            "job": "nova-standard-008",
+            "source_wav": "runs/nova-2-5-sonic-20261019-user-context-v2/attempt-008/conversation.wav",
+            "wav_sha256": "5b6eb5c80636ea066a15d54562456a5fce29a32aee8c7c8c53ea5ee7e50f79ec",
+            "metrics": "ops/nova-2-5-sonic-20261019/user-context-v2/audio/nova-standard-008.json",
+            "input_waveform_audit": "ops/nova-2-5-sonic-20261019/user-context-v2/audio/nova-standard-008-input-waveform.json"
+          },
+          {
+            "job": "nova-standard-009",
+            "source_wav": "runs/nova-2-5-sonic-20261019-user-context-v2/attempt-009/conversation.wav",
+            "wav_sha256": "1a5794b9f36cc11901a4176009be10cfd21193511dc2edea3f450307536a3ce1",
+            "metrics": "ops/nova-2-5-sonic-20261019/user-context-v2/audio/nova-standard-009.json",
+            "input_waveform_audit": "ops/nova-2-5-sonic-20261019/user-context-v2/audio/nova-standard-009-input-waveform.json"
+          },
+          {
+            "job": "nova-standard-010",
+            "source_wav": "runs/nova-2-5-sonic-20261019-user-context-v2/attempt-010/conversation.wav",
+            "wav_sha256": "8a0c4b0496ca5375e36c0b071256fb041f540f65f17a338226126c75697b4c87",
+            "metrics": "ops/nova-2-5-sonic-20261019/user-context-v2/audio/nova-standard-010.json",
+            "input_waveform_audit": "ops/nova-2-5-sonic-20261019/user-context-v2/audio/nova-standard-010-input-waveform.json"
+          },
+          {
+            "job": "nova-standard-011",
+            "source_wav": "runs/nova-2-5-sonic-20261019-user-context-v2/attempt-011/conversation.wav",
+            "wav_sha256": "5b8a861943b9996c7da62110b24bd3ac1d13f076a9e50689c06f6d95c3caaf1f",
+            "metrics": "ops/nova-2-5-sonic-20261019/user-context-v2/audio/nova-standard-011.json",
+            "input_waveform_audit": "ops/nova-2-5-sonic-20261019/user-context-v2/audio/nova-standard-011-input-waveform.json"
+          },
+          {
+            "job": "nova-standard-012",
+            "source_wav": "runs/nova-2-5-sonic-20261019-user-context-v2/attempt-012/conversation.wav",
+            "wav_sha256": "063b9d5e7b793c7b3d58738d52cc43e0e151ded2a1ace62e01e84502b7947ee9",
+            "metrics": "ops/nova-2-5-sonic-20261019/user-context-v2/audio/nova-standard-012.json",
+            "input_waveform_audit": "ops/nova-2-5-sonic-20261019/user-context-v2/audio/nova-standard-012-input-waveform.json"
+          },
+          {
+            "job": "nova-standard-013",
+            "source_wav": "runs/nova-2-5-sonic-20261019-user-context-v2/attempt-013/conversation.wav",
+            "wav_sha256": "9ed79c6797f6292378b0cb57ce24aa16ca57bb6d0e249e87038cee79960c736b",
+            "metrics": "ops/nova-2-5-sonic-20261019/user-context-v2/audio/nova-standard-013.json",
+            "input_waveform_audit": "ops/nova-2-5-sonic-20261019/user-context-v2/audio/nova-standard-013-input-waveform.json"
+          },
+          {
+            "job": "nova-standard-014",
+            "source_wav": "runs/nova-2-5-sonic-20261019-user-context-v2/attempt-014/conversation.wav",
+            "wav_sha256": "f187dee0ff06c0f5c72e2808b90864c40da5a0bbd68e6b8541e6a33d17feae35",
+            "metrics": "ops/nova-2-5-sonic-20261019/user-context-v2/audio/nova-standard-014.json",
+            "input_waveform_audit": "ops/nova-2-5-sonic-20261019/user-context-v2/audio/nova-standard-014-input-waveform.json"
+          },
+          {
+            "job": "nova-standard-015",
+            "source_wav": "runs/nova-2-5-sonic-20261019-user-context-v2/attempt-015/conversation.wav",
+            "wav_sha256": "ce6482dcdcb7a20c785bef2289a202836f3eb83358b0202d3a9ad3089f092dad",
+            "metrics": "ops/nova-2-5-sonic-20261019/user-context-v2/audio/nova-standard-015.json",
+            "input_waveform_audit": "ops/nova-2-5-sonic-20261019/user-context-v2/audio/nova-standard-015-input-waveform.json"
+          },
+          {
+            "job": "nova-standard-016",
+            "source_wav": "runs/nova-2-5-sonic-20261019-user-context-v2/attempt-016/conversation.wav",
+            "wav_sha256": "fa3d9ff987e85bf6a714c186466df040f3e5961f0293f272abd3c8a59185b335",
+            "metrics": "ops/nova-2-5-sonic-20261019/user-context-v2/audio/nova-standard-016.json",
+            "input_waveform_audit": "ops/nova-2-5-sonic-20261019/user-context-v2/audio/nova-standard-016-input-waveform.json"
+          },
+          {
+            "job": "nova-standard-017",
+            "source_wav": "runs/nova-2-5-sonic-20261019-user-context-v2/attempt-017/conversation.wav",
+            "wav_sha256": "b1eb08c2e45a3d7dbcdee6efd75ebfc5aaed576d78956277d5a1bf6fd369b08d",
+            "metrics": "ops/nova-2-5-sonic-20261019/user-context-v2/audio/nova-standard-017.json",
+            "input_waveform_audit": "ops/nova-2-5-sonic-20261019/user-context-v2/audio/nova-standard-017-input-waveform.json"
+          },
+          {
+            "job": "nova-standard-018",
+            "source_wav": "runs/nova-2-5-sonic-20261019-user-context-v2/attempt-018/conversation.wav",
+            "wav_sha256": "740d18651dc5829f49f6e1148cbc845211a97761e93daa5d3b08f6d5855089f5",
+            "metrics": "ops/nova-2-5-sonic-20261019/user-context-v2/audio/nova-standard-018.json",
+            "input_waveform_audit": "ops/nova-2-5-sonic-20261019/user-context-v2/audio/nova-standard-018-input-waveform.json"
+          },
+          {
+            "job": "nova-standard-019",
+            "source_wav": "runs/nova-2-5-sonic-20261019-user-context-v2/attempt-019/conversation.wav",
+            "wav_sha256": "281f24853a5bb684b9702df1fcf4cc3f8f606486d812ea8e25263ba8691f811d",
+            "metrics": "ops/nova-2-5-sonic-20261019/user-context-v2/audio/nova-standard-019.json",
+            "input_waveform_audit": "ops/nova-2-5-sonic-20261019/user-context-v2/audio/nova-standard-019-input-waveform.json"
+          },
+          {
+            "job": "nova-standard-020",
+            "source_wav": "runs/nova-2-5-sonic-20261019-user-context-v2/attempt-020/conversation.wav",
+            "wav_sha256": "3ccbf36f60c86cb24fbf5cf7d9e3d2807ffeace4ff3e01bd812649e4e3404ffb",
+            "metrics": "ops/nova-2-5-sonic-20261019/user-context-v2/audio/nova-standard-020.json",
+            "input_waveform_audit": "ops/nova-2-5-sonic-20261019/user-context-v2/audio/nova-standard-020-input-waveform.json"
+          },
+          {
+            "job": "nova-standard-021",
+            "source_wav": "runs/nova-2-5-sonic-20261019-user-context-v2/attempt-021/conversation.wav",
+            "wav_sha256": "9f26c9a2ee6a259efdd56a24866b2ddb6795ef1ae1a294683d5d9ae46497d5bb",
+            "metrics": "ops/nova-2-5-sonic-20261019/user-context-v2/audio/nova-standard-021.json",
+            "input_waveform_audit": "ops/nova-2-5-sonic-20261019/user-context-v2/audio/nova-standard-021-input-waveform.json"
+          },
+          {
+            "job": "nova-standard-022",
+            "source_wav": "runs/nova-2-5-sonic-20261019-user-context-v2/attempt-022/conversation.wav",
+            "wav_sha256": "65ae5bfae1a620326e8a1447f4e1b777ee654ed03ad2fbd492b889cdd2fbac1a",
+            "metrics": "ops/nova-2-5-sonic-20261019/user-context-v2/audio/nova-standard-022.json",
+            "input_waveform_audit": "ops/nova-2-5-sonic-20261019/user-context-v2/audio/nova-standard-022-input-waveform.json"
+          },
+          {
+            "job": "nova-standard-023",
+            "source_wav": "runs/nova-2-5-sonic-20261019-user-context-v2/attempt-023/conversation.wav",
+            "wav_sha256": "b977118c25140ffb6bc0cbe4d55f7b3283caed09bababd92999368b9c4a0bd11",
+            "metrics": "ops/nova-2-5-sonic-20261019/user-context-v2/audio/nova-standard-023.json",
+            "input_waveform_audit": "ops/nova-2-5-sonic-20261019/user-context-v2/audio/nova-standard-023-input-waveform.json"
+          },
+          {
+            "job": "nova-standard-024",
+            "source_wav": "runs/nova-2-5-sonic-20261019-user-context-v2/attempt-024/conversation.wav",
+            "wav_sha256": "052509da246bc2f095823bcd42fb329846a33ea749a256c3fb868c2271ce27bc",
+            "metrics": "ops/nova-2-5-sonic-20261019/user-context-v2/audio/nova-standard-024.json",
+            "input_waveform_audit": "ops/nova-2-5-sonic-20261019/user-context-v2/audio/nova-standard-024-input-waveform.json"
+          },
+          {
+            "job": "nova-standard-025",
+            "source_wav": "runs/nova-2-5-sonic-20261019-user-context-v2/attempt-025/conversation.wav",
+            "wav_sha256": "1aef7cc6c99127bf4af056bbc4747544f673812731aefffa6ce3ae7c934db981",
+            "metrics": "ops/nova-2-5-sonic-20261019/user-context-v2/audio/nova-standard-025.json",
+            "input_waveform_audit": "ops/nova-2-5-sonic-20261019/user-context-v2/audio/nova-standard-025-input-waveform.json"
+          }
+        ],
+        "harness_excluded": 3,
+        "harness_exclusion_details": [
+          {
+            "attempt": 1,
+            "run_dir": "runs/nova-2-5-sonic-20261019-user-context/attempt-001",
+            "turns": 12,
+            "classification": "harness_excluded",
+            "reason": "tool result context push deferred; direct provider result delivery not guaranteed",
+            "source_profile": "user-context",
+            "raw_sha256": {
+              "campaign-request.json": "335e60904204dc2b7abd90c99acd4bcc68403c9809bee1569842ba48650d4a60",
+              "conversation.wav": "f8639aae7ed39764bbb3e47a0105cdce0c961008c70f79451a405ccb72e82d04",
+              "run.log": "8bb4d2c567c076136f80cf4d510156c963aa1d663d9fd071d35778803a10d58e",
+              "transcript.jsonl": "bbf70bddf8e32cb0a4364b0ceb3b1831044bf39ded00c6a4f08be1b4fdeb352b"
+            }
+          },
+          {
+            "attempt": 2,
+            "run_dir": "runs/nova-2-5-sonic-20261019-user-context/attempt-002",
+            "turns": 18,
+            "classification": "harness_excluded",
+            "reason": "tool result context push deferred; direct provider result delivery not guaranteed",
+            "source_profile": "user-context",
+            "raw_sha256": {
+              "campaign-request.json": "335e60904204dc2b7abd90c99acd4bcc68403c9809bee1569842ba48650d4a60",
+              "conversation.wav": "3bc0a6b3b729093a5aa4f9fb96c887b54d5114499fb27a0de5c8c57774eb6e5c",
+              "run.log": "702fdffbd372c3fedec13481070fd5b4daf948bca59e1fd04931c01f271f2427",
+              "transcript.jsonl": "d5e97c203187af31d7563347a0c5402628506a8963cea03a0e63560c719c6be4"
+            }
+          },
+          {
+            "attempt": 3,
+            "run_dir": "runs/nova-2-5-sonic-20261019-user-context/attempt-003",
+            "turns": 18,
+            "classification": "harness_excluded",
+            "reason": "tool result context push deferred; direct provider result delivery not guaranteed",
+            "source_profile": "user-context",
+            "raw_sha256": {
+              "campaign-request.json": "335e60904204dc2b7abd90c99acd4bcc68403c9809bee1569842ba48650d4a60",
+              "conversation.wav": "2806c8d25abc5635ee7b983be3c0a927587444ca3a97d2b28ba0234fcbe57d44",
+              "run.log": "b8058811719442a274250c1fbf7346b24bee60adffaae4cd422014f982ab8681",
+              "transcript.jsonl": "adbc2f743d2c8172c029bf54e4f12de6c3bf9398477797b43160711354fb0e58"
+            }
+          }
+        ],
+        "conversations_with_no_tool_calls": 8
+      }
+    ]
+  }
+}

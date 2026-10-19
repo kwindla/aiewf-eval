@@ -1,0 +1,217 @@
+{
+  "publication_summary": true,
+  "source_artifact": "ops/baseten-nemotron-ultra/aiewf-medium-off-on-n30-20261018/aggregate.json",
+  "source_sha256": "2e46863e4bc6f80769c25481f062dd099825bb22241ccba5db75c30a062619a1",
+  "evidence_storage": "../../README.md",
+  "data": {
+    "as_of": "2026-10-18T16:31:38.043439+00:00",
+    "campaign": "aiewf-medium-ultra-baseten-off-on-n30-20261018",
+    "all_quality_complete": true,
+    "source_manifest": "judging/inputs.json",
+    "arms": {
+      "off": {
+        "reasoning_effort": "none",
+        "conversations": 30,
+        "complete_conversations": 19,
+        "incomplete_conversations": 11,
+        "observed_scripted_turns": 647,
+        "missing_future_turns": 253,
+        "recovery_turns": 0,
+        "fixed_denominator": 900,
+        "known_strict_passes": 544,
+        "strict_percent": 60.44444444444444,
+        "strict_ci95": [
+          48.11111111111111,
+          72.33333333333333
+        ],
+        "complete_only_strict_percent": 85.96491228070175,
+        "complete_only_ci95": [
+          82.63157894736842,
+          88.94736842105264
+        ],
+        "dimension_passes": {
+          "tool_use_correct": 627,
+          "instruction_following": 561,
+          "kb_grounding": 608
+        },
+        "observed_dimension_error_percent": {
+          "tool_use_correct": 3.091190108191654,
+          "instruction_following": 13.292117465224111,
+          "kb_grounding": 6.0278207109737245
+        },
+        "provider_blocked": [],
+        "all_quality_complete": true,
+        "ttfat": {
+          "n": 617,
+          "p50_ms": 465,
+          "p95_ms": 771.1999999999999,
+          "max_ms": 1533
+        },
+        "raw_ttft": {
+          "n": 617,
+          "p50_ms": 465,
+          "p95_ms": 771.1999999999999,
+          "max_ms": 1533
+        },
+        "complete_only_ttfat": {
+          "n": 551,
+          "p50_ms": 468,
+          "p95_ms": 777.5,
+          "max_ms": 1533
+        },
+        "missing_ttfat": 0,
+        "nonpositive_ttfat": 0,
+        "missing_raw_ttft": 0,
+        "nonpositive_raw_ttft": 0,
+        "usage_including_recovery": {
+          "prompt_tokens": 10558846,
+          "completion_tokens": 106563,
+          "cache_read_input_tokens": 9795584,
+          "thinking_tokens": 0,
+          "missing_usage_records": 0
+        },
+        "catalog_per_token_rates": {
+          "prompt": 6e-07,
+          "completion": 2.4e-06,
+          "input_cache_read": 1.2e-07
+        },
+        "generation_cost_estimate_usd": 1.8891784799999998,
+        "successful_judge_cost_usd": 5.560582100000001,
+        "judge_cost_missing_requests": 0,
+        "early_end_session_turn_indices": {
+          "6": 11
+        },
+        "interest_turn_tool_calls": {
+          "request_tech_support": 3,
+          "end_session": 11,
+          "submit_session_suggestion": 1,
+          "vote_for_session": 2
+        },
+        "observed_strict_failures_by_turn": {
+          "0": 1,
+          "2": 1,
+          "4": 30,
+          "6": 19,
+          "21": 13,
+          "8": 6,
+          "14": 3,
+          "7": 8,
+          "9": 2,
+          "19": 6,
+          "20": 9,
+          "10": 1,
+          "13": 1,
+          "16": 1,
+          "22": 1,
+          "3": 1
+        },
+        "explicit_429_retries": 0,
+        "terminal_429_conversations": 0
+      },
+      "on": {
+        "reasoning_effort": "high",
+        "conversations": 30,
+        "complete_conversations": 30,
+        "incomplete_conversations": 0,
+        "observed_scripted_turns": 900,
+        "missing_future_turns": 0,
+        "recovery_turns": 2,
+        "fixed_denominator": 900,
+        "known_strict_passes": 827,
+        "strict_percent": 91.88888888888889,
+        "strict_ci95": [
+          90.44444444444444,
+          93.22222222222221
+        ],
+        "complete_only_strict_percent": 91.88888888888889,
+        "complete_only_ci95": [
+          90.44444444444444,
+          93.22222222222221
+        ],
+        "dimension_passes": {
+          "tool_use_correct": 899,
+          "instruction_following": 863,
+          "kb_grounding": 856
+        },
+        "observed_dimension_error_percent": {
+          "tool_use_correct": 0.1111111111111111,
+          "instruction_following": 4.111111111111111,
+          "kb_grounding": 4.888888888888889
+        },
+        "provider_blocked": [],
+        "all_quality_complete": true,
+        "ttfat": {
+          "n": 872,
+          "p50_ms": 925.5,
+          "p95_ms": 2115.699999999998,
+          "max_ms": 8679
+        },
+        "raw_ttft": {
+          "n": 872,
+          "p50_ms": 457.0,
+          "p95_ms": 695.4499999999999,
+          "max_ms": 3659
+        },
+        "complete_only_ttfat": {
+          "n": 872,
+          "p50_ms": 925.5,
+          "p95_ms": 2115.699999999998,
+          "max_ms": 8679
+        },
+        "missing_ttfat": 0,
+        "nonpositive_ttfat": 0,
+        "missing_raw_ttft": 0,
+        "nonpositive_raw_ttft": 0,
+        "usage_including_recovery": {
+          "prompt_tokens": 14914922,
+          "completion_tokens": 262781,
+          "cache_read_input_tokens": 13589632,
+          "thinking_tokens": 126180,
+          "missing_usage_records": 0
+        },
+        "catalog_per_token_rates": {
+          "prompt": 6e-07,
+          "completion": 2.4e-06,
+          "input_cache_read": 1.2e-07
+        },
+        "generation_cost_estimate_usd": 3.0566042399999995,
+        "successful_judge_cost_usd": 6.573447299999998,
+        "judge_cost_missing_requests": 0,
+        "early_end_session_turn_indices": {},
+        "interest_turn_tool_calls": {},
+        "observed_strict_failures_by_turn": {
+          "19": 13,
+          "20": 16,
+          "2": 1,
+          "4": 22,
+          "7": 1,
+          "8": 3,
+          "21": 12,
+          "13": 1,
+          "14": 1,
+          "16": 1,
+          "9": 1,
+          "3": 1
+        },
+        "explicit_429_retries": 0,
+        "terminal_429_conversations": 0
+      }
+    },
+    "comparison": {
+      "on_minus_off_percentage_points": 31.444444444444446,
+      "paired_conversation_bootstrap_ci95": [
+        19.22222222222222,
+        44.11111111111111
+      ]
+    },
+    "generation_attempts": 60,
+    "excluded_infrastructure_attempts": 0,
+    "diagnostics_excluded": [
+      "smoke-off",
+      "smoke-on",
+      "direct-off",
+      "direct-on"
+    ],
+    "unpaced_pilot_excluded_in_full": "../pilot-unpaced-20261018/PILOT.md"
+  }
+}

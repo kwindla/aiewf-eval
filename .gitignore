@@ -96,3 +96,22 @@ htmlcov/
 /openai.md
 /tmp-review-001.md
 /tmp.png
+
+# October judge-refresh evidence stays local; allow reviewed methods only.
+/ops/judge-refresh-opus55-20261017/*
+!/ops/judge-refresh-opus55-20261017/.gitignore
+!/ops/judge-refresh-opus55-20261017/analyze.py
+!/ops/judge-refresh-opus55-20261017/audit_local_runs.py
+!/ops/judge-refresh-opus55-20261017/campaign.py
+!/ops/judge-refresh-opus55-20261017/cleanup-reasoning.py
+!/ops/judge-refresh-opus55-20261017/finalize.py
+!/ops/judge-refresh-opus55-20261017/publish.py
+!/ops/judge-refresh-opus55-20261017/retry-blocked-20261018.py
+!/ops/judge-refresh-opus55-20261017/rubric-text.txt
+!/ops/judge-refresh-opus55-20261017/rubric-voice.txt
+!/ops/judge-refresh-opus55-20261017/select_text.py
+!/ops/judge-refresh-opus55-20261017/select_voice.py
+!/ops/judge-refresh-opus55-20261017/summarize_sources.py
+
+# Raw independent review requests/responses are maintainer evidence.
+/ops/branch-cleanup-review-20261019/

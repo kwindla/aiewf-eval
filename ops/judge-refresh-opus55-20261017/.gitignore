@@ -1,0 +1,5 @@
+__pycache__/
+*.lock
+*.tmp
+STATE.md
+latency-recalculation.json

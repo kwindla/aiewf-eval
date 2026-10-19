@@ -3,6 +3,7 @@ from pathlib import Path
 
 from benchmarks._shared import turns, ToolsSchemaForTest
 from .prompts.system import system_instruction
+from .judge import judge_system_prompt
 
 
 class BenchmarkConfig:
@@ -21,6 +22,7 @@ class BenchmarkConfig:
 
     # System prompt
     system_instruction = system_instruction
+    judge_system_prompt = judge_system_prompt
 
     @classmethod
     def get_audio_path(cls, turn_index: int) -> Path:

@@ -5,6 +5,7 @@ under the hood, so existing text pipelines and aggregators continue to work.
 """
 
 import json
+from copy import deepcopy
 import time
 from typing import Any, Dict, List
 
@@ -19,7 +20,7 @@ from pipecat.services.openai.llm import OpenAILLMService
 from pipecat.utils.tracing.service_decorators import traced_llm
 
 from multi_turn_eval.metrics import RawTTFBMetricsData
-from multi_turn_eval.services.filler import apply_filler_to_last_user
+from multi_turn_eval.services.filler import apply_filler_to_last_user, filler_suffix
 
 
 class OpenAIResponsesLLMService(OpenAILLMService):
@@ -28,6 +29,11 @@ class OpenAIResponsesLLMService(OpenAILLMService):
     def __init__(self, *, stateful_responses_enabled: bool = False, **kwargs: Any):
         self._stateful_responses_enabled = bool(stateful_responses_enabled)
         self._previous_response_id: str | None = None
+        self._external_context: list[dict[str, Any]] = []
+        self._native_history: list[dict[str, Any]] = []
+        self._pending_history: tuple[list[dict[str, Any]], list[dict[str, Any]], bool, bool] | None = None
+        self._previous_had_filler = False
+        self._pending_context_messages: list[Any] | None = None
         super().__init__(**kwargs)
 
     def _setting(self, key: str, default: Any = NOT_GIVEN) -> Any:
@@ -75,6 +81,11 @@ class OpenAIResponsesLLMService(OpenAILLMService):
             return str(value)
 
     def _message_to_responses_items(self, message: Any) -> List[Dict[str, Any]]:
+        # Accept an explicitly seeded native Responses history without flattening.
+        if self._get_attr(message, "type") in {
+            "message", "reasoning", "function_call", "function_call_output"
+        }:
+            return [self._native_item(message)]
         role = self._get_attr(message, "role")
         content = self._get_attr(message, "content")
         tool_calls = self._get_attr(message, "tool_calls")
@@ -202,13 +213,17 @@ class OpenAIResponsesLLMService(OpenAILLMService):
         params_from_context = self._context_to_openai_params(context)
 
         messages = params_from_context.get("messages") or []
-        messages = apply_filler_to_last_user(messages)
+        if self._pending_history is not None and messages != self._pending_context_messages:
+            raise RuntimeError(
+                "Cannot continue a changed context after an unfinished Responses request; "
+                "retry the unchanged request or start a new conversation"
+            )
         tools = params_from_context.get("tools", NOT_GIVEN)
         tool_choice = params_from_context.get("tool_choice", NOT_GIVEN)
 
         request: Dict[str, Any] = {
             "model": getattr(self, "model_name", None) or self._setting("model"),
-            "input": self._messages_to_responses_input(messages),
+            "input": [],
             "tools": self._tools_to_responses_tools(tools),
             "tool_choice": self._tool_choice_to_responses_tool_choice(tool_choice),
             "temperature": self._setting("temperature"),
@@ -229,18 +244,57 @@ class OpenAIResponsesLLMService(OpenAILLMService):
         if not isinstance(extra, dict):
             extra = {}
         request.update(extra)
+        if request.get("store") is False:
+            # Unstored reasoning cannot be recovered by response ID. Request
+            # its encrypted replay payload without mutating caller settings.
+            include = request.get("include")
+            include = [] if include is None or self._is_not_given(include) else list(include)
+            if "reasoning.encrypted_content" not in include:
+                include.append("reasoning.encrypted_content")
+            request["include"] = include
 
-        previous_response_id = self._previous_response_id
-        if self._stateful_responses_enabled and previous_response_id:
-            # The provider retains every prior output item behind the response
-            # ID. Send only messages added after the latest assistant response,
-            # which includes any function-call output plus the next user turn.
-            for index in range(len(messages) - 1, -1, -1):
-                if self._get_attr(messages[index], "role") == "assistant":
-                    messages = messages[index + 1 :]
-                    break
-            request["previous_response_id"] = previous_response_id
-            request["input"] = self._messages_to_responses_input(messages)
+        # Pipecat aggregates assistant text and tool calls into Chat-style
+        # messages. Those are display/context projections, not replayable native
+        # Responses output: flattening them loses phase, reasoning and boundaries.
+        # Track only external inputs, whose prefix survives removal of empty
+        # assistant stubs by the pipeline sanitizer.
+        external = self._messages_to_responses_input(
+            [message for message in messages if self._get_attr(message, "role") != "assistant"]
+        )
+        previous_external = self._external_context
+        if external[:len(previous_external)] != previous_external:
+            if any(self._get_attr(message, "role") in {"assistant", "tool"} for message in messages):
+                raise ValueError("Responses context external history was rewritten; start a new service for a new conversation")
+            self._native_history = []
+            self._external_context = []
+            self._previous_response_id = None
+            previous_external = []
+        if self._native_history:
+            fresh_input = external[len(previous_external):]
+        else:
+            # Also allow a caller-supplied initial conversation. From this point
+            # onward, provider output is retained verbatim, never reconstructed.
+            fresh_input = self._messages_to_responses_input(messages)
+        clean_history = deepcopy(self._native_history + fresh_input)
+        has_filler = bool(filler_suffix())
+        can_chain = (
+            self._stateful_responses_enabled
+            and self._previous_response_id
+            and request.get("store") is not False
+            and not has_filler
+            and not self._previous_had_filler
+        )
+        if self._stateful_responses_enabled:
+            request.setdefault("store", True)
+        if can_chain:
+            request["previous_response_id"] = self._previous_response_id
+            request["input"] = deepcopy(fresh_input)
+        else:
+            # Filler studies intentionally keep earlier user messages filler-free.
+            # Chaining would retain old filler on the server and change that study.
+            request["input"] = apply_filler_to_last_user(deepcopy(clean_history))
+        self._pending_history = (deepcopy(external), clean_history, has_filler, request.get("store") is not False)
+        self._pending_context_messages = deepcopy(messages)
 
         # Drop NOT_GIVEN and empty markers.
         cleaned: Dict[str, Any] = {}
@@ -251,12 +305,35 @@ class OpenAIResponsesLLMService(OpenAILLMService):
 
         return cleaned
 
+    @classmethod
+    def _native_item(cls, item: Any) -> Any:
+        """Copy SDK output items without dropping phase or encrypted reasoning."""
+        if hasattr(item, "model_dump"):
+            return item.model_dump(mode="json", exclude_none=True)
+        if isinstance(item, dict):
+            return {key: cls._native_item(value) for key, value in item.items()}
+        if isinstance(item, (list, tuple)):
+            return [cls._native_item(value) for value in item]
+        if hasattr(item, "__dict__"):
+            return cls._native_item(vars(item))
+        return deepcopy(item)
+
     def _remember_completed_response(self, response: Any) -> None:
-        if not self._stateful_responses_enabled:
-            return
+        status = self._get_attr(response, "status")
+        if status not in {None, "completed"}:
+            raise RuntimeError(f"Cannot commit an unfinished Responses result: {status}")
+        pending = self._pending_history
+        if pending is None:
+            raise RuntimeError("Responses completion has no matching request boundary")
+        external, history, had_filler, stored = pending
+        output = self._get_attr(response, "output") or []
+        self._native_history = history + [self._native_item(item) for item in output]
+        self._external_context = external
+        self._previous_had_filler = had_filler
+        self._pending_history = None
+        self._pending_context_messages = None
         response_id = self._get_attr(response, "id")
-        if response_id:
-            self._previous_response_id = str(response_id)
+        self._previous_response_id = str(response_id) if response_id and stored else None
 
     @staticmethod
     def _extract_response_text(response: Any) -> str:
@@ -298,6 +375,7 @@ class OpenAIResponsesLLMService(OpenAILLMService):
         pending_function_calls: List[FunctionCallFromLLM] = []
         response_completed = False
         terminal_error = False
+        completed_output_items: dict[int, Any] = {}
 
         async def run_pending_function_calls() -> None:
             """Run tool callbacks only after response usage has been emitted.
@@ -398,6 +476,13 @@ class OpenAIResponsesLLMService(OpenAILLMService):
                         )
                         arguments = {"_raw_arguments": args_text}
 
+                    # Retain the complete native call even on compatible streams
+                    # that omit output_item.done and response.completed.
+                    completed_output_items.setdefault(
+                        getattr(event, "output_index", len(completed_output_items)),
+                        {"type": "function_call", "id": item_id, "call_id": call_id,
+                         "name": function_name, "arguments": args_text},
+                    )
                     if not ttfb_stopped:
                         await self.stop_ttfb_metrics()
                         ttfb_stopped = True
@@ -415,6 +500,8 @@ class OpenAIResponsesLLMService(OpenAILLMService):
 
                 if event_type == "response.output_item.done":
                     item = getattr(event, "item", None)
+                    if item is not None:
+                        completed_output_items[getattr(event, "output_index", len(completed_output_items))] = item
                     if item is not None and getattr(item, "type", None) == "function_call":
                         item_id = getattr(item, "id", None)
                         call_id = getattr(item, "call_id", None) or item_id
@@ -482,7 +569,7 @@ class OpenAIResponsesLLMService(OpenAILLMService):
                     await run_pending_function_calls()
                     continue
 
-                if event_type in {"response.failed", "response.error"}:
+                if event_type in {"response.failed", "response.error", "response.incomplete", "error"}:
                     terminal_error = True
                     await self.push_error(error_msg=f"Responses API error event: {event}")
 
@@ -491,6 +578,11 @@ class OpenAIResponsesLLMService(OpenAILLMService):
         # a tool from an explicitly failed response.
         if pending_function_calls and not terminal_error:
             if not response_completed:
+                # A compatible provider may omit the terminal response event.
+                # Retain completed native items, but do not chain an unknown ID.
+                self._remember_completed_response({
+                    "output": [completed_output_items[index] for index in sorted(completed_output_items)]
+                })
                 logger.warning(
                     f"{self}: Responses stream ended without response.completed; "
                     "running completed function calls without usage metrics"

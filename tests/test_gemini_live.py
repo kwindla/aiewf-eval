@@ -214,7 +214,10 @@ def test_explicit_behavior_configures_opaque_async_gemini_live_model(monkeypatch
 
     assert pipeline._is_gemini_live() is True
     assert service._is_gemini_3 is True
-    assert service._supports_non_blocking_tools is False
+    # Pipecat 1.12 accepts NON_BLOCKING for unversioned model IDs; our
+    # explicit protocol override must not invent a version for the alias.
+    assert service._gemini_version is None
+    assert service._supports_non_blocking_tools is True
     assert service._settings.thinking.thinking_level == genai_types.ThinkingLevel.MINIMAL
     assert service._settings.vad.disabled is True
     assert pipeline._uses_explicit_audio_activity() is True

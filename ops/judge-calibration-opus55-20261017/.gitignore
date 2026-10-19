@@ -1,0 +1,6 @@
+# Campaign evidence stays local; public summaries live in docs/model-evaluations-2026-10/.
+/*
+!/.gitignore
+!/analyze.py
+!/configuration.json
+!/run.py

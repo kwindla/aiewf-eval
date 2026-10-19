@@ -1,0 +1,1517 @@
+{
+  "publication_summary": true,
+  "source_artifact": "ops/recent-models-20261018/aggregate.json",
+  "source_sha256": "fab0ef19aeff10c7ec3be5e0e01dadead5d8079e79a8609549d43c608a0131e2",
+  "evidence_storage": "../README.md",
+  "data": {
+    "at": "2026-10-18T22:13:00+00:00",
+    "judge_model": "claude-opus-5-5",
+    "judge_effort": "medium",
+    "text_models": [
+      {
+        "key": "luna-none",
+        "name": "luna",
+        "arm": "none",
+        "label": "gpt-6-luna (none)",
+        "provider": "OpenAI",
+        "assigned": 30,
+        "complete": 0,
+        "incomplete": 30,
+        "shortfall": 30,
+        "all_assigned": {
+          "strict_passes": 217,
+          "dimension_passes": {
+            "tool_use_correct": 222,
+            "instruction_following": 217,
+            "kb_grounding": 269
+          },
+          "denominator": 900,
+          "strict_percent": 24.11111111111111,
+          "strict_ci95": [
+            21.333333333333336,
+            26.77777777777778
+          ],
+          "dimension_error_percent": {
+            "tool_use_correct": 75.33333333333333,
+            "instruction_following": 75.88888888888889,
+            "kb_grounding": 70.11111111111111
+          }
+        },
+        "complete_only": {
+          "strict_passes": 0,
+          "dimension_passes": {},
+          "denominator": 0,
+          "strict_percent": null,
+          "strict_ci95": null,
+          "dimension_error_percent": {
+            "tool_use_correct": null,
+            "instruction_following": null,
+            "kb_grounding": null
+          }
+        },
+        "strict_percent": null,
+        "strict_ci95": null,
+        "dimension_error_percent": {
+          "tool_use_correct": null,
+          "instruction_following": null,
+          "kb_grounding": null
+        },
+        "latency": {
+          "positive": {
+            "n": 0,
+            "mean_ms": null,
+            "median_ms": null,
+            "p50_ms": null,
+            "p95_ms": null,
+            "max_ms": null
+          },
+          "signed": {
+            "n": 0,
+            "mean_ms": null,
+            "median_ms": null,
+            "p50_ms": null,
+            "p95_ms": null,
+            "max_ms": null
+          },
+          "missing_n": 0,
+          "nonpositive_n": 0,
+          "eligible_response_n": 0,
+          "raw_ttft": {
+            "n": 0,
+            "mean_ms": null,
+            "median_ms": null,
+            "p50_ms": null,
+            "p95_ms": null,
+            "max_ms": null
+          }
+        },
+        "all_attempt_latency": {
+          "positive": {
+            "n": 243,
+            "mean_ms": 596.559670781893,
+            "median_ms": 550,
+            "p50_ms": 550,
+            "p95_ms": 939.9999999999986,
+            "max_ms": 1520
+          },
+          "signed": {
+            "n": 243,
+            "mean_ms": 596.559670781893,
+            "median_ms": 550,
+            "p50_ms": 550,
+            "p95_ms": 939.9999999999986,
+            "max_ms": 1520
+          },
+          "missing_n": 0,
+          "nonpositive_n": 0,
+          "eligible_response_n": 243,
+          "raw_ttft": {
+            "n": 243,
+            "mean_ms": 591.6748971193416,
+            "median_ms": 547,
+            "p50_ms": 547,
+            "p95_ms": 933.6999999999986,
+            "max_ms": 1519
+          }
+        },
+        "judge_blocked": [],
+        "observed_scripted_turns": 273,
+        "missing_future_turns": 627,
+        "early_end_session_turns": {
+          "8": 11,
+          "5": 6,
+          "7": 3,
+          "13": 7,
+          "6": 2,
+          "1": 1
+        },
+        "generation_credit_retries": 0,
+        "generation_prestream_429_retries": 0
+      },
+      {
+        "key": "luna-low",
+        "name": "luna",
+        "arm": "low",
+        "label": "gpt-6-luna (low)",
+        "provider": "OpenAI",
+        "assigned": 30,
+        "complete": 0,
+        "incomplete": 30,
+        "shortfall": 30,
+        "all_assigned": {
+          "strict_passes": 728,
+          "dimension_passes": {
+            "tool_use_correct": 764,
+            "instruction_following": 739,
+            "kb_grounding": 830
+          },
+          "denominator": 900,
+          "strict_percent": 80.88888888888889,
+          "strict_ci95": [
+            77.99999999999999,
+            83.66666666666667
+          ],
+          "dimension_error_percent": {
+            "tool_use_correct": 15.11111111111111,
+            "instruction_following": 17.88888888888889,
+            "kb_grounding": 7.777777777777778
+          }
+        },
+        "complete_only": {
+          "strict_passes": 0,
+          "dimension_passes": {},
+          "denominator": 0,
+          "strict_percent": null,
+          "strict_ci95": null,
+          "dimension_error_percent": {
+            "tool_use_correct": null,
+            "instruction_following": null,
+            "kb_grounding": null
+          }
+        },
+        "strict_percent": null,
+        "strict_ci95": null,
+        "dimension_error_percent": {
+          "tool_use_correct": null,
+          "instruction_following": null,
+          "kb_grounding": null
+        },
+        "latency": {
+          "positive": {
+            "n": 0,
+            "mean_ms": null,
+            "median_ms": null,
+            "p50_ms": null,
+            "p95_ms": null,
+            "max_ms": null
+          },
+          "signed": {
+            "n": 0,
+            "mean_ms": null,
+            "median_ms": null,
+            "p50_ms": null,
+            "p95_ms": null,
+            "max_ms": null
+          },
+          "missing_n": 0,
+          "nonpositive_n": 0,
+          "eligible_response_n": 0,
+          "raw_ttft": {
+            "n": 0,
+            "mean_ms": null,
+            "median_ms": null,
+            "p50_ms": null,
+            "p95_ms": null,
+            "max_ms": null
+          }
+        },
+        "all_attempt_latency": {
+          "positive": {
+            "n": 847,
+            "mean_ms": 869.0354191263282,
+            "median_ms": 831,
+            "p50_ms": 831,
+            "p95_ms": 1299.5999999999995,
+            "max_ms": 5063
+          },
+          "signed": {
+            "n": 847,
+            "mean_ms": 869.0354191263282,
+            "median_ms": 831,
+            "p50_ms": 831,
+            "p95_ms": 1299.5999999999995,
+            "max_ms": 5063
+          },
+          "missing_n": 0,
+          "nonpositive_n": 0,
+          "eligible_response_n": 847,
+          "raw_ttft": {
+            "n": 847,
+            "mean_ms": 725.8972845336482,
+            "median_ms": 678,
+            "p50_ms": 678,
+            "p95_ms": 1064.1,
+            "max_ms": 4017
+          }
+        },
+        "judge_blocked": [],
+        "observed_scripted_turns": 834,
+        "missing_future_turns": 66,
+        "early_end_session_turns": {
+          "26": 1,
+          "28": 9,
+          "27": 13,
+          "25": 7
+        },
+        "generation_credit_retries": 0,
+        "generation_prestream_429_retries": 0
+      },
+      {
+        "key": "sonnet-between-tools",
+        "name": "sonnet",
+        "arm": "between-tools",
+        "label": "claude-sonnet-5-5 (no up-front thinking, low)",
+        "provider": "Anthropic",
+        "assigned": 30,
+        "complete": 30,
+        "incomplete": 0,
+        "shortfall": 0,
+        "all_assigned": {
+          "strict_passes": 899,
+          "dimension_passes": {
+            "tool_use_correct": 900,
+            "instruction_following": 900,
+            "kb_grounding": 899
+          },
+          "denominator": 900,
+          "strict_percent": 99.88888888888889,
+          "strict_ci95": [
+            99.66666666666666,
+            100.0
+          ],
+          "dimension_error_percent": {
+            "tool_use_correct": 0.0,
+            "instruction_following": 0.0,
+            "kb_grounding": 0.1111111111111111
+          }
+        },
+        "complete_only": {
+          "strict_passes": 899,
+          "dimension_passes": {
+            "tool_use_correct": 900,
+            "instruction_following": 900,
+            "kb_grounding": 899
+          },
+          "denominator": 900,
+          "strict_percent": 99.88888888888889,
+          "strict_ci95": [
+            99.66666666666666,
+            100.0
+          ],
+          "dimension_error_percent": {
+            "tool_use_correct": 0.0,
+            "instruction_following": 0.0,
+            "kb_grounding": 0.1111111111111111
+          }
+        },
+        "strict_percent": 99.88888888888889,
+        "strict_ci95": [
+          99.66666666666666,
+          100.0
+        ],
+        "dimension_error_percent": {
+          "tool_use_correct": 0.0,
+          "instruction_following": 0.0,
+          "kb_grounding": 0.1111111111111111
+        },
+        "latency": {
+          "positive": {
+            "n": 870,
+            "mean_ms": 1317.0988505747127,
+            "median_ms": 1180.5,
+            "p50_ms": 1180.5,
+            "p95_ms": 2195.2999999999997,
+            "max_ms": 8186
+          },
+          "signed": {
+            "n": 870,
+            "mean_ms": 1317.0988505747127,
+            "median_ms": 1180.5,
+            "p50_ms": 1180.5,
+            "p95_ms": 2195.2999999999997,
+            "max_ms": 8186
+          },
+          "missing_n": 0,
+          "nonpositive_n": 0,
+          "eligible_response_n": 870,
+          "raw_ttft": {
+            "n": 870,
+            "mean_ms": 1316.693103448276,
+            "median_ms": 1180.5,
+            "p50_ms": 1180.5,
+            "p95_ms": 2195.2999999999997,
+            "max_ms": 8186
+          }
+        },
+        "all_attempt_latency": {
+          "positive": {
+            "n": 870,
+            "mean_ms": 1317.0988505747127,
+            "median_ms": 1180.5,
+            "p50_ms": 1180.5,
+            "p95_ms": 2195.2999999999997,
+            "max_ms": 8186
+          },
+          "signed": {
+            "n": 870,
+            "mean_ms": 1317.0988505747127,
+            "median_ms": 1180.5,
+            "p50_ms": 1180.5,
+            "p95_ms": 2195.2999999999997,
+            "max_ms": 8186
+          },
+          "missing_n": 0,
+          "nonpositive_n": 0,
+          "eligible_response_n": 870,
+          "raw_ttft": {
+            "n": 870,
+            "mean_ms": 1316.693103448276,
+            "median_ms": 1180.5,
+            "p50_ms": 1180.5,
+            "p95_ms": 2195.2999999999997,
+            "max_ms": 8186
+          }
+        },
+        "judge_blocked": [],
+        "observed_scripted_turns": 900,
+        "missing_future_turns": 0,
+        "early_end_session_turns": {},
+        "generation_credit_retries": 0,
+        "generation_prestream_429_retries": 0
+      },
+      {
+        "key": "sonnet-low",
+        "name": "sonnet",
+        "arm": "low",
+        "label": "claude-sonnet-5-5 (low)",
+        "provider": "Anthropic",
+        "assigned": 30,
+        "complete": 30,
+        "incomplete": 0,
+        "shortfall": 0,
+        "all_assigned": {
+          "strict_passes": 899,
+          "dimension_passes": {
+            "tool_use_correct": 900,
+            "instruction_following": 900,
+            "kb_grounding": 899
+          },
+          "denominator": 900,
+          "strict_percent": 99.88888888888889,
+          "strict_ci95": [
+            99.66666666666666,
+            100.0
+          ],
+          "dimension_error_percent": {
+            "tool_use_correct": 0.0,
+            "instruction_following": 0.0,
+            "kb_grounding": 0.1111111111111111
+          }
+        },
+        "complete_only": {
+          "strict_passes": 899,
+          "dimension_passes": {
+            "tool_use_correct": 900,
+            "instruction_following": 900,
+            "kb_grounding": 899
+          },
+          "denominator": 900,
+          "strict_percent": 99.88888888888889,
+          "strict_ci95": [
+            99.66666666666666,
+            100.0
+          ],
+          "dimension_error_percent": {
+            "tool_use_correct": 0.0,
+            "instruction_following": 0.0,
+            "kb_grounding": 0.1111111111111111
+          }
+        },
+        "strict_percent": 99.88888888888889,
+        "strict_ci95": [
+          99.66666666666666,
+          100.0
+        ],
+        "dimension_error_percent": {
+          "tool_use_correct": 0.0,
+          "instruction_following": 0.0,
+          "kb_grounding": 0.1111111111111111
+        },
+        "latency": {
+          "positive": {
+            "n": 870,
+            "mean_ms": 1040.1206896551723,
+            "median_ms": 838.0,
+            "p50_ms": 838.0,
+            "p95_ms": 2139.5499999999993,
+            "max_ms": 4546
+          },
+          "signed": {
+            "n": 870,
+            "mean_ms": 1040.1206896551723,
+            "median_ms": 838.0,
+            "p50_ms": 838.0,
+            "p95_ms": 2139.5499999999993,
+            "max_ms": 4546
+          },
+          "missing_n": 0,
+          "nonpositive_n": 0,
+          "eligible_response_n": 870,
+          "raw_ttft": {
+            "n": 870,
+            "mean_ms": 984.5229885057471,
+            "median_ms": 816.5,
+            "p50_ms": 816.5,
+            "p95_ms": 2022.4999999999995,
+            "max_ms": 4546
+          }
+        },
+        "all_attempt_latency": {
+          "positive": {
+            "n": 870,
+            "mean_ms": 1040.1206896551723,
+            "median_ms": 838.0,
+            "p50_ms": 838.0,
+            "p95_ms": 2139.5499999999993,
+            "max_ms": 4546
+          },
+          "signed": {
+            "n": 870,
+            "mean_ms": 1040.1206896551723,
+            "median_ms": 838.0,
+            "p50_ms": 838.0,
+            "p95_ms": 2139.5499999999993,
+            "max_ms": 4546
+          },
+          "missing_n": 0,
+          "nonpositive_n": 0,
+          "eligible_response_n": 870,
+          "raw_ttft": {
+            "n": 870,
+            "mean_ms": 984.5229885057471,
+            "median_ms": 816.5,
+            "p50_ms": 816.5,
+            "p95_ms": 2022.4999999999995,
+            "max_ms": 4546
+          }
+        },
+        "judge_blocked": [],
+        "observed_scripted_turns": 900,
+        "missing_future_turns": 0,
+        "early_end_session_turns": {},
+        "generation_credit_retries": 0,
+        "generation_prestream_429_retries": 0
+      },
+      {
+        "key": "haiku-off",
+        "name": "haiku",
+        "arm": "off",
+        "label": "claude-haiku-5-5 (thinking off, low)",
+        "provider": "Anthropic",
+        "assigned": 30,
+        "complete": 29,
+        "incomplete": 1,
+        "shortfall": 1,
+        "all_assigned": {
+          "strict_passes": 814,
+          "dimension_passes": {
+            "tool_use_correct": 856,
+            "instruction_following": 815,
+            "kb_grounding": 895
+          },
+          "denominator": 900,
+          "strict_percent": 90.44444444444444,
+          "strict_ci95": [
+            88.0,
+            92.77777777777777
+          ],
+          "dimension_error_percent": {
+            "tool_use_correct": 4.888888888888889,
+            "instruction_following": 9.444444444444445,
+            "kb_grounding": 0.5555555555555556
+          }
+        },
+        "complete_only": {
+          "strict_passes": 793,
+          "dimension_passes": {
+            "tool_use_correct": 833,
+            "instruction_following": 794,
+            "kb_grounding": 869
+          },
+          "denominator": 870,
+          "strict_percent": 91.14942528735632,
+          "strict_ci95": [
+            89.08045977011496,
+            93.21839080459769
+          ],
+          "dimension_error_percent": {
+            "tool_use_correct": 4.252873563218391,
+            "instruction_following": 8.735632183908047,
+            "kb_grounding": 0.11494252873563218
+          }
+        },
+        "strict_percent": 91.14942528735632,
+        "strict_ci95": [
+          89.08045977011496,
+          93.21839080459769
+        ],
+        "dimension_error_percent": {
+          "tool_use_correct": 4.252873563218391,
+          "instruction_following": 8.735632183908047,
+          "kb_grounding": 0.11494252873563218
+        },
+        "latency": {
+          "positive": {
+            "n": 873,
+            "mean_ms": 599.4742268041238,
+            "median_ms": 556,
+            "p50_ms": 556,
+            "p95_ms": 819.4,
+            "max_ms": 2688
+          },
+          "signed": {
+            "n": 873,
+            "mean_ms": 599.4742268041238,
+            "median_ms": 556,
+            "p50_ms": 556,
+            "p95_ms": 819.4,
+            "max_ms": 2688
+          },
+          "missing_n": 0,
+          "nonpositive_n": 0,
+          "eligible_response_n": 873,
+          "raw_ttft": {
+            "n": 873,
+            "mean_ms": 599.2164948453608,
+            "median_ms": 555,
+            "p50_ms": 555,
+            "p95_ms": 818.8,
+            "max_ms": 2688
+          }
+        },
+        "all_attempt_latency": {
+          "positive": {
+            "n": 900,
+            "mean_ms": 598.3277777777778,
+            "median_ms": 556.0,
+            "p50_ms": 556.0,
+            "p95_ms": 814.2499999999998,
+            "max_ms": 2688
+          },
+          "signed": {
+            "n": 900,
+            "mean_ms": 598.3277777777778,
+            "median_ms": 556.0,
+            "p50_ms": 556.0,
+            "p95_ms": 814.2499999999998,
+            "max_ms": 2688
+          },
+          "missing_n": 0,
+          "nonpositive_n": 0,
+          "eligible_response_n": 900,
+          "raw_ttft": {
+            "n": 900,
+            "mean_ms": 598.0666666666667,
+            "median_ms": 555.0,
+            "p50_ms": 555.0,
+            "p95_ms": 814.1999999999998,
+            "max_ms": 2688
+          }
+        },
+        "judge_blocked": [],
+        "observed_scripted_turns": 896,
+        "missing_future_turns": 4,
+        "early_end_session_turns": {
+          "25": 1
+        },
+        "generation_credit_retries": 0,
+        "generation_prestream_429_retries": 0
+      },
+      {
+        "key": "haiku-low",
+        "name": "haiku",
+        "arm": "low",
+        "label": "claude-haiku-5-5 (low)",
+        "provider": "Anthropic",
+        "assigned": 30,
+        "complete": 30,
+        "incomplete": 0,
+        "shortfall": 0,
+        "all_assigned": {
+          "strict_passes": 872,
+          "dimension_passes": {
+            "tool_use_correct": 878,
+            "instruction_following": 885,
+            "kb_grounding": 898
+          },
+          "denominator": 900,
+          "strict_percent": 96.88888888888889,
+          "strict_ci95": [
+            95.77777777777779,
+            97.88888888888889
+          ],
+          "dimension_error_percent": {
+            "tool_use_correct": 2.4444444444444446,
+            "instruction_following": 1.6666666666666667,
+            "kb_grounding": 0.2222222222222222
+          }
+        },
+        "complete_only": {
+          "strict_passes": 872,
+          "dimension_passes": {
+            "tool_use_correct": 878,
+            "instruction_following": 885,
+            "kb_grounding": 898
+          },
+          "denominator": 900,
+          "strict_percent": 96.88888888888889,
+          "strict_ci95": [
+            95.77777777777779,
+            97.88888888888889
+          ],
+          "dimension_error_percent": {
+            "tool_use_correct": 2.4444444444444446,
+            "instruction_following": 1.6666666666666667,
+            "kb_grounding": 0.2222222222222222
+          }
+        },
+        "strict_percent": 96.88888888888889,
+        "strict_ci95": [
+          95.77777777777779,
+          97.88888888888889
+        ],
+        "dimension_error_percent": {
+          "tool_use_correct": 2.4444444444444446,
+          "instruction_following": 1.6666666666666667,
+          "kb_grounding": 0.2222222222222222
+        },
+        "latency": {
+          "positive": {
+            "n": 878,
+            "mean_ms": 801.5432801822324,
+            "median_ms": 651.0,
+            "p50_ms": 651.0,
+            "p95_ms": 1563.0,
+            "max_ms": 3717
+          },
+          "signed": {
+            "n": 878,
+            "mean_ms": 801.5432801822324,
+            "median_ms": 651.0,
+            "p50_ms": 651.0,
+            "p95_ms": 1563.0,
+            "max_ms": 3717
+          },
+          "missing_n": 0,
+          "nonpositive_n": 0,
+          "eligible_response_n": 878,
+          "raw_ttft": {
+            "n": 878,
+            "mean_ms": 558.3599088838268,
+            "median_ms": 539.0,
+            "p50_ms": 539.0,
+            "p95_ms": 801.15,
+            "max_ms": 3717
+          }
+        },
+        "all_attempt_latency": {
+          "positive": {
+            "n": 878,
+            "mean_ms": 801.5432801822324,
+            "median_ms": 651.0,
+            "p50_ms": 651.0,
+            "p95_ms": 1563.0,
+            "max_ms": 3717
+          },
+          "signed": {
+            "n": 878,
+            "mean_ms": 801.5432801822324,
+            "median_ms": 651.0,
+            "p50_ms": 651.0,
+            "p95_ms": 1563.0,
+            "max_ms": 3717
+          },
+          "missing_n": 0,
+          "nonpositive_n": 0,
+          "eligible_response_n": 878,
+          "raw_ttft": {
+            "n": 878,
+            "mean_ms": 558.3599088838268,
+            "median_ms": 539.0,
+            "p50_ms": 539.0,
+            "p95_ms": 801.15,
+            "max_ms": 3717
+          }
+        },
+        "judge_blocked": [],
+        "observed_scripted_turns": 900,
+        "missing_future_turns": 0,
+        "early_end_session_turns": {},
+        "generation_credit_retries": 0,
+        "generation_prestream_429_retries": 0
+      },
+      {
+        "key": "spark13-minimal",
+        "name": "spark13",
+        "arm": "minimal",
+        "label": "muse-spark-1.3 (minimal)",
+        "provider": "OpenRouter / Meta",
+        "assigned": 30,
+        "complete": 30,
+        "incomplete": 0,
+        "shortfall": 0,
+        "all_assigned": {
+          "strict_passes": 895,
+          "dimension_passes": {
+            "tool_use_correct": 898,
+            "instruction_following": 896,
+            "kb_grounding": 900
+          },
+          "denominator": 900,
+          "strict_percent": 99.44444444444444,
+          "strict_ci95": [
+            98.88888888888889,
+            99.88888888888889
+          ],
+          "dimension_error_percent": {
+            "tool_use_correct": 0.2222222222222222,
+            "instruction_following": 0.4444444444444444,
+            "kb_grounding": 0.0
+          }
+        },
+        "complete_only": {
+          "strict_passes": 895,
+          "dimension_passes": {
+            "tool_use_correct": 898,
+            "instruction_following": 896,
+            "kb_grounding": 900
+          },
+          "denominator": 900,
+          "strict_percent": 99.44444444444444,
+          "strict_ci95": [
+            98.88888888888889,
+            99.88888888888889
+          ],
+          "dimension_error_percent": {
+            "tool_use_correct": 0.2222222222222222,
+            "instruction_following": 0.4444444444444444,
+            "kb_grounding": 0.0
+          }
+        },
+        "strict_percent": 99.44444444444444,
+        "strict_ci95": [
+          98.88888888888889,
+          99.88888888888889
+        ],
+        "dimension_error_percent": {
+          "tool_use_correct": 0.2222222222222222,
+          "instruction_following": 0.4444444444444444,
+          "kb_grounding": 0.0
+        },
+        "latency": {
+          "positive": {
+            "n": 882,
+            "mean_ms": 2386.5759637188207,
+            "median_ms": 1752.5,
+            "p50_ms": 1752.5,
+            "p95_ms": 5637.849999999999,
+            "max_ms": 40044
+          },
+          "signed": {
+            "n": 882,
+            "mean_ms": 2386.5759637188207,
+            "median_ms": 1752.5,
+            "p50_ms": 1752.5,
+            "p95_ms": 5637.849999999999,
+            "max_ms": 40044
+          },
+          "missing_n": 0,
+          "nonpositive_n": 0,
+          "eligible_response_n": 882,
+          "raw_ttft": {
+            "n": 882,
+            "mean_ms": 2235.2437641723354,
+            "median_ms": 1656.0,
+            "p50_ms": 1656.0,
+            "p95_ms": 5137.949999999986,
+            "max_ms": 39684
+          }
+        },
+        "all_attempt_latency": {
+          "positive": {
+            "n": 882,
+            "mean_ms": 2386.5759637188207,
+            "median_ms": 1752.5,
+            "p50_ms": 1752.5,
+            "p95_ms": 5637.849999999999,
+            "max_ms": 40044
+          },
+          "signed": {
+            "n": 882,
+            "mean_ms": 2386.5759637188207,
+            "median_ms": 1752.5,
+            "p50_ms": 1752.5,
+            "p95_ms": 5637.849999999999,
+            "max_ms": 40044
+          },
+          "missing_n": 0,
+          "nonpositive_n": 0,
+          "eligible_response_n": 882,
+          "raw_ttft": {
+            "n": 882,
+            "mean_ms": 2235.2437641723354,
+            "median_ms": 1656.0,
+            "p50_ms": 1656.0,
+            "p95_ms": 5137.949999999986,
+            "max_ms": 39684
+          }
+        },
+        "judge_blocked": [],
+        "observed_scripted_turns": 900,
+        "missing_future_turns": 0,
+        "early_end_session_turns": {},
+        "generation_credit_retries": 0,
+        "generation_prestream_429_retries": 0
+      },
+      {
+        "key": "spark13-low",
+        "name": "spark13",
+        "arm": "low",
+        "label": "muse-spark-1.3 (low)",
+        "provider": "OpenRouter / Meta",
+        "assigned": 30,
+        "complete": 30,
+        "incomplete": 0,
+        "shortfall": 0,
+        "all_assigned": {
+          "strict_passes": 900,
+          "dimension_passes": {
+            "tool_use_correct": 900,
+            "instruction_following": 900,
+            "kb_grounding": 900
+          },
+          "denominator": 900,
+          "strict_percent": 100.0,
+          "strict_ci95": [
+            100.0,
+            100.0
+          ],
+          "dimension_error_percent": {
+            "tool_use_correct": 0.0,
+            "instruction_following": 0.0,
+            "kb_grounding": 0.0
+          }
+        },
+        "complete_only": {
+          "strict_passes": 900,
+          "dimension_passes": {
+            "tool_use_correct": 900,
+            "instruction_following": 900,
+            "kb_grounding": 900
+          },
+          "denominator": 900,
+          "strict_percent": 100.0,
+          "strict_ci95": [
+            100.0,
+            100.0
+          ],
+          "dimension_error_percent": {
+            "tool_use_correct": 0.0,
+            "instruction_following": 0.0,
+            "kb_grounding": 0.0
+          }
+        },
+        "strict_percent": 100.0,
+        "strict_ci95": [
+          100.0,
+          100.0
+        ],
+        "dimension_error_percent": {
+          "tool_use_correct": 0.0,
+          "instruction_following": 0.0,
+          "kb_grounding": 0.0
+        },
+        "latency": {
+          "positive": {
+            "n": 871,
+            "mean_ms": 3717.634902411022,
+            "median_ms": 2965,
+            "p50_ms": 2965,
+            "p95_ms": 9143.0,
+            "max_ms": 34777
+          },
+          "signed": {
+            "n": 871,
+            "mean_ms": 3717.634902411022,
+            "median_ms": 2965,
+            "p50_ms": 2965,
+            "p95_ms": 9143.0,
+            "max_ms": 34777
+          },
+          "missing_n": 0,
+          "nonpositive_n": 0,
+          "eligible_response_n": 871,
+          "raw_ttft": {
+            "n": 871,
+            "mean_ms": 3035.076923076923,
+            "median_ms": 2631,
+            "p50_ms": 2631,
+            "p95_ms": 5995.5,
+            "max_ms": 34437
+          }
+        },
+        "all_attempt_latency": {
+          "positive": {
+            "n": 871,
+            "mean_ms": 3717.634902411022,
+            "median_ms": 2965,
+            "p50_ms": 2965,
+            "p95_ms": 9143.0,
+            "max_ms": 34777
+          },
+          "signed": {
+            "n": 871,
+            "mean_ms": 3717.634902411022,
+            "median_ms": 2965,
+            "p50_ms": 2965,
+            "p95_ms": 9143.0,
+            "max_ms": 34777
+          },
+          "missing_n": 0,
+          "nonpositive_n": 0,
+          "eligible_response_n": 871,
+          "raw_ttft": {
+            "n": 871,
+            "mean_ms": 3035.076923076923,
+            "median_ms": 2631,
+            "p50_ms": 2631,
+            "p95_ms": 5995.5,
+            "max_ms": 34437
+          }
+        },
+        "judge_blocked": [],
+        "observed_scripted_turns": 900,
+        "missing_future_turns": 0,
+        "early_end_session_turns": {},
+        "generation_credit_retries": 0,
+        "generation_prestream_429_retries": 0
+      },
+      {
+        "key": "spark-open-low",
+        "name": "spark-open",
+        "arm": "low",
+        "label": "muse-spark-open (low, NVFP4)",
+        "provider": "Baseten",
+        "assigned": 30,
+        "complete": 30,
+        "incomplete": 0,
+        "shortfall": 0,
+        "all_assigned": {
+          "strict_passes": 856,
+          "dimension_passes": {
+            "tool_use_correct": 874,
+            "instruction_following": 864,
+            "kb_grounding": 892
+          },
+          "denominator": 900,
+          "strict_percent": 95.11111111111111,
+          "strict_ci95": [
+            93.77777777777777,
+            96.44444444444444
+          ],
+          "dimension_error_percent": {
+            "tool_use_correct": 2.888888888888889,
+            "instruction_following": 4.0,
+            "kb_grounding": 0.8888888888888888
+          }
+        },
+        "complete_only": {
+          "strict_passes": 856,
+          "dimension_passes": {
+            "tool_use_correct": 874,
+            "instruction_following": 864,
+            "kb_grounding": 892
+          },
+          "denominator": 900,
+          "strict_percent": 95.11111111111111,
+          "strict_ci95": [
+            93.77777777777777,
+            96.44444444444444
+          ],
+          "dimension_error_percent": {
+            "tool_use_correct": 2.888888888888889,
+            "instruction_following": 4.0,
+            "kb_grounding": 0.8888888888888888
+          }
+        },
+        "strict_percent": 95.11111111111111,
+        "strict_ci95": [
+          93.77777777777777,
+          96.44444444444444
+        ],
+        "dimension_error_percent": {
+          "tool_use_correct": 2.888888888888889,
+          "instruction_following": 4.0,
+          "kb_grounding": 0.8888888888888888
+        },
+        "latency": {
+          "positive": {
+            "n": 905,
+            "mean_ms": 718.9834254143647,
+            "median_ms": 626,
+            "p50_ms": 626,
+            "p95_ms": 1299.3999999999999,
+            "max_ms": 3273
+          },
+          "signed": {
+            "n": 905,
+            "mean_ms": 718.9834254143647,
+            "median_ms": 626,
+            "p50_ms": 626,
+            "p95_ms": 1299.3999999999999,
+            "max_ms": 3273
+          },
+          "missing_n": 0,
+          "nonpositive_n": 0,
+          "eligible_response_n": 905,
+          "raw_ttft": {
+            "n": 905,
+            "mean_ms": 337.3922651933702,
+            "median_ms": 321,
+            "p50_ms": 321,
+            "p95_ms": 417.5999999999999,
+            "max_ms": 1604
+          }
+        },
+        "all_attempt_latency": {
+          "positive": {
+            "n": 905,
+            "mean_ms": 718.9834254143647,
+            "median_ms": 626,
+            "p50_ms": 626,
+            "p95_ms": 1299.3999999999999,
+            "max_ms": 3273
+          },
+          "signed": {
+            "n": 905,
+            "mean_ms": 718.9834254143647,
+            "median_ms": 626,
+            "p50_ms": 626,
+            "p95_ms": 1299.3999999999999,
+            "max_ms": 3273
+          },
+          "missing_n": 0,
+          "nonpositive_n": 0,
+          "eligible_response_n": 905,
+          "raw_ttft": {
+            "n": 905,
+            "mean_ms": 337.3922651933702,
+            "median_ms": 321,
+            "p50_ms": 321,
+            "p95_ms": 417.5999999999999,
+            "max_ms": 1604
+          }
+        },
+        "judge_blocked": [],
+        "observed_scripted_turns": 900,
+        "missing_future_turns": 0,
+        "early_end_session_turns": {},
+        "generation_credit_retries": 0,
+        "generation_prestream_429_retries": 0
+      }
+    ],
+    "voice_models": [
+      {
+        "key": "grok-voice-none",
+        "name": "grok-voice",
+        "arm": "none",
+        "label": "Grok Voice 3.0 (reasoning off)",
+        "provider": "xAI",
+        "assigned": 25,
+        "complete": 25,
+        "incomplete": 0,
+        "shortfall": 0,
+        "all_assigned": {
+          "strict_passes": 673,
+          "dimension_passes": {
+            "tool_use_correct": 737,
+            "instruction_following": 680,
+            "kb_grounding": 719
+          },
+          "denominator": 750,
+          "strict_percent": 89.73333333333333,
+          "strict_ci95": [
+            88.0,
+            91.33333333333333
+          ],
+          "dimension_error_percent": {
+            "tool_use_correct": 1.7333333333333334,
+            "instruction_following": 9.333333333333334,
+            "kb_grounding": 4.133333333333334
+          }
+        },
+        "complete_only": {
+          "strict_passes": 673,
+          "dimension_passes": {
+            "tool_use_correct": 737,
+            "instruction_following": 680,
+            "kb_grounding": 719
+          },
+          "denominator": 750,
+          "strict_percent": 89.73333333333333,
+          "strict_ci95": [
+            88.0,
+            91.33333333333333
+          ],
+          "dimension_error_percent": {
+            "tool_use_correct": 1.7333333333333334,
+            "instruction_following": 9.333333333333334,
+            "kb_grounding": 4.133333333333334
+          }
+        },
+        "strict_percent": 89.73333333333333,
+        "strict_ci95": [
+          88.0,
+          91.33333333333333
+        ],
+        "dimension_error_percent": {
+          "tool_use_correct": 1.7333333333333334,
+          "instruction_following": 9.333333333333334,
+          "kb_grounding": 4.133333333333334
+        },
+        "latency": {
+          "positive": {
+            "n": 725,
+            "mean_ms": 777.4827586206897,
+            "median_ms": 740,
+            "p50_ms": 740,
+            "p95_ms": 1070.3999999999999,
+            "max_ms": 8635
+          },
+          "signed": {
+            "n": 725,
+            "mean_ms": 777.4827586206897,
+            "median_ms": 740,
+            "p50_ms": 740,
+            "p95_ms": 1070.3999999999999,
+            "max_ms": 8635
+          },
+          "missing_n": 0,
+          "nonpositive_n": 0,
+          "eligible_response_n": 725,
+          "raw_ttft": {
+            "n": 0,
+            "mean_ms": null,
+            "median_ms": null,
+            "p50_ms": null,
+            "p95_ms": null,
+            "max_ms": null
+          }
+        },
+        "all_attempt_latency": {
+          "positive": {
+            "n": 725,
+            "mean_ms": 777.4827586206897,
+            "median_ms": 740,
+            "p50_ms": 740,
+            "p95_ms": 1070.3999999999999,
+            "max_ms": 8635
+          },
+          "signed": {
+            "n": 725,
+            "mean_ms": 777.4827586206897,
+            "median_ms": 740,
+            "p50_ms": 740,
+            "p95_ms": 1070.3999999999999,
+            "max_ms": 8635
+          },
+          "missing_n": 0,
+          "nonpositive_n": 0,
+          "eligible_response_n": 725,
+          "raw_ttft": {
+            "n": 0,
+            "mean_ms": null,
+            "median_ms": null,
+            "p50_ms": null,
+            "p95_ms": null,
+            "max_ms": null
+          }
+        },
+        "judge_blocked": [],
+        "observed_scripted_turns": 750,
+        "missing_future_turns": 0,
+        "early_end_session_turns": {},
+        "generation_credit_retries": 0,
+        "generation_prestream_429_retries": 0,
+        "eligible_attempts": 26,
+        "failed_conversations": 1,
+        "failure_rate_percent": 3.8461538461538463,
+        "first_speech_positive": {
+          "n": 750,
+          "mean_ms": 2108.117333333333,
+          "median_ms": 2048.0,
+          "p50_ms": 2048.0,
+          "p95_ms": 2624.0,
+          "max_ms": 10880.0
+        },
+        "first_speech_signed": {
+          "n": 750,
+          "mean_ms": 2108.117333333333,
+          "median_ms": 2048.0,
+          "p50_ms": 2048.0,
+          "p95_ms": 2624.0,
+          "max_ms": 10880.0
+        },
+        "tool": {
+          "n": 137,
+          "mean_ms": 2418.4525547445255,
+          "median_ms": 2368.0,
+          "p50_ms": 2368.0,
+          "p95_ms": 2848.0,
+          "max_ms": 10880.0
+        },
+        "non_tool": {
+          "n": 613,
+          "mean_ms": 2038.7601957585644,
+          "median_ms": 2016.0,
+          "p50_ms": 2016.0,
+          "p95_ms": 2368.0,
+          "max_ms": 4384.0
+        },
+        "silence": {
+          "n": 750,
+          "mean_ms": 94.09866666666667,
+          "median_ms": 90.0,
+          "p50_ms": 90.0,
+          "p95_ms": 142.0,
+          "max_ms": 184.0
+        },
+        "nonpositive_n": 0,
+        "missing_latency_n": 0,
+        "turn_taking_scored": true,
+        "turn_taking_passes": 748,
+        "audio_inputs": [
+          {
+            "job": "grok-voice-none-001",
+            "source_wav": "runs/recent-models-20261018/grok-voice/attempt-001/conversation.wav",
+            "wav_sha256": "6b64a2c3d733c681ee153cde9d331159a82463fba67b297311a84be24f4cf208",
+            "metrics": "ops/recent-models-20261018/grok-voice/audio/grok-voice-none-001.json",
+            "metrics_sha256": "54ea52421edbb0be73187130983685ddbc15889678ac5932c04a9283e942160c",
+            "input_waveform_audit": "ops/recent-models-20261018/grok-voice/audio/grok-voice-none-001-input-waveform.json",
+            "input_waveform_audit_sha256": "17aa7237ecfd84d84a4b6b35239473721628bcc939e27fa0ed1ab7f4b788b749"
+          },
+          {
+            "job": "grok-voice-none-002",
+            "source_wav": "runs/recent-models-20261018/grok-voice/attempt-002/conversation.wav",
+            "wav_sha256": "a4ce9db29104b679526cbb1c28694837c7f10fcbce1f4548ae49695b8d81adc1",
+            "metrics": "ops/recent-models-20261018/grok-voice/audio/grok-voice-none-002.json",
+            "metrics_sha256": "2afc00239f53bf4839515c32de80ebc776b229d8bfcbf74d7e7aee86d92c01c9",
+            "input_waveform_audit": "ops/recent-models-20261018/grok-voice/audio/grok-voice-none-002-input-waveform.json",
+            "input_waveform_audit_sha256": "d50a721615bc8b2137bfd2068cc0fe9b31477f048d0c7e660da7c709e80a86d3"
+          },
+          {
+            "job": "grok-voice-none-003",
+            "source_wav": "runs/recent-models-20261018/grok-voice/attempt-003/conversation.wav",
+            "wav_sha256": "4d2546b1eae5580223e076a17db543d0ab526600df265fe74c721418bafab3d5",
+            "metrics": "ops/recent-models-20261018/grok-voice/audio/grok-voice-none-003.json",
+            "metrics_sha256": "ec037e1754c80779840717f764ef7d8c78b2e8edb4e299e9d4f05937468fbf3e",
+            "input_waveform_audit": "ops/recent-models-20261018/grok-voice/audio/grok-voice-none-003-input-waveform.json",
+            "input_waveform_audit_sha256": "289aa7601ed5cce7c2ef29e15b09353131ccaba195732012bcf94a47836e1cb5"
+          },
+          {
+            "job": "grok-voice-none-004",
+            "source_wav": "runs/recent-models-20261018/grok-voice/attempt-004/conversation.wav",
+            "wav_sha256": "7a1c5fb485e75d86ed528d64ace76e72a10d3ca030eaee613c120df99c32a61c",
+            "metrics": "ops/recent-models-20261018/grok-voice/audio/grok-voice-none-004.json",
+            "metrics_sha256": "c237a05ee70c88e7d75ffe840ee395babdd1f86b9e1f9a541f12b2fe953e8f1a",
+            "input_waveform_audit": "ops/recent-models-20261018/grok-voice/audio/grok-voice-none-004-input-waveform.json",
+            "input_waveform_audit_sha256": "17e47f7f867287949181b4ec173cd163a87f043ac3297e9a470854a38de6dc71"
+          },
+          {
+            "job": "grok-voice-none-005",
+            "source_wav": "runs/recent-models-20261018/grok-voice/attempt-005/conversation.wav",
+            "wav_sha256": "ce37b132f897fbcd904d51a537db93123cd62fa10aa510174330afdd791cd860",
+            "metrics": "ops/recent-models-20261018/grok-voice/audio/grok-voice-none-005.json",
+            "metrics_sha256": "47ccc2b8d2f77accbb8d8c26f8b4d45d07896d49b9309cf1ea5610e3a2c13c9d",
+            "input_waveform_audit": "ops/recent-models-20261018/grok-voice/audio/grok-voice-none-005-input-waveform.json",
+            "input_waveform_audit_sha256": "4ee4cb6f1c08871b0a6d577d31cb70baab0b7f5bd01a25b0be4f4a3eaebe5090"
+          },
+          {
+            "job": "grok-voice-none-006",
+            "source_wav": "runs/recent-models-20261018/grok-voice/attempt-006/conversation.wav",
+            "wav_sha256": "b88faf5c5d3e36254be8286cf3e3dad0095293a9c5e20d2e8bde2c3234611f1b",
+            "metrics": "ops/recent-models-20261018/grok-voice/audio/grok-voice-none-006.json",
+            "metrics_sha256": "11c3198b3c3158831b430ea66dec2a074f1b54ca9ab57bcc676ba1cbb6648559",
+            "input_waveform_audit": "ops/recent-models-20261018/grok-voice/audio/grok-voice-none-006-input-waveform.json",
+            "input_waveform_audit_sha256": "aea51c5da4db113aa18717a05220abd238beb68531d3b3f98118f55e53dac3ef"
+          },
+          {
+            "job": "grok-voice-none-007",
+            "source_wav": "runs/recent-models-20261018/grok-voice/attempt-007/conversation.wav",
+            "wav_sha256": "08e92605b807296f5bf5da3b62d4430f293486a7797cf567b209c7ace631c106",
+            "metrics": "ops/recent-models-20261018/grok-voice/audio/grok-voice-none-007.json",
+            "metrics_sha256": "19161d94ad3708d1db0542bedcb321f470154cfbdd32b97637d4bd5b84936766",
+            "input_waveform_audit": "ops/recent-models-20261018/grok-voice/audio/grok-voice-none-007-input-waveform.json",
+            "input_waveform_audit_sha256": "cfdf2622aa30ea92ad6fd98d4b0caeb43fbcf7c0153180bd349bd49083cc83ca"
+          },
+          {
+            "job": "grok-voice-none-008",
+            "source_wav": "runs/recent-models-20261018/grok-voice/attempt-008/conversation.wav",
+            "wav_sha256": "e4ca5185708e80edf452c3570330cf2e986e6cdc69608413a58ea53f04c08282",
+            "metrics": "ops/recent-models-20261018/grok-voice/audio/grok-voice-none-008.json",
+            "metrics_sha256": "965ceac825371f877dd8c87caf0d2d818b25e1a5523ef2c781ebacc394ad952a",
+            "input_waveform_audit": "ops/recent-models-20261018/grok-voice/audio/grok-voice-none-008-input-waveform.json",
+            "input_waveform_audit_sha256": "17eb4e64c247e82f8a3294452911724f68afec28e7d02669ad6ccd39ecd5a5cf"
+          },
+          {
+            "job": "grok-voice-none-009",
+            "source_wav": "runs/recent-models-20261018/grok-voice/attempt-009/conversation.wav",
+            "wav_sha256": "25a27173fcc93fd78f482eb165c976d70c1da68c936c2782acb6946200410628",
+            "metrics": "ops/recent-models-20261018/grok-voice/audio/grok-voice-none-009.json",
+            "metrics_sha256": "0b787746d31d2ae53e53e39d5b93871edaea2669fd238df634620afa36772372",
+            "input_waveform_audit": "ops/recent-models-20261018/grok-voice/audio/grok-voice-none-009-input-waveform.json",
+            "input_waveform_audit_sha256": "7dbd99cc5055806ac78d52ec894fcc75780483ae23dee687402ff7b033f33d20"
+          },
+          {
+            "job": "grok-voice-none-010",
+            "source_wav": "runs/recent-models-20261018/grok-voice/attempt-010/conversation.wav",
+            "wav_sha256": "d8997279c13c5a8772ab06c5a15138ef2f907aa55e5013df778eb1308ba9a349",
+            "metrics": "ops/recent-models-20261018/grok-voice/audio/grok-voice-none-010.json",
+            "metrics_sha256": "4714580f0d8b1847fdbda65f62cdf304feceb16ef317a33a460fce655f1437f6",
+            "input_waveform_audit": "ops/recent-models-20261018/grok-voice/audio/grok-voice-none-010-input-waveform.json",
+            "input_waveform_audit_sha256": "e980602b7892d8d0f7044933d4a89997af74d56216244b798ca5965310d32aea"
+          },
+          {
+            "job": "grok-voice-none-011",
+            "source_wav": "runs/recent-models-20261018/grok-voice/attempt-011/conversation.wav",
+            "wav_sha256": "989c36feddfe1da725d07062bef52964614744d5555dfb7154ca86622ad55bcd",
+            "metrics": "ops/recent-models-20261018/grok-voice/audio/grok-voice-none-011.json",
+            "metrics_sha256": "78def64854add2e56adaa10f7863b2e4c76794752cc593d92f844de806014bd5",
+            "input_waveform_audit": "ops/recent-models-20261018/grok-voice/audio/grok-voice-none-011-input-waveform.json",
+            "input_waveform_audit_sha256": "a83401f74ac166f591b1765adc97cef5eeb7d16b52355b67d01e1c085e560fed"
+          },
+          {
+            "job": "grok-voice-none-012",
+            "source_wav": "runs/recent-models-20261018/grok-voice/attempt-012/conversation.wav",
+            "wav_sha256": "012265ceec3cf2ac1dfff690014e40cead09aa10cafed27501c45ad105588629",
+            "metrics": "ops/recent-models-20261018/grok-voice/audio/grok-voice-none-012.json",
+            "metrics_sha256": "b00e1532f9bf1d80a65cd7ad133f9342f2869953bcf6014f7a69aa6f7ce5a341",
+            "input_waveform_audit": "ops/recent-models-20261018/grok-voice/audio/grok-voice-none-012-input-waveform.json",
+            "input_waveform_audit_sha256": "42c6c5c7868e1a9a292d3455c59cf21d6ae5f9314d16c0f06989ca0b8dd88c30"
+          },
+          {
+            "job": "grok-voice-none-013",
+            "source_wav": "runs/recent-models-20261018/grok-voice/attempt-013/conversation.wav",
+            "wav_sha256": "ecd483d4b16aa2a9bd5305e415f77ae7acbc115c3a5dbdbca15a34c9355767b8",
+            "metrics": "ops/recent-models-20261018/grok-voice/audio/grok-voice-none-013.json",
+            "metrics_sha256": "b282d4bbb866cc382d6d878a8174e56fd4f3218a5099a9091496915c8654f66f",
+            "input_waveform_audit": "ops/recent-models-20261018/grok-voice/audio/grok-voice-none-013-input-waveform.json",
+            "input_waveform_audit_sha256": "af7c39f8b2e905fb71f520871b824853bd2a0410c6c8f1ccf3a39944e589eec1"
+          },
+          {
+            "job": "grok-voice-none-014",
+            "source_wav": "runs/recent-models-20261018/grok-voice/attempt-014/conversation.wav",
+            "wav_sha256": "2d26156b0ccaa702a8cc05c22452b9b0109c11792828da0d0b7cd4dec3cf2d3c",
+            "metrics": "ops/recent-models-20261018/grok-voice/audio/grok-voice-none-014.json",
+            "metrics_sha256": "d41a46d94f4a0e56bcde10ea7623c2b10fe1aec963041a58a4d849870d712d96",
+            "input_waveform_audit": "ops/recent-models-20261018/grok-voice/audio/grok-voice-none-014-input-waveform.json",
+            "input_waveform_audit_sha256": "ec5fbb985aab22ad30f7f7b71ccf63f10830cbe3a5faf2f1b1e22cfad327d54c"
+          },
+          {
+            "job": "grok-voice-none-015",
+            "source_wav": "runs/recent-models-20261018/grok-voice/attempt-015/conversation.wav",
+            "wav_sha256": "9d4dcc5ddddad96cf81e1973679325eb0ea4e934bcfde31046ba07bd3f0baf97",
+            "metrics": "ops/recent-models-20261018/grok-voice/audio/grok-voice-none-015.json",
+            "metrics_sha256": "a386a8fb923ac4822d35bef0fc3dfa494a897475cee6a228d0cf432fa4f34e16",
+            "input_waveform_audit": "ops/recent-models-20261018/grok-voice/audio/grok-voice-none-015-input-waveform.json",
+            "input_waveform_audit_sha256": "4d06e274afc6540d6082f2da5f91d7ca29d60132a841473b041ba8de8e5b9318"
+          },
+          {
+            "job": "grok-voice-none-016",
+            "source_wav": "runs/recent-models-20261018/grok-voice/attempt-016/conversation.wav",
+            "wav_sha256": "66535133dd99f6fcf001df23a61992bb988e9dcbce199decbf4f735d1a2b7b01",
+            "metrics": "ops/recent-models-20261018/grok-voice/audio/grok-voice-none-016.json",
+            "metrics_sha256": "4b3414c00e26739361f8f14c505c8e9ec9ac3ceefc43d9e18e1f39d5e61f1cf9",
+            "input_waveform_audit": "ops/recent-models-20261018/grok-voice/audio/grok-voice-none-016-input-waveform.json",
+            "input_waveform_audit_sha256": "4daa27a11e83385fa88f85ef49c37db1b418bffcaa64250000326eb363a381c6"
+          },
+          {
+            "job": "grok-voice-none-017",
+            "source_wav": "runs/recent-models-20261018/grok-voice/attempt-017/conversation.wav",
+            "wav_sha256": "ac6b8a26152c385fc1a26f52be4fc41b6183e89baaa9bd754a7f070f70607814",
+            "metrics": "ops/recent-models-20261018/grok-voice/audio/grok-voice-none-017.json",
+            "metrics_sha256": "3cc4c742eea2e838936be3cad11148a18381f5a59579a68929c0262a3e34b410",
+            "input_waveform_audit": "ops/recent-models-20261018/grok-voice/audio/grok-voice-none-017-input-waveform.json",
+            "input_waveform_audit_sha256": "12b5c30a8f399e8434854b1d05d8c39eb3402b7724471df6c1a7646ff7620767"
+          },
+          {
+            "job": "grok-voice-none-018",
+            "source_wav": "runs/recent-models-20261018/grok-voice/attempt-019/conversation.wav",
+            "wav_sha256": "e5f5fa1c58f8a3a5eed2789067cc5b0b71108d256195d75ab057b09a97962bc1",
+            "metrics": "ops/recent-models-20261018/grok-voice/audio/grok-voice-none-018.json",
+            "metrics_sha256": "d58765e6a6d54e2a68b855984ea30936d30c863685ffb8cb9d78e1009480f983",
+            "input_waveform_audit": "ops/recent-models-20261018/grok-voice/audio/grok-voice-none-018-input-waveform.json",
+            "input_waveform_audit_sha256": "4320944116b840ce743379e0e55dd78d5eab00f71dc2c311991dd11df272ba1f"
+          },
+          {
+            "job": "grok-voice-none-019",
+            "source_wav": "runs/recent-models-20261018/grok-voice/attempt-020/conversation.wav",
+            "wav_sha256": "1f97c1516979d3bcd6b2aa32df064a8cc09e03f93c211c3fc56500128b54db40",
+            "metrics": "ops/recent-models-20261018/grok-voice/audio/grok-voice-none-019.json",
+            "metrics_sha256": "5c11c7d0e2aa8a913a93f3d81738b077c2d83ed68cae4cb2af9e9ab92e536fbf",
+            "input_waveform_audit": "ops/recent-models-20261018/grok-voice/audio/grok-voice-none-019-input-waveform.json",
+            "input_waveform_audit_sha256": "0b0ea6aa2ebdbdb3d20a72199b4a604f06a14c700b6f7265ad5263808001024a"
+          },
+          {
+            "job": "grok-voice-none-020",
+            "source_wav": "runs/recent-models-20261018/grok-voice/attempt-021/conversation.wav",
+            "wav_sha256": "0d0a0710f9903c1b62f2de7760094fdf07c29a078ff8dfd7edbed241c880a031",
+            "metrics": "ops/recent-models-20261018/grok-voice/audio/grok-voice-none-020.json",
+            "metrics_sha256": "8be5acb86f1818917371846be1f8ab0f6d5e60418fbf9f56cb6050fee3af2a5a",
+            "input_waveform_audit": "ops/recent-models-20261018/grok-voice/audio/grok-voice-none-020-input-waveform.json",
+            "input_waveform_audit_sha256": "e90e04932aa10e458adb9ce7d8e7d5d80faa47bc55b9401839f0a7eeb8d685a1"
+          },
+          {
+            "job": "grok-voice-none-021",
+            "source_wav": "runs/recent-models-20261018/grok-voice/attempt-022/conversation.wav",
+            "wav_sha256": "05ff1460232cef6550b410eb68cd8a5b39cf09a8a0c4bc555e60cf2862eff0f8",
+            "metrics": "ops/recent-models-20261018/grok-voice/audio/grok-voice-none-021.json",
+            "metrics_sha256": "9c97ca0d028b6e43bd1d263b4e9caf97d7ab2f901e3d6d705b18dddf8eb45c81",
+            "input_waveform_audit": "ops/recent-models-20261018/grok-voice/audio/grok-voice-none-021-input-waveform.json",
+            "input_waveform_audit_sha256": "ce01a8942977185780ff83703f930cb55aab3849acab4db17fe8e98c5c919f76"
+          },
+          {
+            "job": "grok-voice-none-022",
+            "source_wav": "runs/recent-models-20261018/grok-voice/attempt-023/conversation.wav",
+            "wav_sha256": "770df5abba847d78758ae12697f915c2f6ca5890f5486d0bf34a29d127cfae08",
+            "metrics": "ops/recent-models-20261018/grok-voice/audio/grok-voice-none-022.json",
+            "metrics_sha256": "1f1cf008b7c1ff8a62153f870a8b27c2e140cbfc78cca02ce90b59f1e0155b94",
+            "input_waveform_audit": "ops/recent-models-20261018/grok-voice/audio/grok-voice-none-022-input-waveform.json",
+            "input_waveform_audit_sha256": "58b677096d4389e97b65bcaed011b929cbd40c6bbcb206cf30feed1b85c9271a"
+          },
+          {
+            "job": "grok-voice-none-023",
+            "source_wav": "runs/recent-models-20261018/grok-voice/attempt-024/conversation.wav",
+            "wav_sha256": "110a22d7432f5136672ca16794ba60873f6caefeb3c23e2a55a4886a30547575",
+            "metrics": "ops/recent-models-20261018/grok-voice/audio/grok-voice-none-023.json",
+            "metrics_sha256": "e4d073dc4543a160d690c1ca884e1e90cfde86e85d7fbe2b3284d0660f41084d",
+            "input_waveform_audit": "ops/recent-models-20261018/grok-voice/audio/grok-voice-none-023-input-waveform.json",
+            "input_waveform_audit_sha256": "7547af27d214f7589f6ee392041717cd573ab2b3480915225068d9c1829e7745"
+          },
+          {
+            "job": "grok-voice-none-024",
+            "source_wav": "runs/recent-models-20261018/grok-voice/attempt-025/conversation.wav",
+            "wav_sha256": "b94b6f2dd914fe4afd0fc7d82cb9918031880b733e6a74d972377e7b59994ac6",
+            "metrics": "ops/recent-models-20261018/grok-voice/audio/grok-voice-none-024.json",
+            "metrics_sha256": "33bde70ccdfb58ab4995c9f07d2262f7f00d1f56aa12bb2d684426b88d6c1887",
+            "input_waveform_audit": "ops/recent-models-20261018/grok-voice/audio/grok-voice-none-024-input-waveform.json",
+            "input_waveform_audit_sha256": "a825c3abd6ef48b3afdab23931323e12db41ec0af9dd64eeeae04a133e1b9fac"
+          },
+          {
+            "job": "grok-voice-none-025",
+            "source_wav": "runs/recent-models-20261018/grok-voice/attempt-026/conversation.wav",
+            "wav_sha256": "59e324ca3832217cd2d788f5b23cbd611b99f98db6428970c05dea54f8c61702",
+            "metrics": "ops/recent-models-20261018/grok-voice/audio/grok-voice-none-025.json",
+            "metrics_sha256": "c95215900d3439188341ee80a90a5399e10b3371fd639796e96303acdc3d24e6",
+            "input_waveform_audit": "ops/recent-models-20261018/grok-voice/audio/grok-voice-none-025-input-waveform.json",
+            "input_waveform_audit_sha256": "c39d44d53ec5365b4d26187007d8fe3f8f7615bbfa5555997fb68c22c3f60e05"
+          }
+        ]
+      }
+    ],
+    "all_quality_complete": true,
+    "judged_conversations": 295,
+    "successful_judge_cost_usd": 50.18126509999998,
+    "judge_credit_cooldowns": 0
+  }
+}

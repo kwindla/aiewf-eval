@@ -1,5 +1,7 @@
 """Publication checks: counts, scoring scope, prompt identity, and displayed values."""
 
+import pytest
+
 import hashlib
 import json
 import re
@@ -15,15 +17,17 @@ ROOT = Path(__file__).resolve().parents[1]
 DATA = ROOT / "docs/speech-results-2026-09"
 AGG = json.loads((DATA / "aggregate.json").read_text())
 MANIFEST = json.loads((DATA / "manifest.json").read_text())
+HISTORICAL_README = ROOT / "ops/judge-refresh-opus55-20261017/historical/README.md"
 
 
 def ms(value):
     return "—" if value is None else f"{value:.0f}ms"
 
 
+@pytest.mark.local_evidence
 def test_readme_speech_tables_match_aggregate_exactly():
     section = (
-        (ROOT / "README.md")
+        HISTORICAL_README
         .read_text()
         .split("Speech-to-speech models:\n")[1]
         .split("### Sample Recordings")[0]
@@ -159,8 +163,9 @@ def test_raw_inventory_does_not_claim_archival():
         assert re.fullmatch("[0-9a-f]{64}", artifact["sha256"])
 
 
+@pytest.mark.local_evidence
 def test_additional_readme_numeric_claims_trace_to_aggregate():
-    text = (ROOT / "README.md").read_text()
+    text = HISTORICAL_README.read_text()
     by = {m["key"]: m for m in AGG["models"]}
     opt = by["live_optimized"]
     assert (

@@ -1,0 +1,5 @@
+# Campaign evidence stays local; public summaries live in docs/model-evaluations-2026-10/.
+/*
+!/.gitignore
+!/inventory_impact.py
+!/replay_diagnostic.py

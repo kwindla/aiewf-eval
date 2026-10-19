@@ -1,0 +1,240 @@
+{
+  "frozen_at": "2026-10-17T17:03:51.996056+00:00",
+  "effort": "medium",
+  "thinking": "adaptive",
+  "tools": [],
+  "setting_sources": [],
+  "candidate_revision": "text-policy-compliance-1",
+  "rubric_sha256": {
+    "legacy": "2ffdd0b3c5072e197b95cafba49dda5731e59eda7f6b73bfbdbc43e246e06f26",
+    "candidate": "70cdc7982a5f2485375e22ff43761ebf74acf21e38bde5d8518a9e95f6cfd3d2"
+  },
+  "cases_sha256": "07a86dba8e6d85bbd60d5e84399b482827d77644554a8dcd1b40c575d484e4a4",
+  "protocol_sha256": "370ebb7c844b1b1c8d7c27c07271e0c90b262ddfcc29e9506dd44c866a9a118b",
+  "schedule": [
+    {
+      "id": "candidate-claude-opus-5-5-A-r2",
+      "rubric": "candidate",
+      "model": "claude-opus-5-5",
+      "case": "A",
+      "repeat": 2
+    },
+    {
+      "id": "legacy-claude-opus-5-5-B-r2",
+      "rubric": "legacy",
+      "model": "claude-opus-5-5",
+      "case": "B",
+      "repeat": 2
+    },
+    {
+      "id": "legacy-claude-opus-5-5-D-r2",
+      "rubric": "legacy",
+      "model": "claude-opus-5-5",
+      "case": "D",
+      "repeat": 2
+    },
+    {
+      "id": "candidate-claude-opus-5-5-B-r2",
+      "rubric": "candidate",
+      "model": "claude-opus-5-5",
+      "case": "B",
+      "repeat": 2
+    },
+    {
+      "id": "legacy-claude-opus-5-5-C-r1",
+      "rubric": "legacy",
+      "model": "claude-opus-5-5",
+      "case": "C",
+      "repeat": 1
+    },
+    {
+      "id": "candidate-claude-opus-5-C-r2",
+      "rubric": "candidate",
+      "model": "claude-opus-5",
+      "case": "C",
+      "repeat": 2
+    },
+    {
+      "id": "legacy-claude-opus-5-5-C-r2",
+      "rubric": "legacy",
+      "model": "claude-opus-5-5",
+      "case": "C",
+      "repeat": 2
+    },
+    {
+      "id": "legacy-claude-opus-5-B-r2",
+      "rubric": "legacy",
+      "model": "claude-opus-5",
+      "case": "B",
+      "repeat": 2
+    },
+    {
+      "id": "legacy-claude-opus-5-C-r1",
+      "rubric": "legacy",
+      "model": "claude-opus-5",
+      "case": "C",
+      "repeat": 1
+    },
+    {
+      "id": "legacy-claude-opus-5-5-A-r1",
+      "rubric": "legacy",
+      "model": "claude-opus-5-5",
+      "case": "A",
+      "repeat": 1
+    },
+    {
+      "id": "candidate-claude-opus-5-5-D-r2",
+      "rubric": "candidate",
+      "model": "claude-opus-5-5",
+      "case": "D",
+      "repeat": 2
+    },
+    {
+      "id": "candidate-claude-opus-5-B-r1",
+      "rubric": "candidate",
+      "model": "claude-opus-5",
+      "case": "B",
+      "repeat": 1
+    },
+    {
+      "id": "candidate-claude-opus-5-A-r1",
+      "rubric": "candidate",
+      "model": "claude-opus-5",
+      "case": "A",
+      "repeat": 1
+    },
+    {
+      "id": "candidate-claude-opus-5-B-r2",
+      "rubric": "candidate",
+      "model": "claude-opus-5",
+      "case": "B",
+      "repeat": 2
+    },
+    {
+      "id": "legacy-claude-opus-5-5-A-r2",
+      "rubric": "legacy",
+      "model": "claude-opus-5-5",
+      "case": "A",
+      "repeat": 2
+    },
+    {
+      "id": "legacy-claude-opus-5-C-r2",
+      "rubric": "legacy",
+      "model": "claude-opus-5",
+      "case": "C",
+      "repeat": 2
+    },
+    {
+      "id": "candidate-claude-opus-5-5-C-r1",
+      "rubric": "candidate",
+      "model": "claude-opus-5-5",
+      "case": "C",
+      "repeat": 1
+    },
+    {
+      "id": "candidate-claude-opus-5-5-A-r1",
+      "rubric": "candidate",
+      "model": "claude-opus-5-5",
+      "case": "A",
+      "repeat": 1
+    },
+    {
+      "id": "candidate-claude-opus-5-5-C-r2",
+      "rubric": "candidate",
+      "model": "claude-opus-5-5",
+      "case": "C",
+      "repeat": 2
+    },
+    {
+      "id": "candidate-claude-opus-5-A-r2",
+      "rubric": "candidate",
+      "model": "claude-opus-5",
+      "case": "A",
+      "repeat": 2
+    },
+    {
+      "id": "candidate-claude-opus-5-D-r1",
+      "rubric": "candidate",
+      "model": "claude-opus-5",
+      "case": "D",
+      "repeat": 1
+    },
+    {
+      "id": "legacy-claude-opus-5-5-D-r1",
+      "rubric": "legacy",
+      "model": "claude-opus-5-5",
+      "case": "D",
+      "repeat": 1
+    },
+    {
+      "id": "candidate-claude-opus-5-D-r2",
+      "rubric": "candidate",
+      "model": "claude-opus-5",
+      "case": "D",
+      "repeat": 2
+    },
+    {
+      "id": "legacy-claude-opus-5-A-r2",
+      "rubric": "legacy",
+      "model": "claude-opus-5",
+      "case": "A",
+      "repeat": 2
+    },
+    {
+      "id": "legacy-claude-opus-5-5-B-r1",
+      "rubric": "legacy",
+      "model": "claude-opus-5-5",
+      "case": "B",
+      "repeat": 1
+    },
+    {
+      "id": "candidate-claude-opus-5-5-B-r1",
+      "rubric": "candidate",
+      "model": "claude-opus-5-5",
+      "case": "B",
+      "repeat": 1
+    },
+    {
+      "id": "legacy-claude-opus-5-D-r1",
+      "rubric": "legacy",
+      "model": "claude-opus-5",
+      "case": "D",
+      "repeat": 1
+    },
+    {
+      "id": "candidate-claude-opus-5-5-D-r1",
+      "rubric": "candidate",
+      "model": "claude-opus-5-5",
+      "case": "D",
+      "repeat": 1
+    },
+    {
+      "id": "candidate-claude-opus-5-C-r1",
+      "rubric": "candidate",
+      "model": "claude-opus-5",
+      "case": "C",
+      "repeat": 1
+    },
+    {
+      "id": "legacy-claude-opus-5-D-r2",
+      "rubric": "legacy",
+      "model": "claude-opus-5",
+      "case": "D",
+      "repeat": 2
+    },
+    {
+      "id": "legacy-claude-opus-5-B-r1",
+      "rubric": "legacy",
+      "model": "claude-opus-5",
+      "case": "B",
+      "repeat": 1
+    },
+    {
+      "id": "legacy-claude-opus-5-A-r1",
+      "rubric": "legacy",
+      "model": "claude-opus-5",
+      "case": "A",
+      "repeat": 1
+    }
+  ]
+}

@@ -88,14 +88,9 @@ class NovaSonicTextTurnEndFrame(DataFrame):
 class NovaSonicLLMServiceWithCompletionSignal(AWSNovaSonicLLMService):
     """Extended Nova Sonic service that emits frames for turn completion detection.
 
-    The base AWSNovaSonicLLMService handles events but doesn't expose key signals.
-    This subclass:
-    1. Tracks the current content being received (type, role, generationStage)
-    2. Emits NovaSonicTextTurnEndFrame when FINAL TEXT ends with END_TURN
-    3. Emits NovaSonicCompletionEndFrame when the session's completionEnd arrives
-    4. Emits TTFB metrics (time from trigger to first audio)
-    5. Supports Nova 2 Sonic VAD configuration (endpointingSensitivity)
-    6. Overrides reset_conversation() with retry limits to prevent infinite error cascade
+    Inherits Pipecat's stream handling and spoken transcript emission. Adds
+    benchmark turn-completion signals, first-audio timing, endpointing settings,
+    and bounded reconnection handling. Canonical runs disable recovery entirely.
     """
 
     def __init__(
@@ -112,9 +107,8 @@ class NovaSonicLLMServiceWithCompletionSignal(AWSNovaSonicLLMService):
         """Initialize the Nova Sonic service.
 
         Args:
-            endpointing_sensitivity: VAD sensitivity for Nova 2 Sonic only.
+            endpointing_sensitivity: VAD sensitivity for Nova 2 Sonic and later.
                 Options: "HIGH" (quick cutoff), "MEDIUM" (default), "LOW" (longer wait).
-                Only applicable to amazon.nova-2-sonic-v1:0 model.
                 Nova Sonic v1 does not support this parameter.
             max_reconnect_attempts: Maximum reconnection attempts before giving up.
             max_context_turns: Maximum number of user/assistant turn pairs to keep during
@@ -125,6 +119,12 @@ class NovaSonicLLMServiceWithCompletionSignal(AWSNovaSonicLLMService):
             on_retriggered: Callback after assistant response is re-triggered (signal turn detector).
             on_max_reconnects_exceeded: Async callback when max reconnects exceeded (cancel task).
         """
+        if endpointing_sensitivity is not None:
+            settings = kwargs.get("settings")
+            if settings is None:
+                settings = AWSNovaSonicLLMService.Settings()
+                kwargs["settings"] = settings
+            settings.endpointing_sensitivity = endpointing_sensitivity
         super().__init__(**kwargs)
         self._current_content_type = None
         self._current_content_role = None
@@ -150,6 +150,23 @@ class NovaSonicLLMServiceWithCompletionSignal(AWSNovaSonicLLMService):
         start_ttfb_metrics() and stop_ttfb_metrics() from working.
         """
         return True
+
+    async def complete_tool_call(self, tool_call_id: str, result):
+        """Deliver native results without waiting for a user-turn context push.
+
+        Universal aggregation can defer its context update while a user turn
+        closes. Nova is already awaiting this result, so send it immediately
+        and share the SDK's completed-ID set to prevent later duplicate delivery.
+        """
+        if tool_call_id in self._completed_tool_calls:
+            return
+        self._completed_tool_calls.add(tool_call_id)
+        try:
+            await self._send_tool_result(tool_call_id, result)
+        except Exception:
+            self._completed_tool_calls.discard(tool_call_id)
+            raise
+        logger.info(f"Nova native tool result delivered: tool_call_id={tool_call_id}")
 
     def is_reconnecting(self) -> bool:
         """Check if currently reconnecting (for external coordination)."""
@@ -251,6 +268,16 @@ Be conversational and concise. If you don't have specific information, say so po
         3. Preserves trigger state - re-triggers assistant response after reconnection
         4. Callbacks - notifies external components to pause/resume audio input
         """
+        # Canonical benchmarks must retain the original full conversation.
+        # Fail the attempt rather than replacing the prompt/history on recovery.
+        import os
+        if os.getenv("MTE_ENABLE_RECOVERY") == "0":
+            logger.error("Nova Sonic recovery disabled; terminating failed attempt")
+            self._wants_connection = False
+            if self._on_max_reconnects_exceeded:
+                await self._on_max_reconnects_exceeded()
+            return
+
         # Check retry limit
         if self._reconnect_attempts >= self._max_reconnect_attempts:
             logger.error(
@@ -329,37 +356,6 @@ Be conversational and concise. If you don't have specific information, say so po
             self._need_retrigger_after_reconnect = False
             # Don't trigger - let the next user audio input restart the conversation
 
-    async def _send_session_start_event(self):
-        """Override to add endpointingSensitivity for Nova 2 Sonic VAD control.
-
-        Nova 2 Sonic supports VAD configuration via endpointingSensitivity:
-        - HIGH: Very sensitive to pauses (quick cutoff)
-        - MEDIUM: Balanced sensitivity (default)
-        - LOW: Less sensitive to pauses (longer wait before cutoff)
-
-        Nova Sonic v1 does not support this parameter.
-        """
-        # Build inference configuration
-        inference_config = {
-            "maxTokens": self._params.max_tokens,
-            "topP": self._params.top_p,
-            "temperature": self._params.temperature,
-        }
-
-        # Add endpointingSensitivity for Nova 2 Sonic
-        if self._endpointing_sensitivity:
-            inference_config["endpointingSensitivity"] = self._endpointing_sensitivity
-            logger.info(f"NovaSonicLLM: Using endpointingSensitivity={self._endpointing_sensitivity}")
-
-        session_start = json.dumps({
-            "event": {
-                "sessionStart": {
-                    "inferenceConfiguration": inference_config
-                }
-            }
-        })
-        await self._send_client_event(session_start)
-
     async def start_ttfb_for_user_audio_complete(self):
         """Start TTFB timing when user audio delivery is complete.
 
@@ -375,51 +371,6 @@ Be conversational and concise. If you don't have specific information, say so po
         """Override to trigger assistant response."""
         logger.info("NovaSonicLLM: Triggering assistant response")
         await super().trigger_assistant_response()
-
-    async def _receive_task_handler(self):
-        """Override to add custom event handling for turn end detection.
-
-        This extends the parent's receive handler to:
-        1. Track content metadata (type, role, generationStage)
-        2. Emit NovaSonicTextTurnEndFrame when AUDIO ends with END_TURN
-        3. Emit NovaSonicCompletionEndFrame when completionEnd arrives
-        4. Capture TTFB metrics on first audio output
-        """
-        try:
-            while self._stream and not self._disconnecting:
-                output = await self._stream.await_output()
-                result = await output[1].receive()
-
-                if result.value and result.value.bytes_:
-                    response_data = result.value.bytes_.decode("utf-8")
-                    json_data = json.loads(response_data)
-
-                    if "event" in json_data:
-                        event_json = json_data["event"]
-
-                        # Route events to handlers
-                        if "completionStart" in event_json:
-                            await self._handle_completion_start_event(event_json)
-                        elif "contentStart" in event_json:
-                            await self._handle_content_start_event(event_json)
-                        elif "textOutput" in event_json:
-                            await self._handle_text_output_event(event_json)
-                        elif "audioOutput" in event_json:
-                            await self._handle_audio_output_event(event_json)
-                        elif "toolUse" in event_json:
-                            await self._handle_tool_use_event(event_json)
-                        elif "contentEnd" in event_json:
-                            await self._handle_content_end_event(event_json)
-                        elif "completionEnd" in event_json:
-                            await self._handle_completion_end_event(event_json)
-        except Exception as e:
-            if self._disconnecting:
-                logger.debug(f"NovaSonicLLM: _receive_task_handler exception during disconnect: {e}")
-                return
-            logger.error(f"NovaSonicLLM: Error in receive task: {e}")
-            await self.push_error(error_msg=f"Error processing responses: {e}", exception=e)
-            if self._wants_connection:
-                await self.reset_conversation()
 
     async def _handle_completion_start_event(self, event_json):
         """Log when a new completion starts."""
@@ -456,7 +407,7 @@ Be conversational and concise. If you don't have specific information, say so po
         await super()._handle_content_start_event(event_json)
 
     async def _handle_text_output_event(self, event_json):
-        """Log text output events and emit SPECULATIVE text for transcription."""
+        """Log text events; Pipecat emits the spoken transcript once."""
         text_output = event_json.get("textOutput", {})
         content = text_output.get("content", "")
 
@@ -467,16 +418,7 @@ Be conversational and concise. If you don't have specific information, say so po
             f"content={content[:80]!r}..."
         )
 
-        # Emit SPECULATIVE ASSISTANT text as TTSTextFrame for transcription
-        # This arrives in real-time with audio, unlike FINAL which is delayed 30+ seconds
-        if (self._current_content_role == "ASSISTANT" and
-            self._current_generation_stage == "SPECULATIVE" and
-            content):
-            from pipecat.frames.frames import AggregationType
-            logger.info(f"NovaSonicLLM: Emitting SPECULATIVE text ({len(content)} chars): {content[:60]}...")
-            frame = TTSTextFrame(content, aggregated_by=AggregationType.SENTENCE)
-            await self.push_frame(frame)
-
+        # Pipecat emits the public spoken transcript once at audio content end.
         await super()._handle_text_output_event(event_json)
 
     async def _handle_audio_output_event(self, event_json):
@@ -539,6 +481,7 @@ Be conversational and concise. If you don't have specific information, say so po
     async def _handle_completion_end_event(self, event_json):
         """Handle Nova Sonic's completionEnd event by pushing a signal frame."""
         logger.info("NovaSonicLLM: === completionEnd === pushing signal frame")
+        await super()._handle_completion_end_event(event_json)
         await self.push_frame(NovaSonicCompletionEndFrame())
 
 
@@ -849,6 +792,26 @@ class NovaSonicPipeline:
         turn = self.effective_turns[turn_index]
         return turn.get("audio_file")
 
+    def _prompt_configuration(self):
+        """Preserve prompt bytes while optionally separating reference content."""
+        import os
+
+        full = getattr(self.benchmark, "system_instruction", "")
+        role = os.getenv("MTE_NOVA_KB_CONTEXT_ROLE", "system").lower()
+        if role == "system":
+            return full, [{"role": "system", "content": full}]
+        if role != "user":
+            raise ValueError("MTE_NOVA_KB_CONTEXT_ROLE must be system or user")
+        policy = getattr(self.benchmark, "system_policy", None)
+        reference = getattr(self.benchmark, "reference_context", None)
+        if not policy or not reference or policy + reference != full:
+            raise ValueError("Nova USER reference layout requires exact policy/reference parts")
+        logger.info(
+            f"Nova reference layout: policy SYSTEM ({len(policy)} chars), "
+            f"knowledge base USER ({len(reference)} chars); full prompt preserved"
+        )
+        return policy, [{"role": "user", "content": reference}]
+
     async def run(
         self,
         recorder,
@@ -875,10 +838,14 @@ class NovaSonicPipeline:
         from pipecat.pipeline.runner import PipelineRunner
         from pipecat.pipeline.task import PipelineParams, PipelineTask
         from pipecat.processors.aggregators.llm_context import LLMContext
-        from pipecat.processors.aggregators.llm_response_universal import LLMContextAggregatorPair
+        from pipecat.processors.aggregators.llm_response_universal import (
+            LLMContextAggregatorPair,
+            LLMUserAggregatorParams,
+        )
 
         from multi_turn_eval.processors.tool_call_recorder import ToolCallRecorder
         from multi_turn_eval.transports.paced_input import PacedInputTransport
+        from multi_turn_eval.pipelines.realtime import LLMFrameLogger
 
         self.recorder = recorder
         self.model_name = model
@@ -892,7 +859,7 @@ class NovaSonicPipeline:
             )
 
         # Get system instruction and tools from benchmark
-        system_instruction = getattr(self.benchmark, "system_instruction", "")
+        system_instruction, initial_messages = self._prompt_configuration()
         tools = getattr(self.benchmark, "tools_schema", None)
 
         # For the old Nova Sonic model, we'd need to append AWAIT_TRIGGER_ASSISTANT_RESPONSE_INSTRUCTION.
@@ -916,9 +883,13 @@ class NovaSonicPipeline:
             access_key_id=self._aws_access_key_id,
             session_token=self._aws_session_token,
             region=self._aws_region,
-            model=model if ":" in model else "amazon.nova-sonic-v1:0",
-            voice_id="tiffany",
-            system_instruction=nova_sonic_system_instruction,
+            settings=AWSNovaSonicLLMService.Settings(
+                # Nova 2.5 uses an ID without a version suffix. Never fall back
+                # to another model when the requested ID has no colon.
+                model=model,
+                voice="tiffany",
+                system_instruction=nova_sonic_system_instruction,
+            ),
             tools=tools,
             endpointing_sensitivity="HIGH",  # Quick cutoff for faster responses
         )
@@ -936,7 +907,9 @@ class NovaSonicPipeline:
                     f"Skipping duplicate tool call: {params.function_name} "
                     f"(tool_call_id={getattr(params, 'tool_call_id', 'unknown')})"
                 )
-                await params.result_callback({"status": "duplicate_skipped"})
+                result = {"status": "duplicate_skipped"}
+                await self.llm.complete_tool_call(params.tool_call_id, result)
+                await params.result_callback(result)
                 return
 
             # Track this call
@@ -944,6 +917,7 @@ class NovaSonicPipeline:
 
             logger.info(f"Function call: {params}")
             result = {"status": "success"}
+            await self.llm.complete_tool_call(params.tool_call_id, result)
             await params.result_callback(result)
 
         self.llm.register_function(None, function_catchall)
@@ -953,12 +927,8 @@ class NovaSonicPipeline:
         # We add a simple greeting trigger that will cause the bot to greet when LLMRunFrame
         # is queued. This message will be transcribed and added to conversation history.
         greeting_trigger = "Hello!"
-        messages = [
-            {"role": "system", "content": system_instruction},
-            {"role": "user", "content": greeting_trigger},
-        ]
+        messages = initial_messages + [{"role": "user", "content": greeting_trigger}]
         self.context = LLMContext(messages, tools=tools)
-        self.context_aggregator = LLMContextAggregatorPair(self.context)
 
         # Metrics handler
         def handle_metrics(frame: MetricsFrame):
@@ -1028,6 +998,13 @@ class NovaSonicPipeline:
             stop_secs=0.8,   # Emit VADUserStoppedSpeaking 0.8s after speech ends
         )
         user_vad = ResamplingSileroVAD(params=vad_params)
+        # Pipecat 1.x runs local VAD on the user aggregator. TransportParams
+        # silently ignores the former vad_analyzer parameter, losing turn tags.
+        self.context_aggregator = LLMContextAggregatorPair(
+            self.context,
+            user_params=LLMUserAggregatorParams(vad_analyzer=user_vad),
+        )
+        self.llm_logger = LLMFrameLogger(lambda: self.recorder, vad_params=vad_params)
         logger.info(
             f"[NovaSonic] User VAD config: start_secs={vad_params.start_secs}, "
             f"stop_secs={vad_params.stop_secs}"
@@ -1039,7 +1016,6 @@ class NovaSonicPipeline:
             audio_in_sample_rate=16000,
             audio_in_channels=1,
             audio_in_passthrough=True,
-            vad_analyzer=user_vad,
         )
         self.paced_input = PacedInputTransport(
             input_params,
@@ -1254,6 +1230,7 @@ class NovaSonicPipeline:
                 self.paced_input,
                 self.context_aggregator.user(),
                 self.llm,
+                self.llm_logger,
                 ToolCallRecorder(recorder_accessor, duplicate_ids_accessor),
                 self.turn_gate,
                 self.context_aggregator.assistant(),
@@ -1292,6 +1269,7 @@ class NovaSonicPipeline:
         # Start audio recording
         logger.info("[NovaSonic] Starting audio recording")
         await self.audio_buffer.start_recording()
+        self.llm_logger.set_recording_start_time(time.time())
 
         # Set recording baselines to unblock the paced_input feeder thread
         # This must happen after start_recording() to ensure all components
@@ -1300,6 +1278,9 @@ class NovaSonicPipeline:
             recording_sample_rate=self.audio_buffer._init_sample_rate
         )
         self.paced_input.set_recording_baseline()
+        # Release pacing at the baseline. Releasing it a second later makes
+        # the feeder catch up while the recorder also fills that same gap.
+        self.paced_input.signal_ready()
         logger.info("[NovaSonic] Recording baselines set")
 
         # Enable tagging for the initial greeting audio.
@@ -1314,10 +1295,6 @@ class NovaSonicPipeline:
 
         # Wait for connection to establish
         await asyncio.sleep(1.0)
-
-        # Signal LLM ready to receive audio
-        logger.info("Signaling LLM ready for audio...")
-        self.paced_input.signal_ready()
 
         # Wait for initial greeting to complete before playing user audio
         # This ensures the greeting isn't interrupted by user audio
@@ -1357,6 +1334,7 @@ class NovaSonicPipeline:
             audio_duration_sec = len(data) / sr
             logger.info(f"Audio duration: {audio_duration_sec:.2f}s")
 
+            self.output_transport.mark_scripted_user_turn()
             self.paced_input.enqueue_wav_file(audio_path)
             logger.info(f"Queued user question audio: {audio_path}")
 
@@ -1406,6 +1384,7 @@ class NovaSonicPipeline:
                 audio_duration_sec = len(data) / sr
                 logger.info(f"Audio duration for turn {self.turn_idx}: {audio_duration_sec:.2f}s")
 
+                self.output_transport.mark_scripted_user_turn()
                 self.paced_input.enqueue_wav_file(audio_path)
                 logger.info(f"Queued audio for turn {self.turn_idx}")
 
@@ -1494,6 +1473,7 @@ class NovaSonicPipeline:
                     f"{audio_duration_sec:.2f}s"
                 )
 
+                self.output_transport.mark_scripted_user_turn()
                 self.paced_input.enqueue_wav_file(audio_path)
                 logger.info(f"[Reconnect] Queued audio for turn {self.turn_idx}")
 

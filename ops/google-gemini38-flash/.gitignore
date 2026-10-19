@@ -1,0 +1,12 @@
+# Campaign evidence stays local; public summaries live in docs/model-evaluations-2026-10/.
+/*
+!/.gitignore
+!/smoke/
+/smoke/*
+!/smoke/missing-ttfat-diagnostic/
+/smoke/missing-ttfat-diagnostic/*
+!/analyze.py
+!/configuration.json
+!/judge_campaign.py
+!/schedule.tsv
+!/smoke/missing-ttfat-diagnostic/configuration.json

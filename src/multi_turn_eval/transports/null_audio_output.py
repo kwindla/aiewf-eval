@@ -123,6 +123,7 @@ class NullAudioOutputTransport(BaseOutputTransport):
         # Turn-based audio tagging (triggered by VADUserStoppedSpeakingFrame)
         # Tag is injected on first bot audio frame after user turn ends
         self._tag_next_bot_audio: bool = False  # Only tag after VAD event
+        self._scripted_turn_tags: bool = False
         self._pending_bot_tag: np.ndarray | None = None
         # A tag is logged only after this bounded detector finds its waveform
         # in MediaSender's emitted stream. This avoids ratio-math drift when
@@ -179,6 +180,16 @@ class NullAudioOutputTransport(BaseOutputTransport):
         self._user_frame_count = 0
 
         logger.info(f"[NullAudioOutput] Recording baseline reset (recording_sample_rate={recording_sample_rate})")
+
+    def mark_scripted_user_turn(self):
+        """Arm exactly one response marker for a sequential scripted WAV.
+
+        A realtime service may respond before local VAD announces user-stop.
+        Explicit file boundaries avoid losing that first marker or rearming
+        another one when the delayed VAD event eventually arrives.
+        """
+        self._scripted_turn_tags = True
+        self._tag_next_bot_audio = True
 
     def enable_greeting_tag(self):
         """Enable tagging for the initial greeting audio.
@@ -268,7 +279,8 @@ class NullAudioOutputTransport(BaseOutputTransport):
         # actively streaming, re-arming would inject a second tag mid-response,
         # so suppress the duplicate. (Turns are strictly sequential in this
         # benchmark: a genuine user stop never overlaps an in-flight response.)
-        if isinstance(frame, (UserStoppedSpeakingFrame, VADUserStoppedSpeakingFrame)):
+        if (isinstance(frame, (UserStoppedSpeakingFrame, VADUserStoppedSpeakingFrame))
+                and not getattr(self, "_scripted_turn_tags", False)):
             bot_streaming = (
                 not self._tag_next_bot_audio
                 and self._last_bot_audio_mono > 0

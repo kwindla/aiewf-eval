@@ -1,0 +1,26 @@
+# Campaign evidence stays local; public summaries live in docs/model-evaluations-2026-10/.
+/*
+!/.gitignore
+!/filter-diagnostics/
+/filter-diagnostics/*
+!/user-context-v2/
+/user-context-v2/*
+!/audio.py
+!/collect.py
+!/common.py
+!/configuration.json
+!/direct.py
+!/filter-diagnostics/probe.py
+!/filter-diagnostics/probe_readback.py
+!/native_prompt_check.py
+!/schedule.tsv
+!/user-context-v2/analyze.py
+!/user-context-v2/audio.py
+!/user-context-v2/collect.py
+!/user-context-v2/common.py
+!/user-context-v2/configuration.json
+!/user-context-v2/direct.py
+!/user-context-v2/finish.py
+!/user-context-v2/judge.py
+!/user-context-v2/publish.py
+!/user-context-v2/schedule.tsv

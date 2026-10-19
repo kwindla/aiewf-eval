@@ -1,0 +1,17 @@
+# Campaign evidence stays local; public summaries live in docs/model-evaluations-2026-10/.
+/*
+!/.gitignore
+!/grok-voice/
+/grok-voice/*
+!/analyze.py
+!/audio.py
+!/collect.py
+!/common.py
+!/finish.py
+!/grok-voice/configuration.json
+!/grok-voice/schedule.tsv
+!/judge.py
+!/precompute.py
+!/publish.py
+!/smoke.py
+!/status.py
