@@ -52,10 +52,11 @@ def test_every_ranked_text_cell_matches_the_committed_summary():
 def test_every_voice_cell_matches_the_committed_summary():
     models = summary("judge-recovery-context-20261019")["voice_models"]
     models += summary("nova-2-5-sonic-20261019/user-context-v2")["voice_models"]
+    models += summary("nova-2-5-sonic-optimized-20261021")["voice_models"]
     text = (ROOT / "README.md").read_text()
     rows = table(text, "| Model | Selected | Failed conversations | Pass Rate |")
     ordinary = [m for m in models if not m.get("additional_experiment")]
-    assert len(rows) == len(ordinary) == 11
+    assert len(rows) == len(ordinary) == 12
     for m in ordinary:
         den = 30 * m["complete"]
         counts = m["complete_only"]["dimension_passes"]

@@ -121,12 +121,13 @@ The [recovery-context migration](docs/model-evaluations-2026-10/judge-recovery-c
 
 Speech-to-speech models:
 
-**New quality grades use Opus 5.5 at medium effort**, using the shared frozen speech rubric. Each row has **25 complete, harness-valid conversations (750 turns)** from the latest validated capture profile. Standard rows use the speech-v2 prompt; the prompt-optimized GPT-Live row is marked with an asterisk. Quality is scored on recorded spoken responses, with verified audio turn-taking evidence carried forward separately.
+**New quality grades use Opus 5.5 at medium effort**, using the shared frozen speech rubric. Each row has **25 complete, harness-valid conversations (750 turns)** from the latest validated capture profile. Standard rows use the speech-v2 prompt; prompt-optimized rows are marked with an asterisk. Quality is scored on recorded spoken responses, with verified audio turn-taking evidence carried forward separately.
 
 Accuracy is conditional on completion. The original attempt ledger retains **245 attempts: 225 scored, six model/service failures, and 14 harness exclusions**. Failure rate divides incomplete model/service conversations by harness-valid attempts; top-ups do not erase failures. Original captures, prompts, alignment decisions, and September reports are preserved. See the [refresh report](docs/model-evaluations-2026-10/judge-refresh-opus55-20261017/REPORT.md) and [original sampling and capture protocol](docs/speech-results-2026-09/PROTOCOL.md).
 
 | Model | Selected | Failed conversations | Pass Rate | Tool Use | Instruction | KB Ground | Turn Ok | Non-Tool V2V Med | Non-Tool V2V Max | Tool V2V Mean | Silence Pad Mean |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| Nova 2.5 Sonic prompt-optimized* | 25 | 1/26 (3.8%) | 97.7% | 739/750 | 739/750 | 746/750 | 750/750 | 1088ms | 1984ms | 1412ms | 165ms |
 | GPT-Live prompt-optimized + Terra medium* | 25 | 2/27 (7.4%) | 94.3% | 748/750 | 707/750 | 744/750 | — | 2144ms | 29056ms | 2471ms | — |
 | GPT-Realtime-2.1 low | 25 | 0/25 (0.0%) | 93.2% | 733/750 | 706/750 | 722/750 | 750/750 | 1568ms | 9568ms | 1499ms | 75ms |
 | Grok Voice 3.0 (reasoning high) | 25 | 0/25 (0.0%) | 92.8% | 750/750 | 697/750 | 729/750 | 748/750 | 1984ms | 4576ms | 2056ms | 98ms |
@@ -140,12 +141,16 @@ Accuracy is conditional on completion. The original attempt ledger retains **245
 | Gemini 3.1 minimal | 25 | 1/26 (3.8%) | 83.7% | 718/750 | 630/750 | 723/750 | 750/750 | 1344ms | 3936ms | 1661ms | 98ms |
 
 <!-- nova25-user-context-20261019:start -->
-**Nova 2.5 Sonic content-filter refusals:** AWS rejected the full standard SYSTEM prompt. Excluded diagnostic probes also blocked short SYSTEM prompts containing `Replicate` or the session title “Voice Cloning and Synthesis: Ethics and Technology”, while benign text of the full prompt’s length passed. The scored configuration keeps the unchanged speech-v2 policy in SYSTEM and the complete unchanged knowledge base in USER history; no reference facts were removed. This provider message-layout difference is explicit. The prompt-level filter rejections are excluded diagnostics, separate from the 25/25 completed scored conversations.
+**Nova Sonic content filter:** Nova Sonic applies a service-level safety filter to SYSTEM prompts before they reach the model, and two knowledge-base passages produced false positives: the sponsor name `Replicate` and the session title “Voice Cloning and Synthesis: Ethics and Technology”. Benign text of the full prompt’s length passed, and removing only those two passages let the full prompt through. To keep every reference fact, the Nova 2.5 Sonic rows send the unchanged speech-v2 policy as SYSTEM and the complete, unchanged knowledge base as a USER history message; in this layout the model answers questions about both passages correctly. This provider message-layout difference is explicit. The filter probes are excluded diagnostics, separate from the 25/25 completed scored conversations.
 
-**Nova failure breakdown:** Of 105 failing turns (86.0% strict pass across 750 turns), 74 (70.5%) omitted required tool calls: 25 session endings, 17 votes, and 32 session suggestions, dietary requests or support tickets. Many responses claimed success without executing the action, also failing instruction following. Eight of 25 conversations made no tool calls. The remaining 31 failing turns failed only instruction following; KB grounding and audio turn-taking each passed 750/750.
+**Nova Sonic failure breakdown:** Of 105 failing turns (86.0% strict pass across 750 turns), 74 (70.5%) omitted required tool calls: 25 session endings, 17 votes, and 32 session suggestions, dietary requests or support tickets. Many responses claimed success without executing the action, also failing instruction following. Eight of 25 conversations made no tool calls. The remaining 31 failing turns failed only instruction following; KB grounding and audio turn-taking each passed 750/750.
 
-The [Nova report](docs/model-evaluations-2026-10/nova-2-5-sonic-20261019/user-context-v2/REPORT.md) records the excluded smoke, first 25 complete conversations, all attempts, Opus 5.5 Medium grades, and verified waveform latency; the [filter investigation](docs/model-evaluations-2026-10/nova-2-5-sonic-20261019/filter-diagnostics/REPORT.md) retains the earlier blocked probes. Three captures from the earlier adapter profile are retained as harness exclusions after a tool-result delivery defect; the scored cohort uses the repaired profile.
+The [Nova Sonic report](docs/model-evaluations-2026-10/nova-2-5-sonic-20261019/user-context-v2/REPORT.md) records the excluded smoke, first 25 complete conversations, all attempts, Opus 5.5 Medium grades, and verified waveform latency; the [filter investigation](docs/model-evaluations-2026-10/nova-2-5-sonic-20261019/filter-diagnostics/REPORT.md) retains the earlier blocked probes. Three captures from the earlier adapter profile are retained as harness exclusions after a tool-result delivery defect; the scored cohort uses the repaired profile.
 <!-- nova25-user-context-20261019:end -->
+
+<!-- nova-2-5-sonic-prompt-optimized-20261021:start -->
+Nova 2.5 Sonic also has a prompt-optimized cohort, with a Nova Sonic-specific SYSTEM policy and tool descriptions, the first 25 complete conversations, and the unchanged speech-v2 tasks, knowledge base, reference layout and Opus 5.5 Medium judging. The [prompt-optimized Nova Sonic report](docs/model-evaluations-2026-10/nova-2-5-sonic-optimized-20261021/REPORT.md) maps each added rule to a standard-row failure and gives quality, recorded-waveform latency, remaining failures and limits.
+<!-- nova-2-5-sonic-prompt-optimized-20261021:end -->
 
 <!-- grok-voice-high-20261018:start -->
 Grok Voice 3.0 also has a fresh `reasoning.effort=high` cohort, with the first 25 complete conversations, unchanged speech-v2 tasks and Opus 5.5 Medium judging. The [high versus none comparison](docs/model-evaluations-2026-10/grok-voice-high-20261018/REPORT.md) gives completion, quality, recorded-waveform latency, and all unsuccessful attempts.
@@ -154,6 +159,8 @@ Grok Voice 3.0 also has a fresh `reasoning.effort=high` cohort, with the first 2
 Grok Voice 3.0 is pinned to `grok-voice-3.0` with session `reasoning.effort=none`, using the same speech-v2 tasks and Opus 5.5 Medium voice rubric. The [new-model report](docs/model-evaluations-2026-10/recent-models-20261018/REPORT.md) retains unsuccessful attempts and waveform latency diagnostics.
 
 *GPT-Live prompt-optimized uses a conversational frontend and a detailed knowledge-base backend, Terra medium, and a five-second quiet/playback gate. It uses the same questions and shared speech judge. Turn-taking is unscored (—) for this reconstructed-transcript profile; waveform latency is measured separately.*
+
+*Nova 2.5 Sonic prompt-optimized changes only the SYSTEM policy text and the tool descriptions. It uses the same questions, knowledge base, tool arguments, reference layout, adapter and shared speech judge as the standard Nova Sonic row. Its prompt was developed on this script, without a held-out scenario.*
 
 ### Additional speech experiments
 

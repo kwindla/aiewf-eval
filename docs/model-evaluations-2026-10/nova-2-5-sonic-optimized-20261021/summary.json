@@ -1,0 +1,239 @@
+{
+  "publication_summary": true,
+  "source_artifact": null,
+  "evidence_storage": "Contributed result; raw runs are not included. The benchmark package and ops configuration reproduce the cohort",
+  "data": {
+    "judge_model": "claude-opus-5-5",
+    "judge_effort": "medium",
+    "judge_rubric": "unchanged speech-v2 (aiwf_medium_context_speech_v2)",
+    "judge_rubric_sha256": "c5a8a3b3c3240172cc392529a1784b59d2913a32e2ec2ba843a456415b75ef27",
+    "all_quality_complete": true,
+    "judged_conversations": 25,
+    "successful_judge_cost_usd": 4.22788,
+    "configuration": {
+      "benchmark": "aiwf_medium_context_speech_nova_sonic_optimized",
+      "prompt_version": "nova-sonic-optimized-v1",
+      "region": "us-east-1",
+      "voice": "tiffany",
+      "endpointing_sensitivity": "HIGH",
+      "max_concurrent": 3,
+      "environment": {
+        "MTE_NOVA_KB_CONTEXT_ROLE": "user",
+        "MTE_ENABLE_RECOVERY": "0",
+        "MTE_DEDUPE_TOOL_CALLS": "1",
+        "MTE_TOOL_RESULT_RUN_LLM": "0"
+      }
+    },
+    "policy_sha256": "f05ddfdd5966c2f934f2fe915f340a43aaec62ef5b44c9ed66d94cf99ca87925",
+    "tools_schema_sha256": "6152095f9c7e30f4166b5c3fa7e666ac81d1baa391920ca180278605bf2feb4a",
+    "input_waveform_audit": {
+      "conversations": 25,
+      "turns_checked": 750,
+      "conversations_flagged": 2,
+      "turns_flagged": 2,
+      "thresholds": {
+        "minimum_correlation": 0.95,
+        "maximum_absolute_offset_ms": 250,
+        "maximum_within_turn_drift_ms": 100
+      },
+      "flags": [
+        {
+          "slot": 3,
+          "turn": 17,
+          "min_correlation": 0.683,
+          "max_offset_ms": 72,
+          "within_turn_drift_ms": 17
+        },
+        {
+          "slot": 16,
+          "turn": 12,
+          "min_correlation": 0.998,
+          "max_offset_ms": 198,
+          "within_turn_drift_ms": 136
+        }
+      ],
+      "latency_excluding_flagged_conversations": {
+        "timing_samples": 690,
+        "non_tool_median_ms": 1088,
+        "non_tool_max_ms": 1984,
+        "tool_mean_ms": 1413
+      },
+      "disposition": "Retained, not replaced; quality grading does not depend on input alignment and latency is unchanged without them"
+    },
+    "text_models": [],
+    "voice_models": [
+      {
+        "label": "Nova 2.5 Sonic prompt-optimized*",
+        "model": "amazon.nova-2-5-sonic",
+        "provider": "AWS Bedrock",
+        "complete": 25,
+        "eligible_attempts": 26,
+        "failed_conversations": 1,
+        "failure_rate_percent": 3.8461538461538463,
+        "complete_only": {
+          "strict_passes": 733,
+          "dimension_passes": {
+            "tool_use_correct": 739,
+            "instruction_following": 739,
+            "kb_grounding": 746
+          },
+          "denominator": 750
+        },
+        "strict_percent": 97.73333333333333,
+        "strict_ci95": [
+          96.53333333333333,
+          98.8
+        ],
+        "per_conversation_strict_passes": [
+          30,
+          30,
+          30,
+          30,
+          30,
+          28,
+          30,
+          29,
+          28,
+          30,
+          28,
+          29,
+          29,
+          27,
+          30,
+          30,
+          29,
+          30,
+          30,
+          30,
+          29,
+          30,
+          29,
+          28,
+          30
+        ],
+        "turn_taking_passes": 750,
+        "turn_taking_scored": true,
+        "conversations_with_no_tool_calls": 0,
+        "failing_turns": {
+          "0": 2,
+          "4": 3,
+          "7": 1,
+          "24": 8,
+          "29": 3
+        },
+        "first_speech_signed": {
+          "n": 750,
+          "mean_ms": 1189.2906666666668,
+          "median_ms": 1120.0,
+          "p50_ms": 1120.0,
+          "p95_ms": 1632.0,
+          "max_ms": 2112.0
+        },
+        "first_speech_positive": {
+          "n": 750,
+          "mean_ms": 1189.2906666666668,
+          "median_ms": 1120.0,
+          "p50_ms": 1120.0,
+          "p95_ms": 1632.0,
+          "max_ms": 2112.0
+        },
+        "non_tool": {
+          "n": 611,
+          "mean_ms": 1138.6972176759411,
+          "median_ms": 1088.0,
+          "p50_ms": 1088.0,
+          "p95_ms": 1568.0,
+          "max_ms": 1984.0
+        },
+        "tool": {
+          "n": 139,
+          "mean_ms": 1411.68345323741,
+          "median_ms": 1504.0,
+          "p50_ms": 1504.0,
+          "p95_ms": 1728.0,
+          "max_ms": 2112.0
+        },
+        "silence": {
+          "n": 750,
+          "mean_ms": 164.78933333333333,
+          "median_ms": 176.0,
+          "p50_ms": 176.0,
+          "p95_ms": 263.0,
+          "max_ms": 596.0
+        },
+        "nonpositive_n": 0,
+        "missing_latency_n": 0,
+        "unsuccessful_attempts": [
+          {
+            "attempt": 21,
+            "completed_turns": 24,
+            "error": "Bedrock stream error at turn 25: Timed out waiting for audio bytes or interactive content"
+          }
+        ]
+      }
+    ],
+    "standard_prompt_replication": {
+      "complete": 25,
+      "eligible_attempts": 25,
+      "failed_conversations": 0,
+      "failure_rate_percent": 0.0,
+      "complete_only": {
+        "strict_passes": 650,
+        "dimension_passes": {
+          "tool_use_correct": 681,
+          "instruction_following": 661,
+          "kb_grounding": 750
+        },
+        "denominator": 750
+      },
+      "strict_percent": 86.66666666666667,
+      "strict_ci95": [
+        83.46666666666667,
+        89.60000000000001
+      ],
+      "per_conversation_strict_passes": [
+        27,
+        27,
+        27,
+        23,
+        26,
+        26,
+        27,
+        22,
+        28,
+        28,
+        21,
+        27,
+        22,
+        28,
+        28,
+        27,
+        29,
+        28,
+        22,
+        28,
+        26,
+        22,
+        27,
+        28,
+        26
+      ],
+      "turn_taking_passes": 750,
+      "conversations_with_no_tool_calls": 6,
+      "failing_turns": {
+        "0": 8,
+        "4": 20,
+        "11": 6,
+        "12": 6,
+        "15": 6,
+        "17": 6,
+        "18": 1,
+        "19": 2,
+        "24": 20,
+        "29": 25
+      },
+      "successful_judge_cost_usd": 4.252005,
+      "note": "Independent same-harness rerun of the standard Nova Sonic row before prompt work, used only as a quality cross-check; 2 of 25 captures fail the input waveform audit, so no latency is reported from it"
+    }
+  }
+}
