@@ -1,0 +1,40 @@
+{
+  "campaign_id": "nova-2-5-sonic-optimized-20261021",
+  "benchmark": "aiwf_medium_context_speech_nova_sonic_optimized",
+  "model": "amazon.nova-2-5-sonic",
+  "pipeline": "nova-sonic",
+  "service": null,
+  "arms": {
+    "standard": {
+      "environment": {}
+    }
+  },
+  "paths": {
+    "run_output_root": "runs/nova-2-5-sonic-optimized-20261021"
+  },
+  "voice": "tiffany",
+  "region": "us-east-1",
+  "endpointing_sensitivity": "HIGH",
+  "target_complete": 25,
+  "turns": 30,
+  "max_concurrent": 3,
+  "timeout_seconds": 1800,
+  "attempt_review_cap": 50,
+  "recovery": false,
+  "reference_layout": {
+    "policy_role": "SYSTEM",
+    "knowledge_base_role": "USER",
+    "knowledge_base_bytes_unchanged": true
+  },
+  "common_environment": {
+    "MTE_NOVA_KB_CONTEXT_ROLE": "user",
+    "MTE_ENABLE_RECOVERY": "0",
+    "MTE_DEDUPE_TOOL_CALLS": "1",
+    "MTE_TOOL_RESULT_RUN_LLM": "0"
+  },
+  "prompt_changes": {
+    "system_policy": "benchmarks/aiwf_medium_context_speech_nova_sonic_optimized/prompts/system.txt",
+    "tool_descriptions": "benchmarks/aiwf_medium_context_speech_nova_sonic_optimized/tools.py",
+    "everything_else": "inherited unchanged from aiwf_medium_context_speech_v2"
+  }
+}

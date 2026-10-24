@@ -1,0 +1,1 @@
+"""Nova 2.5 Sonic prompt-optimized speech benchmark."""
